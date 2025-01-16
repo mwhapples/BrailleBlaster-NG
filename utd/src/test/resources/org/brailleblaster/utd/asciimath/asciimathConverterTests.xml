@@ -1,0 +1,1921 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:m="http://www.w3.org/1998/Math/MathML"
+	xsltResource="/org/brailleblaster/utd/xslt/MathML2AsciiMath.xsl">
+	<test name="Copy nodes other than math" toXml="false">
+		<input>
+			<p>Some text</p>
+			<mn>6</mn>
+			<li>list item</li>
+		</input>
+		<expected>
+			<p>Some text</p>
+			<mn>6</mn>
+			<li>list item</li>
+		</expected>
+	</test>
+	<test name="Insert back ticks for math elements" toXml="false">
+		<input><m:math></m:math></input>
+		<expected>``</expected>
+	</test>
+	<test name="Empty math uses empty mo">
+		<input><m:math><m:mo/></m:math></input>
+		<expected>``</expected>
+	</test>
+	<test name="Insert text from mn">
+		<input>
+			<m:math><m:mn>4</m:mn></m:math>
+			<m:math><m:mn>7</m:mn></m:math>
+		</input>
+		<expected>
+			`4`
+			`7`
+		</expected>
+	</test>
+	<test name="Insert mi content">
+		<input>
+			<m:math><m:mi>j</m:mi></m:math>
+			<m:math><m:mi>r</m:mi></m:math>
+		</input>
+		<expected>
+			`j`
+			`r`
+		</expected>
+	</test>
+	<test name="Insert basic operators">
+		<input>
+			<m:math><m:mo>=</m:mo></m:math>
+			<m:math><m:mo>+</m:mo></m:math>
+			<m:math><m:mo>-</m:mo></m:math>
+			<m:math><m:mo>\</m:mo></m:math>
+		</input>
+		<expected>
+			`=`
+			`+`
+			`-`
+			`\\`
+		</expected>
+	</test>
+	<test name="Multiplication operators">
+		<input>
+			<m:math><m:mo>&#8901;</m:mo></m:math>
+			<m:math><m:mo>&#x2217;</m:mo></m:math>
+			<m:math><m:mo>&#x22c6;</m:mo></m:math>
+			<m:math><m:mo>&#215;</m:mo></m:math>
+			<m:math><m:mo>&#x22c8;</m:mo></m:math>
+			<m:math><m:mo>&#x22c9;</m:mo></m:math>
+			<m:math><m:mo>&#x22ca;</m:mo></m:math>
+		</input>
+		<expected>
+			`*`
+			`**`
+			`***`
+			`xx`
+			`|&gt;&lt;|`
+			`|&gt;&lt;`
+			`&gt;&lt;|`
+		</expected>
+	</test>
+	<test name="Division operators">
+		<input>
+			<m:math><m:mo>/</m:mo></m:math>
+			<m:math><m:mo>&#247;</m:mo></m:math>
+		</input>
+		<expected>
+			`//`
+			`-:`
+		</expected>
+	</test>
+	<test name="Set operators">
+		<input>
+			<m:math><m:mo>&#8728;</m:mo></m:math>
+			<m:math><m:mo>&#8853;</m:mo></m:math>
+			<m:math><m:mo>&#8855;</m:mo></m:math>
+			<m:math><m:mo>&#8857;</m:mo></m:math>
+			<m:math><m:mo>&#8721;</m:mo></m:math>
+			<m:math><m:mo>&#8719;</m:mo></m:math>
+			<m:math><m:mo>&#8743;</m:mo></m:math>
+			<m:math><m:mo>&#8896;</m:mo></m:math>
+			<m:math><m:mo>&#8744;</m:mo></m:math>
+			<m:math><m:mo>&#8897;</m:mo></m:math>
+			<m:math><m:mo>&#8745;</m:mo></m:math>
+			<m:math><m:mo>&#8898;</m:mo></m:math>
+			<m:math><m:mo>&#8746;</m:mo></m:math>
+			<m:math><m:mo>&#8899;</m:mo></m:math>
+		</input>
+		<expected>
+			`@`
+			`o+`
+			`ox`
+			`o.`
+			`sum`
+			`prod`
+			`^^`
+			`^^^`
+			`vv`
+			`vvv`
+			`nn`
+			`nnn`
+			`uu`
+			`uuu`
+		</expected>
+	</test>
+	<test name="spacing around operators">
+		<input>
+			<m:math>
+				<m:mn>7</m:mn>
+				<m:mo>+</m:mo>
+				<m:mi>t</m:mi>
+			</m:math>
+			<m:math>
+				<m:mn>8</m:mn>
+				<m:mo>&#215;</m:mo>
+				<m:mi>x</m:mi>
+			</m:math>
+			<m:math>
+				<m:mi>y</m:mi>
+				<m:mo>&#215;</m:mo>
+				<m:mo>-</m:mo>
+				<m:mi>x</m:mi>
+			</m:math>
+		</input>
+		<expected>
+			`7 + t`
+			`8 xx x`
+			`y xx - x`
+		</expected>
+	</test>
+	<test name="Ignore text nodes in MathML" toXml="false">
+		<input>
+			<m:math>
+				<m:mn>7</m:mn>
+				<m:mi>x</m:mi>
+			</m:math>
+			<m:math>
+				<m:mn>7</m:mn>
+				<m:mi>x</m:mi>
+				j
+			</m:math>
+		</input>
+		<expected>
+			`7 x`
+			`7 x`
+		</expected>
+	</test>
+	<test name="Handle unknown MathML element with mml function">
+		<input>
+			<m:math>
+				<m:mymath>
+					<m:mn>7</m:mn>
+				</m:mymath>
+				<m:mi>x</m:mi>
+			</m:math>
+		</input>
+		<expected>
+			`mml&lt;mymath/&gt;(7) x`
+		</expected>
+	</test>
+	<test name="Ignore unknown elements inside math" toXml="false">
+		<input>
+			<m:math>
+				<m:mi>x</m:mi>
+				<m:mo>+</m:mo>
+				<myElement>
+					<m:mn>2</m:mn>
+				</myElement>
+				<m:mo>+</m:mo>
+				<m:mrow>
+					<anotherElement>
+						<m:mn>3</m:mn>
+					</anotherElement>
+				</m:mrow>
+			</m:math>
+		</input>
+		<expected>
+			`x + +`
+		</expected>
+	</test>
+	<test name="Include mrow content" toXml="false">
+		<input>
+			<m:math>
+				<m:mrow>
+					<m:mn>89</m:mn>
+					<m:mrow>
+						<m:mi>x</m:mi>
+						<m:mi>y</m:mi>
+					</m:mrow>
+				</m:mrow>
+			</m:math>
+		</input>
+		<expected>
+			`89 x y`
+		</expected>
+	</test>
+	<test name="Include mstyle content">
+		<input>
+			<m:math>
+				<m:mstyle>
+					<m:mi>x</m:mi>
+				</m:mstyle>
+			</m:math>
+			<m:math>
+				<m:mstyle>
+					<m:mn>4</m:mn>
+					<m:mi>x</m:mi>
+				</m:mstyle>
+			</m:math>
+			<m:math>
+				<m:mstyle>
+					<m:mrow>
+						<m:mo>(</m:mo>
+						<m:mn>4</m:mn>
+						<m:mi>x</m:mi>
+						<m:mo>)</m:mo>
+					</m:mrow>
+				</m:mstyle>
+			</m:math>
+		</input>
+		<expected>
+			`mml&lt;mstyle/&gt;(x)`
+			`mml&lt;mstyle/&gt;(4 x)`
+			`mml&lt;mstyle/&gt;(( 4 x ))`
+		</expected>
+	</test>
+	<test name="mstyle infer mrow">
+		<input>
+			<m:math>
+				<m:mstyle>
+					<m:mn>9</m:mn>
+					<m:mi>y</m:mi>
+				</m:mstyle>
+			</m:math>
+		</input>
+		<expected>
+			`mml&lt;mstyle/&gt;(9 y)`
+		</expected>
+	</test>
+	<test name="mstyle as function argument">
+		<input>
+			<m:math>
+				<m:mfrac>
+					<m:mstyle>
+						<m:mn>1</m:mn>
+					</m:mstyle>
+					<m:mstyle>
+						<m:mn>2</m:mn>
+						<m:mi>x</m:mi>
+					</m:mstyle>
+				</m:mfrac>
+			</m:math>
+			<m:math>
+				<m:msqrt>
+					<m:mstyle>
+						<m:mi>x</m:mi>
+					</m:mstyle>
+				</m:msqrt>
+				<m:mo>+</m:mo>
+				<m:msqrt>
+					<m:mstyle>
+						<m:mn>2</m:mn>
+						<m:mo>+</m:mo>
+						<m:mi>y</m:mi>
+					</m:mstyle>
+				</m:msqrt>
+			</m:math>
+		</input>
+		<expected>
+			`mml&lt;mstyle/&gt;(1)/mml&lt;mstyle/&gt;(2 x)`
+			`sqrt mml&lt;mstyle/&gt;(x) + sqrt mml&lt;mstyle/&gt;(2 + y)`
+		</expected>
+	</test>
+	<test name="mfrac handling">
+		<input>
+			<m:math>
+				<m:mfrac>
+					<m:mn>1</m:mn>
+					<m:mn>4</m:mn>
+				</m:mfrac>
+			</m:math>
+			<m:math>
+				<m:mfrac>
+					<m:mrow>
+						<m:mn>2</m:mn>
+						<m:mo>+</m:mo>
+						<m:mi>x</m:mi>
+					</m:mrow>
+					<m:mrow>
+						<m:mi>x</m:mi>
+						<m:mo>+</m:mo>
+						<m:mn>6</m:mn>
+					</m:mrow>
+				</m:mfrac>
+			</m:math>
+			<m:math>
+				<m:mfrac>
+					<m:mrow>
+						<m:mi>x</m:mi>
+						<m:mo>-</m:mo>
+						<m:mn>2</m:mn>
+					</m:mrow>
+					<m:mn>2</m:mn>
+				</m:mfrac>
+			</m:math>
+		</input>
+		<expected>
+			`1/4`
+			`(2 + x)/(x + 6)`
+			`(x - 2)/2`
+		</expected>
+	</test>
+	<test name="Superscripts">
+		<input>
+			<m:math>
+				<m:msup>
+					<m:mi>x</m:mi>
+					<m:mn>2</m:mn>
+				</m:msup>
+			</m:math>
+			<m:math>
+				<m:msup>
+					<m:mrow>
+						<m:mo>(</m:mo>
+						<m:mn>4</m:mn>
+						<m:mi>x</m:mi>
+						<m:mo>)</m:mo>
+					</m:mrow>
+					<m:mn>3</m:mn>
+				</m:msup>
+			</m:math>
+			<m:math>
+				<m:msup>
+					<m:mn>4</m:mn>
+					<m:mrow>
+						<m:mn>2</m:mn>
+						<m:mi>x</m:mi>
+					</m:mrow>
+				</m:msup>
+			</m:math>
+			<m:math>
+				<m:msup>
+					<m:mrow>
+						<m:mo>(</m:mo>
+						<m:mn>4</m:mn>
+						<m:mi>x</m:mi>
+						<m:mo>)</m:mo>
+					</m:mrow>
+					<m:mrow>
+						<m:mn>2</m:mn>
+						<m:mo>+</m:mo>
+						<m:mi>y</m:mi>
+					</m:mrow>
+				</m:msup>
+			</m:math>
+		</input>
+		<expected>
+			`x^2`
+			`( 4 x )^3`
+			`4^(2 x)`
+			`( 4 x )^(2 + y)`
+		</expected>
+	</test>
+	<test name="Subscripts">
+		<input>
+			<m:math>
+				<m:msub>
+					<m:mi>x</m:mi>
+					<m:mn>2</m:mn>
+				</m:msub>
+			</m:math>
+			<m:math>
+				<m:msub>
+					<m:mrow>
+						<m:mo>(</m:mo>
+						<m:mn>4</m:mn>
+						<m:mi>x</m:mi>
+						<m:mo>)</m:mo>
+					</m:mrow>
+					<m:mn>3</m:mn>
+				</m:msub>
+			</m:math>
+			<m:math>
+				<m:msub>
+					<m:mn>4</m:mn>
+					<m:mrow>
+						<m:mn>2</m:mn>
+						<m:mi>x</m:mi>
+					</m:mrow>
+				</m:msub>
+			</m:math>
+			<m:math>
+				<m:msub>
+					<m:mrow>
+						<m:mo>(</m:mo>
+						<m:mn>4</m:mn>
+						<m:mi>x</m:mi>
+						<m:mo>)</m:mo>
+					</m:mrow>
+					<m:mrow>
+						<m:mn>2</m:mn>
+						<m:mo>+</m:mo>
+						<m:mi>y</m:mi>
+					</m:mrow>
+				</m:msub>
+			</m:math>
+		</input>
+		<expected>
+			`x_2`
+			`( 4 x )_3`
+			`4_(2 x)`
+			`( 4 x )_(2 + y)`
+		</expected>
+	</test>
+	<test name="Subsuperscripts">
+		<input>
+			<m:math>
+				<m:mrow>
+					<m:msubsup>
+						<m:mi>x</m:mi>
+						<m:mn>0</m:mn>
+						<m:mi>n</m:mi>
+					</m:msubsup>
+				</m:mrow>
+			</m:math>
+			<m:math>
+				<m:mrow>
+					<m:msubsup>
+						<m:mrow>
+							<m:mo>(</m:mo>
+							<m:mi>x</m:mi>
+							<m:mo>+</m:mo>
+							<m:mn>1</m:mn>
+							<m:mo>)</m:mo>
+						</m:mrow>
+						<m:mn>1</m:mn>
+						<m:mi>n</m:mi>
+					</m:msubsup>
+				</m:mrow>
+			</m:math>
+			<m:math>
+				<m:mrow>
+					<m:msubsup>
+						<m:mi>x</m:mi>
+						<m:mn>1</m:mn>
+						<m:mrow>
+							<m:mi>n</m:mi>
+							<m:mo>+</m:mo>
+							<m:mn>1</m:mn>
+						</m:mrow>
+					</m:msubsup>
+				</m:mrow>
+			</m:math>
+		</input>
+		<expected>
+			`x_0^n`
+			`( x + 1 )_1^n`
+			`x_1^(n + 1)`
+		</expected>
+	</test>
+	<test name="square roots">
+		<input>
+			<m:math>
+				<m:msqrt>
+					<m:mn>2</m:mn>
+				</m:msqrt>
+			</m:math>
+			<m:math>
+				<m:msqrt>
+					<m:mrow>
+						<m:mn>2</m:mn>
+						<m:mo>+</m:mo>
+						<m:mi>x</m:mi>
+					</m:mrow>
+				</m:msqrt>
+			</m:math>
+		</input>
+		<expected>
+			`sqrt 2`
+			`sqrt(2 + x)`
+		</expected>
+	</test>
+	<test name="Square root inferred mrow" toXml="false">
+		<input>
+			<m:math>
+				<m:msqrt>
+					<m:mn>2</m:mn>
+					<m:mo>+</m:mo>
+					<m:mi>x</m:mi>
+				</m:msqrt>
+			</m:math>
+		</input>
+		<expected>
+			`sqrt(2 + x)`
+		</expected>
+	</test>
+	<test name="Roots">
+		<input>
+			<m:math>
+				<m:mroot>
+					<m:mi>x</m:mi>
+					<m:mi>n</m:mi>
+				</m:mroot>
+			</m:math>
+			<m:math>
+				<m:mroot>
+					<m:mrow>
+						<m:mi>x</m:mi>
+					</m:mrow>
+					<m:mrow>
+						<m:mi>n</m:mi>
+					</m:mrow>
+				</m:mroot>
+			</m:math>
+			<m:math>
+				<m:mroot>
+					<m:mrow>
+						<m:mn>8</m:mn>
+					</m:mrow>
+					<m:mn>3</m:mn>
+				</m:mroot>
+			</m:math>
+			<m:math>
+				<m:mroot>
+					<m:mn>8</m:mn>
+					<m:mrow>
+						<m:mn>3</m:mn>
+					</m:mrow>
+				</m:mroot>
+			</m:math>
+		</input>
+		<expected>
+			`root n x`
+			`root(n)(x)`
+			`root 3 (8)`
+			`root(3) 8`
+		</expected>
+	</test>
+	<test name="Standard functions">
+		<input>
+			<m:math>
+				<m:mrow>
+					<m:mo>sin</m:mo>
+					<m:mi>x</m:mi>
+				</m:mrow>
+			</m:math>
+			<m:math>
+				<m:mrow>
+					<m:mo>cos</m:mo>
+					<m:mi>x</m:mi>
+				</m:mrow>
+			</m:math>
+			<m:math>
+				<m:mrow>
+					<m:mo>tan</m:mo>
+					<m:mi>x</m:mi>
+				</m:mrow>
+			</m:math>
+			<m:math>
+				<m:mrow>
+					<m:mo>sinh</m:mo>
+					<m:mi>x</m:mi>
+				</m:mrow>
+			</m:math>
+			<m:math>
+				<m:mrow>
+					<m:mo>cosh</m:mo>
+					<m:mi>x</m:mi>
+				</m:mrow>
+			</m:math>
+			<m:math>
+				<m:mrow>
+					<m:mo>tanh</m:mo>
+					<m:mi>x</m:mi>
+				</m:mrow>
+			</m:math>
+			<m:math>
+				<m:mrow>
+					<m:mo>cot</m:mo>
+					<m:mi>x</m:mi>
+				</m:mrow>
+			</m:math>
+			<m:math>
+				<m:mrow>
+					<m:mo>sec</m:mo>
+					<m:mi>x</m:mi>
+				</m:mrow>
+			</m:math>
+			<m:math>
+				<m:mrow>
+					<m:mo>csc</m:mo>
+					<m:mi>x</m:mi>
+				</m:mrow>
+			</m:math>
+			<m:math>
+				<m:mrow>
+					<m:mo>log</m:mo>
+					<m:mi>x</m:mi>
+				</m:mrow>
+			</m:math>
+			<m:math>
+				<m:mrow>
+					<m:mo>ln</m:mo>
+					<m:mi>x</m:mi>
+				</m:mrow>
+			</m:math>
+			<m:math>
+				<m:mo>lim</m:mo>
+				<m:mo>Lim</m:mo>
+			</m:math>
+			<m:math>
+				<m:mo>dim</m:mo>
+			</m:math>
+			<m:math>
+				<m:mrow>
+					<m:mo>det</m:mo>
+					<m:mi>x</m:mi>
+				</m:mrow>
+			</m:math>
+		</input>
+		<expected>
+			`sin x`
+			`cos x`
+			`tan x`
+			`sinh x`
+			`cosh x`
+			`tanh x`
+			`cot x`
+			`sec x`
+			`csc x`
+			`log x`
+			`ln x`
+			`lim Lim`
+			`dim`
+			`det x`
+		</expected>
+	</test>
+	<test name="Spacing between functions">
+		<input>
+			<m:math>
+				<m:mfrac>
+					<m:mrow>
+						<m:mn>2</m:mn>
+						<m:mi>x</m:mi>
+					</m:mrow>
+					<m:mrow>
+						<m:mn>2</m:mn>
+						<m:mo>+</m:mo>
+						<m:mi>x</m:mi>
+					</m:mrow>
+				</m:mfrac>
+				<m:mroot>
+					<m:mrow>
+						<m:mi>x</m:mi>
+					</m:mrow>
+					<m:mrow>
+						<m:mi>n</m:mi>
+					</m:mrow>
+				</m:mroot>
+			</m:math>
+		</input>
+		<expected>
+			`(2 x)/(2 + x) root(n)(x)`
+		</expected>
+	</test>
+	<test name="mstyle in argument" toXml="false">
+		<input>
+			<m:math>
+				<m:mfrac>
+					<m:mstyle>
+						<m:mn>1</m:mn>
+					</m:mstyle>
+					<m:mstyle>
+						<m:mn>2</m:mn>
+						<m:mo>+</m:mo>
+						<m:mi>x</m:mi>
+					</m:mstyle>
+				</m:mfrac>
+			</m:math>
+		</input>
+		<expected>
+			`mml&lt;mstyle/&gt;(1)/mml&lt;mstyle/&gt;(2 + x)`
+		</expected>
+	</test>
+	<test name="Fraktur">
+		<input>
+			<m:math>
+				<m:mstyle mathvariant="fraktur">
+					<m:mi>x</m:mi>
+				</m:mstyle>
+			</m:math>
+			<m:math>
+				<m:mstyle mathvariant="fraktur">
+					<m:mrow>
+						<m:mi>x</m:mi>
+					</m:mrow>
+				</m:mstyle>
+			</m:math>
+		</input>
+		<expected>
+			`fr x`
+			`fr(x)`
+		</expected>
+	</test>
+	<test name="Lowercase Greek letters">
+		<input>
+			<m:math>
+				<m:mi>&#945;</m:mi>
+				<m:mi>&#946;</m:mi>
+				<m:mi>&#947;</m:mi>
+				<m:mi>&#948;</m:mi>
+				<m:mi>&#949;</m:mi>
+				<m:mi>&#603;</m:mi>
+				<m:mi>&#950;</m:mi>
+				<m:mi>&#951;</m:mi>
+				<m:mi>&#952;</m:mi>
+				<m:mi>&#977;</m:mi>
+				<m:mi>&#953;</m:mi>
+				<m:mi>&#954;</m:mi>
+				<m:mi>&#955;</m:mi>
+				<m:mi>&#956;</m:mi>
+				<m:mi>&#957;</m:mi>
+				<m:mi>&#958;</m:mi>
+				<m:mi>&#960;</m:mi>
+				<m:mi>&#961;</m:mi>
+				<m:mi>&#963;</m:mi>
+				<m:mi>&#964;</m:mi>
+				<m:mi>&#965;</m:mi>
+				<m:mi>&#981;</m:mi>
+				<m:mi>&#966;</m:mi>
+				<m:mi>&#967;</m:mi>
+				<m:mi>&#968;</m:mi>
+				<m:mi>&#969;</m:mi>
+			</m:math>
+		</input>
+		<expected>
+			`alpha beta gamma delta epsilon varepsilon zeta eta theta vartheta iota kappa lambda mu nu xi pi rho sigma tau upsilon phi varphi chi psi omega`
+		</expected>
+	</test>
+	<test name="Uppercase Greek letters">
+		<input>
+			<m:math>
+				<m:mo>&#915;</m:mo>
+				<m:mo>&#916;</m:mo>
+				<m:mo>&#920;</m:mo>
+				<m:mo>&#923;</m:mo>
+				<m:mo>&#926;</m:mo>
+				<m:mo>&#928;</m:mo>
+				<m:mo>&#931;</m:mo>
+				<m:mo>&#934;</m:mo>
+				<m:mi>&#936;</m:mi>
+				<m:mo>&#937;</m:mo>
+			</m:math>
+		</input>
+		<expected>
+			`Gamma Delta Theta Lambda Xi Pi Sigma Phi Psi Omega`
+		</expected>
+	</test>
+	<test name="Uppercase Greek letters as mo (ASCIIMath MathML output)">
+		<input>
+			<m:math>
+				<m:mo>&#915;</m:mo>
+				<m:mo>&#916;</m:mo>
+				<m:mo>&#920;</m:mo>
+				<m:mo>&#923;</m:mo>
+				<m:mo>&#926;</m:mo>
+				<m:mo>&#928;</m:mo>
+				<m:mo>&#931;</m:mo>
+				<m:mo>&#934;</m:mo>
+				<m:mo>&#937;</m:mo>
+			</m:math>
+		</input>
+		<expected>
+			`Gamma Delta Theta Lambda Xi Pi Sigma Phi Omega`
+		</expected>
+	</test>
+	<test name="Relation symbols">
+		<input>
+			<m:math>
+				<m:mo>=</m:mo>
+				<m:mo>&#8800;</m:mo>
+				<m:mo>&lt;</m:mo>
+				<m:mo>&#8804;</m:mo>
+				<m:mo>&gt;</m:mo>
+				<m:mo>&#8805;</m:mo>
+				<m:mo>&#8826;</m:mo>
+				<m:mo>&#8827;</m:mo>
+				<m:mo>&#8712;</m:mo>
+				<m:mo>&#8713;</m:mo>
+				<m:mo>&#8834;</m:mo>
+				<m:mo>&#8835;</m:mo>
+				<m:mo>&#8838;</m:mo>
+				<m:mo>&#8839;</m:mo>
+				<m:mo>&#8801;</m:mo>
+				<m:mo>&#8773;</m:mo>
+				<m:mo>&#8776;</m:mo>
+				<m:mo>&#8733;</m:mo>
+				<m:mo>&#10927;</m:mo>
+				<m:mo>&#10928;</m:mo>
+			</m:math>
+		</input>
+		<expected>
+			`= != &lt; &lt;= &gt; &gt;= -&lt; &gt;- in !in sub sup sube supe -= ~= ~~ prop -&lt;= &gt;-=`
+		</expected>
+	</test>
+	<test name="Logical symbols">
+		<input>
+			<m:math>
+				<m:mo>&#172;</m:mo>
+				<m:mo>&#8658;</m:mo>
+				<m:mrow>
+					<m:mspace width="1ex"/>
+					<m:mo>if</m:mo>
+					<m:mspace width="1ex"/>
+				</m:mrow>
+				<m:mo>&#8660;</m:mo>
+				<m:mo>&#8704;</m:mo>
+				<m:mo>&#8707;</m:mo>
+				<m:mo>&#8869;</m:mo>
+				<m:mo>&#8868;</m:mo>
+				<m:mo>&#8866;</m:mo>
+				<m:mo>&#8872;</m:mo>
+			</m:math>
+		</input>
+		<expected>
+			`not => if iff AA EE _|_ TT |-- |==`
+		</expected>
+	</test>
+	<test name="if test" toXml="false">
+		<input>
+			<m:math>
+				<m:mo>if</m:mo>
+			</m:math>
+		</input>
+		<expected>
+			`if`
+		</expected>
+	</test>
+	<test name="Grouping symbols">
+		<input>
+			<m:math>
+				<m:mrow>
+					<m:mo>(</m:mo>
+					<m:mo>)</m:mo>
+				</m:mrow>
+				<m:mrow>
+					<m:mo>[</m:mo>
+					<m:mo>]</m:mo>
+				</m:mrow>
+				<m:mrow>
+					<m:mo>{</m:mo>
+					<m:mo>}</m:mo>
+				</m:mrow>
+				<m:mo>&#x2223;</m:mo>
+				<m:mo>,</m:mo>
+				<m:mrow>
+					<m:mo>&#x2329;</m:mo>
+					<m:mo>&#x232a;</m:mo>
+				</m:mrow>
+			</m:math>
+		</input>
+		<expected>
+			`( ) [ ] { } &#x2223; , (: :)`
+		</expected>
+	</test>
+	<test name="Misc symbols">
+		<input>
+			<m:math>
+				<m:mo>&#x222b;</m:mo>
+				<m:mo>&#x222e;</m:mo>
+				<m:mo>&#x2202;</m:mo>
+				<m:mo>&#x2207;</m:mo>
+				<m:mo>&#xb1;</m:mo>
+				<m:mo>&#x2205;</m:mo>
+				<m:mo>&#x221e;</m:mo>
+				<m:mo>&#x2135;</m:mo>
+				<m:mo>...</m:mo>
+				<m:mo>&#x2234;</m:mo>
+				<m:mo>&#x2220;</m:mo>
+				<m:mo>&#xa0;</m:mo>
+				<m:mo>&#xa0;&#xa0;</m:mo>
+				<m:mo>&#xa0;&#xa0;&#xa0;&#xa0;</m:mo>
+				<m:mo>&#x22ef;</m:mo>
+				<m:mo>&#x22ee;</m:mo>
+				<m:mo>&#x22f1;</m:mo>
+				<m:mo>&#x22c4;</m:mo>
+				<m:mo>&#x25a1;</m:mo>
+				<m:mo>&#x2308;</m:mo>
+				<m:mo>&#x2309;</m:mo>
+				<m:mo>&#x230a;</m:mo>
+				<m:mo>&#x230b;</m:mo>
+				<m:mo>&#x2102;</m:mo>
+				<m:mo>&#x2115;</m:mo>
+				<m:mo>&#x211a;</m:mo>
+				<m:mo>&#x211d;</m:mo>
+				<m:mo>&#x2124;</m:mo>
+			</m:math>
+		</input>
+		<expected>
+			`int oint del grad +- O/ oo aleph ... :. /_ \  quad qquad cdots vdots ddots diamond square |~ ~| |__ __| CC NN QQ RR ZZ`
+		</expected>
+	</test>
+	<test name="Arrows">
+		<input>
+			<m:math>
+				<m:mo>&#x2190;</m:mo>
+				<m:mo>&#x2191;</m:mo>
+				<m:mo>&#x2192;</m:mo>
+				<m:mo>&#x2193;</m:mo>
+				<m:mo>&#x2194;</m:mo>
+				<m:mo>&#x21a0;</m:mo>
+				<m:mo>&#x21a3;</m:mo>
+				<m:mo>&#x21a6;</m:mo>
+				<m:mo>&#x2916;</m:mo>
+				<m:mo>&#x21d0;</m:mo>
+			</m:math>
+		</input>
+		<expected>
+			`larr uarr rarr darr harr -&gt;&gt; &gt;-&gt; |-&gt; &gt;-&gt;&gt; lArr`
+		</expected>
+	</test>
+	<test name="stackrel" fromXml="false">
+		<input>
+			<m:math>
+				<m:mover>
+					<m:mrow>
+						<m:mo>&#x2192;</m:mo>
+					</m:mrow>
+					<m:mrow>
+						<m:mo>+</m:mo>
+					</m:mrow>
+				</m:mover>
+			</m:math>
+		</input>
+		<expected>
+			`stackrel(+)(rarr)`
+		</expected>
+	</test>
+	<test name="bar">
+		<input>
+			<m:math>
+				<m:mover>
+					<m:mrow>
+						<m:mi>x</m:mi>
+					</m:mrow>
+					<m:mo>&#xaf;</m:mo>
+				</m:mover>
+			</m:math>
+		</input>
+		<expected>
+			`bar(x)`
+		</expected>
+	</test>
+	<test name="Dot and ddot">
+		<input>
+			<m:math>
+				<m:mover>
+					<m:mrow>
+						<m:mi>x</m:mi>
+					</m:mrow>
+					<m:mo>.</m:mo>
+				</m:mover>
+			</m:math>
+			<m:math>
+				<m:mover>
+					<m:mrow>
+						<m:mi>x</m:mi>
+					</m:mrow>
+					<m:mo>..</m:mo>
+				</m:mover>
+			</m:math>
+		</input>
+		<expected>
+			`dot(x)`
+			`ddot(x)`
+		</expected>
+	</test>
+	<test name="Hat">
+		<input>
+			<m:math>
+				<m:mover>
+					<m:mrow>
+						<m:mi>x</m:mi>
+					</m:mrow>
+					<m:mo>&#x5e;</m:mo>
+				</m:mover>
+			</m:math>
+		</input>
+		<expected>
+			`hat(x)`
+		</expected>
+	</test>
+	<test name="Vector">
+		<input>
+			<m:math>
+				<m:mover>
+					<m:mrow>
+						<m:mi>x</m:mi>
+					</m:mrow>
+					<m:mo>&#x2192;</m:mo>
+				</m:mover>
+			</m:math>
+		</input>
+		<expected>
+			`vec(x)`
+		</expected>
+	</test>
+	<test name="ul">
+		<input>
+			<m:math>
+				<m:munder>
+					<m:mrow>
+						<m:mi>x</m:mi>
+					</m:mrow>
+					<m:mo>&#x332;</m:mo>
+				</m:munder>
+			</m:math>
+		</input>
+		<expected>
+			`ul(x)`
+		</expected>
+	</test>
+	<test name="Square root of fraction">
+		<input>
+			<m:math>
+				<m:msqrt>
+					<m:mfrac>
+						<m:mrow>
+							<m:mi>x</m:mi>
+							<m:mo>+</m:mo>
+							<m:mn>1</m:mn>
+						</m:mrow>
+						<m:mrow>
+							<m:mi>x</m:mi>
+							<m:mo>-</m:mo>
+							<m:mn>1</m:mn>
+						</m:mrow>
+					</m:mfrac>
+				</m:msqrt>
+			</m:math>
+		</input>
+		<expected>
+			`sqrt frac(x + 1)(x - 1)`
+		</expected>
+	</test>
+	<test name="Fenced" toXml="false">
+		<input>
+			<m:math>
+				<m:mfenced>
+					<m:mn>1</m:mn>
+					<m:mi>x</m:mi>
+					<m:mn>2</m:mn>
+				</m:mfenced>
+			</m:math>
+			<m:math>
+				<m:mfenced open="[" close="}">
+					<m:mn>1</m:mn>
+					<m:mi>y</m:mi>
+					<m:mn>2</m:mn>
+				</m:mfenced>
+			</m:math>
+			<m:math>
+				<m:mfenced separators=",.,.">
+					<m:mn>1</m:mn>
+					<m:mi>x</m:mi>
+					<m:mn>2</m:mn>
+				</m:mfenced>
+			</m:math>
+			<m:math>
+				<m:mfenced separators=",.">
+					<m:mn>2</m:mn>
+					<m:mn>1</m:mn>
+					<m:mi>x</m:mi>
+					<m:mn>2</m:mn>
+				</m:mfenced>
+			</m:math>
+		</input>
+		<expected>
+			`(1, x, 2)`
+			`[1, y, 2}`
+			`(1, x. 2)`
+			`(2, 1. x. 2)`
+		</expected>
+	</test>
+	<test name="Embedded text (mtext)">
+		<input>
+			<m:math>
+				<m:mi>x</m:mi>
+				<m:mrow>
+					<m:mtext>is</m:mtext>
+				</m:mrow>
+				<m:mi>y</m:mi>
+			</m:math>
+		</input>
+		<expected>
+			`x text(is) y`
+		</expected>
+	</test>
+	<test name="mtext not in mrow" toXml="false">
+		<input>
+			<m:math>
+				<m:mi>x</m:mi>
+				<m:mtext>or may be</m:mtext>
+				<m:mi>y</m:mi>
+			</m:math>
+		</input>
+		<expected>
+			`x text(or may be) y`
+		</expected>
+	</test>
+	<test name="Handle presentation MathML from semantics" toXml="false">
+		<param name="undefinedSymbol" value="!UNDEFINED!"/>
+		<input>
+			<m:math>
+				<m:semantics>
+					<m:mrow>
+						<m:mn>2</m:mn>
+						<m:mo>+</m:mo>
+						<m:mi>x</m:mi>
+					</m:mrow>
+					<m:annotation encoding="text/x-asciimath">2+x</m:annotation>
+					<m:annotation-xml encoding="MathML-Content">
+						<m:apply>
+							<m:cn>2</m:cn>
+							<m:plus/>
+							<m:ci>x</m:ci>
+						</m:apply>
+					</m:annotation-xml>
+				</m:semantics>
+			</m:math>
+			<m:math>
+				<m:semantics>
+					<m:mrow>
+						<m:mn>2</m:mn>
+						<m:mo>+</m:mo>
+						<m:mi>x</m:mi>
+					</m:mrow>
+					<m:annotation-xml encoding="MathML-Content">
+						<m:apply>
+							<m:cn>2</m:cn>
+							<m:plus/>
+							<m:ci>x</m:ci>
+						</m:apply>
+					</m:annotation-xml>
+				</m:semantics>
+			</m:math>
+			<m:math>
+				<m:semantics>
+					<m:annotation encoding="text/x-asciimath">2+x</m:annotation>
+					<m:annotation-xml encoding="MathML-Content">
+						<m:apply>
+							<m:cn>3</m:cn>
+							<m:plus/>
+							<m:ci>x</m:ci>
+						</m:apply>
+					</m:annotation-xml>
+					<m:annotation-xml encoding="MathML-Presentation">
+						<m:mrow>
+							<m:mn>3</m:mn>
+							<m:mo>+</m:mo>
+							<m:mi>x</m:mi>
+						</m:mrow>
+					</m:annotation-xml>
+				</m:semantics>
+			</m:math>
+			<m:math>
+				<m:semantics>
+					<m:apply>
+							<m:cn>3</m:cn>
+							<m:plus/>
+							<m:ci>x</m:ci>
+						</m:apply>
+					<m:annotation encoding="text/x-asciimath">2+x</m:annotation>
+					<m:annotation-xml encoding="MathML-Presentation">
+						<m:mrow>
+							<m:mn>4</m:mn>
+							<m:mo>+</m:mo>
+							<m:mi>x</m:mi>
+						</m:mrow>
+					</m:annotation-xml>
+				</m:semantics>
+			</m:math>
+		</input>
+		<expected>
+			`2 + x`
+			`2 + x`
+			`3 + x`
+			`4 + x`
+		</expected>
+	</test>
+	<test name="mpadded" toXml="false">
+		<input>
+			<m:math>
+				<m:mpadded>
+					<m:mn>2</m:mn>
+					<m:mo>+</m:mo>
+					<m:mi>x</m:mi>
+				</m:mpadded>
+			</m:math>
+		</input>
+		<expected>
+			`mml&lt;mpadded/&gt;(2 + x)`
+		</expected>
+	</test>
+	<test name="menclose for square root" toXml="false">
+		<input>
+			<m:math>
+				<m:menclose notation="radical">
+					<m:mi>x</m:mi>
+					<m:mo>+</m:mo>
+					<m:mn>2</m:mn>
+				</m:menclose>
+			</m:math>
+		</input>
+		<expected>
+			`sqrt(x + 2)`
+		</expected>
+	</test>
+	<test name="menclose with unsupported notation values" toXml="false">
+		<param name="undefinedSymbol" value="!UD!"/>
+		<input>
+			<m:math>
+				<m:menclose notation="radical box">
+					<m:mi>x</m:mi>
+					<m:mo>+</m:mo>
+					<m:mn>2</m:mn>
+				</m:menclose>
+			</m:math>
+			<m:math>
+				<m:menclose notation="longdiv box">
+					<m:mi>x</m:mi>
+					<m:mo>+</m:mo>
+					<m:mn>2</m:mn>
+				</m:menclose>
+			</m:math>
+			<m:math>
+				<m:menclose>
+					<m:msup>
+						<m:mi>x</m:mi>
+						<m:mn>2</m:mn>
+					</m:msup>
+					<m:mo>+</m:mo>
+					<m:mn>3</m:mn>
+				</m:menclose>
+			</m:math>
+			<m:math>
+				<m:msqrt>
+					<m:menclose>
+						<m:msup>
+							<m:mi>x</m:mi>
+							<m:mn>2</m:mn>
+						</m:msup>
+						<m:mo>+</m:mo>
+						<m:mn>3</m:mn>
+					</m:menclose>
+				</m:msqrt>
+			</m:math>
+		</input>
+		<expected>
+			`sqrt(x + 2)`
+			`x + 2`
+			`x^2 + 3`
+			`sqrt (x^2 + 3)`
+		</expected>
+	</test>
+	<test name="mphantom" toXml="false">
+		<param name="undefinedSymbol" value="!UD!"/>
+		<input>
+			<m:math>
+				<m:mi>x</m:mi>
+				<m:mphantom>
+					<m:mo>+</m:mo>
+					<m:mi>y</m:mi>
+				</m:mphantom>
+				<m:mo>+</m:mo>
+				<m:mn>2</m:mn>
+				<m:mo>=</m:mo>
+				<m:mn>0</m:mn>
+			</m:math>
+		</input>
+		<expected>
+			`x + 2 = 0`
+		</expected>
+	</test>
+	<test name="mspace" toXml="false">
+		<input>
+			<m:math>
+				<m:mrow>
+					<m:mo>sin</m:mo>
+					<m:mi>x</m:mi>
+				</m:mrow>
+				<m:mspace/>
+				<m:mo>+</m:mo>
+				<m:mn>2</m:mn>
+			</m:math>
+			<m:math>
+				<m:mrow>
+					<m:mo>sin</m:mo>
+					<m:mi>x</m:mi>
+				</m:mrow>
+				<m:mo> </m:mo>
+				<m:mo>+</m:mo>
+				<m:mn>2</m:mn>
+			</m:math>
+		</input>
+		<expected>
+			`sin x \  + 2`
+			`sin x \  + 2`
+		</expected>
+	</test>
+	<test name="mml function for empty MathML element, no attributes">
+		<input>
+			<m:math>
+				<m:mpadded/>
+				<m:mstyle/>
+				<m:mglyph/>
+			</m:math>
+		</input>
+		<expected>
+			`mml&lt;mpadded/&gt;() mml&lt;mstyle/&gt;() mml&lt;mglyph/&gt;()`
+		</expected>
+	</test>
+	<test name="mml function, no attributes, ASCIIMath content">
+		<input>
+			<m:math>
+				<m:mstyle>
+					<m:msqrt>
+						<m:mi>x</m:mi>
+					</m:msqrt>
+				</m:mstyle>
+			</m:math>
+			<m:math>
+				<m:mpadded>
+					<m:mi>x</m:mi>
+					<m:mo>+</m:mo>
+					<m:mn>2</m:mn>
+				</m:mpadded>
+			</m:math>
+		</input>
+		<expected>
+			`mml&lt;mstyle/&gt;(sqrt x)`
+			`mml&lt;mpadded/&gt;(x + 2)`
+		</expected>
+	</test>
+	<test name="mml function with attributes">
+		<input>
+			<m:math>
+				<m:mglyph alt="My char" src="my_char.png"/>
+			</m:math>
+		</input>
+		<expected>
+			`mml&lt;mglyph alt="My char" src="my_char.png"/&gt;()`
+		</expected>
+	</test>
+	<test name="mml function alternative brackets for element info" fromXml="false">
+		<input>
+			<m:math>
+				<m:mpadded>
+					<m:msqrt>
+						<m:mi>x</m:mi>
+					</m:msqrt>
+				</m:mpadded>
+				<m:mo>+</m:mo>
+				<m:mglyph alt="My symbol" src="my_sym.png"/>
+				<m:mo>+</m:mo>
+				<m:msqrt>
+					<m:mi>x</m:mi>
+				</m:msqrt>
+			</m:math>
+		</input>
+		<expected>
+			`mml(mpadded) sqrt x + mml[mglyph alt="My symbol" src="my_sym.png"]() + mml{msqrt}x`
+		</expected>
+	</test>
+	<test name="mml function default tag name is mrow" fromXml="false">
+		<input>
+			<m:math>
+				<m:mrow>
+					<m:mi>x</m:mi>
+				</m:mrow>
+				<m:mrow>
+					<m:msqrt>
+							<m:mi>x</m:mi>
+					</m:msqrt>
+				</m:mrow>
+			</m:math>
+		</input>
+		<expected>
+			`mml x mml()(sqrt x)`
+		</expected>
+	</test>
+	<test name="mml function argument bracket optional for single ASCIIMath simple expression" fromXml="false">
+		<input>
+			<m:math>
+				<m:mpadded>
+					<m:msqrt>
+						<m:mi>x</m:mi>
+					</m:msqrt>
+				</m:mpadded>
+				<m:mo>+</m:mo>
+				<m:mpadded>
+					<m:msqrt>
+						<m:mi>x</m:mi>
+					</m:msqrt>
+				</m:mpadded>
+			</m:math>
+		</input>
+		<expected>
+			`mml&lt;mpadded/&gt; sqrt x + mml&lt;mpadded/&gt;(sqrt x)`
+		</expected>
+	</test>
+	<test name="mglyph in token elements" toXml="false">
+		<input>
+			<m:math>
+				<m:mi>
+					<m:mglyph src="mysym.png" alt="My new symbol"/>
+				</m:mi>
+				<m:mo><m:mglyph src="plus.png" alt="plus"/></m:mo>
+				<m:msqrt>
+					<m:mi><m:mglyph src="text_sym.png" alt="text based symbol"/></m:mi>
+				</m:msqrt>
+			</m:math>
+		</input>
+		<expected>
+			`mml&lt;mglyph src="mysym.png" alt="My new symbol"/&gt;() mml&lt;mglyph src="plus.png" alt="plus"/&gt;() sqrt mml&lt;mglyph src="text_sym.png" alt="text based symbol"/&gt;()`
+		</expected>
+	</test>
+	<test name="lim function">
+		<input>
+			<m:math>
+				<m:munder>
+					<m:mo>lim</m:mo>
+					<m:mrow>
+						<m:mi>x</m:mi>
+						<m:mo>&#x2192;</m:mo>
+						<m:mo>&#x221e;</m:mo>
+					</m:mrow>
+				</m:munder>
+			</m:math>
+		</input>
+		<expected>
+			`lim_(x rarr oo)`
+		</expected>
+	</test>
+	<test name="matrix">
+		<input>
+			<m:math>
+				<m:mrow>
+					<m:mo>(</m:mo>
+					<m:mtable>
+						<m:mtr>
+							<m:mtd><m:mi>a</m:mi></m:mtd>
+							<m:mtd><m:mi>b</m:mi></m:mtd>
+						</m:mtr>
+						<m:mtr>
+							<m:mtd><m:mi>c</m:mi></m:mtd>
+							<m:mtd><m:mi>d</m:mi></m:mtd>
+						</m:mtr>
+					</m:mtable>
+					<m:mo>)</m:mo>
+				</m:mrow>
+			</m:math>
+			<m:math>
+				<m:mrow>
+					<m:mo>[</m:mo>
+					<m:mtable>
+						<m:mtr>
+							<m:mtd><m:mi>a</m:mi></m:mtd>
+							<m:mtd><m:mi>b</m:mi></m:mtd>
+						</m:mtr>
+						<m:mtr>
+							<m:mtd><m:mi>c</m:mi></m:mtd>
+							<m:mtd><m:mi>d</m:mi></m:mtd>
+						</m:mtr>
+					</m:mtable>
+					<m:mo>]</m:mo>
+				</m:mrow>
+			</m:math>
+			<m:math>
+				<m:mrow>
+					<m:mo>(</m:mo>
+					<m:mtable>
+						<m:mtr>
+							<m:mtd>
+								<m:mi>a</m:mi>
+							</m:mtd>
+							<m:mtd>
+								<m:mi>b</m:mi>
+							</m:mtd>
+						</m:mtr>
+						<m:mtr>
+							<m:mtd>
+								<m:mi>c</m:mi>
+							</m:mtd>
+							<m:mtd>
+								<m:mi>d</m:mi>
+							</m:mtd>
+						</m:mtr>
+					</m:mtable>
+					<m:mo>)</m:mo>
+				</m:mrow>
+			</m:math>
+		</input>
+		<expected>
+			`((a, b), (c, d))`
+			`[[a, b], [c, d]]`
+			`((a, b), (c, d))`
+		</expected>
+	</test>
+	<test name="munderover">
+		<input>
+			<m:math>
+				<m:mrow>
+					<m:munderover>
+						<m:mo>&#x2211;</m:mo>
+						<m:mrow>
+							<m:mi>n</m:mi>
+							<m:mo>=</m:mo>
+							<m:mn>0</m:mn>
+						</m:mrow>
+						<m:mo>&#x221e;</m:mo>
+					</m:munderover>
+				</m:mrow>
+			</m:math>
+			<m:math>
+				<m:mrow>
+					<m:munderover>
+						<m:mo>&#x220f;</m:mo>
+						<m:mrow>
+							<m:mi>n</m:mi>
+							<m:mo>=</m:mo>
+							<m:mn>0</m:mn>
+						</m:mrow>
+						<m:mo>&#x221e;</m:mo>
+					</m:munderover>
+				</m:mrow>
+			</m:math>
+		</input>
+		<expected>
+			`sum_(n = 0)^oo`
+			`prod_(n = 0)^oo`
+		</expected>
+	</test>
+	<test name="Bold">
+		<input>
+			<m:math>
+				<m:mstyle mathvariant="bold">
+					<m:mi>a</m:mi>
+				</m:mstyle>
+				<m:mi>x</m:mi>
+			</m:math>
+			<m:math>
+				<m:mstyle mathvariant="bold">
+					<m:mrow>
+						<m:mi>a</m:mi>
+					</m:mrow>
+				</m:mstyle>
+				<m:mi>x</m:mi>
+			</m:math>
+		</input>
+		<expected>
+			`bb a x`
+			`bb(a) x`
+		</expected>
+	</test>
+	<test name="Script">
+	 <input>
+			<m:math>
+				<m:mstyle mathvariant="script">
+					<m:mi>a</m:mi>
+				</m:mstyle>
+				<m:mi>x</m:mi>
+			</m:math>
+			<m:math>
+				<m:mstyle mathvariant="script">
+					<m:mrow>
+						<m:mi>a</m:mi>
+					</m:mrow>
+				</m:mstyle>
+				<m:mi>x</m:mi>
+			</m:math>
+		</input>
+		<expected>
+			`cc a x`
+			`cc(a) x`
+		</expected>
+	</test>
+	<test name="Double-struck">
+	 <input>
+			<m:math>
+				<m:mstyle mathvariant="double-struck">
+					<m:mi>a</m:mi>
+				</m:mstyle>
+				<m:mi>x</m:mi>
+			</m:math>
+			<m:math>
+				<m:mstyle mathvariant="double-struck">
+					<m:mrow>
+						<m:mi>a</m:mi>
+					</m:mrow>
+				</m:mstyle>
+				<m:mi>x</m:mi>
+			</m:math>
+		</input>
+		<expected>
+			`bbb a x`
+			`bbb(a) x`
+		</expected>
+	</test>
+	<test name="Monospace">
+	 <input>
+			<m:math>
+				<m:mstyle mathvariant="monospace">
+					<m:mi>a</m:mi>
+				</m:mstyle>
+				<m:mi>x</m:mi>
+			</m:math>
+			<m:math>
+				<m:mstyle mathvariant="monospace">
+					<m:mrow>
+						<m:mi>a</m:mi>
+					</m:mrow>
+				</m:mstyle>
+				<m:mi>x</m:mi>
+			</m:math>
+		</input>
+		<expected>
+			`tt a x`
+			`tt(a) x`
+		</expected>
+	</test>
+	<test name="Sans-serif">
+	 <input>
+			<m:math>
+				<m:mstyle mathvariant="sans-serif">
+					<m:mi>a</m:mi>
+				</m:mstyle>
+				<m:mi>x</m:mi>
+			</m:math>
+			<m:math>
+				<m:mstyle mathvariant="sans-serif">
+					<m:mrow>
+						<m:mi>a</m:mi>
+					</m:mrow>
+				</m:mstyle>
+				<m:mi>x</m:mi>
+			</m:math>
+		</input>
+		<expected>
+			`sf a x`
+			`sf(a) x`
+		</expected>
+	</test>
+	<test name="if inside a function">
+		<input>
+			<m:math>
+				<m:msqrt>
+					<m:mrow>
+						<m:mspace width="1ex"/>
+						<m:mo>if</m:mo>
+						<m:mspace width="1ex"/>
+					</m:mrow>
+				</m:msqrt>
+			</m:math>
+		</input>
+		<!--  Ideally we would like a space between sqrt and if -->
+		<expected>
+			`sqrtif`
+		</expected>
+	</test>
+	<test name="Token elements with mathvariant attribute" toXml="false">
+		<input>
+			<m:math>
+				<m:mi mathvariant="bold">x</m:mi>
+				<m:mi mathvariant="fraktur">a</m:mi>
+				<m:mn mathvariant="bold">32</m:mn>
+			</m:math>
+		</input>
+		<expected>
+			`bb x fr a bb 32`
+		</expected>
+	</test>
+	<test name="Combined mathvariant styles" toXml="false">
+		<input>
+			<m:math>
+				<m:mstyle mathvariant="bold-sans-serif">
+					<m:mi>x</m:mi>
+				</m:mstyle>
+				<m:mi mathvariant="bold-fraktur">a</m:mi>
+				<m:mi mathvariant="bold-script">y</m:mi>
+			</m:math>
+		</input>
+		<expected>
+			`bb sf x bb fr a bb cc y`
+		</expected>
+	</test>
+	<test name="Text with mathvariant" toXml="false">
+		<input>
+			<m:math>
+				<m:mtext mathvariant="bold">Some text</m:mtext>
+				<m:mtext mathvariant="sans-serif">more text</m:mtext>
+			</m:math>
+		</input>
+		<expected>
+			`bb text(Some text) sf text(more text)`
+		</expected>
+	</test>
+	<test name="Sum">
+		<input>
+			<m:math>
+				<m:mrow>
+					<m:munderover>
+						<m:mo>&#x2211;</m:mo>
+						<m:mrow>
+							<m:mi>x</m:mi>
+							<m:mo>=</m:mo>
+							<m:mn>0</m:mn>
+						</m:mrow>
+						<m:mi>n</m:mi>
+					</m:munderover>
+				</m:mrow>
+				<m:mrow>
+					<m:msubsup>
+						<m:mi>x</m:mi>
+						<m:mi>i</m:mi>
+						<m:mn>2</m:mn>
+					</m:msubsup>
+				</m:mrow>
+			</m:math>
+		</input>
+		<expected>
+			`sum_(x = 0)^n x_i^2`
+		</expected>
+	</test>
+	<test name="Sum lower only">
+		<input>
+			<m:math>
+				<m:munder>
+					<m:mo>&#x2211;</m:mo>
+					<m:mi>x</m:mi>
+				</m:munder>
+				<m:mo>=</m:mo>
+				<m:msup>
+					<m:mn>1</m:mn>
+					<m:mi>n</m:mi>
+				</m:msup>
+				<m:mrow>
+					<m:msubsup>
+						<m:mi>x</m:mi>
+						<m:mi>i</m:mi>
+						<m:mn>2</m:mn>
+					</m:msubsup>
+				</m:mrow>
+			</m:math>
+		</input>
+		<expected>
+			`sum_x = 1^n x_i^2`
+		</expected>
+	</test>
+	<test name="oversets" fromXml="false">
+		<input>
+			<m:math>
+				<m:mover>
+					<m:mrow>
+						<m:mo>&#x2192;</m:mo>
+					</m:mrow>
+					<m:mrow>
+						<m:mo>+</m:mo>
+					</m:mrow>
+				</m:mover>
+			</m:math>
+		</input>
+		<expected>
+			`overset(+)(rarr)`
+		</expected>
+	</test>
+	<test name="underset" fromXml="false">
+		<input>
+			<m:math>
+				<m:munder>
+					<m:mrow>
+						<m:mo>&#x2192;</m:mo>
+					</m:mrow>
+					<m:mrow>
+						<m:mo>+</m:mo>
+					</m:mrow>
+				</m:munder>
+			</m:math>
+		</input>
+		<expected>
+			`underset(+)(rarr)`
+		</expected>
+	</test>
+	<test name="prod with limits">
+		<input>
+			<m:math>
+				<m:mrow>
+					<m:munderover>
+						<m:mo>&#x220f;</m:mo>
+						<m:mrow>
+							<m:mi>x</m:mi>
+							<m:mo>=</m:mo>
+							<m:mn>0</m:mn>
+						</m:mrow>
+						<m:mi>n</m:mi>
+					</m:munderover>
+				</m:mrow>
+				<m:mrow>
+					<m:msubsup>
+						<m:mi>x</m:mi>
+						<m:mi>i</m:mi>
+						<m:mn>2</m:mn>
+					</m:msubsup>
+				</m:mrow>
+			</m:math>
+		</input>
+		<expected>
+			`prod_(x = 0)^n x_i^2`
+		</expected>
+	</test>
+	<test name="Prod lower only">
+		<input>
+			<m:math>
+				<m:munder>
+					<m:mo>&#x220f;</m:mo>
+					<m:mi>x</m:mi>
+				</m:munder>
+				<m:mo>=</m:mo>
+				<m:msup>
+					<m:mn>1</m:mn>
+					<m:mi>n</m:mi>
+				</m:msup>
+				<m:mrow>
+					<m:msubsup>
+						<m:mi>x</m:mi>
+						<m:mi>i</m:mi>
+						<m:mn>2</m:mn>
+					</m:msubsup>
+				</m:mrow>
+			</m:math>
+		</input>
+		<expected>
+			`prod_x = 1^n x_i^2`
+		</expected>
+	</test>
+	<test name="newline">
+		<input>
+			<m:math>
+				<m:mo linebreak="newline"/>
+			</m:math>
+		</input>
+		<expected>
+			`newline`
+		</expected>
+	</test>
+	<test name="newline as mspace" toXml="false">
+		<input>
+			<m:math>
+				<m:mspace linebreak="newline"/>
+			</m:math>
+		</input>
+		<expected>
+			`newline`
+		</expected>
+	</test>
+	<test name="Bevelled fraction using bfrac">
+		<input>
+			<m:math>
+				<m:mfrac bevelled="true">
+					<m:mn>3</m:mn>
+					<m:mn>8</m:mn>
+				</m:mfrac>
+			</m:math>
+		</input>
+		<expected>
+			`bfrac 3 8`
+		</expected>
+	</test>
+	<test name="Underscript">
+		<input>
+			<m:math>
+				<m:munder>
+					<m:mn>2</m:mn>
+					<m:mi>x</m:mi>
+				</m:munder>
+			</m:math>
+		</input>
+		<expected>
+			`2__x`
+		</expected>
+	</test>
+	<test name="Overscript">
+		<input>
+			<m:math>
+				<m:mover>
+					<m:mn>2</m:mn>
+					<m:mi>x</m:mi>
+				</m:mover>
+			</m:math>
+		</input>
+		<expected>
+			`2_^x`
+		</expected>
+	</test>
+</tests>

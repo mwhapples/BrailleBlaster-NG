@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dtbook xmlns="http://www.daisy.org/z3986/2005/dtbook/" version="2005-2"
+	xml:lang="En-US">
+	<head>
+		<meta content="American Government: Institutions and Policies"
+			name="dc:Title" />
+	</head>
+	<book semantics="style,document">
+		<frontmatter semantics="action, no">
+			
+			<level1 semantics="action,no">
+				<level2 semantics="action,no">
+					<h2 semantics="style,heading2">
+						<imggroup semantics="action,generic">
+							<img alt="Star" id="p556621-00iv-01" semantics="action,skip"
+								src="./images/thruout/556621-goldenstar.jpg" />
+							<prodnote description="&#9;This is a test.&#9; description"
+								id="0x00000000" imgref="..." render="optional" semantics="style,trnote" />
+						</imggroup>
+						BRIEF CONTENTS
+						<brl index="0 1 1 1 2 3 4 5 6 7 7 7 10 11 13 14">
+							<newline xy="20,42" />
+							<newline xy="40,50" />
+							,,brief ,,3t5ts
+						</brl>
+					</h2>
+					<list class="toc" depth="1" type="ol">
+						<li semantics="style,list">
+							<lic class="toc">
+								American Government
+								<brl index="0 0 1 2 4 5 6 7 8 9 9 10 11 12 14 15 15">
+									,am}ican ,gov}n;t
+								</brl>
+							</lic>
+							<lic class="tocpage"/>
+							<list class="toc" depth="2" type="ol">
+								<li semantics="style,list">
+									<lic class="toc">
+										CHAPTER 1 The First Chapter
+										<brl index="0 1 1 1 2 3 4 5 6 7 7 7 10 11 13 14">
+											,,brief ,,3t5ts
+										</brl>
+									</lic>
+									<lic class="tocpage"/>
+									<list class="toc" depth="3" type="ol">
+										<li semantics="style,list">
+											<lic class="toc">
+												Subchapter
+												<brl index="1 2 3">
+													Subchapter
+												</brl>
+											</lic>
+											<lic class="tocpage"/>
+										</li>
+									</list>
+								</li>
+							</list>
+						</li>
+					</list>
+				</level2>
+			</level1>
+		</frontmatter>
+		<bodymatter semantics="action, no">
+			<level1 semantics="action,no">
+			    <newpage brlnumber="1" printnumber="a" />
+				<h1 semantics="style,heading1">
+					American Government
+					<brl index="0 0 1 2 4 5 6 7 8 9 9 10 11 12 14 15 15">
+						<newline xy="20,186" />
+						<newline xy="75,194" />
+						,am}ican ,gov}n;t
+					</brl>
+				</h1>
+				<level2 semantics="action,no">
+					<h2 semantics="style,heading2">
+						<newpage brlnumber="3" printnumber="a3" />
+						<imggroup semantics="action,generic">
+							<img alt="Star" id="p556621-00iv-01" semantics="action,skip"
+								src="./images/thruout/556621-goldenstar.jpg" />
+							<prodnote description="&#9;This is a test.&#9; description"
+								id="0x00000000" imgref="..." render="optional" semantics="style,trnote" />
+						</imggroup>
+						CHAPTER 1 The First Chapter
+						<brl index="0 1 1 1 2 3 4 5 6 7 7 7 10 11 13 14">
+							<newline xy="20,42" />
+							<newline xy="40,50" />
+							,,brief ,,3t5ts
+						</brl>
+					</h2>
+					<newpage brlnumber="4" printnumber="a4" />
+					<level3 semantics="action,no">
+						<h3>
+							Subchapter
+							<brl index="0 1 2 3 4 5 6 7 8 9">
+								subchapter
+							</brl>
+							<span />
+							
+						</h3>
+						<newpage brlnumber="5" printnumber="a5" />
+					</level3>
+				</level2>
+			</level1>
+		</bodymatter>
+	</book>
+</dtbook>

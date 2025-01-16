@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<brailleSettings>
+    <cellType>SMALL_ENGLISH</cellType>
+    <computerBrailleTable>en-us-comp8.ctb</computerBrailleTable>
+    <editTable>nemeth_edit.ctb</editTable>
+    <mainTranslationTable>en-us-g2.ctb</mainTranslationTable>
+    <mathExpressionTable>nemeth.ctb</mathExpressionTable>
+    <mathLineWrapping>
+        <lineWrap matchPattern=" (\.k )" insertionDots="&quot;"/>
+        <lineWrap matchPattern="-" insertionDots="&quot;"/>
+    </mathLineWrapping>
+    <mathStartLines>
+        <insertion matchPattern="(?=[0-9])" insertionDots="#"/>
+        <insertion matchPattern="-(?=[0-9])" insertionDots="#"/>
+    </mathStartLines>
+    <mathTextTable>en-us-g2.ctb</mathTextTable>
+    <uncontractedTable>en-us-g1.ctb</uncontractedTable>
+    <useAsciiBraille>false</useAsciiBraille>
+</brailleSettings>

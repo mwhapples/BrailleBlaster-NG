@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:utd="http://brailleblaster.org/ns/utd">
+  <textSegment>Some text<utd:brl xml:space="preserve" index="0 0 0 4 5 6 7 8">&#x2820;&#x2810;&#x280e;⠀&#x281e;&#x2811;&#x282d;&#x281e;</utd:brl></textSegment>
+  <textSegment>More text<utd:brl xml:space="preserve" index="0 0 1 2 3 4 5 6 7 8">&#x2820;&#x280d;&#x2815;&#x2817;&#x2811;⠀&#x281e;&#x2811;&#x282d;&#x281e;</utd:brl></textSegment>
+</root>

@@ -1,0 +1,23 @@
+<rearmatter>
+    <dl>
+    	<dt>One</dt>
+    	<dd>The number 1.</dd>
+    	<dt>Two</dt>
+    	<dd>The number 2.</dd>
+    	<newpage></newpage>
+    	<dt>Three</dt>
+    	<dd>The number 3.</dd>
+    	<dt>Four</dt>
+    	<dd>The number 4.</dd>
+    	<dt>Four</dt>
+    	<dd>The number 4.</dd>
+    	<dt>Five<newpage /></dt>
+    	<dd>The number 5.</dd>
+    	<dt>Six</dt>
+    	<dd>The number 6.</dd>
+    	<dt>Seven</dt>
+    	<dd>The number 7.<newpage/></dd>
+    	<dt>Eight</dt>
+    	<dd>The number 8.</dd>
+	</dl>
+</rearmatter>

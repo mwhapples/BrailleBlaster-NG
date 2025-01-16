@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html>
+	<body>
+		<doubleLine>
+			<h1>Double line spacing test</h1>
+			<p>Here is a paragraph with enough text to show line wrapping. With double line spacing it should start on line 1 and when wrapping should leave a blank line between lines of Braille.</p>
+			<p>When there are multiple paragraphs there should be a blank line between the paragraphs.</p>
+		</doubleLine>
+	</body>
+</html>

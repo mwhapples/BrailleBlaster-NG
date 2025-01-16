@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<utdengine>
+    <brailleSettings>
+        <cellType>SMALL_ENGLISH</cellType>
+        <mainTranslationTable>en-us-g2.ctb</mainTranslationTable>
+        <useAsciiBraille>false</useAsciiBraille>
+    </brailleSettings>
+    <pageSettings>
+        <begPageNum>1</begPageNum>
+        <beginningPageNumber>1</beginningPageNumber>
+        <bottomMargin>12.7</bottomMargin>
+        <braillePageNumberAt>TOP_RIGHT</braillePageNumberAt>
+        <braillePages>true</braillePages>
+        <continuePages>true</continuePages>
+        <interpoint>false</interpoint>
+        <leftMargin>5.5</leftMargin>
+        <pageNumberSeparateLine>true</pageNumberSeparateLine>
+        <paperHeight>279.4</paperHeight>
+        <paperWidth>292.1</paperWidth>
+        <printPageNumberAt>TOP_LEFT</printPageNumberAt>
+        <printPageNumberRange>false</printPageNumberRange>
+        <printPages>true</printPages>
+        <rightMargin>12.3</rightMargin>
+        <topMargin>12.7</topMargin>
+    </pageSettings>
+</utdengine>

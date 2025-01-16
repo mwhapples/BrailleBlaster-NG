@@ -1,0 +1,14 @@
+BrailleBlaster requires extra JVM arguments on some platforms to run correctly.
+Insert them after the java cmd, eg java $EXTRA_ARGS -jar brailleblaster.jar
+
+Mac OSX: Must pass -XstartOnFirstThread 
+Required for SWT to run correctly otherwise will get SWTError: Invalid Thread Access,
+see https://www.eclipse.org/swt/macosx/
+Note brailleblaster_mac.command starts brailleblaster with this argument
+
+Windows 32-bit JVM: Must pass -Xss1024k
+Required for liblouis to run correctly otherwise will get Invalid Memory Access inside jlouis
+32-bit JVM's default thread size is 320k, while 64-bit is 1024k. liblouis simply requires more space
+see http://www.eclipse.org/swt/macosx/
+see Issue #3904
+Note brailleblaster_windows.exe starts brailleblaster with this argument

@@ -1,0 +1,8 @@
+<!ELEMENT entities (jarEntity | emptyEntity)+>
+<!ELEMENT jarEntity EMPTY >
+<!ATTLIST jarEntity publicId CDATA #IMPLIED >
+<!ATTLIST jarEntity systemId CDATA #IMPLIED >
+<!ATTLIST jarEntity resourceName CDATA #REQUIRED >
+<!ELEMENT emptyEntity EMPTY >
+<!ATTLIST emptyEntity publicId CDATA #IMPLIED >
+<!ATTLIST emptyEntity systemId CDATA #IMPLIED >

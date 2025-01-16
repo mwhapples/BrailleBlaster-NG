@@ -1,0 +1,8 @@
+This directory and the subdirectories listed below contain C and C++ 
+libraries and command-line tools. The important subdirectories are bin 
+and lib
+
+Install liblouis and liblouisutdml with the command
+./configure --prefix=xxx/brailleblaster/native
+where xxx is the path to the brailleblaster directory.
+

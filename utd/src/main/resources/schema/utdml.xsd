@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://brailleblaster.org/ns/utd"
+        xmlns:utd="http://brailleblaster.org/ns/utd"
+        elementFormDefault="qualified">
+
+    <xs:annotation>
+        <xs:documentation>Meta elements for now conform to the meta element in XHTML. We should define an enumerated
+            type with the allowed values all beginning with the prefix "utd:".
+        </xs:documentation>
+    </xs:annotation>
+    <xs:element name="meta">
+        <xs:complexType>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="content" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="brlPageNum">
+        <xs:annotation>
+            <xs:documentation>Indicates a page number for embossed braille.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:element ref="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="printPageNum">
+        <xs:annotation>
+            <xs:documentation>Indicates a page number for embossed braille.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:element ref="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:annotation>
+        <xs:documentation>The moveTo element with attributes hPos and vPos.</xs:documentation>
+    </xs:annotation>
+    <xs:element name="moveTo">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:attribute name="hPos" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:float"/>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="vPos" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:float"/>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:annotation>
+        <xs:documentation>The newPage element with attributes brlnum (Braille page number) and printnum (Print page
+            number).
+        </xs:documentation>
+    </xs:annotation>
+    <xs:element name="newPage">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:attribute name="brlnum" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:int"/>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="printnum" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:int"/>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:annotation>
+        <xs:documentation>A brlonly element is used to insert fragments of Braille into a brl element where the Braille
+            fragment is not considered to be additional to the content of the original node. Such an example is for
+            Braille added due to formatting. The brlonly element differs from the type="brlonly" and type="formatting"
+            as this is for inserting fragments into existing Braille rather than marking an entire brl element as not
+            being associated to an original element.
+        </xs:documentation>
+    </xs:annotation>
+    <xs:element name="brlonly">
+        <xs:complexType>
+            <xs:element ref="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="brl" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+            <xs:documentation>Represents braille content. If the Braille represents text then the index avlues map the
+                Braille to the text offsets. The type is used to indicate whether the Braille refers to text, is only
+                Braille and has been added, or refers to something that is not text, such as an image. Other types can
+                be added as needed. There can also be an idref attribute that specifically identifies the element that
+                the Braille represents and a text attribute that may contain the text translation of the Braille
+                content.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:choice maxOccurs="1" minOccurs="unbounded">
+                <xs:element ref="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="newPage" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="moveTo" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="brlPageNum" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="printPageNum" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="brlonly" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:choice>
+            <xs:sequence>
+                <xs:attribute name="index" type="xs:string" use="required"/>
+                <xs:attribute name="changetable" type="xs:string" use="optional"/>
+            </xs:sequence>
+            <xs:attribute name="text" type="xs:string" use="optional"/>
+            <xs:sequence>
+                <xs:attribute name="idref" type="xs:string" use="optional"/>
+            </xs:sequence>
+            <xs:attribute name="type">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="brlonly"/>
+                        <xs:enumeration value="noText"/>
+                        <xs:enumeration value="text"/>
+                        <xs:enumeration value="formatting"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+
+</schema>

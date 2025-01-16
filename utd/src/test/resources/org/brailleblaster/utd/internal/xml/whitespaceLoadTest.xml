@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dtbook PUBLIC "-//NISO//DTD dtbook 2005-3//EN" "http://www.daisy.org/z3986/2005/dtbook-2005-3.dtd">
+<dtbook>
+    <head>
+        <!-- Previous normalisation should not impact on certain whitespace stripping as it may be added by other applications or newer versions of BrailleBlaster may have better normalisation implementation. -->
+        <isNormalised>true</isNormalised>
+    </head>
+    <book>
+        <frontmatter></frontmatter>
+        <bodymatter>
+            <p id="para1">Some text</p>
+            <p id="para2"> </p>
+            <list id="list1"> <li id="li1">List item</li>
+                <li id="li2"> </li>
+                <li id="li3"> <list><li>Text</li></list></li>
+            </list>
+            <p id="para3"> <list><li>Text</li></list></p>
+            <list id="list2">
+                <li id="li4">
+                    <strong>Bold</strong> <em>italics</em>
+                    <list>
+                        <li>Subitem</li>
+                    </list>
+                </li>
+            </list>
+        </bodymatter>
+        <rearmatter></rearmatter>
+    </book>
+</dtbook>

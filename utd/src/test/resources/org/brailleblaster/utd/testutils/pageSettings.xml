@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<pageSettings>
+    <begPageNum>1</begPageNum>
+    <beginningPageNumber>1</beginningPageNumber>
+    <bottomMargin>16.7</bottomMargin>
+    <braillePages>true</braillePages>
+    <continuePages>false</continuePages>
+    <defaultRunningHeadOption>NONE</defaultRunningHeadOption>
+    <evenBraillePageNumberAt>BOTTOM_RIGHT</evenBraillePageNumberAt>
+    <evenPrintPageNumberAt>TOP_RIGHT</evenPrintPageNumberAt>
+    <guideWords>true</guideWords>
+    <indicatorChar>-</indicatorChar>
+    <interpoint>false</interpoint>
+    <leftMargin>5.5</leftMargin>
+    <oddBraillePageNumberAt>BOTTOM_RIGHT</oddBraillePageNumberAt>
+    <oddPrintPageNumberAt>TOP_RIGHT</oddPrintPageNumberAt>
+    <pageNumberSeparateLine>true</pageNumberSeparateLine>
+    <pageTypeIndicator>false</pageTypeIndicator>
+    <paperHeight>279.4</paperHeight>
+    <paperWidth>292.1</paperWidth>
+    <printPageLetterIndicator>false</printPageLetterIndicator>
+    <printPageNumberRange>true</printPageNumberRange>
+    <printPages>true</printPages>
+    <rightMargin>18.7</rightMargin>
+    <runningHead></runningHead>
+    <topMargin>12.7</topMargin>
+</pageSettings>

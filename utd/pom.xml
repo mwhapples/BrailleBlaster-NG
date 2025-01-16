@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>utd</artifactId>
+    <parent>
+        <groupId>org.brailleblaster</groupId>
+        <artifactId>bb-utd</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <properties>
+        <findbugsXML>false</findbugsXML>
+        <!-- Versioning -->
+        <graalvm.version>24.1.1</graalvm.version>
+        <assertjcore.version>3.24.2</assertjcore.version>
+        <equalsverifier.version>3.15.2</equalsverifier.version>
+        <xmlunitmatchers.version>2.10.0</xmlunitmatchers.version>
+        <findbugsmavenplugin.version>3.0.5</findbugsmavenplugin.version>
+        <mavenpmdplugin.version>3.13.0</mavenpmdplugin.version>
+        <jaxen.version>2.0.0</jaxen.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+        </dependency>
+        <!-- Needed for AsciiMathConverter -->
+        <dependency>
+            <groupId>org.graalvm.polyglot</groupId>
+            <artifactId>js-community</artifactId>
+            <version>${graalvm.version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.graalvm.js</groupId>
+            <artifactId>js-scriptengine</artifactId>
+            <version>${graalvm.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jaxen</groupId>
+            <artifactId>jaxen</artifactId>
+            <version>${jaxen.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertjcore.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>net.bytebuddy</groupId>
+                    <artifactId>byte-buddy</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>nl.jqno.equalsverifier</groupId>
+            <artifactId>equalsverifier</artifactId>
+            <version>${equalsverifier.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.xmlunit</groupId>
+            <artifactId>xmlunit-matchers</artifactId>
+            <version>${xmlunitmatchers.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.brailleblaster</groupId>
+            <artifactId>utils</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${mavensurefireplugin.version}</version>
+                <configuration>
+                    <systemProperties>
+                        <polyglot.engine.WarnInterpreterOnly>false</polyglot.engine.WarnInterpreterOnly>
+                    </systemProperties>
+                    <additionalClasspathElements>
+                        <additionalClasspathElement>${project.build.outputDirectory}/data</additionalClasspathElement>
+                    </additionalClasspathElements>
+                    <trimStackTrace>false</trimStackTrace>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${mavendependencyplugin.version}</version>
+                <executions>
+                    <!-- Unpack liblouis tables to build/data/liblouis/tables -->
+                    <execution>
+                        <id>import-tables</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.github.aphtech</groupId>
+                                    <artifactId>jlouis</artifactId>
+                                    <version>${jlouis.version}</version>
+                                    <type>zip</type>
+                                    <classifier>tables</classifier>
+                                    <outputDirectory>${project.build.outputDirectory}/data</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- FindBugs static analysis -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>${findbugsmavenplugin.version}</version>
+                <configuration>
+                    <!-- <effort>Max</effort> <threshold>Exp</threshold> <excludeFilterFile>src/etc/findbugs-exclude.xml</excludeFilterFile> -->
+                    <findbugsXmlOutput>${findbugsXML}</findbugsXmlOutput>
+                </configuration>
+            </plugin>
+            <!-- PMD Static Analysis -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${mavenpmdplugin.version}</version>
+                <configuration>
+                    <source>1.8</source>
+                    <failOnViolation>false</failOnViolation>
+                    <!-- <rulesets> <ruleset>src/etc/pmd-rules.xml</ruleset> </rulesets> -->
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>${buildnumbermavenplugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>create-utd-build-props</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>create-metadata</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                    <outputName>utd-build.properties</outputName>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

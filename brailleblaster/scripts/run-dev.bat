@@ -1,0 +1,1 @@
+java -cp target\classes;..\utd\target\classes;dist\brailleblaster.jar org.brailleblaster.Main

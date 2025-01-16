@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dtbook
+  PUBLIC '-//NISO//DTD dtbook 2005-3//EN'
+  'http://www.daisy.org/z3986/2005/dtbook-2005-3.dtd'>
+<dtbook version="2005-3" xmlns="http://www.daisy.org/z3986/2005/dtbook/" xmlns:utd="http://brailleblaster.org/ns/utd">
+	<head>
+		<meta name="dc:Language" content="en"/>
+		<meta name="dc:Creator" content="APH"/>
+		<meta stuff=""/>
+
+		<brailleSettings xmlns="http://brailleblaster.org/ns/utd">
+			<cellType>NLS</cellType>
+			<computerBrailleTable>en-us-comp8.ctb</computerBrailleTable>
+			<computerBrailleTableLLAPH>en-us-comp8.ctb</computerBrailleTableLLAPH>
+			<editTable>nemeth_edit.ctb</editTable>
+			<editTableLLAPH>english-ueb-math.rst</editTableLLAPH>
+			<mainTranslationTable>This is not the table your looking for</mainTranslationTable>
+			<mainTranslationTableLLAPH>english-ueb-grade2.rst</mainTranslationTableLLAPH>
+			<mathBrailleCode>Nemeth</mathBrailleCode>
+			<mathExpressionTable>nemeth.ctb</mathExpressionTable>
+			<mathExpressionTableLLAPH>english-ueb-math.rst</mathExpressionTableLLAPH>
+			<mathLineWrapping />
+			<mathTextTable>en-us-g2.ctb</mathTextTable>
+			<mathTextTableLLAPH>english-ueb-math.rst</mathTextTableLLAPH>
+			<uncontractedTable>en-ueb-g1.ctb</uncontractedTable>
+			<uncontractedTableLLAPH>english-ueb-grade2.rst</uncontractedTableLLAPH>
+			<useAsciiBraille>false</useAsciiBraille>
+			<useLibLouisAPH>false</useLibLouisAPH>
+		</brailleSettings>
+		<randomElement>stuff</randomElement>
+		<pageSettings xmlns="http://brailleblaster.org/ns/utd">
+			<begPageNum>1</begPageNum>
+			<beginningPageNumber>1</beginningPageNumber>
+			<bottomMargin>16.7</bottomMargin>
+			<braillePages>true</braillePages>
+			<continuePages>false</continuePages>
+			<defaultRunningHeadOption>NONE</defaultRunningHeadOption>
+			<evenBraillePageNumberAt>BOTTOM_RIGHT</evenBraillePageNumberAt>
+			<evenPrintPageNumberAt>BOTTOM_LEFT</evenPrintPageNumberAt>
+			<guideWords>true</guideWords>
+			<indicatorChar>-</indicatorChar>
+			<interpoint>false</interpoint>
+			<leftMargin>31.75</leftMargin>
+			<oddBraillePageNumberAt>BOTTOM_RIGHT</oddBraillePageNumberAt>
+			<oddPrintPageNumberAt>TOP_RIGHT</oddPrintPageNumberAt>
+			<pageNumberSeparateLine>true</pageNumberSeparateLine>
+			<pageTypeIndicator>false</pageTypeIndicator>
+			<paperHeight>279.4</paperHeight>
+			<paperWidth>292.1</paperWidth>
+			<printPageLetterIndicator>false</printPageLetterIndicator>
+			<printPageNumberRange>true</printPageNumberRange>
+			<printPages>true</printPages>
+			<rightMargin>12.3</rightMargin>
+			<runningHead>Test Running Head</runningHead>
+			<topMargin>12.7</topMargin>
+		</pageSettings>
+		<styleMap xmlns="http://brailleblaster.org/ns/utd">
+			<namespaces>
+				<namespace prefix="testutd" uri="http://www.w3.org/555555/xhtml"/>
+			</namespaces>
+			<entry>
+				<matcher expression="//p" type="org.brailleblaster.utd.matchers.XPathMatcher"/>
+				<styleName>test</styleName>
+			</entry>
+			<entry>
+				<matcher nodeName="testbook" type="org.brailleblaster.utd.matchers.NodeNameMatcher"/>
+				<styleName>Test Style</styleName>
+			</entry>
+		</styleMap>
+		<styleMapWithDefs xmlns="http://brailleblaster.org/ns/utd">
+			<namespaces>
+				<namespace prefix="testutd" uri="http://www.w3.org/555555/xhtml"/>
+			</namespaces>
+			<entry>
+				<matcher expression="//p" type="org.brailleblaster.utd.matchers.XPathMatcher"/>
+				<style>
+					<name>test</name>
+				</style>
+			</entry>
+			<entry>
+				<matcher nodeName="testbook" type="org.brailleblaster.utd.matchers.NodeNameMatcher"/>
+				<style>
+					<name>Test Style</name>
+				</style>
+			</entry>
+		</styleMapWithDefs>
+		<actionMap xmlns="http://brailleblaster.org/ns/utd">
+			<namespaces>
+				<namespace prefix="ddd" uri="http://www.w3.org/555555/xhtml"/>
+			</namespaces>
+			<entry>
+				<matcher nodeName="somebook" type="org.brailleblaster.utd.matchers.NodeNameMatcher"/>
+				<action type="org.brailleblaster.utd.actions.BoldAction"/>
+			</entry>
+		</actionMap>
+		<randomElement xmlns="http://brailleblaster.org/ns/utd">more stuff</randomElement>
+		<randomElement>and things</randomElement>
+	</head>
+	<book>
+		<level1>
+			<p>Paragraph 1</p>
+			<p>Paragraph 2</p>
+			<p>Paragraph 
+				<strong>bold word </strong>
+				3</p>
+			<p>Paragraph 4</p>
+			<p>Paragraph 5</p>
+			<p>Paragraph 6</p>
+		</level1>
+	</book>
+</dtbook>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<actionMap>
+    <namespaces>
+        <namespace prefix="xhtml" uri="http://www.w3.org/555555/xhtml"/>
+    </namespaces>
+    <entry>
+        <matcher nodeName="img" type="org.brailleblaster.utd.matchers.NodeNameMatcher"/>
+        <action type="org.brailleblaster.utd.actions.SkipAction"/>
+    </entry>
+    <entry>
+        <matcher expression="//b" type="org.brailleblaster.utd.matchers.XPathMatcher"/>
+        <action type="org.brailleblaster.utd.actions.BoldAction"/>
+    </entry>
+    <entry>
+        <matcher expression="//p" type="org.brailleblaster.utd.matchers.XPathMatcher"/>
+        <action type="org.brailleblaster.utd.actions.GenericAction"/>
+    </entry>
+</actionMap>

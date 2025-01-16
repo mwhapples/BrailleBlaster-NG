@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><styleDefinitions>
+  <style>
+    <name>DEFAULT</name>
+    <align>RIGHT</align>
+    <braillePageNumberFormat>T_PAGE</braillePageNumberFormat>
+    <lineSpacing>3</lineSpacing>
+  </style>
+  <!-- Legacy style based on default style -->
+  <style>
+    <name>test</name>
+    <linesAfter>55</linesAfter>
+    <dontSplit>true</dontSplit>
+  </style>
+  <!-- Explicitly set base style -->
+  <style baseStyle="DEFAULT">
+    <name>test2</name>
+    <indent>5</indent>
+    <braillePageNumberFormat>P_PAGE</braillePageNumberFormat>
+    <keepWithNext>true</keepWithNext>
+    <endSeparator>d</endSeparator>
+  </style>
+  <style baseStyle="test">
+      <name>test3</name>
+      <align>CENTERED</align>
+  </style>
+</styleDefinitions>

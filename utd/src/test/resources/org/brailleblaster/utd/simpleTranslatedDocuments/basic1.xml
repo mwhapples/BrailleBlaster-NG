@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns:utd="http://brailleblaster.org/ns/utd">
+	<body>
+		<p>Some text<utd:brl xml:space="preserve" index="0 0 0 4 5 6 7 8">⠠⠐⠎⠀⠞⠑⠭⠞</utd:brl></p>
+	</body>
+</html>

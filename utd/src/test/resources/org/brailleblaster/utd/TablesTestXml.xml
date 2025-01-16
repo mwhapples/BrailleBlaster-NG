@@ -1,0 +1,216 @@
+<?xml version="1.0"?>
+<html>
+	<body>
+		<table>
+			<tr>
+				<th>Very Lengthy Test Heading<brl>,v ,15g?y ,te/ ,h1d+</brl></th>
+				<th>Medium-sized Heading<brl>,m$ium-siz$ ,h1d+</brl></th>
+				<th>Small Heading<brl>,small h1d+</brl></th>
+			</tr>
+			<tr>
+				<td>Extremely Long Test Entry<brl>,extremely ,l;g ,te/ ,5try</brl></td>
+				<td>Medium-sized Entry<brl>,m$ium-siz$ ,5try</brl></td>
+				<td>Small Entry<brl>,small ,5try</brl></td>
+			</tr>
+			<tr>
+				<td colspan="2">Extremely Long Test Entry<brl>,extremely ,l;g ,te/ ,5try</brl></td>
+				<td>Medium-sized Entry<brl>,m$ium-siz$ ,5try</brl></td>
+			</tr>
+			<tr>
+				<td>Extremely Long Test Entry<brl>,extremely ,l;g ,te/ ,5try</brl></td>
+				<td>Medium-sized Entry<brl>,m$ium-siz$ ,5try</brl></td>
+				<td>Small Entry<brl>,small ,5try</brl></td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<td>Uneven line wrap test <brl></brl></td>
+				<td>Uneven line wrap test <brl>line wrap test line wrap test line wrap test</brl></td>
+				<td>Uneven line wrap test <brl>line wrap test line wrap test line wrap test line wrap test line wrap test  line wrap test</brl></td>
+			</tr>
+			<tr>
+				<td>Uneven line wrap test <brl>line wrap test line wrap test</brl></td>
+				<td>Uneven line wrap test <brl>line wrap test line wrap test line wrap test line wrap test  line wrap test</brl></td>
+				<td>Uneven line wrap test <brl>line wrap test line wrap test line wrap test</brl></td>
+			</tr>
+			<tr>
+				<td>Uneven line wrap test <brl>line wrap test line wrap test line wrap test line wrap test  line wrap test</brl></td>
+				<td>Uneven line wrap test <brl>line wrap test line wrap test line wrap test</brl></td>
+				<td>Uneven line wrap test <brl>line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test</brl></td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<td>Line Wrap Test <brl>line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test</brl></td>
+				<td>Line Wrap Test <brl>line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test</brl></td>
+				<td>Line Wrap Test <brl>line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test</brl></td>
+				<td>Line Wrap Test <brl>line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test</brl></td>
+			</tr>
+			<tr>
+				<td colspan="2">Line Wrap Test <brl>line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test</brl></td>
+				<td>Line Wrap Test <brl>line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test</brl></td>
+				<td>Line Wrap Test <brl>line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test</brl></td>
+			</tr>
+			<tr>
+				<td colspan="4">Line Wrap Test <brl>line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test</brl></td>
+			</tr>
+			<tr>
+				<td colspan="20">Line Wrap Test <brl>line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test</brl></td>
+				<td>Line Wrap Test <brl>line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test</brl></td>
+				<td>Line Wrap Test <brl>line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test</brl></td>
+				<td>Line Wrap Test <brl>line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test line wrap test</brl></td>
+			</tr>
+		</table>
+		<!-- Examples from Braille Formats 2011 -->
+<table>
+	<tr>
+		<td><brl></brl></td>
+		<td><brl>1986</brl></td>
+		<td><brl>1987</brl></td>
+		<td><brl>1988</brl></td>
+		<td><brl>1989</brl></td>
+	</tr>
+	<tr>
+		<td><brl>,m>ijuana</brl></td>
+		<td><brl>#he.b</brl></td>
+		<td><brl>#hd.h</brl></td>
+		<td><brl>#he.j</brl></td>
+		<td><brl>#hd.c</brl></td>
+	</tr>
+	<tr>
+		<td><brl>,amy_/buty1 nitrites</brl></td>
+		<td><brl></brl></td>
+		<td><brl>#bc.i</brl></td>
+		<td><brl>#be.i</brl></td>
+		<td><brl>#bf.h</brl></td>
+	</tr>
+	<tr>
+		<td><brl>,,lsd</brl></td>
+		<td><brl>#bh.e</brl></td>
+		<td><brl>#ca.d</brl></td>
+		<td><brl>#cc.c</brl></td>
+		<td><brl>#ch.c</brl></td>
+	</tr>
+	<tr>
+		<td><brl>,"s o!r halluc9og5</brl></td>
+		<td><brl>#bd.i</brl></td>
+		<td><brl>#be.j</brl></td>
+		<td><brl>#bf.b</brl></td>
+		<td><brl>#bh.b</brl></td>
+	</tr>
+	<tr>
+		<td><brl>,,pcp</brl></td>
+		<td><brl></brl></td>
+		<td><brl>#bb.h</brl></td>
+		<td><brl>#bd.i</brl></td>
+		<td><brl>#bh.i</brl></td>
+	</tr>
+	<tr>
+		<td><brl>,ec/asy 7,,mdma7</brl></td>
+		<td><brl></brl></td>
+		<td><brl></brl></td>
+		<td><brl></brl></td>
+		<td><brl>#ba.g</brl></td>
+	</tr>
+</table>
+
+
+<table>
+	<tr>
+		<td><brl></brl></td>
+		<td><brl>masc sg</brl></td>
+		<td><brl>masc pl</brl></td>
+		<td><brl>f=m sg</brl></td>
+		<td><brl>f=m pl</brl></td>
+	</tr>
+	<tr>
+		<td><brl>a</brl></td>
+		<td><brl>ao</brl></td>
+		<td><brl>dos</brl></td>
+		<td><brl>(</brl></td>
+		<td><brl>(s</brl></td>
+	</tr>
+	<tr>
+		<td><brl>de</brl></td>
+		<td><brl>do</brl></td>
+		<td><brl>dos</brl></td>
+		<td><brl>da</brl></td>
+		<td><brl>das</brl></td>
+	</tr>
+	<tr>
+		<td><brl>em</brl></td>
+		<td><brl>no</brl></td>
+		<td><brl>nos</brl></td>
+		<td><brl>na</brl></td>
+		<td><brl>nos</brl></td>
+	</tr>
+	<tr>
+		<td><brl>por</brl></td>
+		<td><brl>pelo</brl></td>
+		<td><brl>pelos</brl></td>
+		<td><brl>pela</brl></td>
+		<td><brl>pelas</brl></td>
+	</tr>
+</table>
+
+<table>
+	<tr>
+		<td><brl></brl></td>
+		<td><brl>,sunrise</brl></td>
+		<td><brl>,sunset</brl></td>
+	</tr>
+	<tr>
+		<td><brl>,jan</brl></td>
+		<td><brl>#i3dg ,,am</brl></td>
+		<td><brl>#d3ce ,,pm</brl></td>
+	</tr>
+	<tr>
+		<td><brl>,feb</brl></td>
+		<td><brl>#h3bg ,,am</brl></td>
+		<td><brl>#f3ja ,,pm</brl></td>
+	</tr>
+	<tr>
+		<td><brl>,nov</brl></td>
+		<td><brl>#i3ai ,,am</brl></td>
+		<td><brl>#d3aj ,,pm</brl></td>
+	</tr>
+	<tr>
+		<td><brl>,dec</brl></td>
+		<td><brl>#aj3ad ,,am</brl></td>
+		<td><brl>#c3da ,,pm</brl></td>
+	</tr>
+</table>
+<table>
+	<tr>
+		<td><brl>,fiscal ,ye></brl></td>
+		<td><brl>,total</brl></td>
+		<td><brl>,direct</brl></td>
+		<td><brl>,grants</brl></td>
+	</tr>
+	<tr>
+		<td><brl>#aiih</brl></td>
+		<td><brl>#iha1gab</brl></td>
+		<td><brl>#hag1ggj</brl></td>
+		<td><brl>#afc1idb</brl></td>
+	</tr>
+	<tr>
+		<td><brl>#aiii</brl></td>
+		<td><brl>#a1jja1fgf</brl></td>
+		<td><brl>#hbe1hcc</brl></td>
+		<td><brl>#age1hdc</brl></td>
+	</tr>
+	<tr>
+		<td><brl>#bjjj</brl></td>
+		<td><brl>#a1jed1ejc</brl></td>
+		<td><brl>#hfg1gac</brl></td>
+		<td><brl>#ahf1gij</brl></td>
+	</tr>
+	<tr>
+		<td><brl>#bjja</brl></td>
+		<td><brl>#a1abh1dcb</brl></td>
+		<td><brl>#ibj1cid</brl></td>
+		<td><brl>#bjh1jch</brl></td>
+	</tr>
+</table>
+</body>
+</html>

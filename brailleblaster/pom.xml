@@ -1,0 +1,653 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">    <!-- Maven Information -->
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>brailleblaster</artifactId>
+    <packaging>jar</packaging>
+    <parent>
+        <groupId>org.brailleblaster</groupId>
+        <artifactId>bb-utd</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <properties>
+        <!-- Versioning -->
+        <swt.version>3.126.0</swt.version>
+        <utd.dep.version>1.0-SNAPSHOT</utd.dep.version>
+        <sqlite.version>3.45.3.0</sqlite.version>
+        <gson.version>2.10</gson.version>
+        <icu4j.version>72.1</icu4j.version>
+        <logbackclassic.version>${logback-core.version}</logbackclassic.version>
+        <miglayoutswt.version>11.3</miglayoutswt.version>
+        <jeuclid.version>3.1.14</jeuclid.version>
+        <orgeclipsejface.version>3.33.0</orgeclipsejface.version>
+        <orgeclipseswtbotswtfinder.version>f5b2edaee2</orgeclipseswtbotswtfinder.version>
+        <xmlgraphicscommons.version>2.8</xmlgraphicscommons.version>
+        <hamcrestcore.version>2.2</hamcrestcore.version>
+        <execmavenplugin.version>3.0.0</execmavenplugin.version>
+        <mavenshadeplugin.version>3.2.4</mavenshadeplugin.version>
+        <launch4jmavenplugin.version>1.7.16</launch4jmavenplugin.version>
+        <appbundlemavenplugin.version>1.2.0</appbundlemavenplugin.version>
+        <maven.model.version>3.8.5</maven.model.version>
+
+        <!-- For exec:java, put here so mainClass can be overridden with -Dexec.mainClass -->
+        <exec.mainClass>org.brailleblaster.Main</exec.mainClass>
+        <windows.exe>brailleblaster-windows.exe</windows.exe>
+        <!-- Default run all non-ui tests, see surefire's <excludedGroups> for
+            more information -->
+        <skipTests>false</skipTests>
+        <alt.build.dir>target</alt.build.dir>
+        <moreExcludedTests/>
+        <bb.excludedTests>brokenTests,todoFixLater,${moreExcludedTests}</bb.excludedTests>
+        <!-- millisecond delay for tests, use 500 if doing bulk testing using multiple
+            cores -->
+        <swtbot.delay>0</swtbot.delay>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>asciimath-repo</id>
+            <url>http://www2.ph.ed.ac.uk/maven2</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>${sqlite.version}</version>
+        </dependency>
+        <dependency>
+            <!-- jsoup HTML parser library @ https://jsoup.org/ -->
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.17.2</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jtidy</groupId>
+            <artifactId>jtidy</artifactId>
+            <version>r938</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/xml-resolver/xml-resolver -->
+        <dependency>
+            <groupId>xml-resolver</groupId>
+            <artifactId>xml-resolver</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven/maven-model -->
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-model</artifactId>
+            <version>${maven.model.version}</version>
+        </dependency>
+        <!-- Used for JSON serialisation in emboss dialog and spatial math -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
+        </dependency>
+        <!-- Localisation -->
+        <dependency>
+            <groupId>com.ibm.icu</groupId>
+            <artifactId>icu4j</artifactId>
+            <version>${icu4j.version}</version>
+        </dependency>
+        <!-- Braille Translation -->
+        <dependency>
+            <groupId>org.brailleblaster</groupId>
+            <artifactId>utils</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.brailleblaster</groupId>
+            <artifactId>utd</artifactId>
+            <version>${utd.dep.version}</version>
+        </dependency>
+        <!-- Logback logging - slf4j implementation -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sun.mail</groupId>
+                    <artifactId>javax.mail</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- GUI Widgets -->
+        <!-- Note SWT dependency has been moved to platform-specific profiles at
+            bottom of pom -->
+        <dependency>
+            <groupId>com.miglayout</groupId>
+            <artifactId>miglayout-swt</artifactId>
+            <version>${miglayoutswt.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.eclipse.swt</groupId>
+                    <artifactId>org.eclipse.swt.win32.win32.x86</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.swt</groupId>
+                    <artifactId>org.eclipse.swt.win32.win32.x86_64</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.swt</groupId>
+                    <artifactId>org.eclipse.swt.gtk.linux.x86</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.swt</groupId>
+                    <artifactId>org.eclipse.swt.gtk.linux.x86_64</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.swt</groupId>
+                    <artifactId>org.eclipse.swt.cocoa.macosx.x86_64</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <!-- This was last updated in 2010, so we need to exclude its outdated dependencies -->
+            <groupId>de.rototor.jeuclid</groupId>
+            <artifactId>jeuclid-core</artifactId>
+            <version>${jeuclid.version}</version>
+            <exclusions>
+                <!-- Use jcl-over-slf4j -->
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-io</artifactId>
+                    <groupId>commons-io</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Minimum required deps for SWTBot -->
+        <dependency>
+            <groupId>org.eclipse.platform</groupId>
+            <artifactId>org.eclipse.jface</artifactId>
+            <version>${orgeclipsejface.version}</version>
+            <!-- <scope>test</scope> -->
+            <!-- Eclipse Issue #510186: Use profiles instead -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.eclipse.platform</groupId>
+                    <artifactId>org.eclipse.swt</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.github.aphtech.repackaged-jars</groupId>
+            <artifactId>org.eclipse.swtbot.swt.finder</artifactId>
+            <version>${orgeclipseswtbotswtfinder.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- Fix dependency conflicts -->
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logbackclassic.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.xmlgraphics</groupId>
+                <artifactId>xmlgraphics-commons</artifactId>
+                <version>${xmlgraphicscommons.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-core</artifactId>
+                <version>${hamcrestcore.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <directory>${alt.build.dir}</directory>
+
+        <plugins>
+            <!-- Run braileblaster -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${execmavenplugin.version}</version>
+                <configuration>
+                    <!-- Something in the XML parsing might use relative paths, if so use
+                        this -->
+                    <!-- (only works with exec:exec) <workingDirectory>${basedir}\dist</workingDirectory>
+                        <executable>${env.JAVA_HOME}\bin\java</executable> <arguments> <argument>-classpath</argument>
+                        <classpath/> <argument>org.brailleblaster.Main</argument> </arguments> -->
+                    <systemProperties>
+                        <systemProperty>
+                            <key>org.brailleblaster.distdir</key>
+                            <value>${basedir}/dist/</value>
+                        </systemProperty>
+                    </systemProperties>
+
+                    <!-- exec:java -->
+                    <!-- see maven parameter above exec.mainclass -->
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${mavensurefireplugin.version}</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <polyglot.engine.WarnInterpreterOnly>false</polyglot.engine.WarnInterpreterOnly>
+                        <org.brailleblaster.distdir>${project.basedir}/dist</org.brailleblaster.distdir>
+                        <onl.mdw.mathcat4j.rulesDir>${pom.basedir}/dist/programData/MathCAT/Rules</onl.mdw.mathcat4j.rulesDir>
+                        <!-- BBBootstrap.initLogback might not always be called first in tests -->
+                        <logback.configurationFile>${project.basedir}dist/programData/settingslogback.xml
+                        </logback.configurationFile>
+                        <org.eclipse.swtbot.keyboard.layout>org.eclipse.swtbot.swt.finder.keyboard.EN_US</org.eclipse.swtbot.keyboard.layout>
+                    </systemPropertyVariables>
+                    <properties>
+                        <!-- Initialize BB before unit tests, see class for details -->
+                        <property>
+                            <name>listener</name>
+                            <value>org.brailleblaster.BBTestInit</value>
+                        </property>
+                    </properties>
+                    <excludedGroups>${bb.excludedTests}</excludedGroups>
+                    <trimStackTrace>false</trimStackTrace>
+                </configuration>
+            </plugin>
+            <!-- Clean lib directory -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>dist/lib</directory>
+                            <excludes>
+                                <exclude>META-INF/**/*</exclude>
+                                <exclude>README</exclude>
+                            </excludes>
+                        </fileset>
+                        <!-- Clear out pandoc -->
+                        <fileset>
+                            <directory>dist/programData/pandoc</directory>
+                        </fileset>
+                        <!-- Clean out Jlouis tables -->
+                        <fileset>
+                            <directory>dist/programData/org</directory>
+                        </fileset>
+                        <!-- Clear out MathCAT rules -->
+                        <fileset>
+                            <directory>dist/programData/MathCAT</directory>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>io.github.download-maven-plugin</groupId>
+                <artifactId>download-maven-plugin</artifactId>
+                <version>${downloadmavenplugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>install-pandoc</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <url>https://aphassets.blob.core.windows.net/brailleblaster/dependencies/pandoc-3_1.zip</url>
+                    <unpack>true</unpack>
+                    <outputDirectory>dist/programData/pandoc</outputDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${mavendependencyplugin.version}</version>
+                <executions>
+                    <!-- https://portals.apache.org/jetspeed-2/buildguide/jetspeed-unpack-plugin.html -->
+                    <!-- Unpack liblouis tables to dist/programData/liblouis/tables -->
+                    <execution>
+                        <id>import-tables</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.github.aphtech</groupId>
+                                    <artifactId>jlouis</artifactId>
+                                    <version>${jlouis.version}</version>
+                                    <type>zip</type>
+                                    <classifier>tables</classifier>
+                                    <outputDirectory>dist/programData</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                    <!-- Unpack MathCAT rules -->
+                    <execution>
+                        <id>import-mathcat-rules</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>onl.mdw</groupId>
+                                    <artifactId>mathcat4j-core</artifactId>
+                                    <version>${mathcat4j.version}</version>
+                                    <type>zip</type>
+                                    <classifier>rules</classifier>
+                                    <outputDirectory>dist/programData</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                    <!-- Copy all SWT platform jars to dist/lib/$os-$arch to be autoloaded by BBBootsrap -->
+                    <execution>
+                        <id>swt-windows-x86_64</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <overWriteReleases>true</overWriteReleases>
+                            <stripVersion>true</stripVersion>
+                            <outputDirectory>dist/lib/windows-x86_64</outputDirectory>
+                            <includeArtifactIds>
+                                org.eclipse.swt.win32.win32.x86_64
+                            </includeArtifactIds>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>swt-linux-x86_64</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <overWriteReleases>true</overWriteReleases>
+                            <stripVersion>true</stripVersion>
+                            <outputDirectory>dist/lib/linux-x86_64</outputDirectory>
+                            <includeArtifactIds>
+                                org.eclipse.swt.gtk.linux.x86_64
+                            </includeArtifactIds>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>swt-linux-aarch64</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <overWriteReleases>true</overWriteReleases>
+                            <stripVersion>true</stripVersion>
+                            <outputDirectory>dist/lib/linux-aarch64</outputDirectory>
+                            <includeArtifactIds>
+                                org.eclipse.swt.gtk.linux.aarch64
+                            </includeArtifactIds>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>swt-mac-x86_64</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <overWriteReleases>true</overWriteReleases>
+                            <stripVersion>true</stripVersion>
+                            <outputDirectory>dist/lib/mac-x86_64</outputDirectory>
+                            <includeArtifactIds>
+                                org.eclipse.swt.cocoa.macosx.x86_64
+                            </includeArtifactIds>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Make a unified super-jar with all the dependencies included -->
+            <plugin>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>${mavenshadeplugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <outputFile>${basedir}\dist\brailleblaster.jar</outputFile>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <manifestEntries>
+                                        <Main-Class>org.brailleblaster.ProxyMain</Main-Class>
+                                        <!-- We are disabling the splash screen as it is not used in the main installer builds. -->
+                                        <!-- <SplashScreen-Image>images/bb_splash.png</SplashScreen-Image> -->
+                                    </manifestEntries>
+                                </transformer>
+                                <!-- LibEmbosser is a service API and so we must handle the service
+                                    entries from all JARS which may have provided driver implementations. -->
+                                <!-- We may be using other service APIs. -->
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                            </transformers>
+                            <artifactSet>
+                                <excludes>
+                                    <exclude>org.eclipse.platform:org.eclipse.swt.*</exclude>
+                                    <exclude>com.github.aphtech:jlouis:zip:tables</exclude>
+                                    <exclude>onl.mdw:mathcat4j-core:zip:rules</exclude>
+                                </excludes>
+                            </artifactSet>
+                            <filters>
+                                <!-- Cannot sign jars multiple times, and keys we get may be out
+                                    of date java.lang.SecurityException: Invalid signature file digest for Manifest
+                                    main attributes -->
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                        <!-- Exclude module-info.class, shaded jars cannot be modular jars -->
+                                        <exclude>module-info.class</exclude>
+                                        <!-- Exclude binaries for platforms not supported -->
+                                        <exclude>linux-x86/*</exclude>
+                                        <exclude>win32-x86/*</exclude>
+                                        <exclude>com/sun/jna/aix*/*</exclude>
+                                        <exclude>com/sun/jna/freebsd*/*</exclude>
+                                        <exclude>com/sun/jna/openbsd*/*</exclude>
+                                        <exclude>com/sun/jna/sunos*/*</exclude>
+                                        <exclude>com/sun/jna/win32-aarch64/*</exclude>
+                                        <exclude>com/sun/jna/win32-x86/*</exclude>
+                                        <exclude>com/sun/jna/linux-arm/*</exclude>
+                                        <exclude>com/sun/jna/linux-armel/*</exclude>
+                                        <exclude>com/sun/jna/linux-mips64el/*</exclude>
+                                        <exclude>com/sun/jna/linux-ppc*/*</exclude>
+                                        <exclude>com/sun/jna/linux-riscv64/*</exclude>
+                                        <exclude>com/sun/jna/linux-s390x/*</exclude>
+                                        <exclude>com/sun/jna/linux-x86/*</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>${buildnumbermavenplugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>create-brailleblaster-build-props</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>create-metadata</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                    <outputName>brailleblaster-build.properties</outputName>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <!-- Pick correct SWT dependency depending on platform -->
+        <profile>
+            <id>swt_windows_x86_64</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                    <arch>amd64</arch>
+                </os>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.eclipse.platform</groupId>
+                    <artifactId>org.eclipse.swt.win32.win32.x86_64</artifactId>
+                    <version>${swt.version}</version>
+                    <scope>compile</scope>
+                    <!-- Eclipse Issue #510186: Circular Dependency which is broken anyway -->
+                    <exclusions>
+                        <exclusion>
+                            <groupId>org.eclipse.platform</groupId>
+                            <artifactId>org.eclipse.swt</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>swt_linux_x86_64</id>
+            <activation>
+                <os>
+                    <family>linux</family>
+                    <arch>amd64</arch>
+                </os>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.eclipse.platform</groupId>
+                    <artifactId>org.eclipse.swt.gtk.linux.x86_64</artifactId>
+                    <version>${swt.version}</version>
+                    <scope>compile</scope>
+                    <!-- Eclipse Issue #510186: Circular Dependency which is broken anyway -->
+                    <exclusions>
+                        <exclusion>
+                            <groupId>org.eclipse.platform</groupId>
+                            <artifactId>org.eclipse.swt</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>swt_linux_aarch64</id>
+            <activation>
+                <os>
+                    <family>linux</family>
+                    <arch>aarch64</arch>
+                </os>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.eclipse.platform</groupId>
+                    <artifactId>org.eclipse.swt.gtk.linux.aarch64</artifactId>
+                    <version>${swt.version}</version>
+                    <scope>compile</scope>
+                    <!-- Eclipse Issue #510186: Circular Dependency which is broken anyway -->
+                    <exclusions>
+                        <exclusion>
+                            <groupId>org.eclipse.platform</groupId>
+                            <artifactId>org.eclipse.swt</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>swt_mac_x86_64</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                    <arch>x86_64</arch>
+                </os>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.eclipse.platform</groupId>
+                    <artifactId>org.eclipse.swt.cocoa.macosx.x86_64</artifactId>
+                    <version>${swt.version}</version>
+                    <scope>compile</scope>
+                    <!-- Eclipse Issue #510186: Circular Dependency which is broken anyway -->
+                    <exclusions>
+                        <exclusion>
+                            <groupId>org.eclipse.platform</groupId>
+                            <artifactId>org.eclipse.swt</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>swt_mac_aarch64</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                    <arch>aarch64</arch>
+                </os>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.eclipse.platform</groupId>
+                    <artifactId>org.eclipse.swt.cocoa.macosx.aarch64</artifactId>
+                    <version>${swt.version}</version>
+                    <scope>compile</scope>
+                    <!-- Eclipse Issue #510186: Circular Dependency which is broken anyway -->
+                    <exclusions>
+                        <exclusion>
+                            <groupId>org.eclipse.platform</groupId>
+                            <artifactId>org.eclipse.swt</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>ci_build</id>
+            <properties>
+                <skipTests>false</skipTests>
+                <forkCount>0.75C</forkCount>
+                <jvm>./src/testFast.surefire.sh</jvm>
+                <swtbot.delay>0</swtbot.delay>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${mavensurefireplugin.version}</version>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <ciBuild>true</ciBuild>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

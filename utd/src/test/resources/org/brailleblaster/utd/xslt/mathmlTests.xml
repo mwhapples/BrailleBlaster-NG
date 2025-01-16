@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE XSLT_TEST [
+	<!ENTITY begin "&#xf330;">
+	<!ENTITY separator "&#xf331;">
+	<!ENTITY end "&#xf332;">
+	<!ENTITY begin-math "&#xf32e;">
+	<!ENTITY end-math "&#xf32f;">
+	<!ENTITY begin-subscript "&begin;&#xf320;">
+	<!ENTITY subscript-separator "&#xf320;">
+	<!ENTITY end-subscript "&end;&#xf320;">
+	<!ENTITY begin-superscript "&begin;&#xf321;">
+	<!ENTITY superscript-separator "&#xf321;">
+	<!ENTITY end-superscript "&end;&#xf321;">
+	<!ENTITY begin-subsuperscript "&begin;&#xf320;">
+	<!ENTITY end-subsuperscript "&end;&#xf321;">
+	<!ENTITY begin-underscript "&begin;&#xf322;">
+	<!ENTITY underscript-separator "&#xf322;">
+	<!ENTITY end-underscript "&end;&#xf322;">
+	<!ENTITY begin-overscript "&begin;&#xf323;">
+	<!ENTITY overscript-separator "&#xf323;">
+	<!ENTITY end-overscript "&end;&#xf323;">
+	<!ENTITY begin-underoverscript "&begin;&#xf322;">
+	<!ENTITY end-underoverscript "&end;&#xf323;">
+	<!ENTITY begin-expression "&#xf326;">
+	<!ENTITY end-expression "&#xf327;">
+	<!ENTITY begin-sqrt "&#xf32a;">
+	<!ENTITY end-sqrt "&#xf32b;">
+	<!ENTITY root-index "&#xf32c;">
+	<!ENTITY begin-root "&#xf32a;">
+	<!ENTITY root-separator "&separator;&begin-root;">
+	<!ENTITY end-root "&#xf32b;">
+	<!ENTITY begin-table "&#xf330;">
+	<!ENTITY end-table "&#xf331;">
+	<!ENTITY begin-row "&#xf332;">
+	<!ENTITY end-row "&#xf333;">
+	<!ENTITY begin-cell "&#xf334;">
+	<!ENTITY end-cell "&#xf335;">
+
+	<!ENTITY begin-fraction "&#xf500;">
+	<!ENTITY fraction-separator "&#xf501;">
+	<!ENTITY fraction-separator-bevelled "&#xf502;">
+	<!ENTITY end-fraction "&#xf503;">
+
+	<!ENTITY begin-mixed-fraction "&#xf504;">
+	<!ENTITY mixed-fraction-separator "&#xf505;">
+	<!ENTITY mixed-fraction-separator-bevelled "&#xf506;">
+	<!ENTITY end-mixed-fraction "&#xf507;">
+
+	<!ENTITY begin-complex-fraction "&#xf508;">
+	<!ENTITY complex-fraction-separator "&#xf509;">
+	<!ENTITY complex-fraction-separator-bevelled "&#xf50a;">
+	<!ENTITY end-complex-fraction "&#xf50b;">
+]>
+<tests xmlns:m="http://www.w3.org/1998/Math/MathML"
+	xsltResource="/org/brailleblaster/utd/xslt/mathml.xsl">
+	<test name="Insert begin and end math characters">
+		<input><m:math></m:math></input>
+		<expected>&begin-math;&end-math;</expected>
+	</test>
+	<test>
+		<input><m:mn>43</m:mn></input>
+		<expected>43</expected>
+	</test>
+	<test>
+		<input><m:mi>j</m:mi></input>
+		<expected>j</expected>
+	</test><!--
+	<test>
+		<input><m:mfrac><m:mn>1</m:mn><m:mn>4</m:mn></m:mfrac></input>
+		<expected>&begin-fraction;1&fraction-separator;4&end-fraction;</expected>
+	</test>
+	<test>
+		<input><m:mfenced><m:mn>1</m:mn></m:mfenced></input>
+		<expected>&begin;(1&end;)</expected>
+	</test>
+	<test>
+		<input><m:mfenced open="{" close="]"><m:mn>4</m:mn></m:mfenced></input>
+		<expected>&begin;{4&end;]</expected>
+	</test>
+	<test>
+		<input><m:mfenced separators="-."><m:mn>4</m:mn><m:mn>3</m:mn><m:mn>2</m:mn><m:mn>1</m:mn></m:mfenced></input>
+		<expected>&begin;(4&separator;-3&separator;.2&separator;.1&end;)</expected>
+	</test>
+	<test>
+		<input><m:mfenced><m:mn>1</m:mn><m:mn>2</m:mn><m:mn>3</m:mn><m:mn>4</m:mn></m:mfenced></input>
+		<expected>&begin;(1&separator;,2&separator;,3&separator;,4&end;)</expected>
+	</test>
+	<test>
+		<input><m:menclose><m:mi>x</m:mi><m:mo>+</m:mo><m:mn>2</m:mn></m:menclose></input>
+		<expected>x+2</expected>
+	</test>
+	<test>
+		<input><m:menclose notation="radical"><m:mi>x</m:mi><m:mo>+</m:mo><m:mn>2</m:mn></m:menclose></input>
+		<expected>&begin-sqrt;x+2&end-sqrt;</expected>
+	</test>-->
+	<test>
+		<input><m:merror/></input>
+		<expected></expected>
+	</test>
+	<test>
+		<input><m:mphantum/></input>
+		<expected></expected>
+	</test>
+	<test>
+		<input><m:annotation/></input>
+		<expected></expected>
+	</test>
+</tests>

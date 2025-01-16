@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<pageSettings>
+	<!-- Margin and Height based on liblouisutdml epub.cfg converted to metric -->
+    <!-- Use now sane defaults in PageSettings
+	<paperHeight>279.4</paperHeight>
+    <paperWidth>292.1</paperWidth>
+	<topMargin>12.7</topMargin>
+	<bottomMargin>12.7</bottomMargin>
+	<leftMargin>25.4</leftMargin>
+	<rightMargin>12.7</rightMargin>
+    <documentTitle>null</documentTitle>
+	<begPageNum>1</begPageNum>
+	<beginningPageNumber>1</beginningPageNumber>
+	<braillePageNumberAt>TOP_LEFT</braillePageNumberAt>
+	<braillePages>true</braillePages>
+	<continuePages>true</continuePages>
+	<interpoint>false</interpoint>
+	<pageNumberSeparateLine>true</pageNumberSeparateLine>
+	<printPageNumberAt>TOP_RIGHT</printPageNumberAt>
+	<printPageNumberRange>false</printPageNumberRange>
+	<printPages>true</printPages>-->
+</pageSettings>

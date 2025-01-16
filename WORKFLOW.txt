@@ -1,0 +1,85 @@
+BrailleBlaster stack
+====================
+
+Library stack
+
+# liblouis - generic string to braille text converter
+# jlouis - Java bindings for liblouis
+# UTD - Translates and formats XML documents into braille
+# BrailleBlaster - Editor for UTD/BBX documents
+
+Dependency library highlights
+
+* SWT - Eclipse SWT for cross-platform UI widgets
+* swtbot - Unit testing robot for SWT UI's
+* XOM - XML API powered by Xerces
+* slf4j/logback - Logging framework
+
+BrailleBlaster start - org.brailleblaster.Main
+==========================================================
+
+# Initializes BBBootstrap
+
+  * Initializes dependency libraries
+  * Locates and/or creates %appdata%/.brlblst or $HOME/.brlblst
+
+# Initializes BBIni - Stores global settings
+
+  * BBini.getPropertyFileManager() - Manages user_settings.properties
+
+# Creates WPManager "Word Processor Manager" - An instance of BrailleBlaster
+
+  * Creates SWT Shell with tabs
+  * Each tab is a Controller - Currently only Manager with Text/Braille/Style views
+  * Creates a Manager - Either opens the given file or the blank document template
+  * MenuManager - makes shell menu and toolbar based on configuration during BuildMenuEvent/BuildToolBarEvent
+
+# WPManager.start() - SWT UI event loop, ready for user input
+
+Brailleblaster opening a nimas/dtbook book: rough workflow
+==========================================================
+
+# Create a new Manager either from `new WPManager("file")` or opening a file
+# Manager initalizes modules - A listener for SimpleEvent's
+
+  * BuildMenuEvent/BuildToolBarEvent - Configure MenuManager before it flushes to shell
+  * XMLCaretEvent - New caret position based on XML position
+  * ModifyEvent - Dispatch when XML is updated
+
+# Manager.openDocument - Entry point when a manager is ready to open a file
+# ArchiverFactory.load - Open a file as a BBX file, converting if necessary
+
+  * ArchiveLoader - Uses BookToBBXConvert on input and makes a BBX/BBZArchive
+  * BBX/BBZArchive - Manages access and saving to file
+
+# BookToBBXConverter - Converts XML documents into BBX documents
+
+  * ParserMap - Generates a BBX document from source document
+
+    * nimas.parserMap.xml - Convert nimas/dtbook elements into BBX elements
+
+  * FixerMap - Optimizes, cleans up, and simplifies BBX document
+  * Validator - Makes sure BBX Document is sane
+
+# Manager.initalizeAllViews - The main entry point, translates document and creates views by calling all below methods
+# UTDTranslationEngine.translateDocument - Translates text to Braille in document using jlouis/liblouis and generates <utd:brl> elements
+
+  * ActionMap - Maps elements to a form of GenericAction or GenericBlockAction
+  * GenericBlockAction represents a single block of text and its elements and attributes
+
+# UTDTranslationEngine.format - Formats translated Braille into Braille pages
+
+  * StyleMap - Describes Braille formatting rules of an element
+
+    * bbx.styleMap.xml - Formatting rules currently based on BANA Braille Formats, Principles of Print-to-Braille Transcription, $year
+
+    * OverrideMap and BBXOptionStyleMap - Returns styles for user-selected styles or options of elements
+    * BBXStyleMap - Returns styles for BBX element-defined styles
+
+# Creates Views from UTD Document
+
+  * NimasInitializer.initializeViews - Makes initial MapList MapElements from UTD document
+  * ViewInitializer.setViews - Uses TextRenderer and BrailleRenderer to layout text and finish MapElement init
+  * *Renderer.finishRendering - Writes text and StyledText config
+
+* Manager.initalizeListeners - Adds all SWT listeners to the views

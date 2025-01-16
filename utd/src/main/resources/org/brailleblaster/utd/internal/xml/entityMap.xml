@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE entities PUBLIC "-//utd//DTD Entity Map 1.0//EN" "entity-map.dtd" >
+<entities>
+  <jarEntity publicId="-//NISO//DTD dtbook 2005-2//EN" resourceName="/org/brailleblaster/utd/entitystore/dtbook-2005-2.dtd" systemId="http://www.daisy.org/z3986/2005/dtbook-2005-2.dtd"/>
+  <jarEntity systemId="http://www.daisy.org/z3986/2005/dtbook-2005-3.dtd" resourceName="/org/brailleblaster/utd/entitystore/dtbook-2005-3.dtd" publicId="-//NISO//DTD dtbook 2005-3//EN"/>
+  <jarEntity systemId="mathml2.dtd" resourceName="/org/brailleblaster/utd/entitystore/mathml2.dtd" publicId="-//W3C//DTD MathML 2.0//EN"/>
+  <jarEntity resourceName="/org/brailleblaster/utd/entitystore/mathml2-qname-1.mod" systemId="mathml2-qname-1.mod" publicId="-//W3C//ENTITIES MathML 2.0 Qualified Names 1.0//EN"/>
+  <jarEntity systemId="mathml/mmlextra.ent" resourceName="/org/brailleblaster/utd/entitystore/mmlextra.ent" publicId="-//W3C//ENTITIES Extra for MathML 2.0//EN"/>
+  <jarEntity systemId="mathml/mmlalias.ent" resourceName="/org/brailleblaster/utd/entitystore/mmlalias.ent" publicId="-//W3C//ENTITIES Aliases for MathML 2.0//EN"/>
+  <jarEntity systemId="iso9573-13/isotech.ent" resourceName="/org/brailleblaster/utd/entitystore/isotech.ent" publicId="-//W3C//ENTITIES General Technical for MathML 2.0//EN"/>
+  <jarEntity publicId="-//W3C//ENTITIES Math Alphabets: Script for MathML 2.0//EN" systemId="iso9573-13/isomscr.ent" resourceName="/org/brailleblaster/utd/entitystore/isomscr.ent"/>
+  <jarEntity publicId="-//W3C//ENTITIES Math Alphabets: Open Face for MathML 2.0//EN" systemId="iso9573-13/isomopf.ent" resourceName="/org/brailleblaster/utd/entitystore/isomopf.ent"/>
+  <jarEntity publicId="-//W3C//ENTITIES Math Alphabets: Fraktur for MathML 2.0//EN" systemId="iso9573-13/isomfrk.ent" resourceName="/org/brailleblaster/utd/entitystore/isomfrk.ent"/>
+			<jarEntity publicId="-//W3C//ENTITIES Greek Symbols for MathML 2.0//EN" systemId="iso9573-13/isogrk3.ent" resourceName="/org/brailleblaster/utd/entitystore/isogrk3.ent"/>
+			<jarEntity publicId="-//W3C//ENTITIES Added Math Symbols: Relations for MathML 2.0//EN" systemId="iso9573-13/isoamsr.ent" resourceName="/org/brailleblaster/utd/entitystore/isoamsr.ent"/>
+			<jarEntity publicId="-//W3C//ENTITIES Added Math Symbols: Ordinary for MathML 2.0//EN" systemId="iso9573-13/isoamso.ent" resourceName="/org/brailleblaster/utd/entitystore/isoamso.ent"/>
+			<jarEntity publicId="-//W3C//ENTITIES Added Math Symbols: Negated Relations for MathML 2.0//EN" systemId="iso9573-13/isoamsn.ent" resourceName="/org/brailleblaster/utd/entitystore/isoamsn.ent"/>
+			<jarEntity publicId="-//W3C//ENTITIES Added Math Symbols: Delimiters for MathML 2.0//EN" systemId="iso9573-13/isoamsc.ent" resourceName="/org/brailleblaster/utd/entitystore/isoamsc.ent"/>
+			<jarEntity publicId="-//W3C//ENTITIES Added Math Symbols: Binary Operators for MathML 2.0//EN" systemId="iso9573-13/isoamsb.ent" resourceName="/org/brailleblaster/utd/entitystore/isoamsb.ent"/>
+			<jarEntity publicId="-//W3C//ENTITIES Added Math Symbols: Arrow Relations for MathML 2.0//EN" systemId="iso9573-13/isoamsa.ent" resourceName="/org/brailleblaster/utd/entitystore/isoamsa.ent"/>
+			<jarEntity publicId="-//W3C//ENTITIES Box and Line Drawing for MathML 2.0//EN" systemId="iso8879/isobox.ent" resourceName="/org/brailleblaster/utd/entitystore/isobox.ent"/>
+			<jarEntity publicId="-//W3C//ENTITIES Russian Cyrillic for MathML 2.0//EN" systemId="iso8879/isocyr1.ent" resourceName="/org/brailleblaster/utd/entitystore/isocyr1.ent"/>
+			<jarEntity publicId="-//W3C//ENTITIES Non-Russian Cyrillic for MathML 2.0//EN" systemId="iso8879/isocyr2.ent" resourceName="/org/brailleblaster/utd/entitystore/isocyr2.ent"/>
+			<jarEntity publicId="-//W3C//ENTITIES Diacritical Marks for MathML 2.0//EN" systemId="iso8879/isodia.ent" resourceName="/org/brailleblaster/utd/entitystore/isodia.ent"/>
+			<jarEntity publicId="-//W3C//ENTITIES Added Latin 1 for MathML 2.0//EN" systemId="iso8879/isolat1.ent" resourceName="/org/brailleblaster/utd/entitystore/isolat1.ent"/>
+			<jarEntity publicId="-//W3C//ENTITIES Added Latin 2 for MathML 2.0//EN" systemId="iso8879/isolat2.ent" resourceName="/org/brailleblaster/utd/entitystore/isolat2.ent"/>
+			<jarEntity publicId="-//W3C//ENTITIES Numeric and Special Graphic for MathML 2.0//EN" systemId="iso8879/isonum.ent" resourceName="/org/brailleblaster/utd/entitystore/isonum.ent"/>
+			<jarEntity publicId="-//W3C//ENTITIES Publishing for MathML 2.0//EN" systemId="iso8879/isopub.ent" resourceName="/org/brailleblaster/utd/entitystore/isopub.ent"/>
+			<jarEntity publicId="-//W3C//DTD XHTML 1.1//EN" systemId="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" resourceName="/org/brailleblaster/utd/entitystore/xhtml11.dtd"/>
+			<jarEntity publicId="-//W3C//ENTITIES XHTML 1.1 Document Model 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml11-model-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml11-model-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Text 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-text-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-text-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Tables 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-table-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-table-1.mod"/>
+			<jarEntity publicId="-//W3C//ENTITIES Symbols for XHTML//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-symbol.ent" resourceName="/org/brailleblaster/utd/entitystore/xhtml-symbol.ent"/>
+			<jarEntity publicId="-//W3C//DTD XHTML Style Sheets 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-style-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-style-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Document Structure 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-struct-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-struct-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Server-side Image Maps 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-ssismap-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-ssismap-1.mod"/>
+			<jarEntity publicId="-//W3C//ENTITIES Special for XHTML//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-special.ent" resourceName="/org/brailleblaster/utd/entitystore/xhtml-special.ent"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Scripting 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-script-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-script-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Ruby 1.0//EN" systemId="http://www.w3.org/TR/ruby/xhtml-ruby-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-ruby-1.mod"/>
+			<jarEntity publicId="-//W3C//ENTITIES XHTML Qualified Names 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-qname-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-qname-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Presentation 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-pres-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-pres-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Param Element 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-param-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-param-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Embedded Object 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-object-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-object-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Metainformation 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-meta-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-meta-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Lists 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-list-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-list-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Link Element 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-link-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-link-1.mod"/>
+			<jarEntity publicId="-//W3C//ENTITIES Latin 1 for XHTML//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-lat1.ent" resourceName="/org/brailleblaster/utd/entitystore/xhtml-lat1.ent"/>
+			<jarEntity publicId="-//W3C//ENTITIES XHTML Inline Style 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-inlstyle-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-inlstyle-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Inline Structural 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-inlstruct-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-inlstruct-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Inline Presentation 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-inlpres-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-inlpres-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Inline Phrasal 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-inlphras-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-inlphras-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Images 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-image-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-image-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Hypertext 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-hypertext-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-hypertext-1.mod"/>
+			<jarEntity publicId="-//W3C//ENTITIES XHTML Modular Framework 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-framework-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-framework-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Forms 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-form-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-form-1.mod"/>
+			<jarEntity publicId="-//W3C//ENTITIES XHTML Intrinsic Events 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-events-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-events-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Editing Markup 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-edit-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-edit-1.mod"/>
+			<jarEntity publicId="-//W3C//ENTITIES XHTML Datatypes 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-datatypes-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-datatypes-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Client-side Image Maps 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-csismap-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-csismap-1.mod"/>
+			<jarEntity publicId="-//W3C//ENTITIES XHTML Character Entities 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-charent-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-charent-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Block Structural 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-blkstruct-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-blkstruct-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Block Presentation 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-blkpres-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-blkpres-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Block Phrasal 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-blkphras-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-blkphras-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML BDO Element 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-bdo-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-bdo-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Base Element 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-base-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-base-1.mod"/>
+			<jarEntity publicId="-//W3C//ENTITIES XHTML Common Attributes 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-attribs-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-attribs-1.mod"/>
+			<jarEntity publicId="-//W3C//DTD XHTML Basic 1.1//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-basic11.dtd" resourceName="/org/brailleblaster/utd/entitystore/xhtml-basic11.dtd"/>
+			<jarEntity publicId="-//W3C//ENTITIES XHTML Basic 1.1 Document Model 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-basic11-model-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-basic11-model-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Basic Tables 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-basic-table-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-basic-table-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Inputmode 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-inputmode-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-inputmode-1.mod"/>
+			<jarEntity publicId="-//W3C//ELEMENTS XHTML Target 1.0//EN" systemId="http://www.w3.org/MarkUp/DTD/xhtml-target-1.mod" resourceName="/org/brailleblaster/utd/entitystore/xhtml-target-1.mod"/>
+			<!-- mathml 3.0 -->
+			<jarEntity publicId="-//W3C//DTD MathML 3.0//EN" systemId="http://www.w3.org/Math/DTD/mathml3/mathml3.dtd" resourceName="/org/brailleblaster/utd/entitystore/mathml3.dtd"/>
+			<jarEntity publicId="-//W3C//ENTITIES MathML 3.0 Qualified Names 1.0//EN" systemId="http://www.w3.org/Math/DTD/mathml3/mathml3-qname.mod" resourceName="/org/brailleblaster/utd/entitystore/mathml3-qname.mod"/>
+			<jarEntity publicId="-//W3C//ENTITIES HTML MathML Set//EN//XML" systemId="http://www.w3.org/Math/DTD/mathml3/htmlmathml-f.ent" resourceName="/org/brailleblaster/utd/entitystore/htmlmathml-f.ent"/>
+			<!-- opf files in nimas and epub -->
+			<jarEntity publicId="+//ISBN 0-9673008-1-9//DTD OEB 1.0.1 Package//EN" systemId="http://www.idpf.org/dtds/oeb-1.0.1/oebpkg101.dtd" resourceName="/org/brailleblaster/utd/entitystore/oebpkg101.dtd"/>
+			<jarEntity publicId="+//ISBN 0-9673008-1-9//DTD OEB 1.0 Entities//EN" systemId="http://openebook.org/dtds/oeb-1.2/oeb1.ent" resourceName="/org/brailleblaster/utd/entitystore/oeb1.ent"/>
+			<jarEntity publicId="+//ISBN 0-9673008-1-9//DTD OEB 1.2 Package//EN" systemId="http://openebook.org/dtds/oeb-1.2/oebpkg12.dtd" resourceName="/org/brailleblaster/utd/entitystore/oebpkg12.dtd"/>
+			<jarEntity publicId="+//ISBN 0-9673008-1-9//DTD OEB 1.2 Entities//EN" systemId="http://openebook.org/dtds/oeb-1.2/oeb12.ent" resourceName="/org/brailleblaster/utd/entitystore/oeb12.ent"/>
+			<!-- other old dtbook -->
+			<jarEntity publicId="-//NISO/DTD dtbook v1.1.0//EN" systemId="http://www.loc.gov/nls/z3986/v100/dtbook110.dtd" resourceName="/org/brailleblaster/utd/entitystore/dtbook110.dtd"/>
+			<jarEntity publicId="-//NISO//DTD dtbook 2005-1//EN" systemId="http://www.daisy.org/z3986/2005/dtbook-2005-1.dtd" resourceName="/org/brailleblaster/utd/entitystore/dtbook-2005-1.dtd"/>
+</entities>

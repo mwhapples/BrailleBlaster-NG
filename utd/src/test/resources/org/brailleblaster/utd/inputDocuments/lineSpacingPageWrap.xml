@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html>
+	<body>
+		<doubleLine>
+			<p>Here is a paragraph with enough text to show line wrapping. With double line spacing it should start on line 1 and when wrapping should leave a blank line between lines of Braille. In this file the intention is to write sufficient text so that in addition to the line wrapping we will also have a situation where the text will spill over onto the next page. This amount of text will allow us to test whether double line spacing is resulting in the text being placed on the correct line when page wrapping occurs. This test is only testing the case where there is no running head, we will have separate test cases for those situations as ensuring that occurs will be another iteration of development. More text is still needed, so just text to make things even longer, bla, bla, bla. More text still to come here but not starting a new paragraph as multiple paragraphs is another text altogether.</p>
+		</doubleLine>
+	</body>
+</html>

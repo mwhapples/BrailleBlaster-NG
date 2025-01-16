@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!--This breaks in the Eclipse console-->
+        <!--<withJansi>true</withJansi>-->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern> <!--  %caller{1}-->
+        </encoder>
+    </appender>
+    <logger name="org.brailleblaster.utd.FormatSelector" level="${loglevel:-DEBUG}"/>
+    <root level="${loglevel:-INFO}">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<html>
+  <body>
+    <h1>A heading<brl>,a h1d+</brl></h1>
+    <p>Some text in a paragraph.<brl>,s text 9 p&gt;agraph</brl></p>
+    <math><mi>b</mi></math><brl>;b</brl>
+    <a href="otherfile.html"><img src="someimage.jpg"/></a>
+  </body>
+</html>

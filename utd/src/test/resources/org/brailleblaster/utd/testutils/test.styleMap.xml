@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<styleMap>
+    <namespaces>
+        <namespace prefix="xhtml" uri="http://www.w3.org/555555/xhtml"/>
+    </namespaces>
+    <entry>
+        <matcher expression="//p" type="org.brailleblaster.utd.matchers.XPathMatcher"/>
+        <styleName>test</styleName>
+    </entry>
+</styleMap>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionMap>
+	<namespaces>
+		<namespace prefix="utd" uri="http://brailleblaster.org/ns/utd" />
+		<namespace prefix="bb" uri="http://brailleblaster.org/ns/bb" />
+	</namespaces>
+	<!-- ignore head -->
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
+			nodeName="head" />
+		<action type="org.brailleblaster.utd.actions.SkipAction" />
+	</entry>
+
+	<!-- POETRY AND PROSE-->
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
+			<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+				selfAttribName="linenum" />
+			<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
+				<matcher type="org.brailleblaster.utd.matchers.NotMatcher">
+				<matcher selfAttribName="type" selfAttribValue="prose"
+					type="org.brailleblaster.utd.matchers.NodeAttributeMatcher" />
+				</matcher>
+				<matcher type="org.brailleblaster.utd.matchers.NotMatcher">
+					<matcher selfAttribName="class" selfAttribValue="manualLine"
+						type="org.brailleblaster.utd.matchers.NodeAttributeMatcher" />
+				</matcher>
+			</matcher>
+		</matcher>
+		<action type="org.brailleblaster.utd.actions.RemoveLineAttributeAction" />
+	</entry>
+	<entry>
+		<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+			spanType="POEM_LINE_NUMBER" />
+		<action type="org.brailleblaster.utd.actions.MoveSiblingAction" />
+	</entry>
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
+			<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher" 
+					selfAttribName="class" selfAttribValue="linenum"/>
+			<matcher type="org.brailleblaster.utd.matchers.NotMatcher">
+				<matcher selfAttribName="type" selfAttribValue="prose"
+					type="org.brailleblaster.utd.matchers.NodeAttributeMatcher" />
+			</matcher>
+		</matcher>
+		<action type="org.brailleblaster.utd.actions.LinenumAction"/>
+	</entry>
+
+	<!-- GLOSSARY -->
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.OrMatcher">
+			<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+				spanType="DEFINITION_TERM" />
+			<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+				spanType="GUIDEWORD" />
+				<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
+					<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+					spanType="OTHER"/> 
+					<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+					selfAttribName="type" selfAttribValue="pronunciation"/>
+				</matcher>
+		</matcher>
+		<action type="org.brailleblaster.utd.actions.DDTagAction" />
+	</entry>
+	<!-- TOC page numbers should be translated separately -->
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
+			<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+			spanType="OTHER"/>
+			<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+			selfAttribNamespace="utd"
+			selfAttribName="toc-type"
+			selfAttribValue="page"/>
+		</matcher>
+		<action type="org.brailleblaster.utd.actions.GenericBlockAction"/>
+	</entry>
+
+	<!-- basic bbx -->
+	
+	<entry>
+		<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+			inlineType="EMPHASIS" />
+		<action type="org.brailleblaster.bbx.utd.BBXEmphasisAction" />
+	</entry>
+	<!-- Generic CoreType's must be last so others can override -->
+	
+	<entry>
+		<!--<matcher type="org.brailleblaster.utd.matchers.OrMatcher">-->
+			<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+				spanType="PAGE_NUM" />
+<!--			<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+				blockType="PAGE_NUM" />-->
+		<!--</matcher>-->
+		<action type="org.brailleblaster.utd.actions.PageAction" />
+	</entry>
+	<entry>
+			<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+				blockType="PAGE_NUM" />
+		<action type="org.brailleblaster.utd.actions.PageAction" />
+	</entry>
+	<entry>
+		<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+			coreType="BLOCK" />
+		<action type="org.brailleblaster.utd.actions.GenericBlockAction" />
+	</entry>
+	<entry>
+		<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+			containerType="TABLE" />
+		<action type="org.brailleblaster.utd.actions.TranslateTableAction" />
+	</entry>
+	<entry>
+		<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher" 
+				 spanType="TAB"
+		/>
+		<action type="org.brailleblaster.utd.actions.TabAction" />
+	</entry>
+	<entry>
+		<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher" 
+				 inlineType="LINE_BREAK"
+		/>
+		<action type="org.brailleblaster.utd.actions.LineBreakAction" />
+	</entry>
+	
+	
+</actionMap>

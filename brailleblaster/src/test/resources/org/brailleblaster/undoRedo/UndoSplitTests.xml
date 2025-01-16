@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?><?xml-stylesheet href="dtbookbasic.css" type="text/css"?><!DOCTYPE dtbook PUBLIC '-//NISO//DTD dtbook 2005-3//EN' 'http://www.daisy.org/z3986/2005/dtbook-2005-3.dtd' >
+<dtbook xmlns:m="http://www.w3.org/1998/Math/MathML"><book>
+<level1>
+<p>First par<strong>agraph</strong> on page 1</p><p>Second Paragraph on Page</p><p><strong>Bold1 </strong><strong>Bold2</strong></p><p>Third paragraph</p>
+</level1>
+</book></dtbook>
+

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="dtbookbasic.css" type="text/css"?>
+<!DOCTYPE dtbook PUBLIC "-//NISO//DTD dtbook 2005-3//EN" "http://www.daisy.org/z3986/2005/dtbook-2005-3.dtd">
+<dtbook version="2005-3" xmlns="http://www.daisy.org/z3986/2005/dtbook/">
+	<book>
+		<frontmatter>
+			<level1>
+				 <list utdgenerated="true">
+                    <li>
+                        <h1>
+                            <tocTitleNoPage>Contents</tocTitleNoPage>
+                        </h1>
+                        <lic class="toc-page">
+                            <dots/>
+                        </lic>
+                    </li>
+                    <list>
+                        <li>
+                            <h2>
+                                <tocTitleNoPage> INTRODUCTORY UNIT ALL
+                                    THE WAY TO THE</tocTitleNoPage>
+                            </h2>
+                            <lic class="toc-page">
+                                <dots/>
+                            </lic>
+                        </li>
+                    </list>
+                    <li>
+                        <h1>
+                            <p>▪ 
+                                <strong>Building Academic Vocabulary</strong>
+                            </p>
+                        </h1>
+                        <lic class="toc-page">
+                            <dots/>xlvi
+                        </lic>
+                    </li>
+                    <li>
+                        <lic class="toc-title">
+                            <p>
+                                <strong>General Academic Vocabulary</strong>
+                            </p>
+                        </lic>
+                        <lic class="toc-page">
+                            <dots/>xlvi
+                        </lic>
+                    </li>
+                    <list>
+                        <li>
+                            <lic class="toc-title">
+                                <p>
+                                    <strong>Domain Specific Vocabulary</strong>
+                                </p>
+                            </lic>
+                            <lic class="toc-page">
+                                <dots/>li
+                            </lic>
+                        </li>
+                        <li>
+                            <lic class="toc-title">
+                                <p>▪ 
+                                    <strong>Writing an Objective Summary</strong>
+                                </p>
+                            </lic>
+                            <lic class="toc-page">
+                                <dots/>lvi
+                            </lic>
+                        </li>
+                        <list>
+                            <li>
+                                <lic class="toc-title">
+                                    <p>
+                                        <strong>MODEL: Summary of “Ribbons”
+                                        by Laurence Yep</strong>
+                                    </p>
+                                </lic>
+                                <lic class="toc-page">
+                                    <dots/>lvii
+                                </lic>
+                            </li>
+                        </list>
+                    </list>
+				</list>
+			</level1>
+		</frontmatter>
+	</book>
+</dtbook>
