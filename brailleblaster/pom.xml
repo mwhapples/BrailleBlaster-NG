@@ -302,6 +302,7 @@
                 </executions>
                 <configuration>
                     <url>https://aphassets.blob.core.windows.net/brailleblaster/dependencies/pandoc-3_1.zip</url>
+                    <sha256>da0d6c204aa80d010d5e20c4f41b88a7d55f7359d81d77c54d8cb8ca6f0f7dd2</sha256>
                     <unpack>true</unpack>
                     <outputDirectory>dist/programData/pandoc</outputDirectory>
                 </configuration>
