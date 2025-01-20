@@ -28,7 +28,6 @@ import org.brailleblaster.utd.*
 import org.brailleblaster.utd.Style.StyleOption
 import org.brailleblaster.utd.config.DocumentUTDConfig
 import org.brailleblaster.utd.config.UTDConfig
-import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.matchers.INodeMatcher
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.xom.childNodes

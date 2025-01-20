@@ -16,7 +16,6 @@
 package org.brailleblaster.utd.utils
 
 import java.io.*
-import kotlin.Throws
 import java.nio.charset.StandardCharsets
 
 object MoreFileUtils {

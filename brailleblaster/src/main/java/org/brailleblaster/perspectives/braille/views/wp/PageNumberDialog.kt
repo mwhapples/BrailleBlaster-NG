@@ -144,22 +144,22 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolListe
                 if (ppIndicator != null) {
                     val ppiContainer = makeGroup(
                         container,
-                        "Change Previous Print Page Indicator from " + ppIndicator!!.getChild(0).value, Companion.MAX_COLUMNS
+                        "Change Previous Print Page Indicator from " + ppIndicator!!.getChild(0).value, MAX_COLUMNS
                     )
                     insertTextBoxWithPrintPage(ppiContainer)
-                    EasySWT.makePushButton(ppiContainer, "Direct", Companion.BUTTON_WIDTH, 1) {
+                    EasySWT.makePushButton(ppiContainer, "Direct", BUTTON_WIDTH, 1) {
                         // Add attribute to the block that indicates it needs to be
                         // direct translated
                         wrapTextInEmphasis(BBX.INLINE.EMPHASIS.create(EmphasisType.NO_TRANSLATE), ppiText!!.text)
                         manager!!.simpleManager.dispatchEvent(ModifyEvent(Sender.NO_SENDER, true, ppIndicator!!.parent))
                     }
-                    EasySWT.makePushButton(ppiContainer, "Uncontracted", Companion.BUTTON_WIDTH, 1) {
+                    EasySWT.makePushButton(ppiContainer, "Uncontracted", BUTTON_WIDTH, 1) {
                         wrapTextInEmphasis(BBX.INLINE.EMPHASIS.create(EmphasisType.NO_CONTRACT), ppiText!!.text)
                         manager!!.simpleManager.dispatchEvent(ModifyEvent(Sender.NO_SENDER, true, ppIndicator!!.parent))
                     }
                     EasyListeners.keyReleased(ppiText!!.text) { populateCombinedAndImpliedText() }
-                    val radioGroup = makeGroup(ppiContainer, "Runover Page Numbers", Companion.MAX_COLUMNS)
-                    EasySWT.buildGridData().setColumns(Companion.MAX_COLUMNS).applyTo(radioGroup)
+                    val radioGroup = makeGroup(ppiContainer, "Runover Page Numbers", MAX_COLUMNS)
+                    EasySWT.buildGridData().setColumns(MAX_COLUMNS).applyTo(radioGroup)
                     createPushButtonForCombined(radioGroup)
                     createPushButtonForImplied(radioGroup)
                     if (ppIndicator!!.getAttribute("utd-pnOverride") != null) {
@@ -173,7 +173,7 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolListe
                     val deletePageButton = EasySWT.makePushButton(
                         ppiContainer,
                         "Delete Indicator",
-                        Companion.BUTTON_WIDTH,
+                        BUTTON_WIDTH,
                         1
                     ) {
                         ppiText!!.text.text = ""
@@ -196,7 +196,7 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolListe
                  this.swtOptions = SWT.RADIO
                     this.text = "Combined"
                 }.build().apply {
-                    EasySWT.buildGridData().setColumns(Companion.MAX_COLUMNS).setAlign(SWT.FILL, SWT.CENTER).setGrabSpace(
+                    EasySWT.buildGridData().setColumns(MAX_COLUMNS).setAlign(SWT.FILL, SWT.CENTER).setGrabSpace(
                         horizontally = true,
                         vertically = false
                     )
@@ -211,7 +211,7 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolListe
                     this.swtOptions = SWT.RADIO
                     this.text = "Implied"
                 }.build().apply {
-                    EasySWT.buildGridData().setColumns(Companion.MAX_COLUMNS).setAlign(SWT.FILL, SWT.CENTER).setGrabSpace(
+                    EasySWT.buildGridData().setColumns(MAX_COLUMNS).setAlign(SWT.FILL, SWT.CENTER).setGrabSpace(
                         horizontally = true,
                         vertically = false
                     )
@@ -281,7 +281,7 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolListe
                 val printPageContainer = makeGroup(
                     container, "Change Print Page Number from "
                             + if (startingContLetter == null) startingPPN else startingContLetter + startingPPN,
-                    Companion.MAX_COLUMNS
+                    MAX_COLUMNS
                 )
                 // ppnCombine =
                 // EasySWT.buildPushButton(printPageContainer).setSWTOptions(SWT.CHECK).setText("Combine
@@ -293,10 +293,10 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolListe
                 // });
                 EasySWT.makeLabel(printPageContainer, "Continuation Letter:", 1)
                 ppnContinuationText =
-                    EasySWT.makeText(printPageContainer, Companion.SMALL_BOX_WIDTH, 1) { changeNumbers() }
+                    EasySWT.makeText(printPageContainer, SMALL_BOX_WIDTH, 1) { changeNumbers() }
                 EasySWT.makeLabel(printPageContainer, "Page Number:", 1)
-                ppnText = EasySWT.makeText(printPageContainer, Companion.LARGE_BOX_WIDTH, 1) { changeNumbers() }
-                EasySWT.makePushButton(printPageContainer, "Delete Page", Companion.BUTTON_WIDTH, 1) {
+                ppnText = EasySWT.makeText(printPageContainer, LARGE_BOX_WIDTH, 1) { changeNumbers() }
+                EasySWT.makePushButton(printPageContainer, "Delete Page", BUTTON_WIDTH, 1) {
                     markBlankPrintPageNumber(
                         manager!!.document.doc,
                         startingContLetter + startingPPN,
@@ -367,13 +367,13 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolListe
             private fun addBraillePageContainer(container: Composite) {
                 val braillePageContainer = makeGroup(
                     container, "Change Braille Page Number from $startingBPN",
-                    Companion.MAX_COLUMNS - 1
+                    MAX_COLUMNS - 1
                 )
                 EasySWT.makeLabel(braillePageContainer, "Page Number:", 1)
                 bpnText = EasySWT.makeText(
                     braillePageContainer,
-                    Companion.LARGE_BOX_WIDTH,
-                    Companion.MAX_COLUMNS - 2
+                    LARGE_BOX_WIDTH,
+                    MAX_COLUMNS - 2
                 ) { changeNumbers() }
             }
 
@@ -381,7 +381,7 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolListe
             private fun toggleRunningHeadContainer(container: Composite) {
                 val runHeadContainer = makeGroup(
                     container, "Running Head on page $startingBPN",
-                    Companion.MAX_COLUMNS - 1
+                    MAX_COLUMNS - 1
                 )
                 yesHead = Button(runHeadContainer, SWT.RADIO)
                 yesHead!!.text = "Yes"
@@ -410,7 +410,7 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolListe
             private fun toggleRunningHeadContainer(container: Composite) {
                 val runHeadContainer = makeGroup(
                     container, "Running Head on page $startingBPN",
-                    Companion.MAX_COLUMNS - 1
+                    MAX_COLUMNS - 1
                 )
                 yesHead = Button(runHeadContainer, SWT.RADIO)
                 yesHead!!.text = "Yes"
@@ -448,15 +448,15 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolListe
             makeSpace(buttonComp, 265, 0)
 
             val applyButton =
-                EasySWT.makePushButton(buttonComp, "Apply", Companion.BUTTON_WIDTH, 1)
+                EasySWT.makePushButton(buttonComp, "Apply", BUTTON_WIDTH, 1)
                 { changeNumbers() }
 
             Utils.addSwtBotKey(applyButton, SWTBOT_APPLY_BUTTON)
 
-            okButton = EasySWT.makePushButton(buttonComp, "Ok", Companion.BUTTON_WIDTH, 1)
+            okButton = EasySWT.makePushButton(buttonComp, "Ok", BUTTON_WIDTH, 1)
                 { changeAndClose() }.also { Utils.addSwtBotKey(it, SWTBOT_OK_BUTTON) }
 
-            EasySWT.makePushButton(buttonComp, "Cancel", Companion.BUTTON_WIDTH, 1)
+            EasySWT.makePushButton(buttonComp, "Cancel", BUTTON_WIDTH, 1)
                 { cancelPageChange() }
         }
 
@@ -610,7 +610,7 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolListe
         }
 
         private fun addVolumeLocation(parent: Composite) {
-            val volumeGroup = makeGroup(parent, "", Companion.MAX_COLUMNS - 2)
+            val volumeGroup = makeGroup(parent, "", MAX_COLUMNS - 2)
             EasySWT.makeLabel(volumeGroup, "Volume Location:", 1)
             val volumeList = getVolumeElements(manager!!.doc)
             //Find a way to set the current volume based on current brl
@@ -780,10 +780,10 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolListe
             val buttonComp = EasySWT.makeComposite(dialog, 4)
             makeSpace(buttonComp, 265, 0)
             deleteButton = EasySWT.makePushButton(
-                buttonComp, "Delete", Companion.BUTTON_WIDTH, 1
+                buttonComp, "Delete", BUTTON_WIDTH, 1
             ) { deleteMetaData() }.also { Utils.addSwtBotKey(it, SWTBOT_OK_BUTTON) }
             val okButton = EasySWT.makePushButton(
-                buttonComp, "OK", Companion.BUTTON_WIDTH, 1
+                buttonComp, "OK", BUTTON_WIDTH, 1
             ) {
                 refreshDocumentAndClose()
                 if (shell != null && !shell!!.isDisposed) {
@@ -794,7 +794,7 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolListe
             EasySWT.makePushButton(
                 buttonComp,
                 "Cancel",
-                Companion.BUTTON_WIDTH,
+                BUTTON_WIDTH,
                 1
             ) { cancelPageChangeList() }
         }

@@ -18,7 +18,6 @@ package org.brailleblaster.utd
 import org.brailleblaster.utd.properties.PageNumberType
 import org.brailleblaster.utd.utils.TextTranslator
 import java.util.*
-import kotlin.collections.HashMap
 
 /**
  * Immutable class to hold the information for tracking page numbering.

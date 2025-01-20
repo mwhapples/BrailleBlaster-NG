@@ -24,11 +24,13 @@ import org.brailleblaster.logging.preLog
 import org.brailleblaster.usage.*
 import org.brailleblaster.userHelp.VersionInfo
 import org.brailleblaster.utd.exceptions.NodeException
-import org.brailleblaster.util.*
+import org.brailleblaster.util.Notify
+import org.brailleblaster.util.NotifyUtils
+import org.brailleblaster.util.SoundManager
+import org.brailleblaster.util.WorkingDialog
 import org.brailleblaster.utils.braille.singleThreadedMathCAT
 import org.brailleblaster.wordprocessor.WPManager
 import org.slf4j.LoggerFactory
-import java.awt.*
 import java.io.File
 import java.net.URLClassLoader
 import java.nio.file.Path
@@ -37,7 +39,7 @@ import java.time.Duration
 import java.time.Instant
 import java.util.*
 import java.util.concurrent.TimeUnit
-import javax.swing.*
+import kotlin.Throws
 import kotlin.system.exitProcess
 
 /**

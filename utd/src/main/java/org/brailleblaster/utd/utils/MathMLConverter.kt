@@ -20,8 +20,6 @@ import nu.xom.Elements
 import nu.xom.Node
 import nu.xom.Text
 import org.slf4j.LoggerFactory
-import java.lang.Exception
-import java.lang.StringBuilder
 
 object MathMLConverter {
     private val log = LoggerFactory.getLogger(MathMLConverter::class.java)

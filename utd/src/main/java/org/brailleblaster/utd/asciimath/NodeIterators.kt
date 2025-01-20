@@ -17,7 +17,6 @@ package org.brailleblaster.utd.asciimath
 
 import nu.xom.Node
 import nu.xom.Nodes
-import java.util.NoSuchElementException
 import java.util.function.Predicate
 
 abstract class AbstractNodeIterator(private val p: Predicate<Node>) : Iterator<Node> {

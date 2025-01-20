@@ -19,9 +19,6 @@ import nu.xom.Attribute
 import nu.xom.Element
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utils.UnitConverter.Companion.newDecimalFormatUS
-import kotlin.jvm.JvmOverloads
-import java.lang.NumberFormatException
-import java.lang.RuntimeException
 import java.math.BigDecimal
 
 class MoveTo @JvmOverloads constructor(hPos: BigDecimal = BigDecimal.ZERO, vPos: BigDecimal = BigDecimal.ZERO) : Element(PROTOTYPE) {

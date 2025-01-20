@@ -242,7 +242,7 @@ class CheckUpdates(private val userInitiated: Boolean, private val display: Disp
                 }
                 return channel
             }
-            private set(channel) {
+            set(channel) {
                 BBIni.propertyFileManager.save(SETTING_RELEASE_CHANNEL, channel)
             }
     }

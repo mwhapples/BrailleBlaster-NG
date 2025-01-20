@@ -19,8 +19,6 @@ import nu.xom.Node
 import nu.xom.Nodes
 import nu.xom.ParentNode
 import java.io.Serializable
-import java.lang.RuntimeException
-import java.util.Comparator
 import kotlin.math.min
 
 /**
