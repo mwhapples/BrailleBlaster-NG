@@ -356,8 +356,7 @@ class Template : ISpatialMathContainer {
       }
       val template =
         XMLHandler.ancestorVisitorElement(currentElement.node) { node: Element? -> BBX.CONTAINER.TEMPLATE.isA(node) }
-          ?: return false
-      return true
+      return template != null
     }
 
     fun isTemplate(node: Node?): Boolean {

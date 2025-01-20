@@ -30,7 +30,7 @@ import kotlin.io.path.createFile
 import kotlin.io.path.exists
 import kotlin.io.path.Path
 
-class BBIniImpl(val bbDistPath: Path, val bbUserPath: Path, propManager: PropertyFileManager?, debugArgs: List<String>) {
+class BBIniImpl(val bbDistPath: Path, bbUserPath: Path, propManager: PropertyFileManager?, debugArgs: List<String>) {
     private val log: Logger = LoggerFactory.getLogger(javaClass)
     val nativeLibraryPath: Path = bbDistPath.resolve(Path("native", "lib"))
     val nativeLibrarySuffix = when(os) {

@@ -70,7 +70,7 @@ class InsertUnicode(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolListener 
 
     EasyListeners.verifyHexadecimal(entryText)
 
-    val insertButton = EasySWT.makePushButton(inputComp, BUTTON_NAME, 1)
+    EasySWT.makePushButton(inputComp, BUTTON_NAME, 1)
     {
       addUnicodeChar(convertUnicodeChar(entryText.text))
       entryText.text = ""

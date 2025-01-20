@@ -104,7 +104,6 @@ object ExceptionReportingModule /*implements SimpleListener*/ {
      * @return 3-state boolean: User said true, User said false, or User hasn't been asked yet (null)
      */
     fun isAutoUploadEnabledOrNull(): Boolean? {
-        val userSettings = BBIni.propertyFileManager
         // BBIni may not be initted yet
 
         val userSetting = BBIni.propertyFileManager.getProperty(USER_SETTING_AUTO_UPLOAD)

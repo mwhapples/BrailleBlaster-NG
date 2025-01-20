@@ -537,8 +537,8 @@ class NumberLine : ISpatialMathContainer {
             }
             val numberLine = XMLHandler.ancestorVisitorElement(
                 currentElement.node
-            ) { node: Element? -> BBX.CONTAINER.NUMBER_LINE.isA(node) } ?: return false
-            return true
+            ) { node: Element? -> BBX.CONTAINER.NUMBER_LINE.isA(node) }
+            return numberLine != null
         }
 
         @JvmStatic
