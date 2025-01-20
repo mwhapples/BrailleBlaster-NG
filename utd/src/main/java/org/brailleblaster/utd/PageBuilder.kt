@@ -4164,7 +4164,7 @@ class PageBuilder {
                 maxStr.append(brlOnlyArr[0])
                 maxStr.append(" ")
                 brlOnlyArr = if (brlOnlyArr.size > 1) {
-                    Arrays.copyOfRange(brlOnlyArr, 1, brlOnlyArr.size)
+                    brlOnlyArr.drop(1).toTypedArray()
                 } else {
                     null
                 }
