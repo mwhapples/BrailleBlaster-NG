@@ -159,7 +159,7 @@ class AutoFillSpecialSymbols(
                         val storedSymbol = symbolDatabase[symbolDatabase.indexOf(symbol)]
                         val newItem = TableItem(resultsTable, SWT.NONE)
                         val symbolName = storedSymbol.symbol
-                        val symbolDesc = if (storedSymbol.desc == null) "" else storedSymbol.desc
+                        val symbolDesc = storedSymbol.desc ?: ""
                         newItem.setText(
                             arrayOf(
                                 symbolName,

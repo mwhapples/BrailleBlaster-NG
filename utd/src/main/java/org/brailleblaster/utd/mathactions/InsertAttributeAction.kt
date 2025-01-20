@@ -25,9 +25,9 @@ class InsertAttributeAction private constructor() : InsertAction() {
     override fun hashCode(): Int {
         val prime = 31
         var result = super.hashCode()
-        result = prime * result + if (close == null) 0 else close.hashCode()
-        result = prime * result + if (open == null) 0 else open.hashCode()
-        result = prime * result + if (separators == null) 0 else separators.hashCode()
+        result = prime * result + (close?.hashCode() ?: 0)
+        result = prime * result + (open?.hashCode() ?: 0)
+        result = prime * result + (separators?.hashCode() ?: 0)
         return result
     }
 

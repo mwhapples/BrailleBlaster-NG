@@ -84,7 +84,7 @@ class NodeAncestorDelegatingMatcher : DelegatingMatcher() {
     override fun hashCode(): Int {
         val prime = 31
         var result = super.hashCode()
-        result = prime * result + (if ((position == null)) 0 else position.hashCode())
+        result = prime * result + (position?.hashCode() ?: 0)
         return result
     }
 

@@ -71,7 +71,7 @@ abstract class Formatter {
     protected fun setAlignmentOptions(pageBuilder: PageBuilder, style: IStyle) {
         pageBuilder.setLeftIndent(style.indent ?: 0).setRightIndent(style.lineLength ?: 0)
             .setFirstLineIndent(style.firstLineIndent).setSkipNumberLines(style.skipNumberLines)
-            .alignment = if (style.align != null) style.align else Align.LEFT
+            .alignment = style.align ?: Align.LEFT
     }
 
     protected fun addStartSeparator(node: Node?, pageBuilder: PageBuilder, style: IStyle): Set<PageBuilder> {

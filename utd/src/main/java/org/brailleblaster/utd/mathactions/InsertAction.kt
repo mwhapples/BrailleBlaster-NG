@@ -83,9 +83,9 @@ open class InsertAction : GenericAction() {
     override fun hashCode(): Int {
         val prime = 31
         var result = super.hashCode()
-        result = prime * result + if (midInsert == null) 0 else midInsert.hashCode()
-        result = prime * result + if (postInsert == null) 0 else postInsert.hashCode()
-        result = prime * result + if (preInsert == null) 0 else preInsert.hashCode()
+        result = prime * result + (midInsert?.hashCode() ?: 0)
+        result = prime * result + (postInsert?.hashCode() ?: 0)
+        result = prime * result + (preInsert?.hashCode() ?: 0)
         return result
     }
 

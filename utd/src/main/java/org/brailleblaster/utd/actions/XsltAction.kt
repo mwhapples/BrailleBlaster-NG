@@ -160,8 +160,8 @@ open class XsltAction @JvmOverloads constructor(@get:XmlAttribute var table: Bra
         val prime = 31
         var result = super.hashCode()
         result = prime * result + table.hashCode()
-        result = prime * result + if (xsltResource == null) 0 else xsltResource.hashCode()
-        result = prime * result + if (xsltUri == null) 0 else xsltUri.hashCode()
+        result = prime * result + (xsltResource?.hashCode() ?: 0)
+        result = prime * result + (xsltUri?.hashCode() ?: 0)
         return result
     }
 
