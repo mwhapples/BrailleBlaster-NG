@@ -27,6 +27,6 @@ class BraillePageBrlMapElement : PageNumberBrlMapElement {
 
     private fun setBraillePage(n: Node) {
         val t = n as Text
-        t.value = n.getValue()
+        t.value = n.value
     }
 }

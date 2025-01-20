@@ -192,7 +192,7 @@ class XMLDebugger(private val parent: Shell, private val simpleManager: BBSimple
             serial.indent = 4
         }
         //		serial.setMaxLength(100);
-        if (n is nu.xom.Text) n = n.getParent()
+        if (n is nu.xom.Text) n = n.parent
         if (n == null) return
         curNode = n
         activeDocument = Document(n.copy() as Element)

@@ -51,8 +51,8 @@ open class Initializer {
     private var readOnlyTableParent: Element? = null
 
     protected fun initializeViews(current: Node, m: Manager, index: Int) {
-        if (current is Text && !UTDElements.BRL.isA(current.getParent())
-            && vaildTextElement(current, current.getValue())
+        if (current is Text && !UTDElements.BRL.isA(current.parent)
+            && vaildTextElement(current, current.value)
         ) {
             if (inTable) {
                 addToTable(m, TableCellTextMapElement(current))

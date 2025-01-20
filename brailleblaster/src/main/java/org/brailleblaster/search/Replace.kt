@@ -161,7 +161,7 @@ class Replace {
         n = domCon.split(n, nodeStart, nodeEnd, selectionStart, selectionEnd)
       }
 
-      if (n is Text && n.getValue().isEmpty()) {
+      if (n is Text && n.value.isEmpty()) {
         n = BBXUtils.findBlock(n)
       }
 

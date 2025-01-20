@@ -33,7 +33,7 @@ class TemplateFraction(
     var numPadding = 0
     var denPadding = 0
 
-    var isMixed = whole?.toStringPart()?.isNotBlank() ?: false
+    var isMixed = whole?.toStringPart()?.isNotBlank() == true
     var isColumnHasMixed = false
 
     fun addToLine(line: Line): Line {

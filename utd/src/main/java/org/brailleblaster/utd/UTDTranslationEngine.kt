@@ -362,12 +362,12 @@ open class UTDTranslationEngine(
                         //If the node only contains a pilcrow, then it should not be printed on the page.
                         //This would only happen if you have an empty newPagePlaceholder on the page
                         //Which is not needed in the brf. Pilcrow translation is "~p"
-                        if (!((innerNode.getParent().parent as Element).getAttribute("newPagePlaceholder") != null && innerNode.getValue() == "~p")) {
+                        if (!((innerNode.parent.parent as Element).getAttribute("newPagePlaceholder") != null && innerNode.value == "~p")) {
                             //If the pilcrow, for some reason, appears on the last part of the text, do not print
-                            if (innerNode.getValue().contains("~p") && innerNode.getValue()
-                                    .lastIndexOf("~p") == innerNode.getValue().length - 2
+                            if (innerNode.value.contains("~p") && innerNode.value
+                                    .lastIndexOf("~p") == innerNode.value.length - 2
                             ) {
-                                grid.append(innerNode.getValue().split("~p".toRegex()).dropLastWhile { it.isEmpty() }
+                                grid.append(innerNode.value.split("~p".toRegex()).dropLastWhile { it.isEmpty() }
                                     .toTypedArray()[0])
                             } else {
                                 grid.append(innerNode.value)

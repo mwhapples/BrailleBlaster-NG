@@ -117,12 +117,12 @@ object ImageCreator {
 
     fun updateBrowser(browser: Browser?, mmlString: String) {
         if (mmlString.isEmpty()) {
-            browser!!.setText(HTML_HEAD + HTML_PLACEHOLDER + HTML_TAIL)
+            browser!!.text = HTML_HEAD + HTML_PLACEHOLDER + HTML_TAIL
         } else {
             val math = translateUseHTML(mmlString)
             val str = getHTMLString(math)
             if (browser != null && !browser.isDisposed) {
-                browser.setText(hTMLHead + str + HTML_TAIL)
+                browser.text = hTMLHead + str + HTML_TAIL
             }
         }
     }
@@ -161,11 +161,11 @@ object ImageCreator {
         browser.setSize(imageWidth, imageHeight)
         browser.javascriptEnabled = true
         if (mmlString.isEmpty()) {
-            browser.setText(HTML_HEAD + HTML_PLACEHOLDER + HTML_TAIL)
+            browser.text = HTML_HEAD + HTML_PLACEHOLDER + HTML_TAIL
         } else {
             val math = translateUseHTML(mmlString)
             val str = getHTMLString(math)
-            browser.setText(HTML_HEAD + str + HTML_TAIL)
+            browser.text = HTML_HEAD + str + HTML_TAIL
         }
         return browser
     }

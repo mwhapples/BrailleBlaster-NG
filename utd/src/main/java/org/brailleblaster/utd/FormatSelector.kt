@@ -84,7 +84,7 @@ class FormatSelector(styleMap: IStyleMap?, styleStack: StyleStack?, engine: ITra
                 }
             }
             // NOPMD Readability
-            node.getAttributeValue("class")?.contains("utd:table") ?: false
+            node.getAttributeValue("class")?.contains("utd:table") == true
         } else node !is Text
     }
 

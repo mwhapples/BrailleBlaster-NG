@@ -93,14 +93,14 @@ object UncontractedGlossary {
     private fun findFirstWord(node: Node) {
         if (node is Text) {
             val span = BBX.SPAN.OTHER.create()
-            val text = node.getValue()
+            val text = node.value
             val firstWord = text.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
             val remainingText = if (firstWord.length == text.length) "" else text.substring(firstWord.length + 1)
             span.appendChild(firstWord)
             guideWords.add(span)
 
             //Replace the value of the selected node to the span + the rest of the previous text
-            val parent = node.getParent() as Element
+            val parent = node.parent as Element
             parent.replaceChild(node, span)
             if (remainingText.isNotEmpty()) {
                 parent.appendChild(remainingText)

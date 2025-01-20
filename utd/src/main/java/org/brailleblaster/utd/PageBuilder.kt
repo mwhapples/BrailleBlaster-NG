@@ -840,7 +840,7 @@ class PageBuilder {
      */
     private fun insertCellsOnNewPage(newCells: List<Cell>, numberType: PageNumberType): PageBuilder {
         // MWhapples: This method probably needs to be tightened up to check that the Braille fits on the line it is inserted on.
-        val keepWithNext = keepWithNextList.size > 0
+        val keepWithNext = keepWithNextList.isNotEmpty()
         val newPB = startNewPage(numberType).last()
         if (keepWithNext && (newPB.isNumberLine && newPB.isEmptyNumberLine || !newPB.isEmptyLine)) { // NOPMD
             return newPB
@@ -1034,7 +1034,7 @@ class PageBuilder {
         if (keepWithNext || dontSplit) {
             keepWithNextList.add(PBStyle(this, brl))
             added = true
-        } else if (!keepWithNext && keepWithNextList.size > 0 && !keepWithNextList.last().dontSplit) {
+        } else if (!keepWithNext && keepWithNextList.isNotEmpty() && !keepWithNextList.last().dontSplit) {
             keepWithNextList.add(PBStyle(this, brl))
             keepWithNextList.last().isEndOfChain = true
             added = true
@@ -1079,7 +1079,7 @@ class PageBuilder {
             }
             curPage = pbs.last()
         }
-        if (added && keepWithNextList.size > 0) {
+        if (added && keepWithNextList.isNotEmpty()) {
             //Update the pageBuilder for the most recent item in the keepWithNext list
             keepWithNextList[keepWithNextList.size - 1].pageBuilder = pbs.last()
         }
@@ -1089,7 +1089,7 @@ class PageBuilder {
 
         // If a brl node is empty, make sure the return list contains this
         // PageBuilder
-        if (pbs.size == 0) pbs.add(this)
+        if (pbs.isEmpty()) pbs.add(this)
         return pbs
     }
 
@@ -1119,7 +1119,7 @@ class PageBuilder {
             }
             if (focus is Text) {
                 // Count up the spaces before any Braille dots
-                val strBrl = focus.getValue()
+                val strBrl = focus.value
                 for (element in strBrl) {
                     if (Character.isWhitespace(element) && element == '\u2800') {
                         numOfLeadingSpaces++
@@ -1144,7 +1144,7 @@ class PageBuilder {
             val child = brl.getChild(childNum)
             (child as? Element)?.detach()
                 ?: if (child is Text) {
-                    textBuffer.append(child.getValue())
+                    textBuffer.append(child.value)
                     child.detach()
                 } else {
                     if (textBuffer.isNotEmpty()) {
@@ -1772,7 +1772,7 @@ class PageBuilder {
      * Determine if Keep With Next will move any text to the next page
      */
     fun hasKeepWithNextQueued(): Boolean {
-        return keepWithNextList.size > 0
+        return keepWithNextList.isNotEmpty()
     }
     /**
      * Gets the x position of the PageBuilder's internal cursor
@@ -2250,7 +2250,7 @@ class PageBuilder {
 //			setNewLinesOverride(getNewLinesOverride() + 1);
 //			padded = true;
 //		}
-        val startOfKWN = keepWithNextList.size == 0
+        val startOfKWN = keepWithNextList.isEmpty()
         val results = processSpacing()
         var newPB = results.last()
 
@@ -2300,7 +2300,7 @@ class PageBuilder {
      * @return
      */
     fun insertEndSeparatorLine(sepString: String): Element {
-        if (keepWithNextList.size > 0 && "formatting" == keepWithNextList.last().brl.getAttributeValue("type")) keepWithNextList.clear()
+        if (keepWithNextList.isNotEmpty() && "formatting" == keepWithNextList.last().brl.getAttributeValue("type")) keepWithNextList.clear()
         val sepBrl = insertSeparatorLine(sepString, "")
         if (keepWithNext || dontSplit) {
             val newStyle = PBStyle(sepBrl)
@@ -3001,7 +3001,7 @@ class PageBuilder {
         // If you need more than one page for the entirety of the list, abandon Keep With Next
         var keepWithNextForNextPage = false
         if (pendingSpacing.pages > 0) {
-            if (keepWithNextList.size > 0
+            if (keepWithNextList.isNotEmpty()
                 && keepWithNextList[0].pageBuilder != keepWithNextList[keepWithNextList.size - 1].pageBuilder
             ) {
                 keepWithNextList.clear()
@@ -3009,7 +3009,7 @@ class PageBuilder {
                 keepWithNextForNextPage = true
             }
         }
-        if (keepWithNextList.size > 0) {
+        if (keepWithNextList.isNotEmpty()) {
             if (keepWithNextList.last().isEndOfChain
                 && containsBrl(keepWithNextList.last().brl)
                 && !keepWithNextList.last().dontSplit
@@ -3279,7 +3279,7 @@ class PageBuilder {
                     // TODO: Split a text node if appropriate
                     if (curBrlChild is Text && curCell.index > 0) {
                         position++
-                        val nodeStr = curBrlChild.getValue()
+                        val nodeStr = curBrlChild.value
                         val splitPoint = curCell.index
                         if (splitPoint < nodeStr.length) {
                             var cells: Iterable<Cell>
@@ -3416,7 +3416,7 @@ class PageBuilder {
                 li.remove()
             }
         }
-        if (formattingNodes.size > 0) {
+        if (formattingNodes.isNotEmpty()) {
             leftoverFormattingNodes.addAll(formattingNodes)
         }
         // Now do the adding of the newPage before the first moveTo

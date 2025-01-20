@@ -61,13 +61,13 @@ class NormaliserFactory : NodeFactory() {
             for (i in 0 until childCount) {
                 val child = element.getChild(i)
                 if (previousChild != null) {
-                    if (previousChild is Text && child is Element && StringUtils.isWhitespace(previousChild.getValue()) && blockElementNames.contains(
+                    if (previousChild is Text && child is Element && StringUtils.isWhitespace(previousChild.value) && blockElementNames.contains(
                             child.localName
                         )
                     ) {
                         // block element preceded by whitespace
                         whitespaceTexts.add(previousChild)
-                    } else if (child is Text && previousChild is Element && StringUtils.isWhitespace(child.getValue()) && blockElementNames.contains(
+                    } else if (child is Text && previousChild is Element && StringUtils.isWhitespace(child.value) && blockElementNames.contains(
                             previousChild.localName
                         )
                     ) {

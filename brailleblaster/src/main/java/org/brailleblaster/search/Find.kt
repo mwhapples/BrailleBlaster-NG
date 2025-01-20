@@ -41,7 +41,7 @@ class Find {
       var correctNode: Node? = null
 
       //If there are no nodes with matching attributes, return false
-      if (domCon.possiblesCorrectAttributes.size == 0) {
+      if (domCon.possiblesCorrectAttributes.isEmpty()) {
         return false
       }
       //If the

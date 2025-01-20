@@ -145,7 +145,7 @@ object AsciiMathConverter : AutoCloseable {
                 for (j in 0 until brailleNode.childCount) {
                     val brailleNodeChild = brailleNode.getChild(j)
                     if (brailleNodeChild is Text) {
-                        str.append(brailleNodeChild.getValue())
+                        str.append(brailleNodeChild.value)
                     }
                 }
             }
@@ -239,7 +239,7 @@ object AsciiMathConverter : AutoCloseable {
         for (i in 0 until resultNodes.size()) {
             val r = resultNodes[i]
             if (r is Text) {
-                resultString.append(r.getValue())
+                resultString.append(r.value)
             } else {
                 throw RuntimeException("The result from transforming is not pure ASCIIMath")
             }
@@ -331,7 +331,7 @@ object AsciiMathConverter : AutoCloseable {
             } else if (n1 is Text && n2 is Text) {
                 // For now just check if the text nodes match, we may need to do better in future to account
                 // for normalisation
-                if (n1.getValue() != n2.getValue()) return false
+                if (n1.value != n2.value) return false
                 continue
             } else {
                 return false

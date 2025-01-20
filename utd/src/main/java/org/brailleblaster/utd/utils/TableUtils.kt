@@ -86,7 +86,7 @@ object TableUtils {
                 }
                 foundCaption.addAll(findCaption(child, styleMap))
             } else if (child is Text) {
-                foundCaption.add(child.getParent() as Element)
+                foundCaption.add(child.parent as Element)
                 break
             }
         }

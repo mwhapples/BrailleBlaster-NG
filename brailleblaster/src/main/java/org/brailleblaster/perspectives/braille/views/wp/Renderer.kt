@@ -74,13 +74,13 @@ open class Renderer(@JvmField protected var manager: Manager, private val wpView
 
     fun findVPos(list: MapList, index: Int): Double {
         var vPos = 0.0
-        if (list.size > 0) {
+        if (list.isNotEmpty()) {
             var i = index
             listLoop@ while (i + 1 < list.size) {
-                if (list[i].brailleList.size != 0) break
+                if (list[i].brailleList.isNotEmpty()) break
                 if (list[i] is TableTextMapElement) {
                     for (tcme in (list[i] as TableTextMapElement).tableElements) {
-                        if (tcme.brailleList.size > 0) break@listLoop
+                        if (tcme.brailleList.isNotEmpty()) break@listLoop
                     }
                 }
                 i++
@@ -138,7 +138,7 @@ open class Renderer(@JvmField protected var manager: Manager, private val wpView
     }
 
     protected fun tabbed(t: TextMapElement): Boolean {
-        return t.brailleList.size != 0 && onSameLine(t) && followsTab(t.node)
+        return t.brailleList.isNotEmpty() && onSameLine(t) && followsTab(t.node)
     }
 
     protected fun isVolume(t: TextMapElement): Boolean {
@@ -205,7 +205,7 @@ open class Renderer(@JvmField protected var manager: Manager, private val wpView
             for (i in tme.brailleList.indices) {
                 val bme = tme.brailleList[i]
                 if (bme is BraillePageBrlMapElement) {
-                    handleNewPageElement(view.view.charCount, bme.getNode() as Element, view)
+                    handleNewPageElement(view.view.charCount, bme.node as Element, view)
                 }
             }
         }

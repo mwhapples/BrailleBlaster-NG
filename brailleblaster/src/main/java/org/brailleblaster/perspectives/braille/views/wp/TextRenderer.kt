@@ -58,7 +58,7 @@ class TextRenderer(manager: Manager, private val textView: TextView) : Renderer(
 
             is LineBreakElement -> {
                 if (!pastFirstNewPage || pastLastNewPage) {
-                    t.setFullyVisible(false)
+                    t.isFullyVisible = false
                 } else {
                     addLineBreak(t, state, list)
                 }
@@ -95,21 +95,21 @@ class TextRenderer(manager: Manager, private val textView: TextView) : Renderer(
         val n = t.node
         var brl = getBrlNode(n)
         if (brl == null) {
-            brl = if (t is BoxLineTextMapElement && UTDElements.BRL.isA(t.getNode())) {
-                t.getNode() as Element
-            } else if (t is GuideDotsTextMapElement && UTDElements.BRLONLY.isA(t.getNode())) {
+            brl = if (t is BoxLineTextMapElement && UTDElements.BRL.isA(t.node)) {
+                t.node as Element
+            } else if (t is GuideDotsTextMapElement && UTDElements.BRLONLY.isA(t.node)) {
                 t.getNodeParent()
             } else if (t is MathMLElement) {
                 MathModule.getBrl(n) as Element
             } else if (t is PageIndicatorTextMapElement) {
-                if (t.getNode().childCount == 1 && UTDElements.BRL.isA(t.getNode().getChild(0))) {
-                    t.getNode().getChild(0) as Element
-                } else if (t.getNode().childCount == 2 && UTDElements.BRL.isA(t.getNode().getChild(1))) {
-                    t.getNode().getChild(1) as Element
+                if (t.node.childCount == 1 && UTDElements.BRL.isA(t.node.getChild(0))) {
+                    t.node.getChild(0) as Element
+                } else if (t.node.childCount == 2 && UTDElements.BRL.isA(t.node.getChild(1))) {
+                    t.node.getChild(1) as Element
                 } else {
                     throw NullPointerException("No brl found")
                 }
-            } else if (t is UncontractedWordTextMapElement && UTDElements.BRLONLY.isA(t.getNode())) {
+            } else if (t is UncontractedWordTextMapElement && UTDElements.BRLONLY.isA(t.node)) {
                 t.getNodeParent()
             } else {
                 throw NullPointerException("No brl found")
@@ -182,7 +182,7 @@ class TextRenderer(manager: Manager, private val textView: TextView) : Renderer(
                         if (bme === firstPage) pastFirstNewPage = true
                         if (bme === lastPage) pastLastNewPage = true
                         //At a newPage element, so adjust the state to create a new page and blank lines
-                        state.newPage(bme.getNode() as Element)
+                        state.newPage(bme.node as Element)
                     }
 
                     is PrintPageBrlMapElement, is BraillePageBrlMapElement, is RunningHeadBrlMapElement, is GuideWordBrlMapElement -> {

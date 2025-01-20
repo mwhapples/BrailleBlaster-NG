@@ -161,7 +161,7 @@ class BrailleView(manager: Manager, sash: Composite) : WPView(manager, sash) {
       )
     } else {
       val start =
-        if (tme!!.brailleList.size > 0) tme.brailleList.first().getStart(manager.mapList) else 0 //Tables have no braille list
+        if (tme!!.brailleList.isNotEmpty()) tme.brailleList.first().getStart(manager.mapList) else 0 //Tables have no braille list
       manager.simpleManager.dispatchEvent(
         XMLCaretEvent(
           Sender.BRAILLE, createNodeCaret(tme, pos - start)

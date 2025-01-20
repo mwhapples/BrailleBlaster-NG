@@ -39,7 +39,6 @@ import java.time.Duration
 import java.time.Instant
 import java.util.*
 import java.util.concurrent.TimeUnit
-import kotlin.Throws
 import kotlin.system.exitProcess
 
 /**
@@ -79,7 +78,7 @@ object Main {
             }
         }
         var fileToOpen: Path? = null
-        if (argsToParse.size > 0) {
+        if (argsToParse.isNotEmpty()) {
             val firstArg = argsToParse[0]
             try {
                 fileToOpen = Paths.get(firstArg)
@@ -89,7 +88,7 @@ object Main {
             }
             argsToParse.removeAt(0)
         }
-        if (argsToParse.size > 0) {
+        if (argsToParse.isNotEmpty()) {
             LoggerFactory.getLogger(Main::class.java)
                 .error("Unknown extra arguments beyond file: " + args.joinToString(" "))
         }
@@ -199,7 +198,7 @@ object Main {
                 curFile.delete()
             }
         }
-        if (filesToDelete.size > 0) {
+        if (filesToDelete.isNotEmpty()) {
             WorkingDialog("Cleanup Exception Files...").use {
                 for (curFile in filesToDelete) {
                     preLog(Main::class.java, "Deleting old exception file " + curFile.absolutePath)

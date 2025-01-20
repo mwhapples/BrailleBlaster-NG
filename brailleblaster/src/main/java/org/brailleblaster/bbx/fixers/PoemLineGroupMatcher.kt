@@ -29,7 +29,7 @@ class PoemLineGroupMatcher : INodeMatcher {
             false
         } else (BBX.CONTAINER.LIST.ATTRIB_LIST_TYPE[node as Element] == BBX.ListType.POEM_LINE_GROUP
                 && XMLHandler.ancestorVisitorElement(
-            node.getParent()
+            node.parent
         ) { curAncestor: Element? ->
             BBX.CONTAINER.LIST.isA(curAncestor)
                     && BBX.CONTAINER.LIST.ATTRIB_LIST_TYPE[curAncestor] == BBX.ListType.POEM

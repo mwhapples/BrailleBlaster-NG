@@ -190,7 +190,7 @@ class NumberLine : ISpatialMathContainer {
     }
 
     fun initializePoints() {
-        if (numberLineText.points.size == 0) {
+        if (numberLineText.points.isEmpty()) {
             for (j in 0 until DEFAULT_NUM_POINTS) {
                 numberLineText
                     .points

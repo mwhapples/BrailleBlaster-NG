@@ -158,8 +158,8 @@ class AutoFillSpecialSymbols(
                     for (symbol in volume) {
                         val storedSymbol = symbolDatabase[symbolDatabase.indexOf(symbol)]
                         val newItem = TableItem(resultsTable, SWT.NONE)
-                        val symbolName = storedSymbol.getSymbol()
-                        val symbolDesc = if (storedSymbol.getDesc() == null) "" else storedSymbol.getDesc()
+                        val symbolName = storedSymbol.symbol
+                        val symbolDesc = if (storedSymbol.desc == null) "" else storedSymbol.desc
                         newItem.setText(
                             arrayOf(
                                 symbolName,
@@ -229,8 +229,8 @@ class AutoFillSpecialSymbols(
                 val iter = localSymbols.iterator()
                 while (iter.hasNext()) {
                     val symbol = iter.next()
-                    val symbolPermutations = SpecialSymbols.getSymbolPermutations(symbol.getSymbol())
-                    symbolPermutations.add(symbol.getSymbol())
+                    val symbolPermutations = SpecialSymbols.getSymbolPermutations(symbol.symbol)
+                    symbolPermutations.add(symbol.symbol)
                     var symbolIter = 0
                     permLoop@ for (symbolPerm in symbolPermutations) {
                         var iteration = 0
@@ -240,7 +240,7 @@ class AutoFillSpecialSymbols(
                             var optionalTestsPassed = 0
                             for (rule in symbol.rules) {
                                 if (!rule.always) optionalTests++
-                                val result = rule.test(brlElement, i, symbol.getSymbol(), iteration, m)
+                                val result = rule.test(brlElement, i, symbol.symbol, iteration, m)
                                 if (!result && rule.always) {
                                     symbolIter = brl.indexOf(symbolPerm, symbolIter) + 1
                                     iteration++

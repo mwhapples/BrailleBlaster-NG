@@ -22,7 +22,7 @@ import java.util.concurrent.LinkedBlockingDeque
 
 abstract class EventQueue : LinkedBlockingDeque<EventFrame>(SIZE) {
     fun popEvent(vi: ViewInitializer, list: MapList, manager: Manager): EventFrame? {
-        if (size > 0) {
+        if (isNotEmpty()) {
             val f = removeLast()
             handleEvent(f, vi, list, manager)
             return f
@@ -40,7 +40,7 @@ abstract class EventQueue : LinkedBlockingDeque<EventFrame>(SIZE) {
     }
 
     fun empty(): Boolean {
-        return size == 0
+        return isEmpty()
     }
 
     protected abstract fun handleEvent(frame: EventFrame, vi: ViewInitializer, list: MapList, manager: Manager)

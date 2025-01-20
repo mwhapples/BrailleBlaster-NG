@@ -23,7 +23,7 @@ class Loadout(@JvmField var name: String, @JvmField var accelerator: Int) {
 		var list = ArrayList<Loadout>()
         @JvmStatic
 		fun listLoadouts() {
-            if (list.size == 0) {
+            if (list.isEmpty()) {
                 list.add(Loadout("Basic", SWT.MOD1 + SWT.MOD2 + 'B'.code))
                 list.add(Loadout("Captions", SWT.MOD1 + SWT.MOD2 + 'C'.code))
                 list.add(Loadout("Heading", SWT.MOD1 + SWT.MOD2 + 'H'.code))

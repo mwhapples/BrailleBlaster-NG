@@ -23,6 +23,6 @@ import org.brailleblaster.utd.NamespaceMap
  */
 class NotMatcher : DelegatingMatcher() {
     override fun isMatch(node: Node, namespaces: NamespaceMap): Boolean {
-        return matcher?.isMatch(node, namespaces)?.not()?:false
+        return matcher?.isMatch(node, namespaces)?.not() == true
     }
 }

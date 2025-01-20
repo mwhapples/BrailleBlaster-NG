@@ -357,7 +357,7 @@ class GridEditor : ISpatialMathDialog {
             var index = currentParent.indexOf(current)
             while (!BBX.SECTION.isA(currentParent)) {
                 current = currentParent as Element
-                currentParent = current.getParent()
+                currentParent = current.parent
                 index = currentParent.indexOf(current)
             }
             index++

@@ -86,7 +86,7 @@ class BrailleDocument(dm: Manager, doc: Document) : BBDocument(dm, doc) {
                 text + list.current.invisibleText
             }
         }
-        var parentNode = if (currentNode is Text) currentNode.getParent() else currentNode
+        var parentNode = if (currentNode is Text) currentNode.parent else currentNode
         changeTextNode(currentNode, text)
         val parent = BBXUtils.cleanupBlock(parentNode)
         // If last text node of document, remove line break elements between
@@ -133,7 +133,7 @@ class BrailleDocument(dm: Manager, doc: Document) : BBDocument(dm, doc) {
                     } else nodeIndex = 0
                 } else {
                     parent = current.nodeParent
-                    nodeIndex = parent.indexOf(current.getNode())
+                    nodeIndex = parent.indexOf(current.node)
                 }
             } else if (current is PageIndicatorTextMapElement) {
                 parent = parent.parent as Element
@@ -187,7 +187,7 @@ class BrailleDocument(dm: Manager, doc: Document) : BBDocument(dm, doc) {
             // sure to
             // assign this new node after the page
             if (n.value.isEmpty()) {
-                val parent = n.getParent()
+                val parent = n.parent
                 val index = parent.indexOf(n)
                 if (parent.childCount - index > 1 && BBX.SPAN.PAGE_NUM.isA(parent.getChild(index + 1))) {
                     val copy = parent.getChild(index + 1).copy()

@@ -613,7 +613,7 @@ class BBX2PEFConverter : DocumentTraversal() {
         for (i in 0 until e.childCount) {
             val child = e.getChild(i)
             if (child is Text) {
-                insertText(child.getValue())
+                insertText(child.value)
             }
         }
     }

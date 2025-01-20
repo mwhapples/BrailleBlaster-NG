@@ -46,7 +46,7 @@ class BBUsageManager(
     private val sqlLogger: SqliteUsageLogger = SqliteUsageLogger(connectionString)
     override val logger: UsageLogger = sqlLogger.filterLogger { trackingEnabled }
     override var trackingEnabled: Boolean
-        get() = settings.getProperty(USAGE_TRACKING_SETTING)?.toBooleanStrictOrNull() ?: false
+        get() = settings.getProperty(USAGE_TRACKING_SETTING)?.toBooleanStrictOrNull() == true
         set(value) {
             settings.saveAsBoolean(USAGE_TRACKING_SETTING, value)
         }

@@ -124,7 +124,7 @@ class HideActionHandler(manager: Manager?, vi: ViewInitializer?, list: MapList?)
             }
 
             manager.document.changeAction(SkipAction(), parent as Element)
-            parent = parent.getParent()
+            parent = parent.parent
         }
     }
 

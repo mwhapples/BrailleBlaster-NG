@@ -208,7 +208,7 @@ object ImageUtils {
         var block = caret
         while (block != null && FastXPath.descendant(block).stream().noneMatch { node: Node ->
                 (node is Text
-                        && (node.getParent() as Element).namespaceURI != UTDElements.UTD_NAMESPACE)
+                        && (node.parent as Element).namespaceURI != UTDElements.UTD_NAMESPACE)
             }) {
             block = FastXPath.preceding(block)
                 .stream()

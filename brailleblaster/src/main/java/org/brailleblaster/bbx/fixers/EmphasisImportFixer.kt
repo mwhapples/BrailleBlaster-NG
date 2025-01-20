@@ -42,7 +42,7 @@ class EmphasisImportFixer : AbstractFixer() {
     private fun recursiveApplyEmphasis(emphasisBeingUnwrapped: Element, curNode: Node) {
         val emphasisBits = BBX.INLINE.EMPHASIS.ATTRIB_EMPHASIS[emphasisBeingUnwrapped]
         if (curNode is Text) {
-            val textParent = curNode.getParent() as Element
+            val textParent = curNode.parent as Element
             if (BBX.INLINE.EMPHASIS.ATTRIB_EMPHASIS.has(textParent) && textParent !== emphasisBeingUnwrapped) {
                 BBX.INLINE.EMPHASIS.ATTRIB_EMPHASIS[textParent] = { types: EnumSet<EmphasisType> ->
                     types.addAll(emphasisBits)

@@ -62,11 +62,11 @@ object XMLDiffTool {
                     }
 
                     is Text -> {
-                        assertEquals(actualChild.getValue(), expectedChild.value)
+                        assertEquals(actualChild.value, expectedChild.value)
                     }
 
                     is Comment -> {
-                        assertEquals(actualChild.getValue(), expectedChild.value)
+                        assertEquals(actualChild.value, expectedChild.value)
                     }
 
                     else -> {

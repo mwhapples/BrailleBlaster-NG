@@ -123,8 +123,8 @@ open class TableCellTextMapElement : TextMapElement, ITableCell, Uneditable {
         for (bme in brailleList) {
             if (bme is BrlOnlyBrlMapElement) {
                 if (bme !is RunningHeadBrlMapElement) {
-                    val newGuideDots = GuideDot(bme.getHPos(), bme.getVPos(), bme.node)
-                    if (bme.getVPos() < startingVPos && prev != null) {
+                    val newGuideDots = GuideDot(bme.hPos, bme.vPos, bme.node)
+                    if (bme.vPos < startingVPos && prev != null) {
                         //Edge case where the guide dots in this element are for the previous row
                         while (prev != null && prev!!.row == row && prev!!.col == col) {
                             prev = prev!!.prev

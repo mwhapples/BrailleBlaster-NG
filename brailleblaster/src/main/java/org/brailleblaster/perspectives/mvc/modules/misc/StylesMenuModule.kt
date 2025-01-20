@@ -113,8 +113,8 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
     private fun update(s: BBStyleSelection) {
         val newNodes: List<Node> = updateStyle(s.style as Style)
         if (newNodes.isNotEmpty()) {
-            if (!(s.style.getName() == TRNOTE_ACTION_STYLE_NAME
-                        || s.style.getName() == DESCRIPTION_STYLE_NAME)
+            if (!(s.style.name == TRNOTE_ACTION_STYLE_NAME
+                        || s.style.name == DESCRIPTION_STYLE_NAME)
             ) {
                 reformat(newNodes)
             } else updateAction(BBActionSelection(EmphasisType.TRANS_NOTE, s.widget))
@@ -983,10 +983,10 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
             var start = start
             var end = end
             if (start is Text) {
-                start = start.getParent()
+                start = start.parent
             }
             if (end is Text) {
-                end = end.getParent()
+                end = end.parent
             }
 
             return XMLHandler.findCommonParent(Lists.newArrayList(start as Element, end as Element))

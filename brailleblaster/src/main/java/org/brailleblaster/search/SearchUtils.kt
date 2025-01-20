@@ -131,7 +131,7 @@ object SearchUtils {
         if (XMLHandler.ancestorVisitorElement(node) { n: Element -> n.localName == "head" } != null) {
             return false
         }
-        val ele = node.getParent() as Element
+        val ele = node.parent as Element
         //System.out.println("Checking UTD attributes: emphasis, styles, containers.");
         return utdEmphasis(ele, click) && utdStyles(node, click) && utdContainer(ele, click)
     }
@@ -424,7 +424,7 @@ On node $node"""
             e.childNodes.forEach { child: Node ->
                 if (BBX.INLINE.EMPHASIS.isA(e) && BBX.INLINE.EMPHASIS.ATTRIB_EMPHASIS[e as Element].isEmpty()) {
                     val childText = Text(child.value)
-                    val parent = e.getParent()
+                    val parent = e.parent
                     parent.insertChild(childText, parent.indexOf(e))
                     newNodes.add(childText)
                     toDelete.add(e)

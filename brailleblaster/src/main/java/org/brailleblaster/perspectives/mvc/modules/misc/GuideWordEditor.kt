@@ -59,7 +59,7 @@ object GuideWordEditor {
         buttonOK.text = "OK"
         var text = manager.simpleManager.currentSelection.end.node
         if (text is Text) {
-            text = text.getParent()
+            text = text.parent
         }
         val dtElement = text as Element
         if (dtElement.getAttribute("contraction") == null) {

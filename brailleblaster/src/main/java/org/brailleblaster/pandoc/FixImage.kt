@@ -122,7 +122,7 @@ class FixImage : FixerInf {
             for (i in 0 until n.childCount) {
                 val k = n.getChild(i)
                 if (k is Text) {
-                    m = k.getValue().trim { it <= ' ' }.length
+                    m = k.value.trim { it <= ' ' }.length
                     if (m > 0) {
                         itIs = true
                         break
@@ -150,7 +150,7 @@ class FixImage : FixerInf {
             for (i in 0 until n.getChildCount()) {
                 val k = n.getChild(i)
                 if (k is Text) {
-                    m = k.getValue().trim { it <= ' ' }.length
+                    m = k.value.trim { it <= ' ' }.length
                     if (m > 0) {
                         itIs = false
                         break

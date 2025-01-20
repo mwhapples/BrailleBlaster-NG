@@ -277,7 +277,7 @@ class MathModule : SimpleListener {
                     for (j in 0 until brailleNode.childCount) {
                         val brailleNodeChild = brailleNode.getChild(j)
                         if (brailleNodeChild is Text) {
-                            sb.append(brailleNodeChild.getValue())
+                            sb.append(brailleNodeChild.value)
                         }
                     }
                 }

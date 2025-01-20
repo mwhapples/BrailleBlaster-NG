@@ -317,7 +317,7 @@ class ProseBuilder : MenuToolListener {
             //If it's before, check the last character for a space
             val nodeBefore = parent.getChild(spanIndex - 1)
             if (nodeBefore is Text) {
-                val text = nodeBefore.getValue()
+                val text = nodeBefore.value
                 if (text.isNotEmpty() && text[text.length - 1] == ' ') {
                     spacePresent++
                 }

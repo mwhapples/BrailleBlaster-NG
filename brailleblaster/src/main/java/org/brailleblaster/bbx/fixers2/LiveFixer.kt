@@ -96,7 +96,7 @@ object LiveFixer {
         if (descendantTextNodes.isEmpty()) {
             return
         }
-        while (descendantTextNodes.size > 0) {
+        while (descendantTextNodes.isNotEmpty()) {
             val textNode = descendantTextNodes.removeAt(0)
             if (textNode.value.isBlank()) {
                 nodesToDetach.add(textNode)
@@ -110,7 +110,7 @@ object LiveFixer {
             descendantTextNodes.add(0, textNode)
             break
         }
-        while (descendantTextNodes.size > 0) {
+        while (descendantTextNodes.isNotEmpty()) {
             val textNode = descendantTextNodes.removeAt(descendantTextNodes.size - 1)
             if (textNode.value.isNullOrBlank() && XMLHandler.ancestorElementNot(textNode) { node: Element? ->
                     BBX.BLOCK.TABLE_CELL.isA(node)

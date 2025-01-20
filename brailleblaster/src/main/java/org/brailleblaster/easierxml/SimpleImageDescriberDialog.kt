@@ -77,7 +77,7 @@ class SimpleImageDescriberDialog(
     private var wantsCaptionStyle = false
 
     init {
-        if (array.size > 0) {
+        if (array.isNotEmpty()) {
             if (cursorImage != null) {
                 log.debug("Cursor in image")
                 index = array.indexOf(cursorImage)

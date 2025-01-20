@@ -132,7 +132,7 @@ open class XsltAction @JvmOverloads constructor(@get:XmlAttribute var table: Bra
         for (i in 0 until results.size()) {
             val curNode = results[i]
             if (curNode is Text) {
-                textToTranslate.append(curNode.getValue())
+                textToTranslate.append(curNode.value)
             } else if (curNode is Element) {
                 val action = context.actionMap.findValueOrDefault(curNode)
                 val spans = action.applyTo(curNode, context)

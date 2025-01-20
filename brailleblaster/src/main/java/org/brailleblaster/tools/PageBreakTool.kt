@@ -112,7 +112,7 @@ object PageBreakTool : MenuToolListener {
                             .stream()
                             .filter { n: Node ->
                                 (n is Text
-                                        && !UTDElements.BRL.isA(n.getParent())
+                                        && !UTDElements.BRL.isA(n.parent)
                                         && XMLHandler.ancestorElementNot(n) { e: Element? -> Manager.getTableParent(e) === tableParent })
                             }
                             .findFirst()
@@ -121,8 +121,8 @@ object PageBreakTool : MenuToolListener {
                         FastXPath.following(currentSelection.start.node)
                             .stream()
                             .filter { n: Node ->
-                                n is Text && !UTDElements.BRL.isA(n.getParent()) && !UTDElements.BRLONLY.isA(
-                                    n.getParent()
+                                n is Text && !UTDElements.BRL.isA(n.parent) && !UTDElements.BRLONLY.isA(
+                                    n.parent
                                 )
                             }
                             .findFirst()

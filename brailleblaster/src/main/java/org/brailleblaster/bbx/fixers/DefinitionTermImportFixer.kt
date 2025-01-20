@@ -57,7 +57,7 @@ class DefinitionTermImportFixer : AbstractFixer() {
                 return if (curNode == null) {
                     null
                 } else if (curNode is Text) {
-                    if (curNode.getValue().isNotBlank()) {
+                    if (curNode.value.isNotBlank()) {
                         null
                     } else {
                         continue

@@ -26,7 +26,7 @@ class ListItemParagraphImportFixer : AbstractFixer() {
         BBX.BLOCK.assertIsA(matchedNode)
         val block = matchedNode as Element
         val listItem = XMLHandler.ancestorVisitorElement(
-            matchedNode.getParent()
+            matchedNode.parent
         ) { node: Element? -> BBX.BLOCK.LIST_ITEM.isA(node) }
         BBX.transform(block, BBX.BLOCK.LIST_ITEM)
         //Do not incriment nested paragraphs per Rez, they are essentially siblings

@@ -111,7 +111,7 @@ open class LiteraryFormatter : Formatter() {
 
                             // If you don't have a starting guide word, use current
                             // text
-                            val guideWord = node.getParent() as Element
+                            val guideWord = node.parent as Element
 
                             if (pageBuilder.getStartGuideWord() == null) {
                                 if (pageBuilder.pendingPages > 0) {

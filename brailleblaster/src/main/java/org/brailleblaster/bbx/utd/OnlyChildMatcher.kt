@@ -27,10 +27,10 @@ class OnlyChildMatcher : DelegatingMatcher() {
             return false
         }
         val matcher = matcher ?: return true
-        var curParent = node.getParent()
+        var curParent = node.parent
         while (!matcher.isMatch(curParent, namespaces)) {
             curParent = curParent.parent
         }
-        return node.getParent().childCount == 1
+        return node.parent.childCount == 1
     }
 }

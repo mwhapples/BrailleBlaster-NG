@@ -62,6 +62,6 @@ class ImmediatelyPrecedingDelegatingMatcher : DelegatingMatcher() {
                 }
             } while(childCount > 0)
             result
-        } ?: true
+        } != false
     }
 }

@@ -22,6 +22,6 @@ abstract class AbstractFixer : ImportFixer {
 	@field:XmlAttribute
     val comment: String? = null
     open fun afterUnmarshal(unmarshaller: Unmarshaller?, parent: Any?) {
-        require(comment?.isNotEmpty() ?: false) { "Missing comment" }
+        require(comment?.isNotEmpty() == true) { "Missing comment" }
     }
 }

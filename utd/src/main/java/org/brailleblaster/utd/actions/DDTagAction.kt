@@ -26,7 +26,7 @@ class DDTagAction : GenericAction() {
     override fun applyTo(node: Node, context: ITranslationEngine): List<TextSpan> {
         if (node is Element) {
 
-            val value = node.getValue()
+            val value = node.value
             if (value.isEmpty() || value[value.length - 1] == ' ') {
                 return super.applyTo(node, context)
             }

@@ -183,10 +183,10 @@ object MathMLConverter {
                 if (node !is Text) return null
 
                 //  deal with ASCIIMath failures
-                if (node.getValue() == "-") {
+                if (node.value == "-") {
                     if (index > 0 && getSiblingsName(siblings, index - 1) != "mo") return "\u2212"
                 }
-                if (node.getValue() == ":") "\u2236" else node.getValue()
+                if (node.value == ":") "\u2236" else node.value
             }
             "msub" -> convert2WithIndicators(
                     element, SUBSCRIPT_BEGIN, SUBSCRIPT_SEPARATOR, SUBSCRIPT_END, indicators)
@@ -228,7 +228,7 @@ object MathMLConverter {
                         } else if (sibling.localName == "mo") {
                             node = sibling.getChild(0)
                             if (node !is Text) return null
-                            if (node.getValue() == "\u2064") {
+                            if (node.value == "\u2064") {
                                 begin = FRACTION_MIXED_BEGIN
                                 separator = FRACTION_MIXED_SEPARATOR
                                 bevelled = FRACTION_MIXED_SEPARATOR_BEVELLED

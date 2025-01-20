@@ -174,7 +174,7 @@ object EmphasisModule : AbstractModule(), SimpleListener {
                     finalTextOffset = (currentSelection.end as XMLTextCaret).offset
                 }
                 if (startNode is Text && !MathModule.isMath(startNode)) { //Apply the emphasis to the first node
-                    if ((currentSelection.start as XMLTextCaret).offset != startNode.getValue().length) {
+                    if ((currentSelection.start as XMLTextCaret).offset != startNode.value.length) {
                         startNode = callback.emphasize(
                             emphasisType,
                             startNode,
@@ -282,8 +282,8 @@ object EmphasisModule : AbstractModule(), SimpleListener {
             modifiedNodes.forEach { e: Element ->
                 e.childNodes.forEach { child: Node ->
                     if (BBX.INLINE.EMPHASIS.isA(child) && BBX.INLINE.EMPHASIS.ATTRIB_EMPHASIS[child as Element].isEmpty()) {
-                        val childText = Text(child.getValue())
-                        val parent = child.getParent()
+                        val childText = Text(child.value)
+                        val parent = child.parent
                         parent.replaceChild(child, childText)
                     }
                 }
@@ -337,7 +337,7 @@ object EmphasisModule : AbstractModule(), SimpleListener {
                 modifiedEmphasis.remove(node1)
                 modifiedEmphasis.remove(node2)
                 val newInline = BBX.INLINE.EMPHASIS.create(emp)
-                newInline.appendChild(node1.getValue() + node2.value)
+                newInline.appendChild(node1.value + node2.value)
                 node2.detach()
                 parent.replaceChild(node1, newInline)
                 modifiedEmphasis.add(newInline)
@@ -595,8 +595,8 @@ private fun isAllEmphasized(selection: XMLSelection, emphasisType: EmphasisType)
     var startNode = getFirstTextNode(selection.start.node)
     val endNode = getFinalTextNode(selection.end.node)
     val endNodeSelected = selection.end !is XMLTextCaret || selection.end.offset > 0
-    if (startNode is Text && !MathModule.isMath(startNode) && !BBX.BLOCK.PAGE_NUM.isA(startNode.getParent()) && !BBX.SPAN.PAGE_NUM.isA(
-            startNode.getParent()
+    if (startNode is Text && !MathModule.isMath(startNode) && !BBX.BLOCK.PAGE_NUM.isA(startNode.parent) && !BBX.SPAN.PAGE_NUM.isA(
+            startNode.parent
         ) && !hasEmphasis(
             startNode, emphasisType
         )
@@ -625,7 +625,7 @@ private fun getFirstTextNode(node: Node): Node {
         return node
     }
     val list = FastXPath.descendantOrSelf(node).stream().filter { n: Node? -> n is Text }.toList()
-    return if (list.size > 0) list[0] else node
+    return if (list.isNotEmpty()) list[0] else node
 }
 
 private fun getFinalTextNode(node: Node): Node {
@@ -633,7 +633,7 @@ private fun getFinalTextNode(node: Node): Node {
         return node
     }
     val list = FastXPath.descendantOrSelf(node).stream().filter { n: Node? -> n is Text }.toList()
-    return if (list.size > 0) list[list.size - 1] else node
+    return if (list.isNotEmpty()) list[list.size - 1] else node
 }
 
 private fun hasEmphasis(node: Text, emphasisType: EmphasisType): Boolean {

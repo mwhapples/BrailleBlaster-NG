@@ -239,9 +239,9 @@ class SelectionHandler(manager: Manager?, vi: ViewInitializer?, list: MapList?) 
     ) {
         var mutStart = start
         if (t is TabTextMapElement) {
-            t.getNodeParent().removeChild(t.getNode())
+            t.getNodeParent().removeChild(t.node)
         } else if (t is PageIndicatorTextMapElement) {
-            t.getNode().parent.removeChild(t.getNode())
+            t.node.parent.removeChild(t.node)
         } else if (t is MathMLElement) {
             deleteMathFromSelectionHandlerEvent(manager, t, mutStart, end)
         } else if (!readOnly(t)) {
@@ -282,7 +282,7 @@ class SelectionHandler(manager: Manager?, vi: ViewInitializer?, list: MapList?) 
 
     private fun updateSecondNode(t: TextMapElement, start: Int, end: Int, replacedText: String) {
         if (t is TabTextMapElement) {
-            t.getNodeParent().removeChild(t.getNode())
+            t.getNodeParent().removeChild(t.node)
         }
         if (t is MathMLElement) {
             deleteMathFromSelectionHandlerEvent(manager, t, start, end)

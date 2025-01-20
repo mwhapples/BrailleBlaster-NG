@@ -99,7 +99,7 @@ object Searcher {
                 else -> {
                     for (curBrailleElement in tme.brailleList) {
                         if (curBrailleElement is PrintPageBrlMapElement) {
-                            return curBrailleElement.getNode().value
+                            return curBrailleElement.node.value
                         }
                     }
                     throw IllegalArgumentException("Not a print page num $tme")

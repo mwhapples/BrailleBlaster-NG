@@ -38,7 +38,7 @@ class HeadImportParser : ImportParser {
             if (curOldHeadChild is Comment) {
                 newhead.appendChild(Comment(curOldHeadChild))
                 continue
-            } else if (curOldHeadChild is Text && curOldHeadChild.getValue().isBlank()) {
+            } else if (curOldHeadChild is Text && curOldHeadChild.value.isBlank()) {
                 //ignore whitespace
                 continue
             } else if (curOldHeadChild !is Element) {

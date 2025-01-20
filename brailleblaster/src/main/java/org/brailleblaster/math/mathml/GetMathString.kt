@@ -36,7 +36,7 @@ fun interface GetMathString {
         private fun getStringValueFromNode(n: Node, s: String): String {
             return if (n.childCount == 0) {
                 if (n is Text) {
-                    var childString = n.getValue()
+                    var childString = n.value
                     childString =
                         childString.replace("\n".toRegex(), "").replace("\r".toRegex(), "").replace(" ".toRegex(), "")
                     s + childString

@@ -56,7 +56,7 @@ class BrailleRenderer(manager: Manager, private val brailleView: BrailleView) : 
             if (bme is NewPageBrlMapElement) {
                 if (bme === firstPage) pastFirstNewPage = true
                 if (bme === lastPage) pastLastNewPage = true
-                state.newPage(bme.getNode() as Element)
+                state.newPage(bme.node as Element)
                 bme.setOffsets(state.charCount, state.charCount)
             } else {
                 if (!pastFirstNewPage || pastLastNewPage) {

@@ -716,7 +716,7 @@ class UTDManager @JvmOverloads constructor(styleDefs: StyleDefinitions = loadSty
     fun getNextPageNum(element: Element?): String {
       val pagenum = XMLHandler.followingWithSelfVisitor(
         element
-      ) { n: Node -> n is Text && n.getParent() != null && BBX.BLOCK.PAGE_NUM.isA(n.parent) }
+      ) { n: Node -> n is Text && n.parent != null && BBX.BLOCK.PAGE_NUM.isA(n.parent) }
       return if (pagenum != null) {
         pagenum.value
       } else "Page Not Found"

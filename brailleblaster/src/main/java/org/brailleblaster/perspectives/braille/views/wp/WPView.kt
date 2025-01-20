@@ -470,7 +470,7 @@ abstract class WPView(manager: Manager, parent: Composite) : AbstractView(manage
         } else if (t is GuideDotsTextMapElement || t is UncontractedWordTextMapElement) {
             return XMLNodeCaret(t.nodeParent.parent, cursorPos)
         } else if (t is ImagePlaceholderTextMapElement) {
-            return XMLNodeCaret(t.getNode(), cursorPos)
+            return XMLNodeCaret(t.node, cursorPos)
         } else if (t is WhiteSpaceElement) {
             val newTME = determineWhitespace(t.getEnd(manager.mapList))
             //If new tme came before whitespace, set pos to 0, otherwise set pos to end of the text

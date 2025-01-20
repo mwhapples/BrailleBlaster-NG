@@ -49,7 +49,7 @@ class PageNumberDebugger(manager: Manager) {
             for (curMapping in curSection.list) {
                 if (curMapping is PageIndicatorTextMapElement) {
                     val usableNode =
-                        (if (curMapping.getNode() is Element) curMapping.getNode() else curMapping.nodeParent) as Element
+                        (if (curMapping.node is Element) curMapping.node else curMapping.nodeParent) as Element
                     val brlPageNum = usableNode.getAttributeValue("printPage")
                     if (brlPageNum != null) printPageBuilder.append("PageMapElement: ").append(brlPageNum)
                         .append(System.lineSeparator())
@@ -57,13 +57,13 @@ class PageNumberDebugger(manager: Manager) {
                     for (curBrailleElement in curMapping.brailleList) {
                         if (curBrailleElement is PrintPageBrlMapElement) {
                             //Check both the origional page and the translated braille equivelent
-                            val origPage = (curBrailleElement.getNode() as Element).getAttributeValue("printPage")
-                            val braillePage = curBrailleElement.getNode().value
+                            val origPage = (curBrailleElement.node as Element).getAttributeValue("printPage")
+                            val braillePage = curBrailleElement.node.value
                             printPageBuilder.append("PrintPageMapElement: ").append(origPage).append(" - ")
                                 .append(braillePage)
                                 .append(System.lineSeparator())
                         } else if (curBrailleElement is BraillePageBrlMapElement) {
-                            val page = curBrailleElement.getNode().value
+                            val page = curBrailleElement.node.value
                             braillePageBuilder.append("BraillePageMapElement: ").append(page)
                                 .append(System.lineSeparator())
                         }

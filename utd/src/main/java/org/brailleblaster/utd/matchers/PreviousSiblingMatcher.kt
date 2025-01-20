@@ -49,7 +49,7 @@ class PreviousSiblingMatcher : DelegatingMatcher() {
 
     private fun isIgnorableNode(node: Node?): Boolean {
         if (node is Text) {
-            return isIgnoreWhiteSpace && node.getValue().isEmpty()
+            return isIgnoreWhiteSpace && node.value.isEmpty()
         }
         return node !is Element || UTDElements.BRL.isA(node)
     }

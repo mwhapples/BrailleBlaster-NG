@@ -33,7 +33,6 @@ import org.xml.sax.ContentHandler
 import org.xml.sax.Locator
 import org.xml.sax.SAXException
 import javax.xml.parsers.DocumentBuilderFactory
-import kotlin.Throws
 
 class DocumentUTDConfig(private val rootElement: String, private val rootNamespace: String) {
     class IgnoreNamespaceHandler(private val handler: ContentHandler, vararg namespaces: String) : ContentHandler {

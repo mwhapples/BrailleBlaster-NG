@@ -45,7 +45,7 @@ abstract class TreeView(manager: Manager, parent: Composite) : AbstractView(mana
     protected fun determineEvent(t: TextMapElement, pos: Int): XMLNodeCaret {
         return when (t) {
             is BoxLineTextMapElement -> XMLNodeCaret(t.nodeParent)
-            is ImagePlaceholderTextMapElement -> XMLNodeCaret(t.getNode())
+            is ImagePlaceholderTextMapElement -> XMLNodeCaret(t.node)
             is WhiteSpaceElement -> {
                 determineEvent(manager.mapList.getClosest(pos, true), 0)
             }

@@ -147,8 +147,8 @@ class ReplaceAll(private val man: Manager, private val click: Click) {
             val nodeValue = tn.value
             var matches = SearchUtils.matchPhrase(nodeValue, click, true)
 
-            if (n.getParent() is Element) {
-                val element = n.getParent() as Element
+            if (n.parent is Element) {
+                val element = n.parent as Element
                 if (BBX.INLINE.EMPHASIS.isA(element)) {
                     val existingEnum = BBX.INLINE.EMPHASIS.ATTRIB_EMPHASIS[element]
 

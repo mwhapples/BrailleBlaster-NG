@@ -25,7 +25,6 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.IOException
 import java.nio.file.Path
-import kotlin.Throws
 
 /**
  * BrailleBlaster XML (BBX) file

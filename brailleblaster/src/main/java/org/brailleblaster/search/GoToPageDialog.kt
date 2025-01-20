@@ -205,7 +205,7 @@ class GoToPageDialog(private val m: Manager) {
         .stream()
         .filter { curNode: Node ->
           (curNode is nu.xom.Text
-              && curNode.getValue().isNotEmpty()
+              && curNode.value.isNotEmpty()
               && XMLHandler.ancestorElementNot(
             curNode
           ) { curAncestor: Element ->
@@ -237,7 +237,8 @@ class GoToPageDialog(private val m: Manager) {
         log.debug("scrolling to text node for braille page {} {}", brlPage, node)
         m.simpleManager.dispatchEvent(XMLCaretEvent(Sender.GO_TO_PAGE, XMLTextCaret(node, 0)))
       } else {
-        log.debug("scrolling to node for braille page " + brlPage + " " + XMLHandler2.toXMLSimple(
+        log.debug(
+            "scrolling to node for braille page $brlPage " + XMLHandler2.toXMLSimple(
             node
         )
         )

@@ -106,7 +106,7 @@ class NodeAncestorDelegatingMatcher : DelegatingMatcher() {
         if (node is Comment || node is ProcessingInstruction) {
             return true
         }
-        if (node is Text && node.getValue().isEmpty()) {
+        if (node is Text && node.value.isEmpty()) {
             return true
         }
         return UTDElements.BRL.isA(node)

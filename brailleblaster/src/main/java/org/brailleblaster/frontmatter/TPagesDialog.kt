@@ -477,8 +477,8 @@ class TPagesDialog : DebugMenuToolListener {
                 descriptions.add(prefixDesc)
             }
             for (symbol in volume) {
-                names.add(symbol.getSymbol())
-                var desc = symbol.getDesc()
+                names.add(symbol.symbol)
+                var desc = symbol.desc
                 if (desc == null) desc = ""
                 descriptions.add(desc)
             }
@@ -821,8 +821,8 @@ class TPagesDialog : DebugMenuToolListener {
                     val contents: MutableList<Array<String>> = ArrayList()
                     symbols.forEach(Consumer { sym: SpecialSymbols.Symbol ->
                         val newString = arrayOf(
-                            sym.getSymbol(),
-                            sym.getDesc() ?: ""
+                            sym.symbol,
+                            sym.desc ?: ""
                         )
                         contents.add(newString)
                     })

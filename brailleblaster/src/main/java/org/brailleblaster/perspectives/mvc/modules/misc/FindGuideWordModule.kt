@@ -30,12 +30,12 @@ object FindGuideWordModule {
         FindGuideWordModule.manager = manager
         var selectedNode = selected ?: manager.simpleManager.currentSelection.start.node
         if (selectedNode is Text) {
-            selectedNode = selectedNode.getParent()
+            selectedNode = selectedNode.parent
         }
         if (selectedNode is Element) {
             var blocks =
                 findBlocks(selectedNode.query("descendant::*[contains(name(), 'BLOCK')]", BBX.XPATH_CONTEXT))
-            if (blocks.size == 0) {
+            if (blocks.isEmpty()) {
                 blocks = findBlocks(
                     selectedNode.query(
                         "following-sibling::*[contains(name(), 'BLOCK')]",
@@ -52,7 +52,7 @@ object FindGuideWordModule {
                 )
             }
             wrapPotentialGW(blocks)
-            manager.simpleManager.dispatchEvent(ModifyEvent(Sender.NO_SENDER, true, selectedNode.getParent()))
+            manager.simpleManager.dispatchEvent(ModifyEvent(Sender.NO_SENDER, true, selectedNode.parent))
         }
     }
 

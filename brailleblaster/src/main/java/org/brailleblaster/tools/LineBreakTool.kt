@@ -117,7 +117,7 @@ object LineBreakTool : MenuToolListener {
                         } else {
                             Utils.insertChildCountSafe(parent, lineBreak, index)
                         }
-                    } else if (offset == currentNode.getValue().length) {
+                    } else if (offset == currentNode.value.length) {
                         val nextNode = FastXPath.followingAndSelf(currentNode)
                             .stream()
                             .filter { node: Node? -> BBX.INLINE.LINE_BREAK.isA(node) }

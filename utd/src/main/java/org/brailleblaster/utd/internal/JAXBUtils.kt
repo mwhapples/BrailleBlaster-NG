@@ -144,7 +144,7 @@ object JAXBUtils {
                 val len = childNodes.length
                 while (i < len) {
                     val childNode = childNodes.item(i)
-                    if (childNode is Element && childNode.getLocalName() == name) {
+                    if (childNode is Element && childNode.localName == name) {
                         matched++
                     }
                     i++

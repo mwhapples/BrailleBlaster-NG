@@ -128,14 +128,14 @@ object MathUtils {
             if (mapElement !is MathMLElement) {
                 continue
             }
-            if (mapElement.getNode().document == null) {
+            if (mapElement.node.document == null) {
                 continue
             }
-            val block: ParentNode = BBXUtils.findBlock(mapElement.getNode())
+            val block: ParentNode = BBXUtils.findBlock(mapElement.node)
             if (!blocks.contains(block)) {
                 blocks.add(block)
             }
-            val index = BBXUtils.getIndexInBlock(mapElement.getNode())
+            val index = BBXUtils.getIndexInBlock(mapElement.node)
             val parent = block.getChild(index)
             val mathText = mapElement.text
             val textNode = Text(mathText)
@@ -153,10 +153,10 @@ object MathUtils {
             if (mapElement !is MathMLElement) {
                 continue
             }
-            if (mapElement.getNode().document == null) {
+            if (mapElement.node.document == null) {
                 continue
             }
-            val block: Node = BBXUtils.findBlock(mapElement.getNode())
+            val block: Node = BBXUtils.findBlock(mapElement.node)
             if (!blocks.contains(block)) {
                 blocks.add(block)
             }

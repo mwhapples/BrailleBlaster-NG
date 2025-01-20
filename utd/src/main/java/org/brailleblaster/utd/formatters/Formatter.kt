@@ -96,7 +96,7 @@ abstract class Formatter {
             pageBuilder = results.last()
             val brl = pageBuilder.insertEndSeparatorLine(style.endSeparator)
             brl.addAttribute(Attribute("separator", "end"))
-            val parent = node.getParent()
+            val parent = node.parent
             if (parent != null) {
                 var nodeIndex = parent.indexOf(node)
                 if (UTDHelper.getAssociatedBrlElement(node) != null) {

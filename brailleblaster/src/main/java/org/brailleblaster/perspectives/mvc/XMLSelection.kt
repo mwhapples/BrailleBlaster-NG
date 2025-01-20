@@ -144,7 +144,7 @@ class XMLSelection(@JvmField val start: XMLNodeCaret, @JvmField val end: XMLNode
             //Start
             val startElement: Element
             if (start is Text) {
-                startElement = start.getParent() as Element
+                startElement = start.parent as Element
                 //Initial check if start is first in it's own parent
                 if (FastXPath.descendant(startElement)
                         .stream()
@@ -183,7 +183,7 @@ class XMLSelection(@JvmField val start: XMLNodeCaret, @JvmField val end: XMLNode
             //End
             val endElement: Element
             if (end is Text) {
-                endElement = end.getParent() as Element
+                endElement = end.parent as Element
                 //Initial check if start is first in it's own parent
                 if (FastXPath.descendant(endElement)
                         .filterIsInstance<Text>()

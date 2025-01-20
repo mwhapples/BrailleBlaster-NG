@@ -291,10 +291,10 @@ class BBStyleableText(parent: Composite, buttonPanel: Composite?, buttons: Int, 
                 }
                 if (relevantTag != null) {
                     val start = startOffset + sb.length
-                    sb.append(child.getValue())
+                    sb.append(child.value)
                     val end = startOffset + sb.length
                     styles.add(Range(start, end, relevantTag))
-                } else sb.append(child.getValue())
+                } else sb.append(child.value)
             } else if (MathModule.isMathParent(child)) {
                 val start = startOffset + sb.length
                 sb.append(MathModule.getMathText(child))
@@ -718,7 +718,7 @@ class BBStyleableText(parent: Composite, buttonPanel: Composite?, buttons: Int, 
     }
 
     private fun findIndex(start: Int, end: Int): Int {
-        if (styles.size == 0) return 0
+        if (styles.isEmpty()) return 0
         if (styles.size == 1) {
             return if (start < styles[0].start) 0 else 1
         }
@@ -880,7 +880,7 @@ class BBStyleableText(parent: Composite, buttonPanel: Composite?, buttons: Int, 
         for (range in TextRenderer.setNonBreakingSpaceEmphasis(text, 0, text.charCount)) {
             text.setStyleRange(range)
         }
-        if (styles.size == 0 || text.text.isEmpty()) return
+        if (styles.isEmpty() || text.text.isEmpty()) return
         val ranges = arrayOfNulls<StyleRange>(styles.size)
         for (i in styles.indices) {
             val range = styles[i]

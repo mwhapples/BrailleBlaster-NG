@@ -134,7 +134,7 @@ object SixKeyUtils {
         }
             .map { node: Node ->
                 if (node is Text) {
-                    return@map node.getValue()
+                    return@map node.value
                 } else if (BBX.SPAN.TAB.isA(node)) {
                     return@map SPACE.toString().repeat(BBX.SPAN.TAB.ATTRIB_VALUE[node as Element] - 1)
                 } else {

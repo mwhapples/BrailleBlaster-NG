@@ -89,7 +89,7 @@ class MoveSiblingAction : IBlockAction {
 
         //removes extra space in front of sibling, if any
         if (nodeSibling is Text) {
-            var lineValue = nodeSibling.getValue()
+            var lineValue = nodeSibling.value
             if (lineValue.isNotEmpty() && isWhiteSpace(lineValue.substring(0, 1))) {
                 lineValue = lineValue.substring(1)
             }
