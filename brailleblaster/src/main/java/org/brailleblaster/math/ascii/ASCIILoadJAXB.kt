@@ -61,8 +61,8 @@ class ASCIILoadJAXB {
   }
 
   object Comparators {
-    val ENTRY = java.util.Comparator { o1: ASCIIEntry, o2: ASCIIEntry -> o1.name.compareTo(o2.name) }
-    val CATEGORY = java.util.Comparator { o1: ASCIICategory, o2: ASCIICategory ->
+    val ENTRY = Comparator { o1: ASCIIEntry, o2: ASCIIEntry -> o1.name.compareTo(o2.name) }
+    val CATEGORY = Comparator { o1: ASCIICategory, o2: ASCIICategory ->
       o2
         .prettyName.compareTo(o1.prettyName)
     }

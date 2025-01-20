@@ -53,7 +53,7 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolList
   class Unit(val unitName: String, val contractions: List<String>)
 
   fun load(bbData: BBSelectionData) {
-    BBIni.propertyFileManager.getProperty(Companion.UNIT_TOGGLE_PROPERTY)?.let {
+    BBIni.propertyFileManager.getProperty(UNIT_TOGGLE_PROPERTY)?.let {
       unitToggle = it.toInt()
     }
     //println("Loaded contraction settings; unitToggle: $unitToggle")
@@ -83,7 +83,7 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolList
     }
     unitSelector.select(unitToggle)
 
-    unitSelector.onSelect() {
+    unitSelector.onSelect {
       unitToggle = unitSelector.get().selectionIndex
       //println("Unit selected: ${UnitList.allUnits[unitToggle].unitName}")
     }
@@ -93,7 +93,7 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolList
 
     val saveBtn = EasySWT.makeButton(shell, SWT.PUSH)
     saveBtn.text("OK")
-    saveBtn.onSelection() {
+    saveBtn.onSelection {
       //Save settings to the translation file
       if (unitToggle >= 0) {
         clearAndSave(bbData)
@@ -103,7 +103,7 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolList
 
     val closeBtn = EasySWT.makeButton(shell, SWT.PUSH)
     closeBtn.text("Cancel")
-    closeBtn.onSelection() {
+    closeBtn.onSelection {
       shell.close()
     }
 
@@ -119,8 +119,8 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolList
       ?: throw RuntimeException("Unable to save exceptions to translation correction file - no file found.")
 
     val fileContent = file.readText(StandardCharsets.UTF_8)
-    val headerIndex = fileContent.indexOf(Companion.RELAXER_HEADER)
-    val footerIndex = fileContent.lastIndexOf(Companion.RELAXER_FOOTER)
+    val headerIndex = fileContent.indexOf(RELAXER_HEADER)
+    val footerIndex = fileContent.lastIndexOf(RELAXER_FOOTER)
     //println("Header index: $headerIndex; Footer index: $footerIndex; Header count: $headerCount; Footer count: $footerCount. File content:")
 
     val contractionList = makeContractionList()
@@ -128,16 +128,16 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolList
     if (headerIndex == -1 || footerIndex == -1) {
       //println("Header and footer not found. Appending new header and footer along with contraction list.")
       OutputStreamWriter(FileOutputStream(file), StandardCharsets.UTF_8).use { writer ->
-        writer.append(Companion.RELAXER_HEADER)
+        writer.append(RELAXER_HEADER)
         writer.append(System.lineSeparator())
         writer.append(contractionList)
-        writer.append(Companion.RELAXER_FOOTER)
+        writer.append(RELAXER_FOOTER)
       }
     } else if (headerIndex < footerIndex) {
       //Doc is structured correctly, so clear everything between the header and footer.
       //println("Header and Footer found. Writing new contraction list.")
       val newContent =
-        fileContent.substring(0, headerIndex + Companion.RELAXER_HEADER.length) +
+        fileContent.substring(0, headerIndex + RELAXER_HEADER.length) +
             System.lineSeparator() +
             contractionList +
             fileContent.substring(footerIndex)
@@ -150,10 +150,10 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolList
       //println("Header is after footer or missing header/footer. Fully overwriting file.")
       OutputStreamWriter(FileOutputStream(file), StandardCharsets.UTF_8).use { writer ->
         writer.write("")
-        writer.append(Companion.RELAXER_HEADER)
+        writer.append(RELAXER_HEADER)
         writer.append(System.lineSeparator())
         writer.append(contractionList)
-        writer.append(Companion.RELAXER_FOOTER)
+        writer.append(RELAXER_FOOTER)
       }
     }
 
@@ -169,7 +169,7 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolList
 
     //println("Attempting to save unitToggle: $unitToggle")
     //Save the unitToggle setting
-    BBIni.propertyFileManager.saveAsInt(Companion.UNIT_TOGGLE_PROPERTY, unitToggle)
+    BBIni.propertyFileManager.saveAsInt(UNIT_TOGGLE_PROPERTY, unitToggle)
     //println("UnitToggle saved. Attempting to refresh document and translator.")
     bbData.manager.document.engine.brailleTranslator.close()
     bbData.manager.refresh()
@@ -251,9 +251,9 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolList
   }
 
   companion object {
-    private val UNIT_TOGGLE_PROPERTY = "ContractionRelaxer.unitToggle"
-    private val RELAXER_HEADER = "#Begin UEB Contraction Relaxer"
-    private val RELAXER_FOOTER = "#End UEB Contraction Relaxer"
+    private const val UNIT_TOGGLE_PROPERTY = "ContractionRelaxer.unitToggle"
+    private const val RELAXER_HEADER = "#Begin UEB Contraction Relaxer"
+    private const val RELAXER_FOOTER = "#End UEB Contraction Relaxer"
   }
 
 }
