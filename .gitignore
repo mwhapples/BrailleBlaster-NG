@@ -15,7 +15,10 @@ target
 dist/programData/liblouis/tables/*
 /brailleblaster/dist/programData/org/mwhapples/jlouis/*
 /brailleblaster/dist/programData/MathCAT/*
-/brailleblaster/dist/programData/pandoc
+/brailleblaster/dist/programData/pandoc/win-x64
+/brailleblaster/dist/programData/pandoc/linux-x64
+/brailleblaster/dist/programData/pandoc/linux-aarch64
+/brailleblaster/dist/programData/pandoc/mac-x64
 nb-configuration.xml
 nbactions.xml
 dist/brailleblaster-windows.exe

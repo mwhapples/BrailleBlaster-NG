@@ -274,7 +274,10 @@
                         </fileset>
                         <!-- Clear out pandoc -->
                         <fileset>
-                            <directory>dist/programData/pandoc</directory>
+                            <directory>dist/programData/pandoc/win-x64</directory>
+                            <directory>dist/programData/pandoc/linux-x64</directory>
+                            <directory>dist/programData/pandoc/mac-x64</directory>
+                            <directory>dist/programData/pandoc/linux-aarch64</directory>
                         </fileset>
                         <!-- Clean out Jlouis tables -->
                         <fileset>
@@ -293,19 +296,78 @@
                 <version>${downloadmavenplugin.version}</version>
                 <executions>
                     <execution>
-                        <id>install-pandoc</id>
+                        <id>install-pandoc-win-x64</id>
                         <phase>generate-resources</phase>
                         <goals>
                             <goal>wget</goal>
                         </goals>
+                        <configuration>
+                            <url>https://github.com/jgm/pandoc/releases/download/${pandoc.version}/pandoc-${pandoc.version}-windows-x86_64.zip</url>
+                            <unpack>true</unpack>
+                            <includes>
+                                <include>**/pandoc.exe</include>
+                            </includes>
+                            <fileMappers>
+                                <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
+                            </fileMappers>
+                            <outputDirectory>dist/programData/pandoc/win-x64</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install-pandoc-linux-x64</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <url>https://github.com/jgm/pandoc/releases/download/${pandoc.version}/pandoc-${pandoc.version}-linux-amd64.tar.gz</url>
+                            <unpack>true</unpack>
+                            <includes>
+                                <include>**/pandoc</include>
+                            </includes>
+                            <fileMappers>
+                                <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
+                            </fileMappers>
+                            <outputDirectory>dist/programData/pandoc/linux-x64</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install-pandoc-linux-aarch64</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <url>https://github.com/jgm/pandoc/releases/download/${pandoc.version}/pandoc-${pandoc.version}-linux-arm64.tar.gz</url>
+                            <unpack>true</unpack>
+                            <includes>
+                                <include>**/pandoc</include>
+                            </includes>
+                            <fileMappers>
+                                <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
+                            </fileMappers>
+                            <outputDirectory>dist/programData/pandoc/linux-aarch64</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install-pandoc-mac-x64</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <url>https://github.com/jgm/pandoc/releases/download/${pandoc.version}/pandoc-${pandoc.version}-macOS.zip</url>
+                            <unpack>true</unpack>
+                            <includes>
+                                <include>**/pandoc</include>
+                            </includes>
+                            <fileMappers>
+                                <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
+                            </fileMappers>
+                            <outputDirectory>dist/programData/pandoc/mac-x64</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <url>https://aphassets.blob.core.windows.net/brailleblaster/dependencies/pandoc-3_1.zip</url>
-                    <sha256>da0d6c204aa80d010d5e20c4f41b88a7d55f7359d81d77c54d8cb8ca6f0f7dd2</sha256>
-                    <unpack>true</unpack>
-                    <outputDirectory>dist/programData/pandoc</outputDirectory>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
