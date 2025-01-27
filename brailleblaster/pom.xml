@@ -266,29 +266,32 @@
                 <configuration>
                     <filesets>
                         <fileset>
-                            <directory>dist/lib</directory>
-                            <excludes>
-                                <exclude>META-INF/**/*</exclude>
-                                <exclude>README</exclude>
-                            </excludes>
-                        </fileset>
-                        <!-- Clear out pandoc -->
-                        <fileset>
-                            <directory>dist/programData/pandoc/win-x64</directory>
-                            <directory>dist/programData/pandoc/linux-x64</directory>
-                            <directory>dist/programData/pandoc/mac-x64</directory>
-                            <directory>dist/programData/pandoc/linux-aarch64</directory>
-                        </fileset>
-                        <!-- Clean out Jlouis tables -->
-                        <fileset>
-                            <directory>dist/programData/org</directory>
-                        </fileset>
-                        <!-- Clear out MathCAT rules -->
-                        <fileset>
-                            <directory>dist/programData/MathCAT</directory>
+                            <directory>dist</directory>
                         </fileset>
                     </filesets>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>Copy dist directory</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/dist</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/dist</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>io.github.download-maven-plugin</groupId>
