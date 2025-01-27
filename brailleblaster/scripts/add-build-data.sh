@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e -x
 
 # DO NOT USE $WORKSPACE , will break builds with relative links
@@ -30,7 +30,3 @@ echo "name=BrailleBlaster" >> about.properties
 echo "date=`date`" >> about.properties
 cat about.properties
 
-# scrape docs from website
-cd ../../docs
-rm *.htm* || true
-wget -e robots=off -nd -r --convert-links -H -D aphassets.blob.core.windows.net,brailleblaster.org,dev.brailleblaster.org --level=inf -A html,jpg,jpeg,png,gif,PNG,JPG https://dev.brailleblaster.org/docs/manual/manualV2_1.html
