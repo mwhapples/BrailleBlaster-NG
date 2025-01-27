@@ -2,6 +2,7 @@
 set -e -x
 
 # DO NOT USE $WORKSPACE , will break builds with relative links
+BB_DIR=$4
 
 # Make build data file
 OUTPUT_FILE=.build_data_bb
@@ -19,18 +20,17 @@ OUTPUT_FILE_REV=$OUTPUT_FILE.rev
 BRANCH=`git rev-parse --abbrev-ref HEAD`
 echo "Last repository revision on branch $BRANCH" >> $OUTPUT_FILE_REV
 git log -1 -b $BRANCH >> $OUTPUT_FILE_REV
-mv $OUTPUT_FILE $OUTPUT_FILE_REV src/main/resources
+mv $OUTPUT_FILE $OUTPUT_FILE_REV $BB_DIR/src/main/resources
 
 # Update version number in about.properties
-cd dist/programData/settings
+cd $BB_DIR/dist/programData/settings
 echo "product=$PRODUCT" > about.properties
 echo "version=$VERSION" >> about.properties
 echo "name=BrailleBlaster" >> about.properties
 echo "date=`date`" >> about.properties
 cat about.properties
-cd ../../..
 
 # scrape docs from website
-cd dist/docs
+cd ../../docs
 rm *.htm* || true
 wget -e robots=off -nd -r --convert-links -H -D aphassets.blob.core.windows.net,brailleblaster.org,dev.brailleblaster.org --level=inf -A html,jpg,jpeg,png,gif,PNG,JPG https://dev.brailleblaster.org/docs/manual/manualV2_1.html
