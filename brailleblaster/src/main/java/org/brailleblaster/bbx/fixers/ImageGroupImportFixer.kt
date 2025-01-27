@@ -45,9 +45,9 @@ class ImageGroupImportFixer : AbstractFixer() {
         groups.add(curGroup)
         BBX.CONTAINER.IMAGE.ATTRIB_GROUP_ID[curGroup] = groupId
         // Need to use a while loop due to removal of child nodes.
-        val i = 0
-        while (i < matchedNode.childCount) {
-            val curChild = matchedNode.getChild(i)
+        val childIter = matchedNode.childNodes.iterator()
+        while (childIter.hasNext()) {
+            val curChild = childIter.next()
             if (BBX.SPAN.IMAGE.isA(curChild)) {
                 if (!addedImage) {
                     addedImage = true
@@ -65,9 +65,9 @@ class ImageGroupImportFixer : AbstractFixer() {
                     val newAttribute = Attribute(curOldAttribute)
                     curGroup.addAttribute(newAttribute)
                 }
-                curChild.detach()
+                childIter.remove()
             } else if (curChild !in curGroup.childNodes) {
-                curChild.detach()
+                childIter.remove()
                 curGroup.appendChild(curChild)
             }
         }
