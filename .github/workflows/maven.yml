@@ -28,7 +28,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Add build data
-      run: brailleblaster/scripts/add-build-data.sh "BrailleBlaster" "2.1.10-dev" "${{ github.sha }}"
+      run: brailleblaster/scripts/add-build-data.sh "BrailleBlaster" "2.1.10-dev" "${{ github.sha }}" "brailleblaster"
     - name: Build with Maven
       run: mvn -B package --file pom.xml -DskipTests
 
