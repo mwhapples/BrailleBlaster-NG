@@ -31,7 +31,7 @@ jobs:
       run: brailleblaster/scripts/add-build-data.sh "BrailleBlaster" "2.1.10-dev" "${{ github.sha }}" "brailleblaster"
     - name: Build with Maven
       run: |
-        mvn -B package --file pom.xml -DskipTests
+        mvn -B install --file pom.xml -DskipTests
         cd brailleblaster
         mvn -B -Pswt_mac_x86_64,swt_linux_x86_64,swt_linux_aarch64,swt_windows_x86_64 dependency:copy-dependencies@swt-windows-x86_64 dependency:copy-dependencies@swt-linux-x86_64 dependency:copy-dependencies@swt-linux-aarch64 dependency:copy-dependencies@swt-mac-x86_64
 
