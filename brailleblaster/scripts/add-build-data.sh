@@ -8,7 +8,7 @@ OUTPUT_FILE=.build_data_bb
 echo "user=`whoami`" >> $OUTPUT_FILE
 echo "hostname=`hostname`" >> $OUTPUT_FILE
 echo "date=`date`" >> $OUTPUT_FILE
-echo "id=$CI_COMMIT_SHA" >> $OUTPUT_FILE
+echo "id=$3" >> $OUTPUT_FILE
 
 PRODUCT=$1
 echo "product=$PRODUCT" >> $OUTPUT_FILE
