@@ -31,7 +31,6 @@
 
         <!-- For exec:java, put here so mainClass can be overridden with -Dexec.mainClass -->
         <exec.mainClass>org.brailleblaster.Main</exec.mainClass>
-        <windows.exe>brailleblaster-windows.exe</windows.exe>
         <!-- Default run all non-ui tests, see surefire's <excludedGroups> for
             more information -->
         <skipTests>false</skipTests>
