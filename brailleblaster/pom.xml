@@ -27,8 +27,6 @@
         <hamcrestcore.version>2.2</hamcrestcore.version>
         <execmavenplugin.version>3.0.0</execmavenplugin.version>
         <mavenshadeplugin.version>3.2.4</mavenshadeplugin.version>
-        <launch4jmavenplugin.version>1.7.16</launch4jmavenplugin.version>
-        <appbundlemavenplugin.version>1.2.0</appbundlemavenplugin.version>
         <maven.model.version>3.8.5</maven.model.version>
 
         <!-- For exec:java, put here so mainClass can be overridden with -Dexec.mainClass -->
