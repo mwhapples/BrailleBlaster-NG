@@ -310,7 +310,7 @@
                                     <entry key="product" value="${product.name}"/>
                                     <entry key="version" value="${project.version}"/>
                                     <entry key="name" value="BrailleBlaster"/>
-                                    <entry key="date" value="${build.timestamp}"/>
+                                    <entry key="date" value="${build.timestamp}" type="date"/>
                                 </propertyfile>
                             </target>
                         </configuration>
