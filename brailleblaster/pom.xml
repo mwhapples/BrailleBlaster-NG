@@ -13,6 +13,7 @@
 
     <properties>
         <product.name>BrailleBlaster</product.name>
+        <build.dist.directory>${project.build.directory}/dist</build.dist.directory>
         <!-- Versioning -->
         <swt.version>3.126.0</swt.version>
         <sqlite.version>3.45.3.0</sqlite.version>
@@ -217,13 +218,13 @@
                 <configuration>
                     <!-- Something in the XML parsing might use relative paths, if so use
                         this -->
-                    <!-- (only works with exec:exec) <workingDirectory>${basedir}\dist</workingDirectory>
+                    <!-- (only works with exec:exec) <workingDirectory>${build.dist.directory}</workingDirectory>
                         <executable>${env.JAVA_HOME}\bin\java</executable> <arguments> <argument>-classpath</argument>
                         <classpath/> <argument>org.brailleblaster.Main</argument> </arguments> -->
                     <systemProperties>
                         <systemProperty>
                             <key>org.brailleblaster.distdir</key>
-                            <value>${basedir}/dist/</value>
+                            <value>${build.dist.directory}/</value>
                         </systemProperty>
                     </systemProperties>
 
@@ -238,11 +239,10 @@
                 <configuration>
                     <systemPropertyVariables>
                         <polyglot.engine.WarnInterpreterOnly>false</polyglot.engine.WarnInterpreterOnly>
-                        <org.brailleblaster.distdir>${project.basedir}/dist</org.brailleblaster.distdir>
-                        <onl.mdw.mathcat4j.rulesDir>${pom.basedir}/dist/programData/MathCAT/Rules</onl.mdw.mathcat4j.rulesDir>
+                        <org.brailleblaster.distdir>${build.dist.directory}</org.brailleblaster.distdir>
+                        <onl.mdw.mathcat4j.rulesDir>${build.dist.directory}/programData/MathCAT/Rules</onl.mdw.mathcat4j.rulesDir>
                         <!-- BBBootstrap.initLogback might not always be called first in tests -->
-                        <logback.configurationFile>${project.basedir}dist/programData/settingslogback.xml
-                        </logback.configurationFile>
+                        <logback.configurationFile>${build.dist.directory}/programData/settingslogback.xml</logback.configurationFile>
                         <org.eclipse.swtbot.keyboard.layout>org.eclipse.swtbot.swt.finder.keyboard.EN_US</org.eclipse.swtbot.keyboard.layout>
                     </systemPropertyVariables>
                     <properties>
@@ -264,7 +264,7 @@
                 <configuration>
                     <filesets>
                         <fileset>
-                            <directory>dist</directory>
+                            <directory>${build.dist.directory}</directory>
                         </fileset>
                     </filesets>
                 </configuration>
@@ -281,10 +281,10 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${basedir}/dist</outputDirectory>
+                            <outputDirectory>${build.dist.directory}</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>src/dist</directory>
+                                    <directory>${basedir}/src/dist</directory>
                                 </resource>
                             </resources>
                         </configuration>
@@ -304,7 +304,7 @@
                         </goals>
                         <configuration>
                             <target>
-                                <propertyfile file="${basedir}/dist/programData/settings/about.properties">
+                                <propertyfile file="${build.dist.directory}/programData/settings/about.properties">
                                     <entry key="product" value="${product.name}"/>
                                     <entry key="version" value="${project.version}"/>
                                     <entry key="name" value="BrailleBlaster"/>
@@ -335,7 +335,7 @@
                             <fileMappers>
                                 <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
                             </fileMappers>
-                            <outputDirectory>dist/programData/pandoc/win-x64</outputDirectory>
+                            <outputDirectory>${build.dist.directory}/programData/pandoc/win-x64</outputDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -353,7 +353,7 @@
                             <fileMappers>
                                 <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
                             </fileMappers>
-                            <outputDirectory>dist/programData/pandoc/linux-x64</outputDirectory>
+                            <outputDirectory>${build.dist.directory}/programData/pandoc/linux-x64</outputDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -371,7 +371,7 @@
                             <fileMappers>
                                 <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
                             </fileMappers>
-                            <outputDirectory>dist/programData/pandoc/linux-aarch64</outputDirectory>
+                            <outputDirectory>${build.dist.directory}/programData/pandoc/linux-aarch64</outputDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -389,7 +389,7 @@
                             <fileMappers>
                                 <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
                             </fileMappers>
-                            <outputDirectory>dist/programData/pandoc/mac-x64</outputDirectory>
+                            <outputDirectory>${build.dist.directory}/programData/pandoc/mac-x64</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
@@ -415,7 +415,7 @@
                                     <version>${jlouis.version}</version>
                                     <type>zip</type>
                                     <classifier>tables</classifier>
-                                    <outputDirectory>dist/programData</outputDirectory>
+                                    <outputDirectory>${build.dist.directory}/programData</outputDirectory>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
@@ -435,7 +435,7 @@
                                     <version>${mathcat4j.version}</version>
                                     <type>zip</type>
                                     <classifier>rules</classifier>
-                                    <outputDirectory>dist/programData</outputDirectory>
+                                    <outputDirectory>${build.dist.directory}/programData</outputDirectory>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
@@ -450,7 +450,7 @@
                         <configuration>
                             <overWriteReleases>true</overWriteReleases>
                             <stripVersion>true</stripVersion>
-                            <outputDirectory>dist/lib/windows-x86_64</outputDirectory>
+                            <outputDirectory>${build.dist.directory}/lib/windows-x86_64</outputDirectory>
                             <includeArtifactIds>
                                 org.eclipse.swt.win32.win32.x86_64
                             </includeArtifactIds>
@@ -465,7 +465,7 @@
                         <configuration>
                             <overWriteReleases>true</overWriteReleases>
                             <stripVersion>true</stripVersion>
-                            <outputDirectory>dist/lib/linux-x86_64</outputDirectory>
+                            <outputDirectory>${build.dist.directory}/lib/linux-x86_64</outputDirectory>
                             <includeArtifactIds>
                                 org.eclipse.swt.gtk.linux.x86_64
                             </includeArtifactIds>
@@ -480,7 +480,7 @@
                         <configuration>
                             <overWriteReleases>true</overWriteReleases>
                             <stripVersion>true</stripVersion>
-                            <outputDirectory>dist/lib/linux-aarch64</outputDirectory>
+                            <outputDirectory>${build.dist.directory}/lib/linux-aarch64</outputDirectory>
                             <includeArtifactIds>
                                 org.eclipse.swt.gtk.linux.aarch64
                             </includeArtifactIds>
@@ -495,7 +495,7 @@
                         <configuration>
                             <overWriteReleases>true</overWriteReleases>
                             <stripVersion>true</stripVersion>
-                            <outputDirectory>dist/lib/mac-x86_64</outputDirectory>
+                            <outputDirectory>${build.dist.directory}/lib/mac-x86_64</outputDirectory>
                             <includeArtifactIds>
                                 org.eclipse.swt.cocoa.macosx.x86_64
                             </includeArtifactIds>
@@ -513,7 +513,7 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <outputFile>${basedir}\dist\brailleblaster.jar</outputFile>
+                            <outputFile>${build.dist.directory}/brailleblaster.jar</outputFile>
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">

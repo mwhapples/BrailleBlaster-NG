@@ -35,13 +35,13 @@ jobs:
         cd brailleblaster
         mvn -B -Pswt_mac_x86_64,swt_linux_x86_64,swt_linux_aarch64,swt_windows_x86_64 dependency:copy-dependencies@swt-windows-x86_64 dependency:copy-dependencies@swt-linux-x86_64 dependency:copy-dependencies@swt-linux-aarch64 dependency:copy-dependencies@swt-mac-x86_64  -Drevision=2.1.10 -Dsha1=-${{ github.sha }} -Dchangelist=-SNAPSHOT
     - name: Get docs
-      run: brailleblaster/scripts/get-docs.sh brailleblaster/dist/docs
+      run: brailleblaster/scripts/get-docs.sh brailleblaster/target/dist/docs
 
     - name: Upload dist
       uses: actions/upload-artifact@v4
       with:
         name: brailleblaster
-        path: brailleblaster/dist
+        path: brailleblaster/target/dist
 
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
