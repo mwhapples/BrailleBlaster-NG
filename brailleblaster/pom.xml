@@ -7,13 +7,13 @@
     <parent>
         <groupId>org.brailleblaster</groupId>
         <artifactId>bb-utd</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>${revision}${sha1}${changelist}</version>
     </parent>
 
     <properties>
+        <product.name>BrailleBlaster</product.name>
         <!-- Versioning -->
         <swt.version>3.126.0</swt.version>
-        <utd.dep.version>1.0-SNAPSHOT</utd.dep.version>
         <sqlite.version>3.45.3.0</sqlite.version>
         <gson.version>2.10</gson.version>
         <icu4j.version>72.1</icu4j.version>
@@ -96,12 +96,12 @@
         <dependency>
             <groupId>org.brailleblaster</groupId>
             <artifactId>utils</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.brailleblaster</groupId>
             <artifactId>utd</artifactId>
-            <version>${utd.dep.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <!-- Logback logging - slf4j implementation -->
         <dependency>
@@ -289,6 +289,30 @@
                                     <directory>src/dist</directory>
                                 </resource>
                             </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-about-properties</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <propertyfile file="${basedir}/dist/programData/settings/about.properties">
+                                    <entry key="product" value="${product.name}"/>
+                                    <entry key="version" value="${project.version}"/>
+                                    <entry key="name" value="BrailleBlaster"/>
+                                    <entry key="date" value="${build.timestamp}"/>
+                                </propertyfile>
+                            </target>
                         </configuration>
                     </execution>
                 </executions>

@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.brailleblaster</groupId>
         <artifactId>bb-utd</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>${revision}${sha1}${changelist}</version>
     </parent>
 
     <properties>
@@ -73,7 +73,7 @@
         <dependency>
             <groupId>org.brailleblaster</groupId>
             <artifactId>utils</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
 

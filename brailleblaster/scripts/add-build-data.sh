@@ -21,12 +21,3 @@ BRANCH=`git rev-parse --abbrev-ref HEAD`
 echo "Last repository revision on branch $BRANCH" >> $OUTPUT_FILE_REV
 git log -1 -b $BRANCH >> $OUTPUT_FILE_REV
 mv $OUTPUT_FILE $OUTPUT_FILE_REV $BB_DIR/src/main/resources
-
-# Update version number in about.properties
-cd $BB_DIR/dist/programData/settings
-echo "product=$PRODUCT" > about.properties
-echo "version=$VERSION" >> about.properties
-echo "name=BrailleBlaster" >> about.properties
-echo "date=`date`" >> about.properties
-cat about.properties
-
