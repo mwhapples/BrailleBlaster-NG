@@ -18,3 +18,4 @@ test-output/**
 node_exception_*.xml
 *.log
 /bin/
+.flattened-pom.xml
