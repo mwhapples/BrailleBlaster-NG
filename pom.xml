@@ -43,7 +43,7 @@
         <xalan.version>2.7.3</xalan.version>
         <xom.version>1.3.9</xom.version>
         <requiremaven.version>3.0</requiremaven.version>
-        <buildnumbermavenplugin.version>1.4</buildnumbermavenplugin.version>
+        <buildnumbermavenplugin.version>3.2.1</buildnumbermavenplugin.version>
         <mavendependencyplugin.version>3.1.2</mavendependencyplugin.version>
         <mavensurefireplugin.version>3.0.0-M6</mavensurefireplugin.version>
         <mavencompilerplugin.version>3.8.1</mavencompilerplugin.version>
@@ -64,7 +64,7 @@
     </properties>
 
     <scm>
-        <connection>scm:git:git://gitlab.aphtech.org:brailleblaster/bb-utd.git</connection>
+        <connection>scm:git:https://github.com/aphtech/brailleblaster.git</connection>
     </scm>
 
 

@@ -3,6 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">    <!-- Maven Information -->
     <modelVersion>4.0.0</modelVersion>
     <artifactId>brailleblaster</artifactId>
+    <name>BrailleBlaster</name>
     <packaging>jar</packaging>
     <parent>
         <groupId>org.brailleblaster</groupId>
@@ -587,7 +588,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                    <addOutputDirectoryToResources>true</addOutputDirectoryToResources>
                     <outputName>brailleblaster-build.properties</outputName>
                 </configuration>
             </plugin>

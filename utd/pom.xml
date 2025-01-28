@@ -158,7 +158,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                    <addOutputDirectoryToResources>true</addOutputDirectoryToResources>
                     <outputName>utd-build.properties</outputName>
                 </configuration>
             </plugin>
