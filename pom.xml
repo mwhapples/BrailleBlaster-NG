@@ -20,9 +20,9 @@
         <changelist>-SNAPSHOT</changelist>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <wrappermavenplugin.version>3.3.2</wrappermavenplugin.version>
-        <kotlin.version>2.1.0</kotlin.version>
+        <kotlin.version>2.1.10</kotlin.version>
         <kotlin.compiler.incremental>false</kotlin.compiler.incremental>
-        <kotlinx.coroutines.version>1.8.0-RC2</kotlinx.coroutines.version>
+        <kotlinx.coroutines.version>1.10.1</kotlinx.coroutines.version>
         <jetbrains.annotations.version>24.1.0</jetbrains.annotations.version>
         <eclipse.collections.version>12.0.0.M3</eclipse.collections.version>
         <slf4j.version>2.0.16</slf4j.version>
