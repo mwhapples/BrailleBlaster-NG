@@ -17,5 +17,6 @@
 		<insertion matchPattern="(?=[0-9])" insertionDots="#"/>
 		<insertion matchPattern="-(?=[0-9])" insertionDots="#"/>
 	</mathStartLines>
+	<mathIndicators start="⠸⠩⠀" end="⠀⠸⠱"/>
 </brailleSettings>
 

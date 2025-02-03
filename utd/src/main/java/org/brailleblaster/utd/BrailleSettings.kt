@@ -61,6 +61,7 @@ data class BrailleSettings(
     @get:XmlElementWrapper(name = "mathStartLines")
     @get:XmlElement(name = "insertion")
     var mathStartLines: List<InsertionPatternEntry>? = null,
+    var mathIndicators: MathIndicators = MathIndicators()
 )
 
 enum class MathBraileCode(val preferenceName: String) {
@@ -86,3 +87,8 @@ data class InsertionPatternEntry @JvmOverloads constructor(
         }
     }
 }
+
+data class MathIndicators(
+    @get:XmlAttribute var start: String = "",
+    @get:XmlAttribute var end: String = ""
+)
