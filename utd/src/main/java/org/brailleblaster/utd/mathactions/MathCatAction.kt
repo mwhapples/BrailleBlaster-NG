@@ -35,6 +35,7 @@ import org.brailleblaster.utd.utils.xom.childNodes
 import org.brailleblaster.utils.braille.singleThreadedMathCAT
 import java.util.concurrent.ExecutionException
 
+private fun String.applyAsciiBraille(asciiBraille: Boolean): String = if (asciiBraille) BrailleUnicodeConverter.unicodeToAsciiLouis(this) else this
 private fun String.applyMathIndicators(mathIndicators: MathIndicators): String = "${mathIndicators.start}$this${mathIndicators.end}"
 private fun Element.isMathML(): Boolean = localName == "math"
 private fun Element.isMathTME(): Boolean = localName == "tme" && (getAttributeValue("emphasis")?:"").split(',').contains("MATH")
@@ -65,22 +66,21 @@ class MathCatAction : IBlockAction {
         val brailleSettings = context.brailleSettings
         return when(node) {
             is Element -> translateElement(node, brailleSettings)
-            is Text -> listOf(createMathTextSpan(node, node.value, translateAsciiMath(node.value, brailleSettings.mathBrailleCode, asciiBraille = brailleSettings.isUseAsciiBraille).applyMathIndicators(brailleSettings.mathIndicators)))
+            is Text -> listOf(createMathTextSpan(node, node.value, translateAsciiMath(node.value, brailleSettings.mathBrailleCode).applyAsciiBraille(brailleSettings.isUseAsciiBraille).applyMathIndicators(brailleSettings.mathIndicators)))
             else -> throw RuntimeException("Cannot translate node ${node.toXML()}")
         }
     }
     private fun translateElement(element: Element, brailleSettings: BrailleSettings): List<TextSpan> = when {
-            element.isMathML() -> listOf(createMathTextSpan(element, "", translateMathML(element.toXML(), brailleSettings.mathBrailleCode, asciiBraille = brailleSettings.isUseAsciiBraille).applyMathIndicators(brailleSettings.mathIndicators)))
-            element.isMathTME() -> element.childNodes.filterIsInstance<Text>().map { createMathTextSpan(it, it.value, translateAsciiMath(it.value, brailleSettings.mathBrailleCode, asciiBraille = brailleSettings.isUseAsciiBraille).applyMathIndicators(brailleSettings.mathIndicators)) }
+            element.isMathML() -> listOf(createMathTextSpan(element, "", translateMathML(element.toXML(), brailleSettings.mathBrailleCode).applyAsciiBraille(brailleSettings.isUseAsciiBraille).applyMathIndicators(brailleSettings.mathIndicators)))
+            element.isMathTME() -> element.childNodes.filterIsInstance<Text>().map { createMathTextSpan(it, it.value, translateAsciiMath(it.value, brailleSettings.mathBrailleCode).applyAsciiBraille(brailleSettings.isUseAsciiBraille).applyMathIndicators(brailleSettings.mathIndicators)) }
             else -> throw RuntimeException("Unknown element type ${element.toXML()}")
     }
 }
 
-fun translateAsciiMath(text: String, brailleCode: MathBraileCode, asciiBraille: Boolean = false): String {
-    return AsciiMathConverter.toMathML(text,true).joinToString(separator = "") { translateMathML(it.toXML(), brailleCode, asciiBraille = asciiBraille) }
+fun translateAsciiMath(text: String, brailleCode: MathBraileCode): String {
+    return AsciiMathConverter.toMathML(text,true).joinToString(separator = "") { translateMathML(it.toXML(), brailleCode) }
 }
-private fun translateMathML(mml: String, brailleCode: MathBraileCode, asciiBraille: Boolean = false): String {
-    val braille = try {
+private fun translateMathML(mml: String, brailleCode: MathBraileCode): String = try {
         singleThreadedMathCAT {
             setPreference("BrailleCode", brailleCode.preferenceName)
             setMathml(mml)
@@ -89,5 +89,3 @@ private fun translateMathML(mml: String, brailleCode: MathBraileCode, asciiBrail
     } catch (ex: ExecutionException) {
         throw RuntimeException("Problem translating MathML \"$mml\"", ex.cause)
     }
-    return if (asciiBraille) BrailleUnicodeConverter.unicodeToAsciiLouis(braille) else braille
-}
