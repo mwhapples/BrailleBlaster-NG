@@ -400,9 +400,9 @@
                 <version>${mavendependencyplugin.version}</version>
                 <executions>
                     <!-- https://portals.apache.org/jetspeed-2/buildguide/jetspeed-unpack-plugin.html -->
-                    <!-- Unpack liblouis tables to dist/programData/liblouis/tables -->
+                    <!-- Unpack LibLouis tables and MathCAT rules -->
                     <execution>
-                        <id>import-tables</id>
+                        <id>import-tables-and-rules</id>
                         <phase>generate-resources</phase>
                         <goals>
                             <goal>unpack</goal>
@@ -415,29 +415,16 @@
                                     <version>${jlouis.version}</version>
                                     <type>zip</type>
                                     <classifier>tables</classifier>
-                                    <outputDirectory>${build.dist.directory}/programData</outputDirectory>
                                 </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                    <!-- Unpack MathCAT rules -->
-                    <execution>
-                        <id>import-mathcat-rules</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
                                 <artifactItem>
                                     <groupId>onl.mdw</groupId>
                                     <artifactId>mathcat4j-core</artifactId>
                                     <version>${mathcat4j.version}</version>
                                     <type>zip</type>
                                     <classifier>rules</classifier>
-                                    <outputDirectory>${build.dist.directory}/programData</outputDirectory>
                                 </artifactItem>
                             </artifactItems>
+                            <outputDirectory>${build.dist.directory}/programData</outputDirectory>
                         </configuration>
                     </execution>
                     <!-- Copy all SWT platform jars to dist/lib/$os-$arch to be autoloaded by BBBootsrap -->
@@ -445,60 +432,76 @@
                         <id>swt-windows-x86_64</id>
                         <phase>generate-resources</phase>
                         <goals>
-                            <goal>copy-dependencies</goal>
+                            <goal>copy</goal>
                         </goals>
                         <configuration>
                             <overWriteReleases>true</overWriteReleases>
                             <stripVersion>true</stripVersion>
                             <outputDirectory>${build.dist.directory}/lib/windows-x86_64</outputDirectory>
-                            <includeArtifactIds>
-                                org.eclipse.swt.win32.win32.x86_64
-                            </includeArtifactIds>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.eclipse.platform</groupId>
+                                    <artifactId>org.eclipse.swt.win32.win32.x86_64</artifactId>
+                                    <version>${swt.version}</version>
+                                </artifactItem>
+                            </artifactItems>
                         </configuration>
                     </execution>
                     <execution>
                         <id>swt-linux-x86_64</id>
                         <phase>generate-resources</phase>
                         <goals>
-                            <goal>copy-dependencies</goal>
+                            <goal>copy</goal>
                         </goals>
                         <configuration>
                             <overWriteReleases>true</overWriteReleases>
                             <stripVersion>true</stripVersion>
                             <outputDirectory>${build.dist.directory}/lib/linux-x86_64</outputDirectory>
-                            <includeArtifactIds>
-                                org.eclipse.swt.gtk.linux.x86_64
-                            </includeArtifactIds>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.eclipse.platform</groupId>
+                                    <artifactId>org.eclipse.swt.gtk.linux.x86_64</artifactId>
+                                    <version>${swt.version}</version>
+                                </artifactItem>
+                            </artifactItems>
                         </configuration>
                     </execution>
                     <execution>
                         <id>swt-linux-aarch64</id>
                         <phase>generate-resources</phase>
                         <goals>
-                            <goal>copy-dependencies</goal>
+                            <goal>copy</goal>
                         </goals>
                         <configuration>
                             <overWriteReleases>true</overWriteReleases>
                             <stripVersion>true</stripVersion>
                             <outputDirectory>${build.dist.directory}/lib/linux-aarch64</outputDirectory>
-                            <includeArtifactIds>
-                                org.eclipse.swt.gtk.linux.aarch64
-                            </includeArtifactIds>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.eclipse.platform</groupId>
+                                    <artifactId>org.eclipse.swt.gtk.linux.aarch64</artifactId>
+                                    <version>${swt.version}</version>
+                                </artifactItem>
+                            </artifactItems>
                         </configuration>
                     </execution>
                     <execution>
                         <id>swt-mac-x86_64</id>
                         <phase>generate-resources</phase>
                         <goals>
-                            <goal>copy-dependencies</goal>
+                            <goal>copy</goal>
                         </goals>
                         <configuration>
                             <overWriteReleases>true</overWriteReleases>
                             <stripVersion>true</stripVersion>
                             <outputDirectory>${build.dist.directory}/lib/mac-x86_64</outputDirectory>
-                            <includeArtifactIds>
-                                org.eclipse.swt.cocoa.macosx.x86_64
-                            </includeArtifactIds>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.eclipse.platform</groupId>
+                                    <artifactId>org.eclipse.swt.cocoa.macosx.x86_64</artifactId>
+                                    <version>${swt.version}</version>
+                                </artifactItem>
+                            </artifactItems>
                         </configuration>
                     </execution>
                 </executions>
