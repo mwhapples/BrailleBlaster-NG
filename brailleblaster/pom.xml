@@ -208,6 +208,7 @@
 
     <build>
         <directory>${alt.build.dir}</directory>
+        <finalName>${project.artifactId}</finalName>
 
         <plugins>
             <!-- Run braileblaster -->
@@ -465,75 +466,41 @@
                             </artifactItems>
                         </configuration>
                     </execution>
-                </executions>
-            </plugin>
-            <!-- Make a unified super-jar with all the dependencies included -->
-            <plugin>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>${mavenshadeplugin.version}</version>
-                <executions>
+                    <!-- Copy dependencies to the dist -->
                     <execution>
+                        <id>copy-dependencies-to-lib</id>
+                        <phase>generate-resources</phase>
                         <goals>
-                            <goal>shade</goal>
+                            <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <outputFile>${build.dist.directory}/brailleblaster.jar</outputFile>
-                            <transformers>
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <manifestEntries>
-                                        <Main-Class>org.brailleblaster.ProxyMain</Main-Class>
-                                        <!-- We are disabling the splash screen as it is not used in the main installer builds. -->
-                                        <!-- <SplashScreen-Image>images/bb_splash.png</SplashScreen-Image> -->
-                                    </manifestEntries>
-                                </transformer>
-                                <!-- LibEmbosser is a service API and so we must handle the service
-                                    entries from all JARS which may have provided driver implementations. -->
-                                <!-- We may be using other service APIs. -->
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
-                            </transformers>
-                            <artifactSet>
-                                <excludes>
-                                    <exclude>org.eclipse.platform:org.eclipse.swt.*</exclude>
-                                    <exclude>com.github.aphtech:jlouis:zip:tables</exclude>
-                                    <exclude>onl.mdw:mathcat4j-core:zip:rules</exclude>
-                                </excludes>
-                            </artifactSet>
-                            <filters>
-                                <!-- Cannot sign jars multiple times, and keys we get may be out
-                                    of date java.lang.SecurityException: Invalid signature file digest for Manifest
-                                    main attributes -->
-                                <filter>
-                                    <artifact>*:*</artifact>
-                                    <excludes>
-                                        <exclude>META-INF/*.SF</exclude>
-                                        <exclude>META-INF/*.DSA</exclude>
-                                        <exclude>META-INF/*.RSA</exclude>
-                                        <!-- Exclude module-info.class, shaded jars cannot be modular jars -->
-                                        <exclude>module-info.class</exclude>
-                                        <!-- Exclude binaries for platforms not supported -->
-                                        <exclude>linux-x86/*</exclude>
-                                        <exclude>win32-x86/*</exclude>
-                                        <exclude>com/sun/jna/aix*/*</exclude>
-                                        <exclude>com/sun/jna/freebsd*/*</exclude>
-                                        <exclude>com/sun/jna/openbsd*/*</exclude>
-                                        <exclude>com/sun/jna/sunos*/*</exclude>
-                                        <exclude>com/sun/jna/win32-aarch64/*</exclude>
-                                        <exclude>com/sun/jna/win32-x86/*</exclude>
-                                        <exclude>com/sun/jna/linux-arm/*</exclude>
-                                        <exclude>com/sun/jna/linux-armel/*</exclude>
-                                        <exclude>com/sun/jna/linux-mips64el/*</exclude>
-                                        <exclude>com/sun/jna/linux-ppc*/*</exclude>
-                                        <exclude>com/sun/jna/linux-riscv64/*</exclude>
-                                        <exclude>com/sun/jna/linux-s390x/*</exclude>
-                                        <exclude>com/sun/jna/linux-x86/*</exclude>
-                                    </excludes>
-                                </filter>
-                            </filters>
+                            <outputDirectory>${build.dist.directory}/lib</outputDirectory>
+                            <overWriteReleases>true</overWriteReleases>
+                            <excludeArtifactIds>
+                                org.eclipse.swt.win32.win32.x86_64,
+                                org.eclipse.swt.gtk.linux.x86_64,
+                                org.eclipse.swt.gtk.linux.aarch64,
+                                org.eclipse.swt.cocoa.macosx.x86_64
+                            </excludeArtifactIds>
+                            <excludeTypes>zip</excludeTypes>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.2</version>
+                <configuration>
+                    <outputDirectory>${build.dist.directory}</outputDirectory>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>org.brailleblaster.ProxyMain</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -571,7 +538,7 @@
                     <groupId>org.eclipse.platform</groupId>
                     <artifactId>org.eclipse.swt.win32.win32.x86_64</artifactId>
                     <version>${swt.version}</version>
-                    <scope>compile</scope>
+                    <scope>provided</scope>
                     <!-- Eclipse Issue #510186: Circular Dependency which is broken anyway -->
                     <exclusions>
                         <exclusion>
@@ -595,7 +562,7 @@
                     <groupId>org.eclipse.platform</groupId>
                     <artifactId>org.eclipse.swt.gtk.linux.x86_64</artifactId>
                     <version>${swt.version}</version>
-                    <scope>compile</scope>
+                    <scope>provided</scope>
                     <!-- Eclipse Issue #510186: Circular Dependency which is broken anyway -->
                     <exclusions>
                         <exclusion>
@@ -619,7 +586,7 @@
                     <groupId>org.eclipse.platform</groupId>
                     <artifactId>org.eclipse.swt.gtk.linux.aarch64</artifactId>
                     <version>${swt.version}</version>
-                    <scope>compile</scope>
+                    <scope>provided</scope>
                     <!-- Eclipse Issue #510186: Circular Dependency which is broken anyway -->
                     <exclusions>
                         <exclusion>
@@ -643,7 +610,7 @@
                     <groupId>org.eclipse.platform</groupId>
                     <artifactId>org.eclipse.swt.cocoa.macosx.x86_64</artifactId>
                     <version>${swt.version}</version>
-                    <scope>compile</scope>
+                    <scope>provided</scope>
                     <!-- Eclipse Issue #510186: Circular Dependency which is broken anyway -->
                     <exclusions>
                         <exclusion>
@@ -667,7 +634,7 @@
                     <groupId>org.eclipse.platform</groupId>
                     <artifactId>org.eclipse.swt.cocoa.macosx.aarch64</artifactId>
                     <version>${swt.version}</version>
-                    <scope>compile</scope>
+                    <scope>provided</scope>
                     <!-- Eclipse Issue #510186: Circular Dependency which is broken anyway -->
                     <exclusions>
                         <exclusion>
