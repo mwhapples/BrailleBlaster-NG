@@ -67,12 +67,12 @@ object SearchUtils {
         //System.out.println("SearchUtils.MatchPhrase " + (matchReplace ? " Replacing " : "") + view);
         var view = viewString
         var phrase =
-            Objects.requireNonNull(if (matchReplace) click.settings.replaceString else click.settings.findString)
+            requireNotNull(if (matchReplace) click.settings.replaceString else click.settings.findString)
         if (!click.settings.isFindCaseSensitive) {
             view = view.lowercase(Locale.getDefault())
-            phrase = phrase!!.lowercase(Locale.getDefault())
+            phrase = phrase.lowercase(Locale.getDefault())
         }
-        if (phrase!!.contains("'")) {
+        if (phrase.contains('\'')) {
             view = view.replace("\u2019".toRegex(), "'")
             phrase = phrase.replace("'".toRegex(), "'")
         }
@@ -80,8 +80,8 @@ object SearchUtils {
         val whitespace = "\\s+"
         val words = phrase.split("\\s+".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         var s: StringBuilder
-        if (phrase.contains("\u0028") || phrase.contains("\u0029") || phrase.contains("\u002a")
-            || phrase.contains("\u0024") || phrase.contains(".") || phrase.contains("+") || phrase.contains("?")
+        if (phrase.contains('(') || phrase.contains(')') || phrase.contains('*')
+            || phrase.contains('$') || phrase.contains('.') || phrase.contains('+') || phrase.contains('?')
         ) {
             /*
        * dollar sign, left and right parenthesis, asterisk, period, plus

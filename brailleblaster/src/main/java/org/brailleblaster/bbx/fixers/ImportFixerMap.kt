@@ -40,7 +40,6 @@ class ImportFixerMap(defaultValue: ImportFixer? = null) : NodeMatcherMap<ImportF
             ) private val fixer: ImportFixer?
         ) {
             // JAXB requires the following no args constructor
-            @Suppress("unused")
             private constructor() : this(null, null)
 
             fun getMatcher(): INodeMatcher {

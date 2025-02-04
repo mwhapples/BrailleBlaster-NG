@@ -43,7 +43,6 @@ class ImportParserMap : NodeMatcherMap<ImportParser?>(null as ImportParser?) {
             ) private val parser: ImportParser?
         ) {
             // JAXB requires the following no args constructor
-            @Suppress("unused")
             private constructor() : this(null, null)
 
             fun getMatcher(): INodeMatcher? {

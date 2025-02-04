@@ -34,7 +34,6 @@ class AdaptedStyleMap @JvmOverloads constructor(@get:XmlElement(name = "entry") 
         ) val styleName: String?, @field:XmlElement(name = "style") val style: Style?
     ) {
         // JAXB requires the following no args constructor
-        @Suppress("unused")
         private constructor() : this(null, null, null)
     }
 
