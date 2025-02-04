@@ -66,13 +66,13 @@ class MathCatAction : IBlockAction {
         val brailleSettings = context.brailleSettings
         return when(node) {
             is Element -> translateElement(node, brailleSettings)
-            is Text -> listOf(createMathTextSpan(node, node.value, translateAsciiMath(node.value, brailleSettings.mathBrailleCode).applyAsciiBraille(brailleSettings.isUseAsciiBraille).applyMathIndicators(brailleSettings.mathIndicators)))
+            is Text -> listOf(createMathTextSpan(node, node.value, translateAsciiMath(node.value, brailleSettings.mathBrailleCode).applyMathIndicators(brailleSettings.mathIndicators).applyAsciiBraille(brailleSettings.isUseAsciiBraille)))
             else -> throw RuntimeException("Cannot translate node ${node.toXML()}")
         }
     }
     private fun translateElement(element: Element, brailleSettings: BrailleSettings): List<TextSpan> = when {
-            element.isMathML() -> listOf(createMathTextSpan(element, "", translateMathML(element.toXML(), brailleSettings.mathBrailleCode).applyAsciiBraille(brailleSettings.isUseAsciiBraille).applyMathIndicators(brailleSettings.mathIndicators)))
-            element.isMathTME() -> element.childNodes.filterIsInstance<Text>().map { createMathTextSpan(it, it.value, translateAsciiMath(it.value, brailleSettings.mathBrailleCode).applyAsciiBraille(brailleSettings.isUseAsciiBraille).applyMathIndicators(brailleSettings.mathIndicators)) }
+            element.isMathML() -> listOf(createMathTextSpan(element, "", translateMathML(element.toXML(), brailleSettings.mathBrailleCode).applyMathIndicators(brailleSettings.mathIndicators).applyAsciiBraille(brailleSettings.isUseAsciiBraille)))
+            element.isMathTME() -> element.childNodes.filterIsInstance<Text>().map { createMathTextSpan(it, it.value, translateAsciiMath(it.value, brailleSettings.mathBrailleCode).applyMathIndicators(brailleSettings.mathIndicators).applyAsciiBraille(brailleSettings.isUseAsciiBraille)) }
             else -> throw RuntimeException("Unknown element type ${element.toXML()}")
     }
 }
