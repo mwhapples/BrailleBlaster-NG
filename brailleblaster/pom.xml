@@ -166,7 +166,6 @@
             <groupId>org.eclipse.platform</groupId>
             <artifactId>org.eclipse.jface</artifactId>
             <version>${orgeclipsejface.version}</version>
-            <!-- <scope>test</scope> -->
             <!-- Eclipse Issue #510186: Use profiles instead -->
             <exclusions>
                 <exclusion>
@@ -483,6 +482,7 @@
                                 org.eclipse.swt.cocoa.macosx.x86_64
                             </excludeArtifactIds>
                             <excludeTypes>zip</excludeTypes>
+                            <includeScope>runtime</includeScope>
                         </configuration>
                     </execution>
                 </executions>
