@@ -48,6 +48,7 @@ jobs:
         files: brailleblaster-continuous.zip
         prerelease: true
         draft: false
+        target_commitish: ${{ github.sha }}
     - name: Upload dist
       uses: actions/upload-artifact@v4
       with:
