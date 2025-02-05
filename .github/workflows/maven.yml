@@ -35,6 +35,18 @@ jobs:
     - name: Get docs
       run: brailleblaster/scripts/get-docs.sh brailleblaster/target/dist/docs
 
+    - name: Zip distribution
+      run: |
+        mkdir brailleblaster-continuous
+        cp -R -t brailleblaster-continuous brailleblaster/target/dist/*
+        zip -r brailleblaster-continuous.zip brailleblaster-continuous
+    - name: Update continuous release
+      uses: softprops/action-gh-release@v2
+      with:
+        name: continuous
+        files: brailleblaster-continuous.zip
+        prerelease: true
+        draft: false
     - name: Upload dist
       uses: actions/upload-artifact@v4
       with:
