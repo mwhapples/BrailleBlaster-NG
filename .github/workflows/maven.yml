@@ -19,6 +19,8 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 17
@@ -40,6 +42,16 @@ jobs:
         mkdir brailleblaster-continuous
         cp -R -t brailleblaster-continuous brailleblaster/target/dist/*
         zip -r brailleblaster-continuous.zip brailleblaster-continuous
+    - name: Update continuous tag
+      uses: actions/github-script@v7
+      with:
+        script: |
+          github.rest.git.updateRef({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            ref: 'tags/continuous',
+            sha: context.sha
+          })
     - name: Update continuous release
       uses: softprops/action-gh-release@v2
       with:
