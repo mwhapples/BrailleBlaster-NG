@@ -96,7 +96,7 @@ abstract class BBSimpleManager {
         }
     }
 
-    fun registerModules(eventHandlers: List<SimpleListener>) {
+    fun registerModules(eventHandlers: Iterable<SimpleListener>) {
         for (eventHandler in eventHandlers) {
             registerModule(eventHandler)
         }
