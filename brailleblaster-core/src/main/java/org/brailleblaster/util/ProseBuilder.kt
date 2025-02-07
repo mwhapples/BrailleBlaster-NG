@@ -19,7 +19,7 @@ import nu.xom.*
 import nu.xom.Text
 import org.brailleblaster.BBIni
 import org.brailleblaster.bbx.BBX
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.math.mathml.MathModule
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.messages.Sender

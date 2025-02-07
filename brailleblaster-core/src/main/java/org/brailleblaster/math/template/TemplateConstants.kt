@@ -15,7 +15,7 @@
  */
 package org.brailleblaster.math.template
 
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 
 object TemplateConstants {
   private val localeHandler = getDefault()

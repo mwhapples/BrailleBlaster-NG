@@ -18,7 +18,7 @@ package org.brailleblaster.tools
 import nu.xom.Attribute
 import nu.xom.Text
 import org.brailleblaster.bbx.BBX
-import org.brailleblaster.localization.LocaleHandler
+import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.perspectives.braille.mapping.elements.WhiteSpaceElement
 import org.brailleblaster.perspectives.braille.mapping.interfaces.Uneditable
 import org.brailleblaster.perspectives.braille.messages.Sender

@@ -21,7 +21,7 @@ import org.brailleblaster.embossers.EmbosserConfigList
 import org.brailleblaster.embossers.EmbosserConfigList.Companion.loadEmbossers
 import org.brailleblaster.embossers.EmbosserEditDialog
 import org.brailleblaster.embossers.EmbossingUtils.embossersFile
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.util.FormUIUtils
 import org.eclipse.jface.window.Window

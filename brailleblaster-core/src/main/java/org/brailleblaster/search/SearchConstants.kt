@@ -15,7 +15,7 @@
  */
 package org.brailleblaster.search
 
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 
 object SearchConstants {
 

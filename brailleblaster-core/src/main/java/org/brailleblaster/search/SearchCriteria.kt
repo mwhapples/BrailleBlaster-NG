@@ -15,7 +15,7 @@
  */
 package org.brailleblaster.search
 
-import org.brailleblaster.localization.LocaleHandler.Companion.getBanaStyles
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getBanaStyles
 import org.brailleblaster.utd.properties.EmphasisType
 import java.util.*
 

@@ -17,7 +17,7 @@ package org.brailleblaster.wordprocessor
 
 import com.sun.jna.Platform
 import org.brailleblaster.BBIni
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.eclipse.swt.SWT
 import org.eclipse.swt.widgets.FileDialog
 import org.eclipse.swt.widgets.MessageBox

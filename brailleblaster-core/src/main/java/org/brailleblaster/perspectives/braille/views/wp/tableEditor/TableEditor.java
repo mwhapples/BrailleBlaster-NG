@@ -22,7 +22,7 @@ import org.brailleblaster.bbx.BBX;
 import org.brailleblaster.bbx.BBX.TableRowType;
 import org.brailleblaster.bbx.BBXUtils;
 import org.brailleblaster.exceptions.EditingException;
-import org.brailleblaster.localization.LocaleHandler;
+import org.brailleblaster.utils.localization.LocaleHandler;
 import org.brailleblaster.math.mathml.MathModule;
 import org.brailleblaster.perspectives.braille.Manager;
 import org.brailleblaster.perspectives.braille.document.BrailleDocument;

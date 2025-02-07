@@ -16,7 +16,7 @@
 package org.brailleblaster.debug
 
 import org.brailleblaster.BBIni
-import org.brailleblaster.localization.LocaleHandler
+import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.perspectives.mvc.ViewManager
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
 import org.brailleblaster.perspectives.mvc.modules.views.DebugModule.DebugFatalException

@@ -26,7 +26,7 @@ import org.brailleblaster.libembosser.embossing.attribute.*
 import org.brailleblaster.libembosser.embossing.attribute.PaperSize
 import org.brailleblaster.libembosser.spi.*
 import org.brailleblaster.libembosser.spi.Notification.NotificationType
-import org.brailleblaster.localization.LocaleHandler
+import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.utd.ITranslationEngine
 import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.utd.utils.BBX2PEFConverter

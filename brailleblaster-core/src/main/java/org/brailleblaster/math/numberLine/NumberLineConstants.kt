@@ -15,7 +15,7 @@
  */
 package org.brailleblaster.math.numberLine
 
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 
 object NumberLineConstants {
   private val localeHandler = getDefault()

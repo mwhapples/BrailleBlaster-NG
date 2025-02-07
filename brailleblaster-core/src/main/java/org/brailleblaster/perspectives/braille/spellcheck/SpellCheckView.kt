@@ -15,7 +15,7 @@
  */
 package org.brailleblaster.perspectives.braille.spellcheck
 
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.util.Notify
 import org.brailleblaster.util.Notify.notify
 import org.eclipse.swt.SWT

@@ -20,7 +20,7 @@ import nu.xom.Node
 import org.brailleblaster.abstractClasses.BBEditorView
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.easierxml.ImageUtils.getImageNavigateBlock
-import org.brailleblaster.localization.LocaleHandler.Companion.getBanaStyles
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getBanaStyles
 import org.brailleblaster.math.mathml.MathModule
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.BraillePageBrlMapElement

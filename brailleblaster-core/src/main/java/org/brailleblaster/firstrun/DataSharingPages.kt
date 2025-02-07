@@ -16,7 +16,7 @@
 package org.brailleblaster.firstrun
 
 import org.brailleblaster.BBIni
-import org.brailleblaster.localization.LocaleHandler
+import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.usage.SimpleUsageManager
 import org.brailleblaster.usage.USAGE_TRACKING_SETTING
 import org.brailleblaster.usage.UsageManager

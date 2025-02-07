@@ -17,7 +17,7 @@ package org.brailleblaster.util
 
 import org.apache.commons.lang3.exception.ExceptionUtils
 import org.brailleblaster.BBIni
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.perspectives.mvc.modules.misc.ExceptionReportingModule
 import org.brailleblaster.perspectives.mvc.modules.misc.ExceptionReportingModule.ErrorReportResponse
 import org.brailleblaster.perspectives.mvc.modules.misc.ExceptionReportingModule.ExceptionReportingLevel

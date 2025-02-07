@@ -16,7 +16,7 @@
 package org.brailleblaster.settings.ui
 
 import org.brailleblaster.BBIni
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.settings.UTDManager
 import org.brailleblaster.settings.UTDManager.Companion.userPageSettingsFile

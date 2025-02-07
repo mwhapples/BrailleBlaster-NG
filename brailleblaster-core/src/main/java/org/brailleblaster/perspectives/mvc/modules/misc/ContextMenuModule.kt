@@ -17,7 +17,7 @@ package org.brailleblaster.perspectives.mvc.modules.misc
 
 import nu.xom.Element
 import nu.xom.Node
-import org.brailleblaster.localization.LocaleHandler
+import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.math.mathml.MathModule
 import org.brailleblaster.math.numberLine.NumberLine.Companion.currentIsNumberLine
 import org.brailleblaster.math.spatial.Matrix

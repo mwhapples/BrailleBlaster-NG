@@ -15,7 +15,7 @@
  */
 package org.brailleblaster.math.spatial
 
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 
 object UebTranslations {
     private val localeHandler = getDefault()

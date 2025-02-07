@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.localization
+package org.brailleblaster.utils.localization
 
 import com.ibm.icu.text.MessageFormat
 import org.brailleblaster.utils.BBData

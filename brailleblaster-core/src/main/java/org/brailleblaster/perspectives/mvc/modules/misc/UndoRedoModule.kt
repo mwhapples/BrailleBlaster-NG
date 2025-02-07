@@ -22,7 +22,7 @@ import org.brailleblaster.BBIni
 import org.brailleblaster.Main.handleFatalException
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.document.DocumentSnapshot
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.eventQueue.EventFrame
 import org.brailleblaster.perspectives.braille.eventQueue.QueueManager

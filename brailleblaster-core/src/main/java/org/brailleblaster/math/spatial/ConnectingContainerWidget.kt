@@ -15,7 +15,7 @@
  */
 package org.brailleblaster.math.spatial
 
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.math.mathml.MathModule
 import org.brailleblaster.math.spatial.SpatialMathEnum.HorizontalJustify
 import org.brailleblaster.math.spatial.SpatialMathEnum.VerticalJustify

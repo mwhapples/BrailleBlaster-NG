@@ -15,7 +15,7 @@
  */
 package org.brailleblaster.math.ascii
 
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.math.mathml.MathModule
 import org.brailleblaster.math.mathml.MathModule.MathOption
 import org.brailleblaster.perspectives.braille.toolbar.ToolBarBuilder

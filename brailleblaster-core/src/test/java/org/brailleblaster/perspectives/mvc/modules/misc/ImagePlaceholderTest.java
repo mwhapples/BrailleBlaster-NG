@@ -15,7 +15,7 @@
  */
 package org.brailleblaster.perspectives.mvc.modules.misc;
 
-import org.brailleblaster.localization.LocaleHandler;
+import org.brailleblaster.utils.localization.LocaleHandler;
 import org.brailleblaster.perspectives.mvc.menu.TopMenu;
 import org.brailleblaster.testrunners.BBTestRunner;
 import org.brailleblaster.testrunners.ViewTestRunner;

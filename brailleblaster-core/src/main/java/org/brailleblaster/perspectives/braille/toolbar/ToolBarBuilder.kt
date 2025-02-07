@@ -16,8 +16,8 @@
 package org.brailleblaster.perspectives.braille.toolbar
 
 import org.apache.commons.lang3.StringUtils
-import org.brailleblaster.localization.LocaleHandler
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.math.mathml.MathModule
 import org.brailleblaster.perspectives.braille.toolbar.ToolBarSettings.saveUserSettings
 import org.brailleblaster.perspectives.braille.toolbar.ToolBarSettings.scale

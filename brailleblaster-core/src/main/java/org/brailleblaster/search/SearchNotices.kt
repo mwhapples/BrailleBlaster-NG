@@ -15,7 +15,7 @@
  */
 package org.brailleblaster.search
 
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.perspectives.braille.Manager
 import org.eclipse.swt.SWT
 import org.eclipse.swt.events.SelectionAdapter

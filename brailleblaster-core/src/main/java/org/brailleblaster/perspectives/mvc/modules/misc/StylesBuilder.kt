@@ -17,7 +17,7 @@ package org.brailleblaster.perspectives.mvc.modules.misc
 
 import com.google.common.base.CaseFormat
 import org.brailleblaster.bbx.BBX
-import org.brailleblaster.localization.LocaleHandler
+import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.views.wp.NumberInputDialog
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData

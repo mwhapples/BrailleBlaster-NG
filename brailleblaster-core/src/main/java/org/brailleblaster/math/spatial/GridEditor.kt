@@ -20,7 +20,7 @@ import nu.xom.Node
 import nu.xom.ParentNode
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.bbx.BBXUtils
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.math.mathml.MathModule
 import org.brailleblaster.math.numberLine.NumberLine
 import org.brailleblaster.math.spatial.SpatialMathEnum.Passage

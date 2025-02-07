@@ -18,7 +18,7 @@ package org.brailleblaster.perspectives.braille.mapping.elements
 import nu.xom.Element
 import nu.xom.Node
 import org.brailleblaster.bbx.BBX
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.math.numberLine.NumberLineConstants
 import org.brailleblaster.math.spatial.MatrixConstants
 import org.brailleblaster.math.spatial.SpatialMathUtils

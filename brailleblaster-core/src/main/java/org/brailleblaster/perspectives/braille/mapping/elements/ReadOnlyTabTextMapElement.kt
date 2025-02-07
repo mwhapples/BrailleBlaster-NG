@@ -16,7 +16,7 @@
 package org.brailleblaster.perspectives.braille.mapping.elements
 
 import nu.xom.Node
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.ReadOnlyTextMapElement.Companion.getMessage
 import org.brailleblaster.perspectives.braille.mapping.interfaces.Uneditable

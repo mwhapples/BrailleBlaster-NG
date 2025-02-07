@@ -16,8 +16,8 @@
 package org.brailleblaster.perspectives.mvc.modules.misc
 
 import org.brailleblaster.BBIni
-import org.brailleblaster.localization.LocaleHandler.Companion.getBanaStyles
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getBanaStyles
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.mvc.menu.*
 import org.brailleblaster.perspectives.mvc.menu.MenuManager.addSeparator

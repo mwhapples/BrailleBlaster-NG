@@ -17,7 +17,7 @@ package org.brailleblaster.embossers
 
 import org.brailleblaster.libembosser.spi.EmbosserOption
 import org.brailleblaster.libembosser.spi.OptionIdentifier
-import org.brailleblaster.localization.LocaleHandler
+import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.utils.ByteStringEncoding
 import org.brailleblaster.util.swt.EasySWT
 import org.eclipse.swt.SWT

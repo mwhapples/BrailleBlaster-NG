@@ -16,7 +16,7 @@
 package org.brailleblaster.math.mathml
 
 import nu.xom.Element
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.messages.Sender
 import org.brailleblaster.perspectives.braille.stylers.StyleHandler

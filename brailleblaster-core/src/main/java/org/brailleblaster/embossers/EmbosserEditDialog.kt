@@ -17,7 +17,7 @@ package org.brailleblaster.embossers
 
 import org.brailleblaster.libembosser.EmbosserService
 import org.brailleblaster.libembosser.spi.Embosser
-import org.brailleblaster.localization.LocaleHandler
+import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.util.swt.EasySWT
 import org.eclipse.jface.dialogs.IDialogConstants
 import org.eclipse.jface.dialogs.IMessageProvider

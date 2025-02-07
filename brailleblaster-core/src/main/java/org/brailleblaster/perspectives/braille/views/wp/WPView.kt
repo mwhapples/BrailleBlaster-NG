@@ -23,7 +23,7 @@ import org.brailleblaster.abstractClasses.BBEditorView
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.bbx.utd.BBXEmphasisAction
 import org.brailleblaster.exceptions.OutdatedMapListException
-import org.brailleblaster.localization.LocaleHandler.Companion.getBanaStyles
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getBanaStyles
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.*
 import org.brailleblaster.perspectives.braille.mapping.maps.PaintedElementsList

@@ -16,7 +16,7 @@
 package org.brailleblaster.settings.ui
 
 import org.brailleblaster.document.BBDocument
-import org.brailleblaster.localization.LocaleHandler
+import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.settings.PredominantQuoteSetting
 import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.util.AccessibilityUtils

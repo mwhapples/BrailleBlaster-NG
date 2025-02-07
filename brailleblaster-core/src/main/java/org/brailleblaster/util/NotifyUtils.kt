@@ -17,7 +17,7 @@ package org.brailleblaster.util
 
 import org.apache.commons.lang3.exception.ExceptionUtils
 import org.brailleblaster.Main.isInitted
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.userHelp.VersionInfo.versionsSimple
 import org.brailleblaster.wordprocessor.WPManager
 

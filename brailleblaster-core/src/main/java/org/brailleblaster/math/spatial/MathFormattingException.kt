@@ -15,7 +15,7 @@
  */
 package org.brailleblaster.math.spatial
 
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.util.Notify
 import org.brailleblaster.util.Notify.notify
 

@@ -15,7 +15,7 @@
  */
 package org.brailleblaster.embossers
 
-import org.brailleblaster.localization.LocaleHandler
+import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.util.swt.EasySWT
 import org.eclipse.jface.dialogs.Dialog
 import org.eclipse.jface.dialogs.IDialogConstants

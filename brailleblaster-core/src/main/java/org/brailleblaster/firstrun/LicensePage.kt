@@ -17,7 +17,7 @@ package org.brailleblaster.firstrun
 
 import org.apache.commons.io.FileUtils
 import org.brailleblaster.utils.BBData.getBrailleblasterPath
-import org.brailleblaster.localization.LocaleHandler
+import org.brailleblaster.utils.localization.LocaleHandler
 import org.eclipse.jface.layout.GridDataFactory
 import org.eclipse.jface.widgets.ButtonFactory
 import org.eclipse.jface.widgets.CompositeFactory

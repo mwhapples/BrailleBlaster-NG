@@ -18,7 +18,7 @@ package org.brailleblaster.math.spatial
 import nu.xom.Element
 import nu.xom.Node
 import org.brailleblaster.bbx.BBX
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.math.mathml.MathModule
 import org.brailleblaster.math.spatial.SpatialMathEnum.Translation
 import org.brailleblaster.perspectives.braille.mapping.elements.LineBreakElement

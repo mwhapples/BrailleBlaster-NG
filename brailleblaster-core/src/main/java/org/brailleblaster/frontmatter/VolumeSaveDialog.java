@@ -26,7 +26,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.brailleblaster.BBIni;
 import org.brailleblaster.archiver2.Archiver2;
 import org.brailleblaster.bbx.BBX;
-import org.brailleblaster.localization.LocaleHandler;
+import org.brailleblaster.utils.localization.LocaleHandler;
 import org.brailleblaster.perspectives.braille.Manager;
 import org.brailleblaster.settings.UTDManager;
 import org.brailleblaster.utd.BRFWriter;

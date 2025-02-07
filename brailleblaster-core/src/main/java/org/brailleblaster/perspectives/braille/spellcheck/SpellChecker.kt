@@ -17,7 +17,7 @@ package org.brailleblaster.perspectives.braille.spellcheck
 
 import com.sun.jna.Platform
 import org.brailleblaster.BBIni
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.slf4j.LoggerFactory
 
 class SpellChecker(private val dictPath: String, private val affPath: String) {

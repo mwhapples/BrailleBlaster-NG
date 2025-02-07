@@ -35,7 +35,7 @@ import org.brailleblaster.exceptions.FormatterException;
 import org.brailleblaster.exceptions.OutdatedMapListException;
 import org.brailleblaster.exceptions.TranslationException;
 import org.brailleblaster.frontmatter.VolumeUtils;
-import org.brailleblaster.localization.LocaleHandler;
+import org.brailleblaster.utils.localization.LocaleHandler;
 import org.brailleblaster.math.mathml.MathModule;
 import org.brailleblaster.perspectives.Controller;
 import org.brailleblaster.perspectives.braille.document.BrailleDocument;

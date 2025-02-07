@@ -27,7 +27,7 @@ import org.brailleblaster.frontmatter.VolumeUtils.getVolumeElementsFatal
 import org.brailleblaster.frontmatter.VolumeUtils.getVolumeNames
 import org.brailleblaster.frontmatter.VolumeUtils.newVolumeElement
 import org.brailleblaster.frontmatter.VolumeUtils.updateEndOfVolume
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.WhiteSpaceElement
 import org.brailleblaster.perspectives.braille.messages.Sender

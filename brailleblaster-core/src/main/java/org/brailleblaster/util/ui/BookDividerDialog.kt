@@ -17,7 +17,7 @@ package org.brailleblaster.util.ui
 
 import nu.xom.Element
 import org.brailleblaster.archiver2.ArchiverFactory
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.views.tree.DividerTree
 import org.brailleblaster.util.BookSplitter

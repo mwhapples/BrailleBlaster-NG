@@ -18,7 +18,7 @@ package org.brailleblaster.perspectives.braille.ui;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
 import org.brailleblaster.BBIni;
-import org.brailleblaster.localization.LocaleHandler;
+import org.brailleblaster.utils.localization.LocaleHandler;
 import org.brailleblaster.perspectives.braille.Manager;
 import org.brailleblaster.perspectives.braille.document.BrailleDocument;
 import org.brailleblaster.perspectives.braille.views.wp.TextView;

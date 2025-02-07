@@ -16,7 +16,7 @@
 package org.brailleblaster.settings.ui
 
 import ch.qos.logback.classic.Level
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.logging.getLogLevel
 import org.brailleblaster.logging.setLogLevel
 import org.brailleblaster.logging.updateLogSettings

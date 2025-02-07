@@ -16,7 +16,7 @@
 package org.brailleblaster.perspectives.mvc.modules.misc
 
 import com.sun.jna.Platform
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.perspectives.mvc.BBSimpleManager.SimpleListener
 import org.brailleblaster.perspectives.mvc.menu.MenuManager
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData

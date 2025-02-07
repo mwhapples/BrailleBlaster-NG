@@ -15,7 +15,7 @@
  */
 package org.brailleblaster.settings.ui
 
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.utd.PageSettings
 import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.utd.properties.PageNumberPosition

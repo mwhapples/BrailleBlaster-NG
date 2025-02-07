@@ -15,7 +15,7 @@
  */
 package org.brailleblaster.perspectives.braille.views.wp
 
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.util.Utils
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridData

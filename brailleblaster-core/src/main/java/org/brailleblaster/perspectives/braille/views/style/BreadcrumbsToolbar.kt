@@ -21,7 +21,7 @@ import nu.xom.Element
 import nu.xom.Node
 import nu.xom.Text
 import org.brailleblaster.bbx.BBX
-import org.brailleblaster.localization.LocaleHandler.Companion.getBanaStyles
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getBanaStyles
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.messages.Sender
 import org.brailleblaster.perspectives.braille.toolbar.CustomToolBarBuilder.Companion.userDefined

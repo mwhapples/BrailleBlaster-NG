@@ -16,7 +16,7 @@
 package org.brailleblaster.util.swt
 
 import org.apache.commons.lang3.time.DurationFormatUtils
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.settings.UTDManager.Companion.getCellsPerLine
 import org.brailleblaster.util.SizeAndLocation

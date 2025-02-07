@@ -16,7 +16,7 @@
 package org.brailleblaster.math.ascii
 
 import nu.xom.Node
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.math.ascii.MathDialogSettings.CATEGORIES
 import org.brailleblaster.math.mathml.ImageCreator
 import org.brailleblaster.math.mathml.MathModule

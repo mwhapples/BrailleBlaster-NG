@@ -19,7 +19,7 @@ import nu.xom.*
 import org.apache.commons.lang3.StringUtils
 import org.apache.commons.text.StringEscapeUtils
 import org.brailleblaster.bbx.BBX
-import org.brailleblaster.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.math.ascii.ASCII2MathML.translate
 import org.brailleblaster.math.mathml.MathUtils.removeMathInSelectedRange
 import org.brailleblaster.math.numberLine.NumberLine
