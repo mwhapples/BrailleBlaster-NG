@@ -13,11 +13,9 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.perspectives.mvc.modules.views
+package org.brailleblaster.debug
 
 import org.brailleblaster.BBIni
-import org.brailleblaster.debug.PageNumberDebugger
-import org.brailleblaster.debug.XMLDebugger
 import org.brailleblaster.localization.LocaleHandler
 import org.brailleblaster.perspectives.mvc.ViewManager
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
@@ -37,8 +35,8 @@ import java.io.File
 object DebugTool {
     val tools = listOf(
         XMLViewerTool,
-        StyleViewerTool,
         MapListViewerTool,
+        StyleViewerTool,
         PageNumberViewerTool,
         SaveWithBrlTool,
         SaveFormattedWithBrlTool,
@@ -60,19 +58,25 @@ object XMLViewerTool : DebugMenuToolListener {
     override val title = "XML Viewer"
     override val accelerator = SWT.MOD1 or SWT.MOD2 or 'X'.code
     override fun onRun(bbData: BBSelectionData) {
-XMLDebugger(bbData.wpManager.shell, bbData.manager.simpleManager)
+        XMLDebugger(bbData.wpManager.shell, bbData.manager.simpleManager)
     }
 }
 object MapListViewerTool : DebugMenuToolListener {
     override val title = "Map List Viewer"
     override fun onRun(bbData: BBSelectionData) {
-        bbData.manager.openMapListViewer()
+        val manager = bbData.manager
+        val mapListViewer = MapListDebugger(manager)
+        mapListViewer.open()
+        mapListViewer.setMapText(manager.mapList.current, manager.mapList.currentIndex)
     }
 }
 object StyleViewerTool : DebugMenuToolListener {
     override val title = "Style Viewer"
     override fun onRun(bbData: BBSelectionData) {
-        bbData.manager.openStyleViewer()
+        val manager = bbData.manager
+        val styleViewer = StyleDebugger(manager.wpManager.shell, SWT.NONE, manager)
+        styleViewer.open()
+        styleViewer.setStyleText(manager.currentTextMapElement!!.node)
     }
 }
 object PageNumberViewerTool : DebugMenuToolListener {

@@ -13,6 +13,7 @@
         <module>utd</module>
         <module>brailleblaster-core</module>
         <module>brailleblaster-app</module>
+        <module>brailleblaster-debug-tools</module>
     </modules>
 
     <properties>

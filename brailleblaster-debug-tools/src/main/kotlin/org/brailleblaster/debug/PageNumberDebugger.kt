@@ -49,7 +49,7 @@ class PageNumberDebugger(manager: Manager) {
             for (curMapping in curSection.list) {
                 if (curMapping is PageIndicatorTextMapElement) {
                     val usableNode =
-                        (curMapping.node as? Element ?: curMapping.nodeParent) as Element
+                        (curMapping.node as? Element ?: curMapping.nodeParent)
                     val brlPageNum = usableNode.getAttributeValue("printPage")
                     if (brlPageNum != null) printPageBuilder.append("PageMapElement: ").append(brlPageNum)
                         .append(System.lineSeparator())

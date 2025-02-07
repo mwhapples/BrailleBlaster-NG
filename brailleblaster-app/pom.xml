@@ -26,6 +26,11 @@
         </dependency>
         <dependency>
             <groupId>org.brailleblaster</groupId>
+            <artifactId>brailleblaster-debug-tools</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.brailleblaster</groupId>
             <artifactId>utils</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>

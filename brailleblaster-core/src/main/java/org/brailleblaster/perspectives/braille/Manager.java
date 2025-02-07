@@ -29,8 +29,6 @@ import org.brailleblaster.archiver2.ArchiverFactory;
 import org.brailleblaster.archiver2.ArchiverRecoverThread;
 import org.brailleblaster.bbx.BBX;
 import org.brailleblaster.bbx.fixers2.LiveFixer;
-import org.brailleblaster.debug.MapListDebugger;
-import org.brailleblaster.debug.StyleDebugger;
 import org.brailleblaster.embossers.EmbossingUtils;
 import org.brailleblaster.exceptions.EditingException;
 import org.brailleblaster.exceptions.FormatterException;
@@ -410,18 +408,6 @@ public class Manager extends Controller {
             return (Element) parent.getChild(index + 1);
         }
         return null;
-    }
-
-    public void openStyleViewer() {
-        StyleDebugger styleViewer = new StyleDebugger(getWpManager().getShell(), SWT.NONE, this);
-        styleViewer.open();
-        styleViewer.setStyleText(Objects.requireNonNull(text.getCurrentElement()).getNode());
-    }
-
-    public void openMapListViewer() {
-        MapListDebugger mapListViewer = new MapListDebugger(this);
-        mapListViewer.open();
-        mapListViewer.setMapText(list.getCurrent(), list.getCurrentIndex());
     }
 
     public void closeThreads() {
@@ -1596,6 +1582,10 @@ public class Manager extends Controller {
         return fontManager;
     }
 
+    @Nullable
+    public TextMapElement getCurrentTextMapElement() {
+        return text.getCurrentElement();
+    }
     public StyledText getTextView() {
         return text.getView();
     }

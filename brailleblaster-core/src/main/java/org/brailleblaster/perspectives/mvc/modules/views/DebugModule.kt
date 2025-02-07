@@ -22,8 +22,6 @@ import org.brailleblaster.perspectives.braille.messages.Sender
 import org.brailleblaster.perspectives.mvc.BBSimpleManager.SimpleListener
 import org.brailleblaster.perspectives.mvc.SimpleEvent
 import org.brailleblaster.perspectives.mvc.events.BBViewListener
-import org.brailleblaster.perspectives.mvc.events.BuildMenuEvent
-import org.brailleblaster.perspectives.mvc.menu.MenuManager
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.VerifyKeyListener
 import org.eclipse.swt.events.VerifyEvent
@@ -35,22 +33,6 @@ class DebugModule(private val currentEditor: Manager) : AbstractModule(), Simple
     }
 
     override fun onEvent(event: SimpleEvent) {
-        if (enabled && event is BuildMenuEvent) {
-            MenuManager.addMenuItem(XMLViewerTool)
-            MenuManager.addMenuItem(StyleViewerTool)
-            MenuManager.addMenuItem(MapListViewerTool)
-            MenuManager.addMenuItem(PageNumberViewerTool)
-            MenuManager.addMenuItem(SaveWithBrlTool)
-            MenuManager.addMenuItem(SaveFormattedWithBrlTool)
-            MenuManager.addMenuItem(SaveFormattedWithoutBrlTool)
-            MenuManager.addMenuItem(SetLogTool)
-            MenuManager.addMenuItem(DisableFocusLostListenerTool)
-            MenuManager.addMenuItem(TriggerExceptionTool)
-            MenuManager.addMenuItem(TriggerFatalExceptionTool)
-            MenuManager.addMenuItem(DarkModeToggleTool)
-            MenuManager.addMenuItem(MathTableExceptionsTool)
-            MenuManager.addMenuItem(TogglePandocImportTool)
-        }
     }
 
     override fun initializeListener(view: BBEditorView) {

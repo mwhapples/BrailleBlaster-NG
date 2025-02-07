@@ -35,7 +35,11 @@ import org.eclipse.swt.events.*
 import org.eclipse.swt.graphics.Color
 import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.layout.GridLayout
-import org.eclipse.swt.widgets.*
+import org.eclipse.swt.widgets.Button
+import org.eclipse.swt.widgets.Display
+import org.eclipse.swt.widgets.FileDialog
+import org.eclipse.swt.widgets.Shell
+import org.eclipse.swt.widgets.Text
 import org.slf4j.LoggerFactory
 import java.io.ByteArrayOutputStream
 import java.io.File
