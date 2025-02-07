@@ -31,7 +31,7 @@ import org.brailleblaster.utd.ITranslationEngine
 import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.utd.utils.BBX2PEFConverter
 import org.brailleblaster.util.Notify
-import org.brailleblaster.util.PageFilterInputStream
+import org.brailleblaster.utils.PageFilterInputStream
 import org.brailleblaster.utils.LengthUtils.toLengthBigDecimal
 import org.eclipse.jface.dialogs.MessageDialog
 import org.eclipse.jface.window.Window
