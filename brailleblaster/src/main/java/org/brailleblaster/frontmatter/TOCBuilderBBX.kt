@@ -1081,7 +1081,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
                         " Additional TOC volumes will be added to last available volume."
                     else
                         "") + " Are you sure you want to disperse TOC entries?"),
-                    manager.wpManager.shell
+                    manager.wp.shell
                 )
             ) {
                 return

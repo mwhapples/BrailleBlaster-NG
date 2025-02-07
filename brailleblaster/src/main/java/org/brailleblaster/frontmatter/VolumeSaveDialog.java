@@ -381,7 +381,7 @@ public class VolumeSaveDialog {
             fileName = com.google.common.io.Files.getNameWithoutExtension(fileName);
 
             BBFileDialog dialog = new BBFileDialog(
-                    m.getWPManager().getShell(),
+                    m.getWp().getShell(),
                     SWT.SAVE,
                     fileName,
                     Format.fileDialogNames(),

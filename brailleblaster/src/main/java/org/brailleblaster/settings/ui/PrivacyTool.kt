@@ -35,7 +35,7 @@ object PrivacyTool : MenuToolListener {
     override val topMenu: TopMenu = TopMenu.HELP
     override val title: String = LocaleHandler.getDefault()["PrivacySettingsTab.title"]
     override fun onRun(bbData: BBSelectionData) {
-        val usage = bbData.manager.wpManager.usageManager
+        val usage = bbData.manager.wp.usageManager
         if (usage is BBUsageManager) {
             usage.reportDataAsync()
         }

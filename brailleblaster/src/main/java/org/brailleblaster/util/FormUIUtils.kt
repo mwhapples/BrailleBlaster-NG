@@ -80,7 +80,7 @@ object FormUIUtils {
      * clicked on. Is resizable and has dialog trim
      */
     fun makeDialog(manager: Manager): Shell {
-        return makeDialog(manager.wpManager.shell)
+        return makeDialog(manager.wp.shell)
     }
 
     @JvmStatic
@@ -113,7 +113,7 @@ object FormUIUtils {
      * clicked on. Is resizable and has dialog trim
      */
     fun makeDialogFloating(manager: Manager): Shell {
-        return makeDialogFloating(manager.wpManager.shell)
+        return makeDialogFloating(manager.wp.shell)
     }
 
     @JvmStatic

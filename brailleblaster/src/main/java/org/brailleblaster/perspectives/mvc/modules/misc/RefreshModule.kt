@@ -32,8 +32,8 @@ class RefreshModule(private val manager: Manager) : SimpleListener, VerifyKeyLis
     override fun verifyKey(e: VerifyEvent) {
         if (e.keyCode == SWT.F5) {
             manager.refresh()
-            while (!manager.wpManager.shell.isDisposed) {
-                val display = manager.wpManager.shell.display
+            while (!manager.wp.shell.isDisposed) {
+                val display = manager.wp.shell.display
                 if (!display.readAndDispatch()) display.sleep()
             }
         }

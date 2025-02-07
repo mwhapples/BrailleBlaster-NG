@@ -25,7 +25,7 @@ import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.custom.CTabItem
 import java.io.File
 
-abstract class Controller(@JvmField protected var wp: WPManager) : DocumentManager {
+abstract class Controller(val wp: WPManager) : DocumentManager {
     var tab: CTabItem? = null
         protected set
     abstract val archiver: Archiver2

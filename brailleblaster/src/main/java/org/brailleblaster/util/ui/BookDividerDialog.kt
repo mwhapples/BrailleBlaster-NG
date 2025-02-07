@@ -59,7 +59,7 @@ class BookDividerDialog(val manager: Manager) {
     var tree: DividerTree? = null
 
     fun warn(): Boolean {
-        val warning = MessageBox(manager.wpManager.shell, SWT.YES or SWT.NO)
+        val warning = MessageBox(manager.wp.shell, SWT.YES or SWT.NO)
         warning.text = localeHandler["warning"]
         warning.message = localeHandler["fileWarning"]
 
@@ -67,7 +67,7 @@ class BookDividerDialog(val manager: Manager) {
     }
 
     fun open() {
-        shell = Shell(manager.wpManager.shell, SWT.APPLICATION_MODAL or SWT.CLOSE)
+        shell = Shell(manager.wp.shell, SWT.APPLICATION_MODAL or SWT.CLOSE)
         shell!!.text = localeHandler["splitBook"]
         shell!!.layout = FormLayout()
 
@@ -256,13 +256,13 @@ class BookDividerDialog(val manager: Manager) {
         val filePath = getPath(manager.archiver.path.toString())
 
         val dialog = BBFileDialog(
-            manager.wpManager.shell, SWT.OPEN, null, filePath,
+            manager.wp.shell, SWT.OPEN, null, filePath,
             ArchiverFactory.INSTANCE.supportedDescriptionsWithCombinedEntry,
             ArchiverFactory.INSTANCE.supportedExtensionsWithCombinedEntry
         )
 
         val result = dialog.open()
-        if (result != null) manager.wpManager.addDocumentManager(Paths.get(result))
+        if (result != null) manager.wp.addDocumentManager(Paths.get(result))
     }
 
     private fun inTable(e: Element): Boolean {

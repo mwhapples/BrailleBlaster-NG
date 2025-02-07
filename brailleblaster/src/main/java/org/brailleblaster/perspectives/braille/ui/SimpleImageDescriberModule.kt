@@ -40,7 +40,7 @@ object SimpleImageDescriberModule : DebugMenuToolListener {
         val imageCursor = getCaretImage(m.simpleManager.currentSelection)
         SimpleImageDescriberDialog(
             m,
-            m.wpManager.shell,
+            m.wp.shell,
             imageCursor
         ) { images: List<Element> -> handleUpdatedImages(m, imageCursor, images) }
     }

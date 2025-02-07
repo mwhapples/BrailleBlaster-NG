@@ -44,7 +44,7 @@ object ImagePlaceholderTool : MenuToolListener {
             manager.stopFormatting()
             manager.text.update(false)
             val trh = ImagePlaceholderHandler(manager, manager.viewInitializer, manager.mapList)
-            ImagePlaceholder(manager.wpManager.shell, manager) { list: ArrayList<String?> ->
+            ImagePlaceholder(manager.wp.shell, manager) { list: ArrayList<String?> ->
                 val imagePath = list[1]
                 if (list[0] != null) {
                     val lines = list[0]!!.toInt()

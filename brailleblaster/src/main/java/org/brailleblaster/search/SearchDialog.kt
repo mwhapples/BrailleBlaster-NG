@@ -661,7 +661,7 @@ class SearchDialog(parent: Shell?, style: Int) : Dialog(parent, style),
         val replaced = replaceObj!!.replace(m!!, click!!)
 
         if (!replaced && inTable(m!!)) {
-            displayInvalidTableMessage(m!!.wpManager.shell)
+            displayInvalidTableMessage(m!!.wp.shell)
         } else if (!replaced && (index == 0 && section == 0)) {
             SearchNotices().wordNotFoundMessage(parent, findCombo)
         } else if (!replaced) {

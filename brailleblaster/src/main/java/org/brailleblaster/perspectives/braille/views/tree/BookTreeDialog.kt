@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Shell
 
 class BookTreeDialog(manager: Manager) {
-    val shell: Shell = Shell(manager.wpManager.shell, SWT.SHELL_TRIM or SWT.APPLICATION_MODAL)
+    val shell: Shell = Shell(manager.wp.shell, SWT.SHELL_TRIM or SWT.APPLICATION_MODAL)
     val navigate: Button
     val close: Button
     val bk: BookTree2

@@ -58,7 +58,7 @@ class ContextMenuModule(private val manager: Manager) : SimpleListener {
         }
         if (event is XMLCaretEvent && moduleInitialized) {
             disposeExistingMenus()
-            if (manager.wpManager.isClosed()) {
+            if (manager.wp.isClosed()) {
                 return
             }
             createMenu(event, tv.view)

@@ -179,7 +179,7 @@ class ProseBuilder : MenuToolListener {
         try {
             checkForSpace(pastedSpan)
         } catch (e: Exception) {
-            val parentShell = manager!!.wpManager.shell
+            val parentShell = manager!!.wp.shell
             val errorShell = Shell(parentShell)
             errorShell.setSize(250, 70)
             errorShell.text = "Warning!"
@@ -428,7 +428,7 @@ class ProseBuilder : MenuToolListener {
         if (shell != null && !shell!!.isDisposed) {
             shell!!.close()
         }
-        shell = Shell(manager!!.wpManager.shell, SWT.CLOSE or SWT.ON_TOP)
+        shell = Shell(manager!!.wp.shell, SWT.CLOSE or SWT.ON_TOP)
         shell!!.setSize(200, 125)
         shell!!.text = "Edit Line Number"
         val gridLayout = GridLayout()

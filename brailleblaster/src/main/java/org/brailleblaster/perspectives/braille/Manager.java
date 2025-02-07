@@ -340,7 +340,7 @@ public class Manager extends Controller {
         simpleManager.registerModule(new PostViewUpdateModule());
         simpleManager.registerModule(new DebugModule(this));
         simpleManager.registerModule(new ToggleViewsModule(this));
-        simpleManager.registerModule(new ToolBarModule(getWPManager()));
+        simpleManager.registerModule(new ToolBarModule(getWp()));
         simpleManager.registerModule(new BrailleViewModule(this));
         // TODO:Use split merge module and remove duplicate code from
         //  file module when way exists to specify item location in menu
@@ -404,7 +404,7 @@ public class Manager extends Controller {
         }
         // Attempt to open file before all else. RT-7789
         openDocument(file);
-        addTabItem(wp.getFolder()).setControl(this.containerSash);
+        addTabItem(getWp().getFolder()).setControl(this.containerSash);
         initializeDocumentTab();
 
         // RT 7560 - Pandoc Imported File should be saved before closing
@@ -419,7 +419,7 @@ public class Manager extends Controller {
 
     private void initializeDocumentTab() {
         viewManager.setTabList();
-        wp.getShell().layout();
+        getWp().getShell().layout();
     }
 
     public void repeatLastSearch() {
@@ -481,7 +481,7 @@ public class Manager extends Controller {
     }
 
     public void openStyleViewer() {
-        StyleDebugger styleViewer = new StyleDebugger(wp.getShell(), SWT.NONE, this);
+        StyleDebugger styleViewer = new StyleDebugger(getWp().getShell(), SWT.NONE, this);
         styleViewer.open();
         styleViewer.setStyleText(Objects.requireNonNull(text.getCurrentElement()).getNode());
     }
@@ -541,9 +541,9 @@ public class Manager extends Controller {
 
             viewManager.saveScreenProperties();
             // remove listener before you build toolbar again
-            if (wp.getCurrentPerspective().getKeyListener() != null) {
-                text.getView().removeVerifyKeyListener(wp.getCurrentPerspective().getKeyListener());
-                wp.getCurrentPerspective().setKeyListener(null);
+            if (getWp().getCurrentPerspective().getKeyListener() != null) {
+                text.getView().removeVerifyKeyListener(getWp().getCurrentPerspective().getKeyListener());
+                getWp().getCurrentPerspective().setKeyListener(null);
             }
             dispose();
             final CTabItem tab = getTab();
@@ -553,7 +553,7 @@ public class Manager extends Controller {
             // fontManager.disposeFonts();
             if (archiver == null & docCount > 0)
                 docCount--;
-            wp.removeController(this);
+            getWp().removeController(this);
 
             try {
                 getArchiver().close();
@@ -561,8 +561,8 @@ public class Manager extends Controller {
                 logger.error("Error closing Archiver", e);
             }
 
-            if (wp.getList().isEmpty())
-                wp.getStatusBar().setText("");
+            if (getWp().getList().isEmpty())
+                getWp().getStatusBar().setText("");
         }
 
         return !cancel;
@@ -619,15 +619,15 @@ public class Manager extends Controller {
             Objects.requireNonNull(getSimpleManager().getModule(UndoRedoModule.class)).copyDocument(document.doc);
 
             containerSash.setRedraw(false);
-            wp.getStatusBar().resetLocation(6, 75, 100);
-            wp.getStatusBar().setText("Loading...");
+            getWp().getStatusBar().resetLocation(6, 75, 100);
+            getWp().getStatusBar().setText("Loading...");
 
             viewInitializer = ViewFactory.createUpdater(getArchiver(), document, text, braille);
             updateMapList(0);
             initializeListeners();
             text.hasChanged = false;
             braille.hasChanged = false;
-            wp.getStatusBar().resetLocation(0, 75, 100);
+            getWp().getStatusBar().resetLocation(0, 75, 100);
             getText().createNodeCaret(list.getCurrent(), text.getView().getCaretOffset());
 
             // Can't click on views without calling this? Why?
@@ -865,17 +865,17 @@ public class Manager extends Controller {
     }
 
     private void handleUpdateStatusBar(UpdateStatusbarMessage message) {
-        wp.getStatusBar().setColor(ColorManager.Colors.BLACK);
-        wp.getStatusBar().setText(message.getStatus());
+        getWp().getStatusBar().setColor(ColorManager.Colors.BLACK);
+        getWp().getStatusBar().setText(message.getStatus());
     }
 
     public void setTemporaryStatusBarMessage(String message, boolean redHighlight) {
         if (redHighlight) {
-            wp.getStatusBar().setColor(ColorManager.Colors.RED);
+            getWp().getStatusBar().setColor(ColorManager.Colors.RED);
         } else {
-            wp.getStatusBar().setColor(ColorManager.Colors.BLACK);
+            getWp().getStatusBar().setColor(ColorManager.Colors.BLACK);
         }
-        wp.getStatusBar().setText(message);
+        getWp().getStatusBar().setText(message);
     }
 
     private void handleAdjustLocalStyle(AdjustLocalStyleMessage message) {
@@ -960,7 +960,7 @@ public class Manager extends Controller {
     }
 
     public void textPrint() {
-        PrintersManager pn = new PrintersManager(wp.getShell(), text.getView());
+        PrintersManager pn = new PrintersManager(getWp().getShell(), text.getView());
         pn.beginPrintJob();
     }
 
@@ -970,7 +970,7 @@ public class Manager extends Controller {
 
     public void printPreview() {
         this.waitForFormatting(true);
-        new PrintPreview(wp.getShell(), getFontManager(), getDocument().getSettingsManager(), getDoc(), Manager.this);
+        new PrintPreview(getWp().getShell(), getFontManager(), getDocument().getSettingsManager(), getDoc(), Manager.this);
     }
 
 
@@ -1673,11 +1673,7 @@ public class Manager extends Controller {
     }
 
     public Display getDisplay() {
-        return wp.getShell().getDisplay();
-    }
-
-    public WPManager getWPManager() {
-        return wp;
+        return getWp().getShell().getDisplay();
     }
 
     public BrailleDocument getDocument() {
@@ -2072,8 +2068,7 @@ public class Manager extends Controller {
                 try {
                     while (newPage == null) {
                         workLatch.await(10, TimeUnit.SECONDS);
-                        if (newPage == null && manager.getWPManager().getShell().isDisposed())
-                            return;
+                        if (newPage == null && manager.getWp().getShell().isDisposed()) return;
                         if (close)
                             return;
                     }

@@ -161,7 +161,7 @@ class FileModule : SimpleListener {
                 var fileName: String = (arch.newPath ?: arch.path).fileName.toString()
                 fileName = com.google.common.io.Files.getNameWithoutExtension(fileName)
                 val dialog = BBFileDialog(
-                    m.wpManager.shell,
+                    m.wp.shell,
                     SWT.SAVE,
                     fileName,
                     ArchiverFactory.INSTANCE.getSupportedDescriptions(arch),

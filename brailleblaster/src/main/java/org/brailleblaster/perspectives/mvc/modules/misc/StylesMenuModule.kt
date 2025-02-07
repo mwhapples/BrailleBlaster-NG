@@ -776,7 +776,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
             )!!.isTableSelected
 
     private fun warnTable() {
-        displayInvalidTableMessage(m.wpManager.shell)
+        displayInvalidTableMessage(m.wp.shell)
     }
 
     private fun movePageIndicators(start: Node, end: Node) {

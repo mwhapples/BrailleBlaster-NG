@@ -53,7 +53,7 @@ object MathEditHandler {
     // check to make sure we aren't inserting new math into a toc or
     // table
     if (mapElements.any { it.isReadOnly }) {
-      TableSelectionModule.displayInvalidTableMessage(m.wpManager.shell)
+      TableSelectionModule.displayInvalidTableMessage(m.wp.shell)
       return
     } else if (mapElements.any { BBXUtils.isTOCText(it.node) }) {
       Notify.notify("Cannot insert math into TOC", Notify.ALERT_SHELL_NAME)
@@ -106,7 +106,7 @@ object MathEditHandler {
     if (!MathModule.isMath(mapElement.node)) {
       // check to make sure we aren't inserting new math into a toc or table
       if (mapElement.isReadOnly) {
-        TableSelectionModule.displayInvalidTableMessage(m.wpManager.shell)
+        TableSelectionModule.displayInvalidTableMessage(m.wp.shell)
         return
       }
       // insert new
