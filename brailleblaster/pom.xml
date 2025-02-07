@@ -164,6 +164,11 @@
         <!-- Minimum required deps for SWTBot -->
         <dependency>
             <groupId>org.eclipse.platform</groupId>
+            <artifactId>org.eclipse.swt</artifactId>
+            <version>${swt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.platform</groupId>
             <artifactId>org.eclipse.jface</artifactId>
             <version>${orgeclipsejface.version}</version>
             <!-- Eclipse Issue #510186: Use profiles instead -->
