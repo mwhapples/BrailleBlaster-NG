@@ -166,6 +166,7 @@
             <groupId>org.eclipse.platform</groupId>
             <artifactId>org.eclipse.swt.${swt.platform}</artifactId>
             <version>${swt.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.eclipse.platform</groupId>
