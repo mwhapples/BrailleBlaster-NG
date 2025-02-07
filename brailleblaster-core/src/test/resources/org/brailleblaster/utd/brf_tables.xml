@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="dtbookbasic.css" type="text/css"?>
+<!DOCTYPE dtbook PUBLIC "-//NISO//DTD dtbook 2005-3//EN" "http://www.daisy.org/z3986/2005/dtbook-2005-3.dtd">
+<dtbook version="2005-3" xmlns="http://www.daisy.org/z3986/2005/dtbook/" xmlns:m="http://www.w3.org/1998/Math/MathML">
+	<book>
+		<level1>
+			<!-- Simple table, should start with a newPage -->
+			<table>
+				<tr>
+					<td>Cell 1</td>
+					<td>Cell 2</td>
+				</tr>
+				<tr>
+					<td>Cell 3</td>
+					<td>Cell 4</td>
+				</tr>
+				<tr>
+					<td>Cell 5</td>
+					<td>Cell 6</td>
+				</tr>
+			</table>
+			<p>Paragraph 5</p>
+			<p>Paragraph 6</p>
+			<p>Paragraph 7</p>
+			<p>Paragraph 8</p>
+			<p>Paragraph 9</p>
+			<p>Paragraph 10</p>
+			<p>Paragraph 11</p>
+			<p>Paragraph 12</p>
+			<p>Paragraph 13</p>
+			<p>Paragraph 14</p>
+			<p>Paragraph 15</p>
+			<p>Paragraph 16</p>
+			<p>Paragraph 17</p>
+			<p>Paragraph 18</p>
+			<p>Paragraph 19</p>
+			<!-- Table with a newPage in the middle -->
+			<table>
+				<tr>
+					<td>This table</td>
+					<td>will</td>
+				</tr>
+				<tr>
+					<td>span into</td>
+					<td>the next page</td>
+				</tr>
+				<tr>
+					<td>and hopefully</td>
+					<td>work</td>
+				</tr>
+			</table>
+		</level1>
+	</book>
+</dtbook>
