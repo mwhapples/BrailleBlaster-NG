@@ -37,8 +37,7 @@
         <swt.version>3.126.0</swt.version>
         <orgeclipsejface.version>3.33.0</orgeclipsejface.version>
         <findbugsannotations.version>3.0.1u2</findbugsannotations.version>
-        <hamcrestall.version>2.2</hamcrestall.version>
-        <hamcrestcore.version>2.2</hamcrestcore.version>
+        <hamcrest.version>2.2</hamcrest.version>
         <testng.version>7.10.2</testng.version>
         <findbugs.version>3.0.2</findbugs.version>
         <xercesimpl.version>2.12.2</xercesimpl.version>
@@ -211,7 +210,7 @@
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>
-            <version>${hamcrestall.version}</version>
+            <version>${hamcrest.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -414,7 +413,7 @@
             <dependency>
                 <groupId>org.hamcrest</groupId>
                 <artifactId>hamcrest-core</artifactId>
-                <version>${hamcrestcore.version}</version>
+                <version>${hamcrest.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
