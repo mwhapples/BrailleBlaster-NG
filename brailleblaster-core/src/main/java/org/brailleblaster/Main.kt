@@ -15,8 +15,8 @@
  */
 package org.brailleblaster
 
-import org.brailleblaster.BBData.brailleblasterPath
-import org.brailleblaster.BBData.userDataPath
+import org.brailleblaster.utils.BBData.brailleblasterPath
+import org.brailleblaster.utils.BBData.userDataPath
 import org.brailleblaster.archiver2.ZipHandles
 import org.brailleblaster.firstrun.runFirstRunWizard
 import org.brailleblaster.logging.initLogback

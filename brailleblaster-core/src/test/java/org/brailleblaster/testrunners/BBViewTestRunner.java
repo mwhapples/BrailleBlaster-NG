@@ -18,7 +18,7 @@ package org.brailleblaster.testrunners;
 import com.google.common.collect.Lists;
 import nu.xom.Document;
 import org.apache.commons.io.FileUtils;
-import org.brailleblaster.BBData;
+import org.brailleblaster.utils.BBData;
 import org.brailleblaster.BBIni;
 import org.brailleblaster.perspectives.braille.Manager;
 import org.brailleblaster.wordprocessor.WPManager;

@@ -20,7 +20,7 @@ import nu.xom.Element;
 import nu.xom.Node;
 import nu.xom.Text;
 import org.apache.commons.lang3.StringUtils;
-import org.brailleblaster.BBData;
+import org.brailleblaster.utils.BBData;
 import org.brailleblaster.BBIni;
 import org.brailleblaster.BBTestInit;
 import org.brailleblaster.bbx.BBX;

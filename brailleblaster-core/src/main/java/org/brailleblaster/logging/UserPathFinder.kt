@@ -16,7 +16,7 @@
 package org.brailleblaster.logging
 
 import ch.qos.logback.core.PropertyDefinerBase
-import org.brailleblaster.BBData
+import org.brailleblaster.utils.BBData
 import java.io.File
 
 /**

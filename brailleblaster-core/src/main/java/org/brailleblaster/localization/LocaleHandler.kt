@@ -16,7 +16,7 @@
 package org.brailleblaster.localization
 
 import com.ibm.icu.text.MessageFormat
-import org.brailleblaster.BBData
+import org.brailleblaster.utils.BBData
 import org.slf4j.LoggerFactory
 import java.net.URLClassLoader
 import java.util.*

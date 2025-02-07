@@ -20,7 +20,7 @@ import nu.xom.Document;
 import nu.xom.ParsingException;
 import nu.xom.Serializer;
 import org.apache.commons.lang3.StringUtils;
-import org.brailleblaster.BBData;
+import org.brailleblaster.utils.BBData;
 import org.brailleblaster.TestGroups;
 import org.brailleblaster.utd.config.UTDConfig;
 import org.brailleblaster.utd.internal.NormaliserFactory;

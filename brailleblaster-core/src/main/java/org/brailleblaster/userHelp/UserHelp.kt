@@ -16,7 +16,7 @@
 package org.brailleblaster.userHelp
 
 import org.apache.commons.io.FileUtils
-import org.brailleblaster.BBData.getBrailleblasterPath
+import org.brailleblaster.utils.BBData.getBrailleblasterPath
 import org.brailleblaster.BBIni
 import org.brailleblaster.CheckUpdates
 import org.brailleblaster.perspectives.mvc.BBSimpleManager.SimpleListener

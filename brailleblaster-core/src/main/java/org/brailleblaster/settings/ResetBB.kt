@@ -15,7 +15,7 @@
  */
 package org.brailleblaster.settings
 
-import org.brailleblaster.BBData
+import org.brailleblaster.utils.BBData
 import org.brailleblaster.BBIni
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
