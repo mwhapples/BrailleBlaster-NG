@@ -21,10 +21,16 @@ import org.brailleblaster.utils.os
 import java.io.File
 import java.lang.reflect.InvocationTargetException
 import java.net.MalformedURLException
+import java.nio.file.Path
 import java.util.concurrent.ForkJoinPool
 import java.util.concurrent.ForkJoinPool.ForkJoinWorkerThreadFactory
 import java.util.concurrent.ForkJoinWorkerThread
 import kotlin.io.path.Path
+import kotlin.io.path.exists
+import kotlin.io.path.extension
+import kotlin.io.path.isDirectory
+import kotlin.io.path.isRegularFile
+import kotlin.io.path.listDirectoryEntries
 
 /**
  * A launcher to get the app running in a ClassLoader which can be modified.
@@ -65,30 +71,30 @@ object ProxyMain {
     }
 }
 
-private fun File.listJars(): List<File> {
-    return if (isDirectory) {
-        listFiles { f -> f.isJarFile }?.toList() ?: listOf()
+private fun Path.listJars(): List<Path> {
+    return if (isDirectory()) {
+        listDirectoryEntries().filter { it.isJarFile }
     } else if (isJarFile) listOf(this)
     else listOf()
 }
 
-private val File.isJarFile: Boolean
-    get() = isFile && extension.equals("jar", ignoreCase = true)
+private val Path.isJarFile: Boolean
+    get() = isRegularFile() && extension.equals("jar", ignoreCase = true)
 
 private val proxyClassLoader: ClassLoader by lazy {
     BBClassLoader("BBClassLoader", ClassLoader.getPlatformClassLoader()).apply {
         (
-                System.getProperty("java.class.path").split(File.pathSeparatorChar).map { File(it) }
-                        + Path(brailleblasterPath.canonicalPath, "lib").toFile().listJars()
+                System.getProperty("java.class.path").split(File.pathSeparatorChar).map { Path(it) }
+                        + Path(brailleblasterPath.canonicalPath, "lib").listJars()
                         + Path(
                     brailleblasterPath.canonicalPath,
                     "lib",
                     "${os.name.lowercase()}-${arch.name.lowercase()}"
-                ).toFile().listJars()
+                ).listJars()
                 ).forEach {
                 try {
                     if (it.exists()) {
-                        add(it.toURI().toURL())
+                        add(it.toUri().toURL())
                     }
                 } catch (_: MalformedURLException) {
                     // Just ignore it
