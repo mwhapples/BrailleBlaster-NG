@@ -15,6 +15,8 @@
     <properties>
         <product.name>BrailleBlaster</product.name>
         <build.dist.directory>${project.build.directory}/dist</build.dist.directory>
+        <execmavenplugin.version>3.5.0</execmavenplugin.version>
+        <mac.thread.arg/>
     </properties>
     <dependencies>
         <dependency>
@@ -278,6 +280,38 @@
                     </archive>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${execmavenplugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals><goal>exec</goal></goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <executable>java</executable>
+                    <arguments>
+                        <argument>-classpath</argument>
+                        <classpath/>
+                        <argument>-Dapp.dir=${build.dist.directory}</argument>
+                        <argument>org.brailleblaster.app.ProxyMain</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>set-mac-thread-arg</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                </os>
+            </activation>
+            <properties>
+                <mac.thread.arg>-XstartOnFirstThread</mac.thread.arg>
+            </properties>
+        </profile>
+    </profiles>
 </project>

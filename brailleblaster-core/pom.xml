@@ -19,7 +19,6 @@
         <jeuclid.version>3.1.14</jeuclid.version>
         <orgeclipseswtbotswtfinder.version>f5b2edaee2</orgeclipseswtbotswtfinder.version>
         <xmlgraphicscommons.version>2.8</xmlgraphicscommons.version>
-        <execmavenplugin.version>3.0.0</execmavenplugin.version>
         <mavenshadeplugin.version>3.2.4</mavenshadeplugin.version>
         <maven.model.version>3.8.5</maven.model.version>
 
@@ -192,28 +191,6 @@
         <directory>${alt.build.dir}</directory>
 
         <plugins>
-            <!-- Run braileblaster -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>${execmavenplugin.version}</version>
-                <configuration>
-                    <!-- Something in the XML parsing might use relative paths, if so use
-                        this -->
-                    <!-- (only works with exec:exec) <workingDirectory>${build.dist.directory}</workingDirectory>
-                        <executable>${env.JAVA_HOME}\bin\java</executable> <arguments> <argument>-classpath</argument>
-                        <classpath/> <argument>org.brailleblaster.Main</argument> </arguments> -->
-                    <systemProperties>
-                        <systemProperty>
-                            <key>org.brailleblaster.distdir</key>
-                            <value>${build.dist.directory}/</value>
-                        </systemProperty>
-                    </systemProperties>
-
-                    <!-- exec:java -->
-                    <!-- see maven parameter above exec.mainclass -->
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
