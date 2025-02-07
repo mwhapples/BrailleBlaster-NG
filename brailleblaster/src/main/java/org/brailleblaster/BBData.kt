@@ -24,19 +24,13 @@ import java.io.File
 import java.io.FileReader
 import java.io.FileWriter
 import java.nio.file.Files
-import java.nio.file.Paths
+import kotlin.io.path.Path
 
 object BBData {
 
     private const val USERDATA_VERSION: Int = 7
     val brailleblasterPath: File by lazy {
-        val url = System.getenv("BBLASTER_WORK") ?: System.getProperty("org.brailleblaster.distdir") ?: System.getProperty("app.dir", "")
-        if (url.isNotBlank()) {
-            File(url).absoluteFile
-        } else {
-            val jarFile = File(Main::class.java.protectionDomain.codeSource.location.toURI()).absoluteFile
-            if (!jarFile.isDirectory) jarFile.parentFile else jarFile
-        }
+        File(System.getenv("BBLASTER_WORK") ?: System.getProperty("org.brailleblaster.distdir") ?: System.getProperty("app.dir", "")).absoluteFile
     }
 
     fun getBrailleblasterPath(vararg pathParts: String): File = newFile(brailleblasterPath, *pathParts)
@@ -110,6 +104,6 @@ object BBData {
         return oldDataDir
     }
 
-    private fun newFile(first: String, vararg parts: String): File = Paths.get(first, *parts).toFile()
+    private fun newFile(first: String, vararg parts: String): File = Path(first, *parts).toFile()
     private fun newFile(first: File, vararg parts: String): File = newFile(first.canonicalPath, *parts)
 }

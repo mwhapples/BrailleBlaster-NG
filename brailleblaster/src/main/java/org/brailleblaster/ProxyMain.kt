@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-@file:JvmName("ProxyMain")
+
 package org.brailleblaster
 
 import org.brailleblaster.utils.arch
@@ -24,6 +24,7 @@ import java.net.MalformedURLException
 import java.util.concurrent.ForkJoinPool
 import java.util.concurrent.ForkJoinPool.ForkJoinWorkerThreadFactory
 import java.util.concurrent.ForkJoinWorkerThread
+import kotlin.io.path.Path
 
 /**
  * A launcher to get the app running in a ClassLoader which can be modified.
@@ -34,29 +35,33 @@ import java.util.concurrent.ForkJoinWorkerThread
  * longer true from JDK9. This launcher will set up a ClassLoader which is possible to modify at
  * runtime.
  */
-fun main(args: Array<String>) {
-    System.setProperty(
-        "java.util.concurrent.ForkJoinPool.common.threadFactory",
-        "org.brailleblaster.BBForkJoinWorkerThreadFactory"
-    )
-    Thread.currentThread().contextClassLoader = proxyClassLoader
-    try {
-        val mainClass = Class.forName("org.brailleblaster.Main", true, proxyClassLoader)
-        val m = mainClass.getMethod("main", args.javaClass)
-        m.invoke(null, args)
-    } catch (e: ClassNotFoundException) {
-        // TODO Auto-generated catch block
-        e.printStackTrace()
-    } catch (e: NoSuchMethodException) {
-        e.printStackTrace()
-    } catch (e: SecurityException) {
-        e.printStackTrace()
-    } catch (e: IllegalAccessException) {
-        e.printStackTrace()
-    } catch (e: IllegalArgumentException) {
-        e.printStackTrace()
-    } catch (e: InvocationTargetException) {
-        e.printStackTrace()
+object ProxyMain {
+    @JvmStatic
+    fun main(args: Array<String>) {
+        System.setProperty(
+            "java.util.concurrent.ForkJoinPool.common.threadFactory",
+            "org.brailleblaster.BBForkJoinWorkerThreadFactory"
+        )
+        System.setProperty("app.dir", brailleblasterPath.canonicalPath)
+        Thread.currentThread().contextClassLoader = proxyClassLoader
+        try {
+            val mainClass = Class.forName("org.brailleblaster.Main", true, proxyClassLoader)
+            val m = mainClass.getMethod("main", args.javaClass)
+            m.invoke(null, args)
+        } catch (e: ClassNotFoundException) {
+            // TODO Auto-generated catch block
+            e.printStackTrace()
+        } catch (e: NoSuchMethodException) {
+            e.printStackTrace()
+        } catch (e: SecurityException) {
+            e.printStackTrace()
+        } catch (e: IllegalAccessException) {
+            e.printStackTrace()
+        } catch (e: IllegalArgumentException) {
+            e.printStackTrace()
+        } catch (e: InvocationTargetException) {
+            e.printStackTrace()
+        }
     }
 }
 
@@ -72,18 +77,23 @@ private val File.isJarFile: Boolean
 
 private val proxyClassLoader: ClassLoader by lazy {
     BBClassLoader("BBClassLoader", ClassLoader.getPlatformClassLoader()).apply {
-        (System.getProperty("java.class.path").split(File.pathSeparatorChar).map { File(it) }
-                + BBData.getBrailleblasterPath("lib").listJars()
-                + BBData.getBrailleblasterPath("lib", "${os.name.lowercase()}-${arch.name.lowercase()}")
-            .listJars()).forEach {
-            try {
-                if (it.exists()) {
-                    add(it.toURI().toURL())
+        (
+                System.getProperty("java.class.path").split(File.pathSeparatorChar).map { File(it) }
+                        + Path(brailleblasterPath.canonicalPath, "lib").toFile().listJars()
+                        + Path(
+                    brailleblasterPath.canonicalPath,
+                    "lib",
+                    "${os.name.lowercase()}-${arch.name.lowercase()}"
+                ).toFile().listJars()
+                ).forEach {
+                try {
+                    if (it.exists()) {
+                        add(it.toURI().toURL())
+                    }
+                } catch (_: MalformedURLException) {
+                    // Just ignore it
                 }
-            } catch (e: MalformedURLException) {
-                // Just ignore it
             }
-        }
     }
 }
 
@@ -99,3 +109,16 @@ private class BBForkJoinWorkerThread(pool: ForkJoinPool, classLoader: ClassLoade
         contextClassLoader = classLoader
     }
 }
+
+val brailleblasterPath: File =
+    (System.getenv("BBLASTER_WORK") ?: System.getProperty("org.brailleblaster.distdir") ?: System.getProperty(
+        "app.dir",
+        ""
+    )).let { url ->
+        if (url.isNotBlank()) {
+            File(url).absoluteFile
+        } else {
+            val jarFile = File(ProxyMain::class.java.protectionDomain.codeSource.location.toURI()).absoluteFile
+            if (!jarFile.isDirectory) jarFile.parentFile else jarFile
+        }
+    }
