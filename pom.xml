@@ -11,7 +11,8 @@
     <modules>
         <module>utils</module>
         <module>utd</module>
-        <module>brailleblaster</module>
+        <module>brailleblaster-core</module>
+        <module>brailleblaster-app</module>
     </modules>
 
     <properties>
@@ -20,6 +21,9 @@
         <changelist>-SNAPSHOT</changelist>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <wrappermavenplugin.version>3.3.2</wrappermavenplugin.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kotlin.version>2.1.10</kotlin.version>
         <kotlin.compiler.incremental>false</kotlin.compiler.incremental>
         <kotlinx.coroutines.version>1.10.1</kotlinx.coroutines.version>
@@ -485,7 +489,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <jvmTarget>17</jvmTarget>
+                    <jvmTarget>${maven.compiler.target}</jvmTarget>
                     <args>
                         <arg>-opt-in=kotlin.RequiresOptIn</arg>
                         <arg>-Xjvm-default=all</arg>
@@ -498,8 +502,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${mavencompilerplugin.version}</version>
                 <configuration>
-                    <source>17</source>
-                    <target>17</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
                     <compilerArgs>
