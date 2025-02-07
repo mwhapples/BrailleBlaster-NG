@@ -35,7 +35,7 @@ jobs:
       run: |
         mvn -B install --file pom.xml -DskipTests -Drevision=2.1.10 -Dsha1=-${{ github.sha }} -Dchangelist=-SNAPSHOT
     - name: Get docs
-      run: brailleblaster-app/scripts/get-docs.sh brailleblaster/target/dist/docs
+      run: brailleblaster-app/scripts/get-docs.sh brailleblaster-app/target/dist/docs
 
     - name: Zip distribution
       run: |
