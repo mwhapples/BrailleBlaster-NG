@@ -112,6 +112,7 @@ import java.util.function.Predicate;
 //This class manages each document in an MDI environment. It controls the braille View and the daisy View.
 public class Manager extends Controller {
     private static final LocaleHandler localeHandler = LocaleHandler.getDefault();
+    private static final ModuleService moduleService = new ModuleService();
     public static final Path DEFAULT_FILE = BBIni.getProgramDataPath().resolve(Paths.get("xmlTemplates", "blankTemplate.bbz"));
     private static final AtomicInteger INSTANCE_COUNTER = new AtomicInteger(0);
     public final int instanceId = INSTANCE_COUNTER.getAndIncrement();
@@ -313,9 +314,7 @@ public class Manager extends Controller {
             }
         });
         //The following should only be visible in the menus in debugging mode:
-        simpleManager.registerModules(new DebugModulesFactory().createModules(this));
-
-        simpleManager.registerModules(new CoreModulesFactory().createModules(this));
+        simpleManager.registerModules(moduleService.modules(this));
         // TODO:Use split merge module and remove duplicate code from
         //  file module when way exists to specify item location in menu
         //  simpleManager.registerModule(new SplitMergeModule());
