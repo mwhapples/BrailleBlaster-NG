@@ -164,6 +164,11 @@
         </dependency>
         <dependency>
             <groupId>org.eclipse.platform</groupId>
+            <artifactId>org.eclipse.swt.${swt.platform}</artifactId>
+            <version>${swt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.platform</groupId>
             <artifactId>org.eclipse.jface</artifactId>
         </dependency>
         <dependency>
@@ -504,127 +509,6 @@
     </build>
 
     <profiles>
-        <!-- Pick correct SWT dependency depending on platform -->
-        <profile>
-            <id>swt_windows_x86_64</id>
-            <activation>
-                <os>
-                    <family>windows</family>
-                    <arch>amd64</arch>
-                </os>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.eclipse.platform</groupId>
-                    <artifactId>org.eclipse.swt.win32.win32.x86_64</artifactId>
-                    <version>${swt.version}</version>
-                    <scope>provided</scope>
-                    <!-- Eclipse Issue #510186: Circular Dependency which is broken anyway -->
-                    <exclusions>
-                        <exclusion>
-                            <groupId>org.eclipse.platform</groupId>
-                            <artifactId>org.eclipse.swt</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>swt_linux_x86_64</id>
-            <activation>
-                <os>
-                    <family>linux</family>
-                    <arch>amd64</arch>
-                </os>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.eclipse.platform</groupId>
-                    <artifactId>org.eclipse.swt.gtk.linux.x86_64</artifactId>
-                    <version>${swt.version}</version>
-                    <scope>provided</scope>
-                    <!-- Eclipse Issue #510186: Circular Dependency which is broken anyway -->
-                    <exclusions>
-                        <exclusion>
-                            <groupId>org.eclipse.platform</groupId>
-                            <artifactId>org.eclipse.swt</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>swt_linux_aarch64</id>
-            <activation>
-                <os>
-                    <family>linux</family>
-                    <arch>aarch64</arch>
-                </os>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.eclipse.platform</groupId>
-                    <artifactId>org.eclipse.swt.gtk.linux.aarch64</artifactId>
-                    <version>${swt.version}</version>
-                    <scope>provided</scope>
-                    <!-- Eclipse Issue #510186: Circular Dependency which is broken anyway -->
-                    <exclusions>
-                        <exclusion>
-                            <groupId>org.eclipse.platform</groupId>
-                            <artifactId>org.eclipse.swt</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>swt_mac_x86_64</id>
-            <activation>
-                <os>
-                    <family>mac</family>
-                    <arch>x86_64</arch>
-                </os>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.eclipse.platform</groupId>
-                    <artifactId>org.eclipse.swt.cocoa.macosx.x86_64</artifactId>
-                    <version>${swt.version}</version>
-                    <scope>provided</scope>
-                    <!-- Eclipse Issue #510186: Circular Dependency which is broken anyway -->
-                    <exclusions>
-                        <exclusion>
-                            <groupId>org.eclipse.platform</groupId>
-                            <artifactId>org.eclipse.swt</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>swt_mac_aarch64</id>
-            <activation>
-                <os>
-                    <family>mac</family>
-                    <arch>aarch64</arch>
-                </os>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.eclipse.platform</groupId>
-                    <artifactId>org.eclipse.swt.cocoa.macosx.aarch64</artifactId>
-                    <version>${swt.version}</version>
-                    <scope>provided</scope>
-                    <!-- Eclipse Issue #510186: Circular Dependency which is broken anyway -->
-                    <exclusions>
-                        <exclusion>
-                            <groupId>org.eclipse.platform</groupId>
-                            <artifactId>org.eclipse.swt</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-            </dependencies>
-        </profile>
         <profile>
             <id>ci_build</id>
             <properties>

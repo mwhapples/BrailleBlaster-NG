@@ -34,6 +34,7 @@
         <jaxbapi.version>4.0.2</jaxbapi.version>
         <jaxbruntime.version>4.0.5</jaxbruntime.version>
         <activation.version>1.1</activation.version>
+        <swt.platform>win32.win32.x86_64</swt.platform>
         <swt.version>3.126.0</swt.version>
         <orgeclipsejface.version>3.33.0</orgeclipsejface.version>
         <findbugsannotations.version>3.0.1u2</findbugsannotations.version>
@@ -621,4 +622,67 @@
             </plugins>
         </pluginManagement>
     </build>
+    <profiles>
+        <!-- Pick correct SWT dependency depending on platform -->
+        <profile>
+            <id>swt_windows_x86_64</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                    <arch>amd64</arch>
+                </os>
+            </activation>
+            <properties>
+                <swt.platform>win32.win32.x86_64</swt.platform>
+            </properties>
+        </profile>
+        <profile>
+            <id>swt_linux_x86_64</id>
+            <activation>
+                <os>
+                    <family>linux</family>
+                    <arch>amd64</arch>
+                </os>
+            </activation>
+            <properties>
+                <swt.platform>gtk.linux.x86_64</swt.platform>
+            </properties>
+        </profile>
+        <profile>
+            <id>swt_linux_aarch64</id>
+            <activation>
+                <os>
+                    <family>linux</family>
+                    <arch>aarch64</arch>
+                </os>
+            </activation>
+            <properties>
+                <swt.platform>gtk.linux.aarch64</swt.platform>
+            </properties>
+        </profile>
+        <profile>
+            <id>swt_mac_x86_64</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                    <arch>x86_64</arch>
+                </os>
+            </activation>
+            <properties>
+                <swt.platform>cocoa.macosx.x86_64</swt.platform>
+            </properties>
+        </profile>
+        <profile>
+            <id>swt_mac_aarch64</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                    <arch>aarch64</arch>
+                </os>
+            </activation>
+            <properties>
+                <swt.platform>cocoa.macosx.aarch64</swt.platform>
+            </properties>
+        </profile>
+    </profiles>
 </project>
