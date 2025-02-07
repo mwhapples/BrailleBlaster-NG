@@ -44,7 +44,7 @@ class AlphabeticReferenceModule(var manager: Manager) : SimpleListener {
             }
             smb.addItem(TERM_SPACING, 0) {
                 open(
-                    manager, manager.wp.shell
+                    manager, manager.wpManager.shell
                 )
             }
             smb.addItem(EDIT_GUIDE_WORD, 0, 0, {

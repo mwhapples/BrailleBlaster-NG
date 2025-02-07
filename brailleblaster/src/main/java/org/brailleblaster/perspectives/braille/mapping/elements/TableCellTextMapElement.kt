@@ -195,6 +195,6 @@ open class TableCellTextMapElement : TextMapElement, ITableCell, Uneditable {
     }
 
     override fun blockEdit(m: Manager) {
-        displayInvalidTableMessage(m.wp.shell)
+        displayInvalidTableMessage(m.wpManager.shell)
     }
 }

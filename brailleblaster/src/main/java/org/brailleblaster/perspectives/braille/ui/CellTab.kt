@@ -45,7 +45,7 @@ import org.slf4j.LoggerFactory
 class CellTab(var manager: Manager, var currentElement: TextMapElement, var textView: TextView,
               var stateObj: ViewStateObject
 ) {
-    var tabShell: Shell = Shell(manager.wp.shell)
+    var tabShell: Shell = Shell(manager.wpManager.shell)
     var tab: Text
     var buttonOK: Button
     var existingTab: Element? = null

@@ -106,7 +106,7 @@ class SimpleImageDescriberDialog(
                 )
             )
         }
-        shell = Shell(m.wp.shell, SWT.APPLICATION_MODAL or SWT.DIALOG_TRIM or SWT.RESIZE)
+        shell = Shell(m.wpManager.shell, SWT.APPLICATION_MODAL or SWT.DIALOG_TRIM or SWT.RESIZE)
         shell.text = "Image Describer"
         val grid = GridLayout(1, false)
         shell.layout = grid

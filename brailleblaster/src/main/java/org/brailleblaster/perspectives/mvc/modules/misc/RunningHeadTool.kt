@@ -43,7 +43,7 @@ class RunningHeadTool : MenuToolListener {
 
     fun insertRunningHead(manager: Manager) {
         val pageSettings = manager.document.engine.pageSettings
-        val rhShell = Shell(manager.wp.shell, SWT.APPLICATION_MODAL or SWT.CLOSE).apply {
+        val rhShell = Shell(manager.wpManager.shell, SWT.APPLICATION_MODAL or SWT.CLOSE).apply {
             setSize(300, 200)
             text = "Running Head"
             layout = GridLayout(1, false)

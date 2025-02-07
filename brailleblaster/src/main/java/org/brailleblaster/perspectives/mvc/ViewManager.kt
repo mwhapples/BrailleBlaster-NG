@@ -98,7 +98,7 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
         }
         if (windowedViewNew != null) {
             if (windowedShell == null) {
-                windowedShell = FormUIUtils.makeDialogFloating(m.wp.shell).apply {
+                windowedShell = FormUIUtils.makeDialogFloating(m.wpManager.shell).apply {
                     layout = GridLayout(1, true)
                     open()
                 }

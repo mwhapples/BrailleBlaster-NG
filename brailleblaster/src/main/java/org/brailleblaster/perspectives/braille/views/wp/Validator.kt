@@ -43,7 +43,7 @@ class Validator(var manager: Manager, var view: StyledText) {
         selectionLength: Int
     ): Boolean {
         if (manager.isTableSelected) {
-            TableSelectionModule.displayInvalidTableMessage(manager.wp.shell)
+            TableSelectionModule.displayInvalidTableMessage(manager.wpManager.shell)
             return false
         }
         val currentStart = stateObj.currentStart
@@ -67,7 +67,7 @@ class Validator(var manager: Manager, var view: StyledText) {
         selectionLength: Int
     ): Boolean {
         if (manager.isTableSelected) {
-            TableSelectionModule.displayInvalidTableMessage(manager.wp.shell)
+            TableSelectionModule.displayInvalidTableMessage(manager.wpManager.shell)
             return false
         }
         val currentStart = stateObj.currentStart

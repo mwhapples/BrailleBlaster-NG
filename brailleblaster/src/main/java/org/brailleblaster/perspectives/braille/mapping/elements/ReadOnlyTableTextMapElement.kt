@@ -29,6 +29,6 @@ open class ReadOnlyTableTextMapElement : TextMapElement, Uneditable {
     constructor(start: Int, end: Int, n: Node) : super(start, end, n)
 
     override fun blockEdit(m: Manager) {
-        displayInvalidTableMessage(m.wp.shell)
+        displayInvalidTableMessage(m.wpManager.shell)
     }
 }

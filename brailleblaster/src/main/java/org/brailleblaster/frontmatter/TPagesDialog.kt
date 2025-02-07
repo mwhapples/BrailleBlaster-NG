@@ -104,7 +104,7 @@ class TPagesDialog : DebugMenuToolListener {
                     )
                 )
             }
-            open(bbData.manager.wp.shell)
+            open(bbData.manager.wpManager.shell)
         }
     }
 

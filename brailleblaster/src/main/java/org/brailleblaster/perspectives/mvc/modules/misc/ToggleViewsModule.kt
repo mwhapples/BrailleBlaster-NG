@@ -43,7 +43,7 @@ import java.util.*
 import java.util.function.Consumer
 
 class ToggleViewsModule(private val m: Manager) : SimpleListener {
-    private val shell: Shell = m.wp.shell
+    private val shell: Shell = m.wpManager.shell
 
     enum class Views {
         PRINT, BRAILLE, STYLE

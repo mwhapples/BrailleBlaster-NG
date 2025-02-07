@@ -483,7 +483,7 @@ public class TableEditor extends Dialog {
                     tableNode.detach();
                 });
             }
-        }, manager.getWp().getShell(), blocks.size());
+        }, manager.getWpManager().getShell(), blocks.size());
 
     }
 

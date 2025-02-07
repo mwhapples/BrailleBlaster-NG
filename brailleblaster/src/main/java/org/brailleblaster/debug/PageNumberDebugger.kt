@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.TabItem
 
 class PageNumberDebugger(manager: Manager) {
     init {
-        val shell = FormUIUtils.makeDialogFloating(manager.wp.shell)
+        val shell = FormUIUtils.makeDialogFloating(manager.wpManager.shell)
         shell.layout = GridLayout(1, true)
         val tabContainer = TabFolder(shell, SWT.NONE)
         FormUIUtils.setGridDataVertical(tabContainer)

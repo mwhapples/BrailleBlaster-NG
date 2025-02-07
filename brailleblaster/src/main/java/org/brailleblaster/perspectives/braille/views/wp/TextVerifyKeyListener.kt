@@ -176,7 +176,7 @@ class TextVerifyKeyListener(
 
         // TODO: When selection is reworked this check for tables should hopefully be unnecessary
         if ((isEditingKey(e) || isDeletionKey(e)) && manager.isTableSelected) {
-            displayInvalidTableMessage(manager.wp.shell)
+            displayInvalidTableMessage(manager.wpManager.shell)
             e.doit = false
             return
         }

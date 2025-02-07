@@ -68,7 +68,7 @@ class SpellCheckManager(private var m: Manager) {
         this.affPath = affPath
         sc = SpellChecker(dictPath, affPath)
         if (sc!!.isActive) {
-          view = SpellCheckView(m.wp.shell, this)
+          view = SpellCheckView(m.wpManager.shell, this)
           tokenizer = Tokenizer(m.text.view.text.replace("\n", " "))
           checkWord()
         } else {

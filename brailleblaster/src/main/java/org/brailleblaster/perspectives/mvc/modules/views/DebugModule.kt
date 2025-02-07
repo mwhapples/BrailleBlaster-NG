@@ -64,7 +64,7 @@ class DebugModule(private val currentEditor: Manager) : AbstractModule(), Simple
     override fun verifyKey(e: VerifyEvent) {
         if (e.stateMask == SWT.MOD1 + SWT.MOD2 && e.keyCode == '`'.code) {
             enabled = !enabled //Toggle
-            currentEditor.simpleManager.initMenu(currentEditor.wp.shell)
+            currentEditor.simpleManager.initMenu(currentEditor.wpManager.shell)
         }
     }
 
