@@ -1,0 +1,1379 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<asciicheat>
+	<entry>
+		<entry>frac(2 frac 1 2)(4 frac 3 4)</entry>
+		<category>examples</category>
+		<name>mixed fraction</name>
+		<see>Problem Loading Image</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>bfrac 1 2</entry>
+		<category>examples</category>
+		<name>bevelled fraction</name>
+		<see>Problem Loading Image</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>""_92^238U</entry>
+		<category>examples</category>
+		<name>preceding subscript superscript</name>
+		<see>Problem Loading Image</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>12/a</entry>
+		<category>examples</category>
+		<name>fraction</name>
+		<see>Problem Loading Image</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>(123)/(12+3)</entry>
+		<category>examples</category>
+		<name>complex fraction</name>
+		<see>Problem Loading Image</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>x^2</entry>
+		<category>examples</category>
+		<name>exponent</name>
+		<see>Problem Loading Image</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>log_2</entry>
+		<category>examples</category>
+		<name>log base 2</name>
+		<see>Problem Loading Image</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>root(3)(18+9)</entry>
+		<category>examples</category>
+		<name>radical</name>
+		<see>Problem Loading Image</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>sqrt(64)</entry>
+		<category>examples</category>
+		<name>square root</name>
+		<see>Problem Loading Image</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>-+</entry>
+		<category>operation</category>
+		<name>minus plus</name>
+		<see>&#8723;</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>+-</entry>
+		<category>operation</category>
+		<name>plus minus</name>
+		<see>&#177;</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>+</entry>
+		<category>operation</category>
+		<name>plus</name>
+		<see>+</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>&#x2d;</entry>
+		<category>operation</category>
+		<name>minus</name>
+		<see>&#x2d;</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>*</entry>
+		<category>operation</category>
+		<name>multiply</name>
+		<see>⋅</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>**</entry>
+		<category>operation</category>
+		<name>asterisk operator</name>
+		<see>∗</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>***</entry>
+		<category>operation</category>
+		<name>star operator</name>
+		<see>⋆</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>//</entry>
+		<category>operation</category>
+		<name>division slash</name>
+		<see>∕</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>\\</entry>
+		<category>operation</category>
+		<name>backslash</name>
+		<see>\</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>xx</entry>
+		<category>operation</category>
+		<name>multliplication x</name>
+		<see>✕</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>-:</entry>
+		<category>operation</category>
+		<name>division sign</name>
+		<see>÷</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>@</entry>
+		<category>operation</category>
+		<name>composition</name>
+		<see>∘</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>o+</entry>
+		<category>operation</category>
+		<name>circled plus</name>
+		<see>⊕</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>ox</entry>
+		<category>operation</category>
+		<name>circled times</name>
+		<see>⊗</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>o.</entry>
+		<category>operation</category>
+		<name>circled dot operator</name>
+		<see>⊙</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>sum</entry>
+		<category>operation</category>
+		<name>n-ary sum</name>
+		<see>∑</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>prod</entry>
+		<category>operation</category>
+		<name>n-ary product</name>
+		<see>∏</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>^^</entry>
+		<category>operation</category>
+		<name>logical and</name>
+		<see>∧</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>^^^</entry>
+		<category>operation</category>
+		<name>n-ary logical and</name>
+		<see>⋀</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>vv</entry>
+		<category>operation</category>
+		<name>logical or</name>
+		<see>∨</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>vvv</entry>
+		<category>operation</category>
+		<name>n-ary logical or</name>
+		<see>⋁</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>nn</entry>
+		<category>operation</category>
+		<name>intersection</name>
+		<see>∩</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>nnn</entry>
+		<category>operation</category>
+		<name>n-ary intersection</name>
+		<see>⋂</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>uu</entry>
+		<category>operation</category>
+		<name>union</name>
+		<see>∪</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>uuu</entry>
+		<category>operation</category>
+		<name>n-ary union</name>
+		<see>⋃</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>int</entry>
+		<category>miscellaneous</category>
+		<name>integral</name>
+		<see>∫</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>oint</entry>
+		<category>miscellaneous</category>
+		<name>contour integral</name>
+		<see>∮</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>^</entry>
+		<category>miscellaneous</category>
+		<name>superscript</name>
+		<see>^</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>_</entry>
+		<category>miscellaneous</category>
+		<name>subscript</name>
+		<see>_</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>del</entry>
+		<category>miscellaneous</category>
+		<name>partial differential</name>
+		<see>∂</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>grad</entry>
+		<category>miscellaneous</category>
+		<name>nabla</name>
+		<see>∇</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>+-</entry>
+		<category>miscellaneous</category>
+		<name>plus minus</name>
+		<see>±</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>O/</entry>
+		<category>miscellaneous</category>
+		<name>empty set</name>
+		<see>∅</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>oo</entry>
+		<category>miscellaneous</category>
+		<name>infinity</name>
+		<see>∞</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>aleph</entry>
+		<category>miscellaneous</category>
+		<name>hebrew alef</name>
+		<see>א</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>/_</entry>
+		<category>miscellaneous</category>
+		<name>angle</name>
+		<see>∠</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>:.</entry>
+		<category>miscellaneous</category>
+		<name>therefore</name>
+		<see>∴</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>|...|</entry>
+		<category>miscellaneous</category>
+		<name>lower horizontal dots</name>
+		<see>|…|</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>|cdots|</entry>
+		<category>miscellaneous</category>
+		<name>midline horizontal dots</name>
+		<see>|⋯|</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>vdots</entry>
+		<category>miscellaneous</category>
+		<name>vertical dots</name>
+		<see>⋮</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>ddots</entry>
+		<category>miscellaneous</category>
+		<name>diagonal dots</name>
+		<see>⋱</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>|\|</entry>
+		<category>miscellaneous</category>
+		<name>absolute value</name>
+		<see>| |</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>|quad|</entry>
+		<category>miscellaneous</category>
+		<name>determinant</name>
+		<see>| |</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>diamond</entry>
+		<category>miscellaneous</category>
+		<name>diamond</name>
+		<see>⋄</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>square</entry>
+		<category>miscellaneous</category>
+		<name>square</name>
+		<see>□</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>|__</entry>
+		<category>miscellaneous</category>
+		<name>floor left brace</name>
+		<see>⌊</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>__|</entry>
+		<category>miscellaneous</category>
+		<name>floor right brace</name>
+		<see>⌋</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>|~</entry>
+		<category>miscellaneous</category>
+		<name>ceiling left brace</name>
+		<see>⌈</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>~|</entry>
+		<category>miscellaneous</category>
+		<name>ceiling right brace</name>
+		<see>⌉</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>CC</entry>
+		<category>miscellaneous</category>
+		<name>complex number</name>
+		<see>ℂ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>NN</entry>
+		<category>miscellaneous</category>
+		<name>natural numbers</name>
+		<see>ℕ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>QQ</entry>
+		<category>miscellaneous</category>
+		<name>rational numbers</name>
+		<see>ℚ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>RR</entry>
+		<category>miscellaneous</category>
+		<name>real numbers</name>
+		<see>ℝ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>ZZ</entry>
+		<category>miscellaneous</category>
+		<name>integers</name>
+		<see>ℤ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>uarr</entry>
+		<category>arrows</category>
+		<name>up arrow</name>
+		<see>↑</see>
+		<shortcut> x</shortcut>
+	</entry>
+	<entry>
+		<entry>darr</entry>
+		<category>arrows</category>
+		<name>down arrow</name>
+		<see>↓</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>rarr</entry>
+		<category>arrows</category>
+		<name>right arrow</name>
+		<see>→</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>|-&gt;</entry>
+		<category>arrows</category>
+		<name>right arrow from bar</name>
+		<see>↦</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>larr</entry>
+		<category>arrows</category>
+		<name>x</name>
+		<see>←</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>harr</entry>
+		<category>arrows</category>
+		<name>left right arrow</name>
+		<see>↔</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>rArr</entry>
+		<category>arrows</category>
+		<name>double right arrow</name>
+		<see>⇒</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>lArr</entry>
+		<category>arrows</category>
+		<name>double left arrow</name>
+		<see>⇐</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>hArr</entry>
+		<category>arrows</category>
+		<name>double right left arrow</name>
+		<see>⇔</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>hat x</entry>
+		<category>accents</category>
+		<name>combining circumflex</name>
+		<see>x̂</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>bar x</entry>
+		<category>accents</category>
+		<name>overbar</name>
+		<see>x̄</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>ul x</entry>
+		<category>accents</category>
+		<name>underlined x</name>
+		<see>x̲</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>vec x</entry>
+		<category>accents</category>
+		<name>vector x</name>
+		<see>x→</see> <!--Rendering the arrow symbol for vec x doesn't quite work, but the AM code is right -->
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>dot x</entry>
+		<category>accents</category>
+		<name>dot x</name>
+		<see>ẋ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>ddot x</entry>
+		<category>accents</category>
+		<name>double dot x</name>
+		<see>ẍ</see>
+		<shortcut></shortcut>
+	</entry>
+	<!-- <entry> <entry>bb</entry> <category>Font commands</category> <name>bold</name> 
+		<see></see> <shortcut></shortcut> </entry> <entry> <entry>bbb</entry> <category>Font 
+		commands</category> <name>double-struck</name> <see></see> <shortcut></shortcut> 
+		</entry> <entry> <entry>cc</entry> <category>Font commands</category> <name>script</name> 
+		<see></see> <shortcut></shortcut> </entry> <entry> <entry>tt</entry> <category>Font 
+		commands</category> <name>monospace</name> <see></see> <shortcut></shortcut> 
+		</entry> <entry> <entry>fr</entry> <category>Font commands</category> <name>fraktur</name> 
+		<see></see> <shortcut></shortcut> </entry> <entry> <entry>sf</entry> <category>Font 
+		commands</category> <name>sans-serif</name> <see></see> <shortcut></shortcut> 
+		</entry> -->
+	<entry>
+		<entry>~=</entry>
+		<category>relation</category>
+		<name>approximately equal to</name>
+		<see>&#8771;</see>
+		<shortcut></shortcut>		<!--Not ASCII / braille equivalent -->
+	</entry>
+	<entry>
+		<entry>~=</entry>
+		<category>relation</category>
+		<name>approximately equal to</name>
+		<see>&#8785;</see>
+		<shortcut></shortcut>		<!--Not ASCII / braille equivalent -->
+	</entry>
+	<entry>
+		<entry>~=</entry>
+		<category>relation</category>
+		<name>difference between</name>
+		<see>&#8783;</see>
+		<shortcut></shortcut>
+		<!--Not ASCII / braille equivalent -->
+	</entry>
+	<entry>
+		<entry>&lt;&lt;</entry>
+		<category>relation</category>
+		<name>much less than</name>
+		<see>&#8810;</see>
+		<shortcut></shortcut>		<!--Not ASCII / braille equivalent -->
+	</entry>
+	<entry>
+		<entry>&gt;&gt;</entry>
+		<category>relation</category>
+		<name>much greater than</name>
+		<see>&#8811; </see>
+		<shortcut></shortcut>		<!--Not ASCII / braille equivalent -->
+	</entry>
+	<entry>
+		<entry>:</entry>
+		<category>relation</category>
+		<name>ratio</name>
+		<see>:</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>=</entry>
+		<category>relation</category>
+		<name>equals</name>
+		<see>=</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>!=</entry>
+		<category>relation</category>
+		<name>not equals</name>
+		<see>≠</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>&lt;</entry>
+		<category>relation</category>
+		<name>less than</name>
+		<see>&lt;</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>&gt;</entry>
+		<category>relation</category>
+		<name>greater than</name>
+		<see>&gt;</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>&lt;&lt;</entry>
+		<category>relation</category>
+		<name>significantly less than</name>
+		<see>&#x2329;</see>
+		<shortcut></shortcut>		<!--Not ASCII / braille equivalent -->
+	</entry>
+	<entry>
+		<entry>&gt;&gt;</entry>
+		<category>relation</category>
+		<name>significantly greater than</name>
+		<see>&#x232A;</see>
+		<shortcut></shortcut>		<!--Not ASCII / braille equivalent -->
+	</entry>
+	<entry>
+		<entry>&lt;=</entry>
+		<category>relation</category>
+		<name>less than or equal to</name>
+		<see>≤</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>&gt;=</entry>
+		<category>relation</category>
+		<name>greater than or equal to</name>
+		<see>≤</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>-&lt;</entry>
+		<category>relation</category>
+		<name>precedes</name>
+		<see>≺</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>&gt;-</entry>
+		<category>relation</category>
+		<name>succeeds</name>
+		<see>≻</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>in</entry>
+		<category>relation</category>
+		<name>exists</name>
+		<see>∈</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>!in</entry>
+		<category>relation</category>
+		<name>does not exist</name>
+		<see>∉</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>sub</entry>
+		<category>relation</category>
+		<name>subset of</name>
+		<see>⊂</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>sup</entry>
+		<category>relation</category>
+		<name>superset of</name>
+		<see>⊃</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>sube</entry>
+		<category>relation</category>
+		<name>subset of or equal to</name>
+		<see>⊆</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>supe</entry>
+		<category>relation</category>
+		<name>superset of or equal to</name>
+		<see>⊇</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>-=</entry>
+		<category>relation</category>
+		<name>is equal by definition to</name>
+		<see>≡</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>~~</entry>
+		<category>relation</category>
+		<name>approximately equal to</name>
+		<see>≈</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>~=</entry>
+		<category>relation</category>
+		<name>is congruent to</name>
+		<see>≅</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>prop</entry>
+		<category>relation</category>
+		<name>proportional to</name>
+		<see>∝</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>alpha</entry>
+		<category>greek</category>
+		<name>alpha</name>
+		<see>α</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>beta</entry>
+		<category>greek</category>
+		<name>beta</name>
+		<see>β</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>chi</entry>
+		<category>greek</category>
+		<name>chi</name>
+		<see>χ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>delta</entry>
+		<category>greek</category>
+		<name>delta</name>
+		<see>δ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>Delta</entry>
+		<category>greek</category>
+		<name>capital delta</name>
+		<see>Δ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>epsilon</entry>
+		<category>greek</category>
+		<name>epsilon</name>
+		<see>ε</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>varepsilon</entry>
+		<category>greek</category>
+		<name>varepsilon</name>
+		<see>ɛ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>eta</entry>
+		<category>greek</category>
+		<name>eta</name>
+		<see>η</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>gamma</entry>
+		<category>greek</category>
+		<name>gamma</name>
+		<see>γ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>Gamma</entry>
+		<category>greek</category>
+		<name>capital gamma</name>
+		<see>Γ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>iota</entry>
+		<category>greek</category>
+		<name>iota</name>
+		<see>ι</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>kappa</entry>
+		<category>greek</category>
+		<name>kappa</name>
+		<see>κ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>lambda</entry>
+		<category>greek</category>
+		<name>lambda</name>
+		<see>λ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>Lambda</entry>
+		<category>greek</category>
+		<name>capital lambda</name>
+		<see>Λ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>mu</entry>
+		<category>greek</category>
+		<name>mu</name>
+		<see>μ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>nu</entry>
+		<category>greek</category>
+		<name>nu</name>
+		<see>ν</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>omega</entry>
+		<category>greek</category>
+		<name>omega</name>
+		<see>ω</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>Omega</entry>
+		<category>greek</category>
+		<name>capital omega</name>
+		<see>Ω</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>phi</entry>
+		<category>greek</category>
+		<name>phi</name>
+		<see>ϕ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>Phi</entry>
+		<category>greek</category>
+		<name>capital phi</name>
+		<see>Φ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>varphi</entry>
+		<category>greek</category>
+		<name>varphi</name>
+		<see>φ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>pi</entry>
+		<category>greek</category>
+		<name>pi</name>
+		<see>π</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>Pi</entry>
+		<category>greek</category>
+		<name>capital pi</name>
+		<see>Π</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>psi</entry>
+		<category>greek</category>
+		<name>psi</name>
+		<see>ψ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>Psi</entry>
+		<category>greek</category>
+		<name>capital psi</name>
+		<see>Ψ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>rho</entry>
+		<category>greek</category>
+		<name>rho</name>
+		<see>ρ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>sigma</entry>
+		<category>greek</category>
+		<name>sigma</name>
+		<see>σ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>Sigma</entry>
+		<category>greek</category>
+		<name>capital sigma</name>
+		<see>Σ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>tau</entry>
+		<category>greek</category>
+		<name>tau</name>
+		<see>τ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>theta</entry>
+		<category>greek</category>
+		<name>theta</name>
+		<see>θ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>Theta</entry>
+		<category>greek</category>
+		<name>capital theta</name>
+		<see>Θ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>vartheta</entry>
+		<category>greek</category>
+		<name>vartheta</name>
+		<see>ϑ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>upsilon</entry>
+		<category>greek</category>
+		<name>upsilon</name>
+		<see>υ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>xi</entry>
+		<category>greek</category>
+		<name>xi</name>
+		<see>ξ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>Xi</entry>
+		<category>greek</category>
+		<name>capital xi</name>
+		<see>Ξ</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>zeta</entry>
+		<category>greek</category>
+		<name>zeta</name>
+		<see>ζ
+		</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>and</entry>
+		<category>logical</category>
+		<name>and</name>
+		<see>and
+		</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>or</entry>
+		<category>logical</category>
+		<name>or</name>
+		<see>or
+		</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>not</entry>
+		<category>logical</category>
+		<name>not</name>
+		<see>¬
+		</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>=&gt;</entry>
+		<category>logical</category>
+		<name>rightwards double arrow</name>
+		<see>⇒
+		</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>if</entry>
+		<category>logical</category>
+		<name>if</name>
+		<see>if
+		</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>iff</entry>
+		<category>logical</category>
+		<name>if and only if</name>
+		<see>⇔
+		</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>AA</entry>
+		<category>logical</category>
+		<name>any</name>
+		<see>∀
+		</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>EE</entry>
+		<category>logical</category>
+		<name>there exists</name>
+		<see>∃
+		</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>_|_</entry>
+		<category>logical</category>
+		<name>up tack</name>
+		<see>⊥
+		</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>TT</entry>
+		<category>logical</category>
+		<name>down tack</name>
+		<see>⊤
+		</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>|--</entry>
+		<category>logical</category>
+		<name>right tack</name>
+		<see>⊢
+		</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>|==</entry>
+		<category>logical</category>
+		<name>true</name>
+		<see>⊨
+		</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>(</entry>
+		<category>grouping</category>
+		<name>left brace</name>
+		<see>(</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>)</entry>
+		<category>grouping</category>
+		<name>right brace</name>
+		<see>)</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>[</entry>
+		<category>grouping</category>
+		<name>left square brace</name>
+		<see>[</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>]</entry>
+		<category>grouping</category>
+		<name>right square brace</name>
+		<see>]</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>{</entry>
+		<category>grouping</category>
+		<name>left curly brace</name>
+		<see>{</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>}</entry>
+		<category>grouping</category>
+		<name>right curly brace</name>
+		<see>}</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>(:</entry>
+		<category>grouping</category>
+		<name>left point brace</name>
+		<see>〈</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>:)</entry>
+		<category>grouping</category>
+		<name>right point brace</name>
+		<see>〉</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>{:</entry>
+		<category>grouping</category>
+		<name>left curly point</name>
+		<see>{:</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>:}</entry>
+		<category>grouping</category>
+		<name>right curly point</name>
+		<see>:}</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>cos</entry>
+		<category>functions</category>
+		<name>cosine</name>
+		<see>cos</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>sin</entry>
+		<category>functions</category>
+		<name>sine</name>
+		<see>sin</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>tan</entry>
+		<category>functions</category>
+		<name>tangent</name>
+		<see>tan</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>csc</entry>
+		<category>functions</category>
+		<name>cosecant</name>
+		<see>csc</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>sec</entry>
+		<category>functions</category>
+		<name>secant</name>
+		<see>sec</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>cot</entry>
+		<category>functions</category>
+		<name>cotangent</name>
+		<see>cot</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>sinh</entry>
+		<category>functions</category>
+		<name>hyperbolic sine</name>
+		<see>sinh</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>cosh</entry>
+		<category>functions</category>
+		<name>hyperbolic cosine</name>
+		<see>cosh</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>tanh</entry>
+		<category>functions</category>
+		<name>hyperbolic tangent</name>
+		<see>tanh</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>log</entry>
+		<category>functions</category>
+		<name>log</name>
+		<see>log</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>ln</entry>
+		<category>functions</category>
+		<name>natural log</name>
+		<see>ln</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>det</entry>
+		<category>functions</category>
+		<name>determinant</name>
+		<see>det</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>dim</entry>
+		<category>functions</category>
+		<name>dimension</name>
+		<see>dim</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>lim</entry>
+		<category>functions</category>
+		<name>limit</name>
+		<see>lim</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>mod</entry>
+		<category>functions</category>
+		<name>modulus</name>
+		<see>mod</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>gcd</entry>
+		<category>functions</category>
+		<name>greatest common denominator</name>
+		<see>gcd</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>lcm</entry>
+		<category>functions</category>
+		<name>least common multiple</name>
+		<see>lcm</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>min</entry>
+		<category>functions</category>
+		<name>minimum</name>
+		<see>min</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>max</entry>
+		<category>functions</category>
+		<name>maximum</name>
+		<see>max</see>
+		<shortcut></shortcut>
+	</entry>
+	<!--These entries are duplicates of the examples because their bare functions can't be inserted without causing an error -->
+	<entry>
+		<entry>sqrt(64)</entry>
+		<category>functions</category>
+		<name>square root</name>
+		<see>Problem Loading Image</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>root</entry>
+		<category>functions</category>
+		<name>root</name>
+		<see>root</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>12/a</entry>
+		<category>functions</category>
+		<name>fraction</name>
+		<see>Problem Loading Image</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>bfrac 1 2</entry>
+		<category>functions</category>
+		<name>bevelled fraction</name>
+		<see>Problem Loading Image</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>[[a,b],[c,d]]</entry>
+		<category>special</category>
+		<name>matrices</name>
+		<see>Problem Loading Image</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>((a,b),(c,d))</entry>
+		<category>special</category>
+		<name>column vectors</name>
+		<see>Problem Loading Image</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>lim_(xrarroo)</entry>
+		<category>special</category>
+		<name>complex subscripts</name>
+		<see>Problem Loading Image</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>int_0^1 f(x)dx</entry>
+		<category>special</category>
+		<name>script order</name>
+		<see>Problem Loading Image</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>f(x) = sum_(n=0)^oo(((f^n)(a))/(n!))(x-a)^n</entry>
+		<category>examples</category>
+		<name>taylor series</name>
+		<see>Problem Loading Image</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>x=(-b+- sqrt(b^2-4ac))/(2a)</entry>
+		<category>examples</category>
+		<name>quadratic</name>
+		<see>Problem Loading Image</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>int 1/x dx = ln abs(x) + C</entry>
+		<category>examples</category>
+		<name>integrate natural log</name>
+		<see>Problem Loading Image</see>
+		<shortcut></shortcut>
+	</entry>
+	<entry>
+		<entry>sin^2(theta)+cos^2(theta) = 1</entry>
+		<category>examples</category>
+		<name>pythagorean identity</name>
+		<see>Problem Loading Image</see>
+		<shortcut></shortcut>
+	</entry>
+</asciicheat>

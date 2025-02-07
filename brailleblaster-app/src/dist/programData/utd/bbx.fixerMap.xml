@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fixerMap>
+	<namespaces>
+		<namespace prefix="utd" uri="http://brailleblaster.org/ns/utd" />
+		<namespace prefix="bb" uri="http://brailleblaster.org/ns/bb" />
+	</namespaces>
+	
+	<!--
+	This takes a BBX document from a 1-to-1 $sourceFormat to BBX import
+	and cleans up the structure for sane braille formatting
+	
+	Entries are processed one by one. The current entry's matcher is used 
+	for a pass over the whole document, then the second entry's matcher 
+	is used for another pass over the whole document, etc.
+	
+	This means matchers MUST NOT match an already fixed element. Generally either
+	the matcher verifies fix was applied, fixed element is entirely removed, 
+	or the fixerTodo attribute is deatched.
+	
+	This file's order is the order the fixers are ran
+	-->
+	
+	<!-- 
+	images 
+	-->
+	
+	<!-- must be before imagegroupimportfixer as it relies on valid src attribute fixes -->
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+				 selfAttribName="src"
+		/>
+		<fixer type="org.brailleblaster.bbx.fixers.ImageSourceImportFixer"
+			   comment="Images: Convert to BBX source attrib"
+		/>
+	</entry>
+	<!-- order: must be before spans get wrapped -->
+	<entry>
+		<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+				 fixerTodo="CONVERT_IMAGE_GROUP"
+		/>
+		<fixer type="org.brailleblaster.bbx.fixers.ImageGroupImportFixer"
+			   comment="Images: Split up image groups"
+		/>
+	</entry>
+
+	<!--
+	wrappers
+	-->
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
+			<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+					 inlineType="EMPHASIS"
+			/>
+			<matcher type="org.brailleblaster.bbx.fixers.EmphasisImportFixer$HasElementChildrenMatcher" />
+		</matcher>
+		<fixer type="org.brailleblaster.bbx.fixers.EmphasisImportFixer"
+			   comment="Emphasis merge into inline"
+		/>
+	</entry>
+	
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
+			<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+					 spanType="PAGE_NUM"
+			/>
+			<!-- and not already in a block -->
+			<matcher type="org.brailleblaster.utd.matchers.NotMatcher">
+				<matcher type="org.brailleblaster.bbx.utd.AncestorMatcher">
+					<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+							 coreType="BLOCK"
+					/>
+				</matcher>
+			</matcher>
+		</matcher>
+		<fixer type="org.brailleblaster.bbx.fixers.TransformingImportFixer"
+			   blockType="PAGE_NUM"
+			   comment="Change floating SPAN.PAGE_NUM to BLOCK.PAGE_NUM"
+		/>
+	</entry>
+	
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
+			<matcher type="org.brailleblaster.utd.matchers.OrMatcher">
+				<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+						 spanType="IMAGE"
+				/>
+			</matcher>
+			
+			<!-- and not already in a block -->
+			<matcher type="org.brailleblaster.utd.matchers.NotMatcher">
+				<matcher type="org.brailleblaster.bbx.utd.AncestorMatcher">
+					<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+							 coreType="BLOCK"
+					/>
+				</matcher>
+			</matcher>
+		</matcher>
+		<fixer type="org.brailleblaster.bbx.fixers.TransformingImportFixer"
+			   containerType="IMAGE"
+			   comment="Change floating SPAN.IMAGE to CONTAINER.IMAGE"
+		/>
+	</entry>
+	
+	<!-- Issue #5265: Remove sidebar styles from publisher -->
+	<entry>
+		<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+				 containerType="BOX"
+		/>
+		<fixer type="org.brailleblaster.bbx.fixers.UnwrappingImportFixer"
+			   comment="Remove publisher sidebars"
+		/>
+	</entry>
+	
+	<!--
+	Lists
+	-->
+	
+	<!-- Lists: Move definition terms inside block 
+	to simplify applying a G style to both the term and its definition -->
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
+			<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+					 spanType="DEFINITION_TERM"
+			/>
+			<!-- not already handled -->
+			<matcher type="org.brailleblaster.utd.matchers.NotMatcher">
+				<matcher type="org.brailleblaster.bbx.utd.ParentMatcher">
+					<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+							 blockType="LIST_ITEM"
+					/>
+				</matcher>
+			</matcher>
+			<matcher type="org.brailleblaster.bbx.fixers.DefinitionTermImportFixer$HasFollowingListItemMatcher" />
+		</matcher>
+		<fixer type="org.brailleblaster.bbx.fixers.DefinitionTermImportFixer"
+			   comment="Definition term span to inside definition description block"
+		/>
+	</entry>
+	
+	<entry>
+		<matcher type="org.brailleblaster.bbx.fixers.DefinitionMultipleBlockMatcher" />
+		<fixer type="org.brailleblaster.bbx.fixers.UnwrappingImportFixer"
+			   comment="Unwrap first nested paragraph in definitions"
+		/>
+	</entry>
+
+	<!-- Order: Must run before below container unwrapper -->
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
+			<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+					 containerType="LIST"
+			/>
+			<!-- parent is a li -->
+			<matcher type="org.brailleblaster.bbx.utd.ParentMatcher">
+				<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+						 blockType="LIST_ITEM"
+				/>
+			</matcher>
+		</matcher>
+		<fixer type="org.brailleblaster.bbx.fixers.SplittingImportFixer"
+			   comment="Lists: Pre nested list pass: Take list out of list item"
+		>
+			<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+					 blockType="LIST_ITEM"
+			/>
+		</fixer>
+	</entry>
+	
+	
+	<entry>
+		<matcher type="org.brailleblaster.bbx.fixers.PoemLineGroupLevelImportFixer$BadLevelMatcher"/>
+		<fixer type="org.brailleblaster.bbx.fixers.PoemLineGroupLevelImportFixer"
+			   comment="Lists: Properly set poem list item levels"
+		/>
+	</entry>
+	
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
+			<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+					 containerType="LIST"
+			/>
+			<matcher type="org.brailleblaster.bbx.utd.ParentMatcher">
+				<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+						 containerType="LIST"
+				/>
+			</matcher>
+			<matcher type="org.brailleblaster.utd.matchers.NotMatcher">
+				<matcher type="org.brailleblaster.bbx.fixers.PoemLineGroupMatcher"/>
+			</matcher>
+			<matcher type="org.brailleblaster.utd.matchers.NotMatcher">
+				<matcher type="org.brailleblaster.bbx.fixers.NestedListImportFixer$NoDescendantListMatcher" />
+			</matcher>
+		</matcher>
+		<fixer type="org.brailleblaster.bbx.fixers.NestedListImportFixer"
+			   comment="Lists: Flatten nested lists"
+		/>
+	</entry>
+	
+	<!-- split list at nonsense inside list items, should be ok as no list directly contains things like <sidebar> -->
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
+			<matcher type="org.brailleblaster.utd.matchers.NotMatcher">
+				<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+						 containerType="LIST"
+				/>
+			</matcher>
+			<!-- all sidebars, imagegroups, tables, etc should get taken out of the list item -->
+			<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+					 coreType="CONTAINER"
+			/>
+			<!-- parent is a list -->
+			<matcher type="org.brailleblaster.bbx.utd.AncestorMatcher">
+				<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+						 containerType="LIST"
+				/>
+			</matcher>
+			
+		</matcher>
+		<fixer type="org.brailleblaster.bbx.fixers.SplittingImportFixer"
+			   comment="Take containers out of list"
+		>
+			<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+					 containerType="LIST"
+			/>
+		</fixer>
+	</entry>
+	
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
+			<!-- current element is a paragraph  -->
+			<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+					 coreType="BLOCK"
+			/>
+			<!-- TODO: Require parserMaps to add fixer option for <p> inside <li> ? -->
+			<!-- doesn't work for some reason -->
+			<!--			<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+					 selfAttribName="overrideStyle"
+					 selfAttribValue="Body Text"
+					 selfAttribNamespace="utd"
+			/>-->
+			<!-- parent is a li -->
+			<matcher type="org.brailleblaster.bbx.utd.ParentMatcher">
+				<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+						 blockType="LIST_ITEM"
+				/>
+			</matcher>
+		</matcher>
+		<fixer type="org.brailleblaster.bbx.fixers.ListItemParagraphImportFixer"
+			   comment="Lists: Flatten nested paragraphs"
+		/>
+	</entry>
+	
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
+			<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+					 fixerTodo="LINE_BREAK"
+			/>
+			<matcher type="org.brailleblaster.bbx.utd.AncestorMatcher">
+				<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+						 blockType="LIST_ITEM"
+				/>
+			</matcher>
+			<matcher type="org.brailleblaster.bbx.utd.BBXLazyAncestorMatcher">
+				<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+						 listType="DEFINITION"
+				/>
+			</matcher>
+			
+		</matcher>
+		<fixer type="org.brailleblaster.bbx.fixers.DefinitionListLineBreakImportFixer"
+			   comment="Issue #5390: Incriment level of line break split definitions"
+		/>
+	</entry>
+	
+	<!-- REQUIRED: BBXStyleMap use this to generate style name -->
+	<!-- Order: Must be after all list item levels are done changing -->
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
+			<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+					 containerType="LIST"
+			/>
+			<matcher type="org.brailleblaster.utd.matchers.NotMatcher">
+				<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+						 selfAttribNamespace="bb"
+						 selfAttribName="listLevel"
+				/>
+			</matcher>
+			<matcher type="org.brailleblaster.utd.matchers.NotMatcher">
+				<matcher type="org.brailleblaster.bbx.fixers.PoemLineGroupMatcher"/>
+			</matcher>
+		</matcher>
+		<fixer type="org.brailleblaster.bbx.fixers.ListLevelImportFixer"
+			   comment="Lists: Save maximum level in list container"
+		/>
+	</entry>
+	
+	<!--
+	Floating text wrappers
+	Order: Must be after other transformations have happened 
+	-->
+	
+	<!-- imggroup -->
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
+			<matcher type="org.brailleblaster.bbx.fixers.FloatingTextImportFixer$Matcher"/>
+			<matcher type="org.brailleblaster.bbx.utd.ParentMatcher">
+				<matcher type="org.brailleblaster.utd.matchers.OrMatcher">
+					<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+							 coreType="CONTAINER"
+					/>
+					<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+							 coreType="SECTION"
+					/>
+					<!-- table "cells" are BLOCKs as a workaround (see TableImportFixer) but they are essentially containers -->
+					<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+							 fixerTodo="TABLE_CELL_REAL"
+					/>
+				</matcher>
+			</matcher>
+		</matcher>
+		<fixer type="org.brailleblaster.bbx.fixers.FloatingTextImportFixer"
+			   comment="Paragraphs: Wrap floating text in block"
+			   blockType="DEFAULT"
+		/>
+	</entry>
+	
+	<!-- 
+	note: following 2 must be after floating elements are converted into blocks.
+	as below matchers detect multiple blocks
+	-->
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
+			<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+					 containerType="IMAGE"
+			/>
+			<matcher type="org.brailleblaster.bbx.utd.AncestorMatcher">
+				<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
+					<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+							 coreType="BLOCK"
+					/>
+					<matcher type="org.brailleblaster.utd.matchers.NotMatcher">
+						<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+								fixerTodo="TABLE_CELL_REAL"
+					   />
+					</matcher>
+				</matcher>
+			</matcher>
+			<matcher type="org.brailleblaster.bbx.fixers.ImageGroupToSpanImportFixer$SingleDescendantBlockMatcher"
+			/>
+		</matcher>
+		<fixer type="org.brailleblaster.bbx.fixers.ImageGroupToSpanImportFixer"
+			   comment="Images: Convert image group with single paragraph inside a block to a span"
+		/>
+	</entry>
+	<!-- todo: move to last -->
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
+			<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+					 spanType="IMAGE"
+			/>
+			<matcher type="org.brailleblaster.bbx.utd.AncestorMatcher">
+				<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+						 coreType="BLOCK"
+				/>
+			</matcher>
+			<matcher type="org.brailleblaster.bbx.utd.OnlyChildMatcher">
+				<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+						 coreType="BLOCK"
+				/>
+			</matcher>
+			<!-- Issue #5817: Don't convert table cells to containers -->
+			<matcher type="org.brailleblaster.utd.matchers.NotMatcher">
+				<matcher type="org.brailleblaster.bbx.utd.AncestorMatcher">
+					<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+							 blockType="TABLE_CELL"
+					/>
+				</matcher>
+			</matcher>
+		</matcher>
+		<fixer type="org.brailleblaster.bbx.fixers.to3.ImageBlockToContainerImportFixer"
+			   comment="Images: Convert block with single image span to a container"
+		/>
+	</entry>
+
+	<!-- 
+	Tables and list
+	-->
+	
+	<entry>
+		<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+				 fixerTodo="TABLE_GROUP_UNWRAP"
+		/>
+		<fixer type="org.brailleblaster.bbx.fixers.TableGroupImportFixer"
+			   comment="Tables: Unwrap table groups"
+		/>
+	</entry>
+	
+	<!-- Order: Must be after table cell contents are done changing -->
+	<entry>
+		<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+				 fixerTodo="TABLE_SIZE"
+		/>
+		<fixer type="org.brailleblaster.bbx.fixers.TableImportFixer"
+			   comment="Tables: Strip cell contents or strip table"
+		/>
+	</entry>
+	
+	
+	
+	<!-- Order: Must be near end, table cell <td> blocks cannot be split -->
+	<entry>
+		<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+				 fixerTodo="LINE_BREAK"
+		/>
+		<fixer type="org.brailleblaster.bbx.fixers.LineBreakImportFixer"
+			   comment="Paragraphs: Split blocks at line breaks"
+		/>
+	</entry>
+	
+	<!-- Order: Must be near end after done splitting blocks -->
+	<entry>
+		<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+				 fixerTodo="CONTAINER_STYLE_TO_BLOCK"
+		/>
+		<fixer type="org.brailleblaster.bbx.fixers.ContainerStyleToBlockImportFixer"
+			   comment="Copy container Caption style to block"
+		/>
+	</entry>
+
+	<!-- Order: MUST BE LAST -->
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
+<!--			<matcher type="org.brailleblaster.bbx.utd.StrictModeMatcher" 
+					 ifStict="false"
+			/>-->
+			<matcher type="org.brailleblaster.utd.matchers.OrMatcher">
+				<!-- container inside block -->
+				<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
+					<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+							 coreType="CONTAINER"
+					/>
+					<matcher type="org.brailleblaster.bbx.utd.AncestorMatcher">
+						<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+								 coreType="BLOCK"
+						/>
+					</matcher>
+				</matcher>
+				<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
+					<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+							 coreType="BLOCK"
+					/>
+					<matcher type="org.brailleblaster.bbx.utd.AncestorMatcher">
+						<matcher type="org.brailleblaster.bbx.utd.BBXElementMatcher"
+								 coreType="BLOCK"
+						/>
+					</matcher>
+				</matcher>
+			</matcher>
+		</matcher>
+		<fixer type="org.brailleblaster.bbx.fixers.FallbackImportFixer" 
+			   comment="Last restort BBX format fixer"
+		/>
+	</entry>
+</fixerMap>

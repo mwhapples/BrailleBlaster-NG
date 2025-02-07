@@ -1,0 +1,2664 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<styleDefinitions>
+	<!-- INTERNAL -->
+	<style>
+		<id>internal/document</id>
+		<name>DEFAULT</name>
+		<!-- Set defaults here that will apply to all styles -->
+		<!-- Use empty tag syntax (eg <firstLineIndent/>) for null -->
+	</style>
+	<style>
+		<id>internal/span</id>
+		<name>Span</name>
+	</style>
+	<style>
+		<id>internal/sidebar</id>
+		<name>Sidebar</name>
+		<linesBefore>2</linesBefore>
+		<linesAfter>2</linesAfter>
+		<indent>0</indent>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style>
+		<id>internal/basebox</id>
+		<name>Base box</name>
+		<linesBefore>2</linesBefore>
+		<linesAfter>2</linesAfter>
+		<firstLineIndent>0</firstLineIndent>
+		<indent>0</indent>
+	</style>
+	<style>
+		<id>internal/Heading</id>
+		<name>Heading</name>
+		<linesBefore>2</linesBefore>
+		<linesBeforeWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.NodeAncestorDelegatingMatcher"
+				distance="0">
+				<position>START</position>
+				<matcher type="org.brailleblaster.utd.matchers.ActionAndStyleMatcher">
+					<style>Base box</style>
+				</matcher>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesBeforeWhen>
+		<keepWithNext>true</keepWithNext>
+	</style>
+	<style>
+		<id>internal/dontSplit</id>
+		<name>Dont Split</name>
+		<dontSplit>true</dontSplit>
+	</style>
+	<style>
+		<id>internal/ListItem</id>
+		<name>List Item</name>
+		<linesBefore>2</linesBefore>
+		<linesBeforeWhen>
+			<matcher type="org.brailleblaster.utd.matchers.OrMatcher">
+				<matcher
+					type="org.brailleblaster.utd.matchers.NodeAncestorDelegatingMatcher">
+					<position>START</position>
+					<matcher type="org.brailleblaster.utd.matchers.ActionAndStyleMatcher">
+						<style>Base box</style>
+					</matcher>
+				</matcher>
+				<matcher
+					type="org.brailleblaster.utd.matchers.ImmediatelyPrecedingStyleMatcher">
+					<style>Directions</style>
+					<style>Cell 5 Heading</style>
+					<style>Cell 7 Heading</style>
+				</matcher>
+				<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
+					<matcher
+						type="org.brailleblaster.utd.matchers.PreviousSiblingStyleMatcher">
+						<ignoreWhiteSpaceNodes>true</ignoreWhiteSpaceNodes>
+						<style>List Item</style>
+						<style>Table</style>
+						<style>listedTable</style>
+						<style>Simple Table</style>
+					</matcher>
+					<matcher type="org.brailleblaster.utd.matchers.NotMatcher">
+						<matcher
+							type="org.brailleblaster.utd.matchers.HasChildDelegatingMatcher">
+							<matcher type="org.brailleblaster.utd.matchers.OrMatcher">
+								<matcher selfAttribName="utd-style" selfAttribValue="Cell 7 Heading"
+									type="org.brailleblaster.utd.matchers.NodeAttributeMatcher" />
+								<matcher selfAttribName="utd-style" selfAttribValue="Cell 5 Heading"
+									type="org.brailleblaster.utd.matchers.NodeAttributeMatcher" />
+							</matcher>
+						</matcher>
+					</matcher>
+				</matcher>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesBeforeWhen>
+		<linesAfter>2</linesAfter>
+		<linesAfterWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.NodeAncestorDelegatingMatcher">
+				<position>END</position>
+				<matcher type="org.brailleblaster.utd.matchers.ActionAndStyleMatcher">
+					<style>Base box</style>
+				</matcher>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesAfterWhen>
+	</style>
+	<style>
+		<id>internal/BaseGlossaryTerm</id>
+		<name>Base Glossary Term</name>
+		<rightPadding>1</rightPadding>
+		<skipNumberLines>BOTTOM</skipNumberLines>
+	</style>
+	<style>
+		<id>internal/ExerciseItem</id>
+		<name>Exercise Item</name>
+		<linesBefore>2</linesBefore>
+		<linesBeforeWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.ImmediatelyPrecedingStyleMatcher">
+				<style>Cell 5 Heading</style>
+				<style>Cell 7 Heading</style>
+				<style>Exercise Item</style>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesBeforeWhen>
+	</style>
+	<style>
+		<id>internal/matrix</id>
+		<name>matrix</name>
+		<align>COLUMN_LEFT</align>
+	</style>
+	<style>
+		<id>internal/none</id>
+		<name>none</name>
+	</style>
+	<style>
+		<id>internal/table</id>
+		<name>Table</name>
+		<linesBefore>2</linesBefore>
+		<linesBeforeWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.NodeAncestorDelegatingMatcher"
+				distance="0">
+				<position>START</position>
+				<matcher type="org.brailleblaster.utd.matchers.ActionAndStyleMatcher">
+					<style>Base box</style>
+				</matcher>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesBeforeWhen>
+		<linesAfter>2</linesAfter>
+		<format>AUTO</format>
+		<isTable>true</isTable>
+	</style>
+	<style>
+		<id>internal/listedTable</id>
+		<name>Listed Table</name>
+		<linesBefore>2</linesBefore>
+		<linesBeforeWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.NodeAncestorDelegatingMatcher"
+				distance="0">
+				<position>START</position>
+				<matcher type="org.brailleblaster.utd.matchers.ActionAndStyleMatcher">
+					<style>Base box</style>
+				</matcher>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesBeforeWhen>
+		<linesAfter>2</linesAfter>
+		<format>LISTED</format>
+		<isTable>true</isTable>
+	</style>
+	<style>
+		<id>internal/simpleTable</id>
+		<name>Simple Table</name>
+		<linesBefore>2</linesBefore>
+		<linesBeforeWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.NodeAncestorDelegatingMatcher"
+				distance="0">
+				<position>START</position>
+				<matcher type="org.brailleblaster.utd.matchers.ActionAndStyleMatcher">
+					<style>Base box</style>
+				</matcher>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesBeforeWhen>
+		<linesAfter>2</linesAfter>
+		<format>SIMPLE</format>
+		<isTable>true</isTable>
+	</style>
+	<style>
+		<id>internal/facingTable</id>
+		<name>Facing Table</name>
+		<linesBefore>2</linesBefore>
+		<linesBeforeWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.NodeAncestorDelegatingMatcher"
+				distance="0">
+				<position>START</position>
+				<matcher type="org.brailleblaster.utd.matchers.ActionAndStyleMatcher">
+					<style>Base box</style>
+				</matcher>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesBeforeWhen>
+		<linesAfter>2</linesAfter>
+		<format>FACING</format>
+		<isTable>true</isTable>
+	</style>
+	<style>
+		<id>internal/stairstepTable</id>
+		<name>Stairstep Table</name>
+		<linesBefore>2</linesBefore>
+		<linesBeforeWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.NodeAncestorDelegatingMatcher"
+				distance="0">
+				<position>START</position>
+				<matcher type="org.brailleblaster.utd.matchers.ActionAndStyleMatcher">
+					<style>Base box</style>
+				</matcher>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesBeforeWhen>
+		<linesAfter>2</linesAfter>
+		<format>STAIRSTEP</format>
+		<isTable>true</isTable>
+	</style>
+	<style>
+		<id>internal/linearTable</id>
+		<name>Linear Table</name>
+		<linesBefore>2</linesBefore>
+		<linesBeforeWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.NodeAncestorDelegatingMatcher"
+				distance="0">
+				<position>START</position>
+				<matcher type="org.brailleblaster.utd.matchers.ActionAndStyleMatcher">
+					<style>Base box</style>
+				</matcher>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesBeforeWhen>
+		<linesAfter>2</linesAfter>
+		<format>LINEAR</format>
+		<isTable>true</isTable>
+	</style>
+	<style>
+		<id>internal/spatialMath</id>
+		<name>Spatial Math</name>
+		<indent>0</indent>
+		<align>COLUMN_LEFT</align>
+		<dontSplit>true</dontSplit>
+		<linesBefore>1</linesBefore>
+		<linesAfter>1</linesAfter>
+	</style>
+	<style>
+		<id>internal/spatialMathLineBreak</id>
+		<name>Spatial Math Line Break</name>
+		<indent>0</indent>
+		<align>COLUMN_LEFT</align>
+		<dontSplit>true</dontSplit>
+		<linesBefore>1</linesBefore>
+		<linesAfter>2</linesAfter>
+	</style>
+	<style>
+		<id>internal/numberLine</id>
+		<name>Number Line</name>
+		<linesBefore>2</linesBefore>
+		<linesAfter>2</linesAfter>
+		<indent>0</indent>
+		<align>COLUMN_LEFT</align>
+		<dontSplit>true</dontSplit>
+	</style>
+	<style>
+		<id>internal/matrix</id>
+		<name>Matrix</name>
+		<linesBefore>2</linesBefore>
+		<linesAfter>2</linesAfter>
+		<indent>0</indent>
+		<align>COLUMN_LEFT</align>
+		<dontSplit>true</dontSplit>
+	</style>
+	<style>
+		<id>internal/template</id>
+		<name>Template</name>
+		<linesBefore>2</linesBefore>
+		<linesAfter>2</linesAfter>
+		<indent>0</indent>
+		<align>COLUMN_LEFT</align>
+		<dontSplit>true</dontSplit>
+	</style>
+	<style>
+		<id>internal/spatialGrid</id>
+		<name>Spatial Grid</name>
+		<linesBefore>2</linesBefore>
+		<linesAfter>2</linesAfter>
+		<indent>0</indent>
+		<align>COLUMN_LEFT</align>
+		<dontSplit>true</dontSplit>
+	</style>
+	<style>
+		<id>internal/tableRow</id>
+		<name>TableRow</name>
+		<isTableRow>true</isTableRow>
+	</style>
+	<style>
+		<id>internal/tableCell</id>
+		<name>TableCell</name>
+		<linesBefore>1</linesBefore>
+		<isTableCell>true</isTableCell>
+	</style>
+	<style>
+		<id>internal/topBox</id>
+		<name>TopBox</name>
+	</style>
+	<style>
+		<id>internal/trNote</id>
+		<name>TRNote</name>
+		<indent>4</indent>
+		<firstLineIndent>6</firstLineIndent>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/tPage</id>
+		<name>TPage</name>
+		<braillePageNumberFormat>T_PAGE</braillePageNumberFormat>
+		<format>TPAGE</format>
+	</style>
+	<style>
+		<id>internal/tPageElement</id>
+		<name>TPageElement</name>
+		<indent>2</indent>
+		<firstLineIndent>0</firstLineIndent>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/tPageElement</id>
+		<name>TPageElement 3-1</name>
+		<indent>0</indent>
+		<firstLineIndent>2</firstLineIndent>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/transcriberNotesTPageElement</id>
+		<name>Transcriber Notes TPage Element</name>
+		<indent>0</indent>
+		<firstLineIndent>2</firstLineIndent>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/tPageHeading</id>
+		<name>TPage Heading</name>
+		<linesBefore>1</linesBefore>
+		<linesAfter>2</linesAfter>
+		<align>CENTERED</align>
+		<indent>3</indent>
+		<lineLength>-3</lineLength>
+	</style>
+	<style>
+		<id>internal/specialSymbolHeading</id>
+		<name>Special Symbol Heading</name>
+		<linesBefore>2</linesBefore>
+		<linesAfter>1</linesAfter>
+		<firstLineIndent>4</firstLineIndent>
+		<indent>4</indent>
+	</style>
+	<style>
+		<id>internal/lineBreak</id>
+		<name>lineBreak</name>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/defaultBook</id>
+		<name>defaultBook</name>
+	</style>
+	<style>
+		<id>internal/volumeEnd</id>
+		<name>Volume End</name>
+		<!-- TODO: This only implements the basics of § 1.5.3 -->
+		<newPagesAfter>1</newPagesAfter>
+		<volumeEnd>true</volumeEnd>
+		<indent>0</indent>
+		<firstLineIndent>2</firstLineIndent>
+		<linesBefore>1</linesBefore>
+		<align>CENTERED</align>
+	</style>
+	<!-- Marker style -->
+	<style>
+		<id>internal/volume</id>
+		<name>Volume</name>
+	</style>
+	<style>
+		<id>internal/BasePlay</id>
+		<name>Base Play</name>
+		<linesBefore>2</linesBefore>
+		<linesBeforeWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.ImmediatelyPrecedingStyleMatcher">
+				<!-- Disabled for Formats 2016 <style>Stage Directions Prose 5-5</style> 
+					<style>Stage Directions Prose 7-5</style> -->
+				<style>Stage Directions 7-7</style>
+				<style>Stage Directions 9-7</style>
+				<style>Verse Play 1-5</style>
+				<style>Verse Play 3-5</style>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesBeforeWhen>
+	</style>
+	<style baseStyle="Base Play">
+		<id>internal/ProsePlay</id>
+		<name>Prose Play</name>
+		<linesBeforeWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.ImmediatelyPrecedingStyleMatcher">
+				<style>Prose Play 1-3</style>
+				<style>Prose Play 5-3</style>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesBeforeWhen>
+	</style>
+	<!-- BASIC -->
+	<style>
+		<id>basic/blockedText</id>
+		<name>Blocked Text</name>
+		<indent>0</indent>
+		<firstLineIndent>0</firstLineIndent>
+		<linesBefore>1</linesBefore>
+		<linesBeforeWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.ImmediatelyPrecedingStyleMatcher">
+				<style>Blocked Text</style>
+				<style>Body Text</style>
+				<style>Blocked Text Skip</style>
+			</matcher>
+			<value type="java.lang.Integer">2</value>
+		</linesBeforeWhen>
+	</style>
+	<style>
+		<id>internal/blockedTextSkipNumberLine</id>
+		<name>Blocked Text Skip</name>
+		<indent>0</indent>
+		<firstLineIndent>0</firstLineIndent>
+		<linesBefore>1</linesBefore>
+		<linesBeforeWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.ImmediatelyPrecedingStyleMatcher">
+				<style>Blocked Text</style>
+				<style>Body Text</style>
+				<style>Blocked Text Skip</style>
+			</matcher>
+			<value type="java.lang.Integer">2</value>
+		</linesBeforeWhen>
+		<skipNumberLines>BOTH</skipNumberLines>
+	</style>
+	<style>
+		<id>basic/bodyText</id>
+		<name>Body Text</name>
+		<indent>0</indent>
+		<firstLineIndent>2</firstLineIndent>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>basic/centeredText</id>
+		<name>Centered Text</name>
+		<align>CENTERED</align>
+		<indent>3</indent>
+		<lineLength>-3</lineLength>
+		<linesBefore>1</linesBefore>
+		<linesAfter>1</linesAfter>
+	</style>
+	<style>
+		<id>basic/displayed3-5</id>
+		<name>Displayed 3-5</name>
+		<indent>4</indent>
+		<firstLineIndent>2</firstLineIndent>
+		<linesBefore>2</linesBefore>
+		<linesAfter>2</linesAfter>
+	</style>
+	<style>
+		<id>basic/displayedBlocked</id>
+		<name>Displayed Blocked Text</name>
+		<indent>2</indent>
+		<firstLineIndent>2</firstLineIndent>
+		<linesBefore>2</linesBefore>
+		<linesAfter>2</linesAfter>
+	</style>
+	<style>
+		<id>basic/displayedBodyText</id>
+		<name>Displayed Body Text</name>
+		<indent>2</indent>
+		<firstLineIndent>4</firstLineIndent>
+		<linesBefore>2</linesBefore>
+		<linesAfter>2</linesAfter>
+	</style>
+
+
+	<!-- CAPTIONS -->
+	<style>
+		<id>captions/caption</id>
+		<name>Caption</name>
+		<indent>4</indent>
+		<firstLineIndent>6</firstLineIndent>
+		<linesBefore>1</linesBefore>
+		<!-- Following needed due to linesBeforeWhen being absolute and so overriding 
+			linesAfter of the element before -->
+		<linesBeforeWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.ImmediatelyPrecedingStyleMatcher">
+				<style>Base box</style>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesBeforeWhen>
+	</style>
+	<style>
+		<id>captions/description</id>
+		<name>Description</name>
+		<indent>4</indent>
+		<firstLineIndent>6</firstLineIndent>
+		<linesBefore>1</linesBefore>
+	</style>
+	<!-- HEADING -->
+	<style baseStyle="Heading">
+		<id>heading/centeredHeading</id>
+		<name>Centered Heading</name>
+		<linesAfter>2</linesAfter>
+		<linesAfterWhen>
+			<matcher
+					type="org.brailleblaster.utd.matchers.NodeAncestorDelegatingMatcher">
+				<position>END</position>
+				<matcher type="org.brailleblaster.utd.matchers.ActionAndStyleMatcher">
+					<style>Base box</style>
+				</matcher>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesAfterWhen>
+		<align>CENTERED</align>
+		<indent>3</indent>
+		<lineLength>-3</lineLength>
+	</style>
+	<style baseStyle="Heading">
+		<id>heading/cell5Heading</id>
+		<name>Cell 5 Heading</name>
+		<linesBeforeWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.ImmediatelyPrecedingStyleMatcher">
+				<style>Cell 5 Heading</style>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesBeforeWhen>
+		<indent>4</indent>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style baseStyle="Heading">
+		<id>heading/cell7Heading</id>
+		<name>Cell 7 Heading</name>
+		<linesBeforeWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.ImmediatelyPrecedingStyleMatcher">
+				<style>Cell 5 Heading</style>
+				<style>Cell 7 Heading</style>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesBeforeWhen>
+		<indent>6</indent>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<!-- LIST -->
+	<style>
+		<id>internal/listTag</id>
+		<name>List Tag</name>
+		<linesBefore>2</linesBefore>
+		<linesAfter>2</linesAfter>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list1Level/l1-3</id>
+		<name>L1-3</name>
+		<indent>2</indent>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list2Levels/l1-5</id>
+		<name>L1-5</name>
+		<indent>4</indent>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list2Levels/l3-5</id>
+		<name>L3-5</name>
+		<indent>4</indent>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list3Levels/l1-7</id>
+		<name>L1-7</name>
+		<indent>6</indent>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list3Levels/l3-7</id>
+		<name>L3-7</name>
+		<indent>6</indent>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list3Levels/l5-7</id>
+		<name>L5-7</name>
+		<indent>6</indent>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list4Levels/l1-9</id>
+		<name>L1-9</name>
+		<indent>8</indent>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list4Levels/l3-9</id>
+		<name>L3-9</name>
+		<indent>8</indent>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list4Levels/l5-9</id>
+		<name>L5-9</name>
+		<indent>8</indent>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list4Levels/l7-9</id>
+		<name>L7-9</name>
+		<indent>8</indent>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list5Levels/l1-11</id>
+		<name>L1-11</name>
+		<indent>10</indent>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list5Levels/l3-11</id>
+		<name>L3-11</name>
+		<indent>10</indent>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list5Levels/l5-11</id>
+		<name>L5-11</name>
+		<indent>10</indent>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list5Levels/l7-11</id>
+		<name>L7-11</name>
+		<indent>10</indent>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list5Levels/l9-11</id>
+		<name>L9-11</name>
+		<indent>10</indent>
+		<firstLineIndent>8</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list6Levels/l1-13</id>
+		<name>L1-13</name>
+		<indent>12</indent>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list6Levels/l3-13</id>
+		<name>L3-13</name>
+		<indent>12</indent>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list6Levels/l5-13</id>
+		<name>L5-13</name>
+		<indent>12</indent>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list6Levels/l7-13</id>
+		<name>L7-13</name>
+		<indent>12</indent>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list6Levels/l9-13</id>
+		<name>L9-13</name>
+		<indent>12</indent>
+		<firstLineIndent>8</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list6Levels/l11-13</id>
+		<name>L11-13</name>
+		<indent>12</indent>
+		<firstLineIndent>10</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list7Levels/l1-15</id>
+		<name>L1-15</name>
+		<indent>14</indent>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list7Levels/l3-15</id>
+		<name>L3-15</name>
+		<indent>14</indent>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list7Levels/l5-15</id>
+		<name>L5-15</name>
+		<indent>14</indent>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list7Levels/l7-15</id>
+		<name>L7-15</name>
+		<indent>14</indent>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list7Levels/l9-15</id>
+		<name>L9-15</name>
+		<indent>14</indent>
+		<firstLineIndent>8</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list7Levels/l11-15</id>
+		<name>L11-15</name>
+		<indent>14</indent>
+		<firstLineIndent>10</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list7Levels/l13-15</id>
+		<name>L13-15</name>
+		<indent>14</indent>
+		<firstLineIndent>12</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list8Levels/l1-17</id>
+		<name>L1-17</name>
+		<indent>16</indent>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list8Levels/l3-17</id>
+		<name>L3-17</name>
+		<indent>16</indent>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list8Levels/l5-17</id>
+		<name>L5-17</name>
+		<indent>16</indent>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list8Levels/l7-17</id>
+		<name>L7-17</name>
+		<indent>16</indent>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list8Levels/l9-17</id>
+		<name>L9-17</name>
+		<indent>16</indent>
+		<firstLineIndent>8</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list8Levels/l11-17</id>
+		<name>L11-17</name>
+		<indent>16</indent>
+		<firstLineIndent>10</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list8Levels/l13-17</id>
+		<name>L13-17</name>
+		<indent>16</indent>
+		<firstLineIndent>12</firstLineIndent>
+	</style>
+	<style baseStyle="List Item">
+		<id>lists/list8Levels/l15-17</id>
+		<name>L15-17</name>
+		<indent>16</indent>
+		<firstLineIndent>14</firstLineIndent>
+	</style>
+	<!-- POETRY -->
+	<style>
+		<id>internal/Poetic Stanza</id>
+		<name>Poetic Stanza</name>
+		<linesBefore>2</linesBefore>
+		<linesBeforeWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.ImmediatelyPrecedingStyleMatcher">
+				<style>Cell 5 Heading</style>
+				<style>Cell 7 Heading</style>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesBeforeWhen>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry1Level/p1-3</id>
+		<name>P1-3</name>
+		<indent>2</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry2Levels/p1-5</id>
+		<name>P1-5</name>
+		<indent>4</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry2Levels/p3-5</id>
+		<name>P3-5</name>
+		<indent>4</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry3Levels/p1-7</id>
+		<name>P1-7</name>
+		<indent>6</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry3Levels/p3-7</id>
+		<name>P3-7</name>
+		<indent>6</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry3Levels/p5-7</id>
+		<name>P5-7</name>
+		<indent>6</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>4</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry4Levels/p1-9</id>
+		<name>P1-9</name>
+		<indent>8</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry4Levels/p3-9</id>
+		<name>P3-9</name>
+		<indent>8</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry4Levels/p5-9</id>
+		<name>P5-9</name>
+		<indent>8</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>4</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry4Levels/p7-9</id>
+		<name>P7-9</name>
+		<indent>8</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>6</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry5Levels/p1-11</id>
+		<name>P1-11</name>
+		<indent>10</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry5Levels/p3-11</id>
+		<name>P3-11</name>
+		<indent>10</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry5Levels/p5-11</id>
+		<name>P5-11</name>
+		<indent>10</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>4</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry5Levels/p7-11</id>
+		<name>P7-11</name>
+		<indent>10</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>6</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry5Levels/p9-11</id>
+		<name>P9-11</name>
+		<indent>10</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>8</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry6Levels/p1-13</id>
+		<name>P1-13</name>
+		<indent>12</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry6Levels/p3-13</id>
+		<name>P3-13</name>
+		<indent>12</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry6Levels/p5-13</id>
+		<name>P5-13</name>
+		<indent>12</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>4</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry6Levels/p7-13</id>
+		<name>P7-13</name>
+		<indent>12</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>6</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry6Levels/p9-13</id>
+		<name>P9-13</name>
+		<indent>12</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>8</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry6Levels/p11-13</id>
+		<name>P11-13</name>
+		<indent>12</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>10</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry7Levels/p1-15</id>
+		<name>P1-15</name>
+		<indent>14</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry7Levels/p3-15</id>
+		<name>P3-15</name>
+		<indent>14</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry7Levels/p5-15</id>
+		<name>P5-15</name>
+		<indent>14</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>4</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry7Levels/p7-15</id>
+		<name>P7-15</name>
+		<indent>14</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>6</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry7Levels/p9-15</id>
+		<name>P9-15</name>
+		<indent>14</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>8</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry7Levels/p11-15</id>
+		<name>P11-15</name>
+		<indent>14</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>10</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry7Levels/p13-15</id>
+		<name>P13-15</name>
+		<indent>14</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>12</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry8Levels/p1-17</id>
+		<name>P1-17</name>
+		<indent>16</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry8Levels/p3-17</id>
+		<name>P3-17</name>
+		<indent>16</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry8Levels/p5-17</id>
+		<name>P5-17</name>
+		<indent>16</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>4</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry8Levels/p7-17</id>
+		<name>P7-17</name>
+		<indent>16</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>6</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry8Levels/p9-17</id>
+		<name>P9-17</name>
+		<indent>16</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>8</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry8Levels/p11-17</id>
+		<name>P11-17</name>
+		<indent>16</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>10</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry8Levels/p13-17</id>
+		<name>P13-17</name>
+		<indent>16</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>12</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<style>
+		<id>poetry/poetry8Levels/p15-17</id>
+		<name>P15-17</name>
+		<indent>16</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>14</firstLineIndent>
+		<format>LINENUMBER</format>
+	</style>
+	<!-- GLOSSARY -->
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary1Level/g1-3</id>
+		<name>G1-3</name>
+		<indent>2</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary2Levels/g1-5</id>
+		<name>G1-5</name>
+		<indent>4</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary2Levels/g3-5</id>
+		<name>G3-5</name>
+		<indent>4</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary3Levels/g1-7</id>
+		<name>G1-7</name>
+		<indent>6</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary3Levels/g3-7</id>
+		<name>G3-7</name>
+		<indent>6</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary3Levels/g5-7</id>
+		<name>G5-7</name>
+		<indent>6</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary4Levels/g1-9</id>
+		<name>G1-9</name>
+		<indent>8</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary4Levels/g3-9</id>
+		<name>G3-9</name>
+		<indent>8</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary4Levels/g5-9</id>
+		<name>G5-9</name>
+		<indent>8</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary4Levels/g7-9</id>
+		<name>G7-9</name>
+		<indent>8</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary5Levels/g1-11</id>
+		<name>G1-11</name>
+		<indent>10</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary5Levels/g3-11</id>
+		<name>G3-11</name>
+		<indent>10</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary5Levels/g5-11</id>
+		<name>G5-11</name>
+		<indent>10</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary5Levels/g7-11</id>
+		<name>G7-11</name>
+		<indent>10</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary5Levels/g9-11</id>
+		<name>G9-11</name>
+		<indent>10</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>8</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary6Levels/g1-13</id>
+		<name>G1-13</name>
+		<indent>12</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary6Levels/g3-13</id>
+		<name>G3-13</name>
+		<indent>12</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary6Levels/g5-13</id>
+		<name>G5-13</name>
+		<indent>12</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary6Levels/g7-13</id>
+		<name>G7-13</name>
+		<indent>12</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary6Levels/g9-13</id>
+		<name>G9-13</name>
+		<indent>12</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>8</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary6Levels/g11-13</id>
+		<name>G11-13</name>
+		<indent>12</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>10</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary7Levels/g1-15</id>
+		<name>G1-15</name>
+		<indent>14</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary7Levels/g3-15</id>
+		<name>G3-15</name>
+		<indent>14</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary7Levels/g5-15</id>
+		<name>G5-15</name>
+		<indent>14</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary7Levels/g7-15</id>
+		<name>G7-15</name>
+		<indent>14</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary7Levels/g9-15</id>
+		<name>G9-15</name>
+		<indent>14</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>8</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary7Levels/g11-15</id>
+		<name>G11-15</name>
+		<indent>14</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>10</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary7Levels/g13-15</id>
+		<name>G13-15</name>
+		<indent>14</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>12</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary8Levels/g1-17</id>
+		<name>G1-17</name>
+		<indent>16</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary8Levels/g3-17</id>
+		<name>G3-17</name>
+		<indent>16</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary8Levels/g5-17</id>
+		<name>G5-17</name>
+		<indent>16</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary8Levels/g7-17</id>
+		<name>G7-17</name>
+		<indent>16</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary8Levels/g9-17</id>
+		<name>G9-17</name>
+		<indent>16</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>8</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary8Levels/g11-17</id>
+		<name>G11-17</name>
+		<indent>16</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>10</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary8Levels/g13-17</id>
+		<name>G13-17</name>
+		<indent>16</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>12</firstLineIndent>
+	</style>
+	<style baseStyle="Base Glossary Term">
+		<id>glossary/glossary8Levels/g15-17</id>
+		<name>G15-17</name>
+		<indent>16</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>14</firstLineIndent>
+	</style>
+	<!-- EXERCISE MATERIAL -->
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise1Level/e1-3</id>
+		<name>E1-3</name>
+		<indent>2</indent>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise2Levels/e1-5</id>
+		<name>E1-5</name>
+		<indent>4</indent>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise2Levels/e3-5</id>
+		<name>E3-5</name>
+		<indent>4</indent>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise3Levels/e1-7</id>
+		<name>E1-7</name>
+		<indent>6</indent>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise3Levels/e3-7</id>
+		<name>E3-7</name>
+		<indent>6</indent>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise3Levels/e5-7</id>
+		<name>E5-7</name>
+		<indent>6</indent>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise4Levels/e1-9</id>
+		<name>E1-9</name>
+		<indent>8</indent>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise4Levels/e3-9</id>
+		<name>E3-9</name>
+		<indent>8</indent>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise4Levels/e5-9</id>
+		<name>E5-9</name>
+		<indent>8</indent>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise4Levels/e7-9</id>
+		<name>E7-9</name>
+		<indent>8</indent>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise5Levels/e1-11</id>
+		<name>E1-11</name>
+		<indent>10</indent>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise5Levels/e3-11</id>
+		<name>E3-11</name>
+		<indent>10</indent>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise5Levels/e5-11</id>
+		<name>E5-11</name>
+		<indent>10</indent>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise5Levels/e7-11</id>
+		<name>E7-11</name>
+		<indent>10</indent>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise5Levels/e9-11</id>
+		<name>E9-11</name>
+		<indent>10</indent>
+		<firstLineIndent>8</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise6Levels/e1-13</id>
+		<name>E1-13</name>
+		<indent>12</indent>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise6Levels/e3-13</id>
+		<name>E3-13</name>
+		<indent>12</indent>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise6Levels/e5-13</id>
+		<name>E5-13</name>
+		<indent>12</indent>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise6Levels/e7-13</id>
+		<name>E7-13</name>
+		<indent>12</indent>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise6Levels/e9-13</id>
+		<name>E9-13</name>
+		<indent>12</indent>
+		<firstLineIndent>8</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise6Levels/e11-13</id>
+		<name>E11-13</name>
+		<indent>12</indent>
+		<firstLineIndent>10</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise7Levels/e1-15</id>
+		<name>E1-15</name>
+		<indent>14</indent>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise7Levels/e3-15</id>
+		<name>E3-15</name>
+		<indent>14</indent>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise7Levels/e5-15</id>
+		<name>E5-15</name>
+		<indent>14</indent>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise7Levels/e7-15</id>
+		<name>E7-15</name>
+		<indent>14</indent>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise7Levels/e9-15</id>
+		<name>E9-15</name>
+		<indent>14</indent>
+		<firstLineIndent>8</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise7Levels/e11-15</id>
+		<name>E11-15</name>
+		<indent>14</indent>
+		<firstLineIndent>10</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise7Levels/e13-15</id>
+		<name>E13-15</name>
+		<indent>14</indent>
+		<firstLineIndent>12</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise8Levels/e1-17</id>
+		<name>E1-17</name>
+		<indent>16</indent>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise8Levels/e3-17</id>
+		<name>E3-17</name>
+		<indent>16</indent>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise8Levels/e5-17</id>
+		<name>E5-17</name>
+		<indent>16</indent>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise8Levels/e7-17</id>
+		<name>E7-17</name>
+		<indent>16</indent>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise8Levels/e9-17</id>
+		<name>E9-17</name>
+		<indent>16</indent>
+		<firstLineIndent>8</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise8Levels/e11-17</id>
+		<name>E11-17</name>
+		<indent>16</indent>
+		<firstLineIndent>10</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise8Levels/e13-17</id>
+		<name>E13-17</name>
+		<indent>16</indent>
+		<firstLineIndent>12</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exercise8Levels/e15-17</id>
+		<name>E15-17</name>
+		<indent>16</indent>
+		<firstLineIndent>14</firstLineIndent>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exerciseMaterialDirections5-5</id>
+		<name>Directions</name>
+		<indent>4</indent>
+		<firstLineIndent>4</firstLineIndent>
+		<keepWithNext>true</keepWithNext>
+	</style>
+	<style baseStyle="Exercise Item">
+		<id>exerciseMaterial/exerciseMaterialDirections7-5</id>
+		<name>Directions 7-5</name>
+		<indent>4</indent>
+		<firstLineIndent>6</firstLineIndent>
+		<keepWithNext>true</keepWithNext>
+	</style>
+	<!-- INDEX -->
+	<style>
+		<id>index/index1Level/i1-3</id>
+		<name>I1-3</name>
+		<indent>2</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index2Levels/i1-5</id>
+		<name>I1-5</name>
+		<indent>4</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index2Levels/i3-5</id>
+		<name>I3-5</name>
+		<indent>4</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index3Levels/i1-7</id>
+		<name>I1-7</name>
+		<indent>6</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index3Levels/i3-7</id>
+		<name>I3-7</name>
+		<indent>6</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index3Levels/i5-7</id>
+		<name>I5-7</name>
+		<indent>6</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index4Levels/i1-9</id>
+		<name>I1-9</name>
+		<indent>8</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index4Levels/i3-9</id>
+		<name>I3-9</name>
+		<indent>8</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index4Levels/i5-9</id>
+		<name>I5-9</name>
+		<indent>8</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index4Levels/i7-9</id>
+		<name>I7-9</name>
+		<indent>8</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index5Levels/i1-11</id>
+		<name>I1-11</name>
+		<indent>10</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index5Levels/i3-11</id>
+		<name>I3-11</name>
+		<indent>10</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index5Levels/i5-11</id>
+		<name>I5-11</name>
+		<indent>10</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index5Levels/i7-11</id>
+		<name>I7-11</name>
+		<indent>10</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index5Levels/i9-11</id>
+		<name>I9-11</name>
+		<indent>10</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>8</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index6Levels/i1-13</id>
+		<name>I1-13</name>
+		<indent>12</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index6Levels/i3-13</id>
+		<name>I3-13</name>
+		<indent>12</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index6Levels/i5-13</id>
+		<name>I5-13</name>
+		<indent>12</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index6Levels/i7-13</id>
+		<name>I7-13</name>
+		<indent>12</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index6Levels/i9-13</id>
+		<name>I9-13</name>
+		<indent>12</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>8</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index6Levels/i11-13</id>
+		<name>I11-13</name>
+		<indent>12</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>10</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index7Levels/i1-15</id>
+		<name>I1-15</name>
+		<indent>14</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index7Levels/i3-15</id>
+		<name>I3-15</name>
+		<indent>14</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index7Levels/i5-15</id>
+		<name>I5-15</name>
+		<indent>14</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index7Levels/i7-15</id>
+		<name>I7-15</name>
+		<indent>14</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index7Levels/i9-15</id>
+		<name>I9-15</name>
+		<indent>14</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>8</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index7Levels/i11-15</id>
+		<name>I11-15</name>
+		<indent>14</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>10</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index7Levels/i13-15</id>
+		<name>I13-15</name>
+		<indent>14</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>12</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index8Levels/i1-17</id>
+		<name>I1-17</name>
+		<indent>16</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index8Levels/i3-17</id>
+		<name>I3-17</name>
+		<indent>16</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index8Levels/i5-17</id>
+		<name>I5-17</name>
+		<indent>16</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index8Levels/i7-17</id>
+		<name>I7-17</name>
+		<indent>16</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index8Levels/i9-17</id>
+		<name>I9-17</name>
+		<indent>16</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>8</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index8Levels/i11-17</id>
+		<name>I11-17</name>
+		<indent>16</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>10</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index8Levels/i13-17</id>
+		<name>I13-17</name>
+		<indent>16</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>12</firstLineIndent>
+	</style>
+	<style>
+		<id>index/index8Levels/i15-17</id>
+		<name>I15-17</name>
+		<indent>16</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>14</firstLineIndent>
+	</style>
+	<!-- NUMERIC -->
+	<style>
+		<id>numeric/numeric1/n1-1</id>
+		<name>1-1</name>
+		<indent>0</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric1/n1-3</id>
+		<name>1-3</name>
+		<indent>2</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric1/n1-5</id>
+		<name>1-5</name>
+		<indent>4</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric1/n1-7</id>
+		<name>1-7</name>
+		<indent>6</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric1/n1-9</id>
+		<name>1-9</name>
+		<indent>8</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric1/n1-11</id>
+		<name>1-11</name>
+		<indent>10</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric3/n3-1</id>
+		<name>3-1</name>
+		<indent>0</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric3/n3-3</id>
+		<name>3-3</name>
+		<indent>2</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric3/n3-5</id>
+		<name>3-5</name>
+		<indent>4</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric3/n3-7</id>
+		<name>3-7</name>
+		<indent>6</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric3/n3-9</id>
+		<name>3-9</name>
+		<indent>8</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric3/n3-11</id>
+		<name>3-11</name>
+		<indent>10</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric5/n5-3</id>
+		<name>5-3</name>
+		<indent>2</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric5/n5-5</id>
+		<name>5-5</name>
+		<indent>4</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric5/n5-7</id>
+		<name>5-7</name>
+		<indent>6</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric5/n5-9</id>
+		<name>5-9</name>
+		<indent>8</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric5/n5-11</id>
+		<name>5-11</name>
+		<indent>10</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric7/n7-5</id>
+		<name>7-5</name>
+		<indent>4</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric7/n7-7</id>
+		<name>7-7</name>
+		<indent>6</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric7/n7-9</id>
+		<name>7-9</name>
+		<indent>8</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric7/n7-11</id>
+		<name>7-11</name>
+		<indent>10</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric9/n9-7</id>
+		<name>9-7</name>
+		<indent>6</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>8</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric9/n9-9</id>
+		<name>9-9</name>
+		<indent>8</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>8</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric9/n9-11</id>
+		<name>9-11</name>
+		<indent>10</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>8</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric11/n11-9</id>
+		<name>11-9</name>
+		<indent>8</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>10</firstLineIndent>
+	</style>
+	<style>
+		<id>numeric/numeric11/n11-11</id>
+		<name>11-11</name>
+		<indent>10</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>10</firstLineIndent>
+	</style>
+	<!-- NOTES -->
+	<style>
+		<id>notes/incidentalNoteWithHeading</id>
+		<name>Incidental Note with Heading</name>
+		<indent>4</indent>
+		<firstLineIndent>4</firstLineIndent>
+		<linesBefore>2</linesBefore>
+		<linesAfter>2</linesAfter>
+	</style>
+	<style>
+		<id>notes/incidentalNoteWithoutHeading</id>
+		<name>Incidental Note without Heading</name>
+		<indent>4</indent>
+		<firstLineIndent>6</firstLineIndent>
+		<linesBefore>2</linesBefore>
+		<linesAfter>2</linesAfter>
+	</style>
+	<style>
+		<id>notes/footNote</id>
+		<name>Footnote</name>
+		<indent>2</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<!-- PLAYS -->
+
+	<style baseStyle="Prose Play">
+		<id>plays/prosePlay/prosePlay1-3</id>
+		<name>Prose Play 1-3</name>
+		<indent>2</indent>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="Prose Play">
+		<id>plays/prosePlay/prosePlay5-3</id>
+		<name>Prose Play 5-3</name>
+		<indent>2</indent>
+		<firstLineIndent>4</firstLineIndent>
+	</style>
+	<!-- Disabled for Formats 2016 <style> <id>plays/stageDirectionsProse/stageDirectionsProse5-5</id> 
+		<name>Stage Directions Prose 5-5</name> <indent>4</indent> <linesBefore>1</linesBefore> 
+		<firstLineIndent>4</firstLineIndent> </style> <style> <id>plays/stageDirectionsProse/stageDirectionsProse7-5</id> 
+		<name>Stage Directions Prose 7-5</name> <indent>4</indent> <linesBefore>1</linesBefore> 
+		<firstLineIndent>6</firstLineIndent> </style> -->
+	<style>
+		<id>plays/stageDirectionsVerse/stageDirectionsVerse7-7</id>
+		<name>Stage Directions 7-7</name>
+		<indent>6</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>6</firstLineIndent>
+	</style>
+	<style>
+		<id>plays/stageDirectionsVerse/stageDirectionsVerse9-7</id>
+		<name>Stage Directions 9-7</name>
+		<indent>6</indent>
+		<linesBefore>1</linesBefore>
+		<firstLineIndent>8</firstLineIndent>
+	</style>
+	<style baseStyle="Base Play">
+		<id>plays/versePlay/versePlay1-5</id>
+		<name>Verse Play 1-5</name>
+		<indent>4</indent>
+		<firstLineIndent>0</firstLineIndent>
+	</style>
+	<style baseStyle="Base Play">
+		<id>plays/versePlay/versePlay3-5</id>
+		<name>Verse Play 3-5</name>
+		<indent>4</indent>
+		<firstLineIndent>2</firstLineIndent>
+	</style>
+	<!-- INTERNAL TOC -->
+	<style baseStyle="Centered Heading">
+		<id>internal/tocCenteredHeading</id>
+		<name>TOC Centered Heading</name>
+		<linesAfter>2</linesAfter>
+		<format>TOC</format>
+		<!-- TODO: Needed? -->
+		<skipNumberLines>BOTH</skipNumberLines>
+		<keepWithNext>true</keepWithNext>
+		<linesBefore>2</linesBefore>
+		<linesBeforeWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.ImmediatelyPrecedingStyleMatcher">
+				<style>TOC Centered Heading</style>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesBeforeWhen>
+	</style>
+	<style baseStyle="TOC Centered Heading">
+		<id>internal/tocCenteredHeadingNB</id>
+		<name>TOC Centered Heading NB</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<linesBefore>1</linesBefore>
+		<linesAfter>1</linesAfter>
+	</style>
+	<style baseStyle="Cell 5 Heading">
+		<id>internal/toc/cell5Heading</id>
+		<name>TOC Cell 5 Heading</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<format>TOC</format>
+	</style>
+	<style baseStyle="Cell 7 Heading">
+		<id>internal/toc/cell7Heading</id>
+		<name>TOC Cell 7 Heading</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<format>TOC</format>
+	</style>
+	<style>
+		<id>internal/tocPage</id>
+		<name>TOC Page</name>
+		<format>SKIP</format>
+	</style>
+	<style>
+		<id>internal/tocVolume</id>
+		<name>Volume TOC</name>
+		<newPagesAfter>1</newPagesAfter>
+	</style>
+	<style>
+		<id>internal/tocVolumeSplit</id>
+		<name>TOC Volume Split</name>
+		<align>CENTERED</align>
+		<linesBefore>2</linesBefore>
+		<keepWithNext>true</keepWithNext>
+	</style>
+	<!-- /TOC -->
+	<style>
+		<id>internal/toc1Level/t1-3</id>
+		<name>T1-3</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>2</indent>
+		<firstLineIndent>0</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc2Levels/t1-5</id>
+		<name>T1-5</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>4</indent>
+		<firstLineIndent>0</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc2Levels/t3-5</id>
+		<name>T3-5</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>4</indent>
+		<firstLineIndent>2</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc3Levels/t1-7</id>
+		<name>T1-7</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>6</indent>
+		<firstLineIndent>0</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc3Levels/t3-7</id>
+		<name>T3-7</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>6</indent>
+		<firstLineIndent>2</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc3Levels/t5-7</id>
+		<name>T5-7</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>6</indent>
+		<firstLineIndent>4</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc4Levels/t1-9</id>
+		<name>T1-9</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>8</indent>
+		<firstLineIndent>0</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc4Levels/t3-9</id>
+		<name>T3-9</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>8</indent>
+		<firstLineIndent>2</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc4Levels/t5-9</id>
+		<name>T5-9</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>8</indent>
+		<firstLineIndent>4</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc4Levels/t7-9</id>
+		<name>T7-9</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>8</indent>
+		<firstLineIndent>6</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc5Levels/t1-11</id>
+		<name>T1-11</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>10</indent>
+		<firstLineIndent>0</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc5Levels/t3-11</id>
+		<name>T3-11</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>10</indent>
+		<firstLineIndent>2</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc5Levels/t5-11</id>
+		<name>T5-11</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>10</indent>
+		<firstLineIndent>4</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc5Levels/t7-11</id>
+		<name>T7-11</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>10</indent>
+		<firstLineIndent>6</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc5Levels/t9-11</id>
+		<name>T9-11</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>10</indent>
+		<firstLineIndent>8</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc6Levels/t1-13</id>
+		<name>T1-13</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>12</indent>
+		<firstLineIndent>0</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc6Levels/t3-13</id>
+		<name>T3-13</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>12</indent>
+		<firstLineIndent>2</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc6Levels/t5-13</id>
+		<name>T5-13</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>12</indent>
+		<firstLineIndent>4</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc6Levels/t7-13</id>
+		<name>T7-13</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>12</indent>
+		<firstLineIndent>6</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc6Levels/t9-13</id>
+		<name>T9-13</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>12</indent>
+		<firstLineIndent>8</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc6Levels/t11-13</id>
+		<name>T11-13</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>12</indent>
+		<firstLineIndent>10</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc7Levels/t1-15</id>
+		<name>T1-15</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>14</indent>
+		<firstLineIndent>0</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc7Levels/t3-15</id>
+		<name>T3-15</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>14</indent>
+		<firstLineIndent>2</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc7Levels/t5-15</id>
+		<name>T5-15</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>14</indent>
+		<firstLineIndent>4</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc7Levels/t7-15</id>
+		<name>T7-15</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>14</indent>
+		<firstLineIndent>6</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc7Levels/t9-15</id>
+		<name>T9-15</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>14</indent>
+		<firstLineIndent>8</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc7Levels/t11-15</id>
+		<name>T11-15</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>14</indent>
+		<firstLineIndent>10</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc7Levels/t13-15</id>
+		<name>T13-15</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>14</indent>
+		<firstLineIndent>12</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc8Levels/t1-17</id>
+		<name>T1-17</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>16</indent>
+		<firstLineIndent>0</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc8Levels/t3-17</id>
+		<name>T3-17</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>16</indent>
+		<firstLineIndent>2</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc8Levels/t5-17</id>
+		<name>T5-17</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>16</indent>
+		<firstLineIndent>4</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc8Levels/t7-17</id>
+		<name>T7-17</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>16</indent>
+		<firstLineIndent>6</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc8Levels/t9-17</id>
+		<name>T9-17</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>16</indent>
+		<firstLineIndent>8</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc8Levels/t11-17</id>
+		<name>T11-17</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>16</indent>
+		<firstLineIndent>10</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc8Levels/t13-17</id>
+		<name>T13-17</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>16</indent>
+		<firstLineIndent>12</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc8Levels/t15-17</id>
+		<name>T15-17</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<indent>16</indent>
+		<firstLineIndent>14</firstLineIndent>
+		<format>TOC</format>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/toc</id>
+		<name>TOC</name>
+		<skipNumberLines>BOTH</skipNumberLines>
+		<format>TOC</format>
+	</style>
+	<!-- MISCELLANEOUS -->
+	<style>
+		<id>miscellaneous/AlphabeticDivision</id>
+		<name>Alphabetic Division</name>
+		<align>CENTERED</align>
+		<linesBefore>1</linesBefore>
+		<linesBeforeWhen>
+			<matcher type="org.brailleblaster.utd.matchers.NotMatcher">
+				<matcher
+					type="org.brailleblaster.utd.matchers.ImmediatelyPrecedingStyleMatcher">
+					<style>Alphabetic Division</style>
+					<style>Glossary</style>
+				</matcher>
+			</matcher>
+			<value type="java.lang.Integer">2</value>
+		</linesBeforeWhen>
+		<keepWithNext>true</keepWithNext>
+	</style>
+	<style>
+		<id>miscellaneous/attribution</id>
+		<name>Attribution</name>
+		<indent>4</indent>
+		<firstLineIndent>4</firstLineIndent>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style baseStyle="Base box">
+		<id>miscellaneous/boxes/box</id>
+		<name>Box</name>
+		<linesBeforeWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.ImmediatelyPrecedingStyleMatcher">
+				<style>Heading</style>
+				<style>Caption</style>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesBeforeWhen>
+		<linesBeforeWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.NodeAncestorDelegatingMatcher">
+				<position>START</position>
+				<matcher type="org.brailleblaster.utd.matchers.ActionAndStyleMatcher">
+					<style>Base box</style>
+				</matcher>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesBeforeWhen>
+		<linesAfterWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.NodeAncestorDelegatingMatcher">
+				<position>END</position>
+				<matcher type="org.brailleblaster.utd.matchers.ActionAndStyleMatcher">
+					<style>Base box</style>
+				</matcher>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesAfterWhen>
+		<startSeparator>7</startSeparator>
+		<endSeparator>g</endSeparator>
+	</style>
+	<style baseStyle="Base box">
+		<id>miscellaneous/boxes/colorBox</id>
+		<name>Color Box</name>
+		<linesBeforeWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.ImmediatelyPrecedingStyleMatcher">
+				<style>Heading</style>
+				<style>Caption</style>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesBeforeWhen>
+		<linesBeforeWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.NodeAncestorDelegatingMatcher">
+				<position>START</position>
+				<matcher type="org.brailleblaster.utd.matchers.ActionAndStyleMatcher">
+					<style>Base box</style>
+				</matcher>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesBeforeWhen>
+		<linesAfterWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.NodeAncestorDelegatingMatcher">
+				<position>END</position>
+				<matcher type="org.brailleblaster.utd.matchers.ActionAndStyleMatcher">
+					<style>Base box</style>
+				</matcher>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesAfterWhen>
+		<startSeparator>7</startSeparator>
+		<endSeparator>g</endSeparator>
+	</style>
+	<style>
+		<id>miscellaneous/citation</id>
+		<name>Source Citation</name>
+		<indent>4</indent>
+		<firstLineIndent>6</firstLineIndent>
+		<linesBefore>1</linesBefore>
+		<linesAfter>2</linesAfter>
+	</style>
+	<style baseStyle="Base box">
+		<id>miscellaneous/boxes/fullBox</id>
+		<name>Full Box</name>
+		<linesBeforeWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.ImmediatelyPrecedingStyleMatcher">
+				<style>Heading</style>
+				<style>Caption</style>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesBeforeWhen>
+		<startSeparator>=</startSeparator>
+		<endSeparator>=</endSeparator>
+	</style>
+	<style baseStyle="Base box">
+		<id>miscellaneous/boxes/colorFullBox</id>
+		<name>Color Full Box</name>
+		<linesBeforeWhen>
+			<matcher
+				type="org.brailleblaster.utd.matchers.ImmediatelyPrecedingStyleMatcher">
+				<style>Heading</style>
+				<style>Caption</style>
+			</matcher>
+			<value type="java.lang.Integer">1</value>
+		</linesBeforeWhen>
+		<startSeparator>=</startSeparator>
+		<endSeparator>=</endSeparator>
+	</style>
+	<style>
+		<id>miscellaneous/guideWord</id>
+		<name>Guide Word</name>
+		<linesBefore>1</linesBefore>
+		<guideWords>true</guideWords>
+		<skipNumberLines>BOTTOM</skipNumberLines>
+	</style>
+
+	<style>
+		<id>internal/lineNumber</id>
+		<name>Line Number</name>
+		<lineNumber>true</lineNumber>
+		<format>PROSE</format>
+		<skipNumberLines>BOTH</skipNumberLines>
+	</style>
+
+	<style>
+		<id>internal/noteSeparationLine</id>
+		<name>Note Separation Line</name>
+		<indent>0</indent>
+		<linesBefore>1</linesBefore>
+		<linesAfter>1</linesAfter>
+		<firstLineIndent>0</firstLineIndent>
+		<keepWithNext>true</keepWithNext>
+	</style>
+	<style>
+		<id>internal/noteSeparationLine</id>
+		<name>Note Separation Line No Blank</name>
+		<indent>0</indent>
+		<firstLineIndent>0</firstLineIndent>
+		<keepWithNext>true</keepWithNext>
+	</style>
+	<style>
+		<id>internal/prose</id>
+		<name>Prose</name>
+		<format>PROSE</format>
+		<skipNumberLines>BOTH</skipNumberLines>
+	</style>
+	<style>
+		<id>internal/math</id>
+		<name>Math</name>
+		<format>MATH</format>
+	</style>
+	<style>
+		<id>miscellaneous/Page</id>
+		<name>Page</name>
+	</style>
+	<style>
+		<id>internal/lineBreak</id>
+		<name>Line Break</name>
+		<linesBefore>1</linesBefore>
+	</style>
+	<style>
+		<id>internal/imagePlaceholder</id>
+		<name>Image Placeholder</name>
+	</style>
+	<style>
+		<id>internal/tableTNHeading</id>
+		<name>Table TN Heading</name>
+	</style>
+	<style>
+		<id>internal/doubleLine</id>
+		<name>Double Spaced</name>
+		<lineSpacing>2</lineSpacing>
+	</style>
+</styleDefinitions>
