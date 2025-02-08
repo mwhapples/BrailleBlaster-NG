@@ -26,7 +26,7 @@ import org.brailleblaster.utd.exceptions.NodeException
 import org.brailleblaster.utd.internal.xml.XMLHandler2
 import org.brailleblaster.utd.matchers.INodeMatcher
 import org.brailleblaster.utd.properties.EmphasisType
-import org.brailleblaster.utd.utils.xom.childNodes
+import org.brailleblaster.utils.xom.childNodes
 import org.slf4j.LoggerFactory
 import java.util.*
 

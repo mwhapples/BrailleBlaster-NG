@@ -32,7 +32,7 @@ import nu.xom.Node;
 import nu.xom.ParentNode;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.brailleblaster.utd.exceptions.NodeException;
-import org.brailleblaster.utd.utils.xom.NodeUtilsKt;
+import org.brailleblaster.utils.xom.NodeUtilsKt;
 import org.jetbrains.annotations.NotNull;
 
 /**

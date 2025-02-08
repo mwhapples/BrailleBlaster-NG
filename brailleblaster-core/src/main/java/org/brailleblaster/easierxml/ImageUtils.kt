@@ -28,7 +28,7 @@ import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.TableUtils
-import org.brailleblaster.utd.utils.xom.childNodes
+import org.brailleblaster.utils.xom.childNodes
 import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT
 import org.eclipse.swt.graphics.Image

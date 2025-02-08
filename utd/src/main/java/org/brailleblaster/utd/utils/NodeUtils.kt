@@ -16,8 +16,8 @@
 package org.brailleblaster.utd.utils
 
 import nu.xom.Node
-import org.brailleblaster.utd.utils.xom.NodeContext
-import org.brailleblaster.utd.utils.xom.nodeCache
+import org.brailleblaster.utils.xom.NodeContext
+import org.brailleblaster.utils.xom.nodeCache
 import java.io.Serializable
 import java.util.*
 

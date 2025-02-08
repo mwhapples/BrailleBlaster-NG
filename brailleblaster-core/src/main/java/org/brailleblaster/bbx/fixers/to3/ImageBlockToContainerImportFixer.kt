@@ -21,7 +21,7 @@ import org.brailleblaster.bbx.BBX
 import org.brailleblaster.bbx.fixers.AbstractFixer
 import org.brailleblaster.utd.exceptions.NodeException
 import org.brailleblaster.utd.internal.xml.XMLHandler
-import org.brailleblaster.utd.utils.xom.childNodes
+import org.brailleblaster.utils.xom.childNodes
 
 class ImageBlockToContainerImportFixer : AbstractFixer() {
     override fun fix(matchedNode: Node) {

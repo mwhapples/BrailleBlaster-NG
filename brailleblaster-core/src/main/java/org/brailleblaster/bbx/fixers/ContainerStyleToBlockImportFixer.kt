@@ -18,7 +18,7 @@ package org.brailleblaster.bbx.fixers
 import nu.xom.Element
 import nu.xom.Node
 import org.brailleblaster.bbx.BBX
-import org.brailleblaster.utd.utils.xom.childNodes
+import org.brailleblaster.utils.xom.childNodes
 
 @Suppress("UNUSED")
 class ContainerStyleToBlockImportFixer : AbstractFixer() {

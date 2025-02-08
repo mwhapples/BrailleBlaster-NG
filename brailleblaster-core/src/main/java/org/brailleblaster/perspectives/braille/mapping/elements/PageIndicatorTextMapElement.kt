@@ -25,7 +25,7 @@ import org.brailleblaster.perspectives.braille.mapping.interfaces.Deletable
 import org.brailleblaster.perspectives.braille.mapping.interfaces.Uneditable
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.UTDHelper
-import org.brailleblaster.utd.utils.xom.childNodes
+import org.brailleblaster.utils.xom.childNodes
 import org.brailleblaster.util.Utils
 
 class PageIndicatorTextMapElement(node: Element?) : TextMapElement(node), Uneditable, Deletable {

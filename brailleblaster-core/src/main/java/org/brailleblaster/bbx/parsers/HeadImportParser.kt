@@ -22,7 +22,7 @@ import nu.xom.Text
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.bbx.parsers.ImportParser.OldDocumentAction
 import org.brailleblaster.utd.exceptions.NodeException
-import org.brailleblaster.utd.utils.xom.childNodes
+import org.brailleblaster.utils.xom.childNodes
 
 /**
  * Handle head element by copying contents to new document. Don't need any special parsing

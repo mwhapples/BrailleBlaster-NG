@@ -19,7 +19,7 @@ import nu.xom.Element
 import nu.xom.Node
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.bbx.parsers.ImportParser.OldDocumentAction
-import org.brailleblaster.utd.utils.xom.childNodes
+import org.brailleblaster.utils.xom.childNodes
 
 /**
  * Some elements are purely informational yet are inside the body

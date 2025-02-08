@@ -28,7 +28,7 @@ import org.brailleblaster.utd.internal.xml.XMLHandler2
 import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.UTDHelper.Companion.stripUTDRecursive
-import org.brailleblaster.utd.utils.xom.childNodes
+import org.brailleblaster.utils.xom.childNodes
 import org.brailleblaster.util.Notify
 import org.brailleblaster.util.Notify.notify
 import java.util.*

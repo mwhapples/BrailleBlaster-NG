@@ -29,7 +29,7 @@ import org.brailleblaster.utd.internal.DynamicOptionStyleMap
 import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.utd.utils.TableUtils
 import org.brailleblaster.utd.utils.UTDHelper
-import org.brailleblaster.utd.utils.xom.detachAll
+import org.brailleblaster.utils.xom.detachAll
 import org.brailleblaster.util.ColorManager
 import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.util.Notify.showMessage

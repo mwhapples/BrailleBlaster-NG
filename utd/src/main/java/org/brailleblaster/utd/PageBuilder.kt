@@ -29,7 +29,7 @@ import org.brailleblaster.utd.pagelayout.*
 import org.brailleblaster.utd.properties.*
 import org.brailleblaster.utd.utils.*
 import org.brailleblaster.utd.utils.NodeUtils.sortByDocumentOrder
-import org.brailleblaster.utd.utils.xom.childNodes
+import org.brailleblaster.utils.xom.childNodes
 import org.brailleblaster.utils.Counter
 import org.brailleblaster.utils.RepeatingLetters
 import org.brailleblaster.utils.toRepeatingLetters

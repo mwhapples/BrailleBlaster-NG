@@ -22,7 +22,7 @@ import nu.xom.Element
 import nu.xom.Node
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.utd.exceptions.NodeException
-import org.brailleblaster.utd.utils.xom.attributes
+import org.brailleblaster.utils.xom.attributes
 
 fun failIfNotElement(curNode: Node?): Element {
     if (curNode !is Element) {

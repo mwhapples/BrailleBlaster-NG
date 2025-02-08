@@ -27,7 +27,7 @@ import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.properties.PageNumberType.Companion.equivalentPage
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.UTDHelper
-import org.brailleblaster.utd.utils.xom.childNodes
+import org.brailleblaster.utils.xom.childNodes
 import org.mwhapples.jlouis.Louis
 import org.mwhapples.jlouis.TranslationException
 import org.mwhapples.jlouis.TranslationResult

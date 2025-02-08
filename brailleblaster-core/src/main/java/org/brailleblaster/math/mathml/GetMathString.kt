@@ -18,7 +18,7 @@ package org.brailleblaster.math.mathml
 import nu.xom.Element
 import nu.xom.Node
 import nu.xom.Text
-import org.brailleblaster.utd.utils.xom.childNodes
+import org.brailleblaster.utils.xom.childNodes
 
 fun interface GetMathString {
     fun getString(o: Any): String

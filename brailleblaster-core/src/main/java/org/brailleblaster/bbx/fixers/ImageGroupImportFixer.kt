@@ -19,8 +19,8 @@ import nu.xom.Attribute
 import nu.xom.Element
 import nu.xom.Node
 import org.brailleblaster.bbx.BBX
-import org.brailleblaster.utd.utils.xom.attributes
-import org.brailleblaster.utd.utils.xom.childNodes
+import org.brailleblaster.utils.xom.attributes
+import org.brailleblaster.utils.xom.childNodes
 import org.slf4j.LoggerFactory
 
 @Suppress("UNUSED")

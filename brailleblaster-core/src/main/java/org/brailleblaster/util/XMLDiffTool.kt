@@ -18,8 +18,8 @@ package org.brailleblaster.util
 import nu.xom.*
 import org.brailleblaster.utd.exceptions.NodeException
 import org.brailleblaster.utd.internal.xml.XMLHandler2
-import org.brailleblaster.utd.utils.xom.attributes
-import org.brailleblaster.utd.utils.xom.childNodes
+import org.brailleblaster.utils.xom.attributes
+import org.brailleblaster.utils.xom.childNodes
 
 /**
  * Compare XML documents without pretty printing them for line-by-line diff tools

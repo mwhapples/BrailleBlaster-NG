@@ -19,7 +19,7 @@ import nu.xom.*;
 import org.apache.commons.io.input.BOMInputStream;
 import org.brailleblaster.utd.exceptions.NodeException;
 import org.brailleblaster.utd.utils.LocalEntityResolver;
-import org.brailleblaster.utd.utils.xom.NodeUtilsKt;
+import org.brailleblaster.utils.xom.NodeUtilsKt;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

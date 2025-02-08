@@ -27,7 +27,7 @@ import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.internal.xml.XMLHandler2
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.TableUtils.isTableCopy
-import org.brailleblaster.utd.utils.xom.childNodes
+import org.brailleblaster.utils.xom.childNodes
 
 class XMLSelection(@JvmField val start: XMLNodeCaret, @JvmField val end: XMLNodeCaret) {
     val isSingleNode: Boolean

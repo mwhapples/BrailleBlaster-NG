@@ -27,7 +27,7 @@ import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.internal.xml.XMLHandler2
 import org.brailleblaster.utd.utils.TableUtils
 import org.brailleblaster.utd.utils.TableUtils.TableTypes
-import org.brailleblaster.utd.utils.xom.childNodes
+import org.brailleblaster.utils.xom.childNodes
 import org.slf4j.LoggerFactory
 
 class TableImportFixer : AbstractFixer() {

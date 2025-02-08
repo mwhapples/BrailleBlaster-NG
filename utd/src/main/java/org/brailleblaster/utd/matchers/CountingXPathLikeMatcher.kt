@@ -18,7 +18,7 @@ package org.brailleblaster.utd.matchers
 import jakarta.xml.bind.annotation.XmlAttribute
 import nu.xom.Node
 import org.brailleblaster.utd.NamespaceMap
-import org.brailleblaster.utd.utils.xom.childNodes
+import org.brailleblaster.utils.xom.childNodes
 import java.util.*
 
 /**

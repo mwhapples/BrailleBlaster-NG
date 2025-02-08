@@ -28,7 +28,7 @@ import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.*
 import org.brailleblaster.perspectives.braille.mapping.maps.MapList
 import org.brailleblaster.utd.properties.UTDElements
-import org.brailleblaster.utd.utils.xom.childNodes
+import org.brailleblaster.utils.xom.childNodes
 import org.brailleblaster.util.Utils
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyleRange

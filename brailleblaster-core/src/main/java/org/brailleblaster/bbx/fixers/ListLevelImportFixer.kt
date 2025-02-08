@@ -22,7 +22,7 @@ import org.brailleblaster.bbx.BBX
 import org.brailleblaster.bbx.BookToBBXConverter
 import org.brailleblaster.utd.exceptions.NodeException
 import org.brailleblaster.utd.internal.xml.XMLHandler2
-import org.brailleblaster.utd.utils.xom.childNodes
+import org.brailleblaster.utils.xom.childNodes
 import org.slf4j.LoggerFactory
 import java.util.*
 import kotlin.math.max

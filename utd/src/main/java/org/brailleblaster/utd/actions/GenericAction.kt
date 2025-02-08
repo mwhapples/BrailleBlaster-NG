@@ -23,8 +23,8 @@ import org.brailleblaster.utd.ITranslationEngine
 import org.brailleblaster.utd.TextSpan
 import org.brailleblaster.utd.exceptions.UTDTranslateException
 import org.brailleblaster.utd.properties.UTDElements
-import org.brailleblaster.utd.utils.xom.NodeContext
-import org.brailleblaster.utd.utils.xom.nodeCache
+import org.brailleblaster.utils.xom.NodeContext
+import org.brailleblaster.utils.xom.nodeCache
 import java.util.*
 
 /**

@@ -40,7 +40,7 @@ import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.internal.xml.XMLHandler2
 import org.brailleblaster.utd.matchers.INodeMatcher
 import org.brailleblaster.utd.utils.UTDHelper
-import org.brailleblaster.utd.utils.xom.childNodes
+import org.brailleblaster.utils.xom.childNodes
 import org.brailleblaster.util.Utils
 import org.slf4j.LoggerFactory
 import java.io.File

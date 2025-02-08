@@ -22,7 +22,7 @@ import org.brailleblaster.utd.NamespaceMap
 import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler2
 import org.brailleblaster.utd.matchers.INodeMatcher
-import org.brailleblaster.utd.utils.xom.childNodes
+import org.brailleblaster.utils.xom.childNodes
 
 @Suppress("UNUSED")
 class NestedListImportFixer : AbstractFixer() {

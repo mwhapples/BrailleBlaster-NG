@@ -22,7 +22,7 @@ import org.brailleblaster.utd.config.StyleDefinitions
 import org.brailleblaster.utd.exceptions.NodeException
 import org.brailleblaster.utd.internal.xml.XMLHandler2
 import org.brailleblaster.utd.properties.UTDElements
-import org.brailleblaster.utd.utils.xom.childNodes
+import org.brailleblaster.utils.xom.childNodes
 import org.brailleblaster.util.Utils
 import org.slf4j.LoggerFactory
 import java.util.*
