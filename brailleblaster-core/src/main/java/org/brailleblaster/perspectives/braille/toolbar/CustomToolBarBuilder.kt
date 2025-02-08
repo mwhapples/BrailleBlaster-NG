@@ -15,7 +15,7 @@
  */
 package org.brailleblaster.perspectives.braille.toolbar
 
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.events.SelectionEvent
 import org.eclipse.swt.widgets.*

@@ -38,11 +38,11 @@ import org.brailleblaster.perspectives.mvc.events.XMLCaretEvent
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.internal.xml.XMLHandler2
 import org.brailleblaster.utd.properties.EmphasisType
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.Notify.notify
 import org.brailleblaster.util.Notify.showMessage
-import org.brailleblaster.util.swt.SizeAndLocation
+import org.brailleblaster.utils.swt.SizeAndLocation
 import org.brailleblaster.util.Utils
 import org.brailleblaster.util.YesNoChoice.Companion.ask
 import org.brailleblaster.util.ui.SixKeyUtils

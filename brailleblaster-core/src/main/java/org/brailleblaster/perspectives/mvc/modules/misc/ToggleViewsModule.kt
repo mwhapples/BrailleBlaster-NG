@@ -29,7 +29,7 @@ import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.perspectives.mvc.modules.views.DebugModule
 import org.brailleblaster.tools.MenuTool
 import org.brailleblaster.tools.ToggleViewTool
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyledText

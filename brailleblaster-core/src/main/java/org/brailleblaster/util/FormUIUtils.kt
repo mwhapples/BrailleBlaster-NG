@@ -18,10 +18,10 @@ package org.brailleblaster.util
 import org.apache.commons.lang3.time.DurationFormatUtils
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.TextMapElement
-import org.brailleblaster.util.swt.ButtonBuilder
-import org.brailleblaster.util.swt.ComboBuilder
-import org.brailleblaster.util.swt.NumberFilterKeyListener
-import org.brailleblaster.util.swt.TextBuilder
+import org.brailleblaster.utils.swt.ButtonBuilder
+import org.brailleblaster.utils.swt.ComboBuilder
+import org.brailleblaster.utils.swt.NumberFilterKeyListener
+import org.brailleblaster.utils.swt.TextBuilder
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyledText
 import org.eclipse.swt.events.*

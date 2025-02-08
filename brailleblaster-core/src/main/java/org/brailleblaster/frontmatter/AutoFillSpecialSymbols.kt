@@ -24,7 +24,7 @@ import org.brailleblaster.bbx.BBX
 import org.brailleblaster.frontmatter.SpecialSymbols.SymbolComparator
 import org.brailleblaster.settings.UTDManager
 import org.brailleblaster.utd.properties.UTDElements
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyleRange
 import org.eclipse.swt.custom.StyledText

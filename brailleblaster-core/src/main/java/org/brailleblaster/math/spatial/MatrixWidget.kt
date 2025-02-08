@@ -20,7 +20,7 @@ import org.brailleblaster.math.spatial.MatrixConstants.Wide
 import org.brailleblaster.math.spatial.MatrixSettings.Companion.enumifyWide
 import org.brailleblaster.math.spatial.SpatialMathEnum.Translation
 import org.brailleblaster.perspectives.mvc.modules.views.DebugModule
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyledText
 import org.eclipse.swt.layout.GridData

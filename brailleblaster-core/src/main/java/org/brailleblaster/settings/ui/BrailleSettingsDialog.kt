@@ -27,7 +27,7 @@ import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.Notify
 import org.brailleblaster.util.Notify.notify
 import org.brailleblaster.util.Notify.showMessage
-import org.brailleblaster.util.swt.EasySWT.addSwtBotKey
+import org.brailleblaster.utils.swt.EasySWT.addSwtBotKey
 import org.brailleblaster.util.WorkingDialog
 import org.eclipse.swt.SWT
 import org.eclipse.swt.events.TraverseEvent

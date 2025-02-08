@@ -13,11 +13,11 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.util.swt
+package org.brailleblaster.utils.swt
 
-import org.brailleblaster.util.swt.AccessibilityUtils.setName
-import org.brailleblaster.util.swt.EasySWT.addSwtBotKey
-import org.brailleblaster.util.swt.EasySWT.calcAverageCharHeight
+import org.brailleblaster.utils.swt.AccessibilityUtils.setName
+import org.brailleblaster.utils.swt.EasySWT.addSwtBotKey
+import org.brailleblaster.utils.swt.EasySWT.calcAverageCharHeight
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.layout.RowData

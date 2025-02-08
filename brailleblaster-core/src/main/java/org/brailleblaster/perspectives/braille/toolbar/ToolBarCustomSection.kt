@@ -17,7 +17,7 @@ package org.brailleblaster.perspectives.braille.toolbar
 
 import org.brailleblaster.perspectives.mvc.ViewManager.Companion.colorizeCustomToolbars
 import org.brailleblaster.perspectives.mvc.menu.SharedItem
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.ToolBar

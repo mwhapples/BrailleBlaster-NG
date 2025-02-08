@@ -20,7 +20,7 @@ import org.brailleblaster.math.spatial.*
 import org.brailleblaster.math.spatial.SpatialMathEnum.OPERATOR
 import org.brailleblaster.math.spatial.SpatialMathEnum.OPERATOR.Companion.stringArray
 import org.brailleblaster.math.template.Template.Companion.translateIdentifier
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.util.FormUIUtils
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridData

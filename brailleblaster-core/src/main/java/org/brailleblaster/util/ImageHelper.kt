@@ -40,7 +40,7 @@ object ImageHelper {
     } else {
         try {
             createScaledImage(fileName, scale, null)
-        } catch (e: SWTException) {
+        } catch (_: SWTException) {
             //Intended for FileNotFoundExceptions, which SWT catches and throws as SWTExceptions
             createScaledImage(fallback, scale, null)
         }

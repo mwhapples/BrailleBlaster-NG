@@ -39,8 +39,8 @@ import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.Utils.runtimeToString
-import org.brailleblaster.util.swt.AccessibilityUtils.prependName
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.AccessibilityUtils.prependName
+import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getBanaStyles
 import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT

@@ -15,7 +15,7 @@
  */
 package org.brailleblaster.perspectives.braille.views.wp.tableEditor
 
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.util.FormUIUtils
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridLayout

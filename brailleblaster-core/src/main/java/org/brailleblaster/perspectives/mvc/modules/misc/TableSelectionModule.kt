@@ -24,7 +24,7 @@ import org.brailleblaster.perspectives.mvc.BBSimpleManager.SimpleListener
 import org.brailleblaster.perspectives.mvc.SimpleEvent
 import org.brailleblaster.perspectives.mvc.XMLNodeCaret.CursorPosition
 import org.brailleblaster.perspectives.mvc.events.XMLCaretEvent
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.widgets.Shell
 import org.slf4j.LoggerFactory
 

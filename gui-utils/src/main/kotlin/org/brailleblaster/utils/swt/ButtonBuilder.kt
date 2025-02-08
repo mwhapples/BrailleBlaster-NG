@@ -13,35 +13,28 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.util.swt
+package org.brailleblaster.utils.swt
 
-import org.eclipse.swt.SWT
+import org.brailleblaster.utils.swt.EasyListeners.selection
 import org.eclipse.swt.events.SelectionEvent
-import org.eclipse.swt.widgets.Shell
+import org.eclipse.swt.widgets.Button
+import org.eclipse.swt.widgets.Composite
 import java.util.function.Consumer
 
-/**
- * Almost identical to MenuBuilder, but allows a readable distinction between a top-level menu and
- * a sub-menu.
- *
- * @see MenuBuilder.addSubMenu
- */
-class SubMenuBuilder(parent: Shell?) {
-    val mb: MenuBuilder = MenuBuilder(parent!!, SWT.DROP_DOWN)
-
-    init {
-        mb.barItems.add(mb.menu)
-    }
-
-    fun addPushItem(
-        text: String?, accelerator: Int, onClick: Consumer<SelectionEvent>
-    ): SubMenuBuilder {
-        mb.addPushItem(text!!, accelerator, onClick)
+class ButtonBuilder(parent: Composite, style: Int) :
+    AbstractSWTBuilder<Button, ButtonBuilder>(Button(parent, style)) {
+    fun text(text: String?): ButtonBuilder {
+        widget.text = text
         return this
     }
 
-    fun addSubMenu(text: String?, newSubMenu: SubMenuBuilder?): SubMenuBuilder {
-        mb.addSubMenu(text, newSubMenu!!)
+    fun onSelection(onSelection: Consumer<SelectionEvent>): ButtonBuilder {
+        selection(widget, onSelection)
+        return this
+    }
+
+    fun selected(isSelected: Boolean): ButtonBuilder {
+        widget.selection = isSelected
         return this
     }
 }

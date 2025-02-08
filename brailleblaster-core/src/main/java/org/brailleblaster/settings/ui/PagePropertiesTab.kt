@@ -18,7 +18,7 @@ package org.brailleblaster.settings.ui
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.utd.utils.Page
-import org.brailleblaster.util.swt.AccessibilityUtils.appendName
+import org.brailleblaster.utils.swt.AccessibilityUtils.appendName
 import org.brailleblaster.util.FormUIUtils.addDoubleFilter
 import org.brailleblaster.util.FormUIUtils.addIntegerFilter
 import org.brailleblaster.util.FormUIUtils.addLabel

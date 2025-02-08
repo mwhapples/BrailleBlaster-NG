@@ -67,9 +67,9 @@ import org.brailleblaster.util.FormUIUtils.makeComboDropdown
 import org.brailleblaster.util.FormUIUtils.makeText
 import org.brailleblaster.util.FormUIUtils.newLabel
 import org.brailleblaster.util.Notify.notify
-import org.brailleblaster.util.swt.ButtonBuilder
-import org.brailleblaster.util.swt.EasySWT.getWidthOfText
-import org.brailleblaster.util.swt.EasySWT.makeEasyYesNoDialog
+import org.brailleblaster.utils.swt.ButtonBuilder
+import org.brailleblaster.utils.swt.EasySWT.getWidthOfText
+import org.brailleblaster.utils.swt.EasySWT.makeEasyYesNoDialog
 import org.brailleblaster.wordprocessor.WPManager.Companion.getInstance
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.VerifyKeyListener
@@ -982,7 +982,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
         try {
             //Might be a number
             return "" + input.toInt()
-        } catch (e: NumberFormatException) {
+        } catch (_: NumberFormatException) {
             //Might be a roman numeral
             val matcher: Matcher = MATCH_ROMAN_NUMERALS.matcher(input)
             val found: Boolean = matcher.find()

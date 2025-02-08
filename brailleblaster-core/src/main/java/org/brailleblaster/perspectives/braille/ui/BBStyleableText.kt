@@ -31,7 +31,7 @@ import org.brailleblaster.utd.utils.TableUtils
 import org.brailleblaster.utd.utils.UTDHelper
 import org.brailleblaster.utd.utils.xom.detachAll
 import org.brailleblaster.util.ColorManager
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.util.Notify.showMessage
 import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT

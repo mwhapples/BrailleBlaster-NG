@@ -16,7 +16,7 @@
 package org.brailleblaster.perspectives.braille.views.wp.tableEditor
 
 import org.brailleblaster.perspectives.braille.ui.BBStyleableText
-import org.brailleblaster.util.swt.AccessibilityUtils.setName
+import org.brailleblaster.utils.swt.AccessibilityUtils.setName
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyledText
 import org.eclipse.swt.widgets.Composite

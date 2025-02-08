@@ -32,7 +32,7 @@ import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.internal.xml.XMLHandler2
 import org.brailleblaster.utd.properties.UTDElements
-import org.brailleblaster.util.swt.AccessibilityUtils.setName
+import org.brailleblaster.utils.swt.AccessibilityUtils.setName
 import org.brailleblaster.util.DebugStyledText
 import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.Utils.runtimeToString

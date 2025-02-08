@@ -18,7 +18,7 @@ package org.brailleblaster.settings.ui
 import org.brailleblaster.BBIni
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.utd.UTDTranslationEngine
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.layout.RowLayout

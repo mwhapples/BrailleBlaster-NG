@@ -35,7 +35,7 @@ import com.google.common.collect.Range
     import org.brailleblaster.utd.utils.BrailleUnicodeConverter
     import org.brailleblaster.utd.utils.BrailleUnicodeConverter.unicodeToAsciiLouis
     import org.brailleblaster.utd.utils.BrailleUnicodeConverter.unicodeToAsciiUppercase
-    import org.brailleblaster.util.swt.AccessibilityUtils.setName
+    import org.brailleblaster.utils.swt.AccessibilityUtils.setName
     import org.brailleblaster.util.BBNotifyException
     import org.brailleblaster.util.FormUIUtils
     import org.brailleblaster.util.Notify.showMessage

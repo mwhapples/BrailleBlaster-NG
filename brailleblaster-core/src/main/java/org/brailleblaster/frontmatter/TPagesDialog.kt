@@ -40,12 +40,12 @@ import org.brailleblaster.utd.formatters.TPageFormatter
 import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.UTDHelper.Companion.stripUTDRecursive
-import org.brailleblaster.util.swt.EasySWT
-import org.brailleblaster.util.swt.MenuBuilder
+import org.brailleblaster.utils.swt.EasySWT
+import org.brailleblaster.utils.swt.MenuBuilder
 import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.PickerDialog
-import org.brailleblaster.util.swt.EasyListeners
-import org.brailleblaster.util.swt.SubMenuBuilder
+import org.brailleblaster.utils.swt.EasyListeners
+import org.brailleblaster.utils.swt.SubMenuBuilder
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.ScrolledComposite
 import org.eclipse.swt.events.KeyEvent
@@ -881,7 +881,7 @@ class TPagesDialog : DebugMenuToolListener {
 
             if (editing) {
                 okButton.text = "Edit"
-                if (editingItem!!.getText(0) == SS_HEADING) {
+                if (editingItem.getText(0) == SS_HEADING) {
                     typeCombo.select(1)
                     symbolLabel.text = ""
                     symbolText.isEnabled = false

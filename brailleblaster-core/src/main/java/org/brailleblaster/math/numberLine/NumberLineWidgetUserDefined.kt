@@ -20,7 +20,7 @@ import org.brailleblaster.math.spatial.MathText
 import org.brailleblaster.math.spatial.SpatialMathDispatcher
 import org.brailleblaster.math.spatial.SpatialMathEnum.NumberLineSection
 import org.brailleblaster.math.spatial.SpatialMathUtils.translate
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.util.FormUIUtils
 import org.eclipse.swt.SWT
 import org.eclipse.swt.events.SelectionEvent

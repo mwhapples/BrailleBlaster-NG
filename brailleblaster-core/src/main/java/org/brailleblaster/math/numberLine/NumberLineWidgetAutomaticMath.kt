@@ -24,7 +24,7 @@ import org.brailleblaster.math.spatial.SpatialMathDispatcher
 import org.brailleblaster.math.spatial.SpatialMathEnum.IntervalType
 import org.brailleblaster.math.spatial.SpatialMathEnum.NumberLineSection
 import org.brailleblaster.perspectives.mvc.modules.views.DebugModule
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.Notify
 import org.brailleblaster.util.Notify.notify
@@ -261,7 +261,7 @@ class NumberLineWidgetAutomaticMath : NumberLineWidget() {
                     if (index == -1) {
                         index = 0
                     }
-                } catch (e1: MathFormattingException) {
+                } catch (_: MathFormattingException) {
                     index = 0
                 }
                 combo.select(index)

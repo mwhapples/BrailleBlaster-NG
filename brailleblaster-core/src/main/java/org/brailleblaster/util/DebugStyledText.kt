@@ -38,7 +38,7 @@ class DebugStyledText(parent: Composite?, style: Int) : StyledText(parent, style
   override fun getLine(lineIndex: Int): String {
     return try {
       super.getLine(lineIndex)
-    } catch (e: IllegalArgumentException) {
+    } catch (_: IllegalArgumentException) {
       logger.error("getLine cursor movement exception. lineIndex: $lineIndex not found. charCount: $charCount lines: $lineCount. returning empty string")
       ("")
     }
@@ -47,7 +47,7 @@ class DebugStyledText(parent: Composite?, style: Int) : StyledText(parent, style
   override fun getText(start: Int, end: Int): String {
     return try {
       super.getText(start, end)
-    } catch (e: IllegalArgumentException) {
+    } catch (_: IllegalArgumentException) {
       logger.error("getText cursor movement exception. start: $start end: $end charCount: $charCount. returning empty string")
       ("")
     }
@@ -56,7 +56,7 @@ class DebugStyledText(parent: Composite?, style: Int) : StyledText(parent, style
   override fun getTextRange(start: Int, length: Int): String {
     return try {
       super.getTextRange(start, length)
-    } catch (e: IllegalArgumentException) {
+    } catch (_: IllegalArgumentException) {
       logger.error("getTextRange cursor movement exception. start $start: length: $length charCount: $charCount. returning empty string")
       ("")
     }
@@ -65,7 +65,7 @@ class DebugStyledText(parent: Composite?, style: Int) : StyledText(parent, style
   override fun setSelection(start: Int, end: Int) {
     try {
       super.setSelection(start, end)
-    } catch (e: IllegalArgumentException) {
+    } catch (_: IllegalArgumentException) {
       logger.error("setSelection cursor movement exception. start: $start end: $end charCount: $charCount")
     }
   }
@@ -73,7 +73,7 @@ class DebugStyledText(parent: Composite?, style: Int) : StyledText(parent, style
   override fun setSelectionRange(start: Int, length: Int) {
     try {
       super.setSelectionRange(start, length)
-    } catch (e: IllegalArgumentException) {
+    } catch (_: IllegalArgumentException) {
       logger.error("setSelectionRange cursor movement exception. start: $start length: $length charCount: $charCount")
     }
   }
@@ -81,7 +81,7 @@ class DebugStyledText(parent: Composite?, style: Int) : StyledText(parent, style
   override fun setCaretOffset(offset: Int) {
     try {
       super.setCaretOffset(offset)
-    } catch (e: IllegalArgumentException) {
+    } catch (_: IllegalArgumentException) {
       logger.error("setCaretOffset cursor movement exception. offset $offset failed. charCount: $charCount")
     }
   }

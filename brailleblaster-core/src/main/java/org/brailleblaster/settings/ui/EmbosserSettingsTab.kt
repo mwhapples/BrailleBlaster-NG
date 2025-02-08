@@ -54,7 +54,7 @@ class EmbosserSettingsTab(folder: TabFolder?) : SettingsUITab {
             .add(localeHandler["EmbosserSettingsTab.lastUsedEmbosser"])
         val el: EmbosserConfigList = try {
             loadEmbossers(embossersFile)
-        } catch (e: IOException) {
+        } catch (_: IOException) {
             EmbosserConfigList()
         }
         embosserList = el
@@ -168,7 +168,7 @@ class EmbosserSettingsTab(folder: TabFolder?) : SettingsUITab {
         }
         try {
             embosserList.saveEmbossers(embossersFile)
-        } catch (e: IOException) {
+        } catch (_: IOException) {
             // May be we should warn the user?
         }
         // Do not refresh document.

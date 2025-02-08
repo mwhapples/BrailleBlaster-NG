@@ -29,7 +29,7 @@ import org.brailleblaster.math.spatial.SpatialMathEnum.NumberLineType
 import org.brailleblaster.math.spatial.SpatialMathEnum.NumberLineViews
 import org.brailleblaster.math.spatial.SpatialMathEnum.Translation
 import org.brailleblaster.math.spatial.SpatialMathUtils.translate
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Menu
@@ -157,7 +157,7 @@ abstract class NumberLineWidget : ISpatialMathWidget {
         val oldIntervals: List<NumberLineInterval> = numberLine.settings.userDefinedArray
         val intervals: List<NumberLineSegmentPoint> = try {
             getPotentialPoints(numberLine)
-        } catch (e1: MathFormattingException) {
+        } catch (_: MathFormattingException) {
             return
         }
         if (intervals.isNotEmpty()) {
@@ -174,7 +174,7 @@ abstract class NumberLineWidget : ISpatialMathWidget {
                         getPrettyString(numberLine, intervals[i].point)
                     )
                     interval.userText = MathText(print=print, braille=braille)
-                } catch (e1: MathFormattingException) {
+                } catch (_: MathFormattingException) {
                     return
                 }
                 newIntervals.add(interval)

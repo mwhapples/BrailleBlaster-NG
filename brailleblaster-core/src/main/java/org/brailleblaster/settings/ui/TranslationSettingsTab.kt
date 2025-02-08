@@ -23,7 +23,7 @@ import org.brailleblaster.utd.config.UTDConfig
 import org.brailleblaster.utd.properties.BrailleTableType
 import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.libembosser.spi.BrlCell
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.layout.RowLayout

@@ -22,7 +22,7 @@ import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.perspectives.mvc.modules.misc.ExceptionReportingModule
 import org.brailleblaster.usage.USAGE_TRACKING_SETTING
 import org.brailleblaster.utd.UTDTranslationEngine
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.jface.widgets.ButtonFactory
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridLayout

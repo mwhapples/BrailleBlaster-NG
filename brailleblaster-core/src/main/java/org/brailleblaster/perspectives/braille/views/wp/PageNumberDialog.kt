@@ -41,9 +41,9 @@ import org.brailleblaster.utd.properties.PageNumberType
 import org.brailleblaster.utd.utils.TextTranslator
 import org.brailleblaster.utd.utils.UTDHelper
 import org.brailleblaster.util.BBNotifyException
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.util.FormUIUtils
-import org.brailleblaster.util.swt.EasyListeners
+import org.brailleblaster.utils.swt.EasyListeners
 import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.ScrolledComposite

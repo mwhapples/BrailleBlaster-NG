@@ -13,15 +13,9 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.util.swt
+package org.brailleblaster.utils.swt
 
-import org.eclipse.swt.custom.StyledText
-import org.eclipse.swt.widgets.Composite
-
-class StyledTextBuilder(parent: Composite, style: Int) :
-    AbstractSWTBuilder<StyledText, StyledTextBuilder>(StyledText(parent, style)) {
-    fun text(text: String): StyledTextBuilder {
-        widget.text = text
-        return this
-    }
-}
+/**
+ * Use with SWT.setSizeAndLocation to keep your dialogs from jumping around.
+ */
+data class SizeAndLocation(var sizex: Int, var sizey: Int, var locx: Int, var locy: Int)

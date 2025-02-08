@@ -39,7 +39,7 @@ import org.brailleblaster.tools.MenuToolListener
 import org.brailleblaster.utd.internal.xml.XMLHandler2
 import org.brailleblaster.utd.utils.TextTranslator
 import org.brailleblaster.utd.utils.UTDHelper
-import org.brailleblaster.util.swt.AccessibilityUtils.setName
+import org.brailleblaster.utils.swt.AccessibilityUtils.setName
 import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.VerifyKeyListener
@@ -178,7 +178,7 @@ class ProseBuilder : MenuToolListener {
         val pastedSpan = addLineElement(lineNumberText.text) as Element? ?: return
         try {
             checkForSpace(pastedSpan)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             val parentShell = manager!!.wpManager.shell
             val errorShell = Shell(parentShell)
             errorShell.setSize(250, 70)
@@ -210,7 +210,7 @@ class ProseBuilder : MenuToolListener {
             lineNumberInt = nextInt
             incrementInt = incrementText.text.toInt()
             nextInt.toString()
-        } catch (e: NumberFormatException) {
+        } catch (_: NumberFormatException) {
             lineNumberText.text
         }
     }
@@ -300,7 +300,7 @@ class ProseBuilder : MenuToolListener {
 //					}
                 }
             }
-        } catch (e: IndexOutOfBoundsException) {
+        } catch (_: IndexOutOfBoundsException) {
             val message = MessageBox(WPManager.getInstance().shell)
             message.message = "Node was not recognized. Unable to add a line number."
             message.open()

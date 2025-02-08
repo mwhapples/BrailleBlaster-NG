@@ -21,7 +21,7 @@ import org.brailleblaster.settings.DefaultNimasMaps;
 import org.brailleblaster.testrunners.BBTestRunner;
 import org.brailleblaster.testrunners.ViewTestRunner;
 import org.brailleblaster.testrunners.XMLElementAssert;
-import org.brailleblaster.util.swt.EasySWT;
+import org.brailleblaster.utils.swt.EasySWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swtbot.swt.finder.SWTBot;

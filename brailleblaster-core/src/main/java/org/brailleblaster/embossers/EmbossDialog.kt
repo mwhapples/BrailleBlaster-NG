@@ -16,7 +16,7 @@
 package org.brailleblaster.embossers
 
 import org.brailleblaster.utils.localization.LocaleHandler
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.jface.dialogs.Dialog
 import org.eclipse.jface.dialogs.IDialogConstants
 import org.eclipse.jface.dialogs.MessageDialog
@@ -217,7 +217,7 @@ class EmbossDialog @JvmOverloads constructor(parentShell: Shell? = Display.getCu
             embosser = de
             try {
                 embosserList.saveEmbossers()
-            } catch (e: IOException) {
+            } catch (_: IOException) {
                 // Not much we really can do, log it for now.
                 logger.error("Unable to save embossers file")
             }

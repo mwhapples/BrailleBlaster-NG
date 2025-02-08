@@ -62,7 +62,7 @@ import org.brailleblaster.utd.utils.dom.BoxUtils.unbox
 import org.brailleblaster.util.BBNotifyException
 import org.brailleblaster.util.Notify
 import org.brailleblaster.util.Notify.notify
-import org.brailleblaster.util.swt.EasySWT.setSizeAndLocationMiddleScreen
+import org.brailleblaster.utils.swt.EasySWT.setSizeAndLocationMiddleScreen
 import org.brailleblaster.wordprocessor.WPManager
 import org.brailleblaster.wordprocessor.WPManager.Companion.getInstance
 import org.eclipse.swt.SWT

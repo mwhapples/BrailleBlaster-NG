@@ -19,7 +19,7 @@ import com.sun.jna.Platform
 import org.brailleblaster.BBIni
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.util.FormUIUtils
-import org.brailleblaster.util.swt.EasyListeners
+import org.brailleblaster.utils.swt.EasyListeners
 import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT
 import org.eclipse.swt.events.KeyEvent

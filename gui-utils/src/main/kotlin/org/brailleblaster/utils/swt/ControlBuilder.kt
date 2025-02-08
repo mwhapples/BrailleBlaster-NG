@@ -13,22 +13,21 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.util.swt
+package org.brailleblaster.utils.swt
 
-import org.brailleblaster.util.swt.EasyListeners.modify
-import org.eclipse.swt.events.ModifyEvent
 import org.eclipse.swt.widgets.Composite
-import org.eclipse.swt.widgets.Text
-import java.util.function.Consumer
+import org.eclipse.swt.widgets.Control
 
-class TextBuilder(parent: Composite, style: Int) : AbstractSWTBuilder<Text, TextBuilder>(Text(parent, style)) {
-    fun text(text: String?): TextBuilder {
-        widget.text = text
-        return this
-    }
+internal interface ControlBuilder {
+    fun build(): Control
 
-    fun onModify(onModify: Consumer<ModifyEvent>): TextBuilder {
-        modify(widget, onModify)
-        return this
-    }
+    var parent: Composite?
+
+    val columns: Int?
+
+    fun setWidth(width: Int): ControlBuilder
+
+    fun setHeight(height: Int): ControlBuilder
+
+    var swtOptions: Int
 }

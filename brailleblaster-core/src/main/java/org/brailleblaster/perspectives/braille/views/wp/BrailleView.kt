@@ -22,7 +22,7 @@ import org.brailleblaster.perspectives.braille.views.style.BreadcrumbsToolbar
 import org.brailleblaster.perspectives.braille.views.wp.listeners.WPPaintListener
 import org.brailleblaster.perspectives.braille.views.wp.listeners.WPScrollListener
 import org.brailleblaster.perspectives.mvc.events.XMLCaretEvent
-import org.brailleblaster.util.swt.AccessibilityUtils.setName
+import org.brailleblaster.utils.swt.AccessibilityUtils.setName
 import org.eclipse.swt.SWT
 import org.eclipse.swt.accessibility.AccessibleAdapter
 import org.eclipse.swt.accessibility.AccessibleEvent

@@ -13,9 +13,9 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.util.swt
+package org.brailleblaster.utils.swt
 
-import org.brailleblaster.util.swt.EasyListeners.selection
+import org.brailleblaster.utils.swt.EasyListeners.selection
 import org.eclipse.swt.events.SelectionEvent
 import org.eclipse.swt.widgets.Combo
 import org.eclipse.swt.widgets.Composite

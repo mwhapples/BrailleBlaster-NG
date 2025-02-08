@@ -33,7 +33,7 @@ import org.brailleblaster.perspectives.mvc.events.ModifyEvent
 import org.brailleblaster.perspectives.mvc.events.XMLCaretEvent
 import org.brailleblaster.perspectives.mvc.modules.views.DebugModule
 import org.brailleblaster.utd.internal.xml.XMLHandler
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.Utils
 import org.brailleblaster.wordprocessor.WPManager

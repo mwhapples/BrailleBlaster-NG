@@ -15,8 +15,8 @@
  */
 package org.brailleblaster.perspectives.braille.views.wp.tableEditor
 
-import org.brailleblaster.util.swt.EasyListeners
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.EasyListeners
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.events.ModifyEvent
 import org.eclipse.swt.events.ModifyListener

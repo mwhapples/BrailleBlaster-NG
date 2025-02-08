@@ -18,8 +18,8 @@ package org.brailleblaster.perspectives.mvc.modules.misc
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.tools.MenuToolListener
-import org.brailleblaster.util.swt.EasyListeners
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.EasyListeners
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.dnd.Clipboard
 import org.eclipse.swt.dnd.TextTransfer

@@ -16,7 +16,7 @@
 package org.brailleblaster.perspectives.braille.views.wp
 
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.layout.GridLayout
@@ -49,7 +49,7 @@ class NumberInputDialog(parent: Shell?) : Dialog(parent) {
                 if (inputText.isEmpty() || !inputText.all { it.toString() in numbers }) return@addListener
                 value = inputText.toInt()
                 buttonOK.isEnabled = true
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 buttonOK.isEnabled = false
             }
         }

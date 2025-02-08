@@ -13,11 +13,11 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.util.swt
+package org.brailleblaster.utils.swt
 
-import org.brailleblaster.util.swt.EasySWT.buildGridData
-import org.brailleblaster.util.swt.EasySWT.error
-import org.brailleblaster.util.swt.EasySWT.getWidthOfText
+import org.brailleblaster.utils.swt.EasySWT.buildGridData
+import org.brailleblaster.utils.swt.EasySWT.error
+import org.brailleblaster.utils.swt.EasySWT.getWidthOfText
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Label
 

@@ -19,7 +19,7 @@ import org.brailleblaster.libembosser.spi.EmbosserOption
 import org.brailleblaster.libembosser.spi.OptionIdentifier
 import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.utils.ByteStringEncoding
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.ScrolledComposite
 import org.eclipse.swt.layout.GridLayout

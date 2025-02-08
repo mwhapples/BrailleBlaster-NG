@@ -19,8 +19,8 @@ import org.brailleblaster.document.BBDocument
 import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.settings.PredominantQuoteSetting
 import org.brailleblaster.utd.UTDTranslationEngine
-import org.brailleblaster.util.swt.AccessibilityUtils
-import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.swt.AccessibilityUtils
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.layout.RowLayout
