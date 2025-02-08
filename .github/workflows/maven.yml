@@ -48,6 +48,7 @@ jobs:
         maven-args: -Drevision=2.1.10 -Dsha1=-${{ github.sha }} -Dchangelist=-SNAPSHOT
   continuous_release:
     needs: build
+    if: github.ref == 'refs/head/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       contents: write
