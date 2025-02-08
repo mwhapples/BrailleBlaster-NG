@@ -13,14 +13,13 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.utils.x
+package org.brailleblaster.utils.xom
 
 import com.google.common.collect.ImmutableList
 import nu.xom.Document
 import nu.xom.Element
 import nu.xom.Node
 import nu.xom.Text
-import org.brailleblaster.utils.xom.NodeSorter
 import org.testng.Assert
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test

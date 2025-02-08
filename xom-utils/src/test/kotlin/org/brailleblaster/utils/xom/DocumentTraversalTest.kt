@@ -13,10 +13,9 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.utd.utils
+package org.brailleblaster.utils.xom
 
 import nu.xom.*
-import org.brailleblaster.utils.xom.DocumentTraversal
 import org.testng.Assert
 import org.testng.annotations.Test
 
