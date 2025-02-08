@@ -26,7 +26,7 @@ import org.brailleblaster.perspectives.braille.messages.Sender
 import org.brailleblaster.perspectives.braille.messages.TabInsertionMessage
 import org.brailleblaster.perspectives.braille.viewInitializer.ViewInitializer
 import org.brailleblaster.perspectives.mvc.events.ModifyEvent
-import org.brailleblaster.util.TextSplitter
+import org.brailleblaster.utils.xom.TextSplitter
 
 class TabInsertionHandler(manager: Manager?, vi: ViewInitializer?, list: MapList?) : Handler(
     manager!!, vi!!, list!!
