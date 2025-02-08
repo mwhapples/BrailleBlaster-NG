@@ -24,7 +24,7 @@ import org.brailleblaster.math.mathml.MathSubject
 import org.brailleblaster.math.mathml.MathUtils
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.views.wp.MathEditHandler
-import org.brailleblaster.util.AccessibilityUtils.setName
+import org.brailleblaster.util.swt.AccessibilityUtils.setName
 import org.brailleblaster.util.swt.EasySWT
 import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.Notify

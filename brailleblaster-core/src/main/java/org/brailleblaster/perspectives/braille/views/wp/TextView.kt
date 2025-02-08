@@ -32,7 +32,7 @@ import org.brailleblaster.perspectives.mvc.events.ModifyEvent
 import org.brailleblaster.perspectives.mvc.events.XMLCaretEvent
 import org.brailleblaster.utd.actions.GenericBlockAction
 import org.brailleblaster.utd.properties.Align
-import org.brailleblaster.util.AccessibilityUtils.setName
+import org.brailleblaster.util.swt.AccessibilityUtils.setName
 import org.brailleblaster.util.FormUIUtils
 import org.eclipse.swt.SWT
 import org.eclipse.swt.accessibility.AccessibleAdapter

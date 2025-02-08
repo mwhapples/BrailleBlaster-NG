@@ -39,7 +39,7 @@ import org.brailleblaster.tools.MenuToolListener
 import org.brailleblaster.utd.internal.xml.XMLHandler2
 import org.brailleblaster.utd.utils.TextTranslator
 import org.brailleblaster.utd.utils.UTDHelper
-import org.brailleblaster.util.AccessibilityUtils.setName
+import org.brailleblaster.util.swt.AccessibilityUtils.setName
 import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.VerifyKeyListener

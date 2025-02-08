@@ -15,7 +15,7 @@
  */
 package org.brailleblaster.util.swt
 
-import org.brailleblaster.util.AccessibilityUtils.setName
+import org.brailleblaster.util.swt.AccessibilityUtils.setName
 import org.brailleblaster.util.Utils.addSwtBotKey
 import org.brailleblaster.util.swt.EasySWT.calcAverageCharHeight
 import org.eclipse.swt.SWT

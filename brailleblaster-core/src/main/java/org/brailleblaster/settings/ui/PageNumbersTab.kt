@@ -19,7 +19,7 @@ import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.utd.PageSettings
 import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.utd.properties.PageNumberPosition
-import org.brailleblaster.util.AccessibilityUtils.appendName
+import org.brailleblaster.util.swt.AccessibilityUtils.appendName
 import org.brailleblaster.util.FormUIUtils
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridLayout

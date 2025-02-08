@@ -38,7 +38,7 @@ import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.internal.xml.XMLHandler2
 import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.utd.properties.UTDElements
-import org.brailleblaster.util.AccessibilityUtils.prependName
+import org.brailleblaster.util.swt.AccessibilityUtils.prependName
 import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.Utils
 import org.brailleblaster.util.Utils.addSwtBotKey

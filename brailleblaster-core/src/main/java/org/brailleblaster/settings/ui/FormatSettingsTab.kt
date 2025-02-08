@@ -19,7 +19,7 @@ import org.brailleblaster.document.BBDocument
 import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.settings.PredominantQuoteSetting
 import org.brailleblaster.utd.UTDTranslationEngine
-import org.brailleblaster.util.AccessibilityUtils
+import org.brailleblaster.util.swt.AccessibilityUtils
 import org.brailleblaster.util.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridLayout
