@@ -18,11 +18,11 @@ package org.brailleblaster.util
 import nu.xom.Node
 import nu.xom.Text
 
-class TextSplitter(splitAt: Int, var node: Node) {
+class TextSplitter(splitAt: Int, val node: Node) {
     @JvmField
-	var first: Text? = if (splitAt == 0) null else Text(node.value.substring(0, splitAt))
+	val first: Text? = if (splitAt == 0) null else Text(node.value.substring(0, splitAt))
 
     @JvmField
-	var last: Text = Text(node.value.substring(splitAt))
+	val last: Text = Text(node.value.substring(splitAt))
 
 }
