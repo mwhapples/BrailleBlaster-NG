@@ -23,7 +23,7 @@ import org.brailleblaster.bbx.BBX;
 import org.brailleblaster.testrunners.TestXMLUtils;
 import org.brailleblaster.utd.UTDTranslationEngine;
 import org.brailleblaster.utd.exceptions.NodeException;
-import org.brailleblaster.util.BBNotifyException;
+import org.brailleblaster.exceptions.BBNotifyException;
 import org.hamcrest.MatcherAssert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

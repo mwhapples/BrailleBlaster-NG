@@ -22,7 +22,7 @@ import org.brailleblaster.bbx.BBX;
 import org.brailleblaster.perspectives.mvc.menu.TopMenu;
 import org.brailleblaster.testrunners.BBTestRunner;
 import org.brailleblaster.testrunners.ViewTestRunner;
-import org.brailleblaster.util.BBNotifyException;
+import org.brailleblaster.exceptions.BBNotifyException;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
 import org.hamcrest.MatcherAssert;

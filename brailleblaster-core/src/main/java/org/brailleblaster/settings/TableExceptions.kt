@@ -20,7 +20,7 @@ import org.brailleblaster.math.mathml.MathModule
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.settings.UTDManager.BBUTDTranslationEngine
 import org.brailleblaster.utd.BrailleSettings
-import org.brailleblaster.util.BBRuntimeException
+import org.brailleblaster.exceptions.BBRuntimeException
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.io.IOException

@@ -24,7 +24,7 @@ import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.utils.BBX2PEFConverter
 import org.brailleblaster.utd.utils.UTDHelper
-import org.brailleblaster.util.BBNotifyException
+import org.brailleblaster.exceptions.BBNotifyException
 import org.brailleblaster.util.Notify
 import org.slf4j.LoggerFactory
 import java.io.BufferedOutputStream

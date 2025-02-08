@@ -13,17 +13,13 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.util
+package org.brailleblaster.exceptions
 
-import org.slf4j.helpers.MessageFormatter
-
-class BBRuntimeException : RuntimeException {
-    constructor(message: String, vararg args: Any?) : super(format(message, *args))
-    constructor(message: String, cause: Throwable?, vararg args: Any?) : super(format(message, *args), cause)
-
-    companion object {
-        private fun format(messagePattern: String, vararg args: Any?): String {
-            return MessageFormatter.arrayFormat(messagePattern, args).message
-        }
-    }
+/**
+ * Exception that will cause notify dialog to appear but without the stack trace, useful for
+ * aborting cleanly
+ */
+class BBNotifyException : RuntimeException {
+    constructor(message: String?) : super(message)
+    constructor(message: String?, cause: Throwable?) : super(message, cause)
 }

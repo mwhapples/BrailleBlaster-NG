@@ -43,7 +43,7 @@ import org.brailleblaster.perspectives.mvc.modules.views.DebugModule
 import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.internal.xml.XMLHandler2
-import org.brailleblaster.util.BBNotifyException
+import org.brailleblaster.exceptions.BBNotifyException
 import org.brailleblaster.util.Notify.showMessage
 import org.brailleblaster.util.WorkingDialog
 

@@ -33,7 +33,7 @@ import org.brailleblaster.perspectives.mvc.events.ModifyEvent
 import org.brailleblaster.perspectives.mvc.menu.SubMenuBuilder
 import org.brailleblaster.perspectives.mvc.modules.views.DebugModule
 import org.brailleblaster.utd.exceptions.NodeException
-import org.brailleblaster.util.BBNotifyException
+import org.brailleblaster.exceptions.BBNotifyException
 import org.brailleblaster.util.YesNoChoice.Companion.ask
 import org.eclipse.swt.SWT
 

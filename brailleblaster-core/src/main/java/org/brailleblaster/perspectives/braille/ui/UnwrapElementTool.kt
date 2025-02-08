@@ -32,7 +32,7 @@ import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.tools.MenuTool
 import org.brailleblaster.utd.internal.xml.XMLHandler2
 import org.brailleblaster.utd.utils.dom.BoxUtils
-import org.brailleblaster.util.BBNotifyException
+import org.brailleblaster.exceptions.BBNotifyException
 
 object UnwrapElementTool : MenuTool, SimpleListener {
     override val topMenu: TopMenu = TopMenu.TOOLS

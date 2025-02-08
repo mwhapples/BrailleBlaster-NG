@@ -40,7 +40,7 @@ import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.utd.properties.PageNumberType
 import org.brailleblaster.utd.utils.TextTranslator
 import org.brailleblaster.utd.utils.UTDHelper
-import org.brailleblaster.util.BBNotifyException
+import org.brailleblaster.exceptions.BBNotifyException
 import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.utils.swt.EasyListeners

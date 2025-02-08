@@ -163,7 +163,7 @@ class EmbosserConfigList : ForwardingList<EmbosserConfig>() {
     fun saveEmbossers(embossersFile: File) {
         try {
             FileWriter(embossersFile).use { fw -> gson.toJson(this, fw) }
-        } catch (e: JsonIOException) {
+        } catch (_: JsonIOException) {
             throw IOException()
         }
     }
@@ -181,7 +181,7 @@ class EmbosserConfigList : ForwardingList<EmbosserConfig>() {
         ): EmbosserConfigList {
             return try {
                 loadEmbossers(embossersFile)
-            } catch (e: IOException) {
+            } catch (_: IOException) {
                 val el = s.get()
                 el.embossersFile = embossersFile
                 el
@@ -194,7 +194,7 @@ class EmbosserConfigList : ForwardingList<EmbosserConfig>() {
             var embossers: EmbosserConfigList?
             try {
                 FileReader(embossersFile).use { fr -> embossers = gson.fromJson(fr, EmbosserConfigList::class.java) }
-            } catch (e: JsonIOException) {
+            } catch (_: JsonIOException) {
                 throw IOException()
             }
             val result = embossers?: EmbosserConfigList()

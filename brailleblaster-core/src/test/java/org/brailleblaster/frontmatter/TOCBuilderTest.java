@@ -30,7 +30,7 @@ import org.brailleblaster.utd.exceptions.NodeException;
 import org.brailleblaster.utd.properties.EmphasisType;
 import org.brailleblaster.utd.toc.TOCAttributes;
 import org.brailleblaster.utd.utils.UTDHelper;
-import org.brailleblaster.util.BBNotifyException;
+import org.brailleblaster.exceptions.BBNotifyException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swtbot.swt.finder.keyboard.Keystrokes;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCheckBox;

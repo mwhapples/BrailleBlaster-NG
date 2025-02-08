@@ -37,7 +37,7 @@ import org.brailleblaster.perspectives.mvc.modules.misc.FileModule.Companion.add
 import org.brailleblaster.printers.PrintPreview
 import org.brailleblaster.usage.SimpleUsageManager
 import org.brailleblaster.usage.UsageManager
-import org.brailleblaster.util.BBNotifyException
+import org.brailleblaster.exceptions.BBNotifyException
 import org.brailleblaster.util.FileUtils.exists
 import org.brailleblaster.util.Notify.showException
 import org.brailleblaster.util.Notify.showMessage

@@ -59,7 +59,7 @@ import org.brailleblaster.utd.utils.TableUtils
 import org.brailleblaster.utd.utils.TableUtils.isTableCopy
 import org.brailleblaster.utd.utils.UTDHelper.Companion.stripUTDRecursive
 import org.brailleblaster.utd.utils.dom.BoxUtils.unbox
-import org.brailleblaster.util.BBNotifyException
+import org.brailleblaster.exceptions.BBNotifyException
 import org.brailleblaster.util.Notify
 import org.brailleblaster.util.Notify.notify
 import org.brailleblaster.utils.swt.EasySWT.setSizeAndLocationMiddleScreen

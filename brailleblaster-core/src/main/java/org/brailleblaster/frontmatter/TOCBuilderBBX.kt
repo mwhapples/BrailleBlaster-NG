@@ -60,7 +60,7 @@ import org.brailleblaster.utd.toc.TOCAttributes.Companion.removeAll
 import org.brailleblaster.utd.utils.UTDHelper.Companion.getTextChild
 import org.brailleblaster.utd.utils.UTDHelper.Companion.stripUTDRecursive
 import org.brailleblaster.utils.xom.childNodes
-import org.brailleblaster.util.BBNotifyException
+import org.brailleblaster.exceptions.BBNotifyException
 import org.brailleblaster.util.FormUIUtils.makeButton
 import org.brailleblaster.util.FormUIUtils.makeCheckbox
 import org.brailleblaster.util.FormUIUtils.makeComboDropdown

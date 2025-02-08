@@ -24,7 +24,7 @@ import nu.xom.Document
 import org.apache.commons.lang3.ArrayUtils
 import org.brailleblaster.bbx.BookToBBXConverter
 import org.brailleblaster.utd.internal.xml.XMLHandler
-import org.brailleblaster.util.BBNotifyException
+import org.brailleblaster.exceptions.BBNotifyException
 import org.slf4j.LoggerFactory
 import java.io.IOException
 import java.nio.file.Files
