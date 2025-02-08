@@ -22,7 +22,7 @@ import org.brailleblaster.utd.internal.PartialFormatNodeAncestor
 import org.brailleblaster.utd.internal.elements.NewPage
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.PageBuilderHelper
-import org.brailleblaster.utd.utils.SetList
+import org.brailleblaster.utils.SetList
 import org.brailleblaster.utd.utils.UTDHelper
 import org.brailleblaster.utd.utils.dom.BoxUtils
 import org.brailleblaster.utils.toRepeatingLetters

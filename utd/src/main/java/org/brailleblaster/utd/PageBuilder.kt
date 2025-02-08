@@ -32,6 +32,7 @@ import org.brailleblaster.utils.xom.NodeSorter.sortByDocumentOrder
 import org.brailleblaster.utils.xom.childNodes
 import org.brailleblaster.utils.Counter
 import org.brailleblaster.utils.RepeatingLetters
+import org.brailleblaster.utils.SetList
 import org.brailleblaster.utils.toRepeatingLetters
 import org.mwhapples.jlouis.TranslationException
 import org.slf4j.LoggerFactory
