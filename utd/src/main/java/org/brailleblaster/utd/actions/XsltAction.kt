@@ -23,7 +23,7 @@ import org.brailleblaster.utd.ITranslationEngine
 import org.brailleblaster.utd.TextSpan
 import org.brailleblaster.utd.exceptions.UTDTranslateException
 import org.brailleblaster.utd.properties.BrailleTableType
-import org.brailleblaster.utd.utils.MathMLConverter
+import org.brailleblaster.utils.MathMLConverter
 import java.io.IOException
 import java.io.InputStream
 import java.net.URI

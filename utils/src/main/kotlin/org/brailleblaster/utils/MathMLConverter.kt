@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.utd.utils
+package org.brailleblaster.utils
 
 import nu.xom.Element
 import nu.xom.Elements
@@ -102,22 +102,22 @@ object MathMLConverter {
     }
 
     private fun convert1WithIndicators(
-            elements: Elements, begin: String, end: String, indicators: Array<String?>?): String? {
+        elements: Elements, begin: String, end: String, indicators: Array<String?>?): String? {
         val string: String = convertElement(elements[0], elements, 0, indicators) ?: return null
         return "$begin$string$end"
     }
 
     private fun convert1WithIndicators(
-            element: Element, begin: String, end: String, indicators: Array<String?>?): String? {
+        element: Element, begin: String, end: String, indicators: Array<String?>?): String? {
         val elements = element.childElements
         return if (elements.size() < 1) null else convert1WithIndicators(elements, begin, end, indicators)
     }
 
     private fun convert2WithIndicators(
-            elements: Elements, begin: String?, separator: String, end: String?, indicators: Array<String?>?): String? {
+        elements: Elements, begin: String?, separator: String, end: String?, indicators: Array<String?>?): String? {
         val stringBuilder = StringBuilder()
         stringBuilder.append(begin)
-        
+
         val zero: Element
         val one: Element
         //For Root, reverse the element order (fix for bug 30891) - MNS
@@ -138,13 +138,13 @@ object MathMLConverter {
     }
 
     private fun convert2WithIndicators(
-            element: Element, begin: String, separator: String, end: String, indicators: Array<String?>?): String? {
+        element: Element, begin: String, separator: String, end: String, indicators: Array<String?>?): String? {
         val elements = element.childElements
         return if (elements.size() < 2) null else convert2WithIndicators(elements, begin, separator, end, indicators)
     }
 
     private fun convert3WithIndicators(
-            elements: Elements, begin: String, separator: String, end: String, indicators: Array<String?>?): String? {
+        elements: Elements, begin: String, separator: String, end: String, indicators: Array<String?>?): String? {
         var string: String? = convertElement(elements[0], elements, 0, indicators) ?: return null
         val stringBuilder = StringBuilder()
         stringBuilder.append(begin).append(string).append(separator)
@@ -158,7 +158,7 @@ object MathMLConverter {
     }
 
     private fun convert3WithIndicators(
-            element: Element, begin: String, separator: String, end: String, indicators: Array<String?>?): String? {
+        element: Element, begin: String, separator: String, end: String, indicators: Array<String?>?): String? {
         val elements = element.childElements
         return if (elements.size() < 3) null else convert3WithIndicators(elements, begin, separator, end, indicators)
     }
