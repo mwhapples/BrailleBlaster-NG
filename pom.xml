@@ -16,7 +16,6 @@
         <module>brailleblaster-debug-tools</module>
         <module>gui-utils</module>
         <module>xom-utils</module>
-        <module>utd-cli</module>
     </modules>
 
     <properties>
