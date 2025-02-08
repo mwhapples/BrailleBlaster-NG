@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<symbols>
+ <entry>
+  <symbol>^7</symbol>
+  <desc>Boldface passage</desc>
+ </entry>
+ <entry>
+  <symbol>^2</symbol>
+  <desc>Boldface symbol</desc>
+ </entry>
+ <entry>
+  <symbol>^'</symbol>
+  <desc>Boldface terminator</desc>
+ </entry>
+ <entry>
+  <symbol>^1</symbol>
+  <desc>Boldface word</desc>
+ </entry>
+ <entry>
+  <symbol>,,,</symbol>
+  <desc>Capitalized passage</desc>
+ </entry>
+ <entry>
+  <symbol>,'</symbol>
+  <desc>Capitals terminator</desc>
+ </entry>
+ <entry>
+  <symbol>@#7</symbol>
+  <desc>First transcriber-defined typeform passage</desc>
+ </entry>
+ <entry>
+  <symbol>@#2</symbol>
+  <desc>First transcriber-defined typeform symbol</desc>
+ </entry>
+ <entry>
+  <symbol>@#'</symbol>
+  <desc>First transcriber-defined typeform terminator</desc>
+ </entry>
+ <entry>
+  <symbol>@#1</symbol>
+  <desc>First transcriber-defined typeform word</desc>
+ </entry>
+ <entry>
+  <symbol>;;;</symbol>
+  <desc>Grade 1 passage</desc>
+ </entry>
+ <entry>
+  <symbol>;'</symbol>
+  <desc>Grade 1 terminator</desc>
+ </entry>
+ <entry>
+  <symbol>;;</symbol>
+  <desc>Grade 1 word</desc>
+ </entry>
+ <entry>
+  <symbol>"3</symbol>
+  <desc>Horizontal line mode</desc>
+ </entry>
+ <entry>
+  <symbol>.7</symbol>
+  <desc>Italic passage</desc>
+ </entry>
+ <entry>
+  <symbol>.2</symbol>
+  <desc>Italic symbol</desc>
+ </entry>
+ <entry>
+  <symbol>.'</symbol>
+  <desc>Italic terminator</desc>
+ </entry>
+ <entry>
+  <symbol>.1</symbol>
+  <desc>Italic word</desc>
+ </entry>
+ <entry>
+  <symbol>""</symbol>
+  <desc>Line continuation with space</desc>
+ </entry>
+ <entry>
+  <symbol>@7</symbol>
+  <desc>Script passage</desc>
+ </entry>
+ <entry>
+  <symbol>@2</symbol>
+  <desc>Script symbol</desc>
+ </entry>
+ <entry>
+  <symbol>@'</symbol>
+  <desc>Script terminator</desc>
+ </entry>
+ <entry>
+  <symbol>@1</symbol>
+  <desc>Script word</desc>
+ </entry>
+ <entry>
+  <symbol>@.&lt;</symbol>
+  <desc>Transcriber's note, opening</desc>
+ </entry>
+ <entry>
+  <symbol>@.&gt;</symbol>
+  <desc>Transcriber's note, closing</desc>
+ </entry>
+ <entry>
+  <symbol>_7</symbol>
+  <desc>Underlined passage</desc>
+ </entry>
+ <entry>
+  <symbol>_2</symbol>
+  <desc>Underlined symbol</desc>
+ </entry>
+ <entry>
+  <symbol>_'</symbol>
+  <desc>Underlined terminator</desc>
+ </entry>
+ <entry>
+  <symbol>_1</symbol>
+  <desc>Underlined word</desc>
+ </entry>
+ <entry>
+  <symbol>^/</symbol>
+  <desc>Acute</desc>
+ </entry>
+ <entry>
+  <symbol>@&amp;</symbol>
+  <desc>Ampersand</desc>
+ </entry>
+ <entry>
+  <symbol>@&lt;</symbol>
+  <desc>Angle bracket, opening</desc>
+ </entry>
+ <entry>
+  <symbol>@&gt;</symbol>
+  <desc>Angle bracket, closing</desc>
+ </entry>
+ <entry>
+  <symbol>"9</symbol>
+  <desc>Asterisk</desc>
+ </entry>
+ <entry>
+  <symbol>@a</symbol>
+  <desc>At sign</desc>
+ </entry>
+ <entry>
+  <symbol>_*</symbol>
+  <desc>Backslash</desc>
+ </entry>
+ <entry>
+  <symbol>@l</symbol>
+  <desc>British pound</desc>
+ </entry>
+ <entry>
+  <symbol>_4</symbol>
+  <desc>Bullet</desc>
+ </entry>
+ <entry>
+  <symbol>^&amp;</symbol>
+  <desc>Cedilla</desc>
+ </entry>
+ <entry>
+  <symbol>@c</symbol>
+  <desc>Cent</desc>
+ </entry>
+ <entry>
+  <symbol>^$</symbol>
+  <desc>Circle above</desc>
+ </entry>
+ <entry>
+  <symbol>^%</symbol>
+  <desc>Circumflex</desc>
+ </entry>
+ <entry>
+  <symbol>^c</symbol>
+  <desc>Copyright</desc>
+ </entry>
+ <entry>
+  <symbol>_&lt;</symbol>
+  <desc>Curly bracket, opening</desc>
+ </entry>
+ <entry>
+  <symbol>_&gt;</symbol>
+  <desc>Curly bracket, closing</desc>
+ </entry>
+ <entry>
+  <symbol>@,?</symbol>
+  <desc>Dagger</desc>
+ </entry>
+ <entry>
+  <symbol>,-</symbol>
+  <desc>Dash</desc>
+ </entry>
+ <entry>
+  <symbol>^j</symbol>
+  <desc>Degree</desc>
+ </entry>
+ <entry>
+  <symbol>"1</symbol>
+  <desc>Ditto</desc>
+ </entry>
+ <entry>
+  <symbol>"/</symbol>
+  <desc>Division</desc>
+ </entry>
+ <entry>
+  <symbol>@s</symbol>
+  <desc>Dollar</desc>
+ </entry>
+ <entry>
+  <symbol>@,]</symbol>
+  <desc>Double dagger</desc>
+ </entry>
+ <entry>
+  <symbol>77</symbol>
+  <desc>Double prime</desc>
+  <rule always="true" option="7">NOT_FOLLOWED_BY</rule>
+  <rule always="true" option="7">NOT_PRECEDED_BY</rule>
+ </entry>
+ <entry>
+  <symbol>"7</symbol>
+  <desc>Equals</desc>
+ </entry>
+ <entry>
+  <symbol>@e</symbol>
+  <desc>Euro</desc>
+ </entry>
+ <entry>
+  <symbol>^x</symbol>
+  <desc>Female</desc>
+ </entry>
+ <entry>
+  <symbol>@f</symbol>
+  <desc>Franc</desc>
+ </entry>
+ <entry>
+  <symbol>^*</symbol>
+  <desc>Grave</desc>
+ </entry>
+ <entry>
+  <symbol>^;6</symbol>
+  <desc>Inverted exclamation mark</desc>
+ </entry>
+ <entry>
+  <symbol>^;8</symbol>
+  <desc>Inverted question mark</desc>
+ </entry>
+ <entry>
+  <symbol>",-</symbol>
+  <desc>Long dash</desc>
+ </entry>
+ <entry>
+  <symbol>^y</symbol>
+  <desc>Male</desc>
+ </entry>
+ <entry>
+  <symbol>"-</symbol>
+  <desc>Minus</desc>
+ </entry>
+ <entry>
+  <symbol>"8</symbol>
+  <desc>Multiplication</desc>
+ </entry>
+ <entry>
+  <symbol>@n</symbol>
+  <desc>Naira</desc>
+ </entry>
+ <entry>
+  <symbol>_?</symbol>
+  <desc>Number</desc>
+ </entry>
+ <entry>
+  <symbol>^p</symbol>
+  <desc>Paragraph</desc>
+ </entry>
+ <entry>
+  <symbol>"&lt;</symbol>
+  <desc>Parenthesis, opening</desc>
+ </entry>
+ <entry>
+  <symbol>"&gt;</symbol>
+  <desc>Parenthesis, closing</desc>
+ </entry>
+ <entry>
+  <symbol>.0</symbol>
+  <desc>Percent</desc>
+ </entry>
+ <entry>
+  <symbol>"6</symbol>
+  <desc>Plus</desc>
+ </entry>
+ <entry>
+  <symbol>^r</symbol>
+  <desc>Registered trademark</desc>
+ </entry>
+ <entry>
+  <symbol>^s</symbol>
+  <desc>Section</desc>
+ </entry>
+ <entry>
+  <symbol>,8</symbol>
+  <desc>Single quotation mark, opening</desc>
+  <rule always="true">BEGINNING_OF_WORD</rule>
+ </entry>
+ <entry>
+  <symbol>,0</symbol>
+  <desc>Single quotation mark, closing</desc>
+  <rule always="true">END_OF_WORD</rule>
+ </entry>
+ <entry>
+  <symbol>_/</symbol>
+  <desc>Slash</desc>
+ </entry>
+ <entry>
+  <symbol>.&lt;</symbol>
+  <desc>Square bracket, opening</desc>
+ </entry>
+ <entry>
+  <symbol>.&gt;</symbol>
+  <desc>Square bracket, closing</desc>
+ </entry>
+ <entry>
+  <symbol>@9</symbol>
+  <desc>Tilde</desc>
+ </entry>
+ <entry>
+  <symbol>^]</symbol>
+  <desc>Tilde above</desc>
+ </entry>
+ <entry>
+  <symbol>^t</symbol>
+  <desc>Trademark</desc>
+ </entry>
+ <entry>
+  <symbol>^3</symbol>
+  <desc>Umlaut</desc>
+ </entry>
+ <entry>
+  <symbol>.-</symbol>
+  <desc>Underscore</desc>
+ </entry>
+ <entry>
+  <symbol>_\</symbol>
+  <desc>Vertical line</desc>
+ </entry>
+ <entry>
+  <symbol>@y</symbol>
+  <desc>Yen</desc>
+ </entry>
+ <entry>
+  <symbol>8</symbol>
+  <desc>Nonspecific opening quotation mark</desc>
+  <rule always="true">BEGINNING_OF_WORD</rule>
+  <rule always="true" option="^;">NOT_PRECEDED_BY</rule>
+  <rule always="true" option=",">NOT_PRECEDED_BY</rule>
+<rule always="true" option="&quot;">NOT_PRECEDED_BY</rule>
+ </entry>
+ <entry>
+  <symbol>0</symbol>
+  <desc>Nonspecific closing quotation mark</desc>
+  <rule always="true">END_OF_WORD</rule>
+  <rule always="true" option=",">NOT_PRECEDED_BY</rule>
+  <rule always="true" option=".">NOT_PRECEDED_BY</rule>
+</entry>
+<entry>
+  <symbol>;</symbol>
+  <desc>Grade 1 symbol</desc>
+  <rule option="9">FOLLOWED_BY</rule>
+  <rule option="5">FOLLOWED_BY</rule>
+  <rule>DIRECT_TRANSLATED</rule>
+  <rule>BEGINNING_OF_WORD</rule>
+ </entry>
+  <entry>
+    <symbol>3</symbol>
+    <desc>Horizontal line segment</desc>
+    <rule always="true" option="&quot;3">PRECEDED_BY</rule>
+  </entry>
+  <entry>
+    <symbol>5</symbol>
+    <desc>Level change down (subscript)</desc>
+    <rule always="true" option=";">PRECEDED_BY</rule>
+  </entry>
+  <entry>
+    <symbol>9</symbol>
+    <desc>Level change up (superscript)</desc>
+    <rule always="true" option=";">PRECEDED_BY</rule>
+  </entry>
+ <prefix>
+ 	<symbol>.=</symbol>
+ 	<desc>Dot locator for mention</desc>
+ </prefix>
+</symbols>

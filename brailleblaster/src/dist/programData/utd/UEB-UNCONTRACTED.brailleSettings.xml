@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<brailleSettings>
+	<cellType>NLS</cellType>
+	<mainTranslationTable>en-ueb-g1.ctb</mainTranslationTable>
+	<useAsciiBraille>true</useAsciiBraille>
+	<computerBrailleTable>en-us-comp6.ctb</computerBrailleTable>
+	<uncontractedTable>en-ueb-g1.ctb</uncontractedTable >
+	<mathTextTable>en-ueb-g2.ctb</mathTextTable >
+	<mathExpressionTable>en-ueb-g1.ctb</mathExpressionTable >
+	<editTable>nemeth_edit.ctb</editTable >
+	<mathBrailleCode>UEB</mathBrailleCode>
+	<mathLineWrapping>
+		<lineWrap matchPattern=" (?=(&quot;7(`:)?|`[&lt;&gt;]) )"/>
+		<lineWrap matchPattern="(?=&quot;[68\-/])"/>
+		<lineWrap matchPattern="[\._&quot;]?&gt;(?&lt;contDots&gt;)(?=[\._&quot;]?&lt;)" insertionDots="&quot;"/>
+	</mathLineWrapping>
+</brailleSettings>
+
