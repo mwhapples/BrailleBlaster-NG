@@ -30,7 +30,6 @@ import org.brailleblaster.perspectives.mvc.menu.TopMenu;
 import org.brailleblaster.utd.IStyle;
 import org.brailleblaster.utd.internal.xml.XMLHandler;
 import org.brailleblaster.util.Notify;
-import org.brailleblaster.util.Utils;
 import org.brailleblaster.wordprocessor.WPManager;
 import org.eclipse.jface.bindings.keys.KeyStroke;
 import org.eclipse.swt.SWT;
@@ -243,7 +242,7 @@ public class BBTestRunner {
     }
 
     /**
-     * @see Utils#addSwtBotKey(org.eclipse.swt.widgets.Control, java.lang.String)
+     * @see org.brailleblaster.util.swt.EasySWT#addSwtBotKey(org.eclipse.swt.widgets.Control, java.lang.String)
      */
     public void clickButtonWithId(String swtBotId) {
         bot.buttonWithId(swtBotId).click();

@@ -27,7 +27,7 @@ import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.Notify
 import org.brailleblaster.util.Notify.notify
 import org.brailleblaster.util.Notify.showMessage
-import org.brailleblaster.util.Utils.addSwtBotKey
+import org.brailleblaster.util.swt.EasySWT.addSwtBotKey
 import org.brailleblaster.util.WorkingDialog
 import org.eclipse.swt.SWT
 import org.eclipse.swt.events.TraverseEvent
@@ -172,7 +172,7 @@ class BrailleSettingsDialog(parent: Shell?, m: Manager?, tabToOpen: Class<out Se
                     if (saveAsDefault) UTDConfig.savePageSettings(userPageSettingsFile, engine.pageSettings)
                     updated = true
                 }
-            } catch (e: IllegalArgumentException) {
+            } catch (_: IllegalArgumentException) {
                 val messageBox = MessageBox(shell, SWT.ICON_WARNING or SWT.OK)
                 messageBox.text = "Warning"
                 messageBox.message = "Braille and Print page numbers cannot be on the same location"

@@ -127,7 +127,7 @@ class SimpleImageDescriberDialog(
         dualPane.layout = GridLayout(2, true)
         dualPane.layoutData = GridData(SWT.FILL, SWT.FILL, true, true)
         dualPane.text = (index + 1).toString() + " of " + array.size + " Images"
-        Utils.addSwtBotKey(dualPane, SWTBOT_INFO_COMPOSITE)
+        EasySWT.addSwtBotKey(dualPane, SWTBOT_INFO_COMPOSITE)
         val imagePane = Group(dualPane, SWT.NONE)
         imagePane.layout = GridLayout(1, false)
         imagePane.layoutData = GridData(SWT.FILL, SWT.FILL, true, true)
@@ -171,7 +171,7 @@ class SimpleImageDescriberDialog(
             )
         }
         val applyAllInlineButton = Button(nav1, SWT.PUSH)
-        Utils.addSwtBotKey(applyAllInlineButton, SWTBOT_APPLY_ALL_INLINE)
+        EasySWT.addSwtBotKey(applyAllInlineButton, SWTBOT_APPLY_ALL_INLINE)
         applyAllInlineButton.layoutData = GridData(SWT.FILL, SWT.FILL, true, false)
         applyAllInlineButton.text = INLINE_ALL_P1 + matchingImages.size + INLINE_ALL_P2
         FormUIUtils.addSelectionListener(applyAllInlineButton) {
@@ -180,7 +180,7 @@ class SimpleImageDescriberDialog(
             )
         }
         val applyAllBlockButton = Button(nav1, SWT.PUSH)
-        Utils.addSwtBotKey(applyAllBlockButton, SWTBOT_APPLY_ALL_BLOCK)
+        EasySWT.addSwtBotKey(applyAllBlockButton, SWTBOT_APPLY_ALL_BLOCK)
         applyAllBlockButton.layoutData = GridData(SWT.FILL, SWT.FILL, true, false)
         applyAllBlockButton.text = BLOCK_ALL_P1 + matchingImages.size + BLOCK_ALL_P2
         FormUIUtils.addSelectionListener(applyAllBlockButton) { clickApplyAllBlock(matchingImages) }
@@ -643,7 +643,7 @@ class SimpleImageDescriberDialog(
         }
 
         @JvmStatic
-		fun makeAllString(block: Boolean, number: String): String {
+        fun makeAllString(block: Boolean, number: String): String {
             return if (block) {
                 BLOCK_ALL_P1 + number + BLOCK_ALL_P2
             } else {

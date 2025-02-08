@@ -37,7 +37,6 @@ import org.brailleblaster.utd.utils.BBX2PEFConverter;
 import org.brailleblaster.util.swt.EasySWT;
 import org.brailleblaster.util.FormUIUtils;
 import org.brailleblaster.util.Notify;
-import org.brailleblaster.util.Utils;
 import org.brailleblaster.wordprocessor.BBFileDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
@@ -121,17 +120,17 @@ public class VolumeSaveDialog {
         name.setWidth(100);
 
         Button saveSingle = new Button(shell, SWT.NONE);
-        Utils.addSwtBotKey(saveSingle, SWTBOT_SAVE_SINGLE);
+        EasySWT.INSTANCE.addSwtBotKey(saveSingle, SWTBOT_SAVE_SINGLE);
         saveSingle.setText("Save All to Single File");
         FormUIUtils.setGridData(saveSingle);
 
         Button saveFolder = new Button(shell, SWT.NONE);
-        Utils.addSwtBotKey(saveFolder, SWTBOT_SAVE_FOLDER);
+        EasySWT.INSTANCE.addSwtBotKey(saveFolder, SWTBOT_SAVE_FOLDER);
         saveFolder.setText("Save Selected to Folder");
         FormUIUtils.setGridData(saveFolder);
 
         Button saveFolderAll = new Button(shell, SWT.NONE);
-        Utils.addSwtBotKey(saveFolderAll, SWTBOT_SAVE_FOLDER_ALL);
+        EasySWT.INSTANCE.addSwtBotKey(saveFolderAll, SWTBOT_SAVE_FOLDER_ALL);
         saveFolderAll.setText("Save All to Folder");
         FormUIUtils.setGridData(saveFolderAll);
 

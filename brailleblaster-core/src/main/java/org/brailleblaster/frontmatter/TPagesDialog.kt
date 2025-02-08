@@ -44,7 +44,6 @@ import org.brailleblaster.util.swt.EasySWT
 import org.brailleblaster.util.swt.MenuBuilder
 import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.PickerDialog
-import org.brailleblaster.util.Utils
 import org.brailleblaster.util.swt.EasyListeners
 import org.brailleblaster.util.swt.SubMenuBuilder
 import org.eclipse.swt.SWT
@@ -253,12 +252,13 @@ class TPagesDialog : DebugMenuToolListener {
 
         EasySWT.makeLabel(buttonPanel, "", 1)
         val okCancelPanel = EasySWT.makeComposite(buttonPanel, 2)
-        EasySWT.buildGridData().setAlign(SWT.END, null).setGrabSpace(horizontally = true, vertically = false).setColumns(1).applyTo(okCancelPanel)
+        EasySWT.buildGridData().setAlign(SWT.END, null).setGrabSpace(horizontally = true, vertically = false)
+            .setColumns(1).applyTo(okCancelPanel)
         val okButton = EasySWT.makePushButton(okCancelPanel, "Ok", BUTTON_WIDTH, 1) {
             saveChanges(curVolume)
             generateTPages()
         }
-        Utils.addSwtBotKey(okButton, SWTBOT_OK_BUTTON)
+        EasySWT.addSwtBotKey(okButton, SWTBOT_OK_BUTTON)
         EasySWT.makePushButton(okCancelPanel, "Cancel", BUTTON_WIDTH, 1) {
             addedTPages.forEach(Consumer { obj: Element -> obj.detach() })
             shell.close()
@@ -621,18 +621,21 @@ class TPagesDialog : DebugMenuToolListener {
 
     private fun makeSecondTitlePage(container: Composite) {
         val textContainer = EasySWT.makeComposite(container, 1)
-        EasySWT.buildGridData().setAlign(SWT.FILL, SWT.FILL).setGrabSpace(horizontally = true, vertically = true).applyTo(textContainer)
+        EasySWT.buildGridData().setAlign(SWT.FILL, SWT.FILL).setGrabSpace(horizontally = true, vertically = true)
+            .applyTo(textContainer)
         val newText = makeBBText(textContainer)
         newText.setNewLineWrapStyle(TPAGE_ELEMENT_STYLE2)
         newText.setFontSize(11)
         newText.text.data = TPageSection.SECOND_TITLE_PAGE
-        EasySWT.buildGridData().setAlign(SWT.FILL, SWT.FILL).setGrabSpace(horizontally = true, vertically = true).applyTo(newText.text)
+        EasySWT.buildGridData().setAlign(SWT.FILL, SWT.FILL).setGrabSpace(horizontally = true, vertically = true)
+            .applyTo(newText.text)
         texts.add(newText)
     }
 
     private fun makeSpecialSymbolsPage(container: Composite) {
         val symbolsContainer = EasySWT.makeComposite(container, 1)
-        EasySWT.buildGridData().setAlign(SWT.CENTER, SWT.FILL).setGrabSpace(horizontally = false, vertically = true).applyTo(symbolsContainer)
+        EasySWT.buildGridData().setAlign(SWT.CENTER, SWT.FILL).setGrabSpace(horizontally = false, vertically = true)
+            .applyTo(symbolsContainer)
 
         symbolsTable = Table(symbolsContainer, SWT.VIRTUAL or SWT.BORDER or SWT.FULL_SELECTION or SWT.V_SCROLL).apply {
             linesVisible = true
@@ -764,12 +767,14 @@ class TPagesDialog : DebugMenuToolListener {
 
     private fun makeTranscriberNotesPage(container: Composite) {
         val textContainer = EasySWT.makeComposite(container, 1)
-        EasySWT.buildGridData().setAlign(SWT.FILL, SWT.FILL).setGrabSpace(horizontally = true, vertically = true).applyTo(textContainer)
+        EasySWT.buildGridData().setAlign(SWT.FILL, SWT.FILL).setGrabSpace(horizontally = true, vertically = true)
+            .applyTo(textContainer)
 
         val newText = makeBBText(textContainer)
         newText.setFontSize(11)
         newText.text.data = TPageSection.TRANSCRIBER_NOTES
-        EasySWT.buildGridData().setAlign(SWT.FILL, SWT.FILL).setGrabSpace(horizontally = true, vertically = true).setColumns(1)
+        EasySWT.buildGridData().setAlign(SWT.FILL, SWT.FILL).setGrabSpace(horizontally = true, vertically = true)
+            .setColumns(1)
             .applyTo(newText.text)
         texts.add(newText)
     }
@@ -932,7 +937,8 @@ class TPagesDialog : DebugMenuToolListener {
             }
 
             val buttonPanel = EasySWT.makeComposite(prefixPanel, 3)
-            EasySWT.buildGridData().setAlign(SWT.RIGHT, null).setGrabSpace(horizontally = true, vertically = false).setColumns(2)
+            EasySWT.buildGridData().setAlign(SWT.RIGHT, null).setGrabSpace(horizontally = true, vertically = false)
+                .setColumns(2)
                 .applyTo(buttonPanel)
             EasySWT.makePushButton(
                 buttonPanel,
@@ -1166,6 +1172,7 @@ class TPagesDialog : DebugMenuToolListener {
                             }
                             newParent.appendChild(curPage)
                         }
+
                         TPageSection.TRANSCRIBER_NOTES -> {
                             val block = BBX.BLOCK.STYLE.create("Centered Heading")
                             block.appendChild(TRANSCRIBER_NOTES_HEADING)
@@ -1183,6 +1190,7 @@ class TPagesDialog : DebugMenuToolListener {
                                 }
                             }
                         }
+
                         else -> {
                             newParent.appendChild(curPage)
                         }

@@ -22,8 +22,8 @@ import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.utd.config.UTDConfig
 import org.brailleblaster.utd.properties.BrailleTableType
 import org.brailleblaster.util.FormUIUtils
-import org.brailleblaster.util.Utils
 import org.brailleblaster.libembosser.spi.BrlCell
+import org.brailleblaster.util.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.layout.RowLayout
@@ -61,7 +61,7 @@ class TranslationSettingsTab internal constructor(folder: TabFolder?, private va
         FormUIUtils.addLabel(standardsGroup, "Braille Standard")
         standardCombo = Combo(standardsGroup, SWT.READ_ONLY)
         FormUIUtils.setGridData(standardCombo)
-        Utils.addSwtBotKey(standardCombo, SWTBOT_STANDARD_COMBO)
+        EasySWT.addSwtBotKey(standardCombo, SWTBOT_STANDARD_COMBO)
 
         //Specific settings
         val settingsGroup = Group(parent, SWT.NONE)
@@ -169,11 +169,15 @@ class TranslationSettingsTab internal constructor(folder: TabFolder?, private va
             //Get all the defined config files
             val fileFilter = FilenameFilter { dir: File?, name: String -> name.endsWith(FILE_SUFFIX) }
             val defaultFiles = BBIni.programDataPath.resolve("utd").toFile().listFiles(fileFilter)?.map {
-                (it.name.removeSuffix(FILE_SUFFIX)) to it } ?: emptyList()
+                (it.name.removeSuffix(FILE_SUFFIX)) to it
+            } ?: emptyList()
             val userFiles = BBIni.userProgramDataPath.resolve("utd").toFile().listFiles(fileFilter)?.map {
-                (it.name.removeSuffix(FILE_SUFFIX)) to it } ?: emptyList()
-            val legacyFiles = BBIni.programDataPath.resolve(Paths.get("utd", "legacy")).toFile().listFiles(fileFilter)?.map {
-                ("${it.name.removeSuffix(FILE_SUFFIX)} (Legacy)") to it } ?: emptyList()
+                (it.name.removeSuffix(FILE_SUFFIX)) to it
+            } ?: emptyList()
+            val legacyFiles =
+                BBIni.programDataPath.resolve(Paths.get("utd", "legacy")).toFile().listFiles(fileFilter)?.map {
+                    ("${it.name.removeSuffix(FILE_SUFFIX)} (Legacy)") to it
+                } ?: emptyList()
             val filesToInsert = defaultFiles + userFiles + legacyFiles
 
             //Add to clean map (user's configs named the same will overwrite the key of the built in config)

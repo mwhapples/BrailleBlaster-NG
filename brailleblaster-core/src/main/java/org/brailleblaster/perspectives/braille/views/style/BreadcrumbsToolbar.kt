@@ -41,8 +41,8 @@ import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.util.swt.AccessibilityUtils.prependName
 import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.Utils
-import org.brailleblaster.util.Utils.addSwtBotKey
 import org.brailleblaster.util.Utils.runtimeToString
+import org.brailleblaster.util.swt.EasySWT
 import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT
 import org.eclipse.swt.accessibility.ACC
@@ -102,7 +102,8 @@ class BreadcrumbsToolbar(private val manager: Manager) : SimpleListener {
         val iterator: Iterator<Element> = ancestors.iterator()
         while (iterator.hasNext()) {
             val curAncestor = iterator.next()
-            log.trace("CurAncestor: {}",
+            log.trace(
+                "CurAncestor: {}",
                 XMLHandler2.toXMLStartTag(curAncestor)
             )
             if (!running) {
@@ -167,7 +168,7 @@ class BreadcrumbsToolbar(private val manager: Manager) : SimpleListener {
             ) {
                 crumbsBuilder.append(" ").append(elemType.replace("BLOCK".toRegex(), ""))
             }
-            addSwtBotKey(button, SWTBOT_ANCESTOR_PREFIX + counter++)
+            EasySWT.addSwtBotKey(button, SWTBOT_ANCESTOR_PREFIX + counter++)
             FormUIUtils.addSelectionListener(button) {
                 manager.waitForFormatting(true)
                 manager.simpleManager.dispatchEvent(XMLCaretEvent(Sender.BREADCRUMBS, XMLNodeCaret(curAncestor)))
@@ -181,7 +182,7 @@ class BreadcrumbsToolbar(private val manager: Manager) : SimpleListener {
                 for (curEmphasis in emphasisBits!!) {
                     val emphasisButton = Button(wrapper, SWT.NONE)
                     emphasisButton.text = curEmphasis.longName
-                    addSwtBotKey(emphasisButton, SWTBOT_ANCESTOR_PREFIX + (counter - 1) + curEmphasis)
+                    EasySWT.addSwtBotKey(emphasisButton, SWTBOT_ANCESTOR_PREFIX + (counter - 1) + curEmphasis)
                     log.trace("Added {}", emphasisButton.getData(Utils.SWTBOT_WIDGET_KEY))
                     FormUIUtils.addSelectionListener(emphasisButton) {
                         selectSurroundingEmphasis(curAncestor, curEmphasis)

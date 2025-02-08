@@ -21,6 +21,7 @@ import nu.xom.Text
 import org.apache.commons.lang3.time.DurationFormatUtils
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.utd.internal.xml.FastXPath
+import org.brailleblaster.util.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.widgets.Control
 import org.slf4j.helpers.MessageFormatter
@@ -62,16 +63,6 @@ object Utils {
     @JvmStatic
 	fun runtimeToString(startTimeMills: Long): String {
         return DurationFormatUtils.formatDurationHMS(System.currentTimeMillis() - startTimeMills)
-    }
-
-    /**
-     * Allows finding widgets by id's using e.g. bot.getStyledTextWithId(name)
-     *
-     * @param name
-     */
-	@JvmStatic
-	fun addSwtBotKey(widget: Control, name: String?) {
-        widget.setData(SWTBOT_WIDGET_KEY, name)
     }
 
     val isWindows: Boolean

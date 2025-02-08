@@ -16,7 +16,7 @@
 package org.brailleblaster.perspectives.braille.views.wp
 
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
-import org.brailleblaster.util.Utils
+import org.brailleblaster.util.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.layout.GridLayout
@@ -39,7 +39,7 @@ class NumberInputDialog(parent: Shell?) : Dialog(parent) {
         val buttonOK = Button(shell, SWT.PUSH)
         buttonOK.text = localeHandler["lblOk"]
         buttonOK.layoutData = GridData(GridData.HORIZONTAL_ALIGN_END)
-        Utils.addSwtBotKey(buttonOK, SWTBOT_OK_BUTTON)
+        EasySWT.addSwtBotKey(buttonOK, SWTBOT_OK_BUTTON)
         val buttonCancel = Button(shell, SWT.PUSH)
         buttonCancel.text = localeHandler["lblCancel"]
         text.addListener(SWT.Modify) {

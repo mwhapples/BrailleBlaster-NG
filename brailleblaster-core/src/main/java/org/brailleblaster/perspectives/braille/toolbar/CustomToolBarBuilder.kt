@@ -16,7 +16,6 @@
 package org.brailleblaster.perspectives.braille.toolbar
 
 import org.brailleblaster.util.swt.EasySWT
-import org.brailleblaster.util.Utils
 import org.eclipse.swt.SWT
 import org.eclipse.swt.events.SelectionEvent
 import org.eclipse.swt.widgets.*
@@ -70,7 +69,7 @@ open class CustomToolBarBuilder {
         fun build(parent: Composite): Control {
             val control = doBuild(parent)
             if (swtBotId != null) {
-                Utils.addSwtBotKey(control, swtBotId)
+                EasySWT.addSwtBotKey(control, swtBotId)
             }
             return control
         }

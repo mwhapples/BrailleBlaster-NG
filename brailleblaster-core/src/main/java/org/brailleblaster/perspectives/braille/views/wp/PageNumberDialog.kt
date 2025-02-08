@@ -43,7 +43,6 @@ import org.brailleblaster.utd.utils.UTDHelper
 import org.brailleblaster.util.BBNotifyException
 import org.brailleblaster.util.swt.EasySWT
 import org.brailleblaster.util.FormUIUtils
-import org.brailleblaster.util.Utils
 import org.brailleblaster.util.swt.EasyListeners
 import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT
@@ -179,7 +178,7 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolListe
                         ppiText!!.text.text = ""
                         changeNumbers()
                     }
-                    Utils.addSwtBotKey(deletePageButton, SWTBOT_DELETE_PRINT_INDICATOR)
+                    EasySWT.addSwtBotKey(deletePageButton, SWTBOT_DELETE_PRINT_INDICATOR)
                 }
             }
 
@@ -188,12 +187,12 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolListe
                 ppiText!!.text.text = ppIndicator!!.getChild(0).value
                 ppiText!!.text.data = ppIndicator
                 ppiText!!.text.layoutData = GridData(SWT.FILL, SWT.FILL, true, false, 1, 1)
-                Utils.addSwtBotKey(ppiText!!.text, SWTBOT_PRINT_PAGE_NUMBER_TEXT)
+                EasySWT.addSwtBotKey(ppiText!!.text, SWTBOT_PRINT_PAGE_NUMBER_TEXT)
             }
 
             private fun createPushButtonForCombined(radioGroup: Group) {
                 ppiCombine = EasySWT.buildPushButton(radioGroup).apply {
-                 this.swtOptions = SWT.RADIO
+                    this.swtOptions = SWT.RADIO
                     this.text = "Combined"
                 }.build().apply {
                     EasySWT.buildGridData().setColumns(MAX_COLUMNS).setAlign(SWT.FILL, SWT.CENTER).setGrabSpace(
@@ -451,13 +450,15 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolListe
                 EasySWT.makePushButton(buttonComp, "Apply", BUTTON_WIDTH, 1)
                 { changeNumbers() }
 
-            Utils.addSwtBotKey(applyButton, SWTBOT_APPLY_BUTTON)
+            EasySWT.addSwtBotKey(applyButton, SWTBOT_APPLY_BUTTON)
 
             okButton = EasySWT.makePushButton(buttonComp, "Ok", BUTTON_WIDTH, 1)
-                { changeAndClose() }.also { Utils.addSwtBotKey(it, SWTBOT_OK_BUTTON) }
+            { changeAndClose() }.also {
+                EasySWT.addSwtBotKey(it, SWTBOT_OK_BUTTON)
+            }
 
             EasySWT.makePushButton(buttonComp, "Cancel", BUTTON_WIDTH, 1)
-                { cancelPageChange() }
+            { cancelPageChange() }
         }
 
         private fun changeNumbers() {
@@ -467,7 +468,13 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolListe
             // Page type change needs to come after ppi change
             handlePageTypeChanges()
             if (refresh) {
-                manager!!.simpleManager.dispatchEvent(ModifyEvent(Sender.NO_SENDER, false, manager!!.document.rootElement))
+                manager!!.simpleManager.dispatchEvent(
+                    ModifyEvent(
+                        Sender.NO_SENDER,
+                        false,
+                        manager!!.document.rootElement
+                    )
+                )
             }
             metaCounter++
         }
@@ -535,8 +542,8 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolListe
                 val ppiParent = ppIndicator!!.parent as Element?
                 if (ppiParent != null && ppiText != null &&
                     (ppiText!!.text.text != ppIndicator!!.getChild(0).value
-                        || ppiImply!!.selection && ppIndicator!!.getAttribute("utd-pnOverride") == null
-                        || ppiCombine!!.selection && ppIndicator!!.getAttribute("utd-pnOverride") != null)
+                            || ppiImply!!.selection && ppIndicator!!.getAttribute("utd-pnOverride") == null
+                            || ppiCombine!!.selection && ppIndicator!!.getAttribute("utd-pnOverride") != null)
                 ) {
                     //Deleted the print page indicator
                     if (ppiText!!.text.text.isEmpty()) {
@@ -649,7 +656,8 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolListe
             scrolledContainer.setSize(500, pageChangeComposite!!.bounds.height - 90)
             scrolledContainer.expandHorizontal = true
             scrolledContainer.showFocusedControl = true
-            EasySWT.buildGridData().setAlign(SWT.FILL, SWT.FILL).setGrabSpace(horizontally = true, vertically = true).applyTo(scrolledContainer)
+            EasySWT.buildGridData().setAlign(SWT.FILL, SWT.FILL).setGrabSpace(horizontally = true, vertically = true)
+                .applyTo(scrolledContainer)
             createContentsInPageChangeListTab()
         }
 
@@ -662,8 +670,8 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolListe
             packColumns()
             metaDataTable!!.size = scrolledContainer.size
             scrolledContainer.content = metaDataTable
-            EasySWT.makePushButton(dialog, "Select All Pages", 1){
-                for (i in metaDataTable!!.items){
+            EasySWT.makePushButton(dialog, "Select All Pages", 1) {
+                for (i in metaDataTable!!.items) {
                     i.checked = true
                 }
             }
@@ -781,7 +789,9 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolListe
             makeSpace(buttonComp, 265, 0)
             deleteButton = EasySWT.makePushButton(
                 buttonComp, "Delete", BUTTON_WIDTH, 1
-            ) { deleteMetaData() }.also { Utils.addSwtBotKey(it, SWTBOT_OK_BUTTON) }
+            ) { deleteMetaData() }.also {
+                EasySWT.addSwtBotKey(it, SWTBOT_OK_BUTTON)
+            }
             val okButton = EasySWT.makePushButton(
                 buttonComp, "OK", BUTTON_WIDTH, 1
             ) {
@@ -790,7 +800,7 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolListe
                     shell!!.close()
                 }
             }
-            Utils.addSwtBotKey(okButton, SWTBOT_OK_BUTTON)
+            EasySWT.addSwtBotKey(okButton, SWTBOT_OK_BUTTON)
             EasySWT.makePushButton(
                 buttonComp,
                 "Cancel",
