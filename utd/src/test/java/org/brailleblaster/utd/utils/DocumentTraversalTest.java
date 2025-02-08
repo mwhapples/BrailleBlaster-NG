@@ -17,6 +17,7 @@ package org.brailleblaster.utd.utils;
 
 import static org.testng.Assert.assertEquals;
 
+import org.brailleblaster.utils.xom.DocumentTraversal;
 import org.jetbrains.annotations.NotNull;
 import org.testng.annotations.Test;
 

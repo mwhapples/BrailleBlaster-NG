@@ -13,10 +13,17 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.utd.utils
+package org.brailleblaster.utils.xom
 
 import com.google.common.base.Preconditions
-import nu.xom.*
+import nu.xom.Comment
+import nu.xom.DocType
+import nu.xom.Document
+import nu.xom.Element
+import nu.xom.NoSuchChildException
+import nu.xom.Node
+import nu.xom.ProcessingInstruction
+import nu.xom.Text
 import java.util.Deque
 import java.util.LinkedList
 
