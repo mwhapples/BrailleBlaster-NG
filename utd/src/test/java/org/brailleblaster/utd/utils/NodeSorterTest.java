@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.brailleblaster.utils.xom.NodeSorter;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -33,10 +34,10 @@ import nu.xom.Element;
 import nu.xom.Node;
 import nu.xom.Text;
 
-public class NodeUtilsTest {
+public class NodeSorterTest {
     @Test(dataProvider = "nodesProvider")
     public void testSortByDocumentOrderSameTree(List<Node> inputNodes, List<Node> expectedNodes) {
-        List<Node> actualNodes = NodeUtils.sortByDocumentOrder(inputNodes);
+        List<Node> actualNodes = NodeSorter.INSTANCE.sortByDocumentOrder(inputNodes);
         assertNotNull(actualNodes);
         assertEquals(actualNodes.size(), expectedNodes.size());
         for (int i = 0; i < actualNodes.size(); i++) {

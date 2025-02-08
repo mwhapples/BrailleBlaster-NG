@@ -13,15 +13,15 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.utd.utils
+package org.brailleblaster.utils.xom
 
 import nu.xom.Node
-import org.brailleblaster.utils.xom.NodeContext
-import org.brailleblaster.utils.xom.nodeCache
 import java.io.Serializable
-import java.util.*
+import java.util.Comparator
+import java.util.Deque
+import java.util.LinkedList
 
-object NodeUtils {
+object NodeSorter {
     private fun getNodePath(startNode: Node, pathCache: MutableMap<Node, IntList>): IntList {
         val nodeParents: Deque<Pair<Node, Int>> = LinkedList()
         // Ensure the break condition here matches what is expected after, see comments after loop.
@@ -42,7 +42,7 @@ object NodeUtils {
         return path
     }
 
-    @JvmStatic fun sortByDocumentOrder(nodes: List<Node>): List<Node> {
+    fun sortByDocumentOrder(nodes: List<Node>): List<Node> {
         val pathCache: MutableMap<Node, IntList> = HashMap()
         return nodes.associateBy { getNodePath(it, pathCache).toList().reversed() }.toSortedMap(ListComparator()).values.toList()
     }

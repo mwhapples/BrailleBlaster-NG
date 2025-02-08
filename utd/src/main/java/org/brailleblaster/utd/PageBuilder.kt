@@ -28,7 +28,7 @@ import org.brailleblaster.utd.internal.elements.*
 import org.brailleblaster.utd.pagelayout.*
 import org.brailleblaster.utd.properties.*
 import org.brailleblaster.utd.utils.*
-import org.brailleblaster.utd.utils.NodeUtils.sortByDocumentOrder
+import org.brailleblaster.utils.xom.NodeSorter.sortByDocumentOrder
 import org.brailleblaster.utils.xom.childNodes
 import org.brailleblaster.utils.Counter
 import org.brailleblaster.utils.RepeatingLetters
