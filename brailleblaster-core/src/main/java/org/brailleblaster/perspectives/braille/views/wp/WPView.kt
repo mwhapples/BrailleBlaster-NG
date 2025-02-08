@@ -37,7 +37,7 @@ import org.brailleblaster.utd.actions.IAction
 import org.brailleblaster.utd.properties.Align
 import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.util.ColorManager
-import org.brailleblaster.util.DebugStyledText
+import org.brailleblaster.utils.swt.DebugStyledText
 import org.brailleblaster.util.Utils
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyleRange
