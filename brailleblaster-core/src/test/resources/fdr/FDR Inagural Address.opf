@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE package PUBLIC "+//ISBN 0-9673008-1-9//DTD OEB 1.0.1 Package//EN" "oebpkg101.dtd">
+<package unique-identifier="guid" xmlns="http://openebook.org/namespaces/oeb-package/1.0/">
+	<!-- Metadata follows,  Dublin core plus any metadata extensions-->
+	<metadata>
+		<dc-metadata xmlns:dc="http://purl.org/dc/elements/1.0/" xmlns:oebpackage="http://openebook.org/namespaces/oeb-package/1.0/">
+			<dc:Identifier id="guid" scheme="DTB">FDR's_Inaugural_Address_for_use_as_part_of_the_following:_NIMAS_v1.0_Exemplar_file:_Social_Studies</dc:Identifier>
+			<dc:Format>ANSI/NISO Z39.86-2002</dc:Format>
+			<dc:Language>en</dc:Language>
+			<dc:Date>2007-01-10</dc:Date>
+			<dc:Publisher>American Printing House for the Blind</dc:Publisher>
+			<dc:Rights>Copyright (c) 2005 American Printing House for the Blind</dc:Rights>
+			<dc:Title>FDR's Inaugural Address for use as part of the following: NIMAS v1.0 Exemplar file: Social Studies</dc:Title>
+		</dc-metadata>
+		<x-metadata>
+			<meta name="dtb:multimediaType" content="textNCX"/>
+			<meta name="dtb:totalTime" content="00:00:00.000"/>
+			<meta name="dtb:producer" content="American Printing House for the Blind"/>
+		</x-metadata>
+	</metadata>
+	<manifest>
+		<item id="opf" href="FDR Inagural Address.opf" media-type="text/xml"/>
+		<item id="text" href="FDR Inagural Address.xml" media-type="text/xml"/>
+		<item id="smil1" href="FDR Inagural Address.smil" media-type="application/smil"/>
+		<item id="ncx" href="FDR Inagural Address.ncx" media-type="text/xml"/>
+	</manifest>
+	<spine>
+		<itemref idref="smil1"/>
+	</spine>
+</package>
