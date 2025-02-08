@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.utd.utils
+package org.brailleblaster.utils
 
 import kotlin.math.max
 
@@ -32,7 +32,7 @@ class RomanNumeralConverter {
 
         return romanCode.repeat(max(0.0, numOfTimes.toDouble()).toInt())
     } /*
-	 * 
+	 *
 	 *
 	 public int convert (String romanNumber) {
         int decimal = 0;
@@ -84,7 +84,7 @@ class RomanNumeralConverter {
         }
         return decimal;
     }
-	
+
 	public boolean isDecimal(char input) {
 		switch(input) {
 			case '0':
@@ -108,12 +108,12 @@ class RomanNumeralConverter {
 			case '9':
 				return true;
 		}
-		
+
 		return false;
 	}
- 
-	 * 
-	 * 
+
+	 *
+	 *
 	 */
 
     companion object {

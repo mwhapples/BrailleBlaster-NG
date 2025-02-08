@@ -15,6 +15,7 @@
  */
 package org.brailleblaster.utd.utils;
 
+import org.brailleblaster.utils.RomanNumeralConverter;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
