@@ -24,7 +24,7 @@ import org.brailleblaster.bbx.BBXUtils;
 import org.brailleblaster.exceptions.EditingException;
 import org.brailleblaster.util.FormUIUtils;
 import org.brailleblaster.util.Notify;
-import org.brailleblaster.util.PickerDialog;
+import org.brailleblaster.utils.gui.PickerDialog;
 import org.brailleblaster.utils.localization.LocaleHandler;
 import org.brailleblaster.math.mathml.MathModule;
 import org.brailleblaster.perspectives.braille.Manager;

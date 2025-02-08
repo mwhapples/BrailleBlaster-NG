@@ -18,7 +18,7 @@ package org.brailleblaster.firstrun
 import org.brailleblaster.BBIni
 import org.brailleblaster.CheckUpdates
 import org.brailleblaster.utils.localization.LocaleHandler
-import org.brailleblaster.util.PropertyFileManager
+import org.brailleblaster.utils.PropertyFileManager
 import org.eclipse.jface.layout.GridDataFactory
 import org.eclipse.jface.viewers.ArrayContentProvider
 import org.eclipse.jface.viewers.ComboViewer

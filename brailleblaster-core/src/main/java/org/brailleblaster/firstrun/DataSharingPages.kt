@@ -21,7 +21,7 @@ import org.brailleblaster.usage.SimpleUsageManager
 import org.brailleblaster.usage.USAGE_TRACKING_SETTING
 import org.brailleblaster.usage.UsageManager
 import org.brailleblaster.usage.UsageRecord
-import org.brailleblaster.util.PropertyFileManager
+import org.brailleblaster.utils.PropertyFileManager
 import org.eclipse.jface.layout.GridDataFactory
 import org.eclipse.jface.viewers.ArrayContentProvider
 import org.eclipse.jface.viewers.ComboViewer

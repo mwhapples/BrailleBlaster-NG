@@ -13,15 +13,28 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.util
+package org.brailleblaster.utils.gui
 
 import org.apache.commons.lang3.mutable.MutableBoolean
 import org.eclipse.swt.SWT
-import org.eclipse.swt.events.*
+import org.eclipse.swt.events.KeyAdapter
+import org.eclipse.swt.events.KeyEvent
+import org.eclipse.swt.events.KeyListener
+import org.eclipse.swt.events.ModifyListener
+import org.eclipse.swt.events.SelectionAdapter
+import org.eclipse.swt.events.SelectionEvent
 import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.layout.GridLayout
-import org.eclipse.swt.widgets.*
-import java.util.*
+import org.eclipse.swt.widgets.Button
+import org.eclipse.swt.widgets.Composite
+import org.eclipse.swt.widgets.Control
+import org.eclipse.swt.widgets.Label
+import org.eclipse.swt.widgets.Shell
+import org.eclipse.swt.widgets.Table
+import org.eclipse.swt.widgets.TableColumn
+import org.eclipse.swt.widgets.TableItem
+import org.eclipse.swt.widgets.Text
+import java.util.Locale
 import java.util.function.Consumer
 
 /**

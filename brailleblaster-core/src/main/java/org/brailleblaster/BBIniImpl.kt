@@ -16,7 +16,7 @@
 package org.brailleblaster
 
 import org.brailleblaster.util.FileUtils
-import org.brailleblaster.util.PropertyFileManager
+import org.brailleblaster.utils.PropertyFileManager
 import org.brailleblaster.utils.OS
 import org.brailleblaster.utils.os
 import org.slf4j.Logger

@@ -16,7 +16,7 @@
 package org.brailleblaster.document
 
 import nu.xom.Document
-import org.brailleblaster.util.XOMSerializer
+import org.brailleblaster.utils.xom.XOMSerializer
 
 class DocumentSnapshot(doc: Document) {
     private var serializedDoc: ByteArray

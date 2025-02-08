@@ -13,14 +13,14 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.util
+package org.brailleblaster.utils
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
-import java.util.*
+import java.util.Properties
 import java.util.function.Function
 
 open class PropertyFileManager(val file: File, val prop: Properties = Properties()) {

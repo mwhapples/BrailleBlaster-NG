@@ -18,7 +18,7 @@ package org.brailleblaster.usage
 import org.brailleblaster.BBIni
 import org.brailleblaster.userHelp.VersionInfo
 import org.brailleblaster.util.InstallId
-import org.brailleblaster.util.PropertyFileManager
+import org.brailleblaster.utils.PropertyFileManager
 import org.brailleblaster.util.Utils
 import java.io.Closeable
 import java.io.StringWriter

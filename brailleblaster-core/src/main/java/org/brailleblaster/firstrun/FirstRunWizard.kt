@@ -21,7 +21,7 @@ import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.usage.SimpleUsageManager
 import org.brailleblaster.usage.USAGE_TRACKING_SETTING
 import org.brailleblaster.usage.UsageManager
-import org.brailleblaster.util.PropertyFileManager
+import org.brailleblaster.utils.PropertyFileManager
 import org.eclipse.jface.dialogs.MessageDialog
 import org.eclipse.jface.viewers.LabelProvider
 import org.eclipse.jface.wizard.IWizardPage

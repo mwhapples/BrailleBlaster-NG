@@ -18,7 +18,7 @@ package org.brailleblaster.perspectives.mvc.events
 import nu.xom.Element
 import org.brailleblaster.perspectives.braille.eventQueue.Event
 import org.brailleblaster.perspectives.braille.eventQueue.EventTypes
-import org.brailleblaster.util.XOMSerializer
+import org.brailleblaster.utils.xom.XOMSerializer
 
 /**
  * A ModularEvent is an undo frame that originates from a ModifyEvent

@@ -16,7 +16,7 @@
 package org.brailleblaster;
 
 import org.apache.commons.io.FileUtils;
-import org.brailleblaster.util.PropertyFileManager;
+import org.brailleblaster.utils.PropertyFileManager;
 import org.brailleblaster.utils.BBData;
 import org.eclipse.swt.widgets.Display;
 import org.slf4j.Logger;

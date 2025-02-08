@@ -34,7 +34,7 @@ import org.brailleblaster.testrunners.XMLElementAssert;
 import org.brailleblaster.utd.internal.xml.FastXPath;
 import org.brailleblaster.utd.internal.xml.XMLHandler2;
 import org.brailleblaster.utd.properties.UTDElements;
-import org.brailleblaster.util.PickerDialog;
+import org.brailleblaster.utils.gui.PickerDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.keyboard.Keystrokes;

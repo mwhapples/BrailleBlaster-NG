@@ -13,10 +13,18 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.util
+package org.brailleblaster.utils.xom
 
-import nu.xom.*
-import java.io.*
+import nu.xom.Builder
+import nu.xom.Document
+import nu.xom.Element
+import nu.xom.Node
+import nu.xom.ParsingException
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.io.IOException
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
 import java.util.zip.GZIPInputStream
 import java.util.zip.GZIPOutputStream
 
