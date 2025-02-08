@@ -29,7 +29,7 @@ import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.utd.properties.UTDElements
-import org.brailleblaster.utd.utils.BrailleUnicodeConverter.unicodeToAsciiLouis
+import org.brailleblaster.utils.braille.BrailleUnicodeConverter.unicodeToAsciiLouis
 import java.util.stream.Collectors
 
 /**

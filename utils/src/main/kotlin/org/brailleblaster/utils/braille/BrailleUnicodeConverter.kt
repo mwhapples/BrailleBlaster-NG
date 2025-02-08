@@ -13,10 +13,10 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.utd.utils
+package org.brailleblaster.utils.braille
 
 import org.slf4j.LoggerFactory
-import java.util.*
+import java.util.Locale
 
 /**
  * Fast implementation of mapping liblouis braille unicode to ascii and back for UEB

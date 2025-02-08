@@ -32,9 +32,9 @@ import com.google.common.collect.Range
     import org.brailleblaster.settings.ui.EmbosserSettingsTab
     import org.brailleblaster.utd.BRFWriter
     import org.brailleblaster.utd.BRFWriter.PageListener
-    import org.brailleblaster.utd.utils.BrailleUnicodeConverter
-    import org.brailleblaster.utd.utils.BrailleUnicodeConverter.unicodeToAsciiLouis
-    import org.brailleblaster.utd.utils.BrailleUnicodeConverter.unicodeToAsciiUppercase
+    import org.brailleblaster.utils.braille.BrailleUnicodeConverter
+    import org.brailleblaster.utils.braille.BrailleUnicodeConverter.unicodeToAsciiLouis
+    import org.brailleblaster.utils.braille.BrailleUnicodeConverter.unicodeToAsciiUppercase
     import org.brailleblaster.utils.swt.AccessibilityUtils.setName
     import org.brailleblaster.util.BBNotifyException
     import org.brailleblaster.util.FormUIUtils

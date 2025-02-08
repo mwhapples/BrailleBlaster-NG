@@ -48,7 +48,7 @@ import org.brailleblaster.utd.internal.xml.FastXPath;
 import org.brailleblaster.utd.internal.xml.XMLHandler;
 import org.brailleblaster.utd.properties.EmphasisType;
 import org.brailleblaster.utd.properties.UTDElements;
-import org.brailleblaster.utd.utils.BrailleUnicodeConverter;
+import org.brailleblaster.utils.braille.BrailleUnicodeConverter;
 import org.brailleblaster.utd.utils.TableUtils;
 import org.brailleblaster.utd.utils.UTDHelper;
 import org.brailleblaster.util.Utils;

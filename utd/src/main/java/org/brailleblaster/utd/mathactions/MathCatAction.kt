@@ -29,7 +29,7 @@ import org.brailleblaster.utd.TextSpan
 import org.brailleblaster.utd.actions.IBlockAction
 import org.brailleblaster.utd.asciimath.AsciiMathConverter
 import org.brailleblaster.utd.properties.ContentType
-import org.brailleblaster.utd.utils.BrailleUnicodeConverter
+import org.brailleblaster.utils.braille.BrailleUnicodeConverter
 import org.brailleblaster.utd.utils.UTDHelper
 import org.brailleblaster.utd.utils.xom.childNodes
 import org.brailleblaster.utils.braille.singleThreadedMathCAT
