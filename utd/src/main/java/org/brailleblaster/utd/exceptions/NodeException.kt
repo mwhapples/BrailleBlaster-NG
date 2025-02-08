@@ -22,7 +22,7 @@ import nu.xom.ParentNode
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.internal.xml.XMLHandler2
 import org.brailleblaster.utd.utils.LocalEntityResolver
-import org.brailleblaster.utd.utils.MoreFileUtils
+import org.brailleblaster.utils.MoreFileUtils
 import java.io.File
 import java.net.URI
 import java.net.URLDecoder

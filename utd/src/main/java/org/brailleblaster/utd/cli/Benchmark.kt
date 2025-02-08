@@ -25,9 +25,9 @@ import org.brailleblaster.utd.PageSettings
 import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.utd.config.UTDConfig
 import org.brailleblaster.utd.internal.xml.XMLHandler
-import org.brailleblaster.utd.utils.MoreFileUtils.newFileIncrimented
-import org.brailleblaster.utd.utils.MoreFileUtils.newReaderUTF8
-import org.brailleblaster.utd.utils.MoreFileUtils.newWriterUTF8
+import org.brailleblaster.utils.MoreFileUtils.newFileIncrimented
+import org.brailleblaster.utils.MoreFileUtils.newReaderUTF8
+import org.brailleblaster.utils.MoreFileUtils.newWriterUTF8
 import org.brailleblaster.libembosser.spi.BrlCell
 import org.slf4j.LoggerFactory
 import java.io.*

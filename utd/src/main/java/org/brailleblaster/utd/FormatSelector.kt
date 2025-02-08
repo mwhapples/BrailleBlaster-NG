@@ -25,7 +25,7 @@ import org.brailleblaster.utd.utils.PageBuilderHelper
 import org.brailleblaster.utd.utils.SetList
 import org.brailleblaster.utd.utils.UTDHelper
 import org.brailleblaster.utd.utils.dom.BoxUtils
-import org.brailleblaster.utd.utils.toRepeatingLetters
+import org.brailleblaster.utils.toRepeatingLetters
 import org.slf4j.LoggerFactory
 import java.util.*
 

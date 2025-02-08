@@ -13,9 +13,16 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.utd.utils
+package org.brailleblaster.utils
 
-import java.io.*
+import java.io.BufferedReader
+import java.io.BufferedWriter
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.InputStreamReader
+import java.io.OutputStreamWriter
 import java.nio.charset.StandardCharsets
 
 object MoreFileUtils {

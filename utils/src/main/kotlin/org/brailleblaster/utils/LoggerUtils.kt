@@ -14,7 +14,8 @@
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 @file:JvmName("LoggerUtils")
-package org.brailleblaster.utd.utils
+
+package org.brailleblaster.utils
 
 import org.slf4j.Logger
 import java.util.function.Supplier
