@@ -28,7 +28,7 @@ import org.brailleblaster.util.swt.AccessibilityUtils.setName
 import org.brailleblaster.util.swt.EasySWT
 import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.Notify
-import org.brailleblaster.util.SizeAndLocation
+import org.brailleblaster.util.swt.SizeAndLocation
 import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT
 import org.eclipse.swt.browser.Browser

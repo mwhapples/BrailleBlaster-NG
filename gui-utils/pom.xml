@@ -22,6 +22,11 @@
             <version>${swt.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.brailleblaster</groupId>
+            <artifactId>utils</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

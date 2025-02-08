@@ -18,7 +18,7 @@ package org.brailleblaster.math.ascii
 import org.brailleblaster.BBIni
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.util.swt.EasySWT
-import org.brailleblaster.util.SizeAndLocation
+import org.brailleblaster.util.swt.SizeAndLocation
 import org.eclipse.swt.widgets.Shell
 
 class MathDialogSettings {

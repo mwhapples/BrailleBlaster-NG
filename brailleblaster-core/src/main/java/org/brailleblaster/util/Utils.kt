@@ -20,10 +20,11 @@ import nu.xom.ParentNode
 import nu.xom.Text
 import org.apache.commons.lang3.time.DurationFormatUtils
 import org.brailleblaster.perspectives.braille.Manager
+import org.brailleblaster.settings.UTDManager.Companion.getCellsPerLine
 import org.brailleblaster.utd.internal.xml.FastXPath
-import org.brailleblaster.util.swt.EasySWT
 import org.eclipse.swt.SWT
-import org.eclipse.swt.widgets.Control
+import org.eclipse.swt.custom.StyledText
+import org.eclipse.swt.graphics.Font
 import org.slf4j.helpers.MessageFormatter
 import java.io.BufferedReader
 import java.io.IOException
@@ -42,7 +43,6 @@ import javax.net.ssl.HttpsURLConnection
  * Randomly useful methods that aren't implemented
  */
 object Utils {
-    const val SWTBOT_WIDGET_KEY: String = "org.eclipse.swtbot.widget.key"
 
     /**
      * Wrapper around slf4j's message formatter
@@ -70,6 +70,16 @@ object Utils {
 
     val isLinux: Boolean
         get() = SWT.getPlatform() == "gtk"
+
+    fun adjustFontToDialog(m: Manager?, text: StyledText) {
+        val middle = getCellsPerLine(m!!).toDouble()
+        val width = text.bounds.width.toDouble()
+        val charWidth = width / middle
+        val fd = text.font.fontData[0]
+        fd.setHeight(charWidth.toInt())
+        val f = Font(text.display, fd)
+        text.font = f
+    }
 
     @JvmStatic
 	fun removeRegionString(start: Int, end: Int, str: String): String {

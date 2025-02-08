@@ -16,16 +16,11 @@
 package org.brailleblaster.util.swt
 
 import org.apache.commons.lang3.time.DurationFormatUtils
-import org.brailleblaster.perspectives.braille.Manager
-import org.brailleblaster.settings.UTDManager.Companion.getCellsPerLine
-import org.brailleblaster.util.SizeAndLocation
-import org.brailleblaster.util.Utils
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.CCombo
 import org.eclipse.swt.custom.StyledText
 import org.eclipse.swt.events.*
-import org.eclipse.swt.graphics.Font
 import org.eclipse.swt.graphics.GC
 import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.layout.GridLayout
@@ -44,16 +39,7 @@ object EasySWT {
     @JvmField
     val OK_LABEL: String = localeHandler["lblOk"]
     const val TEXT_PADDING: Int = 20
-
-    fun adjustFontToDialog(m: Manager?, text: StyledText) {
-        val middle = getCellsPerLine(m!!).toDouble()
-        val width = text.bounds.width.toDouble()
-        val charWidth = width / middle
-        val fd = text.font.fontData[0]
-        fd.setHeight(charWidth.toInt())
-        val f = Font(text.display, fd)
-        text.font = f
-    }
+    const val SWTBOT_WIDGET_KEY: String = "org.eclipse.swtbot.widget.key"
 
     @JvmStatic
     fun buildGridData(): GridDataBuilder {
@@ -521,7 +507,7 @@ object EasySWT {
      * Allows finding widgets by id's using eg bot.getStyledTextWithId(name)
      */
     fun addSwtBotKey(widget: Control, name: String?) {
-        widget.setData(Utils.SWTBOT_WIDGET_KEY, name)
+        widget.setData(SWTBOT_WIDGET_KEY, name)
     }
 
     /**

@@ -21,7 +21,6 @@ import nu.xom.Element
 import nu.xom.Node
 import nu.xom.Text
 import org.brailleblaster.bbx.BBX
-import org.brailleblaster.utils.localization.LocaleHandler.Companion.getBanaStyles
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.messages.Sender
 import org.brailleblaster.perspectives.braille.toolbar.CustomToolBarBuilder.Companion.userDefined
@@ -38,11 +37,11 @@ import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.internal.xml.XMLHandler2
 import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.utd.properties.UTDElements
-import org.brailleblaster.util.swt.AccessibilityUtils.prependName
 import org.brailleblaster.util.FormUIUtils
-import org.brailleblaster.util.Utils
 import org.brailleblaster.util.Utils.runtimeToString
+import org.brailleblaster.util.swt.AccessibilityUtils.prependName
 import org.brailleblaster.util.swt.EasySWT
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getBanaStyles
 import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT
 import org.eclipse.swt.accessibility.ACC
@@ -179,11 +178,11 @@ class BreadcrumbsToolbar(private val manager: Manager) : SimpleListener {
 
             //Issue #5027: Allow selection of all text with similar emphasis
             if (subtype === BBX.INLINE.EMPHASIS && emphasisBits!!.size != 1) {
-                for (curEmphasis in emphasisBits!!) {
+                for (curEmphasis in emphasisBits) {
                     val emphasisButton = Button(wrapper, SWT.NONE)
                     emphasisButton.text = curEmphasis.longName
                     EasySWT.addSwtBotKey(emphasisButton, SWTBOT_ANCESTOR_PREFIX + (counter - 1) + curEmphasis)
-                    log.trace("Added {}", emphasisButton.getData(Utils.SWTBOT_WIDGET_KEY))
+                    log.trace("Added {}", emphasisButton.getData(EasySWT.SWTBOT_WIDGET_KEY))
                     FormUIUtils.addSelectionListener(emphasisButton) {
                         selectSurroundingEmphasis(curAncestor, curEmphasis)
                         manager.textView.forceFocus()

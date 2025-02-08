@@ -42,7 +42,7 @@ import org.brailleblaster.util.swt.EasySWT
 import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.Notify.notify
 import org.brailleblaster.util.Notify.showMessage
-import org.brailleblaster.util.SizeAndLocation
+import org.brailleblaster.util.swt.SizeAndLocation
 import org.brailleblaster.util.Utils
 import org.brailleblaster.util.YesNoChoice.Companion.ask
 import org.brailleblaster.util.ui.SixKeyUtils
@@ -245,15 +245,15 @@ class SimpleImageDescriberDialog(
         shell.layout()
         shell.open()
         if (braille) {
-            EasySWT.adjustFontToDialog(m, brailleWidget!!)
+            Utils.adjustFontToDialog(m, brailleWidget!!)
             EasySWT.addResizeListener(
                 shell,
                 brailleWidget!!
-            ) { EasySWT.adjustFontToDialog(WPManager.getInstance().controller, it) }
+            ) { Utils.adjustFontToDialog(WPManager.getInstance().controller, it) }
         } else {
-            EasySWT.adjustFontToDialog(m, descTextEditor!!.text)
+            Utils.adjustFontToDialog(m, descTextEditor!!.text)
             EasySWT.addResizeListener(shell, descTextEditor!!.text) {
-                EasySWT.adjustFontToDialog(
+                Utils.adjustFontToDialog(
                     WPManager.getInstance().controller,
                     it
                 )
