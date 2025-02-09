@@ -19,5 +19,7 @@ import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.mvc.BBSimpleManager.SimpleListener
 
 interface ModuleFactory {
+    val priority: Int
+        get() = 0
     fun createModules(manager: Manager): Iterable<SimpleListener>
 }

@@ -36,6 +36,8 @@ import org.brailleblaster.userHelp.UserHelp
 import org.eclipse.swt.SWT
 
 class CoreModulesFactory : ModuleFactory {
+    override val priority: Int
+        get() = Int.MAX_VALUE
     override fun createModules(manager: Manager): Iterable<BBSimpleManager.SimpleListener> = buildList {
         add(TextViewModule(manager))
         add(PostViewUpdateModule())
