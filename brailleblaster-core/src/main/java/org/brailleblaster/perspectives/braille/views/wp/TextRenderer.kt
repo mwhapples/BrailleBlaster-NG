@@ -102,13 +102,7 @@ class TextRenderer(manager: Manager, private val textView: TextView) : Renderer(
             } else if (t is MathMLElement) {
                 MathModule.getBrl(n) as Element
             } else if (t is PageIndicatorTextMapElement) {
-                if (t.node.childCount == 1 && UTDElements.BRL.isA(t.node.getChild(0))) {
-                    t.node.getChild(0) as Element
-                } else if (t.node.childCount == 2 && UTDElements.BRL.isA(t.node.getChild(1))) {
-                    t.node.getChild(1) as Element
-                } else {
-                    throw NullPointerException("No brl found")
-                }
+                t.node.childNodes.filterIsInstance<Element>().first { UTDElements.BRL.isA(it) }
             } else if (t is UncontractedWordTextMapElement && UTDElements.BRLONLY.isA(t.node)) {
                 t.getNodeParent()
             } else {
