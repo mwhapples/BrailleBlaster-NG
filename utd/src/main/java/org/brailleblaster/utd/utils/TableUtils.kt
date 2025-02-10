@@ -24,7 +24,7 @@ import org.brailleblaster.utd.IStyleMap
 import org.brailleblaster.utd.ITranslationEngine
 import org.brailleblaster.utd.PageSettings
 import org.brailleblaster.utd.properties.UTDElements
-import org.brailleblaster.utd.utils.xom.detachAll
+import org.brailleblaster.utils.xom.detachAll
 
 object TableUtils {
     const val ATTRIB_TABLE_COPY = "tableCopy"

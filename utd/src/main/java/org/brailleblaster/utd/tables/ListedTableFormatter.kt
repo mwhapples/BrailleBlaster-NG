@@ -31,7 +31,7 @@ import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.PageBuilderHelper
 import org.brailleblaster.utd.utils.TableUtils
 import org.brailleblaster.utd.utils.TextTranslator
-import org.brailleblaster.utd.utils.xom.childNodes
+import org.brailleblaster.utils.xom.childNodes
 import java.util.*
 import kotlin.math.max
 

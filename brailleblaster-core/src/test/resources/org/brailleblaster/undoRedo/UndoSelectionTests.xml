@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?><?xml-stylesheet href="dtbookbasic.css" type="text/css"?><!DOCTYPE dtbook PUBLIC '-//NISO//DTD dtbook 2005-3//EN' 'http://www.daisy.org/z3986/2005/dtbook-2005-3.dtd' >
+<dtbook xmlns:m="http://www.w3.org/1998/Math/MathML"><book>
+<level1>
+<p>Paragraph 1</p>
+<p>Paragraph 2</p>
+<p>Para<strong>graph</strong> 3</p>
+<p>Paragraph 4</p>
+<p>Paragraph 5</p>
+<p>Paragraph <strong>6</strong></p>
+<p>Paragraph 7</p>
+<p><strong>Paragraph</strong> 8</p>
+<p>Paragraph 9</p>
+<p>Paragraph <strong>10</strong></p>
+<p><strong>Paragraph</strong> 11</p>
+</level1>
+</book></dtbook>
+

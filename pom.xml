@@ -11,7 +11,12 @@
     <modules>
         <module>utils</module>
         <module>utd</module>
-        <module>brailleblaster</module>
+        <module>brailleblaster-core</module>
+        <module>brailleblaster-app</module>
+        <module>brailleblaster-debug-tools</module>
+        <module>gui-utils</module>
+        <module>xom-utils</module>
+        <module>brailleblaster-exceptions</module>
     </modules>
 
     <properties>
@@ -20,6 +25,9 @@
         <changelist>-SNAPSHOT</changelist>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <wrappermavenplugin.version>3.3.2</wrappermavenplugin.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kotlin.version>2.1.10</kotlin.version>
         <kotlin.compiler.incremental>false</kotlin.compiler.incremental>
         <kotlinx.coroutines.version>1.10.1</kotlinx.coroutines.version>
@@ -28,14 +36,18 @@
         <slf4j.version>2.0.16</slf4j.version>
         <logback-core.version>1.5.15</logback-core.version>
         <logback-classic.version>1.5.15</logback-classic.version>
+        <icu4j.version>72.1</icu4j.version>
         <mathcat4j.version>0.6.4-9</mathcat4j.version>
         <jlouis.version>d8570182bd99f812412a9869387347a837fd9c5b</jlouis.version>
         <libembosser.version>1.4.3</libembosser.version>
         <jaxbapi.version>4.0.2</jaxbapi.version>
         <jaxbruntime.version>4.0.5</jaxbruntime.version>
         <activation.version>1.1</activation.version>
+        <swt.platform>win32.win32.x86_64</swt.platform>
+        <swt.version>3.126.0</swt.version>
+        <orgeclipsejface.version>3.33.0</orgeclipsejface.version>
         <findbugsannotations.version>3.0.1u2</findbugsannotations.version>
-        <hamcrestall.version>1.3</hamcrestall.version>
+        <hamcrest.version>2.2</hamcrest.version>
         <testng.version>7.10.2</testng.version>
         <findbugs.version>3.0.2</findbugs.version>
         <xercesimpl.version>2.12.2</xercesimpl.version>
@@ -59,8 +71,9 @@
         <commonsexec.version>1.3</commonsexec.version>
         <commonscollections4.version>4.5.0-M1</commonscollections4.version>
         <commonslogging.version>1.3.1</commonslogging.version>
-        <jna.version>5.14.0</jna.version>
+        <jna.version>5.16.0</jna.version>
         <pandoc.version>3.6.2</pandoc.version>
+        <orgeclipseswtbotswtfinder.version>f5b2edaee2</orgeclipseswtbotswtfinder.version>
     </properties>
 
     <scm>
@@ -207,19 +220,13 @@
             classpath -->
         <dependency>
             <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
-            <version>${hamcrestall.version}</version>
+            <artifactId>hamcrest</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>${testng.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.beust</groupId>
-            <artifactId>jcommander</artifactId>
         </dependency>
         <dependency>
             <groupId>xerces</groupId>
@@ -238,7 +245,6 @@
         <dependency>
             <groupId>xom</groupId>
             <artifactId>xom</artifactId>
-            <version>${xom.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
@@ -251,28 +257,45 @@
         <dependency>
             <groupId>org.eclipse.collections</groupId>
             <artifactId>eclipse-collections-api</artifactId>
-            <version>${eclipse.collections.version}</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.collections</groupId>
             <artifactId>eclipse-collections</artifactId>
-            <version>${eclipse.collections.version}</version>
         </dependency>
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>${jaxbapi.version}</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
-            <version>${jaxbruntime.version}</version>
             <scope>runtime</scope>
         </dependency>
     </dependencies>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.eclipse.platform</groupId>
+                <artifactId>org.eclipse.swt</artifactId>
+                <version>${swt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.platform</groupId>
+                <artifactId>org.eclipse.jface</artifactId>
+                <version>${orgeclipsejface.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.eclipse.platform</groupId>
+                        <artifactId>org.eclipse.swt</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.ibm.icu</groupId>
+                <artifactId>icu4j</artifactId>
+                <version>${icu4j.version}</version>
+            </dependency>
             <dependency>
                 <groupId>net.java.dev.jna</groupId>
                 <artifactId>jna</artifactId>
@@ -337,6 +360,32 @@
                 <version>${jetbrains.annotations.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.eclipse.collections</groupId>
+                <artifactId>eclipse-collections-api</artifactId>
+                <version>${eclipse.collections.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.collections</groupId>
+                <artifactId>eclipse-collections</artifactId>
+                <version>${eclipse.collections.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>xom</groupId>
+                <artifactId>xom</artifactId>
+                <version>${xom.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.xml.bind</groupId>
+                <artifactId>jakarta.xml.bind-api</artifactId>
+                <version>${jaxbapi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jaxb</groupId>
+                <artifactId>jaxb-runtime</artifactId>
+                <version>${jaxbruntime.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
                 <groupId>com.beust</groupId>
                 <artifactId>jcommander</artifactId>
                 <version>${jcommander.version}</version>
@@ -388,9 +437,21 @@
                 <version>${logback-classic.version}</version>
             </dependency>
             <dependency>
-                <groupId>jakarta.xml.bind</groupId>
-                <artifactId>jakarta.xml.bind-api</artifactId>
-                <version>${jaxbapi.version}</version>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest</artifactId>
+                <version>${hamcrest.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>${testng.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-core</artifactId>
+                <version>${hamcrest.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -435,7 +496,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <jvmTarget>17</jvmTarget>
+                    <jvmTarget>${maven.compiler.target}</jvmTarget>
                     <args>
                         <arg>-opt-in=kotlin.RequiresOptIn</arg>
                         <arg>-Xjvm-default=all</arg>
@@ -448,8 +509,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${mavencompilerplugin.version}</version>
                 <configuration>
-                    <source>17</source>
-                    <target>17</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
                     <compilerArgs>
@@ -572,4 +633,67 @@
             </plugins>
         </pluginManagement>
     </build>
+    <profiles>
+        <!-- Pick correct SWT dependency depending on platform -->
+        <profile>
+            <id>swt_windows_x86_64</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                    <arch>amd64</arch>
+                </os>
+            </activation>
+            <properties>
+                <swt.platform>win32.win32.x86_64</swt.platform>
+            </properties>
+        </profile>
+        <profile>
+            <id>swt_linux_x86_64</id>
+            <activation>
+                <os>
+                    <family>linux</family>
+                    <arch>amd64</arch>
+                </os>
+            </activation>
+            <properties>
+                <swt.platform>gtk.linux.x86_64</swt.platform>
+            </properties>
+        </profile>
+        <profile>
+            <id>swt_linux_aarch64</id>
+            <activation>
+                <os>
+                    <family>linux</family>
+                    <arch>aarch64</arch>
+                </os>
+            </activation>
+            <properties>
+                <swt.platform>gtk.linux.aarch64</swt.platform>
+            </properties>
+        </profile>
+        <profile>
+            <id>swt_mac_x86_64</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                    <arch>x86_64</arch>
+                </os>
+            </activation>
+            <properties>
+                <swt.platform>cocoa.macosx.x86_64</swt.platform>
+            </properties>
+        </profile>
+        <profile>
+            <id>swt_mac_aarch64</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                    <arch>aarch64</arch>
+                </os>
+            </activation>
+            <properties>
+                <swt.platform>cocoa.macosx.aarch64</swt.platform>
+            </properties>
+        </profile>
+    </profiles>
 </project>

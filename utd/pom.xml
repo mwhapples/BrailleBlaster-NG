@@ -25,6 +25,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.beust</groupId>
+            <artifactId>jcommander</artifactId>
+        </dependency>
+        <dependency>
             <groupId>net.java.dev.jna</groupId>
             <artifactId>jna</artifactId>
         </dependency>
@@ -69,6 +73,11 @@
             <artifactId>xmlunit-matchers</artifactId>
             <version>${xmlunitmatchers.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.brailleblaster</groupId>
+            <artifactId>xom-utils</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.brailleblaster</groupId>

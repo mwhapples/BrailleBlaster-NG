@@ -21,7 +21,7 @@ import org.brailleblaster.utd.ITranslationEngine
 import org.brailleblaster.utd.TextSpan
 import org.brailleblaster.utd.utils.TableUtils
 import org.brailleblaster.utd.utils.UTDHelper
-import org.brailleblaster.utd.utils.xom.detachAll
+import org.brailleblaster.utils.xom.detachAll
 
 @Suppress("UNUSED")
 class TranslateTableAction : GenericBlockAction(), IBlockAction {

@@ -22,7 +22,7 @@ import org.brailleblaster.utd.TextSpan
 import org.brailleblaster.utd.exceptions.UTDTranslateException
 import org.brailleblaster.utd.properties.BrailleTableType
 import org.brailleblaster.utd.properties.UTDElements
-import org.brailleblaster.utd.utils.BrailleUnicodeConverter
+import org.brailleblaster.utils.braille.BrailleUnicodeConverter
 import org.brailleblaster.utd.utils.TextTranslator.translateTextWithEmpArray
 import org.brailleblaster.utd.utils.UTDHelper.Companion.getAssociatedBrlElement
 import org.mwhapples.jlouis.Louis

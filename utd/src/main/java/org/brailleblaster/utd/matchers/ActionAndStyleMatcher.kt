@@ -25,7 +25,7 @@ import org.brailleblaster.utd.ComparableStyle
 import org.brailleblaster.utd.NamespaceMap
 import org.brailleblaster.utd.internal.ComparableStyleAdapter
 import org.brailleblaster.utd.properties.UTDElements
-import org.brailleblaster.utd.utils.debug
+import org.brailleblaster.utils.debug
 import org.slf4j.LoggerFactory
 
 @XmlAccessorType(XmlAccessType.FIELD)

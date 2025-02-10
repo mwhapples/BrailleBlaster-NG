@@ -1,0 +1,42 @@
+<configuration>
+	<conversionRule conversionWord="traceHighlight" 
+				  converterClass="org.brailleblaster.logging.TraceHighlightConverter" />
+	
+	<define name="userSettingsPath" scope="context" class="org.brailleblaster.logging.UserPathFinder">
+		<subDir>programData/settings</subDir>
+	</define>
+	<property file="${userSettingsPath}/user_settings.properties"/>
+	<define name="logPath" scope="context" class="org.brailleblaster.logging.UserPathFinder">
+		<subDir>log</subDir>
+	</define>
+	<property name="logLevel" value="${loglevel:-ERROR}"/>
+	<appender name="bbFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logPath}/bb.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${logPath}/bb_%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+			<maxFileSize>5MB</maxFileSize>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<!--This breaks in the Eclipse console-->
+		<!--<withJansi>true</withJansi>-->
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern> <!--  %caller{1}-->
+		</encoder>
+	</appender>
+	
+	<appender name="STDOUT-simple" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%msg%n</pattern> <!--  %caller{1}-->
+		</encoder>
+	</appender>
+
+	<root level="${logLevel}">
+		<appender-ref ref="bbFileAppender"/>
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>

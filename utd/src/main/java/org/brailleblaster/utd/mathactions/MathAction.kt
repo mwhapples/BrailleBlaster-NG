@@ -25,7 +25,7 @@ import org.brailleblaster.utd.exceptions.UTDTranslateException
 import org.brailleblaster.utd.properties.BrailleTableType
 import org.brailleblaster.utd.properties.ContentType
 import org.brailleblaster.utd.properties.UTDElements
-import org.brailleblaster.utd.utils.MathMLConverter
+import org.brailleblaster.utils.MathMLConverter
 import org.brailleblaster.utd.utils.UTDHelper
 import java.util.stream.Collectors
 import java.util.stream.Stream

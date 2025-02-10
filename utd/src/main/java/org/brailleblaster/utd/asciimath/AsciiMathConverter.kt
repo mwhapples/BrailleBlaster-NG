@@ -205,24 +205,17 @@ object AsciiMathConverter : AutoCloseable {
         includeMathMarkers: Boolean,
         vararg finders: MathTextFinder
     ): String {
-        val resultText = StringBuilder()
-        for (i in 0 until mathml.size()) {
-            val n = mathml[i]
-            val mathText =
-                Arrays.stream(finders)
-                    .map { f: MathTextFinder -> f.findText(n) }
-                    .filter { obj: String? -> Objects.nonNull(obj) }
-                    .findFirst()
-                    .filter { amStr: String? -> compareMathML(Nodes(n), toMathML(amStr, false)) }
-                    .orElseGet { transformFromMathML(n, includeMathMarkers) }
-            resultText.append(mathText)
+        val resultText = mathml.joinToString(separator = "") { n ->
+            finders.mapNotNull { it.findText(n) }
+                .firstOrNull { compareMathML(Nodes(n), toMathML(it, false)) } ?: transformFromMathML(
+                n,
+                includeMathMarkers
+            )
         }
         if (bbSpaces) {
-            return Arrays.stream(resultText.toString().split("\\\\ ".toRegex()).toTypedArray())
-                .map { sub: String -> sub.replace(" ", "\\ ") }
-                .collect(Collectors.joining(" "))
+            return resultText.split("\\\\ ".toRegex()).joinToString(separator = " ") { sub -> sub.replace(" ", "\\ ") }
         }
-        return resultText.toString()
+        return resultText
     }
 
     private fun transformFromMathML(n: Node, includeMathMarkers: Boolean): String {

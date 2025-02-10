@@ -28,18 +28,18 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Add build data
-      run: brailleblaster/scripts/add-build-data.sh "BrailleBlaster" "2.1.10" "${{ github.sha }}" "brailleblaster"
+      run: brailleblaster-core/scripts/add-build-data.sh "BrailleBlaster" "2.1.10" "${{ github.sha }}" "brailleblaster-core"
     - name: Build with Maven
       run: |
         mvn -B install --file pom.xml -DskipTests -Drevision=2.1.10 -Dsha1=-${{ github.sha }} -Dchangelist=-SNAPSHOT
     - name: Get docs
-      run: brailleblaster/scripts/get-docs.sh brailleblaster/target/dist/docs
+      run: brailleblaster-app/scripts/get-docs.sh brailleblaster-app/target/dist/docs
 
     - name: Upload dist
       uses: actions/upload-artifact@v4
       with:
         name: brailleblaster
-        path: brailleblaster/target/dist
+        path: brailleblaster-app/target/dist
 
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph

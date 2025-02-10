@@ -26,7 +26,7 @@ import org.brailleblaster.utd.Style
 import org.brailleblaster.utd.Style.StyleOption
 import org.brailleblaster.utd.properties.Align
 import org.brailleblaster.utd.properties.NumberLinePosition
-import org.brailleblaster.utd.utils.xom.attributes
+import org.brailleblaster.utils.xom.attributes
 import java.util.*
 
 /**

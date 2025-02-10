@@ -25,6 +25,7 @@ import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.properties.UTDElements.Companion.findType
 import org.brailleblaster.libembosser.spi.BrlCell
+import org.brailleblaster.utils.xom.DocumentTraversal
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.w3c.dom.Node

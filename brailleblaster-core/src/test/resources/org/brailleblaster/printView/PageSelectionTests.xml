@@ -1,0 +1,7 @@
+<!DOCTYPE dtbook PUBLIC "-//NISO//DTD dtbook 2005-3//EN" "http://www.daisy.org/z3986/2005/dtbook-2005-3.dtd">
+<dtbook xmlns:m="http://www.w3.org/1998/Math/MathML"><book>
+<level1>
+<p>First paragraph on page 1</p><pagenum id="page1" page="normal">1</pagenum><p>Page 2 paragraph</p><p>Second Paragraph on Page 2</p><pagenum id="page1" page="normal">2</pagenum><p>A paragraph on page 3</p><pagenum id="page1" page="normal">3</pagenum><p>Fourth Page Paragraph</p><pagenum id="page1" page="normal">4</pagenum><pagenum id="page1" page="normal">5</pagenum><p>paragraph to start page 6</p><pagenum id="page6" page="normal">6</pagenum><p>Final Paragraph</p>
+</level1>
+</book></dtbook>
+

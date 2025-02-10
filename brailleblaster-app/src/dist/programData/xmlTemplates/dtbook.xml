@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?><?xml-stylesheet href="dtbookbasic.css" type="text/css"?>
+<!DOCTYPE dtbook PUBLIC '-//NISO//DTD dtbook 2005-3//EN' 'http://www.daisy.org/z3986/2005/dtbook-2005-3.dtd' >
+<dtbook xmlns="http://www.daisy.org/z3986/2005/dtbook/" version="2005-3" xml:lang="en-US" >
+	<head>
+		<meta name="dtb:uid" content="AUTO-UID-5342982849049141728" />
+		<meta name="dt:version" content="2.1.1.0" />
+		<meta name="dc:Title" content="" />
+		<meta name="dc:Creator" content="" />
+		<meta name="dc:Date" content="" />
+		<meta name="dc:Language" content="en-US" />
+	</head>
+	<book showin="blp">
+		<frontmatter></frontmatter>
+		<bodymatter id="bodymatter_0001">
+			<level1><p/></level1>
+		</bodymatter>
+	</book>
+</dtbook>

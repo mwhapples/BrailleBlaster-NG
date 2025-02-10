@@ -28,8 +28,12 @@ import org.brailleblaster.utd.internal.elements.*
 import org.brailleblaster.utd.pagelayout.*
 import org.brailleblaster.utd.properties.*
 import org.brailleblaster.utd.utils.*
-import org.brailleblaster.utd.utils.NodeUtils.sortByDocumentOrder
-import org.brailleblaster.utd.utils.xom.childNodes
+import org.brailleblaster.utils.xom.NodeSorter.sortByDocumentOrder
+import org.brailleblaster.utils.xom.childNodes
+import org.brailleblaster.utils.Counter
+import org.brailleblaster.utils.RepeatingLetters
+import org.brailleblaster.utils.SetList
+import org.brailleblaster.utils.toRepeatingLetters
 import org.mwhapples.jlouis.TranslationException
 import org.slf4j.LoggerFactory
 import java.util.*
