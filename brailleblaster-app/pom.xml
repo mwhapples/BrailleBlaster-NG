@@ -15,6 +15,7 @@
     <properties>
         <product.name>BrailleBlaster</product.name>
         <build.dist.directory>${project.build.directory}/dist</build.dist.directory>
+        <build.dist.native.directory>${build.dist.directory}/native</build.dist.native.directory>
         <execmavenplugin.version>3.5.0</execmavenplugin.version>
         <mac.thread.arg/>
     </properties>
@@ -225,25 +226,25 @@
                                     <groupId>org.eclipse.platform</groupId>
                                     <artifactId>org.eclipse.swt.win32.win32.x86_64</artifactId>
                                     <version>${swt.version}</version>
-                                    <outputDirectory>${build.dist.directory}/native/windows-x86_64/lib</outputDirectory>
+                                    <outputDirectory>${build.dist.native.directory}/windows-x86_64/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.eclipse.platform</groupId>
                                     <artifactId>org.eclipse.swt.gtk.linux.x86_64</artifactId>
                                     <version>${swt.version}</version>
-                                    <outputDirectory>${build.dist.directory}/native/linux-x86_64/lib</outputDirectory>
+                                    <outputDirectory>${build.dist.native.directory}/linux-x86_64/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.eclipse.platform</groupId>
                                     <artifactId>org.eclipse.swt.gtk.linux.aarch64</artifactId>
                                     <version>${swt.version}</version>
-                                    <outputDirectory>${build.dist.directory}/native/linux-aarch64/lib</outputDirectory>
+                                    <outputDirectory>${build.dist.native.directory}/linux-aarch64/lib</outputDirectory>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.eclipse.platform</groupId>
                                     <artifactId>org.eclipse.swt.cocoa.macosx.x86_64</artifactId>
                                     <version>${swt.version}</version>
-                                    <outputDirectory>${build.dist.directory}/native/mac-x86_64/lib</outputDirectory>
+                                    <outputDirectory>${build.dist.native.directory}/mac-x86_64/lib</outputDirectory>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
