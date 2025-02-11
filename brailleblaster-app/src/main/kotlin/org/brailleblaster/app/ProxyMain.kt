@@ -89,8 +89,9 @@ private val proxyClassLoader: ClassLoader by lazy {
                         + Path(brailleblasterPath.canonicalPath, "lib").listJars()
                         + Path(
                     brailleblasterPath.canonicalPath,
-                    "lib",
-                    "${os.name.lowercase()}-${arch.name.lowercase()}"
+                    "native",
+                    "${os.name}-${arch.name}".lowercase(),
+                            "lib"
                 ).listJars()
                 ).forEach {
                 try {
