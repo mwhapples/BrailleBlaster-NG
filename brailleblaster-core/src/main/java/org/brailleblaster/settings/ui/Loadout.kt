@@ -19,10 +19,8 @@ import org.eclipse.swt.SWT
 
 class Loadout(@JvmField var name: String, @JvmField var accelerator: Int) {
     companion object {
-        @JvmField
-		var list = ArrayList<Loadout>()
-        @JvmStatic
-		fun listLoadouts() {
+        var list: MutableList<Loadout> = mutableListOf()
+        fun listLoadouts() {
             if (list.isEmpty()) {
                 list.add(Loadout("Basic", SWT.MOD1 + SWT.MOD2 + 'B'.code))
                 list.add(Loadout("Captions", SWT.MOD1 + SWT.MOD2 + 'C'.code))
@@ -39,8 +37,7 @@ class Loadout(@JvmField var name: String, @JvmField var accelerator: Int) {
             }
         }
 
-        @JvmStatic
-		fun getAcc(name: String?): Int = list.firstOrNull { it.name.equals(name, ignoreCase = true) }?.accelerator ?: -1
+        fun getAcc(name: String?): Int = list.firstOrNull { it.name.equals(name, ignoreCase = true) }?.accelerator ?: -1
 
         fun getName(accelerator: Int): String? = list.firstOrNull { it.accelerator == accelerator }?.name
     }
