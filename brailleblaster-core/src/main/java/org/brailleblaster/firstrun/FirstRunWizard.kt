@@ -16,7 +16,7 @@
 package org.brailleblaster.firstrun
 
 import org.brailleblaster.BBIni
-import org.brailleblaster.CheckUpdates
+import org.brailleblaster.AUTO_UPDATE_SETTING
 import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.usage.SimpleUsageManager
 import org.brailleblaster.usage.USAGE_TRACKING_SETTING
@@ -128,7 +128,7 @@ fun runFirstRunWizard(
     usageManager: UsageManager = SimpleUsageManager()
 ): Boolean {
     val wizardPages = mutableListOf<Supplier<IWizardPage>>()
-    val autoUpdates = userSettings.getProperty(CheckUpdates.AUTO_UPDATE_SETTING)
+    val autoUpdates = userSettings.getProperty(AUTO_UPDATE_SETTING)
     val usageTracking = userSettings.getProperty(USAGE_TRACKING_SETTING)
     if (autoUpdates == null && usageTracking == null) {
         //Kind of a hack, but if both of these values are null, clearly we haven't run the wizard before.

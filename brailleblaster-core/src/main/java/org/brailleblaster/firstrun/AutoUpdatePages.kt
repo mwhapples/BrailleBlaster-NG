@@ -16,7 +16,7 @@
 package org.brailleblaster.firstrun
 
 import org.brailleblaster.BBIni
-import org.brailleblaster.CheckUpdates
+import org.brailleblaster.AUTO_UPDATE_SETTING
 import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.utils.PropertyFileManager
 import org.eclipse.jface.layout.GridDataFactory
@@ -61,7 +61,7 @@ class AutoUpdatePage(private val userSettings: PropertyFileManager = BBIni.prope
     }
 
     override fun performFinish(): Boolean {
-        userSettings.saveAsBoolean(CheckUpdates.AUTO_UPDATE_SETTING, autoUpdates)
+        userSettings.saveAsBoolean(AUTO_UPDATE_SETTING, autoUpdates)
         return true
     }
     init {

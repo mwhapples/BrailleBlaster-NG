@@ -16,8 +16,8 @@
 package org.brailleblaster.settings.ui
 
 import org.brailleblaster.BBIni
-import org.brailleblaster.CheckUpdates.Companion.AUTO_UPDATE_SETTING
-import org.brailleblaster.CheckUpdates.Companion.readUserUpdateSettings
+import org.brailleblaster.AUTO_UPDATE_SETTING
+import org.brailleblaster.readUserUpdateSettings
 import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.perspectives.mvc.modules.misc.ExceptionReportingModule
 import org.brailleblaster.usage.USAGE_TRACKING_SETTING
