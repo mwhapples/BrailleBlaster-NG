@@ -47,9 +47,9 @@
             <version>1.17.2</version>
         </dependency>
         <dependency>
-            <groupId>net.sf.jtidy</groupId>
+            <groupId>com.github.jtidy</groupId>
             <artifactId>jtidy</artifactId>
-            <version>r938</version>
+            <version>1.0.5</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/xml-resolver/xml-resolver -->
         <dependency>
