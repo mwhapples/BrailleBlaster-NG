@@ -132,6 +132,8 @@ object BBIni {
     val isReleaseBuild: Boolean
         get() = impl.releaseBuild
 
+    val nativeBinPath: Path
+        get() = impl.nativeBinPath
     val nativeLibraryPath: Path
         get() = impl.nativeLibraryPath
 

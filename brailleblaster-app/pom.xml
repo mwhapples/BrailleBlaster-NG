@@ -119,7 +119,7 @@
                             <fileMappers>
                                 <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
                             </fileMappers>
-                            <outputDirectory>${build.dist.directory}/programData/pandoc/win-x64</outputDirectory>
+                            <outputDirectory>${build.dist.native.directory}/windows-x86_64/bin</outputDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -137,7 +137,7 @@
                             <fileMappers>
                                 <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
                             </fileMappers>
-                            <outputDirectory>${build.dist.directory}/programData/pandoc/linux-x64</outputDirectory>
+                            <outputDirectory>${build.dist.native.directory}/linux-x86_64/bin</outputDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -155,7 +155,7 @@
                             <fileMappers>
                                 <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
                             </fileMappers>
-                            <outputDirectory>${build.dist.directory}/programData/pandoc/linux-aarch64</outputDirectory>
+                            <outputDirectory>${build.dist.native.directory}/linux-aarch64/bin</outputDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -173,7 +173,7 @@
                             <fileMappers>
                                 <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
                             </fileMappers>
-                            <outputDirectory>${build.dist.directory}/programData/pandoc/mac-x64</outputDirectory>
+                            <outputDirectory>${build.dist.native.directory}/mac-x86_64/bin</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>

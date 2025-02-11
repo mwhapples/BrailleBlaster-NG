@@ -16,19 +16,19 @@
 package org.brailleblaster.archiver2
 
 import com.google.common.collect.ImmutableMap
-import com.sun.jna.Platform
 import org.brailleblaster.BBIni
 import org.brailleblaster.pandoc.FixImage
 import org.brailleblaster.pandoc.FixMathML
 import org.brailleblaster.pandoc.FixNestedList
 import org.brailleblaster.pandoc.Fixer
+import org.brailleblaster.utils.OS
 import org.slf4j.LoggerFactory
 import java.io.*
 import java.nio.charset.StandardCharsets
 import java.nio.file.FileSystems
 import java.nio.file.Path
 import java.nio.file.Paths
-import java.util.*
+import kotlin.io.path.absolutePathString
 
 object PandocArchiverLoader : ArchiverFactory.FileLoader {
     // private var fileTabName = ""
@@ -94,24 +94,10 @@ object PandocArchiverLoader : ArchiverFactory.FileLoader {
         newFilename = "$newFilename-"
 
         // determine the os and executable to use
-        val os = System.getProperty("os.name").lowercase(Locale.getDefault())
-        val cmd = when {
-            os.contains("win") -> {
-                if (Platform.is64Bit()) PANDOCWIN_X64 else PANDOCWIN_X86
-            }
-            os.contains("mac") -> {
-                PANDOCMAC
-            }
-            os.contains("linux") -> {
-                    val arch = System.getProperty("os.arch").lowercase(Locale.getDefault())
-if                     (arch.contains("aarch64")){
-                                    PANDOCLINUX_AARCH64
-                    }else{
-                PANDOCLINUX_X64
-                }
-            }
-            else -> null
-        }
+        val cmd = BBIni.nativeBinPath.resolve(when(org.brailleblaster.utils.os) {
+            OS.Windows -> "pandoc.exe"
+                else -> "pandoc"
+        }).absolutePathString()
 
         // set the working dir and execute
         try {
@@ -220,12 +206,7 @@ if                     (arch.contains("aarch64")){
         return fname
     }
 
-    private val PANDOCDIR = BBIni.programDataPath.resolve("pandoc").toString()
-    private val PANDOCWIN_X64 = "$PANDOCDIR/win-x64/pandoc.exe"
-    private val PANDOCWIN_X86 = "$PANDOCDIR/win-x86/pandoc.exe"
-    private val PANDOCMAC = "$PANDOCDIR/mac-x64/pandoc"
-    private val PANDOCLINUX_X64 = "$PANDOCDIR/linux-x64/pandoc"
-        private val PANDOCLINUX_AARCH64 = "$PANDOCDIR/linux-AARCH64/pandoc"
+    private val PANDOCDIR = BBIni.programDataPath.resolve("pandoc").absolutePathString()
     private val PANDOCLUA = "$PANDOCDIR/lua"
     private val log = LoggerFactory.getLogger(PandocArchiverLoader::class.java)
 }

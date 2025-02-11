@@ -18,6 +18,7 @@ package org.brailleblaster
 import org.brailleblaster.util.FileUtils
 import org.brailleblaster.utils.PropertyFileManager
 import org.brailleblaster.utils.OS
+import org.brailleblaster.utils.arch
 import org.brailleblaster.utils.os
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -32,7 +33,8 @@ import kotlin.io.path.Path
 
 class BBIniImpl(val bbDistPath: Path, bbUserPath: Path, propManager: PropertyFileManager?, debugArgs: List<String>) {
     private val log: Logger = LoggerFactory.getLogger(javaClass)
-    val nativeLibraryPath: Path = bbDistPath.resolve(Path("native", "lib"))
+    val nativeBinPath: Path = bbDistPath.resolve(Path("native", "$os-$arch", "bin"))
+    val nativeLibraryPath: Path = bbDistPath.resolve(Path("native", "${os}-${arch}", "lib"))
     val nativeLibrarySuffix = when(os) {
         OS.Windows -> ".dll"
         OS.Mac -> ".dylib"
