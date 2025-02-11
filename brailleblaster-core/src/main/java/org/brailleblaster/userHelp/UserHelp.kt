@@ -16,19 +16,21 @@
 package org.brailleblaster.userHelp
 
 import org.apache.commons.io.FileUtils
-import org.brailleblaster.utils.BBData.getBrailleblasterPath
 import org.brailleblaster.BBIni
 import org.brailleblaster.CheckUpdates
-import org.brailleblaster.perspectives.mvc.BBSimpleManager.SimpleListener
+import org.brailleblaster.perspectives.mvc.BBSimpleManager
 import org.brailleblaster.perspectives.mvc.SimpleEvent
+import org.brailleblaster.perspectives.mvc.events.AppStartedEvent
 import org.brailleblaster.perspectives.mvc.events.BuildMenuEvent
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
 import org.brailleblaster.perspectives.mvc.menu.MenuManager
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.tools.MenuTool
+import org.brailleblaster.tools.MenuToolListener
 import org.brailleblaster.userHelp.VersionInfo.versionsSimple
 import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.Notify.notify
+import org.brailleblaster.utils.BBData.getBrailleblasterPath
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyledText
 import org.eclipse.swt.graphics.Image
@@ -42,14 +44,14 @@ import java.nio.file.FileSystems
 import java.nio.file.Files
 import java.nio.file.Paths
 
-object GoToWebsiteTool : MenuTool {
+object GoToWebsiteTool : MenuToolListener {
     override val topMenu: TopMenu = TopMenu.HELP
     override val title: String = "BrailleBlaster Website"
     override fun onRun(bbData: BBSelectionData) {
         showHelp(HelpOptions.GoToSite)
     }
 }
-object UserGuideTool : MenuTool {
+object UserGuideTool : MenuToolListener {
     override val topMenu: TopMenu = TopMenu.HELP
     override val title: String = "BrailleBlaster User Guide"
     override val accelerator: Int = SWT.F1
@@ -57,41 +59,27 @@ object UserGuideTool : MenuTool {
         showHelp(HelpOptions.UserGuide)
     }
 }
-object AboutTool : MenuTool {
+object AboutTool : MenuToolListener {
     override val topMenu: TopMenu = TopMenu.HELP
     override val title: String = "About BrailleBlaster"
     override fun onRun(bbData: BBSelectionData) {
         showHelp(HelpOptions.AboutBB)
     }
 }
-object CheckForUpdatesTool : MenuTool {
+object CheckForUpdatesTool : MenuTool, BBSimpleManager.SimpleListener {
     override val topMenu: TopMenu = TopMenu.HELP
     override val title: String = "Check For Updates"
     override fun onRun(bbData: BBSelectionData) {
         Thread(CheckUpdates(true, Display.getCurrent())).start()
     }
-}
-/**
- * This class handles the items on the help menu.
- */
-object UserHelp : SimpleListener {
-    override fun onEvent(event: SimpleEvent) {
-        if (event is BuildMenuEvent) {
-            MenuManager.addMenuItem(
-                GoToWebsiteTool
-            )
-            MenuManager.addMenuItem(
-                UserGuideTool
-            )
-            MenuManager.addMenuItem(
-                AboutTool
-            )
-            MenuManager.addMenuItem(
-                CheckForUpdatesTool
-            )
-        }
+
+    override fun onEvent(event: SimpleEvent) = when(event) {
+        is AppStartedEvent -> Thread(CheckUpdates(false, Display.getCurrent())).start()
+        is BuildMenuEvent -> MenuManager.addMenuItem(this)
+        else -> {}
     }
 }
+
 private enum class HelpOptions {
     UserGuide, AboutBB, GoToSite
 }

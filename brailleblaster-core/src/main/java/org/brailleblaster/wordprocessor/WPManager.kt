@@ -38,6 +38,7 @@ import org.brailleblaster.printers.PrintPreview
 import org.brailleblaster.usage.SimpleUsageManager
 import org.brailleblaster.usage.UsageManager
 import org.brailleblaster.exceptions.BBNotifyException
+import org.brailleblaster.perspectives.mvc.events.AppStartedEvent
 import org.brailleblaster.util.FileUtils.exists
 import org.brailleblaster.util.Notify.showException
 import org.brailleblaster.util.Notify.showMessage
@@ -233,7 +234,7 @@ class WPManager private constructor(val usageManager: UsageManager) {
     }
 
     fun start() {
-        Thread(CheckUpdates(false, Display.getCurrent())).start()
+        currentManager?.simpleManager?.dispatchEvent(AppStartedEvent(Sender.SIMPLEMANAGER))
         while (!shell.isDisposed) {
             try {
                 if (!display.readAndDispatch()) {
