@@ -33,7 +33,6 @@ import org.brailleblaster.tools.BlankPrintPageIndicatorTool
 import org.brailleblaster.tools.LineBreakTool
 import org.brailleblaster.tools.PageBreakTool
 import org.brailleblaster.userHelp.AboutTool
-import org.brailleblaster.userHelp.CheckForUpdatesTool
 import org.brailleblaster.userHelp.GoToWebsiteTool
 import org.brailleblaster.userHelp.UserGuideTool
 import org.eclipse.swt.SWT
@@ -68,7 +67,6 @@ class CoreModulesFactory : ModuleFactory {
         add(GoToWebsiteTool)
         add(UserGuideTool)
         add(AboutTool)
-        add(CheckForUpdatesTool)
         add(PrivacyTool)
         add(LogTool)
         add(ResetBB)

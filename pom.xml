@@ -17,6 +17,7 @@
         <module>gui-utils</module>
         <module>xom-utils</module>
         <module>brailleblaster-exceptions</module>
+        <module>brailleblaster-update-checker</module>
     </modules>
 
     <properties>

@@ -17,15 +17,8 @@ package org.brailleblaster.userHelp
 
 import org.apache.commons.io.FileUtils
 import org.brailleblaster.BBIni
-import org.brailleblaster.CheckUpdates
-import org.brailleblaster.perspectives.mvc.BBSimpleManager
-import org.brailleblaster.perspectives.mvc.SimpleEvent
-import org.brailleblaster.perspectives.mvc.events.AppStartedEvent
-import org.brailleblaster.perspectives.mvc.events.BuildMenuEvent
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
-import org.brailleblaster.perspectives.mvc.menu.MenuManager
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
-import org.brailleblaster.tools.MenuTool
 import org.brailleblaster.tools.MenuToolListener
 import org.brailleblaster.userHelp.VersionInfo.versionsSimple
 import org.brailleblaster.util.FormUIUtils
@@ -64,19 +57,6 @@ object AboutTool : MenuToolListener {
     override val title: String = "About BrailleBlaster"
     override fun onRun(bbData: BBSelectionData) {
         showHelp(HelpOptions.AboutBB)
-    }
-}
-object CheckForUpdatesTool : MenuTool, BBSimpleManager.SimpleListener {
-    override val topMenu: TopMenu = TopMenu.HELP
-    override val title: String = "Check For Updates"
-    override fun onRun(bbData: BBSelectionData) {
-        Thread(CheckUpdates(true, Display.getCurrent())).start()
-    }
-
-    override fun onEvent(event: SimpleEvent) = when(event) {
-        is AppStartedEvent -> Thread(CheckUpdates(false, Display.getCurrent())).start()
-        is BuildMenuEvent -> MenuManager.addMenuItem(this)
-        else -> {}
     }
 }
 

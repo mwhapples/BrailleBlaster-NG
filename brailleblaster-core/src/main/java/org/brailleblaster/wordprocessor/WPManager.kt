@@ -18,7 +18,6 @@ package org.brailleblaster.wordprocessor
 import nu.xom.XPathException
 import org.apache.commons.lang3.exception.ExceptionUtils
 import org.brailleblaster.BBIni
-import org.brailleblaster.CheckUpdates
 import org.brailleblaster.Main.deleteExceptionFiles
 import org.brailleblaster.Main.handleFatalException
 import org.brailleblaster.RECOVERABLE_BOOT_EXCEPTIONS

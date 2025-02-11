@@ -15,6 +15,7 @@
  */
 package org.brailleblaster
 
+import org.brailleblaster.BBIni
 import org.brailleblaster.perspectives.mvc.modules.views.DebugModule
 import org.brailleblaster.userHelp.VersionInfo
 import org.brailleblaster.util.InstallId
