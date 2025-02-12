@@ -194,7 +194,7 @@ object ExceptionReportingModule /*implements SimpleListener*/ {
                 .put("exception", ExceptionUtils.getStackTrace(exception))
                 .put("description", description ?: "")
                 .put("versionBb", VersionInfo.Project.BB.version)
-                .put("versionJLouis", VersionInfo.Project.JLOUIS.versionWithRev)
+                .put("versionJLouis", "Unknown")
                 .put(
                     "versionLibLouis",
                     VersionInfo.Project.LIBLOUIS.versionWithRev.split("]".toRegex(), limit = 2)

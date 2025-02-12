@@ -33,7 +33,7 @@ import java.util.*
  */
 object VersionInfo {
     private val log = LoggerFactory.getLogger(VersionInfo::class.java)
-    private val ALL_PROJECTS = listOf(Project.BB, Project.JLOUIS, Project.LIBLOUIS)
+    private val ALL_PROJECTS = listOf(Project.BB, Project.LIBLOUIS)
 
     @JvmStatic
     val versionsSimple: String
@@ -89,14 +89,6 @@ object VersionInfo {
                     log.trace("Failed to get version", e)
                     null
                 }
-            }
-        }
-
-        data object JLOUIS : Project() {
-            override val realVersion: String by lazy {
-                val mvnProps = MavenProperties()
-                val s = mvnProps.getProperty("jlouis.version")
-                s ?: "No version information found"
             }
         }
 
