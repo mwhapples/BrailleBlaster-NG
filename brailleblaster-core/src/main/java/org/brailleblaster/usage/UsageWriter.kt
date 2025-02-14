@@ -15,8 +15,10 @@
  */
 package org.brailleblaster.usage
 
-import com.google.gson.Gson
-import com.google.gson.stream.JsonWriter
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.buildJsonArray
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.put
 import java.io.Writer
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
@@ -26,30 +28,28 @@ interface UsageWriter {
     fun write(record: UsageRecord, writer: Writer)
     fun write(records: Iterable<UsageRecord>, writer: Writer)
 }
+
+private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:mm:ss.SSS", Locale.US).withZone(ZoneOffset.ofHours(0))
+
 class JsonUsageWriter : UsageWriter {
-    private val gson = Gson()
-    private fun write(record: UsageRecord, writer: JsonWriter) {
-        writer.beginObject()
-        writer.name("time").value(formatter.format(record.time))
-        writer.name("tool").value(record.tool)
-        writer.name("event").value(record.event)
-        writer.name("msg").value(record.message)
-        writer.endObject()
+    private fun write(record: UsageRecord): JsonElement {
+        return buildJsonObject {
+            put("time", formatter.format(record.time))
+            put("tool", record.tool)
+            put("event", record.event)
+            put("msg", record.message)
+        }
     }
 
     override fun write(record: UsageRecord, writer: Writer) {
-        write(record, gson.newJsonWriter(writer))
+        writer.write(write(record).toString())
     }
 
     override fun write(records: Iterable<UsageRecord>, writer: Writer) {
-            val jsonWriter = gson.newJsonWriter(writer)
-            jsonWriter.beginArray()
+        writer.write(buildJsonArray {
             for (record in records) {
-                write(record, jsonWriter)
+                add(write(record))
             }
-            jsonWriter.endArray()
-    }
-    companion object {
-        private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:mm:ss.SSS", Locale.US).withZone(ZoneOffset.ofHours(0))
+        }.toString())
     }
 }
