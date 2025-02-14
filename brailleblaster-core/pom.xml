@@ -34,6 +34,10 @@
     
     <dependencies>
         <dependency>
+            <groupId>org.jetbrains.kotlinx</groupId>
+            <artifactId>kotlinx-serialization-json</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
             <version>${sqlite.version}</version>

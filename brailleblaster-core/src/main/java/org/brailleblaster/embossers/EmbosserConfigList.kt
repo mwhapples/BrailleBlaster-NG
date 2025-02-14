@@ -17,14 +17,16 @@ package org.brailleblaster.embossers
 
 import com.google.common.base.Preconditions
 import com.google.gson.*
+import kotlinx.serialization.*
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
+import kotlinx.serialization.json.encodeToStream
 import org.slf4j.LoggerFactory
 import java.io.File
-import java.io.FileReader
-import java.io.FileWriter
 import java.io.IOException
 import java.lang.reflect.Type
-import java.util.function.Supplier
 
+@Serializable
 class EmbosserConfigList(private val embosserConfigs: MutableList<EmbosserConfig> = mutableListOf(), @Transient private var embossersFile: File? = null) : MutableList<EmbosserConfig> by embosserConfigs {
     class JsonAdapter : JsonSerializer<EmbosserConfigList>, JsonDeserializer<EmbosserConfigList> {
         @Throws(JsonParseException::class)
@@ -92,6 +94,7 @@ class EmbosserConfigList(private val embosserConfigs: MutableList<EmbosserConfig
 
     private var defaultName: String? = null
     private var lastUsedName: String? = null
+    @SerialName("useLast")
     var isUseLastEmbosser = true
 
     // When no default is set we resort to the first embosser.
@@ -153,13 +156,10 @@ class EmbosserConfigList(private val embosserConfigs: MutableList<EmbosserConfig
         }
     }
 
+    @OptIn(ExperimentalSerializationApi::class)
     @Throws(IOException::class)
     fun saveEmbossers(embossersFile: File) {
-        try {
-            FileWriter(embossersFile).use { fw -> gson.toJson(this, fw) }
-        } catch (_: JsonIOException) {
-            throw IOException()
-        }
+        embossersFile.outputStream().use { Json.encodeToStream(this, it) }
     }
 
     companion object {
@@ -169,27 +169,17 @@ class EmbosserConfigList(private val embosserConfigs: MutableList<EmbosserConfig
             .registerTypeAdapter(EmbosserConfig::class.java, EmbosserConfig.JsonAdapter())
             .create()
 
+        @OptIn(ExperimentalSerializationApi::class)
         fun loadEmbossers(
-            embossersFile: File, s: Supplier<EmbosserConfigList>
+            embossersFile: File, s: () -> EmbosserConfigList = { EmbosserConfigList(embossersFile = embossersFile) }
         ): EmbosserConfigList {
             return try {
-                loadEmbossers(embossersFile)
+                embossersFile.inputStream().use { Json.decodeFromStream(it) }
+            } catch (_: SerializationException) {
+                s()
             } catch (_: IOException) {
-                s.get().apply {
-                    this.embossersFile = embossersFile
-                }
+                s()
             }
-        }
-
-        @Throws(IOException::class)
-        fun loadEmbossers(embossersFile: File): EmbosserConfigList {
-            var embossers: EmbosserConfigList?
-            try {
-                FileReader(embossersFile).use { fr -> embossers = gson.fromJson(fr, EmbosserConfigList::class.java) }
-            } catch (_: JsonIOException) {
-                throw IOException()
-            }
-            return embossers ?: EmbosserConfigList(embossersFile = embossersFile)
         }
 
     }
