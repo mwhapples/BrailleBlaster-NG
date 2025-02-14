@@ -15,7 +15,6 @@
  */
 package org.brailleblaster.embossers
 
-import com.google.gson.*
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -29,7 +28,6 @@ import org.brailleblaster.libembosser.spi.EmbossingAttributeSet
 import org.slf4j.LoggerFactory
 import org.w3c.dom.Document
 import java.io.InputStream
-import java.lang.reflect.Type
 import javax.print.DocFlavor
 import javax.print.PrintService
 import javax.print.PrintServiceLookup
@@ -38,15 +36,6 @@ import kotlin.jvm.optionals.getOrNull
 @Serializable(with = EmbosserConfigSerializer::class)
 class EmbosserConfig(val name: String = "", var printerName: String? = null) {
     var embosserDriver: Embosser? = null
-    private var embosserDriverId: String?
-        get() = embosserDriver?.id
-        set(value) {
-            embosserDriver = EmbosserService.getInstance()
-                .embosserStream
-                .filter { e: Embosser -> e.id == value }
-                .findFirst()
-                .orElse(null)
-        }
 
     fun setEmbosserDriver(manufacturer: String, model: String) {
         embosserDriver = EmbosserService.getInstance()
@@ -111,49 +100,6 @@ class EmbosserConfig(val name: String = "", var printerName: String? = null) {
             return false
         }
         return true
-    }
-
-    class JsonAdapter : JsonDeserializer<EmbosserConfig>, JsonSerializer<EmbosserConfig> {
-        @Throws(JsonParseException::class)
-        override fun deserialize(src: JsonElement, srcType: Type, ctx: JsonDeserializationContext): EmbosserConfig {
-            val obj = src.asJsonObject
-            val name = obj[NAME].asString
-            val printerName = obj[PRINTER_NAME].asString
-            val embosser = EmbosserConfig(name, printerName)
-            embosser.embosserDriverId = obj[EMBOSSER_DRIVER].asString
-            val embosserDriver = embosser.embosserDriver
-            if (embosserDriver != null && obj.has(EMBOSSER_OPTIONS)) {
-                val options = embosserDriver.options
-                val configOptions = obj[EMBOSSER_OPTIONS].asJsonObject
-                val newOptions = options.mapValues { (k, v) ->
-                    if (configOptions.has(k.id)) {
-                        v.copy(configOptions[k.id].asString)
-                    } else v
-                }
-                embosser.embosserDriver = embosserDriver.customize(newOptions)
-            }
-            return embosser
-        }
-
-        override fun serialize(src: EmbosserConfig, srcType: Type, ctx: JsonSerializationContext): JsonElement {
-            val obj = JsonObject()
-            obj.addProperty(NAME, src.name)
-            obj.addProperty(PRINTER_NAME, src.printerName)
-            obj.addProperty(EMBOSSER_DRIVER, src.embosserDriverId)
-            val optionsObj = JsonObject()
-            for ((k, v) in src.embosserDriver?.options ?: mapOf()) {
-                optionsObj.addProperty(k.id, v.value)
-            }
-            obj.add(EMBOSSER_OPTIONS, optionsObj)
-            return obj
-        }
-
-        companion object {
-            private const val NAME = "name"
-            private const val PRINTER_NAME = "printerName"
-            private const val EMBOSSER_DRIVER = "embosserDriver"
-            private const val EMBOSSER_OPTIONS = "embosserOptions"
-        }
     }
 
     companion object {

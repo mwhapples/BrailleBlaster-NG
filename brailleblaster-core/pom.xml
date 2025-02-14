@@ -59,7 +59,7 @@
             <artifactId>xml-resolver</artifactId>
             <version>1.2</version>
         </dependency>
-        <!-- Used for JSON serialisation in emboss dialog and spatial math -->
+        <!-- Used for JSON serialisation in spatial math -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>

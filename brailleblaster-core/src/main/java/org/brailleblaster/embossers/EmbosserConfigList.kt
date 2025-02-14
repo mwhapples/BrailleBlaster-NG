@@ -15,82 +15,15 @@
  */
 package org.brailleblaster.embossers
 
-import com.google.common.base.Preconditions
-import com.google.gson.*
 import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import kotlinx.serialization.json.encodeToStream
-import org.slf4j.LoggerFactory
 import java.io.File
 import java.io.IOException
-import java.lang.reflect.Type
 
 @Serializable
 class EmbosserConfigList(private val embosserConfigs: MutableList<EmbosserConfig> = mutableListOf(), @Transient private var embossersFile: File? = null) : MutableList<EmbosserConfig> by embosserConfigs {
-    class JsonAdapter : JsonSerializer<EmbosserConfigList>, JsonDeserializer<EmbosserConfigList> {
-        @Throws(JsonParseException::class)
-        override fun deserialize(
-            src: JsonElement, srcType: Type, ctx: JsonDeserializationContext
-        ): EmbosserConfigList {
-            val obj = src.asJsonObject
-            val embossers = EmbosserConfigList()
-            if (obj.has(DEFAULT_NAME)) {
-                embossers.defaultName = obj[DEFAULT_NAME].asString
-            }
-            if (obj.has(LAST_USED_NAME)) {
-                embossers.lastUsedName = obj[LAST_USED_NAME].asString
-            }
-            embossers.isUseLastEmbosser = obj[USE_LAST].asBoolean
-            for (e in obj[EMBOSSER_CONFIGS].asJsonArray) {
-                try {
-                    embossers.add(
-                        Preconditions.checkNotNull(
-                            ctx.deserialize(e, EmbosserConfig::class.java),
-                            "Embosser profiles should never be null"
-                        )
-                    )
-                } catch (ex: JsonParseException) {
-                    // We don't add anything to the config list.
-                    log.warn("Problem loading embosser profile from embossers file.", ex)
-                } catch (ex: NullPointerException) {
-                    log.error("Problem with embosser profile, ignoring it", ex)
-                }
-            }
-            return embossers
-        }
-
-        override fun serialize(
-            src: EmbosserConfigList, srcType: Type, ctx: JsonSerializationContext
-        ): JsonElement {
-            val obj = JsonObject()
-            obj.addProperty(DEFAULT_NAME, src.defaultName)
-            if (src.lastUsedName != null) {
-                obj.addProperty(LAST_USED_NAME, src.lastUsedName)
-            }
-            obj.addProperty(USE_LAST, src.isUseLastEmbosser)
-            val cfgs = JsonArray(src.embosserConfigs.size)
-            for (e in src.embosserConfigs) {
-                try {
-                    cfgs.add(ctx.serialize(e))
-                } catch (ex: Exception) {
-                    // We do nothing because the config was not possible to serialise so we should not save
-                    // it.
-                    log.warn("Problem serialising embosser profile {}", e.name)
-                    log.warn("The exception raised when serialising the embosser profile", ex)
-                }
-            }
-            obj.add(EMBOSSER_CONFIGS, cfgs)
-            return obj
-        }
-
-        companion object {
-            private const val LAST_USED_NAME = "lastUsedName"
-            private const val USE_LAST = "useLast"
-            private const val DEFAULT_NAME = "defaultName"
-            private const val EMBOSSER_CONFIGS = "embosserConfigs"
-        }
-    }
 
     private var defaultName: String? = null
     private var lastUsedName: String? = null
@@ -163,11 +96,6 @@ class EmbosserConfigList(private val embosserConfigs: MutableList<EmbosserConfig
     }
 
     companion object {
-        private val log = LoggerFactory.getLogger(EmbosserConfigList::class.java)
-        private val gson = GsonBuilder()
-            .registerTypeAdapter(EmbosserConfigList::class.java, JsonAdapter())
-            .registerTypeAdapter(EmbosserConfig::class.java, EmbosserConfig.JsonAdapter())
-            .create()
 
         @OptIn(ExperimentalSerializationApi::class)
         fun loadEmbossers(
