@@ -6,7 +6,7 @@
     <packaging>jar</packaging>
     <parent>
         <groupId>org.brailleblaster</groupId>
-        <artifactId>bb-utd</artifactId>
+        <artifactId>brailleblaster-parent</artifactId>
         <version>${revision}${sha1}${changelist}</version>
     </parent>
 
