@@ -1,6 +1,6 @@
 # BrailleBlaster-NG
 
-BrailleBlaster-NG is a community enhanced fork of the BrailleBlaster software. As a community project it aims to focus on and respond to the needs of the community rather than being driven by the requirements of a single business.
+BrailleBlaster-NG is a community enhanced fork of the BrailleBlaster software. As a community project it aims to focus on and respond to the needs of the community rather than being driven by the requirements of a single organisation.
 
 BrailleBlaster is a free, open-source Braille transcription program developed by the American Printing House for the Blind (APH). It assists individuals and professional transcribers in producing high-quality Braille materials, ensuring that individuals who are blind have timely access to essential reading resources.
 
