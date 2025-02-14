@@ -31,6 +31,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kotlin.version>2.1.10</kotlin.version>
         <kotlin.compiler.incremental>false</kotlin.compiler.incremental>
+        <serialization.version>1.8.0</serialization.version>
         <kotlinx.coroutines.version>1.10.1</kotlinx.coroutines.version>
         <jetbrains.annotations.version>24.1.0</jetbrains.annotations.version>
         <eclipse.collections.version>12.0.0.M3</eclipse.collections.version>
@@ -61,7 +62,7 @@
         <mavensurefireplugin.version>3.0.0-M6</mavensurefireplugin.version>
         <mavencompilerplugin.version>3.8.1</mavencompilerplugin.version>
         <downloadmavenplugin.version>2.0.0</downloadmavenplugin.version>
-        <guava.version>33.0.0-jre</guava.version>
+        <guava.version>33.4.0-jre</guava.version>
         <jcommander.version>1.78</jcommander.version>
         <mockitocore.version>5.6.0</mockitocore.version>
         <mavenenforcerplugin.version>3.0.0-M3</mavenenforcerplugin.version>
@@ -327,6 +328,11 @@
             </dependency>
             <dependency>
                 <groupId>org.jetbrains.kotlinx</groupId>
+                <artifactId>kotlinx-serialization-json</artifactId>
+                <version>${serialization.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlinx</groupId>
                 <artifactId>kotlinx-coroutines-core</artifactId>
                 <version>${kotlinx.coroutines.version}</version>
                 <exclusions>
@@ -497,12 +503,22 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <compilerPlugins>
+                        <plugin>kotlinx-serialization</plugin>
+                    </compilerPlugins>
                     <jvmTarget>${maven.compiler.target}</jvmTarget>
                     <args>
                         <arg>-opt-in=kotlin.RequiresOptIn</arg>
                         <arg>-Xjvm-default=all</arg>
                     </args>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-maven-serialization</artifactId>
+                        <version>${kotlin.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <!--Specifically target Java 15 -->
             <plugin>

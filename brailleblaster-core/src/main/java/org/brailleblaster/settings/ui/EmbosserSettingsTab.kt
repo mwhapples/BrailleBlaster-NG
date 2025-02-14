@@ -18,7 +18,6 @@ package org.brailleblaster.settings.ui
 import com.google.common.collect.ImmutableSet
 import org.brailleblaster.embossers.EmbosserConfig
 import org.brailleblaster.embossers.EmbosserConfigList
-import org.brailleblaster.embossers.EmbosserConfigList.Companion.loadEmbossers
 import org.brailleblaster.embossers.EmbosserEditDialog
 import org.brailleblaster.embossers.EmbossingUtils.embossersFile
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
@@ -52,12 +51,7 @@ class EmbosserSettingsTab(folder: TabFolder?) : SettingsUITab {
         FormUIUtils.addLabel(defaultEmbosserGroup, localeHandler["EmbosserSettingsTab.defaultEmbosser"])
         var embosserComboBuilder = FormUIUtils.makeComboDropdown(defaultEmbosserGroup)
             .add(localeHandler["EmbosserSettingsTab.lastUsedEmbosser"])
-        val el: EmbosserConfigList = try {
-            loadEmbossers(embossersFile)
-        } catch (_: IOException) {
-            EmbosserConfigList()
-        }
-        embosserList = el
+        embosserList = EmbosserConfigList.loadEmbossers(embossersFile)
         val defaultSelection =
             if (embosserList.isUseLastEmbosser) 0
             else embosserList.indexOf(embosserList.defaultEmbosser) + 1

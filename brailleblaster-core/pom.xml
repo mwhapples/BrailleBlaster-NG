@@ -13,7 +13,7 @@
     <properties>
         <!-- Versioning -->
         <sqlite.version>3.45.3.0</sqlite.version>
-        <gson.version>2.10</gson.version>
+        <gson.version>2.12.1</gson.version>
         <miglayoutswt.version>11.3</miglayoutswt.version>
         <jeuclid.version>3.1.14</jeuclid.version>
 
@@ -33,6 +33,10 @@
     </properties>
     
     <dependencies>
+        <dependency>
+            <groupId>org.jetbrains.kotlinx</groupId>
+            <artifactId>kotlinx-serialization-json</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
@@ -55,7 +59,7 @@
             <artifactId>xml-resolver</artifactId>
             <version>1.2</version>
         </dependency>
-        <!-- Used for JSON serialisation in emboss dialog and spatial math -->
+        <!-- Used for JSON serialisation in spatial math -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
