@@ -16,7 +16,6 @@
 package org.brailleblaster.embossers
 
 import com.google.common.base.Preconditions
-import com.google.common.collect.ForwardingList
 import com.google.gson.*
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -26,7 +25,7 @@ import java.io.IOException
 import java.lang.reflect.Type
 import java.util.function.Supplier
 
-class EmbosserConfigList : ForwardingList<EmbosserConfig>() {
+class EmbosserConfigList(private val embosserConfigs: MutableList<EmbosserConfig> = mutableListOf(), @Transient private var embossersFile: File? = null) : MutableList<EmbosserConfig> by embosserConfigs {
     class JsonAdapter : JsonSerializer<EmbosserConfigList>, JsonDeserializer<EmbosserConfigList> {
         @Throws(JsonParseException::class)
         override fun deserialize(
@@ -91,13 +90,9 @@ class EmbosserConfigList : ForwardingList<EmbosserConfig>() {
         }
     }
 
-    private val embosserConfigs: MutableList<EmbosserConfig> = mutableListOf()
     private var defaultName: String? = null
     private var lastUsedName: String? = null
     var isUseLastEmbosser = true
-    override fun delegate(): MutableList<EmbosserConfig> {
-        return embosserConfigs
-    }
 
     // When no default is set we resort to the first embosser.
     var defaultEmbosser: EmbosserConfig
@@ -145,8 +140,7 @@ class EmbosserConfigList : ForwardingList<EmbosserConfig>() {
     val preferredEmbosser: EmbosserConfig
         get() = if (isUseLastEmbosser) lastUsedEmbosser else defaultEmbosser
 
-    @Transient
-    private var embossersFile: File? = null
+
     @Throws(IOException::class)
     fun saveEmbossers() {
         val embossersFile = this.embossersFile
@@ -175,20 +169,18 @@ class EmbosserConfigList : ForwardingList<EmbosserConfig>() {
             .registerTypeAdapter(EmbosserConfig::class.java, EmbosserConfig.JsonAdapter())
             .create()
 
-        @JvmStatic
         fun loadEmbossers(
             embossersFile: File, s: Supplier<EmbosserConfigList>
         ): EmbosserConfigList {
             return try {
                 loadEmbossers(embossersFile)
             } catch (_: IOException) {
-                val el = s.get()
-                el.embossersFile = embossersFile
-                el
+                s.get().apply {
+                    this.embossersFile = embossersFile
+                }
             }
         }
 
-        @JvmStatic
         @Throws(IOException::class)
         fun loadEmbossers(embossersFile: File): EmbosserConfigList {
             var embossers: EmbosserConfigList?
@@ -197,9 +189,8 @@ class EmbosserConfigList : ForwardingList<EmbosserConfig>() {
             } catch (_: JsonIOException) {
                 throw IOException()
             }
-            val result = embossers?: EmbosserConfigList()
-            result.embossersFile = embossersFile
-            return result
+            return embossers ?: EmbosserConfigList(embossersFile = embossersFile)
         }
+
     }
 }
