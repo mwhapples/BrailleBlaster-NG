@@ -91,11 +91,11 @@ class EmbosserConfigList : ForwardingList<EmbosserConfig>() {
         }
     }
 
-    private val embosserConfigs: List<EmbosserConfig> = ArrayList()
+    private val embosserConfigs: MutableList<EmbosserConfig> = mutableListOf()
     private var defaultName: String? = null
     private var lastUsedName: String? = null
     var isUseLastEmbosser = true
-    override fun delegate(): List<EmbosserConfig> {
+    override fun delegate(): MutableList<EmbosserConfig> {
         return embosserConfigs
     }
 

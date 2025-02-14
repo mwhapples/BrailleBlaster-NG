@@ -49,12 +49,11 @@ class EmbosserConfig @JvmOverloads constructor(val name: String = "", var printe
 
     val isActive: Boolean
         get() = printService != null && embosserDriver != null
-    private val printService: PrintService?
+    private var printService: PrintService?
         get() = getPrinterForName(printerName)
-
-    fun setPrintService(ps: PrintService) {
-        printerName = ps.name
-    }
+        set(value) {
+            printerName = value?.name
+        }
 
     fun embossBrf(inputStream: InputStream?, attributes: EmbossingAttributeSet?): Boolean {
         val p = printService
