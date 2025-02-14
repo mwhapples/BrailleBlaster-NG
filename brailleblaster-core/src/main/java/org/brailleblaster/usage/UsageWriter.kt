@@ -28,6 +28,9 @@ interface UsageWriter {
     fun write(record: UsageRecord, writer: Writer)
     fun write(records: Iterable<UsageRecord>, writer: Writer)
 }
+
+private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:mm:ss.SSS", Locale.US).withZone(ZoneOffset.ofHours(0))
+
 class JsonUsageWriter : UsageWriter {
     private fun write(record: UsageRecord): JsonElement {
         return buildJsonObject {
@@ -48,8 +51,5 @@ class JsonUsageWriter : UsageWriter {
                 add(write(record))
             }
         }.toString())
-    }
-    companion object {
-        private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:mm:ss.SSS", Locale.US).withZone(ZoneOffset.ofHours(0))
     }
 }
