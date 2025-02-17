@@ -472,9 +472,7 @@ class NumberLine : ISpatialMathContainer {
     }
 
     override val json: NumberLineJson
-        get() {
-            return NumberLineJson().containerToJson(this) as NumberLineJson
-        }
+        get() = NumberLineJson().containerToJson(this) as NumberLineJson
 
     override fun preFormatChecks(): Boolean {
         addBlankOption()
