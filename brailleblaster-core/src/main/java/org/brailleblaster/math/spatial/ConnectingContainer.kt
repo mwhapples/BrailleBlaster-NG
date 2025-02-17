@@ -156,11 +156,7 @@ class ConnectingContainer : ISpatialMathContainer {
     override val typeEnum: SpatialMathContainers = SpatialMathContainers.CONNECTING
 
     override val json: ISpatialMathContainerJson
-        get() {
-            val json = ConnectingContainerJson()
-            json.containerToJson(this)
-            return json
-        }
+        get() = ConnectingContainerJson().containerToJson(this)
 
     override fun preFormatChecks(): Boolean {
         // TODO Auto-generated method stub

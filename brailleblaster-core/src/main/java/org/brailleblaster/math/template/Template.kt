@@ -262,9 +262,7 @@ class Template : ISpatialMathContainer {
   override val typeEnum: SpatialMathContainers = SpatialMathContainers.TEMPLATE
 
   override val json: ISpatialMathContainerJson
-    get() {
-      return TemplateJson().containerToJson(this) as TemplateJson
-    }
+    get() = TemplateJson().containerToJson(this) as TemplateJson
 
   override fun preFormatChecks(): Boolean {
     // TODO Auto-generated method stub
