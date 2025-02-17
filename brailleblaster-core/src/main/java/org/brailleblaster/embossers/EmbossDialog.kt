@@ -44,7 +44,7 @@ class EmbossDialog @JvmOverloads constructor(parentShell: Shell? = Display.getCu
     var isCreateDebugFile = false
     private fun loadEmbosserList() {
         embosserList = EmbosserConfigList.loadEmbossers(
-                EmbossingUtils.embossersFile) { EmbosserConfigList() }
+                EmbossingUtils.embossersFile)
         if (!embosserList!!.isEmpty()) {
             embosser = embosserList!!.preferredEmbosser
         }

@@ -15,11 +15,10 @@
  */
 package org.brailleblaster.embossers
 
-import com.google.common.base.Charsets
 import com.google.common.base.Preconditions
 import com.google.common.collect.ImmutableList
 import com.google.common.collect.ImmutableMap
-import com.google.gson.GsonBuilder
+import kotlinx.serialization.json.Json
 import org.brailleblaster.BBIni
 import org.brailleblaster.document.BBDocument
 import org.brailleblaster.libembosser.embossing.attribute.*
@@ -341,14 +340,8 @@ object EmbossingUtils {
 
     @Throws(IOException::class)
     override fun consume(os: OutputStream) {
-      val configStr = gson.toJson(config)
+      val configStr = Json.encodeToString(config)
       os.write(configStr.toByteArray(Charsets.UTF_8))
-    }
-
-    companion object {
-      private val gson = GsonBuilder()
-        .registerTypeAdapter(EmbosserConfig::class.java, EmbosserConfig.JsonAdapter())
-        .create()
     }
 
   }
