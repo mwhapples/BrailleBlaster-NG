@@ -15,7 +15,7 @@
  */
 package org.brailleblaster.utd.internal
 
-import com.google.common.collect.ImmutableMap
+
 import nu.xom.Element
 import nu.xom.Node
 import org.brailleblaster.utd.IStyle
@@ -28,6 +28,7 @@ import org.brailleblaster.utd.properties.Align
 import org.brailleblaster.utd.properties.NumberLinePosition
 import org.brailleblaster.utils.xom.attributes
 import java.util.*
+import kotlin.NoSuchElementException
 
 /**
  * Dynamically create Styles (if needed) with specified overriden settings in attributes
@@ -44,9 +45,13 @@ abstract class DynamicOptionStyleMap(
     /**
      * Navigate by: Style Name -> Map of Style Options and Values (order irrelevant) -> Style Object
      */
-    protected val overrideOptionStyles: MutableMap<String, MutableMap<ImmutableMap<StyleOption, String>, Style>> =
+    protected val overrideOptionStyles: MutableMap<String, MutableMap<Map<StyleOption, String>, Style>> =
         HashMap()
-    protected val optionAttribNames: ImmutableMap<String, StyleOption>
+    protected val optionAttribNames: Map<String, StyleOption> = buildMap {
+        for (option in StyleOption.entries.toTypedArray()) {
+            put(styleOptionName(optionAttribPrefix, option), option)
+        }
+    }
 
     // Default to blank as xom doesn't return null for the relevant methods
     private val optionAttribNamespacePrefix: String =
@@ -54,29 +59,22 @@ abstract class DynamicOptionStyleMap(
     private val optionAttribNamespaceUri: String =
         optionAttribNamespaceUri ?: ""
 
-    init {
-        val optionAttribNamesBuilder = ImmutableMap.builder<String, StyleOption>()
-        for (option in StyleOption.entries.toTypedArray()) {
-            optionAttribNamesBuilder.put(styleOptionName(optionAttribPrefix, option), option)
-        }
-        this.optionAttribNames = optionAttribNamesBuilder.build()
-    }
-
     @Throws(NoSuchElementException::class)
     override fun findValue(node: Node): IStyle {
         if (node !is Element) {
             throw NoSuchElementException("No value found")
         }
 
-        val optionsBuilder = ImmutableMap.builder<StyleOption, String>()
-        for (attrib in node.attributes) {
-            if (attrib.namespaceURI == optionAttribNamespaceUri && attrib.namespacePrefix == optionAttribNamespacePrefix) {
-                optionAttribNames[attrib.localName]?.let {
-                    optionsBuilder.put(it, attrib.value)
+        val options = buildMap {
+            for (attrib in node.attributes) {
+                if (attrib.namespaceURI == optionAttribNamespaceUri && attrib.namespacePrefix == optionAttribNamespacePrefix) {
+                    optionAttribNames[attrib.localName]?.let {
+                        put(it, attrib.value)
+                    }
                 }
             }
         }
-        val options = optionsBuilder.build()
+
 
         if (options.isEmpty()) {
             throw NoSuchElementException("No value found")
@@ -91,7 +89,7 @@ abstract class DynamicOptionStyleMap(
         ) { HashMap() }
             .computeIfAbsent(
                 options
-            ) { k: ImmutableMap<StyleOption, String> -> generateStyle(baseStyle, k) }
+            ) { k: Map<StyleOption, String> -> generateStyle(baseStyle, k) }
     }
 
     /**
@@ -104,7 +102,7 @@ abstract class DynamicOptionStyleMap(
      */
     protected abstract fun getBaseStyle(elem: Element): Style?
 
-    private fun generateStyle(baseStyle: Style, options: ImmutableMap<StyleOption, String>): Style {
+    private fun generateStyle(baseStyle: Style, options: Map<StyleOption, String>): Style {
         val styleName = styleNamePrefix + UUID.randomUUID()
         val newStyle = Style(baseStyle, "$styleCategoryPrefix/$styleName", styleName)
         for ((option, stringValue) in options) {

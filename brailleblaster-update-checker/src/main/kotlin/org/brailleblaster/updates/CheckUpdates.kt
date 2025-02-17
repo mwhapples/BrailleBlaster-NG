@@ -113,7 +113,7 @@ class CheckUpdates(private val userInitiated: Boolean, private val display: Disp
             val shell = Shell(display, SWT.DIALOG_TRIM or SWT.APPLICATION_MODAL)
             val label = Label(shell, SWT.RESIZE)
             label.text = """
-                ${NEEDS_UPDATE_MESSAGE}
+                $NEEDS_UPDATE_MESSAGE
                 
                 Your version: $userVersion
                 Latest version: $newestVersion
