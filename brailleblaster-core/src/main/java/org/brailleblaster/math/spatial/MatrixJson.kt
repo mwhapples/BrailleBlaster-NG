@@ -21,12 +21,12 @@ import org.brailleblaster.math.spatial.SpatialMathEnum.Passage
 import org.brailleblaster.math.spatial.SpatialMathEnum.Translation
 
 class MatrixJson @JvmOverloads constructor(
-    var rows: Int = 0,
-    var cols: Int = 0,
+    private var rows: Int = 0,
+    private var cols: Int = 0,
     private var wideType: Wide = MatrixSettings.DEFAULT_WIDE,
-    var bracket: BracketType = MatrixSettings.DEFAULT_BRACKET,
-    var passage: Passage = Passage.NONE,
-    var translation: Translation? = null,
+    private var bracket: BracketType = MatrixSettings.DEFAULT_BRACKET,
+    private var passage: Passage = Passage.NONE,
+    private var translation: Translation? = null,
     private var matrixCells: MutableList<MutableList<MatrixCell>> = ArrayList()
 ) : ISpatialMathContainerJson {
 
