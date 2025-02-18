@@ -19,10 +19,10 @@ import org.brailleblaster.math.spatial.SpatialMathEnum.Passage
 import org.brailleblaster.math.template.Template
 
 class GridJson @JvmOverloads constructor(
-    var rows: Int = 0,
-    var cols: Int = 0,
-    var array: List<List<ISpatialMathContainerJson>> = listOf(),
-    var passage: Passage = Passage.NONE
+    private var rows: Int = 0,
+    private var cols: Int = 0,
+    private var array: List<List<ISpatialMathContainerJson>> = listOf(),
+    private var passage: Passage = Passage.NONE
 ) : ISpatialMathContainerJson {
 
     private var translateIdentifierAsMath = false
