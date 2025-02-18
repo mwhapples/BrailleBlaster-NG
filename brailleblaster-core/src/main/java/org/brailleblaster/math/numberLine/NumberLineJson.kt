@@ -48,26 +48,32 @@ class NumberLineJson() : ISpatialMathContainerJson {
   private var labelPosition: LabelPosition? = null
   private var options: EnumSet<NumberLineOptions> = EnumSet.noneOf(NumberLineOptions::class.java)
 
-  class Line(numberLine: NumberLine) {
-    var end: NumberLineComponent = numberLine.numberLineText.lineEnd
-    var start: NumberLineComponent = numberLine.numberLineText.lineStart
-    var endFill: Fill = numberLine.settings.endLineCircle
-    var startFill: Fill = numberLine.settings.startLineCircle
+  class Line(var start: NumberLineComponent, var end: NumberLineComponent, var startFill: Fill, var endFill: Fill) {
+    constructor(numberLine: NumberLine) : this(
+      start = numberLine.numberLineText.lineStart,
+      end = numberLine.numberLineText.lineEnd,
+      startFill = numberLine.settings.startLineCircle,
+      endFill = numberLine.settings.endLineCircle
+    )
   }
 
-  class Point(numberLineSegment: NumberLineSegmentPoint) {
-    var interval: Int = numberLineSegment.interval
-    var circle: Fill = numberLineSegment.circle
-    var point: NumberLineComponent = numberLineSegment.point
+  class Point(var interval: Int, var circle: Fill, var point: NumberLineComponent) {
+    constructor(numberLineSegment: NumberLineSegmentPoint) : this(
+      interval = numberLineSegment.interval,
+      circle = numberLineSegment.circle,
+      point = numberLineSegment.point
+      )
   }
 
-  class Segment(numberLineSegment: NumberLineSegment) {
-    var startInterval: Int = numberLineSegment.startInterval
-    var endInterval: Int = numberLineSegment.endInterval
-    var endFill: Fill = numberLineSegment.endSegmentCircle
-    var startFill: Fill = numberLineSegment.startSegmentCircle
-    var startComponent: NumberLineComponent = numberLineSegment.segmentStart
-    var endComponent: NumberLineComponent = numberLineSegment.segmentEnd
+  class Segment(var startInterval: Int, var endInterval: Int, var startFill: Fill, var endFill: Fill, var startComponent: NumberLineComponent, var endComponent: NumberLineComponent) {
+    constructor(numberLineSegment: NumberLineSegment) : this(
+      startInterval = numberLineSegment.startInterval,
+      endInterval = numberLineSegment.endInterval,
+      startFill = numberLineSegment.startSegmentCircle,
+      endFill = numberLineSegment.endSegmentCircle,
+      startComponent = numberLineSegment.segmentStart,
+      endComponent = numberLineSegment.segmentEnd
+      )
   }
 
   override fun jsonToContainer(): NumberLine {
