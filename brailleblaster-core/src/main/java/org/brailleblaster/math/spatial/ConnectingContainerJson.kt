@@ -21,7 +21,7 @@ import org.brailleblaster.math.spatial.SpatialMathEnum.VerticalJustify
 
 class ConnectingContainerJson @JvmOverloads constructor(
     private var printText: String = "",
-    var isMath: Boolean = false,
+    private var isMath: Boolean = false,
     private var verticalJustify: VerticalJustify? = null,
     private var horizontalJustify: HorizontalJustify? = null
 ) : ISpatialMathContainerJson {
