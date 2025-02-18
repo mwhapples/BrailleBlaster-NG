@@ -836,8 +836,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
             }
             i++
         }
-        val X = LinkedHashSet(sibs)
-        collectParents(X)
+        collectParents(LinkedHashSet(sibs))
 
         return ArrayList<Node>(sibs)
     }
