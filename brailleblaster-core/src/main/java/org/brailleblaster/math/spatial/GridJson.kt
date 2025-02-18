@@ -25,12 +25,12 @@ class GridJson @JvmOverloads constructor(
     private var passage: Passage = Passage.NONE
 ) : ISpatialMathContainerJson {
 
-    private var translateIdentifierAsMath = false
     override fun jsonToContainer(): Grid {
         val page = Grid()
         page.settings.rows = rows
         page.settings.cols = cols
         val containerArray: MutableList<MutableList<ISpatialMathContainer>> = ArrayList()
+        var translateIdentifierAsMath = false
         for (iSpatialMathContainerJsons in array) {
             val row: MutableList<ISpatialMathContainer> = ArrayList()
             for (iSpatialMathContainerJson in iSpatialMathContainerJsons) {
