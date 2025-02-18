@@ -163,7 +163,7 @@ class NumberLine : ISpatialMathContainer {
     override fun format() {
         try {
             formatter.format()
-        } catch (e: MathFormattingException) {
+        } catch (_: MathFormattingException) {
             Notify.notify(NumberLineConstants.NUMERAL_WARNING, Notify.ALERT_SHELL_NAME)
         }
     }
@@ -221,7 +221,7 @@ class NumberLine : ISpatialMathContainer {
         widget.extractText()
         try {
             parse()
-        } catch (e: MathFormattingException) {
+        } catch (_: MathFormattingException) {
             Notify.notify(NumberLineConstants.NUMBER_LINE_ALLOWED_CHARS, Notify.ALERT_SHELL_NAME)
             return false
         }
@@ -297,7 +297,7 @@ class NumberLine : ISpatialMathContainer {
                     }
                     return false
                 }
-            } catch (e: NumberFormatException) {
+            } catch (_: NumberFormatException) {
                 if (!hush) {
                     Notify.notify(NumberLineConstants.NUMERAL_WARNING, Notify.ALERT_SHELL_NAME)
                 } else {
@@ -306,7 +306,7 @@ class NumberLine : ISpatialMathContainer {
                 return false
             }
             true
-        } catch (e1: MathFormattingException) {
+        } catch (_: MathFormattingException) {
             false
         }
     }
@@ -336,7 +336,7 @@ class NumberLine : ISpatialMathContainer {
     private fun notEmptyAndZero(s: String): Boolean {
         return try {
             s.isNotBlank() && s.toInt() == 0
-        } catch (e: NumberFormatException) {
+        } catch (_: NumberFormatException) {
             false
         }
     }
@@ -472,7 +472,7 @@ class NumberLine : ISpatialMathContainer {
     }
 
     override val json: NumberLineJson
-        get() = NumberLineJson().containerToJson(this) as NumberLineJson
+        get() = createNumberLineJson()
 
     override fun preFormatChecks(): Boolean {
         addBlankOption()
@@ -480,7 +480,7 @@ class NumberLine : ISpatialMathContainer {
         if (settings.type == NumberLineType.AUTOMATIC_MATH) {
             try {
                 parse()
-            } catch (e: MathFormattingException) {
+            } catch (_: MathFormattingException) {
                 Notify.notify(NumberLineConstants.NUMBER_LINE_ALLOWED_CHARS, Notify.ALERT_SHELL_NAME)
                 return false
             }
@@ -523,7 +523,7 @@ class NumberLine : ISpatialMathContainer {
                     ele = VersionConverter.convertNumberLine(ele)
                 }
                 val json = BBX.CONTAINER.NUMBER_LINE.JSON_NUMBER_LINE[ele] as NumberLineJson
-                numberLine = json.jsonToContainer() as NumberLine
+                numberLine = json.jsonToContainer()
             }
             return numberLine
         }

@@ -231,7 +231,7 @@ class Template : ISpatialMathContainer {
     settings.operator = SpatialMathEnum.OPERATOR.valueOf(operator)
     try {
       settings.passage = Passage.valueOf(passage)
-    } catch (e: IllegalArgumentException) {
+    } catch (_: IllegalArgumentException) {
       passage = Passage.NONE.name
       BBIni.propertyFileManager.save(TemplateConstants.USER_SETTINGS_TEMPLATE_PASSAGE, passage)
       settings.passage = Passage.valueOf(passage)
@@ -261,8 +261,8 @@ class Template : ISpatialMathContainer {
 
   override val typeEnum: SpatialMathContainers = SpatialMathContainers.TEMPLATE
 
-  override val json: ISpatialMathContainerJson
-    get() = TemplateJson().containerToJson(this) as TemplateJson
+  override val json: TemplateJson
+    get() = createTemplateJson()
 
   override fun preFormatChecks(): Boolean {
     // TODO Auto-generated method stub
@@ -343,7 +343,7 @@ class Template : ISpatialMathContainer {
           templateElement = VersionConverter.convertTemplate(templateElement)
         }
         val json = BBX.CONTAINER.TEMPLATE.JSON_TEMPLATE[templateElement] as TemplateJson
-        template = json.jsonToContainer() as Template
+        template = json.jsonToContainer()
       }
       return template
     }

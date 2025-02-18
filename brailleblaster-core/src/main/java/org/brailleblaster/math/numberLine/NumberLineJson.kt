@@ -28,7 +28,7 @@ import org.brailleblaster.math.spatial.SpatialMathEnum.Passage
 import org.brailleblaster.math.spatial.SpatialMathEnum.IntervalType
 import java.util.*
 
-class NumberLineJson : ISpatialMathContainerJson {
+class NumberLineJson() : ISpatialMathContainerJson {
   private var intervalType: IntervalType = IntervalType.WHOLE
   var arrow = false
   var stretch = false
@@ -70,7 +70,7 @@ class NumberLineJson : ISpatialMathContainerJson {
     var endComponent: NumberLineComponent = numberLineSegment.segmentEnd
   }
 
-  override fun jsonToContainer(): ISpatialMathContainer {
+  override fun jsonToContainer(): NumberLine {
     val numberLine = NumberLine()
     numberLine.settings.intervalType = intervalType
     numberLine.settings.isArrow = arrow
@@ -117,7 +117,7 @@ class NumberLineJson : ISpatialMathContainerJson {
     return numberLine
   }
 
-  override fun containerToJson(container: ISpatialMathContainer): ISpatialMathContainerJson {
+  fun containerToJson(container: ISpatialMathContainer): NumberLineJson {
     val numberLine = container as NumberLine
     intervalType = numberLine.settings.intervalType
     arrow = numberLine.settings.isArrow
@@ -142,3 +142,5 @@ class NumberLineJson : ISpatialMathContainerJson {
     return this
   }
 }
+
+fun NumberLine.createNumberLineJson(): NumberLineJson = NumberLineJson().containerToJson(this)

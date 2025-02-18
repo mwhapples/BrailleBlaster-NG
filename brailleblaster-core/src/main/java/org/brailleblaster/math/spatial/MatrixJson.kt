@@ -20,15 +20,17 @@ import org.brailleblaster.math.spatial.MatrixConstants.Wide
 import org.brailleblaster.math.spatial.SpatialMathEnum.Passage
 import org.brailleblaster.math.spatial.SpatialMathEnum.Translation
 
-class MatrixJson : ISpatialMathContainerJson {
-    var rows = 0
-    var cols = 0
-    private var wideType: Wide = MatrixSettings.DEFAULT_WIDE
-    var bracket: BracketType = MatrixSettings.DEFAULT_BRACKET
-    var passage: Passage = Passage.NONE
-    var translation: Translation? = null
+class MatrixJson @JvmOverloads constructor(
+    var rows: Int = 0,
+    var cols: Int = 0,
+    private var wideType: Wide = MatrixSettings.DEFAULT_WIDE,
+    var bracket: BracketType = MatrixSettings.DEFAULT_BRACKET,
+    var passage: Passage = Passage.NONE,
+    var translation: Translation? = null,
     private var matrixCells: MutableList<MutableList<MatrixCell>> = ArrayList()
-    override fun jsonToContainer(): ISpatialMathContainer {
+) : ISpatialMathContainerJson {
+
+    override fun jsonToContainer(): Matrix {
         val matrix = Matrix()
         matrix.settings.rows = rows
         matrix.settings.cols = cols
@@ -39,16 +41,14 @@ class MatrixJson : ISpatialMathContainerJson {
         matrix.settings.model = matrixCells
         return matrix
     }
-
-    override fun containerToJson(container: ISpatialMathContainer): ISpatialMathContainerJson {
-        val matrix = container as Matrix
-        rows = matrix.settings.rows
-        cols = matrix.settings.cols
-        wideType = matrix.settings.wideType
-        bracket = matrix.settings.bracketType
-        passage = matrix.settings.passage
-        translation = matrix.settings.translation
-        matrixCells = matrix.settings.model
-        return this
-    }
 }
+
+fun Matrix.createMatrixJson(): MatrixJson = MatrixJson(
+    rows = settings.rows,
+    cols = settings.cols,
+    wideType = settings.wideType,
+    bracket = settings.bracketType,
+    passage = settings.passage,
+    translation = settings.translation,
+    matrixCells = settings.model
+)

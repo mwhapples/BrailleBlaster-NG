@@ -18,13 +18,15 @@ package org.brailleblaster.math.spatial
 import org.brailleblaster.math.spatial.SpatialMathEnum.Passage
 import org.brailleblaster.math.template.Template
 
-class GridJson : ISpatialMathContainerJson {
-    var rows = 0
-    var cols = 0
-    private var translateIdentifierAsMath = false
+class GridJson @JvmOverloads constructor(
+    var rows: Int = 0,
+    var cols: Int = 0,
+    var array: List<List<ISpatialMathContainerJson>> = ArrayList(),
     var passage: Passage = Passage.NONE
-    var array: List<List<ISpatialMathContainerJson>> = ArrayList()
-    override fun jsonToContainer(): ISpatialMathContainer {
+) : ISpatialMathContainerJson {
+
+    private var translateIdentifierAsMath = false
+    override fun jsonToContainer(): Grid {
         val page = Grid()
         page.settings.rows = rows
         page.settings.cols = cols
@@ -46,15 +48,13 @@ class GridJson : ISpatialMathContainerJson {
         page.array = containerArray
         return page
     }
-
-    override fun containerToJson(container: ISpatialMathContainer): ISpatialMathContainerJson {
-        val grid = container as Grid
-        rows = grid.settings.rows
-        cols = grid.settings.cols
-        array = grid.array.map { r ->
-            r.map { c -> c.json }
-        }
-        passage = container.settings.passage
-        return this
-    }
 }
+
+fun Grid.createGridJson(): GridJson = GridJson(
+    rows = settings.rows,
+    cols = settings.cols,
+    array = array.map { r ->
+        r.map { c -> c.json }
+    },
+    passage = settings.passage
+)

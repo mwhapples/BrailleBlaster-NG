@@ -308,8 +308,8 @@ class Grid : ISpatialMathContainer {
         get() =// TODO Auto-generated method stub
             null
 
-    override val json: ISpatialMathContainerJson
-        get() = GridJson().containerToJson(this)
+    override val json: GridJson
+        get() = createGridJson()
 
     override fun preFormatChecks(): Boolean {
         // TODO Auto-generated method stub
@@ -348,7 +348,7 @@ class Grid : ISpatialMathContainer {
                     current = convertGrid(current)
                 }
                 val json = BBX.CONTAINER.SPATIAL_GRID.JSON_GRID[current] as GridJson
-                json.jsonToContainer() as Grid
+                json.jsonToContainer()
             } else {
                 Grid()
             }
@@ -381,7 +381,7 @@ class Grid : ISpatialMathContainer {
                     }
                     try {
                         format(e, t.lines)
-                    } catch (ignored: MathFormattingException) {
+                    } catch (_: MathFormattingException) {
                     }
                 }
             }
@@ -389,7 +389,7 @@ class Grid : ISpatialMathContainer {
             val newElement = BBX.CONTAINER.SPATIAL_GRID.create(page)
             try {
                 format(newElement, page.lines)
-            } catch (ignored: MathFormattingException) {
+            } catch (_: MathFormattingException) {
             }
             ele.parent.replaceChild(ele, newElement)
             addStylesToGridElement(newElement)

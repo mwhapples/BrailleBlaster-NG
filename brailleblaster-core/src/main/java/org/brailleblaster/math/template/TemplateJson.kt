@@ -22,7 +22,7 @@ import org.brailleblaster.math.spatial.SpatialMathEnum
 import org.brailleblaster.math.spatial.SpatialMathEnum.OPERATOR
 import org.brailleblaster.math.spatial.SpatialMathEnum.Passage
 
-class TemplateJson : ISpatialMathContainerJson {
+class TemplateJson() : ISpatialMathContainerJson {
     private var straightRadical = false
     lateinit var operator: OPERATOR
     private lateinit var templateType: SpatialMathEnum.TemplateType
@@ -32,7 +32,7 @@ class TemplateJson : ISpatialMathContainerJson {
     var identifier: MathText? = null
     private var identifierAsMath = false
     var linear = false
-    override fun jsonToContainer(): ISpatialMathContainer {
+    override fun jsonToContainer(): Template {
         val template = Template()
         template.settings.isStraightRadicalSymbol = straightRadical
         template.settings.operator = operator
@@ -48,7 +48,7 @@ class TemplateJson : ISpatialMathContainerJson {
         return template
     }
 
-    override fun containerToJson(container: ISpatialMathContainer): ISpatialMathContainerJson {
+    fun containerToJson(container: ISpatialMathContainer): TemplateJson {
         val template = container as Template
         straightRadical = template.settings.isStraightRadicalSymbol
         operator = template.settings.operator
@@ -62,3 +62,5 @@ class TemplateJson : ISpatialMathContainerJson {
         return this
     }
 }
+
+fun Template.createTemplateJson(): TemplateJson = TemplateJson().containerToJson(this)

@@ -17,5 +17,4 @@ package org.brailleblaster.math.spatial
 
 interface ISpatialMathContainerJson {
     fun jsonToContainer(): ISpatialMathContainer
-    fun containerToJson(container: ISpatialMathContainer): ISpatialMathContainerJson
 }

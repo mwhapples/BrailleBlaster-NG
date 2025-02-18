@@ -71,7 +71,7 @@ class Matrix : ISpatialMathContainer {
         matrixLog("Formatting wide matrix, indent")
         try {
           formatIndent(brailleCells)
-        } catch (e: RuntimeException) {
+        } catch (_: RuntimeException) {
           notify(MatrixConstants.FORMAT_INDENT_TOO_WIDE_WARNING, Notify.ALERT_SHELL_NAME)
         }
       }
@@ -354,8 +354,8 @@ class Matrix : ISpatialMathContainer {
   override val typeEnum: SpatialMathContainers
     get() = SpatialMathContainers.MATRIX
 
-  override val json: ISpatialMathContainerJson
-    get() = MatrixJson().containerToJson(this)
+  override val json: MatrixJson
+    get() = createMatrixJson()
 
   override fun preFormatChecks(): Boolean {
     // TODO Auto-generated method stub
@@ -453,7 +453,7 @@ class Matrix : ISpatialMathContainer {
           current = convertMatrix(current)
         }
         val json = BBX.CONTAINER.MATRIX.JSON_MATRIX[current] as MatrixJson
-        matrix = json.jsonToContainer() as Matrix
+        matrix = json.jsonToContainer()
       }
       return matrix
     }

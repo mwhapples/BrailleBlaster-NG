@@ -19,12 +19,14 @@ import org.brailleblaster.math.mathml.MathModule
 import org.brailleblaster.math.spatial.SpatialMathEnum.HorizontalJustify
 import org.brailleblaster.math.spatial.SpatialMathEnum.VerticalJustify
 
-class ConnectingContainerJson : ISpatialMathContainerJson {
-    private lateinit var printText: String
-    var isMath = false
-    private var verticalJustify: VerticalJustify? = null
+class ConnectingContainerJson @JvmOverloads constructor(
+    private var printText: String = "",
+    var isMath: Boolean = false,
+    private var verticalJustify: VerticalJustify? = null,
     private var horizontalJustify: HorizontalJustify? = null
-    override fun jsonToContainer(): ISpatialMathContainer {
+) : ISpatialMathContainerJson {
+
+    override fun jsonToContainer(): ConnectingContainer {
         val cc = ConnectingContainer()
         val connectingContainerJson = this
         connectingContainerJson.horizontalJustify?.let {
@@ -37,19 +39,17 @@ class ConnectingContainerJson : ISpatialMathContainerJson {
         cc.text = MathText(
             print = connectingContainerJson.printText,
             braille =
-            if (isMath) MathModule.translateMathPrint(connectingContainerJson.printText) else MathModule.translateMainPrint(
-                connectingContainerJson.printText
-            )
+                if (isMath) MathModule.translateMathPrint(connectingContainerJson.printText) else MathModule.translateMainPrint(
+                    connectingContainerJson.printText
+                )
         )
         return cc
     }
-
-    override fun containerToJson(container: ISpatialMathContainer): ISpatialMathContainerJson {
-        val cc = container as ConnectingContainer
-        isMath = cc.settings.isTranslateAsMath
-        printText = cc.printText
-        verticalJustify = cc.settings.vertical
-        horizontalJustify = cc.settings.horizontal
-        return this
-    }
 }
+
+fun ConnectingContainer.createConnectingContainerJson(): ConnectingContainerJson = ConnectingContainerJson(
+    isMath = settings.isTranslateAsMath,
+    printText = printText,
+    verticalJustify = settings.vertical,
+    horizontalJustify = settings.horizontal
+)

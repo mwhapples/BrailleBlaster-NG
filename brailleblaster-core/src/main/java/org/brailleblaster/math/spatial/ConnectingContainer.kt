@@ -155,8 +155,8 @@ class ConnectingContainer : ISpatialMathContainer {
 
     override val typeEnum: SpatialMathContainers = SpatialMathContainers.CONNECTING
 
-    override val json: ISpatialMathContainerJson
-        get() = ConnectingContainerJson().containerToJson(this)
+    override val json: ConnectingContainerJson
+        get() = createConnectingContainerJson()
 
     override fun preFormatChecks(): Boolean {
         // TODO Auto-generated method stub
@@ -184,7 +184,7 @@ class ConnectingContainer : ISpatialMathContainer {
                     node = convertConnectingContainer(node)
                 }
                 val json = BBX.CONTAINER.CONNECTING_CONTAINER.JSON_CONNECTING_CONTAINER[node] as ConnectingContainerJson
-                container = json.jsonToContainer() as ConnectingContainer
+                container = json.jsonToContainer()
             }
             return container
         }
@@ -197,7 +197,7 @@ class ConnectingContainer : ISpatialMathContainer {
             val newElement = BBX.CONTAINER.CONNECTING_CONTAINER.create(t)
             try {
                 format(newElement, t.lines)
-            } catch (ignored: MathFormattingException) {
+            } catch (_: MathFormattingException) {
             }
             e.parent.replaceChild(e, newElement)
             return newElement
