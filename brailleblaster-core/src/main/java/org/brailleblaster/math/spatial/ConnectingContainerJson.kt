@@ -16,25 +16,23 @@
 package org.brailleblaster.math.spatial
 
 import org.brailleblaster.math.mathml.MathModule
+import org.brailleblaster.math.spatial.ConnectingContainerSettings.Companion.DEFAULT_HORIZONTAL
+import org.brailleblaster.math.spatial.ConnectingContainerSettings.Companion.DEFAULT_VERTICAL
 import org.brailleblaster.math.spatial.SpatialMathEnum.HorizontalJustify
 import org.brailleblaster.math.spatial.SpatialMathEnum.VerticalJustify
 
 class ConnectingContainerJson @JvmOverloads constructor(
     private var printText: String = "",
     private var isMath: Boolean = false,
-    private var verticalJustify: VerticalJustify? = null,
-    private var horizontalJustify: HorizontalJustify? = null
+    private var verticalJustify: VerticalJustify = DEFAULT_VERTICAL,
+    private var horizontalJustify: HorizontalJustify = DEFAULT_HORIZONTAL
 ) : ISpatialMathContainerJson {
 
     override fun jsonToContainer(): ConnectingContainer {
         val cc = ConnectingContainer()
         val connectingContainerJson = this
-        connectingContainerJson.horizontalJustify?.let {
-            cc.settings.horizontal = it
-        }
-        connectingContainerJson.verticalJustify?.let {
-            cc.settings.vertical = it
-        }
+        cc.settings.horizontal = connectingContainerJson.horizontalJustify
+        cc.settings.vertical = connectingContainerJson.verticalJustify
         cc.settings.isTranslateAsMath = connectingContainerJson.isMath
         cc.text = MathText(
             print = connectingContainerJson.printText,
