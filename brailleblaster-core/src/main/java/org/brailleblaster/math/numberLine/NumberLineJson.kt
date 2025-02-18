@@ -41,7 +41,7 @@ class NumberLineJson() : ISpatialMathContainerJson {
   private lateinit var translationLabel: Translation
   var sectionType: NumberLineSection? = null
   var segment: Segment? = null
-  var points = ArrayList<Point>()
+  var points: List<Point> = listOf()
   var interval: NumberLineComponent? = null
   var line: Line? = null
   private var userIntervals: MutableList<NumberLineInterval> = mutableListOf()
@@ -86,17 +86,7 @@ class NumberLineJson() : ISpatialMathContainerJson {
     numberLine.settings.startLineCircle = line!!.startFill
     numberLine.numberLineText.lineEnd = line!!.end
     numberLine.numberLineText.lineStart = line!!.start
-    for (i in points.indices) {
-      numberLine
-        .numberLineText
-        .points
-        .add(
-          NumberLineSegmentPoint(
-            point=points[i].point,
-            circle=points[i].circle,
-            interval=points[i].interval)
-        )
-    }
+    numberLine.numberLineText.points.addAll(points.map { NumberLineSegmentPoint(point = it.point, circle = it.circle, interval = it.interval) })
     numberLine
       .numberLineText.segment = NumberLineSegment(
       endSegmentCircle=segment!!.endFill,
@@ -131,9 +121,7 @@ class NumberLineJson() : ISpatialMathContainerJson {
     translationLabel = numberLine.settings.translationLabel
     interval = numberLine.numberLineText.interval
     line = Line(numberLine)
-    for (i in numberLine.segmentPoints.indices) {
-      points.add(Point(numberLine.segmentPoints[i]))
-    }
+    points = numberLine.segmentPoints.map { Point(it) }
     segment = Segment(numberLine.segment)
     sectionType = numberLine.settings.sectionType
     userIntervals = numberLine.settings.userDefinedArray
