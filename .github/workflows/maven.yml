@@ -14,6 +14,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  BB_VERSION: '2.1.10'
+  BB_CHANGELIST: '-SNAPSHOT'
+
 jobs:
   build:
 
@@ -25,13 +29,13 @@ jobs:
       uses: actions/setup-java@v4
       with:
         java-version: '17'
-        distribution: 'temurin'
+        distribution: 'corretto'
         cache: maven
     - name: Add build data
-      run: brailleblaster-core/scripts/add-build-data.sh "BrailleBlaster" "2.1.10" "${{ github.sha }}" "brailleblaster-core"
+      run: brailleblaster-core/scripts/add-build-data.sh "BrailleBlaster" "${{ env.BB_VERSION }}" "${{ github.sha }}" "brailleblaster-core"
     - name: Build with Maven
       run: |
-        mvn -B install --file pom.xml -DskipTests -Drevision=2.1.10 -Dsha1=-${{ github.sha }} -Dchangelist=-SNAPSHOT
+        mvn -B install --file pom.xml -DskipTests -Drevision=${{ env.BB_VERSION }} -Dsha1=-${{ github.sha }} -Dchangelist=${{ env.BB_CHANGELIST }}
     - name: Get docs
       run: brailleblaster-app/scripts/get-docs.sh brailleblaster-app/target/dist/docs
 
@@ -46,7 +50,7 @@ jobs:
       if: github.ref == 'ref/heads/main' && github.event_name != 'pull_request'
       uses: advanced-security/maven-dependency-submission-action@v4
       with:
-        maven-args: -Drevision=2.1.10 -Dsha1=-${{ github.sha }} -Dchangelist=-SNAPSHOT
+        maven-args: -Drevision=${{ env.BB_VERSION }} -Dsha1=-${{ github.sha }} -Dchangelist=${{ env.BB_CHANGELIST }}
   continuous_release:
     needs: build
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
