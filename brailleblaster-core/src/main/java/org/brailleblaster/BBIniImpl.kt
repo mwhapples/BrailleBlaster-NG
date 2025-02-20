@@ -50,12 +50,6 @@ class BBIniImpl(val bbDistPath: Path, bbUserPath: Path, propManager: PropertyFil
             }
         }
     }
-    val recentDocsPath: Path = userProgramDataPath.resolve("recent_documents.txt").also {
-        FileUtils.create(it.toString())
-    }
-    val recentSaves: Path = userProgramDataPath.resolve(Path("autoSave", "recent_saves.txt")).also {
-        FileUtils.create(it.toString())
-    }
     val autoSavePath: Path = userProgramDataPath.resolve("autoSave").also {
         if (!it.exists()) {
             try {
@@ -66,6 +60,12 @@ class BBIniImpl(val bbDistPath: Path, bbUserPath: Path, propManager: PropertyFil
         }
     }
     val autoSaveCrashPath: Path = autoSavePath.resolve("auto_save_error.txt")
+    val recentDocsPath: Path = userProgramDataPath.resolve("recent_documents.txt").also {
+        FileUtils.create(it.toString())
+    }
+    val recentSaves: Path = autoSavePath.resolve("recent_saves.txt").also {
+        FileUtils.create(it.toString())
+    }
     val aboutPropertiesPath: Path = programDataPath.resolve(Path("settings", "about.properties"))
     val releaseBuild: Boolean = Properties().let {
         try {
