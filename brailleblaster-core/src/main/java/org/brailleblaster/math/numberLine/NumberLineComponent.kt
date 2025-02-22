@@ -20,90 +20,18 @@ import org.brailleblaster.math.spatial.MathFormattingException
 import org.brailleblaster.math.spatial.SpatialMathEnum.IntervalType
 import kotlin.math.abs
 
-class NumberLineComponent(whole: String = "", decimal: String = "", numerator: String = "", denominator: String = "") {
-  var whole = ""
-  var decimal = ""
-  var numerator = ""
-  var denominator = ""
-  var isMinus = false
-  var intervalType = IntervalType.WHOLE
-
-  init {
-    var w = whole
-    if (w.isNotEmpty()) {
-      val integer = w.toInt()
-      if (integer < 0) {
-        isMinus = true
-        w = abs(integer).toString()
-      }
-    }
-    var dec = decimal
-    if (dec.isNotEmpty()) {
-      val integer = dec.toInt()
-      if (integer < 0) {
-        isMinus = true
-        dec = abs(integer).toString()
-      }
-    }
-    var n = numerator
-    if (n.isNotEmpty()) {
-      val integer = n.toInt()
-      if (integer < 0) {
-        isMinus = true
-        n = abs(integer).toString()
-      }
-    }
-    var d = denominator
-    if (d.isNotEmpty()) {
-      val integer = d.toInt()
-      if (integer < 0) {
-        isMinus = true
-        d = abs(integer).toString()
-      }
-    }
-    if (isMinus && w.isEmpty() && n.isNotEmpty()) {
-      n = "-$n"
-    } else if (isMinus) {
-      w = "-$w"
-    }
-    this.whole = w
-    this.decimal = dec
-    this.numerator = n
-    this.denominator = d
-  }
+class NumberLineComponent @JvmOverloads constructor(
+    var whole: String = "",
+    var decimal: String = "",
+    var numerator: String = "",
+    var denominator: String = "",
+    var isMinus: Boolean = false,
+    var intervalType: IntervalType = IntervalType.WHOLE
+) {
 
   val isEmpty: Boolean
     get() = whole.isEmpty() && decimal.isEmpty() && numerator.isEmpty() && denominator.isEmpty()
 
-  class NumberLineComponentBuilder {
-    var whole = ""
-    var decimal = ""
-    var numerator = ""
-    var denominator = ""
-    fun whole(s: String): NumberLineComponentBuilder {
-      whole = s
-      return this
-    }
-
-    fun decimal(s: String): NumberLineComponentBuilder {
-      decimal = s
-      return this
-    }
-
-    fun numerator(s: String): NumberLineComponentBuilder {
-      numerator = s
-      return this
-    }
-
-    fun denominator(s: String): NumberLineComponentBuilder {
-      denominator = s
-      return this
-    }
-
-    fun build(): NumberLineComponent {
-      return NumberLineComponent(whole, decimal, numerator, denominator)
-    }
-  }
 
   @get:Throws(MathFormattingException::class)
   val fraction: Fraction
@@ -131,4 +59,54 @@ class NumberLineComponent(whole: String = "", decimal: String = "", numerator: S
     val thatFraction = o.fraction
     return thisFraction.compareTo(thatFraction)
   }
+  companion object {
+    @JvmStatic
+    @JvmOverloads
+    fun createNumberLineComponent(whole: String = "", decimal: String = "", numerator: String = "", denominator: String = ""): NumberLineComponent {
+      var isMinus = false
+      var w = whole
+      if (w.isNotEmpty()) {
+        val integer = w.toInt()
+        if (integer < 0) {
+          isMinus = true
+          w = abs(integer).toString()
+        }
+      }
+      var dec = decimal
+      if (dec.isNotEmpty()) {
+        val integer = dec.toInt()
+        if (integer < 0) {
+          isMinus = true
+          dec = abs(integer).toString()
+        }
+      }
+      var n = numerator
+      if (n.isNotEmpty()) {
+        val integer = n.toInt()
+        if (integer < 0) {
+          isMinus = true
+          n = abs(integer).toString()
+        }
+      }
+      var d = denominator
+      if (d.isNotEmpty()) {
+        val integer = d.toInt()
+        if (integer < 0) {
+          isMinus = true
+          d = abs(integer).toString()
+        }
+      }
+      if (isMinus && w.isEmpty() && n.isNotEmpty()) {
+        n = "-$n"
+      } else if (isMinus) {
+        w = "-$w"
+      }
+      return NumberLineComponent(w, dec, n, d, isMinus)
+    }
+  }
+}
+
+@JvmOverloads
+fun createNumberLineComponent(whole: String = "", decimal: String = "", numerator: String = "", denominator: String = ""): NumberLineComponent {
+  return NumberLineComponent.createNumberLineComponent(whole, decimal, numerator, denominator)
 }

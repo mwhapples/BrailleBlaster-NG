@@ -94,15 +94,15 @@ object VersionConverter {
                         NumberLineConstants.ATTRIB_INTERVAL_DECIMAL,
                         ele.namespaceURI
                     )
-                    val interval = NumberLineComponent(whole=intervalWhole,
+                    val interval = createNumberLineComponent(whole=intervalWhole,
                         decimal=intervalDecimal)
-                    val startSegment = NumberLineComponent(
+                    val startSegment = createNumberLineComponent(
                         decimal=startSegmentDecimal, whole=startSegmentWhole)
-                    val endSegment = NumberLineComponent(
+                    val endSegment = createNumberLineComponent(
                         whole=endSegmentWhole, decimal=endSegmentDecimal)
-                    val startLine = NumberLineComponent(
+                    val startLine = createNumberLineComponent(
                         whole=startLineWhole,decimal=startLineDecimal)
-                    val endLine = NumberLineComponent(whole=endLineWhole,
+                    val endLine = createNumberLineComponent(whole=endLineWhole,
                         decimal=endLineDecimal)
                     val text = NumberLineText(interval=interval,lineStart=startLine,
                         lineEnd=endLine,
@@ -152,15 +152,15 @@ object VersionConverter {
                         ele.namespaceURI
                     )
 
-                    val interval = NumberLineComponent(
+                    val interval = createNumberLineComponent(
                         numerator=intervalNumerator, denominator=intervalDenominator)
-                    val startSegment = NumberLineComponent(
+                    val startSegment = createNumberLineComponent(
                         denominator=startSegmentDenominator, numerator=startSegmentNumerator)
-                    val endSegment = NumberLineComponent(
+                    val endSegment = createNumberLineComponent(
                         numerator=endSegmentNumerator, denominator=endSegmentDenominator)
-                    val startLine = NumberLineComponent(
+                    val startLine = createNumberLineComponent(
                         numerator=startLineNumerator, denominator=startLineDenominator)
-                    val endLine = NumberLineComponent(
+                    val endLine = createNumberLineComponent(
                         numerator=endLineNumerator, denominator=endLineDenominator)
                     val text = NumberLineText(interval=interval, lineStart=startLine,
                         lineEnd=endLine, segment=
@@ -229,15 +229,15 @@ object VersionConverter {
                         ele.namespaceURI
                     )
 
-                    val interval = NumberLineComponent(whole=intervalWhole,
+                    val interval = createNumberLineComponent(whole=intervalWhole,
                         numerator=intervalNumerator, denominator=intervalDenominator)
-                    val startSegment = NumberLineComponent(
+                    val startSegment = createNumberLineComponent(
                         denominator=startSegmentDenominator, numerator=startSegmentNumerator, whole=startSegmentWhole)
-                    val endSegment = NumberLineComponent(
+                    val endSegment = createNumberLineComponent(
                         whole=endSegmentWhole, numerator=endSegmentNumerator, denominator=endSegmentDenominator)
-                    val startLine = NumberLineComponent(
+                    val startLine = createNumberLineComponent(
                         whole=startLineWhole, numerator=startLineNumerator, denominator=startLineDenominator)
-                    val endLine = NumberLineComponent(whole=endLineWhole, numerator=endLineNumerator, denominator=endLineDenominator)
+                    val endLine = createNumberLineComponent(whole=endLineWhole, numerator=endLineNumerator, denominator=endLineDenominator)
                     val text = NumberLineText(interval=interval, lineStart=startLine,
                         lineEnd=endLine, segment=
                             NumberLineSegment(segmentStart=startSegment, segmentEnd=endSegment)
@@ -266,14 +266,14 @@ object VersionConverter {
                         NumberLineConstants.ATTRIB_INTERVAL_WHOLE,
                         ele.namespaceURI
                     )
-                    val interval = NumberLineComponent(whole=intervalWhole)
-                    val startSegment = NumberLineComponent(
+                    val interval = createNumberLineComponent(whole=intervalWhole)
+                    val startSegment = createNumberLineComponent(
                         whole=startSegmentWhole)
-                    val endSegment = NumberLineComponent(
+                    val endSegment = createNumberLineComponent(
                         whole=endSegmentWhole)
-                    val startLine = NumberLineComponent(
+                    val startLine = createNumberLineComponent(
                         whole=startLineWhole)
-                    val endLine = NumberLineComponent(whole=endLineWhole)
+                    val endLine = createNumberLineComponent(whole=endLineWhole)
                     val text = NumberLineText(interval=interval, lineStart=startLine,
                         lineEnd=endLine, segment=
                             NumberLineSegment(segmentStart=startSegment, segmentEnd=endSegment)

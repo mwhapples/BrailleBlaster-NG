@@ -15,7 +15,6 @@
  */
 package org.brailleblaster.math.numberLine
 
-import org.brailleblaster.math.numberLine.NumberLineComponent.NumberLineComponentBuilder
 import org.brailleblaster.math.numberLine.NumberLineSegmentPoint.Companion.getPotentialPoints
 import org.brailleblaster.math.numberLine.NumberLineSegmentPoint.Companion.getPotentialPointsStringArray
 import org.brailleblaster.math.spatial.ISpatialMathContainer
@@ -24,10 +23,10 @@ import org.brailleblaster.math.spatial.SpatialMathDispatcher
 import org.brailleblaster.math.spatial.SpatialMathEnum.IntervalType
 import org.brailleblaster.math.spatial.SpatialMathEnum.NumberLineSection
 import org.brailleblaster.perspectives.mvc.modules.views.DebugModule
-import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.Notify
 import org.brailleblaster.util.Notify.notify
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.events.FocusEvent
 import org.eclipse.swt.events.FocusListener
@@ -64,129 +63,129 @@ class NumberLineWidgetAutomaticMath : NumberLineWidget() {
         when (numberLine.settings.intervalType) {
             IntervalType.WHOLE -> {
                 val text = NumberLineText(
-                    interval=NumberLineComponentBuilder().whole("1").build(),
-                    lineEnd=NumberLineComponentBuilder().whole("4").build(),
-                    lineStart=
-                        NumberLineComponentBuilder().whole("1").build(),
-                    segment=
+                    interval = createNumberLineComponent(whole = "1"),
+                    lineEnd = createNumberLineComponent(whole = "4"),
+                    lineStart =
+                        createNumberLineComponent(whole = "1"),
+                    segment =
                         NumberLineSegment(
-                            segmentEnd=
-                                NumberLineComponentBuilder()
-                                    .whole("3")
-                                    .build(),
-                            segmentStart=
-                                NumberLineComponentBuilder()
-                                    .whole("1")
-                                    .build()
-                            )
-                    )
+                            segmentEnd =
+                                createNumberLineComponent(
+                                    whole = "3"
+                                ),
+                            segmentStart =
+                                createNumberLineComponent(
+                                    whole = "1"
+                                )
+                        )
+                )
                 numberLine.numberLineText = text
             }
 
             IntervalType.MIXED -> {
                 val text = NumberLineText(
-                    interval=
-                        NumberLineComponentBuilder()
-                            .whole("1")
-                            .numerator("1")
-                            .denominator("2")
-                            .build(),
-                    lineEnd=
-                        NumberLineComponentBuilder()
-                            .whole("4")
-                            .numerator("1")
-                            .denominator("2")
-                            .build(),
-                    lineStart=
-                        NumberLineComponentBuilder()
-                            .whole("1")
-                            .numerator("1")
-                            .denominator("2")
-                            .build(),
-                    segment=
+                    interval =
+                        createNumberLineComponent(
+                            whole = "1",
+                            numerator = "1",
+                            denominator = "2"
+                        ),
+                    lineEnd =
+                        createNumberLineComponent(
+                            whole = "4",
+                            numerator = "1",
+                            denominator = "2"
+                        ),
+                    lineStart =
+                        createNumberLineComponent(
+                            whole = "1",
+                            numerator = "1",
+                            denominator = "2"
+                        ),
+                    segment =
                         NumberLineSegment(
-                            segmentEnd=
-                                NumberLineComponentBuilder()
-                                    .whole("3")
-                                    .numerator("")
-                                    .denominator("")
-                                    .build(),
-                            segmentStart=
-                                NumberLineComponentBuilder()
-                                    .whole("1")
-                                    .numerator("1")
-                                    .denominator("2")
-                                    .build()
-                            )
-                    )
+                            segmentEnd =
+                                createNumberLineComponent(
+                                    whole = "3",
+                                    numerator = "",
+                                    denominator = ""
+                                ),
+                            segmentStart =
+                                createNumberLineComponent(
+                                    whole = "1",
+                                    numerator = "1",
+                                    denominator = "2"
+                                )
+                        )
+                )
                 numberLine.numberLineText = text
             }
 
             IntervalType.IMPROPER -> {
                 val text = NumberLineText(
-                    interval=
-                        NumberLineComponentBuilder()
-                            .numerator("2")
-                            .denominator("5")
-                            .build(),
-                    lineEnd=
-                        NumberLineComponentBuilder()
-                            .numerator("6")
-                            .denominator("5")
-                            .build(),
-                    lineStart=
-                        NumberLineComponentBuilder()
-                            .numerator("2")
-                            .denominator("5")
-                            .build(),
-                    segment=
+                    interval =
+                        createNumberLineComponent(
+                            numerator = "2",
+                            denominator = "5"
+                        ),
+                    lineEnd =
+                        createNumberLineComponent(
+                            numerator = "6",
+                            denominator = "5"
+                        ),
+                    lineStart =
+                        createNumberLineComponent(
+                            numerator = "2",
+                            denominator = "5"
+                        ),
+                    segment =
                         NumberLineSegment(
-                            segmentEnd=
-                                NumberLineComponentBuilder()
-                                    .numerator("4")
-                                    .denominator("5")
-                                    .build(),
-                            segmentStart=
-                                NumberLineComponentBuilder()
-                                    .numerator("2")
-                                    .denominator("5")
-                                    .build()
-                            )
-                    )
+                            segmentEnd =
+                                createNumberLineComponent(
+                                    numerator = "4",
+                                    denominator = "5"
+                                ),
+                            segmentStart =
+                                createNumberLineComponent(
+                                    numerator = "2",
+                                    denominator = "5"
+                                )
+                        )
+                )
                 numberLine.numberLineText = text
             }
 
             IntervalType.DECIMAL -> {
                 val text = NumberLineText(
-                    interval=
-                        NumberLineComponentBuilder()
-                            .whole("1")
-                            .decimal("2")
-                            .build(),
-                    lineEnd=
-                        NumberLineComponentBuilder()
-                            .whole("3")
-                            .decimal("6")
-                            .build(),
-                    lineStart=
-                        NumberLineComponentBuilder()
-                            .whole("1")
-                            .decimal("2")
-                            .build(),
-                    segment=
+                    interval =
+                        createNumberLineComponent(
+                            whole = "1",
+                            decimal = "2"
+                        ),
+                    lineEnd =
+                        createNumberLineComponent(
+                            whole = "3",
+                            decimal = "6"
+                        ),
+                    lineStart =
+                        createNumberLineComponent(
+                            whole = "1",
+                            decimal = "2"
+                        ),
+                    segment =
                         NumberLineSegment(
-                            segmentEnd=
-                                NumberLineComponentBuilder()
-                                    .whole("2")
-                                    .decimal("4")
-                                    .build(),
-                            segmentStart=
-                                NumberLineComponentBuilder()
-                                    .whole("1")
-                                    .decimal("2")
-                                    .build()
-                            )
-                    )
+                            segmentEnd =
+                                createNumberLineComponent(
+                                    whole = "2",
+                                    decimal = "4"
+                                ),
+                            segmentStart =
+                                createNumberLineComponent(
+                                    whole = "1",
+                                    decimal = "2"
+                                )
+                        )
+                )
                 numberLine.numberLineText = text
             }
         }

@@ -20,7 +20,7 @@ import org.brailleblaster.math.spatial.SpatialMathEnum.BlankOptions
 
 class NumberLineInterval(
   var blankType: BlankOptions = BlankOptions.NONE,
-  var mathText: NumberLineComponent = NumberLineComponent(),
+  var mathText: NumberLineComponent = createNumberLineComponent(),
   var userText: MathText = MathText(),
   var labelText: NumberLinePoint = NumberLinePoint()
 )

@@ -20,8 +20,8 @@ import org.brailleblaster.math.spatial.SpatialMathEnum.Fill
 class NumberLineSegment(
     var startSegmentCircle: Fill = Fill.NONE,
     var endSegmentCircle: Fill = Fill.NONE,
-    var segmentStart: NumberLineComponent = NumberLineComponent(),
-    var segmentEnd: NumberLineComponent = NumberLineComponent(),
+    var segmentStart: NumberLineComponent = createNumberLineComponent(),
+    var segmentEnd: NumberLineComponent = createNumberLineComponent(),
     var startInterval: Int = 1,
     var endInterval: Int = 1
 ) : Comparable<NumberLineSegment> {

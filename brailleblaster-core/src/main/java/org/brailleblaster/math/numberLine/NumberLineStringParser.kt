@@ -54,7 +54,7 @@ class NumberLineStringParser {
 
   fun parseDecimal(s: String): NumberLineComponent {
     if (s.isEmpty()) {
-      return NumberLineComponent()
+      return createNumberLineComponent()
     }
     var index = 0
     var c = s[index]
@@ -74,14 +74,14 @@ class NumberLineStringParser {
       decimal.append(c)
       index++
     }
-    return NumberLineComponent(
+    return createNumberLineComponent(
       whole=whole.toString().trim { it <= ' ' },
       decimal=decimal.toString().trim { it <= ' ' })
   }
 
   fun parseMixed(s: String): NumberLineComponent {
     if (s.isEmpty()) {
-      return NumberLineComponent()
+      return createNumberLineComponent()
     }
     var whole = ""
     var numerator = ""
@@ -107,7 +107,7 @@ class NumberLineStringParser {
         whole = s
       }
     }
-    return NumberLineComponent(
+    return createNumberLineComponent(
       whole=whole.trim { it <= ' ' },
       numerator=numerator.trim { it <= ' ' },
       denominator=denominator.trim { it <= ' ' })
@@ -115,7 +115,7 @@ class NumberLineStringParser {
 
   fun parseImproper(s: String): NumberLineComponent {
     if (s.isEmpty()) {
-      return NumberLineComponent()
+      return createNumberLineComponent()
     }
     var index = 0
     var c = s[index]
@@ -135,15 +135,15 @@ class NumberLineStringParser {
       denominator.append(c)
       index++
     }
-    return NumberLineComponent(
+    return createNumberLineComponent(
       numerator=numerator.toString().trim { it <= ' ' },
       denominator=denominator.toString().trim { it <= ' ' })
   }
 
   fun parseWhole(s: String): NumberLineComponent {
     return if (s.isEmpty()) {
-      NumberLineComponent()
-    } else NumberLineComponent(whole=s.trim { it <= ' ' })
+      createNumberLineComponent()
+    } else createNumberLineComponent(whole=s.trim { it <= ' ' })
   }
 
   fun setLineStart(lineStart: String) {
@@ -179,7 +179,7 @@ class NumberLineStringParser {
   @Throws(MathFormattingException::class)
   fun parseComponent(s: String): NumberLineComponent {
     if (s.isEmpty()) {
-      return NumberLineComponent()
+      return createNumberLineComponent()
     }
     val mixed = Pattern.compile("-*-*\\s*\\d+\\s+\\d+\\s*/\\s*\\d+\\s*")
     val improper = Pattern.compile("-*-*\\s*\\d+\\s*/\\s*\\d+\\s*")

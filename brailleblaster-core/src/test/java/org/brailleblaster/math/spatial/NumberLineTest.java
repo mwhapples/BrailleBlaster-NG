@@ -52,77 +52,77 @@ public class NumberLineTest {
         final NumberLineText textNoLeadingZero =
                 new NumberLineText(
 
-                        new NumberLineComponent.NumberLineComponentBuilder().whole("").decimal("2").build(), NumberLineSegment.Companion.createDefaultNumberLineSegment(),
-                        new NumberLineComponent.NumberLineComponentBuilder().whole("").decimal("2").build(),
-                        new NumberLineComponent.NumberLineComponentBuilder().whole("").decimal("6").build(), new ArrayList<>());
+                        NumberLineComponentKt.createNumberLineComponent("", "2"), NumberLineSegment.Companion.createDefaultNumberLineSegment(),
+                        NumberLineComponentKt.createNumberLineComponent("", "2"),
+                        NumberLineComponentKt.createNumberLineComponent("", "6"), new ArrayList<>());
         final String[] extraSpacesDecimal = {"1.  2", "1  .2", " 3.6"};
         final NumberLineText textExtraSpacesDecimal =
                 new NumberLineText(
-                        new NumberLineComponent.NumberLineComponentBuilder()
-                                .whole("1")
-                                .decimal("2")
-                                .build(), NumberLineSegment.Companion.createDefaultNumberLineSegment(),
-                        new NumberLineComponent.NumberLineComponentBuilder()
-                                .whole("1")
-                                .decimal("2")
-                                .build(),
-                        new NumberLineComponent.NumberLineComponentBuilder()
-                                .whole("3")
-                                .decimal("6")
-                                .build(), new ArrayList<>());
+                        NumberLineComponentKt.createNumberLineComponent(
+                                "1",
+                                "2"
+                        ), NumberLineSegment.Companion.createDefaultNumberLineSegment(),
+                        NumberLineComponentKt.createNumberLineComponent(
+                                "1",
+                                "2"
+                        ),
+                        NumberLineComponentKt.createNumberLineComponent(
+                                "3",
+                                "6"
+                        ), new ArrayList<>());
         final String[] extraSpacesImproper = {"2/ 5", " 2/5", "6 /5 "};
         final NumberLineText textExtraSpacesImproper =
                 new NumberLineText(
-                        new NumberLineComponent.NumberLineComponentBuilder()
-                                .numerator("2")
-                                .denominator("5")
-                                .build(), NumberLineSegment.Companion.createDefaultNumberLineSegment(),
-                        new NumberLineComponent.NumberLineComponentBuilder()
-                                .numerator("2")
-                                .denominator("5")
-                                .build(),
-                        new NumberLineComponent.NumberLineComponentBuilder()
-                                .numerator("6")
-                                .denominator("5")
-                                .build(), new ArrayList<>());
+                        NumberLineComponentKt.createNumberLineComponent("", "",
+                                "2",
+                                "5"
+                        ), NumberLineSegment.Companion.createDefaultNumberLineSegment(),
+                        NumberLineComponentKt.createNumberLineComponent("", "",
+                                "2",
+                                "5"
+                        ),
+                        NumberLineComponentKt.createNumberLineComponent("", "",
+                                "6",
+                                "5"
+                        ), new ArrayList<>());
         final String[] extraSpacesMixed = {"1    1/2", "1 1 / 2", " 4 1/2 "};
         final NumberLineText textExtraSpacesMixed =
                 new NumberLineText(
-                        new NumberLineComponent.NumberLineComponentBuilder()
-                                .whole("1")
-                                .numerator("1")
-                                .denominator("2")
-                                .build(), NumberLineSegment.Companion.createDefaultNumberLineSegment(),
-                        new NumberLineComponent.NumberLineComponentBuilder()
-                                .whole("1")
-                                .numerator("1")
-                                .denominator("2")
-                                .build(),
-                        new NumberLineComponent.NumberLineComponentBuilder()
-                                .whole("4")
-                                .numerator("1")
-                                .denominator("2")
-                                .build(), new ArrayList<>());
+                        NumberLineComponentKt.createNumberLineComponent(
+                                "1", "",
+                                "1",
+                                "2"
+                        ), NumberLineSegment.Companion.createDefaultNumberLineSegment(),
+                        NumberLineComponentKt.createNumberLineComponent(
+                                "1", "",
+                                "1",
+                                "2"
+                        ),
+                        NumberLineComponentKt.createNumberLineComponent(
+                                "4", "",
+                                "1",
+                                "2"
+                        ), new ArrayList<>());
         final String[] mixedWithImproper = {"1/2", "1 1/2", "2"};
         final NumberLineText textMixedWithImproper =
                 new NumberLineText(
-                        new NumberLineComponent.NumberLineComponentBuilder()
-                                .whole("")
-                                .numerator("1")
-                                .denominator("2")
-                                .build(), NumberLineSegment.Companion.createDefaultNumberLineSegment(),
-                        new NumberLineComponent.NumberLineComponentBuilder()
-                                .whole("1")
-                                .numerator("1")
-                                .denominator("2")
-                                .build(),
-                        new NumberLineComponent.NumberLineComponentBuilder().whole("2").build(), new ArrayList<>());
+                        NumberLineComponentKt.createNumberLineComponent(
+                                "", "",
+                                "1",
+                                "2"
+                        ), NumberLineSegment.Companion.createDefaultNumberLineSegment(),
+                        NumberLineComponentKt.createNumberLineComponent(
+                                "1", "",
+                                "1",
+                                "2"
+                        ),
+                        NumberLineComponentKt.createNumberLineComponent("2"), new ArrayList<>());
         final String[] extraSpacesWhole = {"1 ", "77", " 79"};
         final NumberLineText textExtraSpacesWhole =
                 new NumberLineText(
-                        new NumberLineComponent.NumberLineComponentBuilder().whole("1").build(), NumberLineSegment.Companion.createDefaultNumberLineSegment(),
-                        new NumberLineComponent.NumberLineComponentBuilder().whole("77").build(),
-                        new NumberLineComponent.NumberLineComponentBuilder().whole("79").build(), new ArrayList<>());
+                        NumberLineComponentKt.createNumberLineComponent("1"), NumberLineSegment.Companion.createDefaultNumberLineSegment(),
+                        NumberLineComponentKt.createNumberLineComponent("77"),
+                        NumberLineComponentKt.createNumberLineComponent("79"), new ArrayList<>());
         return new Object[][]{
                 {extraSpacesDecimal, textExtraSpacesDecimal},
                 {noLeadingZero, textNoLeadingZero},

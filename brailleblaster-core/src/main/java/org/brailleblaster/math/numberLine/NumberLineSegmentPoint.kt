@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory
 
 class NumberLineSegmentPoint(
   var circle: Fill = Fill.FULL,
-  var point: NumberLineComponent = NumberLineComponent(),
+  var point: NumberLineComponent = createNumberLineComponent(),
   var interval: Int = 1
 ) :
   Comparable<NumberLineSegmentPoint> {
@@ -70,20 +70,20 @@ class NumberLineSegmentPoint(
             IntervalType.DECIMAL -> {
               val doubleValue = fraction.toDouble().toString()
               val parts = doubleValue.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-              NumberLineComponent(whole=parts[0],
+              createNumberLineComponent(whole=parts[0],
                 decimal=parts[1])
             }
 
-            IntervalType.IMPROPER -> NumberLineComponent(
+            IntervalType.IMPROPER -> createNumberLineComponent(
               numerator=fraction.numerator.toString(),
               denominator=fraction.denominator.toString())
 
-            IntervalType.MIXED -> NumberLineComponent(
+            IntervalType.MIXED -> createNumberLineComponent(
               whole=fraction.properWhole.toString(),
               numerator=fraction.properNumerator.toString(),
               denominator=fraction.denominator.toString())
 
-            IntervalType.WHOLE -> NumberLineComponent(
+            IntervalType.WHOLE -> createNumberLineComponent(
               whole=fraction.toInt().toString())
 
           }

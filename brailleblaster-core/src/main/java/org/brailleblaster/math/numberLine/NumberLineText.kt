@@ -16,17 +16,17 @@
 package org.brailleblaster.math.numberLine
 
 class NumberLineText(
-  var interval: NumberLineComponent = NumberLineComponent(),
+  var interval: NumberLineComponent = createNumberLineComponent(),
   var segment: NumberLineSegment = NumberLineSegment(),
-  var lineStart: NumberLineComponent = NumberLineComponent(),
-  var lineEnd: NumberLineComponent = NumberLineComponent(),
+  var lineStart: NumberLineComponent = createNumberLineComponent(),
+  var lineEnd: NumberLineComponent = createNumberLineComponent(),
   var points: MutableList<NumberLineSegmentPoint> = mutableListOf()
 ) {
 
   fun clear() {
-    interval = NumberLineComponent()
-    lineStart = NumberLineComponent()
-    lineEnd = NumberLineComponent()
+    interval = createNumberLineComponent()
+    lineStart = createNumberLineComponent()
+    lineEnd = createNumberLineComponent()
     segment = NumberLineSegment()
     points = mutableListOf()
   }
