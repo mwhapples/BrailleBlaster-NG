@@ -6,7 +6,7 @@ BrailleBlaster is a free, open-source Braille transcription program developed by
 
 ## Obtaining BrailleBlaster-NG
 
-At the moment no production ready release has been made of BrailleBlaster-NG. This section will be updated with details of a production release when it is made. In the meantime users who want such a release should consider using the [previous proprietary version of BrailleBlaster](https://brailleblaster.org/download.php).
+An early access version of BrailleBlaster-NG can be found at the [download page](https://download.brailleblasster-ng.app/download.html). As an early access version there may still be issues which need resolving. In the meantime users who want a production ready release should consider using the [previous proprietary version of BrailleBlaster](https://brailleblaster.org/download.php).
 
 Users who want to be on the bleeding edge and are prepared to take the risks of using development builds may wish to try out the [continuous release](https://github.com/mwhapples/brailleblaster-ng/releases/continuous). See the below details for running a development build.
 
