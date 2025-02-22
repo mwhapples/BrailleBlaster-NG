@@ -15,11 +15,13 @@
  */
 package org.brailleblaster.math.spatial
 
+import kotlinx.serialization.Serializable
 import org.brailleblaster.math.spatial.MatrixConstants.BracketType
 import org.brailleblaster.math.spatial.MatrixConstants.Wide
 import org.brailleblaster.math.spatial.SpatialMathEnum.Passage
 import org.brailleblaster.math.spatial.SpatialMathEnum.Translation
 
+@Serializable
 class MatrixJson @JvmOverloads constructor(
     private var rows: Int = 0,
     private var cols: Int = 0,
@@ -27,7 +29,7 @@ class MatrixJson @JvmOverloads constructor(
     private var bracket: BracketType = MatrixSettings.DEFAULT_BRACKET,
     private var passage: Passage = Passage.NONE,
     private var translation: Translation? = null,
-    private var matrixCells: MutableList<MutableList<MatrixCell>> = ArrayList()
+    private var matrixCells: MutableList<MutableList<MatrixCell>> = mutableListOf()
 ) : ISpatialMathContainerJson {
 
     override fun jsonToContainer(): Matrix {

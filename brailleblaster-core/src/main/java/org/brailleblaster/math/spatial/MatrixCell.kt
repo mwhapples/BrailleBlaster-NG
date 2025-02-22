@@ -15,4 +15,7 @@
  */
 package org.brailleblaster.math.spatial
 
-class MatrixCell(@JvmField var text: String, var isEllipsis: Boolean)
+import kotlinx.serialization.Serializable
+
+@Serializable
+class MatrixCell(var text: String, var isEllipsis: Boolean)

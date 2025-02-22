@@ -15,6 +15,9 @@
  */
 package org.brailleblaster.math.spatial
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 class MathText(val print: String = "", val braille: String = "", val isEllipsis: Boolean = false) {
 
     val isBlank: Boolean

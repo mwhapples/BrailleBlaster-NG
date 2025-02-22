@@ -15,30 +15,30 @@
  */
 package org.brailleblaster.math.numberLine
 
-import org.brailleblaster.math.spatial.ISpatialMathContainer
 import org.brailleblaster.math.spatial.ISpatialMathContainerJson
 import org.brailleblaster.math.spatial.SpatialMathEnum.Fill
-import org.brailleblaster.math.spatial.SpatialMathEnum.NumberLineViews
-import org.brailleblaster.math.spatial.SpatialMathEnum.NumberLineType
-import org.brailleblaster.math.spatial.SpatialMathEnum.NumberLineOptions
-import org.brailleblaster.math.spatial.SpatialMathEnum.LabelPosition
-import org.brailleblaster.math.spatial.SpatialMathEnum.NumberLineSection
-import org.brailleblaster.math.spatial.SpatialMathEnum.Translation
-import org.brailleblaster.math.spatial.SpatialMathEnum.Passage
 import org.brailleblaster.math.spatial.SpatialMathEnum.IntervalType
+import org.brailleblaster.math.spatial.SpatialMathEnum.LabelPosition
+import org.brailleblaster.math.spatial.SpatialMathEnum.NumberLineOptions
+import org.brailleblaster.math.spatial.SpatialMathEnum.NumberLineSection
+import org.brailleblaster.math.spatial.SpatialMathEnum.NumberLineType
+import org.brailleblaster.math.spatial.SpatialMathEnum.NumberLineViews
+import org.brailleblaster.math.spatial.SpatialMathEnum.Passage
+import org.brailleblaster.math.spatial.SpatialMathEnum.Translation
 import java.util.*
 
-class NumberLineJson() : ISpatialMathContainerJson {
-  private var intervalType: IntervalType = IntervalType.WHOLE
-  var arrow = false
-  var stretch = false
-  var reduce = false
-  private var leadingZeros = false
-  var passage: Passage = Passage.NONE
-  private var numberLineType: NumberLineType? = null
-  private var viewType: NumberLineViews = NumberLineViews.AUTOMATIC_MATH
-  private lateinit var translationUserDefined: Translation
-  private lateinit var translationLabel: Translation
+class NumberLineJson @JvmOverloads constructor(
+  private var intervalType: IntervalType = IntervalType.WHOLE,
+  var arrow: Boolean = false,
+  var stretch: Boolean = false,
+  var reduce: Boolean = false,
+  private var leadingZeros: Boolean = false,
+  var passage: Passage = Passage.NONE,
+  private var numberLineType: NumberLineType? = null,
+  private var viewType: NumberLineViews = NumberLineViews.AUTOMATIC_MATH,
+  private var translationUserDefined: Translation = Translation.DIRECT,
+  private var translationLabel: Translation = Translation.LITERARY
+) : ISpatialMathContainerJson {
   var sectionType: NumberLineSection? = null
   var segment: Segment? = null
   var points: List<Point> = listOf()
@@ -113,28 +113,17 @@ class NumberLineJson() : ISpatialMathContainerJson {
     return numberLine
   }
 
-  fun containerToJson(container: ISpatialMathContainer): NumberLineJson {
-    val numberLine = container as NumberLine
-    intervalType = numberLine.settings.intervalType
-    arrow = numberLine.settings.isArrow
-    stretch = numberLine.settings.isStretch
-    reduce = numberLine.settings.isReduceFraction
-    leadingZeros = numberLine.settings.isRemoveLeadingZeros
-    passage = numberLine.settings.passage
-    numberLineType = numberLine.settings.type
-    viewType = numberLine.settings.view
-    translationUserDefined = numberLine.settings.translationUserDefined
-    translationLabel = numberLine.settings.translationLabel
-    interval = numberLine.numberLineText.interval
-    line = Line(numberLine)
-    points = numberLine.segmentPoints.map { Point(it) }
-    segment = Segment(numberLine.segment)
-    sectionType = numberLine.settings.sectionType
-    userIntervals = numberLine.settings.userDefinedArray
-    labelPosition = numberLine.settings.labelPosition
-    options = numberLine.settings.options
+  fun containerToJson(container: NumberLine): NumberLineJson {
+    interval = container.numberLineText.interval
+    line = Line(container)
+    points = container.segmentPoints.map { Point(it) }
+    segment = Segment(container.segment)
+    sectionType = container.settings.sectionType
+    userIntervals = container.settings.userDefinedArray
+    labelPosition = container.settings.labelPosition
+    options = container.settings.options
     return this
   }
 }
 
-fun NumberLine.createNumberLineJson(): NumberLineJson = NumberLineJson().containerToJson(this)
+fun NumberLine.createNumberLineJson(): NumberLineJson = NumberLineJson(intervalType = settings.intervalType, arrow = settings.isArrow, stretch = settings.isStretch, reduce = settings.isReduceFraction, leadingZeros = settings.isRemoveLeadingZeros, passage = settings.passage, numberLineType = settings.type, viewType = settings.view, translationUserDefined = settings.translationUserDefined, translationLabel = settings.translationLabel).containerToJson(this)
