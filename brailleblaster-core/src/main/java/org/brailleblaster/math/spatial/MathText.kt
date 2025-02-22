@@ -15,7 +15,7 @@
  */
 package org.brailleblaster.math.spatial
 
-class MathText(@JvmField val print: String = "", @JvmField val braille: String = "", val isEllipsis: Boolean = false) {
+class MathText(val print: String = "", val braille: String = "", val isEllipsis: Boolean = false) {
 
     val isBlank: Boolean
         get() = print.isEmpty() && braille.isEmpty()
