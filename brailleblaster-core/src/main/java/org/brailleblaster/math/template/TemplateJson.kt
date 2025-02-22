@@ -15,12 +15,14 @@
  */
 package org.brailleblaster.math.template
 
+import kotlinx.serialization.Serializable
 import org.brailleblaster.math.spatial.ISpatialMathContainerJson
 import org.brailleblaster.math.spatial.MathText
 import org.brailleblaster.math.spatial.SpatialMathEnum
 import org.brailleblaster.math.spatial.SpatialMathEnum.OPERATOR
 import org.brailleblaster.math.spatial.SpatialMathEnum.Passage
 
+@Serializable
 class TemplateJson @JvmOverloads constructor(
     private var straightRadical: Boolean = false,
     var operator: OPERATOR = TemplateSettings.DEFAULT_OPERATOR,
@@ -28,7 +30,7 @@ class TemplateJson @JvmOverloads constructor(
     var operands: List<String> = emptyList(),
     private var solutions: List<String> = emptyList(),
     var passage: Passage = Passage.NONE,
-    var identifier: MathText? = null,
+    var identifier: MathText = MathText(),
     private var identifierAsMath: Boolean = false,
     var linear: Boolean = false
 ) : ISpatialMathContainerJson {
@@ -43,7 +45,7 @@ class TemplateJson @JvmOverloads constructor(
         template.settings.operands = operands.size
         template.settings.solutions = solutions.size
         template.settings.passage = passage
-        template.identifier = identifier!!
+        template.identifier = identifier
         template.settings.isTranslateIdentifierAsMath = identifierAsMath
         template.settings.isLinear = linear
         return template
