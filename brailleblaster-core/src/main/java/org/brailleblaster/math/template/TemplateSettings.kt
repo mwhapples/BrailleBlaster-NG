@@ -29,14 +29,14 @@ class TemplateSettings : ISpatialMathSettings {
   var operands = 2
   var solutions = 0
   var isTranslateIdentifierAsMath = false
-  var operator: OPERATOR = defaultOperator
-  var type: SpatialMathEnum.TemplateType = defaultType
+  var operator: OPERATOR = DEFAULT_OPERATOR
+  var type: SpatialMathEnum.TemplateType = DEFAULT_TYPE
   var isLinear = true
 
   companion object {
     private val log = LoggerFactory.getLogger(TemplateSettings::class.java)
-    var defaultType = SpatialMathEnum.TemplateType.SIMPLE_ENUM
-    var defaultOperator = OPERATOR.PLUS_ENUM
+    val DEFAULT_TYPE = SpatialMathEnum.TemplateType.SIMPLE_ENUM
+    val DEFAULT_OPERATOR = OPERATOR.PLUS_ENUM
 
     @JvmStatic
     fun shouldFormatLinear(template: Template): Boolean {
@@ -54,7 +54,7 @@ class TemplateSettings : ISpatialMathSettings {
         }
       }
       log.error("Combo box does not match operator enum options, using default")
-      return defaultOperator
+      return DEFAULT_OPERATOR
     }
 
     fun enumifyType(s: String): SpatialMathEnum.TemplateType {
@@ -64,7 +64,7 @@ class TemplateSettings : ISpatialMathSettings {
         }
       }
       log.error("Combo box does not match type enum options, using default")
-      return defaultType
+      return DEFAULT_TYPE
     }
   }
 }

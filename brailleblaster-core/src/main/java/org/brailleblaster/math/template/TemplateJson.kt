@@ -15,23 +15,24 @@
  */
 package org.brailleblaster.math.template
 
-import org.brailleblaster.math.spatial.ISpatialMathContainer
 import org.brailleblaster.math.spatial.ISpatialMathContainerJson
 import org.brailleblaster.math.spatial.MathText
 import org.brailleblaster.math.spatial.SpatialMathEnum
 import org.brailleblaster.math.spatial.SpatialMathEnum.OPERATOR
 import org.brailleblaster.math.spatial.SpatialMathEnum.Passage
 
-class TemplateJson() : ISpatialMathContainerJson {
-    private var straightRadical = false
-    lateinit var operator: OPERATOR
-    private lateinit var templateType: SpatialMathEnum.TemplateType
-    var operands: List<String> = emptyList()
-    private var solutions: List<String> = emptyList()
-    lateinit var passage: Passage
-    var identifier: MathText? = null
-    private var identifierAsMath = false
-    var linear = false
+class TemplateJson @JvmOverloads constructor(
+    private var straightRadical: Boolean = false,
+    var operator: OPERATOR = TemplateSettings.DEFAULT_OPERATOR,
+    private var templateType: SpatialMathEnum.TemplateType = TemplateSettings.DEFAULT_TYPE,
+    var operands: List<String> = emptyList(),
+    private var solutions: List<String> = emptyList(),
+    var passage: Passage = Passage.NONE,
+    var identifier: MathText? = null,
+    private var identifierAsMath: Boolean = false,
+    var linear: Boolean = false
+) : ISpatialMathContainerJson {
+
     override fun jsonToContainer(): Template {
         val template = Template()
         template.settings.isStraightRadicalSymbol = straightRadical
@@ -47,20 +48,6 @@ class TemplateJson() : ISpatialMathContainerJson {
         template.settings.isLinear = linear
         return template
     }
-
-    fun containerToJson(container: ISpatialMathContainer): TemplateJson {
-        val template = container as Template
-        straightRadical = template.settings.isStraightRadicalSymbol
-        operator = template.settings.operator
-        templateType = template.settings.type
-        operands = template.printOperands
-        solutions = template.printSolutions
-        passage = template.settings.passage
-        identifier = template.identifier
-        identifierAsMath = template.settings.isTranslateIdentifierAsMath
-        linear = template.settings.isLinear
-        return this
-    }
 }
 
-fun Template.createTemplateJson(): TemplateJson = TemplateJson().containerToJson(this)
+fun Template.createTemplateJson(): TemplateJson = TemplateJson(straightRadical = settings.isStraightRadicalSymbol, operator = settings.operator, templateType = settings.type, operands = printOperands, solutions = printSolutions, passage = settings.passage, identifier = identifier, identifierAsMath = settings.isTranslateIdentifierAsMath, linear = settings.isLinear)
