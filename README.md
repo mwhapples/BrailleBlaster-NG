@@ -18,7 +18,7 @@ Once the build finishes you will find the application in brailleblaster-app/targ
 
 ## Running a development build
 
-To run a development build of BrailleBlaster, either one you built yourself or from the continuous release, you will need (java17 or higher installed. On Windows or Linux issue the following command from the root of your build:
+To run a development build of BrailleBlaster, either one you built yourself or from the continuous release, you will need Java17 or higher installed. On Windows or Linux issue the following command from the root of your build:
 ```command line
 java -jar brailleblaster.jar
 ```
