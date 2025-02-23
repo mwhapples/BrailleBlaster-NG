@@ -12,7 +12,7 @@ Users who want to be on the bleeding edge and are prepared to take the risks of 
 
 ## Building BrailleBlaster-NG
 
-BrailleBlaster-NG uses the maven build system and requires a (java Development Kit of Java17 or higher to be installed. You do not need to have maven installed as BrailleBlaster-NG includes some maven wrapper scripts which will be able to download the required version of maven. To build BrailleBlaster-NG run the following command at the root of the source tree:
+BrailleBlaster-NG uses the maven build system and requires a (java Development Kit of Java21 or higher to be installed. You do not need to have maven installed as BrailleBlaster-NG includes some maven wrapper scripts which will be able to download the required version of maven. To build BrailleBlaster-NG run the following command at the root of the source tree:
 ```command line
 mvnw package
 ```
@@ -20,7 +20,7 @@ Once the build finishes you will find the application in brailleblaster-app/targ
 
 ## Running a development build
 
-To run a development build of BrailleBlaster-NG, either one you built yourself or from the continuous release, you will need (java17 or higher installed. On Windows or Linux issue the following command from the root of your build:
+To run a development build of BrailleBlaster-NG, either one you built yourself or from the continuous release, you will need Java21 or higher installed. On Windows or Linux issue the following command from the root of your build:
 ```command line
 java -jar brailleblaster.jar
 ```
