@@ -130,8 +130,8 @@ fun runFirstRunWizard(
     val wizardPages = mutableListOf<Supplier<IWizardPage>>()
     val autoUpdates = userSettings.getProperty(AUTO_UPDATE_SETTING)
     val usageTracking = userSettings.getProperty(USAGE_TRACKING_SETTING)
-    if (autoUpdates == null && usageTracking == null) {
-        //Kind of a hack, but if both of these values are null, clearly we haven't run the wizard before.
+    val licenseAccepted = userSettings.getProperty(LICENSE_ACCEPTED_SETTING, "")
+    if (licenseAccepted != CURRENT_LICENSE_ID) {
         wizardPages.add { LicencePage() }
     }
     if (autoUpdates == null) {
