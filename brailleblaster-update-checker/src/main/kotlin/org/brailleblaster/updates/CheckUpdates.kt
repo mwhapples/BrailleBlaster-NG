@@ -16,16 +16,12 @@
 package org.brailleblaster.updates
 
 import org.brailleblaster.BBIni
-import org.brailleblaster.CHANNEL_BETA
-import org.brailleblaster.CHANNEL_STABLE
-import org.brailleblaster.NEEDS_UPDATE_MESSAGE
-import org.brailleblaster.SETTING_RELEASE_CHANNEL
 import org.brailleblaster.perspectives.mvc.modules.views.DebugModule
-import org.brailleblaster.readUserUpdateSettings
 import org.brailleblaster.userHelp.VersionInfo
 import org.brailleblaster.util.InstallId
 import org.brailleblaster.util.Notify
 import org.brailleblaster.util.Utils
+import org.brailleblaster.utils.PropertyFileManager
 import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT
 import org.eclipse.swt.events.SelectionAdapter
@@ -241,4 +237,20 @@ class CheckUpdates(private val userInitiated: Boolean, private val display: Disp
             }
     }
 
+}
+
+const val AUTO_UPDATE_SETTING = "autoUpdate"
+const val SETTING_RELEASE_CHANNEL = "checkUpdates.releaseChannel"
+const val NEEDS_UPDATE_MESSAGE = ("There is an updated version of BrailleBlaster available."
+        + "\nWould you like to close BrailleBlaster and view the update?")
+const val CHANNEL_STABLE = "stable"
+const val CHANNEL_BETA = "beta"
+
+fun readUserUpdateSettings(settings: PropertyFileManager = BBIni.propertyFileManager): Boolean {
+    /*
+ * Uncomment when we have a release updatePreference = (String)
+ * BBIni.getPropertyFileManager().getProperty("updatePreference",
+ * "both");
+ */
+    return settings.getPropertyAsBoolean(AUTO_UPDATE_SETTING, true)
 }
