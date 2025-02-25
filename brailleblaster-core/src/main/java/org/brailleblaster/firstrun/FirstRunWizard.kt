@@ -16,12 +16,11 @@
 package org.brailleblaster.firstrun
 
 import org.brailleblaster.BBIni
-import org.brailleblaster.AUTO_UPDATE_SETTING
-import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.usage.SimpleUsageManager
 import org.brailleblaster.usage.USAGE_TRACKING_SETTING
 import org.brailleblaster.usage.UsageManager
 import org.brailleblaster.utils.PropertyFileManager
+import org.brailleblaster.utils.localization.LocaleHandler
 import org.eclipse.jface.dialogs.MessageDialog
 import org.eclipse.jface.viewers.LabelProvider
 import org.eclipse.jface.wizard.IWizardPage
@@ -128,14 +127,10 @@ fun runFirstRunWizard(
     usageManager: UsageManager = SimpleUsageManager()
 ): Boolean {
     val wizardPages = mutableListOf<Supplier<IWizardPage>>()
-    val autoUpdates = userSettings.getProperty(AUTO_UPDATE_SETTING)
     val usageTracking = userSettings.getProperty(USAGE_TRACKING_SETTING)
     val licenseAccepted = userSettings.getProperty(LICENSE_ACCEPTED_SETTING, "")
     if (licenseAccepted != CURRENT_LICENSE_ID) {
         wizardPages.add { LicencePage() }
-    }
-    if (autoUpdates == null) {
-        wizardPages.add { AutoUpdatePage() }
     }
     if (usageTracking == null) {
         val sharedState = SurveySharedState()
