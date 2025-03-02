@@ -21,6 +21,8 @@ import org.brailleblaster.utils.os
 import java.io.File
 import java.lang.reflect.InvocationTargetException
 import java.net.MalformedURLException
+import java.net.URL
+import java.net.URLClassLoader
 import java.nio.file.Path
 import java.util.concurrent.ForkJoinPool
 import java.util.concurrent.ForkJoinPool.ForkJoinWorkerThreadFactory
@@ -83,26 +85,19 @@ private val Path.isJarFile: Boolean
     get() = isRegularFile() && extension.equals("jar", ignoreCase = true)
 
 private val proxyClassLoader: ClassLoader by lazy {
-    BBClassLoader("BBClassLoader", ClassLoader.getPlatformClassLoader()).apply {
-        (
-                System.getProperty("java.class.path").split(File.pathSeparatorChar).map { Path(it) }
-                        + Path(brailleblasterPath.canonicalPath, "lib").listJars()
-                        + Path(
-                    brailleblasterPath.canonicalPath,
-                    "native",
-                    "${os.name}-${arch.name}".lowercase(),
-                            "lib"
-                ).listJars()
-                ).forEach {
+        val appClasspath: Array<URL> = (
+            System.getProperty("java.class.path").split(File.pathSeparatorChar).map { Path(it) }
+                    + Path(brailleblasterPath.canonicalPath, "lib").listJars()
+                    + Path(brailleblasterPath.canonicalPath, "native", "${os.name}-${arch.name}".lowercase(), "lib").listJars()
+            ).mapNotNull { p ->
                 try {
-                    if (it.exists()) {
-                        add(it.toUri().toURL())
-                    }
+                    p.takeIf { it.exists() }?.toUri()?.toURL()
                 } catch (_: MalformedURLException) {
-                    // Just ignore it
+                    null
                 }
-            }
-    }
+        }.toTypedArray()
+    URLClassLoader("BBClassLoader", appClasspath, ClassLoader.getPlatformClassLoader())
+    URLClassLoader("BBClassLoader", appClasspath, ClassLoader.getPlatformClassLoader())
 }
 
 @Suppress("UNUSED")

@@ -40,7 +40,7 @@
         <logback-core.version>1.5.15</logback-core.version>
         <logback-classic.version>1.5.15</logback-classic.version>
         <icu4j.version>72.1</icu4j.version>
-        <mathcat4j.version>0.6.4-9</mathcat4j.version>
+        <mathcat4j.version>0.6.4-12</mathcat4j.version>
         <jlouis.version>d8570182bd99f812412a9869387347a837fd9c5b</jlouis.version>
         <libembosser.version>1.4.3</libembosser.version>
         <jaxbapi.version>4.0.2</jaxbapi.version>
