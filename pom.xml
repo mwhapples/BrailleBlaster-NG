@@ -56,7 +56,7 @@
         <findbugs.version>3.0.2</findbugs.version>
         <xercesimpl.version>2.12.2</xercesimpl.version>
         <xmlapis.version>2.0.2</xmlapis.version>
-        <xalan.version>2.7.3</xalan.version>
+        <saxon.version>12.5</saxon.version>
         <jsoup.version>1.18.3</jsoup.version>
         <xom.version>1.3.9</xom.version>
         <requiremaven.version>3.0</requiremaven.version>
@@ -224,14 +224,10 @@
             <groupId>xerces</groupId>
             <artifactId>xercesImpl</artifactId>
         </dependency>
-        <!-- We need xalan for exslt support -->
+        <!-- We need Saxon for exslt support -->
         <dependency>
-            <groupId>xalan</groupId>
-            <artifactId>xalan</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>xalan</groupId>
-            <artifactId>serializer</artifactId>
+            <groupId>net.sf.saxon</groupId>
+            <artifactId>Saxon-HE</artifactId>
         </dependency>
         <!-- Xom for XML -->
         <dependency>
@@ -414,14 +410,9 @@
                 <version>${xercesimpl.version}</version>
             </dependency>
             <dependency>
-                <groupId>xalan</groupId>
-                <artifactId>xalan</artifactId>
-                <version>${xalan.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>xalan</groupId>
-                <artifactId>serializer</artifactId>
-                <version>${xalan.version}</version>
+                <groupId>net.sf.saxon</groupId>
+                <artifactId>Saxon-HE</artifactId>
+                <version>${saxon.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.guava</groupId>
