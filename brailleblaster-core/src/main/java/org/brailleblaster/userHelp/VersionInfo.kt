@@ -16,7 +16,6 @@
 package org.brailleblaster.userHelp
 
 import com.sun.jna.Platform
-import org.apache.commons.io.IOUtils
 import org.apache.commons.lang3.SystemUtils
 import org.mwhapples.jlouis.Louis
 import org.slf4j.LoggerFactory
@@ -24,7 +23,6 @@ import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
-import java.nio.charset.StandardCharsets
 import java.util.*
 
 /**
@@ -77,8 +75,6 @@ object VersionInfo {
 
     sealed class Project {
         data object BB : Project() {
-            val isStableRelease: Boolean
-                get() = '-' !in displayName
             override val versionDevFallback: String? by lazy {
                 try {
                     // this should always work, BB can't be run from outside the BB or dist folder
@@ -98,11 +94,12 @@ object VersionInfo {
                 VersionInfo::class.java.getResourceAsStream(name)
             }
 
-            override val buildDataRevStream: InputStream? by lazy {
-                val name =
-                    "/" + Platform.RESOURCE_PREFIX + "/.build_data_" + name.lowercase(Locale.getDefault()) + ".rev"
-                VersionInfo::class.java.getResourceAsStream(name)
-            }
+            override val buildDataRevStream: InputStream?
+                get() = VersionInfo::class.java.getResourceAsStream(
+                    "/" + Platform.RESOURCE_PREFIX + "/.build_data_" + this.name.lowercase(
+                        Locale.getDefault()
+                    ) + ".rev"
+                )
 
             override val realVersion: String by lazy {
                 LIBLOUIS_INSTANCE.version
@@ -117,16 +114,15 @@ object VersionInfo {
         /** @see .getBuildDataProperties
          */
         private val buildDataProperties: Properties? by lazy {
-            val buildDataStream = buildDataStream
-            if (buildDataStream != null) {
-                val result = Properties()
+            buildDataStream?.reader(Charsets.UTF_8)?.use {
                 try {
-                    result.load(buildDataStream)
+                    Properties().apply {
+                        load(it)
+                    }
                 } catch (e: Exception) {
                     throw RuntimeException("Failed to load $this", e)
                 }
-                result
-            } else null
+            }
         }
         open val realVersion: String by lazy {
             // load from Jenkins build properties or Mercurial on developer machines
@@ -140,35 +136,24 @@ object VersionInfo {
             buildDataProperties?.getProperty("date")
         }
         val versionWithRev: String by lazy {
-            val revStream: InputStream? = buildDataRevDevStream ?: buildDataRevStream
-            val suffix: String = if (revStream != null) {
+            val suffix: String = buildDataRevStream?.use {
                 try {
-                    " " + IOUtils.toString(revStream, StandardCharsets.UTF_8).trim { it <= ' ' }
+                    " " + it.reader(Charsets.UTF_8).readText().trim { c -> c <= ' ' }
                 } catch (e: Exception) {
                     log.error("failed to read rev file", e)
                     " (failed to read rev file)"
                 }
-            } else {
-                ""
-            }
+            } ?: ""
             version + suffix
         }
 
 
         protected open val versionDevFallback: String?
             get() = null
-        open val buildDataStream: InputStream? by lazy {
-            val name = "/.build_data_" + name.lowercase(Locale.getDefault())
-            VersionInfo::class.java.getResourceAsStream(name)
-        }
-        open val buildDataRevStream: InputStream? by lazy {
-            val name = "/.build_data_" + name.lowercase(Locale.getDefault()) + ".rev"
-            VersionInfo::class.java.getResourceAsStream(name)
-        }
-        val buildDataRevDevStream: InputStream? by lazy {
-            val name = "/.build_data_" + name.lowercase(Locale.getDefault()) + ".rev.dev"
-            VersionInfo::class.java.getResourceAsStream(name)
-        }
+        open val buildDataStream: InputStream?
+            get() = VersionInfo::class.java.getResourceAsStream("/.build_data_${this.name.lowercase(Locale.getDefault())}")
+        open val buildDataRevStream: InputStream?
+            get() = VersionInfo::class.java.getResourceAsStream("/.build_data_${this.name.lowercase(Locale.getDefault())}.rev")
     }
 
     private fun interface Generator {
