@@ -99,11 +99,10 @@
                         </goals>
                         <configuration>
                             <target>
-                                <propertyfile file="${build.dist.directory}/programData/settings/about.properties">
-                                    <entry key="product" value="${product.name}"/>
-                                    <entry key="version" value="${project.version}"/>
-                                    <entry key="name" value="BrailleBlaster"/>
-                                    <entry key="date" value="${build.timestamp}" type="date"/>
+                                <propertyfile file="${build.dist.directory}/about.properties">
+                                    <entry key="app.display-name" value="${product.name}"/>
+                                    <entry key="app.version" value="${revision}"/>
+                                    <entry key="app.vendor" value="${product.vendor}"/>
                                 </propertyfile>
                             </target>
                         </configuration>
