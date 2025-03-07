@@ -6,6 +6,7 @@
     <groupId>org.brailleblaster</groupId>
     <artifactId>brailleblaster-parent</artifactId>
     <version>${revision}${sha1}${changelist}</version>
+    <name>BrailleBlaster</name>
     <packaging>pom</packaging>
 
     <modules>
@@ -22,6 +23,7 @@
     </modules>
 
     <properties>
+        <product.name>BrailleBlaster</product.name>
         <revision>2.1.10</revision>
         <sha1/>
         <changelist>-SNAPSHOT</changelist>

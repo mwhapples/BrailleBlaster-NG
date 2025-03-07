@@ -223,6 +223,10 @@
                 <configuration>
                     <addOutputDirectoryToResources>true</addOutputDirectoryToResources>
                     <outputName>brailleblaster-build.properties</outputName>
+                    <timestampFormat>yyyy-MM-dd HH:mm:ss</timestampFormat>
+                    <properties>
+                        <product>${product.name}</product>
+                    </properties>
                 </configuration>
             </plugin>
         </plugins>
