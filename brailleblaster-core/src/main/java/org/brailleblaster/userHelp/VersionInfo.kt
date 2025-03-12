@@ -19,10 +19,8 @@ import com.sun.jna.Platform
 import org.apache.commons.lang3.SystemUtils
 import org.mwhapples.jlouis.Louis
 import org.slf4j.LoggerFactory
-import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
-import java.io.InputStreamReader
 import java.util.*
 
 /**
@@ -37,55 +35,32 @@ object VersionInfo {
     val versionsSimple: String
         get() = createSummaryString { obj: Project -> generateVersionsShort(obj) }
     private val LIBLOUIS_INSTANCE = Louis()
-    private fun createSummaryString(generator: Generator): String {
-        val result = StringBuilder()
-        for (curProj in ALL_PROJECTS) {
-            try {
-                result.append(generator.generate(curProj))
-                result.append(System.lineSeparator())
-            } catch (e: Exception) {
-                throw RuntimeException("Failed to load project " + curProj.name, e)
-            }
+    private fun createSummaryString(generator: Generator): String = (ALL_PROJECTS.map { curProj ->
+        try {
+            generator.generate(curProj)
+        } catch (e: Exception) {
+            throw RuntimeException("Failed to load project " + curProj.name, e)
         }
-        result.append(javaVersion).append(System.lineSeparator()).append(oSVersion)
-        return result.toString()
-    }
+    } + listOf(javaVersion, oSVersion)).joinToString(separator = System.lineSeparator())
 
     @JvmStatic
     val javaVersion: String
-        get() = ("Java "
-                + System.getProperty("java.version")
-                + " "
-                + (if (Platform.is64Bit()) "64-bit" else "32-bit")
-                + " "
-                + Locale.getDefault())
+        get() = "Java ${System.getProperty("java.version")} ${if (Platform.is64Bit()) "64-bit" else "32-bit"} ${Locale.getDefault()}"
 
     @JvmStatic
     val oSVersion: String
-        get() = SystemUtils.OS_NAME + " Version " + SystemUtils.OS_VERSION
+        get() = "${SystemUtils.OS_NAME} Version ${SystemUtils.OS_VERSION}"
 
     private fun generateVersionsShort(project: Project): String {
-        var version = project.displayName + ": " + project.version
         val date = project.date
-        if (date != null) {
-            version += " built on " + project.date
-        }
-        return version
+        val builtOn = if (date != null) " built on $date" else ""
+        return "${project.displayName}: ${project.version}${builtOn}"
     }
 
     sealed class Project {
         data object BB : Project() {
-            override val versionDevFallback: String? by lazy {
-                try {
-                    // this should always work, BB can't be run from outside the BB or dist folder
-                    val exec = Runtime.getRuntime().exec(arrayOf("git", "rev-parse", "HEAD"))
-                    val bufferedReader = BufferedReader(InputStreamReader(exec.inputStream))
-                    "local developer copy: " + bufferedReader.readLine()
-                } catch (e: Exception) {
-                    log.trace("Failed to get version", e)
-                    null
-                }
-            }
+            override val realVersion: String
+                get() = System.getProperty("app.version")
         }
 
         data object LIBLOUIS : Project() {
@@ -127,11 +102,10 @@ object VersionInfo {
         open val realVersion: String by lazy {
             // load from Jenkins build properties or Mercurial on developer machines
             // load from
-            (buildDataProperties?.getProperty("version") ?: versionDevFallback) ?: "No version information found"
+            buildDataProperties?.getProperty("version") ?: "No version information found"
         }
-        var overrideVersion: String? = null
         val version: String
-            get() = overrideVersion ?: realVersion
+            get() = realVersion
         val date: String? by lazy {
             buildDataProperties?.getProperty("date")
         }
@@ -146,10 +120,6 @@ object VersionInfo {
             } ?: ""
             version + suffix
         }
-
-
-        protected open val versionDevFallback: String?
-            get() = null
         open val buildDataStream: InputStream?
             get() = VersionInfo::class.java.getResourceAsStream("/.build_data_${this.name.lowercase(Locale.getDefault())}")
         open val buildDataRevStream: InputStream?

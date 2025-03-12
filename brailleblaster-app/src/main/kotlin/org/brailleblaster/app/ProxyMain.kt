@@ -24,19 +24,11 @@ import java.net.MalformedURLException
 import java.net.URL
 import java.net.URLClassLoader
 import java.nio.file.Path
-import java.util.Properties
+import java.util.*
 import java.util.concurrent.ForkJoinPool
 import java.util.concurrent.ForkJoinPool.ForkJoinWorkerThreadFactory
 import java.util.concurrent.ForkJoinWorkerThread
-import kotlin.getValue
-import kotlin.collections.toProperties
-import kotlin.io.path.Path
-import kotlin.io.path.exists
-import kotlin.io.path.extension
-import kotlin.io.path.isDirectory
-import kotlin.io.path.isRegularFile
-import kotlin.io.path.listDirectoryEntries
-import kotlin.io.path.reader
+import kotlin.io.path.*
 
 /**
  * A launcher to get the app running in a ClassLoader which can be modified.
@@ -54,7 +46,7 @@ object ProxyMain {
             "java.util.concurrent.ForkJoinPool.common.threadFactory",
             "org.brailleblaster.app.BBForkJoinWorkerThreadFactory"
         )
-        val aboutProperties = Properties().apply {
+        Properties().apply {
             Path(brailleblasterPath, "about.properties").reader(Charsets.UTF_8).use { r ->
                 load(r)
             }
@@ -65,10 +57,11 @@ object ProxyMain {
                 "app.website-url" -> "app.websiteUrl"
                 else -> k.toString()
             }
-        }.mapValues { (_,v) -> v.toString() }.toProperties()
+        }.forEach { k,v ->
+            System.setProperty(k,v.toString())
+        }
 
         System.setProperty("app.dir", brailleblasterPath)
-        System.setProperties(aboutProperties)
         Thread.currentThread().contextClassLoader = proxyClassLoader
         try {
             val mainClass = Class.forName("org.brailleblaster.Main", true, proxyClassLoader)
@@ -103,7 +96,7 @@ private val Path.isJarFile: Boolean
 
 private val proxyClassLoader: ClassLoader by lazy {
         val appClasspath: Array<URL> = (
-            System.getProperty("java.class.path").split(File.pathSeparatorChar).map { Path(it) }
+            System.getProperty("java.class.path").split(File.pathSeparatorChar).mapNotNull { if (it.isNotBlank()) Path(it) else null }
                     + Path(brailleblasterPath, "lib").listJars()
                     + Path(brailleblasterPath, "native", "${os.name}-${arch.name}".lowercase(), "lib").listJars()
             ).mapNotNull { p ->
@@ -113,7 +106,6 @@ private val proxyClassLoader: ClassLoader by lazy {
                     null
                 }
         }.toTypedArray()
-    URLClassLoader("BBClassLoader", appClasspath, ClassLoader.getPlatformClassLoader())
     URLClassLoader("BBClassLoader", appClasspath, ClassLoader.getPlatformClassLoader())
 }
 
