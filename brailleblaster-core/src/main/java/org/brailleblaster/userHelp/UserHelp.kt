@@ -20,7 +20,6 @@ import org.brailleblaster.BBIni
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.tools.MenuToolListener
-import org.brailleblaster.userHelp.VersionInfo.versionsSimple
 import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.Notify.notify
 import org.brailleblaster.utils.BBData.getBrailleblasterPath

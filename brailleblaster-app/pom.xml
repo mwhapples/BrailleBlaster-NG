@@ -104,14 +104,18 @@
                     <outputName>about.properties</outputName>
                     <timestampPropertyName>app.build-date</timestampPropertyName>
                     <timestampFormat>yyyy-MM-dd HH:mm:ss</timestampFormat>
-                    <revisionPropertyName>app.hash</revisionPropertyName>
+                    <revisionPropertyName>app.build-hash</revisionPropertyName>
                     <applicationPropertyName>app.display-name</applicationPropertyName>
-                    <applicationName>${product.name}</applicationName>
+                    <applicationName>${project.parent.name}</applicationName>
                     <versionPropertyName>app.version</versionPropertyName>
                     <version>${revision}</version>
                     <properties>
-                        <app.vendor>${product.vendor}</app.vendor>
-                        <app.website-url>${product.website}</app.website-url>
+                        <app.fsname>${project.build.finalName}</app.fsname>
+                        <app.description>${project.description}</app.description>
+                        <app.vendor>${project.organization.name}</app.vendor>
+                        <app.website-url>${project.url}</app.website-url>
+                        <app.vcs-url>${project.scm.url}</app.vcs-url>
+                        <app.site.base-url>${project.distributionManagement.downloadUrl}</app.site.base-url>
                     </properties>
                 </configuration>
             </plugin>

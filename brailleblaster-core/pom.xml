@@ -206,29 +206,6 @@
                     <trimStackTrace>false</trimStackTrace>
                 </configuration>
             </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>buildnumber-maven-plugin</artifactId>
-                <version>${buildnumbermavenplugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>create-brailleblaster-build-props</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>create-metadata</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <addOutputDirectoryToResources>true</addOutputDirectoryToResources>
-                    <outputName>brailleblaster-build.properties</outputName>
-                    <timestampFormat>yyyy-MM-dd HH:mm:ss</timestampFormat>
-                    <properties>
-                        <product>${product.name}</product>
-                    </properties>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
