@@ -24,7 +24,6 @@ import java.net.MalformedURLException
 import java.net.URL
 import java.net.URLClassLoader
 import java.nio.file.Path
-import java.util.*
 import java.util.concurrent.ForkJoinPool
 import java.util.concurrent.ForkJoinPool.ForkJoinWorkerThreadFactory
 import java.util.concurrent.ForkJoinWorkerThread
@@ -46,20 +45,6 @@ object ProxyMain {
             "java.util.concurrent.ForkJoinPool.common.threadFactory",
             "org.brailleblaster.app.BBForkJoinWorkerThreadFactory"
         )
-        Properties().apply {
-            Path(brailleblasterPath, "about.properties").reader(Charsets.UTF_8).use { r ->
-                load(r)
-            }
-        }.mapKeys { (k,_) ->
-            when(k) {
-                "app.display-name" -> "app.displayName"
-                "app.base-url" -> "app.repositoryUrl"
-                "app.website-url" -> "app.websiteUrl"
-                else -> k.toString()
-            }
-        }.forEach { k,v ->
-            System.setProperty(k,v.toString())
-        }
 
         System.setProperty("app.dir", brailleblasterPath)
         Thread.currentThread().contextClassLoader = proxyClassLoader
