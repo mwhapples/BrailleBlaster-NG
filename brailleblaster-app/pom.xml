@@ -189,6 +189,24 @@
                             <outputDirectory>${build.dist.native.directory}/mac-x86_64/bin</outputDirectory>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>install-pandoc-mac-aarch64</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <url>https://github.com/jgm/pandoc/releases/download/${pandoc.version}/pandoc-${pandoc.version}-arm64-macOS.zip</url>
+                            <unpack>true</unpack>
+                            <includes>
+                                <include>**/pandoc</include>
+                            </includes>
+                            <fileMappers>
+                                <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
+                            </fileMappers>
+                            <outputDirectory>${build.dist.native.directory}/mac-aarch64/bin</outputDirectory>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -259,6 +277,12 @@
                                     <version>${swt.version}</version>
                                     <outputDirectory>${build.dist.native.directory}/mac-x86_64/lib</outputDirectory>
                                 </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.eclipse.platform</groupId>
+                                    <artifactId>org.eclipse.swt.cocoa.macosx.aarch64</artifactId>
+                                    <version>${swt.version}</version>
+                                    <outputDirectory>${build.dist.native.directory}/mac-aarch64/lib</outputDirectory>
+                                </artifactItem>
                             </artifactItems>
                         </configuration>
                     </execution>
@@ -277,6 +301,7 @@
                                 org.eclipse.swt.gtk.linux.x86_64,
                                 org.eclipse.swt.gtk.linux.aarch64,
                                 org.eclipse.swt.cocoa.macosx.x86_64
+                                org.eclipse.swt.cocoa.macosx.aarch64
                             </excludeArtifactIds>
                             <excludeTypes>zip</excludeTypes>
                             <includeScope>runtime</includeScope>
