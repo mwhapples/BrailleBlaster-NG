@@ -87,27 +87,33 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.1.0</version>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>${buildnumbermavenplugin.version}</version>
                 <executions>
                     <execution>
-                        <id>generate-about-properties</id>
+                        <id>create-about-properties</id>
                         <phase>generate-resources</phase>
                         <goals>
-                            <goal>run</goal>
+                            <goal>create-metadata</goal>
                         </goals>
-                        <configuration>
-                            <target>
-                                <propertyfile file="${build.dist.directory}/about.properties">
-                                    <entry key="app.display-name" value="${product.name}"/>
-                                    <entry key="app.version" value="${revision}"/>
-                                    <entry key="app.vendor" value="${product.vendor}"/>
-                                </propertyfile>
-                            </target>
-                        </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <outputDirectory>${build.dist.directory}</outputDirectory>
+                    <outputName>about.properties</outputName>
+                    <timestampPropertyName>app.build-date</timestampPropertyName>
+                    <timestampFormat>yyyy-MM-dd HH:mm:ss</timestampFormat>
+                    <revisionPropertyName>app.hash</revisionPropertyName>
+                    <applicationPropertyName>app.display-name</applicationPropertyName>
+                    <applicationName>${product.name}</applicationName>
+                    <versionPropertyName>app.version</versionPropertyName>
+                    <version>${revision}</version>
+                    <properties>
+                        <app.vendor>${product.vendor}</app.vendor>
+                        <app.website-url>${product.website}</app.website-url>
+                    </properties>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>io.github.download-maven-plugin</groupId>

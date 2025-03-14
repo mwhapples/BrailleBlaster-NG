@@ -25,6 +25,7 @@
     <properties>
         <product.name>BrailleBlaster</product.name>
         <product.vendor>American Printing House for the Blind</product.vendor>
+        <product.website>https://www.brailleblaster.org</product.website>
         <revision>2.1.10</revision>
         <sha1/>
         <changelist>-SNAPSHOT</changelist>
