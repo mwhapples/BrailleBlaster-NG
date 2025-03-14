@@ -49,7 +49,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>brailleblaster</finalName>
+        <finalName>${app.fsname}</finalName>
         <plugins>
             <!-- Clean lib directory -->
             <plugin>
