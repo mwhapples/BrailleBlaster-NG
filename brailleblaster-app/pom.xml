@@ -10,10 +10,8 @@
     </parent>
 
     <artifactId>brailleblaster-app</artifactId>
-    <name>BrailleBlaster-NG</name>
     <packaging>jar</packaging>
     <properties>
-        <product.name>BrailleBlaster-NG</product.name>
         <build.dist.directory>${project.build.directory}/dist</build.dist.directory>
         <build.dist.native.directory>${build.dist.directory}/native</build.dist.native.directory>
         <execmavenplugin.version>3.5.0</execmavenplugin.version>
@@ -89,28 +87,40 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.1.0</version>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>${buildnumbermavenplugin.version}</version>
                 <executions>
                     <execution>
-                        <id>generate-about-properties</id>
+                        <id>create-about-properties</id>
                         <phase>generate-resources</phase>
                         <goals>
-                            <goal>run</goal>
+                            <goal>create-metadata</goal>
                         </goals>
-                        <configuration>
-                            <target>
-                                <propertyfile file="${build.dist.directory}/programData/settings/about.properties">
-                                    <entry key="product" value="${product.name}"/>
-                                    <entry key="version" value="${project.version}"/>
-                                    <entry key="name" value="BrailleBlaster"/>
-                                    <entry key="date" value="${build.timestamp}" type="date"/>
-                                </propertyfile>
-                            </target>
-                        </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <outputDirectory>${build.dist.directory}</outputDirectory>
+                    <outputName>about.properties</outputName>
+                    <timestampPropertyName>app.build-date</timestampPropertyName>
+                    <timestampFormat>yyyy-MM-dd HH:mm:ss</timestampFormat>
+                    <revisionPropertyName>app.build-hash</revisionPropertyName>
+                    <applicationPropertyName>app.display-name</applicationPropertyName>
+                    <applicationName>${project.parent.name}</applicationName>
+                    <versionPropertyName>app.version</versionPropertyName>
+                    <version>${revision}</version>
+                    <properties>
+                        <app.fsname>${project.build.finalName}</app.fsname>
+                        <app.description>${project.description}</app.description>
+                        <app.vendor>${project.organization.name}</app.vendor>
+                        <app.website-url>${project.url}</app.website-url>
+                        <app.vcs-url>${project.scm.url}</app.vcs-url>
+                        <app.site.base-url>${project.distributionManagement.downloadUrl}</app.site.base-url>
+                        <app.vendor-fsname>${app.vendor-fsname}</app.vendor-fsname>
+                        <app.rdns-name>${app.rdns-name}</app.rdns-name>
+                        <app.contact-email>${app.contact-email}</app.contact-email>
+                    </properties>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>io.github.download-maven-plugin</groupId>
