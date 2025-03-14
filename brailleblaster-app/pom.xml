@@ -116,6 +116,9 @@
                         <app.website-url>${project.url}</app.website-url>
                         <app.vcs-url>${project.scm.url}</app.vcs-url>
                         <app.site.base-url>${project.distributionManagement.downloadUrl}</app.site.base-url>
+                        <app.vendor-fsname>${app.vendor-fsname}</app.vendor-fsname>
+                        <app.rdns-name>${app.rdns-name}</app.rdns-name>
+                        <app.contact-email>${app.contact-email}</app.contact-email>
                     </properties>
                 </configuration>
             </plugin>
