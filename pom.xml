@@ -14,7 +14,7 @@ child.project.url.inherit.append.path="false">
         <name>American Printing House for the Blind</name>
     </organization>
     <distributionManagement>
-        <downloadUrl>https://download.brailleblaster.org</downloadUrl>
+        <downloadUrl>https://assets.brailleblaster.org/brailleblaster/downloads</downloadUrl>
     </distributionManagement>
     <scm child.scm.connection.inherit.append.path="false" child.scm.developerConnection.inherit.append.path="false" child.scm.url.inherit.append.path="false">
         <connection>scm:git:https://github.com/aphtech/brailleblaster.git</connection>
