@@ -1,11 +1,26 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+child.project.url.inherit.append.path="false">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.brailleblaster</groupId>
     <artifactId>brailleblaster-parent</artifactId>
     <version>${revision}${sha1}${changelist}</version>
+    <name>BrailleBlaster</name>
+    <description>BrailleBlaster OpenSource Braille translation software.</description>
+    <url>https://www.brailleblaster.org</url>
+    <organization>
+        <name>American Printing House for the Blind</name>
+    </organization>
+    <distributionManagement>
+        <downloadUrl>https://assets.brailleblaster.org/brailleblaster/downloads</downloadUrl>
+    </distributionManagement>
+    <scm child.scm.connection.inherit.append.path="false" child.scm.developerConnection.inherit.append.path="false" child.scm.url.inherit.append.path="false">
+        <connection>scm:git:https://github.com/aphtech/brailleblaster.git</connection>
+        <developerConnection>scm:git:https://github.com/aphtech/brailleblaster.git</developerConnection>
+        <url>https://github.com/aphtech/brailleblaster</url>
+    </scm>
     <packaging>pom</packaging>
 
     <modules>
@@ -22,7 +37,11 @@
     </modules>
 
     <properties>
-        <revision>2.1.10</revision>
+        <app.fsname>brailleblaster</app.fsname>
+        <app.vendor-fsname>aph</app.vendor-fsname>
+        <app.contact-email>cs@aph.org</app.contact-email>
+        <app.rdns-name>org.aph.brailleblaster</app.rdns-name>
+        <revision>3.0.0</revision>
         <sha1/>
         <changelist>-SNAPSHOT</changelist>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -78,10 +97,6 @@
         <pandoc.version>3.6.3</pandoc.version>
         <orgeclipseswtbotswtfinder.version>f5b2edaee2</orgeclipseswtbotswtfinder.version>
     </properties>
-
-    <scm>
-        <connection>scm:git:https://github.com/aphtech/brailleblaster.git</connection>
-    </scm>
 
 
     <repositories>
