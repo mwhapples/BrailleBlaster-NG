@@ -194,6 +194,7 @@ object ExceptionReportingModule /*implements SimpleListener*/ {
                 .put("exception", ExceptionUtils.getStackTrace(exception))
                 .put("description", description ?: "")
                 .put("versionBb", Project.BB.version)
+                .put("versionUtd", "Unknown")
                 .put("versionJLouis", "Unknown")
                 .put(
                     "versionLibLouis",
