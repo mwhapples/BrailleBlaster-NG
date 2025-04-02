@@ -354,13 +354,7 @@ open class Initializer {
      */
     private fun initializeGuideDots(m: Manager, t: TextMapElement, brlonly: Element): Boolean {
         val brl = brlonly.parent as Element
-        var isFirstText = true
-        for (bme in t.brailleList) {
-            if (bme !is PageNumberBrlMapElement && bme.node != null && bme.node.value.trim { it <= ' ' }.isNotEmpty()) {
-                isFirstText = false
-                break
-            }
-        }
+        val isFirstText = t.brailleList.none { bme -> bme !is PageNumberBrlMapElement && bme.node != null && bme.node.value.trim { it <= ' ' }.isNotEmpty() }
 
         if (getAssociatedBrlElement(t.node) === brl && isFirstText) {
             val tme = GuideDotsTextMapElement(brlonly)
