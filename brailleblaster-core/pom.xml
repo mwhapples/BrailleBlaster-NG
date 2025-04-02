@@ -132,11 +132,6 @@
             <artifactId>jeuclid-core</artifactId>
             <version>${jeuclid.version}</version>
             <exclusions>
-                <!-- Use jcl-over-slf4j -->
-                <exclusion>
-                    <artifactId>commons-logging</artifactId>
-                    <groupId>commons-logging</groupId>
-                </exclusion>
                 <exclusion>
                     <artifactId>commons-io</artifactId>
                     <groupId>commons-io</groupId>
