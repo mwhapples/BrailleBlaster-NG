@@ -21,7 +21,7 @@ import org.brailleblaster.pandoc.FixImage
 import org.brailleblaster.pandoc.FixMathML
 import org.brailleblaster.pandoc.FixNestedList
 import org.brailleblaster.pandoc.Fixer
-import org.brailleblaster.utils.OS
+import org.brailleblaster.util.PANDOC_CMD
 import org.slf4j.LoggerFactory
 import java.io.*
 import java.nio.charset.StandardCharsets
@@ -60,17 +60,17 @@ object PandocArchiverLoader : ArchiverFactory.FileLoader {
 
     override val extensionsAndDescription: ImmutableMap<String, String>
         get() {
-        return ImmutableMap.Builder<String, String>()
-            .put("*.docx", "Microsoft Word Files (*.docx)")
-            .put("*.epub", "Epub Books (*.epub)")
-            .put("*.htm", "HTML Files (*.htm)")
-            .put("*.html", "HTML Files (*.html)")
-            .put("*.xhtml;*.xhtm;*.xht", "XHTML Files (*.xhtml;*.xhtm;*.xht)")
-            .put("*.md", "Markdown Files (*.md)")
-            .put("*.odt", "Open Document Files (*.odt)")
-            .put("*.tex", "LaTeX files (*.tex)")
-            .build()
-    }
+            return ImmutableMap.Builder<String, String>()
+                .put("*.docx", "Microsoft Word Files (*.docx)")
+                .put("*.epub", "Epub Books (*.epub)")
+                .put("*.htm", "HTML Files (*.htm)")
+                .put("*.html", "HTML Files (*.html)")
+                .put("*.xhtml;*.xhtm;*.xht", "XHTML Files (*.xhtml;*.xhtm;*.xht)")
+                .put("*.md", "Markdown Files (*.md)")
+                .put("*.odt", "Open Document Files (*.odt)")
+                .put("*.tex", "LaTeX files (*.tex)")
+                .build()
+        }
 
     @Throws(Exception::class)
     private fun pandocImport(filename: String, fromFormat: String?): Pair<String, String> {
@@ -93,23 +93,18 @@ object PandocArchiverLoader : ArchiverFactory.FileLoader {
         val fileTabName = "$newFilename.bbz"
         newFilename = "$newFilename-"
 
-        // determine the os and executable to use
-        val cmd = BBIni.nativeBinPath.resolve(when(org.brailleblaster.utils.os) {
-            OS.Windows -> "pandoc.exe"
-                else -> "pandoc"
-        }).absolutePathString()
 
         // set the working dir and execute
         try {
             wrkDir = File(PANDOCLUA)
-            env[0] = "PANDOCCMD=$cmd"
+            env[0] = "PANDOCCMD=$PANDOC_CMD"
             val outFile = File.createTempFile("bb-$outFilename-pandoc-err-", ".txt")
             outFile.deleteOnExit()
             val bbFile = File.createTempFile(newFilename, ".bbx")
             bbFile.deleteOnExit()
             newFilename = bbFile.absolutePath
             val pb = ProcessBuilder(
-                cmd, "--from=$fromFormat",
+                PANDOC_CMD, "--from=$fromFormat",
                 "--to=bbx.lua",
                 "--output=" + bbFile.absolutePath,
                 filename
@@ -118,7 +113,7 @@ object PandocArchiverLoader : ArchiverFactory.FileLoader {
                 .redirectError(ProcessBuilder.Redirect.INHERIT)
                 .redirectErrorStream(true)
                 .redirectOutput(outFile)
-            pb.environment()["PANDOCCMD"] = cmd
+            pb.environment()["PANDOCCMD"] = PANDOC_CMD
             var logStr = "\n***** PandocArchiverLoader *****\n"
             logStr = """
                 $logStr${pb.command()}
