@@ -39,15 +39,6 @@ open class BBMenuItem internal constructor(
 ) : IBBMenu {
     var listener: EnableListener? = null
 
-    internal constructor(
-        menu: TopMenu?,
-        text: String,
-        accelerator: Int,
-        swtOpts: Int,
-        onSelect: Consumer<BBSelectionData>,
-        sharedItem: SharedItem?
-    ) : this(menu, text, accelerator, onSelect, true, swtOpts, sharedItem)
-
     override fun build(parentMenu: Menu): MenuItem {
         val item = MenuItem(parentMenu, swtOpts)
         val textBuilder = StringBuilder()
