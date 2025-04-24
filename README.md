@@ -10,6 +10,10 @@ The latest release of BrailleBlaster-NG can be downloaded from the [download pag
 
 Users who want to be on the bleeding edge and are prepared to take the risks of using development builds may wish to try out the [continuous release](https://github.com/mwhapples/brailleblaster-ng/releases/continuous). See the below details for running a development build.
 
+## Documentation
+
+Online and downloadable copies of the documentation can be found on [the documentation pages](https://docs.brailleblaster-ng.app). Those wanting the source and wishing to contribute to the documentation of BrailleBlaster-NG, should visit the [documentation GitHub repository](https://github.com/mwhapples/BrailleBlaster-NG-docs).
+
 ## Asking questions and reporting issues
 
 At the moment users are encouraged to use [GitHub Discussions](https://github.com/mwhapples/BrailleBlaster-NG/discussions) for asking questions, sharing ideas and seeking help with issues with the software. Issue tracking will be done using [GitHub Issues](https://github.com/mwhapples/BrailleBlaster-NG/issues).
