@@ -23,8 +23,7 @@ import java.util.function.Consumer
 /**
  * Tracks submenus added to menus
  */
-class BBSubMenu internal constructor(override val menu: TopMenu?, val text: String) : IBBMenu {
-    val subMenuItems: MutableList<IBBMenu> = ArrayList()
+class BBSubMenu internal constructor(override val menu: TopMenu?, val text: String, val subMenuItems: MutableList<IBBMenu> = mutableListOf()) : IBBMenu, MutableList<IBBMenu> by subMenuItems {
 
     fun addItem(newItem: IBBMenu) {
         subMenuItems.add(newItem)
