@@ -31,7 +31,7 @@ open class BBCheckMenuItem @JvmOverloads internal constructor(
     onSelect: Consumer<BBSelectionData>,
     sharedItem: SharedItem? = null,
     enabled: Boolean = true
-) : BBMenuItem(menu, text, accelerator, enabled, SWT.CHECK, onSelect, sharedItem) {
+) : BBMenuItem(menu, text, accelerator, onSelect, enabled, SWT.CHECK, sharedItem) {
 
     override fun build(parentMenu: Menu): MenuItem {
         val returnItem = super.build(parentMenu)

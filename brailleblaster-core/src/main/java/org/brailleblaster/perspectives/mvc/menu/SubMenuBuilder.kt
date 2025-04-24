@@ -79,7 +79,14 @@ class SubMenuBuilder private constructor(val menu: TopMenu?, val name: String, v
     }
     fun addItem(tool: MenuTool): SubMenuBuilder {
         val sharedItem = tool.sharedItem
-        val newItem = BBMenuItem(null, tool.title, tool.accelerator, tool.swtOpts, tool::onRun, sharedItem)
+        val newItem = BBMenuItem(
+            menu = null,
+            text = tool.title,
+            accelerator = tool.accelerator,
+            swtOpts = tool.swtOpts,
+            onSelect = tool::onRun,
+            sharedItem = sharedItem
+        )
         items.add(newItem)
         if (sharedItem != null) {
             MenuManager.sharedItems[sharedItem] = newItem

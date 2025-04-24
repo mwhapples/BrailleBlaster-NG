@@ -191,12 +191,25 @@ object MenuManager {
             is EmphasisMenuTool -> {
                 val emphasis = tool.emphasis
                 emphasisHandlers[emphasis] = onSelect
-                BBMenuItem(menu, name, accelerator, enabled, onSelect, sharedItem).apply {
-                }
+                BBMenuItem(
+                    menu = menu,
+                    text = name,
+                    accelerator = accelerator,
+                    onSelect = onSelect,
+                    isEnabled = enabled,
+                    sharedItem = sharedItem
+                )
             }
 
             else -> {
-                BBMenuItem(menu, name, accelerator, enabled, onSelect, sharedItem)
+                BBMenuItem(
+                    menu = menu,
+                    text = name,
+                    accelerator = accelerator,
+                    onSelect = onSelect,
+                    isEnabled = enabled,
+                    sharedItem = sharedItem
+                )
             }
         }
         items.add(newItem)
