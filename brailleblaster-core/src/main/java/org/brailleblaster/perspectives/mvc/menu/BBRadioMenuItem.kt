@@ -32,9 +32,7 @@ class BBRadioMenuItem internal constructor(
         swtOpts = SWT.RADIO
     }
 
-    override fun copy(): BBRadioMenuItem {
-        val copy = BBRadioMenuItem(menu, text, accelerator, isSelected, onSelect)
-        copy.swtOpts = swtOpts
-        return copy
+    override fun copy(): BBRadioMenuItem = BBRadioMenuItem(menu, text, accelerator, isSelected, onSelect).also<BBRadioMenuItem> {
+        it.swtOpts = swtOpts
     }
 }

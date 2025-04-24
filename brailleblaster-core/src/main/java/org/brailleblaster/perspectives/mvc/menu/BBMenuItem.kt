@@ -71,14 +71,12 @@ open class BBMenuItem internal constructor(
         return item
     }
 
-    override fun copy(): BBMenuItem {
-        return BBMenuItem(
-            menu = menu,
-            text = text,
-            accelerator = accelerator,
-            onSelect = onSelect,
-            isEnabled = true,
-            swtOpts = swtOpts
-        )
-    }
+    override fun copy(): BBMenuItem = BBMenuItem(
+        menu = menu,
+        text = text,
+        accelerator = accelerator,
+        onSelect = onSelect,
+        isEnabled = true,
+        swtOpts = swtOpts
+    )
 }
