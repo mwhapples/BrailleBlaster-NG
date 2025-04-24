@@ -23,25 +23,15 @@ import java.util.function.Consumer
 /**
  * An abstraction of SWT's MenuItem with the SWT.CHECK style to be used internally in MenuManager
  */
-open class BBCheckMenuItem private constructor(
+open class BBCheckMenuItem @JvmOverloads internal constructor(
     menu: TopMenu?,
     text: String,
     accelerator: Int,
-    enabled: Boolean,
     var isSelected: Boolean,
     onSelect: Consumer<BBSelectionData>,
-    sharedItem: SharedItem?
+    sharedItem: SharedItem? = null,
+    enabled: Boolean = true
 ) : BBMenuItem(menu, text, accelerator, enabled, SWT.CHECK, onSelect, sharedItem) {
-
-    @JvmOverloads
-    internal constructor(
-        menu: TopMenu?,
-        text: String,
-        accelerator: Int,
-        selected: Boolean,
-        onSelect: Consumer<BBSelectionData>,
-        sharedItem: SharedItem? = null
-    ) : this(menu, text, accelerator, true, selected, onSelect, sharedItem)
 
     override fun build(parentMenu: Menu): MenuItem {
         val returnItem = super.build(parentMenu)
