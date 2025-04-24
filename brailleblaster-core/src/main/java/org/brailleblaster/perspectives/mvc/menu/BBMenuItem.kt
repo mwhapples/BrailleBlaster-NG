@@ -32,39 +32,12 @@ open class BBMenuItem internal constructor(
     override val menu: TopMenu?,
     val text: String,
     val accelerator: Int,
-    val isEnabled: Boolean,
-    var swtOpts: Int,
     val onSelect: Consumer<BBSelectionData>,
-    val sharedItem: SharedItem?
+    val isEnabled: Boolean = true,
+    var swtOpts: Int = SWT.PUSH,
+    val sharedItem: SharedItem? = null
 ) : IBBMenu {
     var listener: EnableListener? = null
-
-    internal constructor(menu: TopMenu?, text: String, accelerator: Int, onSelect: Consumer<BBSelectionData>) : this(
-        menu,
-        text,
-        accelerator,
-        true,
-        onSelect,
-        null
-    )
-
-    internal constructor(
-        menu: TopMenu?,
-        text: String,
-        accelerator: Int,
-        enabled: Boolean,
-        onSelect: Consumer<BBSelectionData>,
-        sharedItem: SharedItem?
-    ) : this(menu, text, accelerator, enabled, SWT.PUSH, onSelect, sharedItem)
-
-    internal constructor(
-        menu: TopMenu?,
-        text: String,
-        accelerator: Int,
-        swtOpts: Int,
-        onSelect: Consumer<BBSelectionData>,
-        sharedItem: SharedItem?
-    ) : this(menu, text, accelerator, true, swtOpts, onSelect, sharedItem)
 
     override fun build(parentMenu: Menu): MenuItem {
         val item = MenuItem(parentMenu, swtOpts)
@@ -98,9 +71,12 @@ open class BBMenuItem internal constructor(
         return item
     }
 
-    override fun copy(): BBMenuItem {
-        val copy = BBMenuItem(menu, text, accelerator, onSelect)
-        copy.swtOpts = swtOpts
-        return copy
-    }
+    override fun copy(): BBMenuItem = BBMenuItem(
+        menu = menu,
+        text = text,
+        accelerator = accelerator,
+        onSelect = onSelect,
+        isEnabled = true,
+        swtOpts = swtOpts
+    )
 }
