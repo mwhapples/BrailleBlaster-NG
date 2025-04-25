@@ -38,6 +38,8 @@ jobs:
 
     - name: Zip distribution
       run: |
+        mkdir brailleblaster-continuous
+        cp -a -t brailleblaster-continuous brailleblaster-app/target/dist/*
         zip -r brailleblaster-continuous.zip brailleblaster-app/target/dist/*
     - name: Upload dist
       uses: actions/upload-artifact@v4
