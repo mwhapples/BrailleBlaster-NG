@@ -38,6 +38,7 @@ jobs:
 
     - name: Zip distribution
       run: |
+        mkdir brailleblaster-continuous
         cp -R -t brailleblaster-continuous brailleblaster-app/target/dist/*
         zip -r brailleblaster-continuous.zip brailleblaster-continuous
     - name: Upload dist
