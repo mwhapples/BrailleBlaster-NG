@@ -39,9 +39,7 @@ jobs:
       run: brailleblaster-app/scripts/get-docs.sh brailleblaster-app/target/dist/docs
     - name: Zip distribution
       run: |
-        mkdir brailleblaster-continuous
-        cp -R -t brailleblaster-continuous brailleblaster-app/target/dist/*
-        zip -r brailleblaster-continuous.zip brailleblaster-continuous
+        zip -r brailleblaster-continuous.zip brailleblaster-app/target/dist/*
     - name: Upload dist
       uses: actions/upload-artifact@v4
       with:
