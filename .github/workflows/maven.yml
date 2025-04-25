@@ -44,8 +44,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: brailleblaster
-        path: brailleblaster-app/target/dist
-
+        path: brailleblaster-continuous.zip
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
       if: github.ref == 'ref/heads/main' && github.event_name != 'pull_request'
@@ -63,7 +62,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: brailleblaster
-        path: brailleblaster-continuous
+        path: brailleblaster-continuous.zip
     - name: Update continuous tag
       uses: actions/github-script@v7
       with:
