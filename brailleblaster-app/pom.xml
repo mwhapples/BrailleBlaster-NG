@@ -147,6 +147,7 @@
                                 <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
                             </fileMappers>
                             <outputDirectory>${build.dist.native.directory}/windows-x86_64/bin</outputDirectory>
+                            <outputFilePermissions>+x</outputFilePermissions>
                         </configuration>
                     </execution>
                     <execution>
@@ -165,6 +166,7 @@
                                 <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
                             </fileMappers>
                             <outputDirectory>${build.dist.native.directory}/linux-x86_64/bin</outputDirectory>
+                            <outputFilePermissions>+x</outputFilePermissions>
                         </configuration>
                     </execution>
                     <execution>
@@ -183,6 +185,7 @@
                                 <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
                             </fileMappers>
                             <outputDirectory>${build.dist.native.directory}/linux-aarch64/bin</outputDirectory>
+                            <outputFilePermissions>+x</outputFilePermissions>
                         </configuration>
                     </execution>
                     <execution>
@@ -201,6 +204,7 @@
                                 <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
                             </fileMappers>
                             <outputDirectory>${build.dist.native.directory}/mac-x86_64/bin</outputDirectory>
+                            <outputFilePermissions>+x</outputFilePermissions>
                         </configuration>
                     </execution>
                     <execution>
@@ -219,6 +223,7 @@
                                 <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
                             </fileMappers>
                             <outputDirectory>${build.dist.native.directory}/mac-aarch64/bin</outputDirectory>
+                            <outputFilePermissions>+x</outputFilePermissions>
                         </configuration>
                     </execution>
                 </executions>
