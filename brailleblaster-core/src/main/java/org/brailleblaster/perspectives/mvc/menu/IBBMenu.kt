@@ -72,18 +72,18 @@ interface IBBMenuItem : IBBMenu {
 }
 
 interface IBBCheckMenuItem : IBBMenuItem {
-    val isSelected: Boolean
+    val active: Boolean
     override fun build(parentMenu: Menu): MenuItem = super.build(parentMenu).apply {
-        selection = isSelected
+        selection = active
     }
 
     override fun copy(): IBBCheckMenuItem = this
 }
 
 interface IBBRadioMenuItem : IBBMenuItem {
-    val isSelected: Boolean
+    val active: Boolean
     override fun build(parentMenu: Menu): MenuItem = super.build(parentMenu).apply {
-        selection = isSelected
+        selection = active
     }
 
     override fun copy(): IBBRadioMenuItem = this

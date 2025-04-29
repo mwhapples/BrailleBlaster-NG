@@ -25,7 +25,7 @@ open class BBCheckMenuItem @JvmOverloads internal constructor(
     menu: TopMenu?,
     text: String,
     accelerator: Int,
-    override val isSelected: Boolean,
+    override val active: Boolean,
     onSelect: Consumer<BBSelectionData>,
     sharedItem: SharedItem? = null,
     enabled: Boolean = true,
