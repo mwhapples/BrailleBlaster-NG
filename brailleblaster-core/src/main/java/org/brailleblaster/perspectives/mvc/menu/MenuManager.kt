@@ -309,8 +309,8 @@ object MenuManager {
      * @return Selection behavior assigned to that item
      */
 	@JvmStatic
-	fun getSharedSelection(item: SharedItem): Consumer<BBSelectionData> {
-        return Consumer { e: BBSelectionData -> lookupSelection(item)(e) }
+    fun getSharedSelection(item: SharedItem): (BBSelectionData) -> Unit {
+        return lookupSelection(item)
     }
 
     private fun lookupSelection(item: SharedItem): (BBSelectionData) -> Unit {
