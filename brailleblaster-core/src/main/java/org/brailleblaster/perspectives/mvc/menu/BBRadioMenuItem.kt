@@ -28,13 +28,12 @@ class BBRadioMenuItem internal constructor(
     text: String?,
     accelerator: Int,
     val isSelected: Boolean,
-    onSelect: Consumer<BBSelectionData>
-) : BBMenuItem(menu, text!!, accelerator, onSelect, swtOpts = SWT.RADIO) {
+    onSelect: Consumer<BBSelectionData>,
+    swtOpts: Int = SWT.RADIO
+) : BBMenuItem(menu, text!!, accelerator, onSelect, swtOpts = swtOpts or SWT.RADIO) {
 
     override fun build(parentMenu: Menu): MenuItem = super.build(parentMenu).apply {
         selection = isSelected
     }
-    override fun copy(): BBRadioMenuItem = BBRadioMenuItem(menu, text, accelerator, isSelected, onSelect).also<BBRadioMenuItem> {
-        it.swtOpts = swtOpts
-    }
+    override fun copy(): BBRadioMenuItem = BBRadioMenuItem(menu, text, accelerator, isSelected, onSelect, swtOpts = swtOpts)
 }

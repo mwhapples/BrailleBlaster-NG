@@ -30,14 +30,13 @@ open class BBCheckMenuItem @JvmOverloads internal constructor(
     val isSelected: Boolean,
     onSelect: Consumer<BBSelectionData>,
     sharedItem: SharedItem? = null,
-    enabled: Boolean = true
-) : BBMenuItem(menu, text, accelerator, onSelect, enabled, SWT.CHECK, sharedItem) {
+    enabled: Boolean = true,
+    swtOpts: Int = SWT.CHECK
+) : BBMenuItem(menu, text, accelerator, onSelect, enabled, swtOpts or SWT.CHECK, sharedItem) {
 
     override fun build(parentMenu: Menu): MenuItem = super.build(parentMenu).apply {
         selection = isSelected
     }
 
-    override fun copy(): BBCheckMenuItem = BBCheckMenuItem(menu, text, accelerator, isSelected, onSelect).also<BBCheckMenuItem> {
-        it.swtOpts = swtOpts
-    }
+    override fun copy(): BBCheckMenuItem = BBCheckMenuItem(menu, text, accelerator, isSelected, onSelect, swtOpts=swtOpts   )
 }
