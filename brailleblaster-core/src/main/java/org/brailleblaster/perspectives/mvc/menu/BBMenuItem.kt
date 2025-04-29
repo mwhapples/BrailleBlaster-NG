@@ -61,9 +61,7 @@ open class BBMenuItem internal constructor(
                 onSelect.accept(data)
             }
         }
-        if (listener != null) {
-            addToListenerMap(listener!!, item)
-        }
+        listener?.let { addToListenerMap(it, item) }
         if (sharedItem != null) {
             MenuManager.sharedMenuItems[sharedItem] = item
         }
