@@ -198,7 +198,7 @@ object MenuManager {
                     onSelect = onSelect,
                     isEnabled = enabled,
                     sharedItem = sharedItem,
-                    listener = enableListener
+                    enableListener = enableListener
                 )
             }
 
@@ -210,7 +210,7 @@ object MenuManager {
                     onSelect = onSelect,
                     isEnabled = enabled,
                     sharedItem = sharedItem,
-                    listener = enableListener
+                    enableListener = enableListener
                 )
             }
         }

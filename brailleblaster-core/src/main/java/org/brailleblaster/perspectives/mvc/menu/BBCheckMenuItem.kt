@@ -39,5 +39,5 @@ open class BBCheckMenuItem @JvmOverloads internal constructor(
     isEnabled = enabled,
     swtOpts = swtOpts or SWT.CHECK,
     sharedItem = sharedItem,
-    listener = listener
+    enableListener = listener
 ), IBBCheckMenuItem

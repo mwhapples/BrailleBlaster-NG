@@ -29,5 +29,5 @@ open class BBMenuItem internal constructor(
     override val isEnabled: Boolean = true,
     override val swtOpts: Int = SWT.PUSH,
     override val sharedItem: SharedItem? = null,
-    override val listener: EnableListener? = null
+    override val enableListener: EnableListener? = null
 ) : IBBMenuItem

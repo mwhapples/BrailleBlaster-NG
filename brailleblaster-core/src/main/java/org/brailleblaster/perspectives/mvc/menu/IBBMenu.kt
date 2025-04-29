@@ -40,7 +40,7 @@ interface IBBMenuItem : IBBMenu {
     val isEnabled: Boolean
     val swtOpts: Int
     val sharedItem: SharedItem?
-    val listener: EnableListener?
+    val enableListener: EnableListener?
     override fun build(parentMenu: Menu): MenuItem {
         val item = MenuItem(parentMenu, swtOpts)
         val textBuilder = StringBuilder()
@@ -63,7 +63,7 @@ interface IBBMenuItem : IBBMenu {
                 onSelect.accept(data)
             }
         }
-        listener?.let { addToListenerMap(it, item) }
+        enableListener?.let { addToListenerMap(it, item) }
         sharedItem?.let { MenuManager.sharedMenuItems[it] = item }
         item.isEnabled = isEnabled
         return item

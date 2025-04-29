@@ -29,4 +29,4 @@ class BBRadioMenuItem internal constructor(
     onSelect: Consumer<BBSelectionData>,
     swtOpts: Int = SWT.RADIO,
     listener: EnableListener? = null
-) : BBMenuItem(menu, text!!, accelerator, onSelect, swtOpts = swtOpts or SWT.RADIO, listener = listener), IBBRadioMenuItem
+) : BBMenuItem(menu, text!!, accelerator, onSelect, swtOpts = swtOpts or SWT.RADIO, enableListener = listener), IBBRadioMenuItem
