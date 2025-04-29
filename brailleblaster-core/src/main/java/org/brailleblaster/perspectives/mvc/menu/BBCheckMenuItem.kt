@@ -48,5 +48,5 @@ open class BBCheckMenuItem @JvmOverloads internal constructor(
         selection = isSelected
     }
 
-    override fun copy(): BBCheckMenuItem = BBCheckMenuItem(menu, text, accelerator, isSelected, onSelect, swtOpts=swtOpts   )
+    override fun copy(): BBCheckMenuItem = this
 }

@@ -36,5 +36,5 @@ class BBRadioMenuItem internal constructor(
     override fun build(parentMenu: Menu): MenuItem = super.build(parentMenu).apply {
         selection = isSelected
     }
-    override fun copy(): BBRadioMenuItem = BBRadioMenuItem(menu, text, accelerator, isSelected, onSelect, swtOpts = swtOpts)
+    override fun copy(): BBRadioMenuItem = this
 }
