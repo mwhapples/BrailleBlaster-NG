@@ -15,14 +15,7 @@
  */
 package org.brailleblaster.perspectives.mvc.menu
 
-import org.brailleblaster.perspectives.mvc.menu.MenuManager.addToListenerMap
-import org.brailleblaster.perspectives.mvc.menu.MenuManager.menuItemAcceleratorSuffix
-import org.brailleblaster.util.FormUIUtils
-import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT
-import org.eclipse.swt.events.SelectionEvent
-import org.eclipse.swt.widgets.Menu
-import org.eclipse.swt.widgets.MenuItem
 import java.util.function.Consumer
 
 /**
@@ -37,33 +30,4 @@ open class BBMenuItem internal constructor(
     override val swtOpts: Int = SWT.PUSH,
     override val sharedItem: SharedItem? = null,
     override val listener: EnableListener? = null
-) : IBBMenuItem {
-
-    override fun build(parentMenu: Menu): MenuItem {
-        val item = MenuItem(parentMenu, swtOpts)
-        val textBuilder = StringBuilder()
-        textBuilder.append(text)
-        if (accelerator > 0) {
-            menuItemAcceleratorSuffix(textBuilder, accelerator)
-            item.accelerator = accelerator
-        }
-        item.text = textBuilder.toString()
-        FormUIUtils.addSelectionListener(item) { e: SelectionEvent ->
-            //SWT dispatches two selection events when a radio button is clicked, one for the new selection
-            //and one for the previous selection
-            if (this !is BBRadioMenuItem || (e.widget as MenuItem).selection) {
-                val data = BBSelectionData(e.widget, WPManager.getInstance())
-                data.menuItem = item
-                if (sharedItem != null && MenuManager.sharedToolBars.containsKey(
-                        sharedItem
-                    )
-                ) data.toolBarItem = MenuManager.sharedToolBars[sharedItem]
-                onSelect.accept(data)
-            }
-        }
-        listener?.let { addToListenerMap(it, item) }
-        sharedItem?.let { MenuManager.sharedMenuItems[it] = item }
-        item.isEnabled = isEnabled
-        return item
-    }
-}
+) : IBBMenuItem
