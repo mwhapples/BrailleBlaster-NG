@@ -32,7 +32,7 @@ open class BBCheckMenuItem @JvmOverloads internal constructor(
     swtOpts: Int = SWT.CHECK,
     listener: EnableListener? = null
 ) : BBMenuItem(
-    menu = menu,
+    topMenu = menu,
     title = text,
     accelerator = accelerator,
     onSelect = onSelect,

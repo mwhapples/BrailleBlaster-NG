@@ -104,7 +104,7 @@ object MenuManager {
             newMenuItem.text = menu.menuName
             val newMenu = Menu(shellMenu.shell, SWT.DROP_DOWN)
             newMenuItem.menu = newMenu
-            items.filter { it.menu == menu }.forEach { it.build(newMenu) }
+            items.filter { it.topMenu == menu }.forEach { it.build(newMenu) }
         }
         val existingAccelerators = HashMap<Int, String>()
         checkMenuAcceleratorsForDuplicates(shellMenu, existingAccelerators)
@@ -192,7 +192,7 @@ object MenuManager {
                 val emphasis = tool.emphasis
                 emphasisHandlers[emphasis] = onSelect
                 BBMenuItem(
-                    menu = menu,
+                    topMenu = menu,
                     title = name,
                     accelerator = accelerator,
                     onSelect = onSelect,
@@ -204,7 +204,7 @@ object MenuManager {
 
             else -> {
                 BBMenuItem(
-                    menu = menu,
+                    topMenu = menu,
                     title = name,
                     accelerator = accelerator,
                     onSelect = onSelect,

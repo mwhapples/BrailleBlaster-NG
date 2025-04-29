@@ -22,7 +22,7 @@ import java.util.function.Consumer
  * An abstraction of SWT's MenuItem to be used internally in MenuManager
  */
 open class BBMenuItem internal constructor(
-    override val menu: TopMenu?,
+    override val topMenu: TopMenu?,
     override val title: String,
     override val accelerator: Int,
     override val onSelect: Consumer<BBSelectionData>,

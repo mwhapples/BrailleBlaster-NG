@@ -28,7 +28,7 @@ import java.util.function.Consumer
  * Interface for all types of items that can be added through MenuManager
  */
 interface IBBMenu {
-    val menu: TopMenu?
+    val topMenu: TopMenu?
     fun build(parentMenu: Menu): MenuItem
     fun copy(): IBBMenu
 }
