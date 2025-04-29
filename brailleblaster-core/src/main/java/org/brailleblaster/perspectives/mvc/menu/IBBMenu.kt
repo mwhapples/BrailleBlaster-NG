@@ -53,7 +53,7 @@ interface IBBMenuItem : IBBMenu {
         FormUIUtils.addSelectionListener(item) { e: SelectionEvent ->
             //SWT dispatches two selection events when a radio button is clicked, one for the new selection
             //and one for the previous selection
-            if (this !is BBRadioMenuItem || (e.widget as MenuItem).selection) {
+            if (this !is IBBRadioMenuItem || (e.widget as MenuItem).selection) {
                 val data = BBSelectionData(e.widget, WPManager.getInstance())
                 data.menuItem = item
                 if (sharedItem != null && MenuManager.sharedToolBars.containsKey(
