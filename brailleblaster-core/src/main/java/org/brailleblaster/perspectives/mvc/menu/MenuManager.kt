@@ -196,7 +196,7 @@ object MenuManager {
                     title = name,
                     accelerator = accelerator,
                     onSelect = onSelect,
-                    isEnabled = enabled,
+                    enabled = enabled,
                     sharedItem = sharedItem,
                     enableListener = enableListener
                 )
@@ -208,7 +208,7 @@ object MenuManager {
                     title = name,
                     accelerator = accelerator,
                     onSelect = onSelect,
-                    isEnabled = enabled,
+                    enabled = enabled,
                     sharedItem = sharedItem,
                     enableListener = enableListener
                 )

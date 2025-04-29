@@ -37,7 +37,7 @@ interface IBBMenuItem : IBBMenu {
     val title: String
     val accelerator: Int
     val onSelect: Consumer<BBSelectionData>
-    val isEnabled: Boolean
+    val enabled: Boolean
     val swtOpts: Int
     val sharedItem: SharedItem?
     val enableListener: EnableListener?
@@ -65,7 +65,7 @@ interface IBBMenuItem : IBBMenu {
         }
         enableListener?.let { addToListenerMap(it, item) }
         sharedItem?.let { MenuManager.sharedMenuItems[it] = item }
-        item.isEnabled = isEnabled
+        item.isEnabled = enabled
         return item
     }
     override fun copy(): IBBMenuItem = this

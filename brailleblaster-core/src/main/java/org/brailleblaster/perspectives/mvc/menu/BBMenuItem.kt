@@ -26,7 +26,7 @@ open class BBMenuItem internal constructor(
     override val title: String,
     override val accelerator: Int,
     override val onSelect: Consumer<BBSelectionData>,
-    override val isEnabled: Boolean = true,
+    override val enabled: Boolean = true,
     override val swtOpts: Int = SWT.PUSH,
     override val sharedItem: SharedItem? = null,
     override val enableListener: EnableListener? = null
