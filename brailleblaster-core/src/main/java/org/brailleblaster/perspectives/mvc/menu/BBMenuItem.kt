@@ -16,7 +16,6 @@
 package org.brailleblaster.perspectives.mvc.menu
 
 import org.eclipse.swt.SWT
-import java.util.function.Consumer
 
 /**
  * An abstraction of SWT's MenuItem to be used internally in MenuManager
@@ -25,7 +24,7 @@ open class BBMenuItem internal constructor(
     override val topMenu: TopMenu?,
     override val title: String,
     override val accelerator: Int,
-    override val onSelect: Consumer<BBSelectionData>,
+    override val onActivated: (BBSelectionData) -> Unit,
     override val enabled: Boolean = true,
     override val swtOpts: Int = SWT.PUSH,
     override val sharedItem: SharedItem? = null,

@@ -16,7 +16,6 @@
 package org.brailleblaster.perspectives.mvc.menu
 
 import org.eclipse.swt.SWT
-import java.util.function.Consumer
 
 /**
  * An abstraction of SWT's MenuItem with the SWT.CHECK style to be used internally in MenuManager
@@ -26,7 +25,7 @@ open class BBCheckMenuItem @JvmOverloads internal constructor(
     text: String,
     accelerator: Int,
     override val active: Boolean,
-    onSelect: Consumer<BBSelectionData>,
+    onSelect: (BBSelectionData) -> Unit,
     sharedItem: SharedItem? = null,
     enabled: Boolean = true,
     swtOpts: Int = SWT.CHECK,
@@ -35,7 +34,7 @@ open class BBCheckMenuItem @JvmOverloads internal constructor(
     topMenu = menu,
     title = text,
     accelerator = accelerator,
-    onSelect = onSelect,
+    onActivated = onSelect,
     enabled = enabled,
     swtOpts = swtOpts or SWT.CHECK,
     sharedItem = sharedItem,

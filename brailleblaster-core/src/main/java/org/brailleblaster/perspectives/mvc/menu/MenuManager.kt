@@ -64,7 +64,7 @@ object MenuManager {
     /**
      * Internal map to handle emphasis buttons
      */
-    private val emphasisHandlers: HashMap<EmphasisItem, Consumer<BBSelectionData>> = LinkedHashMap()
+    private val emphasisHandlers: HashMap<EmphasisItem, (BBSelectionData) -> Unit> = LinkedHashMap()
 
     /**
      * Internal map to handle style buttons
@@ -176,11 +176,7 @@ object MenuManager {
         val accelerator = tool.accelerator
         val enabled = tool.enabled
         val enableListener = tool.enableListener
-        val onSelect = Consumer { bbData: BBSelectionData ->
-            tool.run(
-                bbData
-            )
-        }
+        val onSelect = tool::run
         val sharedItem = tool.sharedItem
         val newItem: BBMenuItem = when (tool) {
             is CheckMenuTool -> {
@@ -195,7 +191,7 @@ object MenuManager {
                     topMenu = menu,
                     title = name,
                     accelerator = accelerator,
-                    onSelect = onSelect,
+                    onActivated = onSelect,
                     enabled = enabled,
                     sharedItem = sharedItem,
                     enableListener = enableListener
@@ -207,7 +203,7 @@ object MenuManager {
                     topMenu = menu,
                     title = name,
                     accelerator = accelerator,
-                    onSelect = onSelect,
+                    onActivated = onSelect,
                     enabled = enabled,
                     sharedItem = sharedItem,
                     enableListener = enableListener
@@ -314,13 +310,13 @@ object MenuManager {
      */
 	@JvmStatic
 	fun getSharedSelection(item: SharedItem): Consumer<BBSelectionData> {
-        return Consumer { e: BBSelectionData -> lookupSelection(item).accept(e) }
+        return Consumer { e: BBSelectionData -> lookupSelection(item)(e) }
     }
 
-    private fun lookupSelection(item: SharedItem): Consumer<BBSelectionData> {
+    private fun lookupSelection(item: SharedItem): (BBSelectionData) -> Unit {
         return if (sharedItems.containsKey(item)) {
-            sharedItems[item]!!.onSelect
-        } else Consumer {
+            sharedItems[item]!!.onActivated
+        } else {
             throw UnsupportedOperationException(
                 "Operation $item not yet supported"
             )
@@ -334,13 +330,13 @@ object MenuManager {
      */
 	@JvmStatic
 	fun getEmphasisSelection(item: EmphasisItem): Consumer<BBSelectionData> {
-        return Consumer { e: BBSelectionData -> lookupEmphasis(item).accept(e) }
+        return Consumer { e: BBSelectionData -> lookupEmphasis(item)(e) }
     }
 
-    private fun lookupEmphasis(item: EmphasisItem): Consumer<BBSelectionData> {
+    private fun lookupEmphasis(item: EmphasisItem): (BBSelectionData) -> Unit {
         return if (emphasisHandlers.containsKey(item)) {
             emphasisHandlers[item]!!
-        } else Consumer {
+        } else {
             throw UnsupportedOperationException(
                 "Operation $item not yet supported"
             )

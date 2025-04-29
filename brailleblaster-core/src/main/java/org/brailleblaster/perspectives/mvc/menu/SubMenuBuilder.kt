@@ -83,7 +83,7 @@ class SubMenuBuilder private constructor(val menu: TopMenu?, val name: String, v
             topMenu = null,
             title = tool.title,
             accelerator = tool.accelerator,
-            onSelect = tool::onRun,
+            onActivated = tool::onRun,
             swtOpts = tool.swtOpts,
             sharedItem = sharedItem
         )
@@ -173,7 +173,7 @@ class SubMenuBuilder private constructor(val menu: TopMenu?, val name: String, v
         text: String?,
         accelerator: Int,
         selected: Boolean,
-        onSelect: Consumer<BBSelectionData>
+        onSelect: (BBSelectionData) -> Unit
     ): SubMenuBuilder {
         items.add(BBRadioMenuItem(null, text, accelerator, selected, onSelect))
         return this

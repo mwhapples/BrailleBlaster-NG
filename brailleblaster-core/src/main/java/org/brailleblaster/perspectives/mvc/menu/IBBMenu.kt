@@ -22,7 +22,6 @@ import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.events.SelectionEvent
 import org.eclipse.swt.widgets.Menu
 import org.eclipse.swt.widgets.MenuItem
-import java.util.function.Consumer
 
 /**
  * Interface for all types of items that can be added through MenuManager
@@ -36,7 +35,7 @@ interface IBBMenu {
 interface IBBMenuItem : IBBMenu {
     val title: String
     val accelerator: Int
-    val onSelect: Consumer<BBSelectionData>
+    val onActivated: (BBSelectionData) -> Unit
     val enabled: Boolean
     val swtOpts: Int
     val sharedItem: SharedItem?
@@ -60,7 +59,7 @@ interface IBBMenuItem : IBBMenu {
                         sharedItem
                     )
                 ) data.toolBarItem = MenuManager.sharedToolBars[sharedItem]
-                onSelect.accept(data)
+                onActivated(data)
             }
         }
         enableListener?.let { addToListenerMap(it, item) }

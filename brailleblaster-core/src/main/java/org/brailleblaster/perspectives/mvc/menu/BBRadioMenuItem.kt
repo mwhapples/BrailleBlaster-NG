@@ -16,7 +16,6 @@
 package org.brailleblaster.perspectives.mvc.menu
 
 import org.eclipse.swt.SWT
-import java.util.function.Consumer
 
 /**
  * An abstraction of SWT's MenuItem with the SWT.RADIO style to be used internally in MenuManager
@@ -26,7 +25,7 @@ class BBRadioMenuItem internal constructor(
     text: String?,
     accelerator: Int,
     override val active: Boolean,
-    onSelect: Consumer<BBSelectionData>,
+    onSelect: (BBSelectionData) -> Unit,
     swtOpts: Int = SWT.RADIO,
     listener: EnableListener? = null
 ) : BBMenuItem(menu, text!!, accelerator, onSelect, swtOpts = swtOpts or SWT.RADIO, enableListener = listener), IBBRadioMenuItem
