@@ -16,8 +16,6 @@
 package org.brailleblaster.perspectives.mvc.menu
 
 import org.eclipse.swt.SWT
-import org.eclipse.swt.widgets.Menu
-import org.eclipse.swt.widgets.MenuItem
 import java.util.function.Consumer
 
 /**
@@ -27,7 +25,7 @@ open class BBCheckMenuItem @JvmOverloads internal constructor(
     menu: TopMenu?,
     text: String,
     accelerator: Int,
-    val isSelected: Boolean,
+    override val isSelected: Boolean,
     onSelect: Consumer<BBSelectionData>,
     sharedItem: SharedItem? = null,
     enabled: Boolean = true,
@@ -42,11 +40,4 @@ open class BBCheckMenuItem @JvmOverloads internal constructor(
     swtOpts = swtOpts or SWT.CHECK,
     sharedItem = sharedItem,
     listener = listener
-) {
-
-    override fun build(parentMenu: Menu): MenuItem = super.build(parentMenu).apply {
-        selection = isSelected
-    }
-
-    override fun copy(): BBCheckMenuItem = this
-}
+), IBBCheckMenuItem

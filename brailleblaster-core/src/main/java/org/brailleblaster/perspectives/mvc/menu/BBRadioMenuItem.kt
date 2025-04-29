@@ -16,8 +16,6 @@
 package org.brailleblaster.perspectives.mvc.menu
 
 import org.eclipse.swt.SWT
-import org.eclipse.swt.widgets.Menu
-import org.eclipse.swt.widgets.MenuItem
 import java.util.function.Consumer
 
 /**
@@ -27,14 +25,8 @@ class BBRadioMenuItem internal constructor(
     menu: TopMenu?,
     text: String?,
     accelerator: Int,
-    val isSelected: Boolean,
+    override val isSelected: Boolean,
     onSelect: Consumer<BBSelectionData>,
     swtOpts: Int = SWT.RADIO,
     listener: EnableListener? = null
-) : BBMenuItem(menu, text!!, accelerator, onSelect, swtOpts = swtOpts or SWT.RADIO, listener = listener) {
-
-    override fun build(parentMenu: Menu): MenuItem = super.build(parentMenu).apply {
-        selection = isSelected
-    }
-    override fun copy(): BBRadioMenuItem = this
-}
+) : BBMenuItem(menu, text!!, accelerator, onSelect, swtOpts = swtOpts or SWT.RADIO, listener = listener), IBBRadioMenuItem
