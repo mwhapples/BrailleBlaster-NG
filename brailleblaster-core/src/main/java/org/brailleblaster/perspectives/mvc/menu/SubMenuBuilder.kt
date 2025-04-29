@@ -81,7 +81,7 @@ class SubMenuBuilder private constructor(val menu: TopMenu?, val name: String, v
         val sharedItem = tool.sharedItem
         val newItem = BBMenuItem(
             menu = null,
-            text = tool.title,
+            title = tool.title,
             accelerator = tool.accelerator,
             onSelect = tool::onRun,
             swtOpts = tool.swtOpts,

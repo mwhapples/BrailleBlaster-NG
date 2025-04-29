@@ -33,7 +33,7 @@ open class BBCheckMenuItem @JvmOverloads internal constructor(
     listener: EnableListener? = null
 ) : BBMenuItem(
     menu = menu,
-    text = text,
+    title = text,
     accelerator = accelerator,
     onSelect = onSelect,
     isEnabled = enabled,

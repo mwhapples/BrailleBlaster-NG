@@ -23,7 +23,7 @@ import java.util.function.Consumer
  */
 open class BBMenuItem internal constructor(
     override val menu: TopMenu?,
-    override val text: String,
+    override val title: String,
     override val accelerator: Int,
     override val onSelect: Consumer<BBSelectionData>,
     override val isEnabled: Boolean = true,

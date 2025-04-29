@@ -34,7 +34,7 @@ interface IBBMenu {
 }
 
 interface IBBMenuItem : IBBMenu {
-    val text: String
+    val title: String
     val accelerator: Int
     val onSelect: Consumer<BBSelectionData>
     val isEnabled: Boolean
@@ -44,7 +44,7 @@ interface IBBMenuItem : IBBMenu {
     override fun build(parentMenu: Menu): MenuItem {
         val item = MenuItem(parentMenu, swtOpts)
         val textBuilder = StringBuilder()
-        textBuilder.append(text)
+        textBuilder.append(title)
         if (accelerator > 0) {
             menuItemAcceleratorSuffix(textBuilder, accelerator)
             item.accelerator = accelerator

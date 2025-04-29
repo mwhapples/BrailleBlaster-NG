@@ -193,7 +193,7 @@ object MenuManager {
                 emphasisHandlers[emphasis] = onSelect
                 BBMenuItem(
                     menu = menu,
-                    text = name,
+                    title = name,
                     accelerator = accelerator,
                     onSelect = onSelect,
                     isEnabled = enabled,
@@ -205,7 +205,7 @@ object MenuManager {
             else -> {
                 BBMenuItem(
                     menu = menu,
-                    text = name,
+                    title = name,
                     accelerator = accelerator,
                     onSelect = onSelect,
                     isEnabled = enabled,
