@@ -60,7 +60,7 @@ interface MenuTool : Tool, IBBMenuItem {
     override val accelerator: Int
         get() = 0
     override val swtOpts: Int
-        get() = SWT.NONE
+        get() = SWT.PUSH
     override val enabled: Boolean
         get() = true
     override val enableListener: EnableListener?
