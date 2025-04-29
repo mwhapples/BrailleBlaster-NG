@@ -25,7 +25,7 @@ class BBRadioMenuItem internal constructor(
     text: String?,
     accelerator: Int,
     override val active: Boolean,
-    onSelect: (BBSelectionData) -> Unit,
+    onActivated: (BBSelectionData) -> Unit,
     swtOpts: Int = SWT.RADIO,
     listener: EnableListener? = null
-) : BBMenuItem(menu, text!!, accelerator, onSelect, swtOpts = swtOpts or SWT.RADIO, enableListener = listener), IBBRadioMenuItem
+) : BBMenuItem(menu, text!!, accelerator, onActivated, swtOpts = swtOpts or SWT.RADIO, enableListener = listener), IBBRadioMenuItem
