@@ -194,11 +194,5 @@ class SubMenuBuilder private constructor(val menu: TopMenu?, val name: String, v
         return this
     }
 
-    fun build(): BBSubMenu {
-        val subMenu = BBSubMenu(menu, name)
-        for (item in items) {
-            subMenu.addItem(item)
-        }
-        return subMenu
-    }
+    fun build(): BBSubMenu = BBSubMenu(menu, name, subMenuItems = items.toMutableList())
 }
