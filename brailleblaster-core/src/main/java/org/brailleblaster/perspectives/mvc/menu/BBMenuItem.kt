@@ -36,9 +36,8 @@ open class BBMenuItem internal constructor(
     val isEnabled: Boolean = true,
     val swtOpts: Int = SWT.PUSH,
     val sharedItem: SharedItem? = null,
-    var listener: EnableListener? = null
+    val listener: EnableListener? = null
 ) : IBBMenu {
-
 
     override fun build(parentMenu: Menu): MenuItem {
         val item = MenuItem(parentMenu, swtOpts)

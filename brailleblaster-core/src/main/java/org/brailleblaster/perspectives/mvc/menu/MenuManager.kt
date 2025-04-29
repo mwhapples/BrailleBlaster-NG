@@ -185,7 +185,7 @@ object MenuManager {
         val newItem: BBMenuItem = when (tool) {
             is CheckMenuTool -> {
                 val selected = tool.active
-                BBCheckMenuItem(menu, name, accelerator, selected, onSelect, sharedItem)
+                BBCheckMenuItem(menu, name, accelerator, selected, onSelect, sharedItem, listener = enableListener)
             }
 
             is EmphasisMenuTool -> {
@@ -197,7 +197,8 @@ object MenuManager {
                     accelerator = accelerator,
                     onSelect = onSelect,
                     isEnabled = enabled,
-                    sharedItem = sharedItem
+                    sharedItem = sharedItem,
+                    listener = enableListener
                 )
             }
 
@@ -208,15 +209,13 @@ object MenuManager {
                     accelerator = accelerator,
                     onSelect = onSelect,
                     isEnabled = enabled,
-                    sharedItem = sharedItem
+                    sharedItem = sharedItem,
+                    listener = enableListener
                 )
             }
         }
         items.add(newItem)
-        if (sharedItem != null) {
-            sharedItems[sharedItem] = newItem
-        }
-        if (enableListener != null) newItem.listener = enableListener
+        sharedItem?.let { sharedItems[it] = newItem }
     }
 
     /**

@@ -29,8 +29,9 @@ class BBRadioMenuItem internal constructor(
     accelerator: Int,
     val isSelected: Boolean,
     onSelect: Consumer<BBSelectionData>,
-    swtOpts: Int = SWT.RADIO
-) : BBMenuItem(menu, text!!, accelerator, onSelect, swtOpts = swtOpts or SWT.RADIO) {
+    swtOpts: Int = SWT.RADIO,
+    listener: EnableListener? = null
+) : BBMenuItem(menu, text!!, accelerator, onSelect, swtOpts = swtOpts or SWT.RADIO, listener = listener) {
 
     override fun build(parentMenu: Menu): MenuItem = super.build(parentMenu).apply {
         selection = isSelected

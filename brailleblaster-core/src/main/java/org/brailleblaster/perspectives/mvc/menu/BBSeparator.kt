@@ -28,7 +28,5 @@ class BBSeparator internal constructor(override val menu: TopMenu?) : IBBMenu {
         return MenuItem(parentMenu, SWT.SEPARATOR)
     }
 
-    override fun copy(): BBSeparator {
-        return BBSeparator(menu)
-    }
+    override fun copy(): BBSeparator = this
 }
