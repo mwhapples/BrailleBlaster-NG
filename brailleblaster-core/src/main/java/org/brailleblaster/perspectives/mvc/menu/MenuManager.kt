@@ -17,7 +17,6 @@ package org.brailleblaster.perspectives.mvc.menu
 
 import org.brailleblaster.settings.ui.BrailleSettingsDialog
 import org.brailleblaster.settings.ui.PagePropertiesTab
-import org.brailleblaster.tools.CheckMenuTool
 import org.brailleblaster.tools.EmphasisMenuTool
 import org.brailleblaster.tools.MenuTool
 import org.brailleblaster.userHelp.AboutTool
@@ -37,7 +36,7 @@ object MenuManager {
      */
     //Welcome to hashmap hell
 	@JvmField
-	val sharedItems: HashMap<SharedItem, BBMenuItem> = LinkedHashMap()
+	val sharedItems: HashMap<SharedItem, IBBMenuItem> = LinkedHashMap()
 
     /**
      * Map to link menu items with submenus across the menu, toolbar, and context menu
@@ -171,47 +170,14 @@ object MenuManager {
 
     @JvmStatic
 	fun addMenuItem(tool: MenuTool) {
-        val menu = tool.topMenu
-        val name = tool.title
-        val accelerator = tool.accelerator
-        val enabled = tool.enabled
-        val enableListener = tool.enableListener
-        val onSelect = tool::run
-        val sharedItem = tool.sharedItem
-        val newItem: BBMenuItem = when (tool) {
-            is CheckMenuTool -> {
-                val selected = tool.active
-                BBCheckMenuItem(menu, name, accelerator, selected, onSelect, sharedItem, listener = enableListener)
-            }
-
-            is EmphasisMenuTool -> {
-                val emphasis = tool.emphasis
-                emphasisHandlers[emphasis] = onSelect
-                BBMenuItem(
-                    topMenu = menu,
-                    title = name,
-                    accelerator = accelerator,
-                    onActivated = onSelect,
-                    enabled = enabled,
-                    sharedItem = sharedItem,
-                    enableListener = enableListener
-                )
-            }
-
-            else -> {
-                BBMenuItem(
-                    topMenu = menu,
-                    title = name,
-                    accelerator = accelerator,
-                    onActivated = onSelect,
-                    enabled = enabled,
-                    sharedItem = sharedItem,
-                    enableListener = enableListener
-                )
-            }
+        if (tool is EmphasisMenuTool) {
+            val emphasis = tool.emphasis
+            emphasisHandlers[emphasis] = tool::run
         }
-        items.add(newItem)
-        sharedItem?.let { sharedItems[it] = newItem }
+        items.add(tool)
+        tool.sharedItem?.let {
+            sharedItems[it] = tool
+        }
     }
 
     /**
@@ -310,7 +276,7 @@ object MenuManager {
      */
 	@JvmStatic
     fun getSharedSelection(item: SharedItem): (BBSelectionData) -> Unit {
-        return lookupSelection(item)
+        return { e -> lookupSelection(item)(e) }
     }
 
     private fun lookupSelection(item: SharedItem): (BBSelectionData) -> Unit {
