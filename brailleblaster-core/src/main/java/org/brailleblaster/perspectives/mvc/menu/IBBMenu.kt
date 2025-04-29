@@ -17,6 +17,7 @@ package org.brailleblaster.perspectives.mvc.menu
 
 import org.eclipse.swt.widgets.Menu
 import org.eclipse.swt.widgets.MenuItem
+import java.util.function.Consumer
 
 /**
  * Interface for all types of items that can be added through MenuManager
@@ -25,4 +26,15 @@ interface IBBMenu {
     val menu: TopMenu?
     fun build(parentMenu: Menu): MenuItem
     fun copy(): IBBMenu
+}
+
+interface IBBMenuItem : IBBMenu {
+    val text: String
+    val accelerator: Int
+    val onSelect: Consumer<BBSelectionData>
+    val isEnabled: Boolean
+    val swtOpts: Int
+    val sharedItem: SharedItem?
+    val listener: EnableListener?
+    override fun copy(): IBBMenuItem = this
 }

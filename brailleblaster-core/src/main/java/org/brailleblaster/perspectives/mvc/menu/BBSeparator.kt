@@ -24,9 +24,7 @@ import org.eclipse.swt.widgets.MenuItem
  */
 class BBSeparator internal constructor(override val menu: TopMenu?) : IBBMenu {
 
-    override fun build(parentMenu: Menu): MenuItem {
-        return MenuItem(parentMenu, SWT.SEPARATOR)
-    }
+    override fun build(parentMenu: Menu): MenuItem = MenuItem(parentMenu, SWT.SEPARATOR)
 
     override fun copy(): BBSeparator = this
 }

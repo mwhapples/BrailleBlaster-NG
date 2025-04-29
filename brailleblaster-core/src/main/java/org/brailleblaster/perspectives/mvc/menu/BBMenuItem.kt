@@ -30,14 +30,14 @@ import java.util.function.Consumer
  */
 open class BBMenuItem internal constructor(
     override val menu: TopMenu?,
-    val text: String,
-    val accelerator: Int,
-    val onSelect: Consumer<BBSelectionData>,
-    val isEnabled: Boolean = true,
-    val swtOpts: Int = SWT.PUSH,
-    val sharedItem: SharedItem? = null,
-    val listener: EnableListener? = null
-) : IBBMenu {
+    override val text: String,
+    override val accelerator: Int,
+    override val onSelect: Consumer<BBSelectionData>,
+    override val isEnabled: Boolean = true,
+    override val swtOpts: Int = SWT.PUSH,
+    override val sharedItem: SharedItem? = null,
+    override val listener: EnableListener? = null
+) : IBBMenuItem {
 
     override fun build(parentMenu: Menu): MenuItem {
         val item = MenuItem(parentMenu, swtOpts)
@@ -62,12 +62,8 @@ open class BBMenuItem internal constructor(
             }
         }
         listener?.let { addToListenerMap(it, item) }
-        if (sharedItem != null) {
-            MenuManager.sharedMenuItems[sharedItem] = item
-        }
+        sharedItem?.let { MenuManager.sharedMenuItems[it] = item }
         item.isEnabled = isEnabled
         return item
     }
-
-    override fun copy(): BBMenuItem = this
 }
