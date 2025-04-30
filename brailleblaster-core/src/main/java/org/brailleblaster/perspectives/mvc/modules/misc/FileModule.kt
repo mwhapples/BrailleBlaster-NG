@@ -31,16 +31,14 @@ import org.brailleblaster.perspectives.mvc.menu.SubMenuBuilder
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.tools.*
 import org.brailleblaster.wordprocessor.BBFileDialog
+import org.brailleblaster.wordprocessor.RecentDocs
 import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT
 import org.slf4j.LoggerFactory
-import java.io.IOException
 import java.nio.file.Path
 import kotlin.io.path.Path
 import kotlin.io.path.exists
 import kotlin.io.path.isDirectory
-import kotlin.io.path.readLines
-import kotlin.io.path.writeLines
 
 class FileModule : SimpleListener {
     override fun onEvent(event: SimpleEvent) {
@@ -110,7 +108,6 @@ class FileModule : SimpleListener {
 
     companion object {
         private val log = LoggerFactory.getLogger(FileModule::class.java)
-        private const val MAX_RECENT_FILES = 20
 
         fun fileSave(m: Manager): Boolean {
             log.debug("Saving file")
@@ -206,35 +203,13 @@ class FileModule : SimpleListener {
             m.isDocumentEdited = false
         }
 
-        fun readRecentFiles(): MutableList<Path> {
-            return try {
-                BBIni.recentDocs.readLines(BBIni.charset)
-                    .map { first -> Path(first) }.toMutableList()
-            } catch (ex: IOException) {
-                throw RuntimeException("Unable to load recent docs at " + BBIni.recentDocs, ex)
-            }
+        fun readRecentFiles(): List<Path> {
+            return RecentDocs.DEFAULT_RECENT_DOCS.recentDocs
         }
 
         @JvmStatic
         fun addRecentDoc(path: Path) {
-            val recentDocs = readRecentFiles()
-            recentDocs.remove(path)
-            while (recentDocs.size >= MAX_RECENT_FILES) {
-                recentDocs.removeAt(recentDocs.size - 1)
-            }
-            recentDocs.add(0, path)
-            writeRecentFiles(recentDocs)
-        }
-
-        fun writeRecentFiles(recentDocs: MutableList<Path>) {
-            try {
-                BBIni.recentDocs.writeLines(
-                    recentDocs.map { curPath: Path -> curPath.toAbsolutePath().toString() },
-                    charset = BBIni.charset
-                )
-            } catch (e: IOException) {
-                throw RuntimeException("Unable to save recent docs file", e)
-            }
+            RecentDocs.DEFAULT_RECENT_DOCS.addRecentDoc(path)
         }
     }
 }
