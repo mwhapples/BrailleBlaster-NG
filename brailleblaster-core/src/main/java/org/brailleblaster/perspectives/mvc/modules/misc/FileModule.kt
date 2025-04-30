@@ -36,11 +36,13 @@ import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT
 import org.slf4j.LoggerFactory
 import java.io.IOException
-import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.function.Consumer
-import java.util.stream.Collectors
+import kotlin.io.path.exists
+import kotlin.io.path.isDirectory
+import kotlin.io.path.readLines
+import kotlin.io.path.writeLines
 
 class FileModule : SimpleListener {
     override fun onEvent(event: SimpleEvent) {
@@ -85,13 +87,12 @@ class FileModule : SimpleListener {
             "Recent Document"
         )
         val recentDocs: List<Path> = readRecentFiles()
-        recentDocs.forEach(Consumer { curPath: Path ->
-            val fileName = curPath.fileName.toString()
-            val itemText = "$fileName  [$curPath]"
-            if (Files.exists(curPath) && !Files.isDirectory(curPath)) {
+        recentDocs.forEach { curPath: Path ->
+            val itemText = "${curPath.fileName}  [$curPath]"
+            if (curPath.exists() && !curPath.isDirectory()) {
                 smb.addItem(itemText, 0) { WPManager.getInstance().addDocumentManager(curPath) }
             }
-        })
+        }
         return smb
     }
 
@@ -104,7 +105,7 @@ class FileModule : SimpleListener {
         recentSaves.forEach(Consumer { curPath: Path ->
             val fileName = curPath.fileName.toString()
             val itemText = "$fileName  [$curPath]"
-            if (Files.exists(curPath) && !Files.isDirectory(curPath)) {
+            if (curPath.exists() && !curPath.isDirectory()) {
                 smb.addItem(itemText, 0) { WPManager.getInstance().addDocumentManager(curPath) }
             }
         })
@@ -147,6 +148,7 @@ class FileModule : SimpleListener {
                 true
             }
         }
+
         /**
          * Open the Save As dialog
          * @return false if Cancel was pressed
@@ -210,7 +212,7 @@ class FileModule : SimpleListener {
 
         fun readRecentFiles(): MutableList<Path> {
             return try {
-                Files.readAllLines(BBIni.recentDocs, BBIni.charset)
+                BBIni.recentDocs.readLines(BBIni.charset)
                     .map { first -> Paths.get(first) }.toMutableList()
             } catch (ex: IOException) {
                 throw RuntimeException("Unable to load recent docs at " + BBIni.recentDocs, ex)
@@ -226,10 +228,9 @@ class FileModule : SimpleListener {
             }
             recentDocs.add(0, path)
             try {
-                Files.write(
-                    BBIni.recentDocs,
-                    recentDocs.stream().map { curPath: Path -> curPath.toAbsolutePath().toString() }
-                        .collect(Collectors.toList())
+                BBIni.recentDocs.writeLines(
+                    recentDocs.map { curPath: Path -> curPath.toAbsolutePath().toString() },
+                    charset = BBIni.charset
                 )
             } catch (e: IOException) {
                 throw RuntimeException("Unable to save recent docs file", e)
