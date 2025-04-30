@@ -88,9 +88,7 @@ class SubMenuBuilder private constructor(val menu: TopMenu?, val name: String, v
             sharedItem = sharedItem
         )
         items.add(newItem)
-        if (sharedItem != null) {
-            MenuManager.sharedItems[sharedItem] = newItem
-        }
+        sharedItem?.let { MenuManager.sharedItems[it] = newItem }
         return this
     }
 
