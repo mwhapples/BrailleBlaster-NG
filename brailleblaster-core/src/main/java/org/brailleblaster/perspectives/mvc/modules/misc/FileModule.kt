@@ -37,7 +37,6 @@ import org.slf4j.LoggerFactory
 import java.io.IOException
 import java.nio.file.Path
 import java.nio.file.Paths
-import java.util.function.Consumer
 import kotlin.io.path.exists
 import kotlin.io.path.isDirectory
 import kotlin.io.path.readLines
@@ -101,13 +100,13 @@ class FileModule : SimpleListener {
             "Recent Auto Saves"
         )
         val recentSaves = ArchiverRecoverThread.recentSaves
-        recentSaves.forEach(Consumer { curPath: Path ->
+        recentSaves.forEach { curPath: Path ->
             val fileName = curPath.fileName.toString()
             val itemText = "$fileName  [$curPath]"
             if (curPath.exists() && !curPath.isDirectory()) {
                 smb.addItem(itemText, 0) { WPManager.getInstance().addDocumentManager(curPath) }
             }
-        })
+        }
         return smb
     }
 
