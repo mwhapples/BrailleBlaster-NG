@@ -87,9 +87,7 @@ class FileModule : SimpleListener {
         val recentDocs: List<Path> = readRecentFiles()
         recentDocs.forEach { curPath: Path ->
             val itemText = "${curPath.fileName}  [$curPath]"
-            if (curPath.exists() && !curPath.isDirectory()) {
-                smb.addItem(itemText, 0) { WPManager.getInstance().addDocumentManager(curPath) }
-            }
+            smb.addItem(itemText, 0) { WPManager.getInstance().addDocumentManager(curPath) }
         }
         return smb
     }

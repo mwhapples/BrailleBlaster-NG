@@ -66,6 +66,8 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.*
+import kotlin.io.path.exists
+import kotlin.io.path.isDirectory
 
 class WPManager private constructor(val usageManager: UsageManager) {
     lateinit var shell: Shell
@@ -350,7 +352,7 @@ class WPManager private constructor(val usageManager: UsageManager) {
     }
 
     fun addDocumentManager(fileName: Path?) {
-        if (fileName == null || Files.exists(fileName)) {
+        if (fileName == null || (fileName.exists() && !fileName.isDirectory())) {
             val numberOfTab = 10
             if (list.size < numberOfTab) {
                 openingDoc = true
