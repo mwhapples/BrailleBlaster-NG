@@ -153,10 +153,9 @@ class SubMenuBuilder private constructor(val menu: TopMenu?, val name: String, v
     }
     fun addCheckItem(tool: CheckMenuTool): SubMenuBuilder {
         val sharedItem = tool.sharedItem
-        val newItem = BBCheckMenuItem(null, tool.title, tool.accelerator, tool.active, tool::run, sharedItem)
-        items.add(newItem)
+        items.add(tool)
         if (sharedItem != null) {
-            MenuManager.sharedItems[sharedItem] = newItem
+            MenuManager.sharedItems[sharedItem] = tool
         }
         return this
     }
