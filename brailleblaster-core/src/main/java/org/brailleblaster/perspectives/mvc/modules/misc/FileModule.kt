@@ -82,7 +82,7 @@ class FileModule : SimpleListener {
             TopMenu.FILE,
             "Recent Document"
         )
-        val recentDocs: List<Path> = readRecentFiles()
+        val recentDocs: List<Path> = RecentDocs.defaultRecentDocs.recentDocs
         recentDocs.forEach { curPath: Path ->
             val itemText = "${curPath.fileName}  [$curPath]"
             smb.addItem(itemText, 0) { WPManager.getInstance().addDocumentManager(curPath) }
@@ -196,20 +196,11 @@ class FileModule : SimpleListener {
                     setOf<SaveOptions>(BBZSaveOptions.IncludeBRF, BBZSaveOptions.IncludePEF)
                 )
                 m.setTabTitle(filePath.fileName.toString())
-                addRecentDoc(arch.path)
+                RecentDocs.defaultRecentDocs.addRecentDoc(arch.path)
             }
             m.text.hasChanged = false
             m.braille.hasChanged = false
             m.isDocumentEdited = false
-        }
-
-        fun readRecentFiles(): List<Path> {
-            return RecentDocs.DEFAULT_RECENT_DOCS.recentDocs
-        }
-
-        @JvmStatic
-        fun addRecentDoc(path: Path) {
-            RecentDocs.DEFAULT_RECENT_DOCS.addRecentDoc(path)
         }
     }
 }

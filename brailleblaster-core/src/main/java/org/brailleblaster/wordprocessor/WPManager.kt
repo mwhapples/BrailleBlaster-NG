@@ -30,15 +30,13 @@ import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.messages.Sender
 import org.brailleblaster.perspectives.braille.toolbar.BrailleToolBar
 import org.brailleblaster.perspectives.mvc.ViewManager.Companion.colorizeCompositeRecursive
+import org.brailleblaster.perspectives.mvc.events.AppStartedEvent
 import org.brailleblaster.perspectives.mvc.events.BuildToolBarEvent
 import org.brailleblaster.perspectives.mvc.modules.misc.ExceptionReportingModule
 import org.brailleblaster.perspectives.mvc.modules.misc.ExceptionReportingModule.exceptionRecoveryLevel
-import org.brailleblaster.perspectives.mvc.modules.misc.FileModule.Companion.addRecentDoc
 import org.brailleblaster.printers.PrintPreview
 import org.brailleblaster.usage.SimpleUsageManager
 import org.brailleblaster.usage.UsageManager
-import org.brailleblaster.exceptions.BBNotifyException
-import org.brailleblaster.perspectives.mvc.events.AppStartedEvent
 import org.brailleblaster.util.FileUtils.exists
 import org.brailleblaster.util.Notify.showException
 import org.brailleblaster.util.Notify.showMessage
@@ -456,7 +454,7 @@ class WPManager private constructor(val usageManager: UsageManager) {
 
     private fun openBRFFile(fileName: Path?) {
         PrintPreview(shell, fileName, this)
-        addRecentDoc(fileName!!)
+        RecentDocs.defaultRecentDocs.addRecentDoc(fileName!!)
     }
 
     fun setSelection() {

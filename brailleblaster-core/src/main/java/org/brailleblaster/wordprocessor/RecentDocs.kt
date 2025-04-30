@@ -40,6 +40,6 @@ class RecentDocs(val path: Path) {
     }
     companion object {
         const val MAX_RECENT_FILES = 20
-        val DEFAULT_RECENT_DOCS = RecentDocs(BBIni.recentDocs)
+        val defaultRecentDocs = RecentDocs(BBIni.recentDocs)
     }
 }
