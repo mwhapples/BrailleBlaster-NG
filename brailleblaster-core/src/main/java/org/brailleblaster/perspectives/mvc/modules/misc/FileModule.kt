@@ -15,7 +15,6 @@
  */
 package org.brailleblaster.perspectives.mvc.modules.misc
 
-import com.google.common.collect.ImmutableSet
 import org.brailleblaster.BBIni
 import org.brailleblaster.archiver2.Archiver2
 import org.brailleblaster.archiver2.ArchiverFactory
@@ -193,14 +192,14 @@ class FileModule : SimpleListener {
                     filePath,
                     arch.bbxDocument,
                     engine,
-                    ImmutableSet.of<SaveOptions>(BBZSaveOptions.IncludeBRF, BBZSaveOptions.IncludePEF)
+                    setOf<SaveOptions>(BBZSaveOptions.IncludeBRF, BBZSaveOptions.IncludePEF)
                 )
             } else {
                 arch.saveAs(
                     filePath,
                     arch.bbxDocument,
                     engine,
-                    ImmutableSet.of<SaveOptions>(BBZSaveOptions.IncludeBRF, BBZSaveOptions.IncludePEF)
+                    setOf<SaveOptions>(BBZSaveOptions.IncludeBRF, BBZSaveOptions.IncludePEF)
                 )
                 m.setTabTitle(filePath.fileName.toString())
                 addRecentDoc(arch.path)
