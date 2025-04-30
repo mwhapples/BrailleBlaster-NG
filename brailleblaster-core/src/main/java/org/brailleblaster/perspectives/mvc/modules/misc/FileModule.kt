@@ -36,7 +36,7 @@ import org.eclipse.swt.SWT
 import org.slf4j.LoggerFactory
 import java.io.IOException
 import java.nio.file.Path
-import java.nio.file.Paths
+import kotlin.io.path.Path
 import kotlin.io.path.exists
 import kotlin.io.path.isDirectory
 import kotlin.io.path.readLines
@@ -176,7 +176,7 @@ class FileModule : SimpleListener {
                 log.debug("User cancelled save as")
                 return false
             }
-            save(m, arch, Paths.get(filePath))
+            save(m, arch, Path(filePath))
             ArchiverRecoverThread.removeFile(pathToRemove)
             arch.setNotImported()
             log.debug("File saved")
@@ -211,7 +211,7 @@ class FileModule : SimpleListener {
         fun readRecentFiles(): MutableList<Path> {
             return try {
                 BBIni.recentDocs.readLines(BBIni.charset)
-                    .map { first -> Paths.get(first) }.toMutableList()
+                    .map { first -> Path(first) }.toMutableList()
             } catch (ex: IOException) {
                 throw RuntimeException("Unable to load recent docs at " + BBIni.recentDocs, ex)
             }
