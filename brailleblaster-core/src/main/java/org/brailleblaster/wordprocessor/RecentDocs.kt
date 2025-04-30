@@ -10,6 +10,13 @@ import kotlin.io.path.writeLines
 class RecentDocs(val path: Path) {
     var recentDocs: List<Path> = read()
         private set
+
+    fun modify(transform: (List<Path>) -> List<Path>) {
+        recentDocs = transform(recentDocs).also {
+            write(it)
+        }
+    }
+
     fun readRecentFiles() {
         recentDocs = read()
     }
@@ -21,10 +28,12 @@ class RecentDocs(val path: Path) {
         throw RuntimeException("Unable to load recent docs at $path", ex)
     }
 
-    fun addRecentDoc(doc: Path) {
-        recentDocs = (doc + (recentDocs.filter { it == doc })).take(MAX_RECENT_FILES).also {
-            write(it)
-        }
+    fun addRecentDoc(doc: Path) = modify {
+        (doc + (it.filter { d -> d == doc })).take(MAX_RECENT_FILES)
+    }
+
+    fun removeRecentDoc(doc: Path) = modify {
+        it.filter { d -> d == doc }
     }
 
     fun writeRecentFiles() = write(recentDocs)
