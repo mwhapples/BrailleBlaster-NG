@@ -223,6 +223,10 @@ class FileModule : SimpleListener {
                 recentDocs.removeAt(recentDocs.size - 1)
             }
             recentDocs.add(0, path)
+            writeRecentFiles(recentDocs)
+        }
+
+        fun writeRecentFiles(recentDocs: MutableList<Path>) {
             try {
                 BBIni.recentDocs.writeLines(
                     recentDocs.map { curPath: Path -> curPath.toAbsolutePath().toString() },
