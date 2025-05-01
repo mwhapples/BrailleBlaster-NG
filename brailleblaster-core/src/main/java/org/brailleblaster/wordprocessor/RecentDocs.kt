@@ -44,11 +44,11 @@ class RecentDocs(val path: Path) {
     }
 
     fun addRecentDoc(doc: Path) = modify {
-        (doc + (it.filter { d -> d == doc })).take(MAX_RECENT_FILES)
+        listOf(doc) + (it.filter { d -> d != doc }.take(MAX_RECENT_FILES - 1))
     }
 
     fun removeRecentDoc(doc: Path) = modify {
-        it.filter { d -> d == doc }
+        it.filter { d -> d != doc }
     }
 
     fun writeRecentFiles() = write(recentDocs)

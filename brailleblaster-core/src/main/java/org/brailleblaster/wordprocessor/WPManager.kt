@@ -55,6 +55,7 @@ import org.eclipse.swt.layout.FormData
 import org.eclipse.swt.layout.FormLayout
 import org.eclipse.swt.widgets.Display
 import org.eclipse.swt.widgets.Event
+import org.eclipse.swt.widgets.MessageBox
 import org.eclipse.swt.widgets.Shell
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -370,7 +371,18 @@ class WPManager private constructor(val usageManager: UsageManager) {
                 showMessage("The number of tabs allowed open is 10.")
             }
         } else {
-            showMessage(fileName.fileName.toString() + " cannot be opened and may have been relocated.")
+            if (fileName in RecentDocs.defaultRecentDocs.recentDocs) {
+                val removeFromRecentDocs = MessageBox(shell, SWT.ICON_ERROR or SWT.YES or SWT.NO).apply {
+                    text = "File unavailable"
+                    message = "The file $fileName is unavailable. Would you like to remove it from recent documents?"
+                }.open()
+                if (removeFromRecentDocs == SWT.YES) {
+                    RecentDocs.defaultRecentDocs.removeRecentDoc(fileName)
+                    currentManager?.simpleManager?.initMenu(shell)
+                }
+            }  else {
+                showMessage(fileName.fileName.toString() + " cannot be opened and may have been relocated.")
+            }
         }
     }
 
