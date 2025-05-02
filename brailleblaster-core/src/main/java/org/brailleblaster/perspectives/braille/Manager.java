@@ -78,6 +78,7 @@ import org.brailleblaster.utils.OS;
 import org.brailleblaster.utils.Platform;
 import org.brailleblaster.wordprocessor.BBStatusBar;
 import org.brailleblaster.wordprocessor.FontManager;
+import org.brailleblaster.wordprocessor.RecentDocs;
 import org.brailleblaster.wordprocessor.WPManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabItem;
@@ -492,7 +493,7 @@ public class Manager extends Controller {
 
         // Recent Files.
         if (file != DEFAULT_FILE) {
-            FileModule.addRecentDoc(file);
+            RecentDocs.Companion.getDefaultRecentDocs().addRecentDoc(file);
         }
         try {
             document = new BrailleDocument(this, getArchiver().getBbxDocument());
