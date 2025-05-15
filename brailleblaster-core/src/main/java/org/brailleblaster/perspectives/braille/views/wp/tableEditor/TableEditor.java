@@ -1469,6 +1469,8 @@ public class TableEditor extends Dialog {
             case STAIRSTEP:
                 for (int i = 0; i < firstRow.size(); i++) {
                     int margin = (i * 2) + 1;
+                    //This can create styles that go out of range if they get big enough.
+                    //Added a 13-13 to styleDefs to avoid this, but some kind of notice to the user may be necessary.
                     Element block = firstRow.get(i).text.getXML(BBX.BLOCK.STYLE.create(margin + "-" + margin));
                     container.appendChild(block);
                 }
@@ -1491,6 +1493,7 @@ public class TableEditor extends Dialog {
             case LISTED:
                 break;
             case SIMPLE:
+                //Do nothing?
             default:
                 return null;
         }
