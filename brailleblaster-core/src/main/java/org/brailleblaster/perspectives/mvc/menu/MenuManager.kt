@@ -142,7 +142,9 @@ object MenuManager {
         ) { e: Event -> AboutTool.run(BBSelectionData(e.widget, WPManager.getInstance())) }
         addSystemMenuItem(
             shellMenu.display, SWT.ID_QUIT
-        ) { it.doit = WPManager.getInstance().close() }
+        ) {
+            it.doit = WPManager.getInstance().close().also { log.error("Quit doit=$it") }
+        }
         addSystemMenuItem(
             shellMenu.display, SWT.ID_PREFERENCES
         ) { BrailleSettingsDialog(WPManager.getInstance().controller, PagePropertiesTab::class.java) }

@@ -151,8 +151,7 @@ class FileModule : SimpleListener {
             m.waitForFormatting(true)
             val arch = m.archiver
             val pathToRemove = arch.path.fileName.toString()
-            val filePath: String?
-            if (!BBIni.debugging) {
+            val filePath: String? = if (!BBIni.debugging) {
                 var fileName: String = (arch.newPath ?: arch.path).fileName.toString()
                 fileName = com.google.common.io.Files.getNameWithoutExtension(fileName)
                 val dialog = BBFileDialog(
@@ -162,10 +161,11 @@ class FileModule : SimpleListener {
                     ArchiverFactory.INSTANCE.getSupportedDescriptions(arch),
                     ArchiverFactory.INSTANCE.getSupportedExtensions(arch)
                 )
-                filePath = dialog.open()
+                dialog.open()
             } else {
-                filePath = BBIni.debugSavePath.toString()
+                BBIni.debugSavePath.toString()
             }
+            log.error("Save file path is $filePath")
             if (filePath == null) {
                 //user pressed cancel
                 log.debug("User cancelled save as")
