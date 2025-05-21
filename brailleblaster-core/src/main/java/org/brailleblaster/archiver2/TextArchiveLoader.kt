@@ -34,7 +34,7 @@ open class TextArchiveLoader : ArchiverFactory.FileLoader {
         val bbxDoc = BBX.newDocument()
         val root = BBX.SECTION.ROOT.create()
         bbxDoc.rootElement.appendChild(root)
-        Files.asCharSource(file.toFile(), BBIni.charset).readLines<Void>(object : LineProcessor<Void> {
+        Files.asCharSource(file.toFile(), BBIni.charset).readLines(object : LineProcessor<Void?> {
             override fun processLine(line: String): Boolean {
                 if (line.contains(FORM_FEED)) {
                     if (line.trim { it <= ' ' }.length == 1) {
@@ -96,7 +96,7 @@ open class TextArchiveLoader : ArchiverFactory.FileLoader {
 		fun getUsableText(line: String): Text? {
             return try {
                 Text(line)
-            } catch (e: IllegalCharacterDataException) {
+            } catch (_: IllegalCharacterDataException) {
                 /*
 			Try to identify weird character and remove it.
 			There is little we can do with them anyway and they may break upstream code like SWT.
