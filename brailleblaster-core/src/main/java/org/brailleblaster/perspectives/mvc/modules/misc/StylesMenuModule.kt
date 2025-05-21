@@ -662,7 +662,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
         //Convert nodes to usable blocks without duplicates
         val blocks = LinkedHashSet<Element>()
         for (curNode in nodes) {
-            if (BBXUtils.findBlock(curNode) != null) {
+            if (BBXUtils.findBlockOrNull(curNode) != null) {
                 blocks.add(BBXUtils.findBlock(curNode))
             }
         }

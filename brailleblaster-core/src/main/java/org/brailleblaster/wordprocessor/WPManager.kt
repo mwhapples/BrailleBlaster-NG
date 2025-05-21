@@ -30,15 +30,13 @@ import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.messages.Sender
 import org.brailleblaster.perspectives.braille.toolbar.BrailleToolBar
 import org.brailleblaster.perspectives.mvc.ViewManager.Companion.colorizeCompositeRecursive
+import org.brailleblaster.perspectives.mvc.events.AppStartedEvent
 import org.brailleblaster.perspectives.mvc.events.BuildToolBarEvent
 import org.brailleblaster.perspectives.mvc.modules.misc.ExceptionReportingModule
 import org.brailleblaster.perspectives.mvc.modules.misc.ExceptionReportingModule.exceptionRecoveryLevel
-import org.brailleblaster.perspectives.mvc.modules.misc.FileModule.Companion.addRecentDoc
 import org.brailleblaster.printers.PrintPreview
 import org.brailleblaster.usage.SimpleUsageManager
 import org.brailleblaster.usage.UsageManager
-import org.brailleblaster.exceptions.BBNotifyException
-import org.brailleblaster.perspectives.mvc.events.AppStartedEvent
 import org.brailleblaster.util.FileUtils.exists
 import org.brailleblaster.util.Notify.showException
 import org.brailleblaster.util.Notify.showMessage
@@ -57,6 +55,7 @@ import org.eclipse.swt.layout.FormData
 import org.eclipse.swt.layout.FormLayout
 import org.eclipse.swt.widgets.Display
 import org.eclipse.swt.widgets.Event
+import org.eclipse.swt.widgets.MessageBox
 import org.eclipse.swt.widgets.Shell
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -66,6 +65,8 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.*
+import kotlin.io.path.exists
+import kotlin.io.path.isDirectory
 
 class WPManager private constructor(val usageManager: UsageManager) {
     lateinit var shell: Shell
@@ -350,7 +351,7 @@ class WPManager private constructor(val usageManager: UsageManager) {
     }
 
     fun addDocumentManager(fileName: Path?) {
-        if (fileName == null || Files.exists(fileName)) {
+        if (fileName == null || (fileName.exists() && !fileName.isDirectory())) {
             val numberOfTab = 10
             if (list.size < numberOfTab) {
                 openingDoc = true
@@ -370,7 +371,18 @@ class WPManager private constructor(val usageManager: UsageManager) {
                 showMessage("The number of tabs allowed open is 10.")
             }
         } else {
-            showMessage(fileName.fileName.toString() + " cannot be opened and may have been relocated.")
+            if (fileName in RecentDocs.defaultRecentDocs.recentDocs) {
+                val removeFromRecentDocs = MessageBox(shell, SWT.ICON_ERROR or SWT.YES or SWT.NO).apply {
+                    text = "File unavailable"
+                    message = "The file $fileName is unavailable. Would you like to remove it from recent documents?"
+                }.open()
+                if (removeFromRecentDocs == SWT.YES) {
+                    RecentDocs.defaultRecentDocs.removeRecentDoc(fileName)
+                    currentManager?.simpleManager?.initMenu(shell)
+                }
+            }  else {
+                showMessage(fileName.fileName.toString() + " cannot be opened and may have been relocated.")
+            }
         }
     }
 
@@ -454,7 +466,7 @@ class WPManager private constructor(val usageManager: UsageManager) {
 
     private fun openBRFFile(fileName: Path?) {
         PrintPreview(shell, fileName, this)
-        addRecentDoc(fileName!!)
+        RecentDocs.defaultRecentDocs.addRecentDoc(fileName!!)
     }
 
     fun setSelection() {
