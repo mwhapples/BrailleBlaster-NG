@@ -169,11 +169,11 @@ class WPManager private constructor(val usageManager: UsageManager) {
         }
 
         //Used for when tests are disposing the view
-        shell.addListener(SWT.Dispose) {
-            if (isClosed == null && !userClosed) {
-                close()
-            }
-        }
+//        shell.addListener(SWT.Dispose) {
+//            if (isClosed == null && !userClosed) {
+//                close()
+//            }
+//        }
 
         val fileToOpen = when {
             fileName != null -> fileName
