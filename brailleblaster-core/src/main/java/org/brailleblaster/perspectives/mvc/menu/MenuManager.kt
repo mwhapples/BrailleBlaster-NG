@@ -143,12 +143,7 @@ object MenuManager {
         addSystemMenuItem(
             shellMenu.display, SWT.ID_QUIT
         ) {
-            log.error("Quit listener")
-            try {
-                it.doit = WPManager.getInstance().close().also { log.error("Quit doit=$it") }
-            } catch (e: Exception) {
-                log.error("Error thrown", e)
-            }
+            it.doit = WPManager.getInstance().close().also { log.error("Quit doit=$it") }
         }
         addSystemMenuItem(
             shellMenu.display, SWT.ID_PREFERENCES

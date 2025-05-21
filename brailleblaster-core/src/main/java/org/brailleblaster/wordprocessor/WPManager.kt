@@ -291,7 +291,6 @@ class WPManager private constructor(val usageManager: UsageManager) {
     }
 
     fun close(): Boolean {
-        logger.error("Call to close", RuntimeException("close call for tracing"))
         if (shell.isDisposed) return true
         if (isClosed != null) {
             logger.error("Last close call", isClosed)
