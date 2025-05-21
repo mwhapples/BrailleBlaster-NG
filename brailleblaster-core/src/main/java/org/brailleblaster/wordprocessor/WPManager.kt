@@ -291,7 +291,6 @@ class WPManager private constructor(val usageManager: UsageManager) {
     }
 
     fun close(): Boolean {
-        if (shell.isDisposed) return true
         if (isClosed != null) {
             logger.error("Last close call", isClosed)
             val ex = RuntimeException("close called twice")
