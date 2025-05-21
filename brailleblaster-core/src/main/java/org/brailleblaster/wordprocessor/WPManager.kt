@@ -43,6 +43,8 @@ import org.brailleblaster.util.Notify.showMessage
 import org.brailleblaster.util.Utils.runtimeToString
 import org.brailleblaster.util.WorkingDialog
 import org.brailleblaster.util.ui.AutoSaveDialog
+import org.brailleblaster.utils.OS
+import org.brailleblaster.utils.os
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.custom.CTabFolder2Adapter
@@ -165,6 +167,13 @@ class WPManager private constructor(val usageManager: UsageManager) {
                 }
             } else {
                 event.doit = false
+            }
+        }
+        if (os == OS.Mac) {
+            for (mi in display.systemMenu.items) {
+                if (mi.id == SWT.ID_QUIT) {
+                    mi.addListener(SWT.Selection) { it.doit = close() }
+                }
             }
         }
 
