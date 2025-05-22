@@ -15,7 +15,7 @@ on:
     branches: [ "main" ]
 
 env:
-  BB_VERSION: '2025.1.7'
+  BB_VERSION: '2025.1.8'
   BB_CHANGELIST: ''
 
 jobs:
