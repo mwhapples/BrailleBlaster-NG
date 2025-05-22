@@ -178,8 +178,8 @@ open class UebNumberLineFormatter {
 
     fun getFractionString(numberLine: NumberLine, fraction: Fraction): String {
       var fraction = fraction
-      var string = ""
-      if (numberLine.settings.intervalType == SpatialMathEnum.IntervalType.WHOLE) {
+      val string: String
+        if (numberLine.settings.intervalType == SpatialMathEnum.IntervalType.WHOLE) {
         string = fraction.toInt().toString()
       } else if (numberLine.settings.intervalType == SpatialMathEnum.IntervalType.DECIMAL) {
         if (numberLine.settings.isRemoveLeadingZeros) {
