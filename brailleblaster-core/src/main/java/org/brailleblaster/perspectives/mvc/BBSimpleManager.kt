@@ -113,12 +113,13 @@ abstract class BBSimpleManager {
     }
 
     fun initMenu(shell: Shell) {
-        if (WPManager.getInstance().isMenuInitialized && shell.display.menuBar == null) {
+        if (WPManager.getInstance().isMenuInitialized) {
             disposeMenu(shell.menuBar)
         }
-        val shellMenu = shell.display.menuBar ?: Menu(shell, SWT.BAR).also { shell.menuBar = it }
+        val shellMenu = Menu(shell, SWT.BAR)
         dispatchEvent(BuildMenuEvent(Sender.SIMPLEMANAGER))
         buildMenu(shellMenu)
+        shell.menuBar = shellMenu
     }
 
     fun interface SimpleListener {
