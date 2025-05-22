@@ -432,7 +432,7 @@ public class Manager extends Controller {
         boolean cancel = false;
         // Issue #4321: Prompt user if they deleted the origional file
         if (!BBIni.getDebugging() && (isDocumentEdited() || !Files.exists(getArchiver().getPath()))) {
-            YesNoChoice ync = new YesNoChoice(localeHandler.get("hasChanged"), !Platform.getOs().equals(OS.Mac));
+            YesNoChoice ync = new YesNoChoice(localeHandler.get("hasChanged"), true);
 
             if (ync.getResult() == SWT.YES) {
                 cancel = !FileModule.Companion.fileSave(this);
