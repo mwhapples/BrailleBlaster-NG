@@ -81,7 +81,6 @@ object MenuManager {
      * after this method is called will have no effect on the menu.
      * @param shellMenu
      */
-	@JvmStatic
 	fun buildMenu(shellMenu: Menu) {
         //RT#4377: Unit tests dispose the Display, so clear the state on dispose
         if (disposeDisplayListener == null) {
@@ -112,7 +111,8 @@ object MenuManager {
 		 * Check alt hotkeys of top level menu items against global hotkeys.
 		 * Submenu hotkey's do not need to be checked as when they are enabled 
 		 * focus is on the submenu, not the shell.
-		 */for (curItem in shellMenu.items) {
+		 */
+        for (curItem in shellMenu.items) {
             val altHotkeyStart = curItem.text.indexOf("&")
             if (altHotkeyStart != -1) {
                 val altChar = curItem.text.substring(altHotkeyStart + 1, altHotkeyStart + 2)[0]
@@ -140,9 +140,6 @@ object MenuManager {
         addSystemMenuItem(
             shellMenu.display, SWT.ID_ABOUT
         ) { e: Event -> AboutTool.run(BBSelectionData(e.widget, WPManager.getInstance())) }
-        addSystemMenuItem(
-            shellMenu.display, SWT.ID_QUIT
-        ) { it.doit = WPManager.getInstance().close() }
         addSystemMenuItem(
             shellMenu.display, SWT.ID_PREFERENCES
         ) { BrailleSettingsDialog(WPManager.getInstance().controller, PagePropertiesTab::class.java) }
