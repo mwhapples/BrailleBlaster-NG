@@ -102,10 +102,10 @@ class BrailleSettingsDialog(parent: Shell?, m: Manager?, tabToOpen: Class<out Se
             cancelButton.text = "Cancel"
 
             //--------------- Listeners -------------
-            shell.addTraverseListener(TraverseListener { e: TraverseEvent ->
+            shell.addTraverseListener { e: TraverseEvent ->
                 if (e.keyCode == SWT.ESC.code) shell.close()
-            })
-            shell.addListener(SWT.Close, Listener { close() })
+            }
+            shell.addListener(SWT.Close) { close() }
 
             okButton.addSelectionListener(FormUIUtils.makeSelectedListener { saveConfig(false) })
             okDefaultButton.addSelectionListener(FormUIUtils.makeSelectedListener { saveConfig(true) })
