@@ -74,8 +74,6 @@ import org.brailleblaster.utd.properties.UTDElements;
 import org.brailleblaster.utd.utils.TableUtils;
 import org.brailleblaster.utd.utils.UTDHelper;
 import org.brailleblaster.util.*;
-import org.brailleblaster.utils.OS;
-import org.brailleblaster.utils.Platform;
 import org.brailleblaster.wordprocessor.BBStatusBar;
 import org.brailleblaster.wordprocessor.FontManager;
 import org.brailleblaster.wordprocessor.RecentDocs;
