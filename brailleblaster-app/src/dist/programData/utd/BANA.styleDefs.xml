@@ -2013,14 +2013,6 @@
 		<linesBefore>1</linesBefore>
 		<firstLineIndent>10</firstLineIndent>
 	</style>
-	<!-- Cheesy fix for stairstep table bug #61951 -->
-	<style>
-		<id>numeric/numeric13/n13-13</id>
-		<name>13-13</name>
-		<indent>12</indent>
-		<linesBefore>1</linesBefore>
-		<firstLineIndent>12</firstLineIndent>
-	</style>
 	<!-- NOTES -->
 	<style>
 		<id>notes/incidentalNoteWithHeading</id>
