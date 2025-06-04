@@ -312,7 +312,6 @@ class FormatSelector(styleMap: IStyleMap?, styleStack: StyleStack?, engine: ITra
         startPoint: Node,
         pageBuilders: MutableSet<PageBuilder>
     ): PageBuilder {
-        var pageBuilder = pageBuilders.last()
         val pathElement = pathToStart.first
         val node = pathElement.node
         val style = pathElement.style
@@ -338,9 +337,9 @@ class FormatSelector(styleMap: IStyleMap?, styleStack: StyleStack?, engine: ITra
                 this
             )
         )
-        pageBuilder = writePagesUTD(pageBuilders)
-        styleStack.pop()
-        return pageBuilder
+        return writePagesUTD(pageBuilders).also {
+            styleStack.pop()
+        }
     }
 
     private fun writePagesUTD(results: Set<PageBuilder>): PageBuilder {
