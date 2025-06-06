@@ -206,7 +206,7 @@ class ContextMenuModule(private val manager: Manager) : SimpleListener {
         PASTE_AS_MATH(LocaleHandler.getDefault()["PasteAsMath"]),
         HIDE(LocaleHandler.getDefault()["Hide"]),
         EDIT_PAGE_NUMBER(PageNumberDialog.MENU_NAME),
-        EDIT_TABLE(LocaleHandler.getDefault()["EditTable"]),
+        EDIT_TABLE(LocaleHandler.getDefault()["editTable"]),
         CHANGE_TRANSLATION(LocaleHandler.getDefault()["ChangeTranslation"]),
         MATH_TOGGLE(MathModule.MATH_TOGGLE),
         NUMBER_LINE(MathModule.NUMBER_LINE),
