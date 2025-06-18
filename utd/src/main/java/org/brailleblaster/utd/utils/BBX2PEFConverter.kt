@@ -25,6 +25,7 @@ import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.properties.UTDElements.Companion.findType
 import org.brailleblaster.libembosser.spi.BrlCell
+import org.brailleblaster.utils.BBData
 import org.brailleblaster.utils.xom.DocumentTraversal
 import org.w3c.dom.Document
 import org.w3c.dom.Element
@@ -196,9 +197,9 @@ class BBX2PEFConverter : DocumentTraversal() {
             processHeadElement(e)
             descend = false
         } else if ("http://brailleblaster.org/ns/bb".contentEquals(e.namespaceURI)
-            && "tme".contentEquals(e.localName)
+            && "BLOCK".contentEquals(e.localName)
         ) {
-            if ("imgplaceholder".contentEquals(e.getAttributeValue("type")) && includeVolume) {
+            if ("IMAGE_PLACEHOLDER".contentEquals(e.getAttributeValue("type", "http://brailleblaster.org/ns/bb")) && includeVolume) {
                 processImagePlaceHolder(e)
                 descend = false
             }
@@ -548,7 +549,7 @@ class BBX2PEFConverter : DocumentTraversal() {
     }
 
     private fun processImagePlaceHolder(e: nu.xom.Element) {
-        val imageHeight = e.getAttributeValue("skipLines")?.toIntOrNull() ?: 1
+        val imageHeight = e.getAttributeValue("skipLines", UTDElements.UTD_NAMESPACE)?.toIntOrNull() ?: 1
         // prevent images of height 0 or less
         if (imageHeight < 1) {
             return
@@ -568,32 +569,32 @@ class BBX2PEFConverter : DocumentTraversal() {
             endPage()
             startPage()
         }
-        val image = Optional.ofNullable(e.getAttributeValue("imgSrc")).flatMap { imgSrc: String -> loadImage(imgSrc) }
+        val image = e.getAttributeValue("src", UTDElements.UTD_NAMESPACE)?.let { loadImage(it) }
         val endLine = cursorY + imageHeight - 1
-        val graphic = Graphic(imageCounter++, image.orElse(null), cursorY, endLine)
+        val graphic = Graphic(imageCounter++, image, cursorY, endLine)
         graphics.add(graphic)
         cursorY = endLine
         cursorX = pageGrid!![endLine].size
     }
 
-    private fun loadImage(imgSrc: String): Optional<BufferedImage> {
+    private fun loadImage(imgSrc: String): BufferedImage? {
         val imageUri: URI = try {
             URI(imgSrc)
         } catch (e1: URISyntaxException) {
-            return Optional.empty()
+            File(imgSrc).toURI()
         }
         return if ("file" == imageUri.scheme) {
             loadImageFile(File(imageUri))
         } else {
-            Optional.empty()
+            null
         }
     }
 
-    private fun loadImageFile(imgFile: File): Optional<BufferedImage> {
+    private fun loadImageFile(imgFile: File): BufferedImage? {
         return try {
-            Optional.of(ImageIO.read(imgFile))
+            ImageIO.read(imgFile)
         } catch (e: IOException) {
-            Optional.empty()
+            null
         }
     }
 
