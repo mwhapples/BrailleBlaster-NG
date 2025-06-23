@@ -134,8 +134,7 @@ class BBX2PEFConverterTest {
         brl.appendChild(UTDElements.NEW_PAGE.create())
         brl.appendChild("⠠\u281e\u2811\u280c\u2800\u281e\u2811\u282d\u281e")
 
-        val c = BBX2PEFConverter()
-        c.setPageSize(25, 40)
+        val c = BBX2PEFConverter(rows = 25, cols = 40)
         c.onStartDocument(EMPTY_DOC)
         Assert.assertFalse(c.onStartElement(brl))
         c.onEndElement(brl)
@@ -166,9 +165,7 @@ class BBX2PEFConverterTest {
         brl.appendChild(UTDElements.NEW_PAGE.create())
         brl.appendChild("\u2820\u281e\u2811\u280c\u2800\u281e\u2811\u282d\u281e")
 
-        val c = BBX2PEFConverter()
-        c.setPageSize(25, 40)
-        c.defaultIdentifier = "TestDoc0001"
+        val c = BBX2PEFConverter(rows = 25, cols = 40, defaultIdentifier = "TestDoc0001")
         c.onStartDocument(EMPTY_DOC)
         Assert.assertFalse(c.onStartElement(brl))
         c.onEndElement(brl)
@@ -217,9 +214,7 @@ class BBX2PEFConverterTest {
         brl.appendChild(UTDElements.NEW_PAGE.create())
         brl.appendChild("\u2820\u281e\u2811\u280c\u2800\u281e\u2811\u282d\u281e")
 
-        val c = BBX2PEFConverter()
-        c.setPageSize(25, 40)
-        c.defaultIdentifier = "TestDoc0001"
+        val c = BBX2PEFConverter(rows = 25, cols = 40, defaultIdentifier = "TestDoc0001")
         c.onStartDocument(EMPTY_DOC)
         Assert.assertFalse(c.onStartElement(headElement))
         c.onEndElement(headElement)
@@ -282,9 +277,7 @@ class BBX2PEFConverterTest {
         brl.appendChild(UTDElements.NEW_PAGE.create())
         brl.appendChild("\u2820\u281e\u2811\u280c\u2800\u281e\u2811\u282d\u281e")
 
-        val c = BBX2PEFConverter()
-        c.setPageSize(25, 40)
-        c.defaultIdentifier = "TestDoc0001"
+        val c = BBX2PEFConverter(rows = 25, cols = 40, defaultIdentifier = "TestDoc0001")
         c.onStartDocument(EMPTY_DOC)
         Assert.assertFalse(c.onStartElement(headElement))
         c.onEndElement(headElement)
@@ -327,8 +320,7 @@ class BBX2PEFConverterTest {
         // Use ASCII Braille in brl, BBX2PEF will convert it.
         brl.appendChild(",te/ text")
 
-        val c = BBX2PEFConverter()
-        c.setPageSize(25, 40)
+        val c = BBX2PEFConverter(rows = 25, cols = 40)
         c.onStartDocument(EMPTY_DOC)
         Assert.assertFalse(c.onStartElement(brl))
         c.onEndElement(brl)
@@ -358,9 +350,7 @@ class BBX2PEFConverterTest {
         // Use ASCII Braille in brl, BBX2PEF will convert it.
         brl.appendChild(",te/ text")
 
-        val c = BBX2PEFConverter()
-        c.setPageSize(25, 40)
-        c.isDuplex = true
+        val c = BBX2PEFConverter(rows = 25, cols = 40, isDuplex = true)
         c.onStartDocument(EMPTY_DOC)
         Assert.assertFalse(c.onStartElement(brl))
         c.onEndElement(brl)
@@ -391,8 +381,7 @@ class BBX2PEFConverterTest {
         brl.appendChild(MoveTo(BigDecimal("0.0"), BigDecimal("10.0")))
         brl.appendChild("\u280e\u2811\u2809\u2815\u281d\u2819\u2800\u2807\u2814\u2811")
 
-        val c = BBX2PEFConverter()
-        c.setPageSize(25, 40)
+        val c = BBX2PEFConverter(rows = 25, cols = 40)
         c.onStartDocument(EMPTY_DOC)
         Assert.assertFalse(c.onStartElement(brl))
         c.onEndElement(brl)
@@ -426,8 +415,7 @@ class BBX2PEFConverterTest {
         brl.appendChild(MoveTo(BigDecimal("0.0"), BigDecimal("40.0")))
         brl.appendChild("\u280e\u2811\u2809\u2815\u281d\u2819\u2800\u2807\u2814\u2811")
 
-        val c = BBX2PEFConverter()
-        c.setPageSize(25, 40)
+        val c = BBX2PEFConverter(rows = 25, cols = 40)
         c.onStartDocument(EMPTY_DOC)
         Assert.assertFalse(c.onStartElement(brl))
         c.onEndElement(brl)
@@ -465,8 +453,7 @@ class BBX2PEFConverterTest {
         brl.appendChild(MoveTo(BigDecimal("235.6"), BigDecimal("240.0")))
         brl.appendChild(PrintPageNumber("#b"))
 
-        val c = BBX2PEFConverter()
-        c.setPageSize(25, 40)
+        val c = BBX2PEFConverter(rows = 25, cols = 40)
         c.onStartDocument(EMPTY_DOC)
         Assert.assertFalse(c.onStartElement(brl))
         c.onEndElement(brl)
@@ -510,8 +497,7 @@ class BBX2PEFConverterTest {
         brl.appendChild(MoveTo(BigDecimal("229.4"), BigDecimal("240.0")))
         brl.appendChild(PrintPageNumber("a#b"))
 
-        val c = BBX2PEFConverter()
-        c.setPageSize(25, 40)
+        val c = BBX2PEFConverter(rows = 25, cols = 40)
         c.onStartDocument(EMPTY_DOC)
         Assert.assertFalse(c.onStartElement(brl))
         c.onEndElement(brl)
@@ -555,8 +541,7 @@ class BBX2PEFConverterTest {
         brlOnly.appendChild("33 33 33")
         brl.appendChild(brlOnly)
 
-        val c = BBX2PEFConverter()
-        c.setPageSize(25, 40)
+        val c = BBX2PEFConverter(rows = 25, cols = 40)
         c.onStartDocument(EMPTY_DOC)
         Assert.assertFalse(c.onStartElement(brl))
         c.onEndElement(brl)
@@ -588,8 +573,7 @@ class BBX2PEFConverterTest {
         // Use ASCII Braille in brl, BBX2PEF will convert it.
         brl.appendChild("3333333333333333333333333333333333333333   	")
 
-        val c = BBX2PEFConverter()
-        c.setPageSize(25, 40)
+        val c = BBX2PEFConverter(rows = 25, cols = 40)
         c.onStartDocument(EMPTY_DOC)
         Assert.assertFalse(c.onStartElement(brl))
         c.onEndElement(brl)
@@ -620,8 +604,7 @@ class BBX2PEFConverterTest {
         brl.appendChild(MoveTo(BigDecimal("0.0"), BigDecimal("10.0")))
         brl.appendChild("111")
 
-        val c = BBX2PEFConverter()
-        c.setPageSize(25, 40)
+        val c = BBX2PEFConverter(rows = 25, cols = 40)
         c.onStartDocument(EMPTY_DOC)
         Assert.assertFalse(c.onStartElement(brl))
         c.onEndElement(brl)
@@ -662,8 +645,7 @@ class BBX2PEFConverterTest {
         brl2.appendChild(NewPage())
         brl2.appendChild(",text 9 vol#b")
 
-        val c = BBX2PEFConverter()
-        c.setPageSize(25, 40)
+        val c = BBX2PEFConverter(rows = 25, cols = 40)
         c.onStartDocument(EMPTY_DOC)
         Assert.assertFalse(c.onStartElement(brl))
         c.onEndElement(brl)
@@ -732,9 +714,7 @@ class BBX2PEFConverterTest {
         brl3.appendChild(NewPage())
         brl3.appendChild(",text 9 vol#c")
 
-        val c = BBX2PEFConverter()
-        c.setPageSize(25, 40)
-        c.volumeFilter = IntPredicate { x: Int -> x == 1 }
+        val c = BBX2PEFConverter(rows = 25, cols = 40, volumeFilter = IntPredicate { x: Int -> x == 1 })
         c.onStartDocument(EMPTY_DOC)
         Assert.assertFalse(c.onStartElement(brl))
         c.onEndElement(brl)
