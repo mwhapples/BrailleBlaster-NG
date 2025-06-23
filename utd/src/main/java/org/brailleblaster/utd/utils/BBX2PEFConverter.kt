@@ -55,6 +55,8 @@ private const val BB_NAMESPACE = "http://brailleblaster.org/ns/bb"
 private const val DIMENSION_TEMPLATE = "%.1fmm"
 
 class BBX2PEFConverter @JvmOverloads constructor(
+    rows: Int = 25,
+    cols: Int = 40,
     val paperHeight: Double = 0.0,
     val paperWidth: Double = 0.0,
     val leftMargin: Double = 0.0,
@@ -108,7 +110,7 @@ class BBX2PEFConverter @JvmOverloads constructor(
     private var includeVolume = false
     private var cursorX = 0
     private var cursorY = 0
-    private var pageGrid: Array<CharArray>? = Array(25) { CharArray(40) }
+    private var pageGrid: Array<CharArray> = Array(rows) { CharArray(cols) }
     private val graphics: MutableList<Graphic> = mutableListOf()
     private var imageCounter = 0
 
@@ -156,9 +158,9 @@ class BBX2PEFConverter @JvmOverloads constructor(
     }
 
     val rows: Int
-        get() = pageGrid!!.size
+        get() = pageGrid.size
     val cols: Int
-        get() = if (rows > 0) pageGrid!![0].size else 0
+        get() = if (rows > 0) pageGrid[0].size else 0
 
     fun setPageSize(rows: Int, cols: Int) {
         pageGrid = Array(rows) { CharArray(cols) }
@@ -358,7 +360,7 @@ class BBX2PEFConverter @JvmOverloads constructor(
             startSection()
         }
         // Blank the page grid using \u2800 empty Braille cell
-        for (row in pageGrid!!) {
+        for (row in pageGrid) {
             Arrays.fill(row, '\u2800')
         }
         graphics.clear()
@@ -377,10 +379,10 @@ class BBX2PEFConverter @JvmOverloads constructor(
         get() = if (graphicElement == null) curPageElement else graphicElement
 
     private fun endPage() {
-        if (curPageElement != null && pageGrid != null) {
+        if (curPageElement != null) {
             var lastNonBlankLine = -1
             graphicElement = null
-            for (i in pageGrid!!.indices) {
+            for (i in pageGrid.indices) {
                 // required so it can be used in lambdas.
                 var graphic = graphics.firstOrNull { it.topLine == i }
                 if (graphic != null) {
@@ -389,7 +391,7 @@ class BBX2PEFConverter @JvmOverloads constructor(
                     curPageElement!!.appendChild(graphicElement)
                     lastNonBlankLine = i - 1
                 }
-                val curLine = getTrimmedLine(pageGrid!![i])
+                val curLine = getTrimmedLine(pageGrid[i])
                 if (curLine.isNotEmpty()) {
                     // Insert the blank lines which come before this line
                     insertBlankLines(lastNonBlankLine, i)
@@ -554,7 +556,7 @@ class BBX2PEFConverter @JvmOverloads constructor(
             cursorX = 0
         }
         // Check there is enough space on the page, start a new one as appropriate.
-        if (cursorY + imageHeight >= pageGrid!!.size) {
+        if (cursorY + imageHeight >= pageGrid.size) {
             endPage()
             startPage()
         }
@@ -563,7 +565,7 @@ class BBX2PEFConverter @JvmOverloads constructor(
         val graphic = Graphic(imageCounter++, image, cursorY, endLine)
         graphics.add(graphic)
         cursorY = endLine
-        cursorX = pageGrid!![endLine].size
+        cursorX = pageGrid[endLine].size
     }
 
     private fun loadImage(imgSrc: String): BufferedImage? {
@@ -615,7 +617,7 @@ class BBX2PEFConverter @JvmOverloads constructor(
         // Convert text to Unicode Braille
         val unicodeBrl = BrailleMapper.ASCII_TO_UNICODE_FAST.map(text)
         // Only copy the cells which fit on the remaining line
-        unicodeBrl.toCharArray(pageGrid!![cursorY], cursorX, 0, insertEnd)
+        unicodeBrl.toCharArray(pageGrid[cursorY], cursorX, 0, insertEnd)
         cursorX += insertEnd
         // Now check that any uncopied cells are either whitespace or empty Braille cells
         for (i in insertEnd until unicodeBrl.length) {
@@ -686,7 +688,9 @@ class BBX2PEFConverter @JvmOverloads constructor(
             val brlCellType = engine.brailleSettings.cellType
             val cols = brlCellType.getCellsForWidth(pageSettings.drawableWidth.toBigDecimal())
             val rows = brlCellType.getLinesForHeight(pageSettings.drawableHeight.toBigDecimal())
-            val converter = BBX2PEFConverter(
+            return BBX2PEFConverter(
+                rows = rows,
+                cols = cols,
                 paperHeight = pageSettings.paperHeight,
                 paperWidth = pageSettings.paperWidth,
                 leftMargin = pageSettings.leftMargin,
@@ -696,10 +700,10 @@ class BBX2PEFConverter @JvmOverloads constructor(
                 isDuplex = pageSettings.interpoint,
                 defaultIdentifier = defaultIdentifier,
                 volumeFilter = volumeFilter
-            )
-            converter.setPageSize(rows, cols)
-            converter.traverseDocument(doc)
-            return converter.pefDoc
+            ).let {
+                it.traverseDocument(doc)
+                it.pefDoc
+            }
         }
     }
 }
