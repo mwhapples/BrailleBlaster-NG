@@ -54,19 +54,14 @@ import kotlin.math.min
 private const val BB_NAMESPACE = "http://brailleblaster.org/ns/bb"
 private const val DIMENSION_TEMPLATE = "%.1fmm"
 
-class BBX2PEFConverter : DocumentTraversal() {
-    var paperHeight = 0.0
-        private set
-    var paperWidth = 0.0
-        private set
-    var leftMargin = 0.0
-        private set
-    var rightMargin = 0.0
-        private set
-    var topMargin = 0.0
-        private set
-    var bottomMargin = 0.0
-        private set
+class BBX2PEFConverter @JvmOverloads constructor(
+    val paperHeight: Double = 0.0,
+    val paperWidth: Double = 0.0,
+    val leftMargin: Double = 0.0,
+    val rightMargin: Double = 0.0,
+    val topMargin: Double = 0.0,
+    val bottomMargin: Double = 0.0
+) : DocumentTraversal() {
 
     class ListBackedNodeList(private val nodes: List<Node> = emptyList()) : NodeList {
 
@@ -668,7 +663,7 @@ class BBX2PEFConverter : DocumentTraversal() {
 
         @JvmStatic
         fun convertBBX2PEF(
-            doc: nu.xom.Document?,
+            doc: nu.xom.Document,
             defaultIdentifier: String,
             engine: UTDTranslationEngine,
             volumeFilter: IntPredicate,
@@ -689,27 +684,28 @@ class BBX2PEFConverter : DocumentTraversal() {
          * @return The PEF document object.
          */
         fun convertBBX2PEF(
-            doc: nu.xom.Document?,
+            doc: nu.xom.Document,
             defaultIdentifier: String,
             engine: UTDTranslationEngine,
             volumeFilter: IntPredicate
         ): Document {
-            val converter = BBX2PEFConverter()
             val brlCellType = engine.brailleSettings.cellType
             val pageSettings = engine.pageSettings
-            converter.paperHeight = pageSettings.paperHeight
-            converter.paperWidth = pageSettings.paperWidth
-            converter.leftMargin = pageSettings.leftMargin
-            converter.rightMargin = pageSettings.rightMargin
-            converter.topMargin = pageSettings.topMargin
-            converter.bottomMargin = pageSettings.bottomMargin
+            val converter = BBX2PEFConverter(
+                paperHeight = pageSettings.paperHeight,
+                paperWidth = pageSettings.paperWidth,
+                leftMargin = pageSettings.leftMargin,
+                rightMargin = pageSettings.rightMargin,
+                topMargin = pageSettings.topMargin,
+                bottomMargin = pageSettings.bottomMargin
+            )
             val cols = brlCellType.getCellsForWidth(pageSettings.drawableWidth.toBigDecimal())
             val rows = brlCellType.getLinesForHeight(pageSettings.drawableHeight.toBigDecimal())
             converter.defaultIdentifier = defaultIdentifier
             converter.setPageSize(rows, cols)
             converter.isDuplex = pageSettings.interpoint
             converter.volumeFilter = volumeFilter
-            converter.traverseDocument(doc!!)
+            converter.traverseDocument(doc)
             return converter.pEFDoc
         }
     }
