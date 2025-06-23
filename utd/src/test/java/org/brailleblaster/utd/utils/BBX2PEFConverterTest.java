@@ -92,7 +92,7 @@ public class BBX2PEFConverterTest {
             assertEquals(c.getCols(), colArray[i], "Number of columns incorrect");
             c.onStartDocument(EMPTY_DOC);
             c.onEndDocument(EMPTY_DOC);
-            org.w3c.dom.Document pef = c.getPEFDoc();
+            org.w3c.dom.Document pef = c.getPefDoc();
             org.w3c.dom.NodeList vols = (org.w3c.dom.NodeList) findVolumes.evaluate(pef, XPathConstants.NODESET);
             assertTrue(vols.getLength() > 0, "Resulting doc has no volumes");
             for (int volIndex = 0; volIndex < vols.getLength(); ++volIndex) {
@@ -111,7 +111,7 @@ public class BBX2PEFConverterTest {
         c.onStartDocument(EMPTY_DOC);
         c.onEndDocument(EMPTY_DOC);
         XPathExpression checkVolAttributes = xpath.compile("count(self::node()[@cols='40' and @duplex='false' and @rowgap='0' and @rows='25']) = 1");
-        org.w3c.dom.Document pef = c.getPEFDoc();
+        org.w3c.dom.Document pef = c.getPefDoc();
         org.w3c.dom.NodeList vols = (org.w3c.dom.NodeList) findVolumes.evaluate(pef, XPathConstants.NODESET);
         assertTrue(vols.getLength() > 0, "Minimal document requires 1 volume");
         for (int volIndex = 0; volIndex < vols.getLength(); ++volIndex) {
@@ -140,7 +140,7 @@ public class BBX2PEFConverterTest {
         assertFalse(c.onStartElement(brl));
         c.onEndElement(brl);
         c.onEndDocument(EMPTY_DOC);
-        org.w3c.dom.Document pef = c.getPEFDoc();
+        org.w3c.dom.Document pef = c.getPefDoc();
         org.w3c.dom.NodeList identifiers = (org.w3c.dom.NodeList) findIdentifier.evaluate(pef, XPathConstants.NODESET);
         assertEquals(identifiers.getLength(), 1, "There should only be 1 identifier");
         assertEquals(identifiers.item(0).getTextContent(), "TempID");
@@ -172,7 +172,7 @@ public class BBX2PEFConverterTest {
         assertFalse(c.onStartElement(brl));
         c.onEndElement(brl);
         c.onEndDocument(EMPTY_DOC);
-        org.w3c.dom.Document pef = c.getPEFDoc();
+        org.w3c.dom.Document pef = c.getPefDoc();
         org.w3c.dom.NodeList identifiers = (org.w3c.dom.NodeList) findIdentifier.evaluate(pef, XPathConstants.NODESET);
         assertEquals(identifiers.getLength(), 1, "There should only be 1 identifier");
         assertEquals(identifiers.item(0).getTextContent(), "TestDoc0001");
@@ -224,7 +224,7 @@ public class BBX2PEFConverterTest {
         assertFalse(c.onStartElement(brl));
         c.onEndElement(brl);
         c.onEndDocument(EMPTY_DOC);
-        org.w3c.dom.Document pef = c.getPEFDoc();
+        org.w3c.dom.Document pef = c.getPefDoc();
         org.w3c.dom.NodeList nodes = (org.w3c.dom.NodeList) findIdentifier.evaluate(pef, XPathConstants.NODESET);
         assertEquals(nodes.getLength(), 1, "There can only be one identifier");
         assertEquals(nodes.item(0).getTextContent(), identifierStr);
@@ -288,7 +288,7 @@ public class BBX2PEFConverterTest {
         assertFalse(c.onStartElement(brl));
         c.onEndElement(brl);
         c.onEndDocument(EMPTY_DOC);
-        org.w3c.dom.Document pef = c.getPEFDoc();
+        org.w3c.dom.Document pef = c.getPefDoc();
         org.w3c.dom.NodeList nodes = (org.w3c.dom.NodeList) findIdentifier.evaluate(pef, XPathConstants.NODESET);
         assertEquals(nodes.getLength(), 1, "There should only be 1 identifier");
         assertEquals(nodes.item(0).getTextContent(), identifierStr);
@@ -329,7 +329,7 @@ public class BBX2PEFConverterTest {
         assertFalse(c.onStartElement(brl));
         c.onEndElement(brl);
         c.onEndDocument(EMPTY_DOC);
-        org.w3c.dom.Document pef = c.getPEFDoc();
+        org.w3c.dom.Document pef = c.getPefDoc();
         org.w3c.dom.NodeList vols = (org.w3c.dom.NodeList) findVolumes.evaluate(pef, XPathConstants.NODESET);
         assertEquals(vols.getLength(), 1, "Incorrect volume count");
         org.w3c.dom.Element vol = (org.w3c.dom.Element) vols.item(0);
@@ -360,7 +360,7 @@ public class BBX2PEFConverterTest {
         assertFalse(c.onStartElement(brl));
         c.onEndElement(brl);
         c.onEndDocument(EMPTY_DOC);
-        org.w3c.dom.Document pef = c.getPEFDoc();
+        org.w3c.dom.Document pef = c.getPefDoc();
         org.w3c.dom.NodeList vols = (org.w3c.dom.NodeList) findVolumes.evaluate(pef, XPathConstants.NODESET);
         assertEquals(vols.getLength(), 1, "Incorrect volume count");
         org.w3c.dom.Element vol = (org.w3c.dom.Element) vols.item(0);
@@ -391,7 +391,7 @@ public class BBX2PEFConverterTest {
         assertFalse(c.onStartElement(brl));
         c.onEndElement(brl);
         c.onEndDocument(EMPTY_DOC);
-        org.w3c.dom.Document pef = c.getPEFDoc();
+        org.w3c.dom.Document pef = c.getPefDoc();
         org.w3c.dom.NodeList vols = (org.w3c.dom.NodeList) findVolumes.evaluate(pef, XPathConstants.NODESET);
         assertEquals(vols.getLength(), 1, "Incorrect volume count");
         org.w3c.dom.Element vol = (org.w3c.dom.Element) vols.item(0);
@@ -423,7 +423,7 @@ public class BBX2PEFConverterTest {
         assertFalse(c.onStartElement(brl));
         c.onEndElement(brl);
         c.onEndDocument(EMPTY_DOC);
-        org.w3c.dom.Document pef = c.getPEFDoc();
+        org.w3c.dom.Document pef = c.getPefDoc();
         org.w3c.dom.NodeList vols = (org.w3c.dom.NodeList) findVolumes.evaluate(pef, XPathConstants.NODESET);
         assertEquals(vols.getLength(), 1, "Incorrect volume count");
         org.w3c.dom.Element vol = (org.w3c.dom.Element) vols.item(0);
@@ -460,7 +460,7 @@ public class BBX2PEFConverterTest {
         assertFalse(c.onStartElement(brl));
         c.onEndElement(brl);
         c.onEndDocument(EMPTY_DOC);
-        org.w3c.dom.Document pef = c.getPEFDoc();
+        org.w3c.dom.Document pef = c.getPefDoc();
         org.w3c.dom.NodeList vols = (org.w3c.dom.NodeList) findVolumes.evaluate(pef, XPathConstants.NODESET);
         assertEquals(vols.getLength(), 1, "Incorrect volume count");
         org.w3c.dom.Element vol = (org.w3c.dom.Element) vols.item(0);
@@ -502,7 +502,7 @@ public class BBX2PEFConverterTest {
         assertFalse(c.onStartElement(brl));
         c.onEndElement(brl);
         c.onEndDocument(EMPTY_DOC);
-        org.w3c.dom.Document pef = c.getPEFDoc();
+        org.w3c.dom.Document pef = c.getPefDoc();
         org.w3c.dom.NodeList vols = (org.w3c.dom.NodeList) findVolumes.evaluate(pef, XPathConstants.NODESET);
         assertEquals(vols.getLength(), 1, "Incorrect volume count");
         org.w3c.dom.Element vol = (org.w3c.dom.Element) vols.item(0);
@@ -542,7 +542,7 @@ public class BBX2PEFConverterTest {
         assertFalse(c.onStartElement(brl));
         c.onEndElement(brl);
         c.onEndDocument(EMPTY_DOC);
-        org.w3c.dom.Document pef = c.getPEFDoc();
+        org.w3c.dom.Document pef = c.getPefDoc();
         org.w3c.dom.NodeList vols = (org.w3c.dom.NodeList) findVolumes.evaluate(pef, XPathConstants.NODESET);
         assertEquals(vols.getLength(), 1, "Incorrect volume count");
         org.w3c.dom.Element vol = (org.w3c.dom.Element) vols.item(0);
@@ -571,7 +571,7 @@ public class BBX2PEFConverterTest {
         assertFalse(c.onStartElement(brl));
         c.onEndElement(brl);
         c.onEndDocument(EMPTY_DOC);
-        org.w3c.dom.Document pef = c.getPEFDoc();
+        org.w3c.dom.Document pef = c.getPefDoc();
         org.w3c.dom.NodeList vols = (org.w3c.dom.NodeList) findVolumes.evaluate(pef, XPathConstants.NODESET);
         assertEquals(vols.getLength(), 1, "Incorrect volume count");
         org.w3c.dom.Element vol = (org.w3c.dom.Element) vols.item(0);
@@ -602,7 +602,7 @@ public class BBX2PEFConverterTest {
         assertFalse(c.onStartElement(brl));
         c.onEndElement(brl);
         c.onEndDocument(EMPTY_DOC);
-        org.w3c.dom.Document pef = c.getPEFDoc();
+        org.w3c.dom.Document pef = c.getPefDoc();
         org.w3c.dom.NodeList vols = (org.w3c.dom.NodeList) findVolumes.evaluate(pef, XPathConstants.NODESET);
         assertEquals(vols.getLength(), 1, "Incorrect volume count");
         org.w3c.dom.Element vol = (org.w3c.dom.Element) vols.item(0);
@@ -647,7 +647,7 @@ public class BBX2PEFConverterTest {
         assertFalse(c.onStartElement(brl2));
         c.onEndElement(brl2);
         c.onEndDocument(EMPTY_DOC);
-        org.w3c.dom.Document pef = c.getPEFDoc();
+        org.w3c.dom.Document pef = c.getPefDoc();
         org.w3c.dom.NodeList vols = (org.w3c.dom.NodeList) findVolumes.evaluate(pef, XPathConstants.NODESET);
         assertEquals(vols.getLength(), 2, "Incorrect volume count");
         org.w3c.dom.Element vol = (org.w3c.dom.Element) vols.item(0);
@@ -720,7 +720,7 @@ public class BBX2PEFConverterTest {
         assertFalse(c.onStartElement(brl3));
         c.onEndElement(brl3);
         c.onEndDocument(EMPTY_DOC);
-        org.w3c.dom.Document pef = c.getPEFDoc();
+        org.w3c.dom.Document pef = c.getPefDoc();
         org.w3c.dom.NodeList vols = (org.w3c.dom.NodeList) findVolumes.evaluate(pef, XPathConstants.NODESET);
         assertEquals(vols.getLength(), 1, "Incorrect volume count");
         org.w3c.dom.Element vol = (org.w3c.dom.Element) vols.item(0);

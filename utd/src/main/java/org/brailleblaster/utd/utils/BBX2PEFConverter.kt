@@ -60,7 +60,15 @@ class BBX2PEFConverter @JvmOverloads constructor(
     val leftMargin: Double = 0.0,
     val rightMargin: Double = 0.0,
     val topMargin: Double = 0.0,
-    val bottomMargin: Double = 0.0
+    val bottomMargin: Double = 0.0,
+    /**
+     * The default duplex mode used by the converter.
+     *
+     * When performing a conversion, unless the document contains an instruction otherwise, the
+     * default duplex mode will be used in the PEF document.
+     */
+    var isDuplex: Boolean = false, var defaultIdentifier: String = "TempID",
+    var volumeFilter: IntPredicate = ALL_VOLUMES
 ) : DocumentTraversal() {
 
     class ListBackedNodeList(private val nodes: List<Node> = emptyList()) : NodeList {
@@ -87,32 +95,17 @@ class BBX2PEFConverter @JvmOverloads constructor(
     }
 
     private var docBuilder: DocumentBuilder? = null
-    private var pefDoc: Document? = null
+    private var _pefDoc: Document? = null
     private var imagesElement: Element? = null
         get() {
             if (field == null) {
-                field = pefDoc!!.createElementNS(PEFNamespaceContext.TG_NAMESPACE, "tg:images")
-                pefDoc!!.documentElement.appendChild(field)
+                field = _pefDoc!!.createElementNS(PEFNamespaceContext.TG_NAMESPACE, "tg:images")
+                _pefDoc!!.documentElement.appendChild(field)
             }
             return field
         }
-    var defaultIdentifier = "TempID"
-    var volumeFilter: IntPredicate = ALL_VOLUMES
     private var volumeCounter = 0
     private var includeVolume = false
-    /**
-     * The converter's default duplex mode.
-     *
-     * @return The duplex mode the converter sets by default.
-     */
-    /**
-     * Set the default duplex mode used by the converter.
-     *
-     *
-     * When performing a conversion, unless the document contains an instruction otherwise, the
-     * default duplex mode will be used in the PEF document.
-     */
-    var isDuplex = false
     private var cursorX = 0
     private var cursorY = 0
     private var pageGrid: Array<CharArray>? = Array(25) { CharArray(40) }
@@ -171,14 +164,14 @@ class BBX2PEFConverter @JvmOverloads constructor(
         pageGrid = Array(rows) { CharArray(cols) }
     }
 
-    val pEFDoc: Document
+    val pefDoc: Document
         /**
          * Get the PEF document created by the last conversion.
          *
          * @return The PEF document.
          */
         get() {
-            return pefDoc ?: throw NoSuchElementException("No BBX has been converted")
+            return _pefDoc ?: throw NoSuchElementException("No BBX has been converted")
         }
 
     public override fun onStartElement(e: nu.xom.Element): Boolean {
@@ -221,13 +214,13 @@ class BBX2PEFConverter @JvmOverloads constructor(
         suppressNewPages = 0
         includeVolume = volumeFilter.test(volumeCounter)
         // Now initialise the PEF document.
-        pefDoc = docBuilder!!.newDocument()
-        val rootElement = pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "pef")
+        _pefDoc = docBuilder!!.newDocument()
+        val rootElement = _pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "pef")
         rootElement.setAttribute("version", "2008-1")
-        pefDoc!!.appendChild(rootElement)
-        val headElement = pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "head")
+        _pefDoc!!.appendChild(rootElement)
+        val headElement = _pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "head")
         rootElement.appendChild(headElement)
-        metaElement = pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "meta").apply {
+        metaElement = _pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "meta").apply {
             setAttributeNS(
                 XMLConstants.XMLNS_ATTRIBUTE_NS_URI, "xmlns:dc", PEFNamespaceContext.DC_NAMESPACE
             )
@@ -236,7 +229,7 @@ class BBX2PEFConverter @JvmOverloads constructor(
             )
         }
         headElement.appendChild(metaElement)
-        bodyElement = pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "body")
+        bodyElement = _pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "body")
         rootElement.appendChild(bodyElement)
     }
 
@@ -245,25 +238,25 @@ class BBX2PEFConverter @JvmOverloads constructor(
         endVolume()
         // Make sure the DOM complies with the minimum PEF requirements
         try {
-            val formatList = findDCFormat!!.evaluate(pefDoc, XPathConstants.NODESET) as NodeList
+            val formatList = findDCFormat!!.evaluate(_pefDoc, XPathConstants.NODESET) as NodeList
             if (formatList.length != 1) {
                 for (i in 0 until formatList.length) {
                     val n = formatList.item(i)
                     metaElement!!.removeChild(n)
                 }
-                val formatElement = pefDoc!!.createElementNS(PEFNamespaceContext.DC_NAMESPACE, "dc:format")
+                val formatElement = _pefDoc!!.createElementNS(PEFNamespaceContext.DC_NAMESPACE, "dc:format")
                 formatElement.textContent = "application/x-pef+xml"
                 metaElement!!.appendChild(formatElement)
             } else if ("application/x-pef+xml" == formatList.item(0).textContent) {
                 formatList.item(0).textContent = "application/x-pef+xml"
             }
         } catch (_: XPathExpressionException) {
-            val formatElement = pefDoc!!.createElementNS(PEFNamespaceContext.DC_NAMESPACE, "dc:format")
+            val formatElement = _pefDoc!!.createElementNS(PEFNamespaceContext.DC_NAMESPACE, "dc:format")
             formatElement.textContent = "application/x-pef+xml"
             metaElement!!.appendChild(formatElement)
         }
         try {
-            val identifierList = findDCIdentifier!!.evaluate(pefDoc, XPathConstants.NODESET) as NodeList
+            val identifierList = findDCIdentifier!!.evaluate(_pefDoc, XPathConstants.NODESET) as NodeList
             if (identifierList.length > 1) {
                 // Only keep the first identifier
                 for (i in 0 until identifierList.length) {
@@ -271,17 +264,17 @@ class BBX2PEFConverter @JvmOverloads constructor(
                     metaElement!!.removeChild(n)
                 }
             } else if (identifierList.length < 1) {
-                val identifier: Node = pefDoc!!.createElementNS(PEFNamespaceContext.DC_NAMESPACE, "dc:identifier")
+                val identifier: Node = _pefDoc!!.createElementNS(PEFNamespaceContext.DC_NAMESPACE, "dc:identifier")
                 identifier.textContent = defaultIdentifier
                 metaElement!!.appendChild(identifier)
             }
         } catch (_: XPathExpressionException) {
-            val identifier: Node = pefDoc!!.createElementNS(PEFNamespaceContext.DC_NAMESPACE, "dc:identifier")
+            val identifier: Node = _pefDoc!!.createElementNS(PEFNamespaceContext.DC_NAMESPACE, "dc:identifier")
             identifier.textContent = defaultIdentifier
             metaElement!!.appendChild(identifier)
         }
         try {
-            var vols = findVolumes!!.evaluate(pefDoc, XPathConstants.NODESET) as NodeList
+            var vols = findVolumes!!.evaluate(_pefDoc, XPathConstants.NODESET) as NodeList
             if (vols.length == 0) {
                 val newVol = createVolumeElement()
                 bodyElement!!.appendChild(newVol)
@@ -315,15 +308,15 @@ class BBX2PEFConverter @JvmOverloads constructor(
     }
 
     private fun createPageElement(): Element {
-        return pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "page")
+        return _pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "page")
     }
 
     private fun createSectionElement(): Element {
-        return pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "section")
+        return _pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "section")
     }
 
     private fun createVolumeElement(): Element {
-        val newVol = pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "volume")
+        val newVol = _pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "volume")
         newVol.setAttribute("duplex", isDuplex.toString())
         newVol.setAttribute("rowgap", 0.toString())
         newVol.setAttribute("rows", rows.toString())
@@ -401,7 +394,7 @@ class BBX2PEFConverter @JvmOverloads constructor(
                     // Insert the blank lines which come before this line
                     insertBlankLines(lastNonBlankLine, i)
                     val row =
-                        pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "row")
+                        _pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "row")
                     row.textContent = curLine
                     curPageElement!!.appendChild(row)
                     lastNonBlankLine = i
@@ -423,12 +416,12 @@ class BBX2PEFConverter @JvmOverloads constructor(
     private fun insertBlankLines(lastNonBlankLine: Int, i: Int) {
         for (lineCounter in lastNonBlankLine + 1 until i) {
             insertionElement!!
-                .appendChild(pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "row"))
+                .appendChild(_pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "row"))
         }
     }
 
     private fun createGraphicElement(graphic: Graphic, lineLength: Int): Element {
-        val gElem = pefDoc!!.createElementNS(PEFNamespaceContext.TG_NAMESPACE, "tg:graphic")
+        val gElem = _pefDoc!!.createElementNS(PEFNamespaceContext.TG_NAMESPACE, "tg:graphic")
         gElem.setAttribute("height", (graphic.bottomLine + 1 - graphic.topLine).toString())
         gElem.setAttribute("width", lineLength.toString())
         if (graphic.image != null) {
@@ -443,7 +436,7 @@ class BBX2PEFConverter @JvmOverloads constructor(
             ByteArrayOutputStream().use { output ->
                 ImageIO.write(img, "png", output)
                 val imageData = BaseEncoding.base64().encode(output.toByteArray())
-                val imageElement = pefDoc!!.createElementNS(PEFNamespaceContext.TG_NAMESPACE, "tg:imageData")
+                val imageElement = _pefDoc!!.createElementNS(PEFNamespaceContext.TG_NAMESPACE, "tg:imageData")
                 imageElement.setAttribute("format", "image/png")
                 imageElement.setAttribute("encoding", "base64")
                 imageElement.textContent = imageData
@@ -498,7 +491,7 @@ class BBX2PEFConverter @JvmOverloads constructor(
     }
 
     private fun addMetaItem(namespaceUri: String, name: String, value: String) {
-        val element = pefDoc!!.createElementNS(namespaceUri, name)
+        val element = _pefDoc!!.createElementNS(namespaceUri, name)
         element.textContent = value
         metaElement!!.appendChild(element)
     }
@@ -689,24 +682,24 @@ class BBX2PEFConverter @JvmOverloads constructor(
             engine: UTDTranslationEngine,
             volumeFilter: IntPredicate
         ): Document {
-            val brlCellType = engine.brailleSettings.cellType
             val pageSettings = engine.pageSettings
+            val brlCellType = engine.brailleSettings.cellType
+            val cols = brlCellType.getCellsForWidth(pageSettings.drawableWidth.toBigDecimal())
+            val rows = brlCellType.getLinesForHeight(pageSettings.drawableHeight.toBigDecimal())
             val converter = BBX2PEFConverter(
                 paperHeight = pageSettings.paperHeight,
                 paperWidth = pageSettings.paperWidth,
                 leftMargin = pageSettings.leftMargin,
                 rightMargin = pageSettings.rightMargin,
                 topMargin = pageSettings.topMargin,
-                bottomMargin = pageSettings.bottomMargin
+                bottomMargin = pageSettings.bottomMargin,
+                isDuplex = pageSettings.interpoint,
+                defaultIdentifier = defaultIdentifier,
+                volumeFilter = volumeFilter
             )
-            val cols = brlCellType.getCellsForWidth(pageSettings.drawableWidth.toBigDecimal())
-            val rows = brlCellType.getLinesForHeight(pageSettings.drawableHeight.toBigDecimal())
-            converter.defaultIdentifier = defaultIdentifier
             converter.setPageSize(rows, cols)
-            converter.isDuplex = pageSettings.interpoint
-            converter.volumeFilter = volumeFilter
             converter.traverseDocument(doc)
-            return converter.pEFDoc
+            return converter.pefDoc
         }
     }
 }
