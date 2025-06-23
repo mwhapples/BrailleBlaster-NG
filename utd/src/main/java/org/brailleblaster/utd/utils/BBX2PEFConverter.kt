@@ -16,16 +16,14 @@
 package org.brailleblaster.utd.utils
 
 import com.google.common.base.Preconditions
-import com.google.common.base.Strings
 import com.google.common.io.BaseEncoding
 import nu.xom.Text
+import org.brailleblaster.libembosser.spi.BrlCell
 import org.brailleblaster.libembosser.utils.BrailleMapper
 import org.brailleblaster.libembosser.utils.xml.DocumentUtils
 import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.properties.UTDElements.Companion.findType
-import org.brailleblaster.libembosser.spi.BrlCell
-import org.brailleblaster.utils.BBData
 import org.brailleblaster.utils.xom.DocumentTraversal
 import org.w3c.dom.Document
 import org.w3c.dom.Element
@@ -52,6 +50,9 @@ import javax.xml.xpath.XPathExpressionException
 import javax.xml.xpath.XPathFactory
 import kotlin.math.max
 import kotlin.math.min
+
+private const val BB_NAMESPACE = "http://brailleblaster.org/ns/bb"
+private const val DIMENSION_TEMPLATE = "%.1fmm"
 
 class BBX2PEFConverter : DocumentTraversal() {
     var paperHeight = 0.0
@@ -124,7 +125,7 @@ class BBX2PEFConverter : DocumentTraversal() {
     private var imageCounter = 0
 
     /**
-     * Number of new pages to supress
+     * Number of new pages to suppress
      *
      *
      * There are cases where new pages may have been handled before the utd:newPage element is
@@ -151,7 +152,7 @@ class BBX2PEFConverter : DocumentTraversal() {
         docBuilder = try {
             dbf.newDocumentBuilder()
         } catch (e: ParserConfigurationException) {
-            throw UnsupportedOperationException("No suitable XML DOM implementations.")
+            throw UnsupportedOperationException("No suitable XML DOM implementations.", e)
         }
         val xpath = XPathFactory.newInstance().newXPath()
         xpath.namespaceContext = PEFNamespaceContext()
@@ -162,7 +163,7 @@ class BBX2PEFConverter : DocumentTraversal() {
             findRelativeSections = xpath.compile("./pef:section")
             findRelativePages = xpath.compile("./pef:page")
         } catch (e: XPathExpressionException) {
-            throw UnsupportedOperationException("Unable to create some required XPath expressions")
+            throw UnsupportedOperationException("Unable to create some required XPath expressions", e)
         }
     }
 
@@ -193,13 +194,13 @@ class BBX2PEFConverter : DocumentTraversal() {
                 processBrl(e)
             }
             descend = false
-        } else if ("http://brailleblaster.org/ns/bb" == e.namespaceURI && "head" == e.localName) {
+        } else if (BB_NAMESPACE == e.namespaceURI && "head" == e.localName) {
             processHeadElement(e)
             descend = false
-        } else if ("http://brailleblaster.org/ns/bb".contentEquals(e.namespaceURI)
+        } else if (BB_NAMESPACE.contentEquals(e.namespaceURI)
             && "BLOCK".contentEquals(e.localName)
         ) {
-            if ("IMAGE_PLACEHOLDER".contentEquals(e.getAttributeValue("type", "http://brailleblaster.org/ns/bb")) && includeVolume) {
+            if ("IMAGE_PLACEHOLDER".contentEquals(e.getAttributeValue("type", BB_NAMESPACE)) && includeVolume) {
                 processImagePlaceHolder(e)
                 descend = false
             }
@@ -208,9 +209,9 @@ class BBX2PEFConverter : DocumentTraversal() {
     }
 
     public override fun onEndElement(e: nu.xom.Element) {
-        if ("http://brailleblaster.org/ns/bb" == e.namespaceURI && "CONTAINER" == e.localName && "VOLUME" == e.getAttributeValue(
+        if (BB_NAMESPACE == e.namespaceURI && "CONTAINER" == e.localName && "VOLUME" == e.getAttributeValue(
                 "type",
-                "http://brailleblaster.org/ns/bb"
+                BB_NAMESPACE
             )
         ) {
             endVolume()
@@ -261,7 +262,7 @@ class BBX2PEFConverter : DocumentTraversal() {
             } else if ("application/x-pef+xml" == formatList.item(0).textContent) {
                 formatList.item(0).textContent = "application/x-pef+xml"
             }
-        } catch (e: XPathExpressionException) {
+        } catch (_: XPathExpressionException) {
             val formatElement = pefDoc!!.createElementNS(PEFNamespaceContext.DC_NAMESPACE, "dc:format")
             formatElement.textContent = "application/x-pef+xml"
             metaElement!!.appendChild(formatElement)
@@ -279,7 +280,7 @@ class BBX2PEFConverter : DocumentTraversal() {
                 identifier.textContent = defaultIdentifier
                 metaElement!!.appendChild(identifier)
             }
-        } catch (e: XPathExpressionException) {
+        } catch (_: XPathExpressionException) {
             val identifier: Node = pefDoc!!.createElementNS(PEFNamespaceContext.DC_NAMESPACE, "dc:identifier")
             identifier.textContent = defaultIdentifier
             metaElement!!.appendChild(identifier)
@@ -307,7 +308,7 @@ class BBX2PEFConverter : DocumentTraversal() {
                     }
                 }
             }
-        } catch (e: XPathExpressionException) {
+        } catch (_: XPathExpressionException) {
             // We will assume there was no suitable nodes so we create an empty volume to ensure validity
             val vol = createVolumeElement()
             bodyElement!!.appendChild(vol)
@@ -401,7 +402,7 @@ class BBX2PEFConverter : DocumentTraversal() {
                     lastNonBlankLine = i - 1
                 }
                 val curLine = getTrimmedLine(pageGrid!![i])
-                if (!Strings.isNullOrEmpty(curLine)) {
+                if (curLine.isNotEmpty()) {
                     // Insert the blank lines which come before this line
                     insertBlankLines(lastNonBlankLine, i)
                     val row =
@@ -454,7 +455,7 @@ class BBX2PEFConverter : DocumentTraversal() {
                 imageElement.setAttribute("id", imageId)
                 imagesElement!!.appendChild(imageElement)
             }
-        } catch (e: IOException) {
+        } catch (_: IOException) {
             // Cannot do anything
         }
     }
@@ -580,7 +581,7 @@ class BBX2PEFConverter : DocumentTraversal() {
     private fun loadImage(imgSrc: String): BufferedImage? {
         val imageUri: URI = try {
             URI(imgSrc)
-        } catch (e1: URISyntaxException) {
+        } catch (_: URISyntaxException) {
             File(imgSrc).toURI()
         }
         return if ("file" == imageUri.scheme) {
@@ -593,7 +594,7 @@ class BBX2PEFConverter : DocumentTraversal() {
     private fun loadImageFile(imgFile: File): BufferedImage? {
         return try {
             ImageIO.read(imgFile)
-        } catch (e: IOException) {
+        } catch (_: IOException) {
             null
         }
     }
@@ -662,7 +663,6 @@ class BBX2PEFConverter : DocumentTraversal() {
     }
 
     companion object {
-        private const val DIMENSION_TEMPLATE = "%.1fmm"
         @JvmField
         val ALL_VOLUMES = IntPredicate { true }
 
