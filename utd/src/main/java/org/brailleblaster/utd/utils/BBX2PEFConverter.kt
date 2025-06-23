@@ -69,8 +69,8 @@ class BBX2PEFConverter(
      * When performing a conversion, unless the document contains an instruction otherwise, the
      * default duplex mode will be used in the PEF document.
      */
-    var isDuplex: Boolean = false, var defaultIdentifier: String = "TempID",
-    var volumeFilter: IntPredicate = ALL_VOLUMES
+    val isDuplex: Boolean = false, var defaultIdentifier: String = "TempID",
+    val volumeFilter: IntPredicate = ALL_VOLUMES
 ) : DocumentTraversal() {
 
     class ListBackedNodeList(private val nodes: List<Node> = emptyList()) : NodeList {
