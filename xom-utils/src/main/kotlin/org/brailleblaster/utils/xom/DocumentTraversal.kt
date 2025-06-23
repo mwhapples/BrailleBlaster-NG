@@ -40,17 +40,11 @@ import java.util.LinkedList
  * implementations and simply ignore the event.
  */
 abstract class DocumentTraversal {
-    private class PathElement(element: Element) {
-        private var curIndex: Int
-        val element: Element
-        fun getCurIndex(): Int {
-            return curIndex
-        }
-
-        fun setCurIndex(index: Int) {
-            Preconditions.checkPositionIndex(index, element.childCount)
-            curIndex = index
-        }
+    private class PathElement(val element: Element) {
+        var curIndex: Int = 0
+            set(value) {
+                field = Preconditions.checkPositionIndex(value, element.childCount)
+            }
 
         val curChild: Node
             get() {
@@ -62,12 +56,6 @@ abstract class DocumentTraversal {
 
         fun hasChildren(): Boolean {
             return element.childCount > 0
-        }
-
-        init {
-            Preconditions.checkNotNull(element)
-            this.element = element
-            curIndex = 0
         }
     }
 
@@ -81,18 +69,18 @@ abstract class DocumentTraversal {
             val curElement = curPath.element
             var descend = true
             // Have we just entered the element.
-            if (curPath.getCurIndex() == 0) {
+            if (curPath.curIndex == 0) {
                 descend = onStartElement(curElement)
                 stack.push(curPath)
             }
             // Are we at the end of an element.
             // Alternatively did the handler request not to descend.
-            if (curPath.getCurIndex() >= curElement.childCount || !descend) {
+            if (curPath.curIndex >= curElement.childCount || !descend) {
                 onEndElement(curElement)
                 stack.pop()
                 curPath = stack.peek()
                 // Move to the next child of curPath for the next loop iteration.
-                curPath?.setCurIndex(curPath.getCurIndex() + 1)
+                curPath.curIndex += 1
                 continue
             }
             val curNode = curPath.curChild
@@ -109,7 +97,7 @@ abstract class DocumentTraversal {
                 // Unknown node type
                 onUnknownNode(curNode)
             }
-            curPath.setCurIndex(curPath.getCurIndex() + 1)
+            curPath.curIndex += 1
         }
         onEndDocument(doc)
     }
