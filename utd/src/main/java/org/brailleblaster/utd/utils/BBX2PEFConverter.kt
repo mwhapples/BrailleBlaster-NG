@@ -416,7 +416,7 @@ class BBX2PEFConverter(
     }
 
     private fun insertBlankLines(lastNonBlankLine: Int, i: Int) {
-        for (lineCounter in lastNonBlankLine + 1 until i) {
+        repeat(i - lastNonBlankLine - 1) {
             insertionElement!!
                 .appendChild(_pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "row"))
         }
@@ -546,7 +546,7 @@ class BBX2PEFConverter(
             return
         }
         suppressNewPages = e.getAttributeValue("newPages", UTDElements.UTD_NAMESPACE)?.toIntOrNull() ?: 0
-        for (i in 0 until suppressNewPages) {
+        repeat(suppressNewPages) {
             endPage()
             startPage()
         }
