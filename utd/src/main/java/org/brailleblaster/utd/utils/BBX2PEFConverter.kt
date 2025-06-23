@@ -54,7 +54,7 @@ import kotlin.math.min
 private const val BB_NAMESPACE = "http://brailleblaster.org/ns/bb"
 private const val DIMENSION_TEMPLATE = "%.1fmm"
 
-class BBX2PEFConverter @JvmOverloads constructor(
+class BBX2PEFConverter(
     rows: Int = 25,
     cols: Int = 40,
     val paperHeight: Double = 0.0,
