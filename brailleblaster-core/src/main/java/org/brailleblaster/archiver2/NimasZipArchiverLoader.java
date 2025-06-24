@@ -57,7 +57,6 @@ public class NimasZipArchiverLoader implements FileLoader {
 
         Path bookPath = null;
         List<Path> opfFiles = OPFUtils.findOPFFilesInFolder(zipRoot);
-        OpfHandler:
         if (!opfFiles.isEmpty()) {
             if (opfFiles.size() > 1) {
                 log.warn("Detected multiple OPF files, picking first: {}", opfFiles);
@@ -71,23 +70,25 @@ public class NimasZipArchiverLoader implements FileLoader {
                 opfDocument = new XMLHandler().load(opfFile);
             } catch (Exception e) {
                 log.error("Failed to open OPF file", e);
-                break OpfHandler;
+                opfDocument = null;
             }
 
-            OPFUtils.ManifestEntry bookManifest = guessNimasLocation(opfDocument);
+            if (opfDocument != null) {
+                OPFUtils.ManifestEntry bookManifest = guessNimasLocation(opfDocument);
 
-            bookPath = opfFile.resolveSibling(bookManifest.href);
+                bookPath = opfFile.resolveSibling(bookManifest.href);
 
-            //Issue #4693: Workaround for opf files that specify book with the wrong case
-            if (!Files.exists(bookPath)) {
-                try (Stream<Path> filesStream = Files.list(bookPath.getParent())) {
-                    bookPath = filesStream
-                            .filter(curPath -> curPath.getFileName().toString().equalsIgnoreCase(bookManifest.href))
-                            .findFirst()
-                            .orElseThrow(() -> new NodeException(
-                                    "Unable to find file " + bookManifest.href
-                                            + " in zip root " + opfFile.getParent(), bookManifest.elem)
-                            );
+                //Issue #4693: Workaround for opf files that specify book with the wrong case
+                if (!Files.exists(bookPath)) {
+                    try (Stream<Path> filesStream = Files.list(bookPath.getParent())) {
+                        bookPath = filesStream
+                                .filter(curPath -> curPath.getFileName().toString().equalsIgnoreCase(bookManifest.href))
+                                .findFirst()
+                                .orElseThrow(() -> new NodeException(
+                                        "Unable to find file " + bookManifest.href
+                                                + " in zip root " + opfFile.getParent(), bookManifest.elem)
+                                );
+                    }
                 }
             }
         }
