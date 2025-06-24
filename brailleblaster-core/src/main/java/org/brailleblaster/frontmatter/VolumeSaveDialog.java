@@ -501,11 +501,11 @@ public class VolumeSaveDialog {
         PEF("pef", "Portable Embosser Format");
 
         private final String extension;
-        private final String name;
+        private final String displayName;
 
-        Format(String extension, String name) {
+        Format(String extension, String displayName) {
             this.extension = extension;
-            this.name = name;
+            this.displayName = displayName;
         }
 
         public static String[] fileDialogExtensions() {
@@ -521,7 +521,7 @@ public class VolumeSaveDialog {
             String[] result = new String[values().length];
             for (int i = 0; i < values().length; i++) {
                 Format value = values()[i];
-                result[i] = value.name + " (*." + value.extension + ")";
+                result[i] = value.displayName + " (*." + value.extension + ")";
             }
             return result;
         }
