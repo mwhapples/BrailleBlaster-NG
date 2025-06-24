@@ -15,7 +15,6 @@
  */
 package org.brailleblaster.archiver2
 
-import com.google.common.collect.ImmutableList
 import nu.xom.Document
 import org.brailleblaster.exceptions.BBNotifyException
 import org.brailleblaster.utd.BRFWriter
@@ -331,7 +330,7 @@ class BBZArchiver(
             val bbxPathStr = "/document.bbx"
             Files.write(
                 locationPath,
-                ImmutableList.of(bbxPathStr),
+                listOf(bbxPathStr),
                 Charsets.UTF_8,
                 StandardOpenOption.WRITE,
                 StandardOpenOption.CREATE,
