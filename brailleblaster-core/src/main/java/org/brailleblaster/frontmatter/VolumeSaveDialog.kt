@@ -18,7 +18,6 @@ package org.brailleblaster.frontmatter
 import nu.xom.Document
 import nu.xom.Element
 import nu.xom.Node
-import org.apache.commons.lang3.mutable.MutableObject
 import org.brailleblaster.BBIni.debugSavePath
 import org.brailleblaster.BBIni.debugging
 import org.brailleblaster.BBIni.propertyFileManager
@@ -490,7 +489,7 @@ class VolumeSaveDialog(
             }
 
             val brfBuilder = StringBuilder()
-            val finalBrfMut = MutableObject<String>()
+            var finalBrfMut: String? = null
 
             val stream =
                 if (convertLineEndings) BRFWriter.lineEndingRewriter { c: Char -> brfBuilder.append(c) } else OutputCharStream { c: Char ->
@@ -514,7 +513,7 @@ class VolumeSaveDialog(
                     //Note: As this is called before brls are processed triggers are nessesary
                     if (volume == 0) {
                         //Save everything from the start of toBRF to the first volume end brl
-                        if (finalBrfMut.getValue() == null && brl === volumeEndBrls.first()) {
+                        if (finalBrfMut == null && brl === volumeEndBrls.first()) {
                             //Haven't processed last brl yet
                             saveState = State.END_TRIGGER
                         }
@@ -538,7 +537,7 @@ class VolumeSaveDialog(
                         brfBuilder.setLength(0)
                         saveState = State.STARTED
                     } else if (saveState == State.END_TRIGGER) {
-                        finalBrfMut.value = brfBuilder.toString()
+                        finalBrfMut = brfBuilder.toString()
                         saveState = State.FINISHED
                     }
                 }
@@ -546,22 +545,22 @@ class VolumeSaveDialog(
 
             //The last volume does not end with a END OF VOLUME tag
             if (volume == volumeEndBrls.size) {
-                check(finalBrfMut.getValue() == null) { "Wut " + finalBrfMut.getValue() }
-                finalBrfMut.value = brfBuilder.toString()
+                check(finalBrfMut == null) { "Wut $finalBrfMut" }
+                finalBrfMut = brfBuilder.toString()
             }
 
-            var finalBrf = finalBrfMut.getValue()
+            val finalBrf = finalBrfMut!!
             check(!finalBrf.isBlank()) { "No finalBrf?! " + System.lineSeparator() + finalBrf + System.lineSeparator() + "=------=" }
 
             //Remove lingering empty page from resetting the page to restart the BRF output
             val linesPerPage = engine.brailleSettings.cellType.getLinesForHeight(
                 BigDecimal.valueOf(engine.pageSettings.drawableHeight)
             )
-            if (finalBrf.startsWith(BRFWriter.NEWLINE.toString().repeat(linesPerPage) + BRFWriter.PAGE_SEPARATOR)) {
-                finalBrf = finalBrf.substring(linesPerPage + 1)
+            return if (finalBrf.startsWith(BRFWriter.NEWLINE.toString().repeat(linesPerPage) + BRFWriter.PAGE_SEPARATOR)) {
+                finalBrf.substring(linesPerPage + 1)
+            } else {
+                finalBrf
             }
-
-            return finalBrf
         }
     }
 }
