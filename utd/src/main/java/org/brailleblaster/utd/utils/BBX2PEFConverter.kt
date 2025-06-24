@@ -71,7 +71,7 @@ class BBX2PEFConverter(
      */
     val isDuplex: Boolean = false, var defaultIdentifier: String = "TempID",
     val volumeFilter: IntPredicate = ALL_VOLUMES
-) : DocumentTraversal() {
+) : DocumentTraversal.Handler {
 
     class ListBackedNodeList(private val nodes: List<Node> = emptyList()) : NodeList {
 
@@ -176,7 +176,7 @@ class BBX2PEFConverter(
             return _pefDoc ?: throw NoSuchElementException("No BBX has been converted")
         }
 
-    public override fun onStartElement(e: nu.xom.Element): Boolean {
+    override fun onStartElement(e: nu.xom.Element): Boolean {
         var descend = true
         if (UTDElements.BRL.isA(e)) {
             // Only process BRL elements when volume is to be included
@@ -198,7 +198,7 @@ class BBX2PEFConverter(
         return descend
     }
 
-    public override fun onEndElement(e: nu.xom.Element) {
+    override fun onEndElement(e: nu.xom.Element) {
         if (BB_NAMESPACE == e.namespaceURI && "CONTAINER" == e.localName && "VOLUME" == e.getAttributeValue(
                 "type",
                 BB_NAMESPACE
@@ -209,7 +209,7 @@ class BBX2PEFConverter(
         }
     }
 
-    public override fun onStartDocument(d: nu.xom.Document) {
+    override fun onStartDocument(d: nu.xom.Document) {
         // Start volumeCount at 0 as volume indexes start at 0.
         volumeCounter = 0
         imageCounter = 0
@@ -235,7 +235,7 @@ class BBX2PEFConverter(
         rootElement.appendChild(bodyElement)
     }
 
-    public override fun onEndDocument(d: nu.xom.Document) {
+    override fun onEndDocument(d: nu.xom.Document) {
         // When document ends then the volume must end
         endVolume()
         // Make sure the DOM complies with the minimum PEF requirements
@@ -701,7 +701,7 @@ class BBX2PEFConverter(
                 defaultIdentifier = defaultIdentifier,
                 volumeFilter = volumeFilter
             ).let {
-                it.traverseDocument(doc)
+                DocumentTraversal.traverseDocument(doc, it)
                 it.pefDoc
             }
         }
