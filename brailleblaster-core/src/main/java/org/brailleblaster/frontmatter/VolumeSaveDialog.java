@@ -34,7 +34,6 @@ import org.brailleblaster.utd.BRFWriter;
 import org.brailleblaster.utd.UTDTranslationEngine;
 import org.brailleblaster.utd.internal.xml.FastXPath;
 import org.brailleblaster.utd.properties.UTDElements;
-import org.brailleblaster.utd.utils.BBX2PEFConverter;
 import org.brailleblaster.utils.swt.EasySWT;
 import org.brailleblaster.util.FormUIUtils;
 import org.brailleblaster.util.Notify;
