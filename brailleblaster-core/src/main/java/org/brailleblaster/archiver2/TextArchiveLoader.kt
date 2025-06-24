@@ -15,7 +15,6 @@
  */
 package org.brailleblaster.archiver2
 
-import com.google.common.collect.ImmutableMap
 import com.google.common.io.Files
 import com.google.common.io.LineProcessor
 import nu.xom.Element
@@ -78,8 +77,7 @@ open class TextArchiveLoader : ArchiverFactory.FileLoader {
         return block
     }
 
-    override val extensionsAndDescription: ImmutableMap<String, String>
-        get() = ImmutableMap.of("*.txt", "Text (*.txt)")
+    override val extensionsAndDescription: Map<String, String> = mapOf("*.txt" to "Text (*.txt)")
 
     companion object {
         private val log = LoggerFactory.getLogger(TextArchiveLoader::class.java)
