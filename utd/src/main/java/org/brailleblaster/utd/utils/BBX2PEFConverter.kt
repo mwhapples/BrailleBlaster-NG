@@ -53,6 +53,8 @@ import kotlin.math.min
 
 private const val BB_NAMESPACE = "http://brailleblaster.org/ns/bb"
 private const val DIMENSION_TEMPLATE = "%.1fmm"
+@JvmField
+val ALL_VOLUMES = IntPredicate { true }
 
 class BBX2PEFConverter(
     rows: Int = 25,
@@ -650,23 +652,6 @@ class BBX2PEFConverter(
             }
         }
         return sb.toString()
-    }
-
-    companion object {
-        @JvmField
-        val ALL_VOLUMES = IntPredicate { true }
-
-        @JvmStatic
-        fun convertBBX2PEF(
-            doc: nu.xom.Document,
-            defaultIdentifier: String,
-            engine: UTDTranslationEngine,
-            volumeFilter: IntPredicate,
-            out: OutputStream?
-        ) {
-            val result = convertBBX2PEF(doc, defaultIdentifier, engine, volumeFilter)
-            DocumentUtils.prettyPrintDOM(result, out)
-        }
     }
 }
 

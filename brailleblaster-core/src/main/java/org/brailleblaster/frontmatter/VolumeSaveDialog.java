@@ -26,6 +26,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.brailleblaster.BBIni;
 import org.brailleblaster.archiver2.Archiver2;
 import org.brailleblaster.bbx.BBX;
+import org.brailleblaster.utd.utils.BBX2PEFConverterKt;
 import org.brailleblaster.utils.localization.LocaleHandler;
 import org.brailleblaster.perspectives.braille.Manager;
 import org.brailleblaster.settings.UTDManager;
@@ -166,7 +167,7 @@ public class VolumeSaveDialog {
             } else if (format == Format.PEF) {
                 OutputStream os = new FileOutputStream(path);
                 String defaultIdentifier = identifierFromFileName(new File(path));
-                BBX2PEFConverter.convertBBX2PEF(doc, defaultIdentifier, utdManager.getEngine(), BBX2PEFConverter.ALL_VOLUMES, os);
+                BBX2PEFConverterKt.convertBBX2PEF(doc, defaultIdentifier, utdManager.getEngine(), BBX2PEFConverterKt.ALL_VOLUMES, os);
             } else {
                 throw new UnsupportedOperationException("unknown format " + format);
             }
@@ -203,7 +204,7 @@ public class VolumeSaveDialog {
                     log.info("Wrote {} characters to {}", volumeBRF.length(), path);
                 } else if (format == Format.PEF) {
                     String defaultIdentifier = identifierFromFileName(new File(path));
-                    BBX2PEFConverter.convertBBX2PEF(doc, defaultIdentifier, utdManager.getEngine(), x -> x == volumeIndex, new FileOutputStream(path));
+                    BBX2PEFConverterKt.convertBBX2PEF(doc, defaultIdentifier, utdManager.getEngine(), x -> x == volumeIndex, new FileOutputStream(path));
                 } else {
                     throw new UnsupportedOperationException("unknown format " + format);
                 }
@@ -295,7 +296,7 @@ public class VolumeSaveDialog {
                         log.info("Wrote {} characters to {}", volumeBRF.length(), outputPath);
                     } else if (selectedFormat == Format.PEF) {
                         String defaultIdentifier = identifierFromFileName(outputPath);
-                        BBX2PEFConverter.convertBBX2PEF(doc, defaultIdentifier, utdManager.getEngine(), x -> x == volumeIndex, new FileOutputStream(outputPath));
+                        BBX2PEFConverterKt.convertBBX2PEF(doc, defaultIdentifier, utdManager.getEngine(), x -> x == volumeIndex, new FileOutputStream(outputPath));
                         log.info("Wrote volume {} to PEF", volumeIndex);
                     } else {
                         throw new UnsupportedOperationException("unknown format");
