@@ -18,7 +18,6 @@ package org.brailleblaster.frontmatter
 import com.google.common.collect.Iterables
 import com.google.common.collect.Iterators
 import com.google.common.collect.PeekingIterator
-import com.google.common.collect.Streams
 import nu.xom.*
 import org.apache.commons.lang3.StringUtils
 import org.brailleblaster.BBIni.debugging
@@ -809,11 +808,9 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
             return
         }
 
-        lastTextNode = Streams.findLast(FastXPath.descendant(block)
-            .stream()
-            .filter { node: Node? -> node is nu.xom.Text }
-            .filter { node: Node? -> !BBXUtils.isPageNumAncestor(node) })
-            .orElse(null) as nu.xom.Text?
+        lastTextNode = FastXPath.descendant(block)
+            .filterIsInstance<nu.xom.Text>()
+            .lastOrNull { node -> !BBXUtils.isPageNumAncestor(node) }
         log.debug("last Text node: {}", lastTextNode)
         if (lastTextNode == null) {
             // fail silently as it may be a page number or empty
@@ -832,10 +829,8 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
                 modifiedNodes.add(nextSibling)
 
                 //Find a text node
-                lastTextNode = Streams.findLast(FastXPath.descendant(nextSibling)
-                    .stream()
-                    .filter { node: Node? -> node is nu.xom.Text }
-                    .filter { node: Node? -> !BBXUtils.isPageNumAncestor(node) }).orElse(null) as nu.xom.Text?
+                lastTextNode = FastXPath.descendant(nextSibling)
+                    .filterIsInstance<nu.xom.Text>().lastOrNull { node -> !BBXUtils.isPageNumAncestor(node) }
 
                 if (lastTextNode == null) {
                     // fail silently as it may be a page number or empty
