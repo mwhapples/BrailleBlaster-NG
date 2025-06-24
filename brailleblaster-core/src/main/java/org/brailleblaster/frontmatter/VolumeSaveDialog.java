@@ -20,7 +20,6 @@ import nu.xom.Document;
 import nu.xom.Element;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.apache.commons.lang3.tuple.Pair;
 import org.brailleblaster.BBIni;
@@ -475,14 +474,14 @@ public class VolumeSaveDialog {
         }
 
         String finalBrf = finalBrfMut.getValue();
-        if (StringUtils.isBlank(finalBrf)) {
+        if (finalBrf.isBlank()) {
             throw new IllegalStateException("No finalBrf?! " + System.lineSeparator() + finalBrf + System.lineSeparator() + "=------=");
         }
 
         //Remove lingering empty page from resetting the page to restart the BRF output
         int linesPerPage = engine.getBrailleSettings().getCellType().getLinesForHeight(
             BigDecimal.valueOf(engine.getPageSettings().getDrawableHeight()));
-        if (finalBrf.startsWith(StringUtils.repeat(BRFWriter.NEWLINE, linesPerPage) + BRFWriter.PAGE_SEPARATOR)) {
+        if (finalBrf.startsWith(String.valueOf(BRFWriter.NEWLINE).repeat(linesPerPage) + BRFWriter.PAGE_SEPARATOR)) {
             finalBrf = finalBrf.substring(linesPerPage + 1);
         }
 
