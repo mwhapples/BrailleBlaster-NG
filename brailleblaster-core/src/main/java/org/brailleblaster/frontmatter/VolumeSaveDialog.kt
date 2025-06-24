@@ -15,12 +15,10 @@
  */
 package org.brailleblaster.frontmatter
 
-import com.google.common.collect.Iterables
 import nu.xom.Document
 import nu.xom.Element
 import nu.xom.Node
 import org.apache.commons.io.FileUtils
-import org.apache.commons.lang3.ArrayUtils
 import org.apache.commons.lang3.mutable.MutableObject
 import org.brailleblaster.BBIni.debugSavePath
 import org.brailleblaster.BBIni.debugging
@@ -194,7 +192,7 @@ class VolumeSaveDialog(
             val format = save.first
             path = save.second
 
-            val volumeIndex = ArrayUtils.indexOf(volumesTable.getItems(), selectedItems[0])
+            val volumeIndex = volumesTable.getItems().indexOf(selectedItems[0])
             try {
                 when (format) {
                     Format.BRF -> {
@@ -281,7 +279,7 @@ class VolumeSaveDialog(
             saveExec = true
             for (selectedItem in selectedItems) {
                 val volumeData = selectedItem.getData(KEY_VOLUME_DATA) as VolumeData
-                val volumeIndex = ArrayUtils.indexOf(volumesTable!!.getItems(), selectedItem)
+                val volumeIndex = volumesTable!!.getItems().indexOf(selectedItem)
                 try {
                     val outputPath: File = getBRFPath(
                         Paths.get(path),
@@ -379,7 +377,7 @@ class VolumeSaveDialog(
                 fileName,
                 Format.Companion.fileDialogNames(),
                 Format.Companion.fileDialogExtensions(),
-                ArrayUtils.indexOf(Format.entries.toTypedArray(), selectedFormat)
+                Format.entries.indexOf(selectedFormat)
             )
 
             val filename = dialog.open()
@@ -489,7 +487,7 @@ class VolumeSaveDialog(
                         )
                     }
                     //manually add the results we want instead of this method doing it for us
-                    results!!.add(Iterables.getLast<Element?>(blockBrls))
+                    results!!.add(blockBrls.last())
                 }
                 false
             }
