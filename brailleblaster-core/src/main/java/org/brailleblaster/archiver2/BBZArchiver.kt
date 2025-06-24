@@ -16,14 +16,13 @@
 package org.brailleblaster.archiver2
 
 import com.google.common.collect.ImmutableList
-import com.google.common.collect.Iterators
 import nu.xom.Document
+import org.brailleblaster.exceptions.BBNotifyException
 import org.brailleblaster.utd.BRFWriter
 import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.utd.internal.xml.XMLHandler
-import org.brailleblaster.utd.utils.BBX2PEFConverter
+import org.brailleblaster.utd.utils.ALL_VOLUMES
 import org.brailleblaster.utd.utils.UTDHelper
-import org.brailleblaster.exceptions.BBNotifyException
 import org.brailleblaster.utd.utils.convertBBX2PEF
 import org.brailleblaster.util.Notify
 import org.slf4j.LoggerFactory
@@ -57,7 +56,7 @@ class BBZArchiver(
         val itr: Iterator<Path> = descendant.iterator()
         val zipDescendant = zipFS.getPath(
             itr.next().toString(),
-            *Iterators.toArray(Iterators.transform(itr) { obj: Path -> obj.toString() }, String::class.java)
+            *(itr.asSequence().map { it.toString() }.toList().toTypedArray())
         )
         return try {
             bbxPath.resolveSibling(zipDescendant)
@@ -139,7 +138,7 @@ class BBZArchiver(
                         doc,
                         relativeBBXPath,
                         engine,
-                        BBX2PEFConverter.ALL_VOLUMES,
+                        ALL_VOLUMES,
                         pefOut
                     )
                 }
