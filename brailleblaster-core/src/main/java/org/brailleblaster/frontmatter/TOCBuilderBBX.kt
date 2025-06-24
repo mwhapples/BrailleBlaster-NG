@@ -18,7 +18,6 @@ package org.brailleblaster.frontmatter
 import com.google.common.collect.Iterators
 import com.google.common.collect.PeekingIterator
 import nu.xom.*
-import org.apache.commons.lang3.StringUtils
 import org.brailleblaster.BBIni.debugging
 import org.brailleblaster.BBIni.propertyFileManager
 import org.brailleblaster.abstractClasses.BBEditorView
@@ -844,7 +843,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
 
                 // Only give last word
                 pageStart = indexOfPage(lastTextNode.value)
-                if (pageStart != -1 && !StringUtils.isBlank(lastTextNode.value.substring(0, pageStart))) {
+                if (pageStart != -1 && !lastTextNode.value.substring(0, pageStart).isBlank()) {
                     // found text before page in next entry
                     log.debug("ignoring as most likely found another toc entry")
                     return
@@ -876,7 +875,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
                 nodeToWrap = Text(page)
                 lastTextNode.parent.insertChild(nodeToWrap, lastTextNode.parent.indexOf(lastTextNode) + 1)
 
-                if (StringUtils.isBlank(lastTextNode.value)) {
+                if (lastTextNode.value.isBlank()) {
                     //Page was surrounded by spaces
 //					lastTextNode.detach();
                     throw RuntimeException("page still surrounded by spaces?")
@@ -938,7 +937,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
      * Parse integers and roman numerals or return -1 if not found.
      */
     private fun indexOfPage(rawText: String): Int {
-        if (StringUtils.isBlank(rawText)) {
+        if (rawText.isBlank()) {
             return -1
         }
 
@@ -954,10 +953,10 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
         val lastWord: String = rawText.substring(start, end)
 
         val pagePrefix: String = findPagePrefixOrException
-        val result: String? = if (StringUtils.isEmpty(pagePrefix)) {
+        val result: String? = if (pagePrefix.isEmpty()) {
             _parsePageNumber(lastWord)
         } else {
-            val textToParse: String = StringUtils.stripStart(lastWord, pagePrefix)
+            val textToParse: String = lastWord.trimStart(*(pagePrefix.toCharArray()))
             if (textToParse == lastWord) {
                 // User entered prefix but text has no prefix
                 _parsePageNumber(rawText)
@@ -999,7 +998,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
             .findFirst()
             .orElseThrow()
         if (precedingText.value.endsWith(" ")) {
-            precedingText.value = StringUtils.stripEnd(precedingText.value, null)
+            precedingText.value = precedingText.value.trimEnd()
             if (precedingText.value.isEmpty()) {
                 precedingText.detach()
             } else {
