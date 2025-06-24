@@ -95,58 +95,58 @@ public class VolumeSaveDialog {
 
         if (volumes.isEmpty()) {
             clickSaveSingle();
-
             volumesTable = null;
-            return;
+        } else {
+            //Table must be wrapped in a composite for some reason
+            Composite tableWrapper = EasySWT.makeComposite(shell, 1);
+            EasySWT.buildGridData()
+                    .setGrabSpace(true, true)
+                    .setAlign(GridData.FILL, GridData.FILL)
+                    .verticalSpan(3)
+                    .applyTo(tableWrapper);
+
+            volumesTable = new Table(tableWrapper, SWT.VIRTUAL | SWT.BORDER | SWT.FULL_SELECTION | SWT.MULTI);
+            EasySWT.buildGridData()
+                    .setGrabSpace(true, true)
+                    .setAlign(GridData.FILL, GridData.FILL)
+                    .applyTo(volumesTable);
+
+            TableColumn name = new TableColumn(volumesTable, SWT.NONE);
+            name.setText("Volume");
+            name.setWidth(100);
+
+            Button saveSingle = new Button(shell, SWT.NONE);
+            EasySWT.INSTANCE.addSwtBotKey(saveSingle, SWTBOT_SAVE_SINGLE);
+            saveSingle.setText("Save All to Single File");
+            FormUIUtils.setGridData(saveSingle);
+
+            Button saveFolder = new Button(shell, SWT.NONE);
+            EasySWT.INSTANCE.addSwtBotKey(saveFolder, SWTBOT_SAVE_FOLDER);
+            saveFolder.setText("Save Selected to Folder");
+            FormUIUtils.setGridData(saveFolder);
+
+            Button saveFolderAll = new Button(shell, SWT.NONE);
+            EasySWT.INSTANCE.addSwtBotKey(saveFolderAll, SWTBOT_SAVE_FOLDER_ALL);
+            saveFolderAll.setText("Save All to Folder");
+            FormUIUtils.setGridData(saveFolderAll);
+
+            // ----------------- Listeners --------------------
+            FormUIUtils.addSelectionListener(saveSingle, e -> clickSaveSingle());
+            FormUIUtils.addSelectionListener(saveFolder, e -> clickSaveFolder(false));
+            FormUIUtils.addSelectionListener(saveFolderAll, e -> clickSaveFolder(true));
+
+            // -------------------- Data ---------------------
+            for (VolumeUtils.VolumeData curVolume : VolumeUtils.INSTANCE.getVolumeNames(volumes)) {
+                TableItem entry = new TableItem(volumesTable, SWT.NONE);
+                entry.setText(new String[]{curVolume.nameLong});
+                entry.setData(KEY_VOLUME_DATA, curVolume);
+            }
+
+            FormUIUtils.setLargeDialogSize(shell);
+            shell.open();
         }
 
-        //Table must be wrapped in a composite for some reason
-        Composite tableWrapper = EasySWT.makeComposite(shell, 1);
-        EasySWT.buildGridData()
-                .setGrabSpace(true, true)
-                .setAlign(GridData.FILL, GridData.FILL)
-                .verticalSpan(3)
-                .applyTo(tableWrapper);
 
-        volumesTable = new Table(tableWrapper, SWT.VIRTUAL | SWT.BORDER | SWT.FULL_SELECTION | SWT.MULTI);
-        EasySWT.buildGridData()
-                .setGrabSpace(true, true)
-                .setAlign(GridData.FILL, GridData.FILL)
-                .applyTo(volumesTable);
-
-        TableColumn name = new TableColumn(volumesTable, SWT.NONE);
-        name.setText("Volume");
-        name.setWidth(100);
-
-        Button saveSingle = new Button(shell, SWT.NONE);
-        EasySWT.INSTANCE.addSwtBotKey(saveSingle, SWTBOT_SAVE_SINGLE);
-        saveSingle.setText("Save All to Single File");
-        FormUIUtils.setGridData(saveSingle);
-
-        Button saveFolder = new Button(shell, SWT.NONE);
-        EasySWT.INSTANCE.addSwtBotKey(saveFolder, SWTBOT_SAVE_FOLDER);
-        saveFolder.setText("Save Selected to Folder");
-        FormUIUtils.setGridData(saveFolder);
-
-        Button saveFolderAll = new Button(shell, SWT.NONE);
-        EasySWT.INSTANCE.addSwtBotKey(saveFolderAll, SWTBOT_SAVE_FOLDER_ALL);
-        saveFolderAll.setText("Save All to Folder");
-        FormUIUtils.setGridData(saveFolderAll);
-
-        // ----------------- Listeners --------------------
-        FormUIUtils.addSelectionListener(saveSingle, e -> clickSaveSingle());
-        FormUIUtils.addSelectionListener(saveFolder, e -> clickSaveFolder(false));
-        FormUIUtils.addSelectionListener(saveFolderAll, e -> clickSaveFolder(true));
-
-        // -------------------- Data ---------------------
-        for (VolumeUtils.VolumeData curVolume : VolumeUtils.INSTANCE.getVolumeNames(volumes)) {
-            TableItem entry = new TableItem(volumesTable, SWT.NONE);
-            entry.setText(new String[]{curVolume.nameLong});
-            entry.setData(KEY_VOLUME_DATA, curVolume);
-        }
-
-        FormUIUtils.setLargeDialogSize(shell);
-        shell.open();
     }
 
     private void clickSaveSingle() {
