@@ -399,15 +399,14 @@ public class VolumeSaveDialog {
     public static String volumeToBRF(UTDTranslationEngine engine, Document doc, int volume, boolean convertLineEndings) throws IOException {
         log.trace("Saving volume {}", volume);
         List<Element> volumeEndBrls = FastXPath.descendantFindList(doc, (results, curNode) -> {
-            if (!BBX.BLOCK.VOLUME_END.isA(curNode)) {
-                return false;
+            if (BBX.BLOCK.VOLUME_END.isA(curNode)) {
+                List<Element> blockBrls = FastXPath.descendantFindList(
+                        curNode,
+                        (brlResults, curEndBlockChild) -> UTDElements.BRL.isA(curEndBlockChild)
+                );
+                //manually add the results we want instead of this method doing it for us
+                results.add(Iterables.getLast(blockBrls));
             }
-            List<Element> blockBrls = FastXPath.descendantFindList(
-                    curNode,
-                    (brlResults, curEndBlockChild) -> UTDElements.BRL.isA(curEndBlockChild)
-            );
-            //manually add the results we want instead of this method doing it for us
-            results.add(Iterables.getLast(blockBrls));
             return false;
         });
 
