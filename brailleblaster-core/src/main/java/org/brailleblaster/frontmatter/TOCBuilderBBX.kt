@@ -1049,7 +1049,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
 
     private fun regenerateAllTOC(doc: Document) {
         manager.stopFormatting()
-        val volumes: List<Element> = getVolumeElements(doc)
+        val volumes = getVolumeElements(doc)
         if (volumes.isEmpty()) {
             throw BBNotifyException("Must create volumes first")
         }
@@ -1148,12 +1148,12 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
         })
         val tocItr: PeekingIterator<Element> = Iterators.peekingIterator(tocElements.iterator())
 
-        for (curVolume: Element in volumes) {
+        for (i in volumes.indices) {
             if (!tocItr.hasNext()) {
                 break
             }
 
-            val tocContainer: Element = volumeTocContainers[volumes.indexOf(curVolume)]
+            val tocContainer: Element = volumeTocContainers[i]
             modifiedElements.add(tocContainer)
             tocContainer.removeChildren()
             log.info("toc {}", tocContainer.toXML())
