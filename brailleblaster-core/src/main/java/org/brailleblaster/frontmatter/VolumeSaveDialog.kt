@@ -15,13 +15,9 @@
  */
 package org.brailleblaster.frontmatter
 
-import com.google.common.collect.Iterables
 import nu.xom.Document
 import nu.xom.Element
 import nu.xom.Node
-import org.apache.commons.io.FileUtils
-import org.apache.commons.lang3.ArrayUtils
-import org.apache.commons.lang3.mutable.MutableObject
 import org.brailleblaster.BBIni.debugSavePath
 import org.brailleblaster.BBIni.debugging
 import org.brailleblaster.BBIni.propertyFileManager
@@ -63,7 +59,6 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
 import java.math.BigDecimal
-import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -194,12 +189,12 @@ class VolumeSaveDialog(
             val format = save.first
             path = save.second
 
-            val volumeIndex = ArrayUtils.indexOf(volumesTable.getItems(), selectedItems[0])
+            val volumeIndex = volumesTable.getItems().indexOf(selectedItems[0])
             try {
                 when (format) {
                     Format.BRF -> {
                         val volumeBRF: String = volumeToBRF(utdManager.engine, doc, volumeIndex, true)
-                        FileUtils.write(File(path), volumeBRF, StandardCharsets.UTF_8)
+                        File(path).writeText(volumeBRF, Charsets.UTF_8)
                         log.info("Wrote {} characters to {}", volumeBRF.length, path)
                     }
                     Format.PEF -> {
@@ -281,7 +276,7 @@ class VolumeSaveDialog(
             saveExec = true
             for (selectedItem in selectedItems) {
                 val volumeData = selectedItem.getData(KEY_VOLUME_DATA) as VolumeData
-                val volumeIndex = ArrayUtils.indexOf(volumesTable!!.getItems(), selectedItem)
+                val volumeIndex = volumesTable!!.getItems().indexOf(selectedItem)
                 try {
                     val outputPath: File = getBRFPath(
                         Paths.get(path),
@@ -294,10 +289,9 @@ class VolumeSaveDialog(
                     when (selectedFormat) {
                         Format.BRF -> {
                             val volumeBRF: String = volumeToBRF(utdManager.engine, doc, volumeIndex, true)
-                            FileUtils.write(
-                                outputPath,
+                            outputPath.writeText(
                                 volumeBRF,
-                                StandardCharsets.UTF_8
+                                Charsets.UTF_8
                             )
                             log.info("Wrote {} characters to {}", volumeBRF.length, outputPath)
                         }
@@ -377,9 +371,9 @@ class VolumeSaveDialog(
                 m.wpManager.shell,
                 SWT.SAVE,
                 fileName,
-                Format.Companion.fileDialogNames(),
-                Format.Companion.fileDialogExtensions(),
-                ArrayUtils.indexOf(Format.entries.toTypedArray(), selectedFormat)
+                Format.fileDialogNames(),
+                Format.fileDialogExtensions(),
+                Format.entries.indexOf(selectedFormat)
             )
 
             val filename = dialog.open()
@@ -489,13 +483,13 @@ class VolumeSaveDialog(
                         )
                     }
                     //manually add the results we want instead of this method doing it for us
-                    results!!.add(Iterables.getLast<Element?>(blockBrls))
+                    results!!.add(blockBrls.last())
                 }
                 false
             }
 
             val brfBuilder = StringBuilder()
-            val finalBrfMut = MutableObject<String>()
+            var finalBrfMut: String? = null
 
             val stream =
                 if (convertLineEndings) BRFWriter.lineEndingRewriter { c: Char -> brfBuilder.append(c) } else OutputCharStream { c: Char ->
@@ -519,7 +513,7 @@ class VolumeSaveDialog(
                     //Note: As this is called before brls are processed triggers are nessesary
                     if (volume == 0) {
                         //Save everything from the start of toBRF to the first volume end brl
-                        if (finalBrfMut.getValue() == null && brl === volumeEndBrls.first()) {
+                        if (finalBrfMut == null && brl === volumeEndBrls.first()) {
                             //Haven't processed last brl yet
                             saveState = State.END_TRIGGER
                         }
@@ -543,7 +537,7 @@ class VolumeSaveDialog(
                         brfBuilder.setLength(0)
                         saveState = State.STARTED
                     } else if (saveState == State.END_TRIGGER) {
-                        finalBrfMut.value = brfBuilder.toString()
+                        finalBrfMut = brfBuilder.toString()
                         saveState = State.FINISHED
                     }
                 }
@@ -551,22 +545,22 @@ class VolumeSaveDialog(
 
             //The last volume does not end with a END OF VOLUME tag
             if (volume == volumeEndBrls.size) {
-                check(finalBrfMut.getValue() == null) { "Wut " + finalBrfMut.getValue() }
-                finalBrfMut.value = brfBuilder.toString()
+                check(finalBrfMut == null) { "Wut $finalBrfMut" }
+                finalBrfMut = brfBuilder.toString()
             }
 
-            var finalBrf = finalBrfMut.getValue()
+            val finalBrf = finalBrfMut!!
             check(!finalBrf.isBlank()) { "No finalBrf?! " + System.lineSeparator() + finalBrf + System.lineSeparator() + "=------=" }
 
             //Remove lingering empty page from resetting the page to restart the BRF output
             val linesPerPage = engine.brailleSettings.cellType.getLinesForHeight(
                 BigDecimal.valueOf(engine.pageSettings.drawableHeight)
             )
-            if (finalBrf.startsWith(BRFWriter.NEWLINE.toString().repeat(linesPerPage) + BRFWriter.PAGE_SEPARATOR)) {
-                finalBrf = finalBrf.substring(linesPerPage + 1)
+            return if (finalBrf.startsWith(BRFWriter.NEWLINE.toString().repeat(linesPerPage) + BRFWriter.PAGE_SEPARATOR)) {
+                finalBrf.substring(linesPerPage + 1)
+            } else {
+                finalBrf
             }
-
-            return finalBrf
         }
     }
 }
