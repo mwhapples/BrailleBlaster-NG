@@ -18,7 +18,6 @@ package org.brailleblaster.frontmatter
 import nu.xom.Document
 import nu.xom.Element
 import nu.xom.Node
-import org.apache.commons.io.FileUtils
 import org.apache.commons.lang3.mutable.MutableObject
 import org.brailleblaster.BBIni.debugSavePath
 import org.brailleblaster.BBIni.debugging
@@ -61,7 +60,6 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
 import java.math.BigDecimal
-import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -197,7 +195,7 @@ class VolumeSaveDialog(
                 when (format) {
                     Format.BRF -> {
                         val volumeBRF: String = volumeToBRF(utdManager.engine, doc, volumeIndex, true)
-                        FileUtils.write(File(path), volumeBRF, StandardCharsets.UTF_8)
+                        File(path).writeText(volumeBRF, Charsets.UTF_8)
                         log.info("Wrote {} characters to {}", volumeBRF.length, path)
                     }
                     Format.PEF -> {
@@ -292,10 +290,9 @@ class VolumeSaveDialog(
                     when (selectedFormat) {
                         Format.BRF -> {
                             val volumeBRF: String = volumeToBRF(utdManager.engine, doc, volumeIndex, true)
-                            FileUtils.write(
-                                outputPath,
+                            outputPath.writeText(
                                 volumeBRF,
-                                StandardCharsets.UTF_8
+                                Charsets.UTF_8
                             )
                             log.info("Wrote {} characters to {}", volumeBRF.length, outputPath)
                         }
@@ -375,8 +372,8 @@ class VolumeSaveDialog(
                 m.wpManager.shell,
                 SWT.SAVE,
                 fileName,
-                Format.Companion.fileDialogNames(),
-                Format.Companion.fileDialogExtensions(),
+                Format.fileDialogNames(),
+                Format.fileDialogExtensions(),
                 Format.entries.indexOf(selectedFormat)
             )
 
