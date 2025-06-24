@@ -29,6 +29,7 @@ import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.utd.ITranslationEngine
 import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.utd.utils.BBX2PEFConverter
+import org.brailleblaster.utd.utils.convertBBX2PEF
 import org.brailleblaster.util.Notify
 import org.brailleblaster.utils.PageFilterInputStream
 import org.brailleblaster.utils.LengthUtils.toLengthBigDecimal
@@ -130,7 +131,7 @@ object EmbossingUtils {
       attributes.add(BrailleCellType(BrlCell.NLS))
       val pages = if (scope == PrinterData.PAGE_RANGE) PageRanges(start, end) else PageRanges()
       attributes.add(pages)
-      val pef = BBX2PEFConverter.convertBBX2PEF(
+      val pef = convertBBX2PEF(
         document.doc, "EmbossJob", engine, BBX2PEFConverter.ALL_VOLUMES
       )
       if (embosser.isCreateDebugFile) {

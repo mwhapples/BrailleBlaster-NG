@@ -667,43 +667,54 @@ class BBX2PEFConverter(
             val result = convertBBX2PEF(doc, defaultIdentifier, engine, volumeFilter)
             DocumentUtils.prettyPrintDOM(result, out)
         }
-
-        /**
-         * Helper method for converting BBX to PEF in one function call.
-         *
-         * @param doc The XOM Document object representing the BBX document.
-         * @param defaultIdentifier The default identifier to be used, if not actually contained in the
-         * XML document.
-         * @param engine The UTDTranslationEngine containing the document settings.
-         * @param volumeFilter A filter function for which volumes to include.
-         * @return The PEF document object.
-         */
-        fun convertBBX2PEF(
-            doc: nu.xom.Document,
-            defaultIdentifier: String,
-            engine: UTDTranslationEngine,
-            volumeFilter: IntPredicate
-        ): Document {
-            val pageSettings = engine.pageSettings
-            val brlCellType = engine.brailleSettings.cellType
-            val cols = brlCellType.getCellsForWidth(pageSettings.drawableWidth.toBigDecimal())
-            val rows = brlCellType.getLinesForHeight(pageSettings.drawableHeight.toBigDecimal())
-            return BBX2PEFConverter(
-                rows = rows,
-                cols = cols,
-                paperHeight = pageSettings.paperHeight,
-                paperWidth = pageSettings.paperWidth,
-                leftMargin = pageSettings.leftMargin,
-                rightMargin = pageSettings.rightMargin,
-                topMargin = pageSettings.topMargin,
-                bottomMargin = pageSettings.bottomMargin,
-                isDuplex = pageSettings.interpoint,
-                defaultIdentifier = defaultIdentifier,
-                volumeFilter = volumeFilter
-            ).let {
-                DocumentTraversal.traverseDocument(doc, it)
-                it.pefDoc
-            }
-        }
     }
+}
+
+/**
+ * Helper method for converting BBX to PEF in one function call.
+ *
+ * @param doc The XOM Document object representing the BBX document.
+ * @param defaultIdentifier The default identifier to be used, if not actually contained in the
+ * XML document.
+ * @param engine The UTDTranslationEngine containing the document settings.
+ * @param volumeFilter A filter function for which volumes to include.
+ * @return The PEF document object.
+ */
+fun convertBBX2PEF(
+    doc: nu.xom.Document,
+    defaultIdentifier: String,
+    engine: UTDTranslationEngine,
+    volumeFilter: IntPredicate
+): Document {
+    val pageSettings = engine.pageSettings
+    val brlCellType = engine.brailleSettings.cellType
+    val cols = brlCellType.getCellsForWidth(pageSettings.drawableWidth.toBigDecimal())
+    val rows = brlCellType.getLinesForHeight(pageSettings.drawableHeight.toBigDecimal())
+    return BBX2PEFConverter(
+        rows = rows,
+        cols = cols,
+        paperHeight = pageSettings.paperHeight,
+        paperWidth = pageSettings.paperWidth,
+        leftMargin = pageSettings.leftMargin,
+        rightMargin = pageSettings.rightMargin,
+        topMargin = pageSettings.topMargin,
+        bottomMargin = pageSettings.bottomMargin,
+        isDuplex = pageSettings.interpoint,
+        defaultIdentifier = defaultIdentifier,
+        volumeFilter = volumeFilter
+    ).let {
+        DocumentTraversal.traverseDocument(doc, it)
+        it.pefDoc
+    }
+}
+
+fun convertBBX2PEF(
+    doc: nu.xom.Document,
+    defaultIdentifier: String,
+    engine: UTDTranslationEngine,
+    volumeFilter: IntPredicate,
+    out: OutputStream?
+) {
+    val result = convertBBX2PEF(doc, defaultIdentifier, engine, volumeFilter)
+    DocumentUtils.prettyPrintDOM(result, out)
 }
