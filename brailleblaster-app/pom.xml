@@ -51,6 +51,12 @@
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
+        <!-- Used to optimise scripting, ASCIIMath JS -->
+        <dependency>
+            <groupId>org.graalvm.compiler</groupId>
+            <artifactId>compiler</artifactId>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
     <build>
         <finalName>${app.fsname}</finalName>
