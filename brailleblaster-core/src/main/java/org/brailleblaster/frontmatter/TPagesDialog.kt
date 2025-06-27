@@ -17,7 +17,6 @@ package org.brailleblaster.frontmatter
 
 import nu.xom.*
 import nu.xom.Text
-import org.apache.commons.lang3.StringUtils
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.bbx.BBX.TPageCategory
 import org.brailleblaster.bbx.BBX.TPageSection
@@ -500,7 +499,7 @@ class TPagesDialog : DebugMenuToolListener {
         val curVol = elementMap
         val size = storedVolumes.size
         val storedVolumesCopy: MutableList<MutableMap<Any, Element?>?> = mutableListOf()
-        for (i in 0 until size) {
+        repeat(size) {
             val newHashMap = HashMap<Any, Element?>()
             for (key in curVol!!.keys) {
                 newHashMap[key] = curVol[key]?.copy()
@@ -600,11 +599,10 @@ class TPagesDialog : DebugMenuToolListener {
         for (category in TPageCategory.entries) {
             val newGroup = makeGroup(
                 innerContainer,
-                if (category == TPageCategory.AUTHOR) "Author(s)" else StringUtils.capitalize(
-                    category.name.lowercase(
+                if (category == TPageCategory.AUTHOR) "Author(s)" else category.name.lowercase(
                         Locale.getDefault()
                     ).replace("_".toRegex(), " ")
-                ),
+                    .replaceFirstChar { it.titlecaseChar() },
                 1
             )
             val newText = makeBBTextTitle(newGroup)
