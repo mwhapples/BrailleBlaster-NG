@@ -53,6 +53,7 @@ child.project.url.inherit.append.path="false">
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
         <serialization.version>1.8.0</serialization.version>
         <jetbrains.annotations.version>24.1.0</jetbrains.annotations.version>
+        <graalvm.version>24.2.1</graalvm.version>
         <eclipse.collections.version>12.0.0.M3</eclipse.collections.version>
         <slf4j.version>2.0.16</slf4j.version>
         <logback-core.version>1.5.15</logback-core.version>
@@ -283,6 +284,22 @@ child.project.url.inherit.append.path="false">
                 <groupId>org.eclipse.platform</groupId>
                 <artifactId>org.eclipse.equinox.common</artifactId>
                 <version>${org.eclipse.equinox.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.graalvm.polyglot</groupId>
+                <artifactId>js-community</artifactId>
+                <version>${graalvm.version}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.graalvm.js</groupId>
+                <artifactId>js-scriptengine</artifactId>
+                <version>${graalvm.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.graalvm.compiler</groupId>
+                <artifactId>compiler</artifactId>
+                <version>${graalvm.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
