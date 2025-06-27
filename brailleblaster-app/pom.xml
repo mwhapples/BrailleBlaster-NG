@@ -139,6 +139,26 @@
                 <version>${downloadmavenplugin.version}</version>
                 <executions>
                     <execution>
+                        <id>copy-docs</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <url>https://brailleblaster-ng.readthedocs.io/_/downloads/en/latest/htmlzip/</url>
+                            <unpack>true</unpack>
+                            <fileMappers>
+                                <org.codehaus.plexus.components.io.filemappers.RegExpFileMapper>
+                                    <pattern>^[^/]+/</pattern>
+                                    <replacement>./</replacement>
+                                </org.codehaus.plexus.components.io.filemappers.RegExpFileMapper>
+                            </fileMappers>
+                            <outputDirectory>${build.dist.directory}/docs/</outputDirectory>
+                            <outputFileName>docs.zip</outputFileName>
+                            <overwrite>true</overwrite>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>install-pandoc-win-x64</id>
                         <phase>generate-resources</phase>
                         <goals>
@@ -217,7 +237,7 @@
                             <goal>wget</goal>
                         </goals>
                         <configuration>
-                            <url>https://github.com/jgm/pandoc/releases/download/${pandoc.version}/pandoc-${pandoc.version}-arm64-macOS.zip</url>
+                            <url>https://github.com/jgm/pandoc/releases/download/3.6.3/pandoc-3.6.3-arm64-macOS.zip</url>
                             <unpack>true</unpack>
                             <includes>
                                 <include>**/pandoc</include>
