@@ -230,7 +230,14 @@ object TableUtils {
             for (col in cols) {
                 columnNum++
                 columnElements.add(col)
-                val colBrl = col.getChild(1).getChild(0).value
+                var colBrl = ""
+                try {
+                    colBrl = col.getChild(1).getChild(0).value
+                }
+                catch (e: IndexOutOfBoundsException) {
+                    // If the column doesn't have a braille element, skip it
+                    continue
+                }
                 longestCol = maxOf(colBrl.length, longestCol)
                 //Get the longest braille string
                 //We want the braille string to split it by spaces to figure out line wrapping.
