@@ -55,7 +55,7 @@ class UnitList() {
     val Unit2 = Unit(
       "Unit 2: Alphabetic Wordsigns", listOf(
         """multind 56-6 nocontractsign capsletter""",
-        //TODO: Get these working
+        //punctuation
         """seqdelimiter -—""",
         """seqdelimiter ‑""",
         """seqdelimiter –""",
@@ -87,10 +87,8 @@ class UnitList() {
         """seqafterpattern ’S""",
         """seqafterpattern ’T""",
         """seqafterpattern ’VE""",
-
         """seqafterexpression '([DSTdst]|ll|[rv]e|LL|[RV]E)""",
         """seqafterexpression ’([DSTdst]|ll|[rv]e|LL|[RV]E)""",
-        //punctuation
         """match %[^_]|%[^_~]%<*[([{] ; %[^_]|[)}\\]]%>*%[^_~] 56-23""",
         """match %[^_~]%<* . %a 56-256""",
         """match %[^_~]%<* : %a 56-25""",
