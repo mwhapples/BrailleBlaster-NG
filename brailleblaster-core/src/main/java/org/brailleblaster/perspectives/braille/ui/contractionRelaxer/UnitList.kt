@@ -75,6 +75,9 @@ class UnitList() {
         """seqafterpattern ’s""",
         """seqafterpattern ’t""",
         """seqafterpattern ’ve""",
+        /*
+        //These guys cause the 128 char limit problem, wtf?
+        //Maybe because the prior ones already cover these? Is LibLouis case-sensitive or not?
         """seqafterpattern 'D""",
         """seqafterpattern 'LL""",
         """seqafterpattern 'RE""",
@@ -87,6 +90,7 @@ class UnitList() {
         """seqafterpattern ’S""",
         """seqafterpattern ’T""",
         """seqafterpattern ’VE""",
+         */
         """seqafterexpression '([DSTdst]|ll|[rv]e|LL|[RV]E)""",
         """seqafterexpression ’([DSTdst]|ll|[rv]e|LL|[RV]E)""",
         """match %[^_]|%[^_~]%<*[([{] ; %[^_]|[)}\\]]%>*%[^_~] 56-23""",
