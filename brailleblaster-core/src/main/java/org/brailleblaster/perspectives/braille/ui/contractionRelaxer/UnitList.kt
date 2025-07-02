@@ -55,14 +55,12 @@ class UnitList() {
     val Unit2 = Unit(
       "Unit 2: Alphabetic Wordsigns", listOf(
         """multind 56-6 nocontractsign capsletter""",
-        //Had to ditch sequence delimiters. No idea why they don't work despite coming straight from ueb-g2.
-        /*
+        //TODO: Get these working
         """seqdelimiter -—""",
         """seqdelimiter ‑""",
         """seqdelimiter –""",
         """seqdelimiter —""",
         """seqdelimiter ―""",
-        //Also ditching all these, since they seem to cause a fatal 128-character limit crash.
         """seqbeforechars ([{"“'‘""",
         """seqafterchars  )]}"”'’.,;:.!?…""",
         """seqafterpattern 'd""",
@@ -89,7 +87,7 @@ class UnitList() {
         """seqafterpattern ’S""",
         """seqafterpattern ’T""",
         """seqafterpattern ’VE""",
-         */
+
         """seqafterexpression '([DSTdst]|ll|[rv]e|LL|[RV]E)""",
         """seqafterexpression ’([DSTdst]|ll|[rv]e|LL|[RV]E)""",
         //punctuation

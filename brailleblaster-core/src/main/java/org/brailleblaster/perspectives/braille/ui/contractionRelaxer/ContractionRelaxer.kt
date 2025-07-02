@@ -214,7 +214,7 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolList
   //IE "for" -> "123456"
   //Braille is now hard-coded, but I used this method to generate it. Keep it - it's useful.
   fun brailleAsciiToDots(brailleAscii: String, bbData: BBSelectionData): String {
-      val translation = bbData.manager.document.engine.brailleTranslator
+    val translation = bbData.manager.document.engine.brailleTranslator
     val inputBuffer = Louis.WideChar(brailleAscii)
     val outputBuffer = Louis.WideChar(brailleAscii.length)
     translation.charToDots(
