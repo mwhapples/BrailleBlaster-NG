@@ -22,10 +22,15 @@ import org.brailleblaster.settings.TableExceptions
 import org.brailleblaster.settings.TableExceptions.getCurrentExceptionFile
 import org.brailleblaster.tools.MenuToolListener
 import org.brailleblaster.utils.swt.EasySWT
+import org.brailleblaster.utils.swt.StyledTextBuilder
+import org.brailleblaster.utils.swt.TextBuilder
 import org.eclipse.swt.SWT
+import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.widgets.Dialog
+import org.eclipse.swt.widgets.Display
 import org.eclipse.swt.widgets.Shell
+import org.eclipse.swt.widgets.Text
 import org.mwhapples.jlouis.Louis
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
@@ -41,23 +46,7 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolList
   private var changeToContracted: Boolean = false
   private var unitToggle = 0
 
-  /*
-  class Contraction(
-    val contractedText: String,
-    val uncontractedText: String,
-    val brailleCode: String,
-    val opcode: String
-  )
-   */
-
   class Unit(val unitName: String, val contractions: List<String>)
-
-  fun load(bbData: BBSelectionData) {
-    BBIni.propertyFileManager.getProperty(UNIT_TOGGLE_PROPERTY)?.let {
-      unitToggle = it.toInt()
-    }
-    //println("Loaded contraction settings; unitToggle: $unitToggle")
-  }
 
   //For ticket #12864
   //UI for toggling select UEB translation substitutions
@@ -66,8 +55,10 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolList
   //At least, it only makes sense to have enabled when UEB Uncontracted is selected.
 
   override fun onRun(bbData: BBSelectionData) {
-
-    load(bbData)
+    //Get the property for the unit toggle.
+    BBIni.propertyFileManager.getProperty(UNIT_TOGGLE_PROPERTY)?.let {
+      unitToggle = it.toInt()
+    }
 
     val shell = Shell(parent.display, SWT.DIALOG_TRIM or SWT.RESIZE or SWT.CENTER)
     shell.text = "Contraction Relaxer"
@@ -82,16 +73,14 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolList
       unitSelector.add(unit.unitName)
     }
     unitSelector.select(unitToggle)
-
     unitSelector.onSelect {
       unitToggle = unitSelector.get().selectionIndex
       //println("Unit selected: ${UnitList.allUnits[unitToggle].unitName}")
     }
 
-    //The preview box never worked properly -
-    // just have a separate window to view the full list of selected contractions.
+    val buttonLayout = EasySWT.makeComposite(shell, 3)
 
-    val saveBtn = EasySWT.makeButton(shell, SWT.PUSH)
+    val saveBtn = EasySWT.makeButton(buttonLayout, SWT.PUSH)
     saveBtn.text("OK")
     saveBtn.onSelection {
       //Save settings to the translation file
@@ -101,7 +90,17 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolList
       }
     }
 
-    val closeBtn = EasySWT.makeButton(shell, SWT.PUSH)
+    //TODO
+    //The preview box never worked properly -
+    // just have a separate window to view the full list of selected contractions.
+    val previewBtn = EasySWT.makeButton(buttonLayout, SWT.PUSH)
+    previewBtn.text("View Contractions")
+    previewBtn.onSelection {
+      //println("View contractions button pressed.")
+      viewContractions(shell)
+    }
+
+    val closeBtn = EasySWT.makeButton(buttonLayout, SWT.PUSH)
     closeBtn.text("Cancel")
     closeBtn.onSelection {
       shell.close()
@@ -125,7 +124,7 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolList
 
     val contractionList = makeContractionList()
 
-    if (headerIndex == -1 || footerIndex == -1) {
+    if (headerIndex == -1 && footerIndex == -1) {
       //println("Header and footer not found. Appending new header and footer along with contraction list.")
       OutputStreamWriter(FileOutputStream(file), StandardCharsets.UTF_8).use { writer ->
         writer.append(RELAXER_HEADER)
@@ -175,11 +174,30 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolList
     bbData.manager.refresh()
   }
 
-  fun viewContractions() {
-    //Base this on the CorrectTranslationDialog method MakeViewDialog
-    //Probably going to be ugly due to the sheer length of LibLouis tables.
-    // Maybe just have a list of words and contractions that each unit covers? More work for me though.
+  fun viewContractions(shell: Shell) {
+    //TODO: Make a legible list of contractions for each unit. The liblouis tables are not exactly human-readable.
+    val contractionList = makeContractionList()
 
+    val vc =  Shell(shell, SWT.APPLICATION_MODAL or SWT.DIALOG_TRIM)
+    vc.text = "Contraction List"
+    vc.layout = GridLayout(1, false)
+
+    val comp = EasySWT.makeComposite(vc, SWT.NONE)
+    comp.layout = GridLayout(1, false)
+    comp.layoutData = GridData(SWT.FILL, SWT.FILL, true, true)
+
+    val myGrid = GridData(SWT.FILL, SWT.FILL, true, true)
+    val bounds = Display.getCurrent().primaryMonitor.clientArea
+    myGrid.widthHint = bounds.width / 4
+    myGrid.heightHint = bounds.height / 3
+
+    val st = Text(comp, SWT.BORDER or SWT.V_SCROLL or SWT.H_SCROLL or SWT.MULTI or SWT.READ_ONLY)
+    st.layoutData = myGrid
+    st.text = contractionList
+    st.editable = false
+
+    vc.pack()
+    vc.open()
   }
 
   fun makeContractionList(): String {
