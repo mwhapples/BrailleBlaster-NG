@@ -234,7 +234,7 @@ object TableUtils {
                 try {
                     colBrl = col.getChild(1).getChild(0).value
                 }
-                catch (e: IndexOutOfBoundsException) {
+                catch (e: Exception) {
                     // If the column doesn't have a braille element, skip it
                     continue
                 }
