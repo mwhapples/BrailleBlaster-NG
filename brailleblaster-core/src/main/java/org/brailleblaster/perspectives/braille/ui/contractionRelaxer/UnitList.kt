@@ -55,14 +55,12 @@ class UnitList() {
     val Unit2 = Unit(
       "Unit 2: Alphabetic Wordsigns", listOf(
         """multind 56-6 nocontractsign capsletter""",
-        //Had to ditch sequence delimiters. No idea why they don't work despite coming straight from ueb-g2.
-        /*
+        //punctuation
         """seqdelimiter -—""",
         """seqdelimiter ‑""",
         """seqdelimiter –""",
         """seqdelimiter —""",
         """seqdelimiter ―""",
-        //Also ditching all these, since they seem to cause a fatal 128-character limit crash.
         """seqbeforechars ([{"“'‘""",
         """seqafterchars  )]}"”'’.,;:.!?…""",
         """seqafterpattern 'd""",
@@ -77,6 +75,9 @@ class UnitList() {
         """seqafterpattern ’s""",
         """seqafterpattern ’t""",
         """seqafterpattern ’ve""",
+        /*
+        //These guys cause the 128 char limit problem, wtf?
+        //Maybe because the prior ones already cover these? Is LibLouis case-sensitive or not?
         """seqafterpattern 'D""",
         """seqafterpattern 'LL""",
         """seqafterpattern 'RE""",
@@ -92,7 +93,6 @@ class UnitList() {
          */
         """seqafterexpression '([DSTdst]|ll|[rv]e|LL|[RV]E)""",
         """seqafterexpression ’([DSTdst]|ll|[rv]e|LL|[RV]E)""",
-        //punctuation
         """match %[^_]|%[^_~]%<*[([{] ; %[^_]|[)}\\]]%>*%[^_~] 56-23""",
         """match %[^_~]%<* . %a 56-256""",
         """match %[^_~]%<* : %a 56-25""",
