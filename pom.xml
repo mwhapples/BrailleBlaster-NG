@@ -86,6 +86,7 @@ child.project.url.inherit.append.path="false">
         <mavencompilerplugin.version>3.14.0</mavencompilerplugin.version>
         <downloadmavenplugin.version>2.0.0</downloadmavenplugin.version>
         <guava.version>33.4.8-jre</guava.version>
+        <gson.version>2.12.1</gson.version>
         <jcommander.version>1.82</jcommander.version>
         <mockitocore.version>5.6.0</mockitocore.version>
         <mavenenforcerplugin.version>3.0.0-M3</mavenenforcerplugin.version>
@@ -459,6 +460,11 @@ child.project.url.inherit.append.path="false">
                 <groupId>org.xerial</groupId>
                 <artifactId>sqlite-jdbc</artifactId>
                 <version>${sqlite.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
