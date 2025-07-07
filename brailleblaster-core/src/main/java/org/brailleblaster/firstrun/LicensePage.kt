@@ -16,7 +16,9 @@
 package org.brailleblaster.firstrun
 
 import org.apache.commons.io.FileUtils
+import org.brailleblaster.BBIni
 import org.brailleblaster.utils.BBData.getBrailleblasterPath
+import org.brailleblaster.utils.PropertyFileManager
 import org.brailleblaster.utils.localization.LocaleHandler
 import org.eclipse.jface.layout.GridDataFactory
 import org.eclipse.jface.widgets.ButtonFactory
@@ -29,11 +31,13 @@ import org.eclipse.swt.widgets.Composite
 import java.io.IOException
 import java.nio.charset.StandardCharsets
 
+const val LICENSE_ACCEPTED_SETTING = "licenseAccepted"
+const val CURRENT_LICENSE_ID = "GPL-3.0-only"
 private const val PAGE_TITLE = "LicensePage.title"
 private const val PAGE_DESCRIPTION = "LicensePage.description"
 private const val CHECKBOX_TEXT= "LicensePage.checkbox"
 
-class LicencePage : WizardPage(LocaleHandler.getDefault()[PAGE_TITLE]) {
+class LicencePage(private val userSettings: PropertyFileManager = BBIni.propertyFileManager) : WizardPage(LocaleHandler.getDefault()[PAGE_TITLE]), ActionOnFinishWizardPage {
   override fun createControl(parent: Composite?) {
     //CompositeFactory is neat, but holy crap is the code hard to read if not broken down into smaller chunks.
     // Sighted person problems...
@@ -63,6 +67,11 @@ class LicencePage : WizardPage(LocaleHandler.getDefault()[PAGE_TITLE]) {
       }
     //Does this even help? Not so sure...
     control.pack()
+  }
+
+  override fun performFinish(): Boolean {
+    userSettings.save(LICENSE_ACCEPTED_SETTING, CURRENT_LICENSE_ID)
+    return true
   }
 
   init{

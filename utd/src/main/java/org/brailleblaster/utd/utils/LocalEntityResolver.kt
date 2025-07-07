@@ -16,7 +16,6 @@
 package org.brailleblaster.utd.utils
 
 import nu.xom.Builder
-import nu.xom.NodeFactory
 import org.apache.commons.io.input.BOMInputStream
 import org.brailleblaster.utd.internal.NormaliserFactory
 import org.brailleblaster.utd.internal.xml.LocalEntityMapHandler
@@ -35,6 +34,7 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import javax.xml.parsers.ParserConfigurationException
 import javax.xml.parsers.SAXParserFactory
+import javax.xml.parsers.SAXParserFactory.newNSInstance
 
 class LocalEntityResolver : EntityResolver2 {
     override fun resolveEntity(name: String?, publicId: String?, baseUri: String?, systemId: String): InputSource? {
@@ -193,17 +193,10 @@ class LocalEntityResolver : EntityResolver2 {
         @JvmOverloads
         @Throws(SAXException::class, ParserConfigurationException::class)
         fun createXomBuilder(validate: Boolean = false): Builder {
-            return createXomBuilder("org.apache.xerces.jaxp.SAXParserFactoryImpl", validate)
+            val parser = newNSInstance("org.apache.xerces.jaxp.SAXParserFactoryImpl", null).newSAXParser().xmlReader
+            parser.entityResolver = LocalEntityResolver()
+            return Builder(parser, validate, NormaliserFactory())
         }
 
-        @JvmOverloads
-        @Throws(SAXException::class, ParserConfigurationException::class)
-        fun createXomBuilder(
-            parserClass: String?, validate: Boolean = false, nodeFactory: NodeFactory? = NormaliserFactory()
-        ): Builder {
-            val parser = SAXParserFactory.newNSInstance(parserClass, null).newSAXParser().xmlReader
-            parser.entityResolver = LocalEntityResolver()
-            return Builder(parser, validate, nodeFactory)
-        }
     }
 }

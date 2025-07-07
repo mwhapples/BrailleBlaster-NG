@@ -22,6 +22,7 @@ import org.brailleblaster.bbx.BBX;
 import org.brailleblaster.bbx.BBX.TableRowType;
 import org.brailleblaster.bbx.BBXUtils;
 import org.brailleblaster.exceptions.EditingException;
+import org.brailleblaster.utd.exceptions.NodeException;
 import org.brailleblaster.util.FormUIUtils;
 import org.brailleblaster.util.Notify;
 import org.brailleblaster.utils.gui.PickerDialog;
@@ -1011,10 +1012,13 @@ public class TableEditor extends Dialog {
                         }
                         Element tnContainer = createTNContainer(tNote, firstRow);
                         state.setTNContainer(tnContainer);
-                        updateRowColTexts();
-                        deleteTexts(parent, textBoxes);
-                        recreateTexts(parent, textBoxes, formatSpecificButton);
-                        checkFormatSpecificOption(parent, formatSpecificButton, textBoxes);
+                        if (!shell.isDisposed()) {
+                            //Possibility for the shell to be closed if the table is too big in createTNContainer.
+                            updateRowColTexts();
+                            deleteTexts(parent, textBoxes);
+                            recreateTexts(parent, textBoxes, formatSpecificButton);
+                            checkFormatSpecificOption(parent, formatSpecificButton, textBoxes);
+                        }
                     } else {
                         removeTNContainerFromState(parent, textBoxes, formatSpecificButton);
                     }
@@ -1139,7 +1143,14 @@ public class TableEditor extends Dialog {
                     CellText newText = new CellText(textComp, -1, i);
                     EasySWT.buildGridData().setHint(200, 150).applyTo(newText.getWidget());
                     if (i + 1 < containerCopy.getChildCount()) {
-                        newText.text.setXML((Element) containerCopy.getChild(i + 1));
+                        try {
+                            newText.text.setXML((Element) containerCopy.getChild(i + 1));
+                        }
+                        catch (NodeException ne){
+                            Notify.showMessage("Error setting TN text. Table may be too long:\n" + ne.getMessage());
+                            closeShell();
+                            return null;
+                        }
                     }
                     newText.setTN(true);
                     returnList.add(newText);
@@ -1464,11 +1475,16 @@ public class TableEditor extends Dialog {
     private Element createTNContainer(Element note, List<CellText> firstRow) {
         Element container = BBX.CONTAINER.TABLETN.create();
         container.appendChild(BBXUtils.wrapAsTransNote(note));
-
         switch (state.getType()) {
             case STAIRSTEP:
                 for (int i = 0; i < firstRow.size(); i++) {
                     int margin = (i * 2) + 1;
+                    //TODO: This can create styles that go out of range if they get big enough; max allowed is 11-11; indent level 10
+                    if (margin > 10){
+                        Notify.showMessage("Cannot add transcriber notes to a stairstep table of this size.");
+                        closeShell();
+                        return null;
+                    }
                     Element block = firstRow.get(i).text.getXML(BBX.BLOCK.STYLE.create(margin + "-" + margin));
                     container.appendChild(block);
                 }
@@ -1491,6 +1507,7 @@ public class TableEditor extends Dialog {
             case LISTED:
                 break;
             case SIMPLE:
+                //Do nothing
             default:
                 return null;
         }

@@ -16,20 +16,16 @@
 package org.brailleblaster.settings.ui
 
 import org.brailleblaster.BBIni
-import org.brailleblaster.AUTO_UPDATE_SETTING
-import org.brailleblaster.readUserUpdateSettings
 import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.perspectives.mvc.modules.misc.ExceptionReportingModule
 import org.brailleblaster.usage.USAGE_TRACKING_SETTING
 import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.utils.swt.EasySWT
-import org.eclipse.jface.widgets.ButtonFactory
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.widgets.*
 
 class PrivacySettingsTab(shell: Shell?) : SettingsUITab {
-    private var autoUpdatesCheckBox: Button
     private var usageSharingCheckBox: Button
     private val reportingCombo: Combo
     private val recoveryCombo: Combo
@@ -40,7 +36,6 @@ class PrivacySettingsTab(shell: Shell?) : SettingsUITab {
     }
 
     override fun updateEngine(engine: UTDTranslationEngine): Boolean {
-        BBIni.propertyFileManager.saveAsBoolean(AUTO_UPDATE_SETTING, autoUpdatesCheckBox.selection)
         BBIni.propertyFileManager.saveAsBoolean(USAGE_TRACKING_SETTING, usageSharingCheckBox.selection)
         val selectedReporting = reportingCombo.selectionIndex
         ExceptionReportingModule.exceptionReportingLevel = ExceptionReportingModule.ExceptionReportingLevel.entries[selectedReporting]
@@ -59,11 +54,6 @@ class PrivacySettingsTab(shell: Shell?) : SettingsUITab {
         val lh = LocaleHandler.getDefault()
         val parent = Composite(shell, 0)
         parent.layout = GridLayout(1, true)
-        val updatesGroup = Group(parent, SWT.NONE)
-        updatesGroup.layout = GridLayout(1, true)
-        updatesGroup.text = lh["PrivacySettingsTab.updatesGroupText"]
-        EasySWT.setGridDataGroup(updatesGroup)
-        autoUpdatesCheckBox = ButtonFactory.newButton(SWT.CHECK or SWT.WRAP).text(lh["PrivacySettingsTab.autoUpdates"]).create(updatesGroup)
         val usageGroup = Group(parent, SWT.NONE)
         usageGroup.layout = GridLayout(1, true)
         usageGroup.text = lh["PrivacySettingsTab.usageGroupText"]
@@ -95,7 +85,6 @@ class PrivacySettingsTab(shell: Shell?) : SettingsUITab {
         uploadCombo.add(lh["Common.no"])
 
         // ------- data --------
-        autoUpdatesCheckBox.selection = readUserUpdateSettings()
         usageSharingCheckBox.selection = BBIni.propertyFileManager.getPropertyAsBoolean(USAGE_TRACKING_SETTING, false)
         reportingCombo.select(ExceptionReportingModule.exceptionReportingLevel.ordinal)
         recoveryCombo.select(ExceptionReportingModule.exceptionRecoveryLevel.ordinal)
