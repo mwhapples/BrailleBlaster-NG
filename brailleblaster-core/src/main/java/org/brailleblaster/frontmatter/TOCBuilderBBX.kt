@@ -894,12 +894,13 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
 
         //Re-use page parent if possible for cleanliness
         val newPageWrapper: Element
-        if (nodeToWrap.parent.childCount == 1 && BBX.SPAN.isA(nodeToWrap.parent)) {
-            newPageWrapper = nodeToWrap.parent as Element
-        } else if (nodeToWrap.parent.childCount == 1 && BBX.INLINE.isA(nodeToWrap.parent)) {
+        val parent = nodeToWrap.parent
+        if (parent.childCount == 1 && BBX.SPAN.isA(parent)) {
+            newPageWrapper = parent as Element
+        } else if (parent.childCount == 1 && BBX.INLINE.isA(parent)) {
             newPageWrapper = BBX.SPAN.OTHER.create()
             XMLHandler2.wrapNodeWithElement(
-                nodeToWrap.parent,
+                parent,
                 newPageWrapper
             )
         } else {

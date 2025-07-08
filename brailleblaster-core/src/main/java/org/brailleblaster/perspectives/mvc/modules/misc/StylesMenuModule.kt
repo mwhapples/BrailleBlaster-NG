@@ -556,28 +556,34 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
          * and wrap accordingly
          */
         var parent = startNode.parent as Element
-        if (startNode is Text && startNode == endNode) {
-            val splitTextNode = XMLHandler2.splitTextNode(
-                startNode,
-                (m.simpleManager.currentSelection.start as XMLTextCaret).offset,
-                (m.simpleManager.currentSelection.end as XMLTextCaret).offset
-            )
-            if (splitTextNode[0].value.isEmpty()) {
-                splitTextNode[0].detach()
+        when (startNode) {
+            is Text if startNode == endNode -> {
+                val splitTextNode = XMLHandler2.splitTextNode(
+                    startNode,
+                    (m.simpleManager.currentSelection.start as XMLTextCaret).offset,
+                    (m.simpleManager.currentSelection.end as XMLTextCaret).offset
+                )
+                if (splitTextNode[0].value.isEmpty()) {
+                    splitTextNode[0].detach()
+                }
+                guideWord.appendChild(splitTextNode[1].copy())
+                parent.replaceChild(splitTextNode[1], guideWord)
             }
-            guideWord.appendChild(splitTextNode[1].copy())
-            parent.replaceChild(splitTextNode[1], guideWord)
-        } else if (startNode is Element && startNode.getAttribute("utd-style") != null && startNode.getAttributeValue("utd-style") == "Guide Word") {
-            return
-        } else {
-            parent = getCommonParent(startNode, endNode)
 
-            val blocks = getBlocks(startNode, endNode)
+            is Element if startNode.getAttribute("utd-style") != null && startNode.getAttributeValue("utd-style") == "Guide Word" -> {
+                return
+            }
 
-            for (element in blocks) {
-                var guide = BBX.SPAN.GUIDEWORD.create()
-                guide = copyChildrenToElement(element, guide)
-                element.appendChild(guide)
+            else -> {
+                parent = getCommonParent(startNode, endNode)
+
+                val blocks = getBlocks(startNode, endNode)
+
+                for (element in blocks) {
+                    var guide = BBX.SPAN.GUIDEWORD.create()
+                    guide = copyChildrenToElement(element, guide)
+                    element.appendChild(guide)
+                }
             }
         }
 
