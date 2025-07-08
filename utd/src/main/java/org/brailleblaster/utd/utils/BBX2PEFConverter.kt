@@ -24,6 +24,11 @@ import org.brailleblaster.libembosser.utils.xml.DocumentUtils
 import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.properties.UTDElements.Companion.findType
+import org.brailleblaster.utils.APH_PAPER_NS
+import org.brailleblaster.utils.BB_NS
+import org.brailleblaster.utils.DC_NS
+import org.brailleblaster.utils.PEF_NS
+import org.brailleblaster.utils.TACTILE_GRAPHICS_NS
 import org.brailleblaster.utils.UTD_NS
 import org.brailleblaster.utils.xom.DocumentTraversal
 import org.w3c.dom.Document
@@ -52,7 +57,6 @@ import javax.xml.xpath.XPathFactory
 import kotlin.math.max
 import kotlin.math.min
 
-private const val BB_NAMESPACE = "http://brailleblaster.org/ns/bb"
 private const val DIMENSION_TEMPLATE = "%.1fmm"
 @JvmField
 val ALL_VOLUMES = IntPredicate { true }
@@ -104,7 +108,7 @@ class BBX2PEFConverter(
     private var imagesElement: Element? = null
         get() {
             if (field == null) {
-                field = _pefDoc!!.createElementNS(PEFNamespaceContext.TG_NAMESPACE, "tg:images")
+                field = _pefDoc!!.createElementNS(TACTILE_GRAPHICS_NS, "tg:images")
                 _pefDoc!!.documentElement.appendChild(field)
             }
             return field
@@ -187,13 +191,13 @@ class BBX2PEFConverter(
                 processBrl(e)
             }
             descend = false
-        } else if (BB_NAMESPACE == e.namespaceURI && "head" == e.localName) {
+        } else if (BB_NS == e.namespaceURI && "head" == e.localName) {
             processHeadElement(e)
             descend = false
-        } else if (BB_NAMESPACE.contentEquals(e.namespaceURI)
+        } else if (BB_NS.contentEquals(e.namespaceURI)
             && "BLOCK".contentEquals(e.localName)
         ) {
-            if ("IMAGE_PLACEHOLDER".contentEquals(e.getAttributeValue("type", BB_NAMESPACE)) && includeVolume) {
+            if ("IMAGE_PLACEHOLDER".contentEquals(e.getAttributeValue("type", BB_NS)) && includeVolume) {
                 processImagePlaceHolder(e)
                 descend = false
             }
@@ -202,9 +206,9 @@ class BBX2PEFConverter(
     }
 
     override fun onEndElement(e: nu.xom.Element) {
-        if (BB_NAMESPACE == e.namespaceURI && "CONTAINER" == e.localName && "VOLUME" == e.getAttributeValue(
+        if (BB_NS == e.namespaceURI && "CONTAINER" == e.localName && "VOLUME" == e.getAttributeValue(
                 "type",
-                BB_NAMESPACE
+                BB_NS
             )
         ) {
             endVolume()
@@ -220,21 +224,21 @@ class BBX2PEFConverter(
         includeVolume = volumeFilter.test(volumeCounter)
         // Now initialise the PEF document.
         _pefDoc = docBuilder!!.newDocument()
-        val rootElement = _pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "pef")
+        val rootElement = _pefDoc!!.createElementNS(PEF_NS, "pef")
         rootElement.setAttribute("version", "2008-1")
         _pefDoc!!.appendChild(rootElement)
-        val headElement = _pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "head")
+        val headElement = _pefDoc!!.createElementNS(PEF_NS, "head")
         rootElement.appendChild(headElement)
-        metaElement = _pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "meta").apply {
+        metaElement = _pefDoc!!.createElementNS(PEF_NS, "meta").apply {
             setAttributeNS(
-                XMLConstants.XMLNS_ATTRIBUTE_NS_URI, "xmlns:dc", PEFNamespaceContext.DC_NAMESPACE
+                XMLConstants.XMLNS_ATTRIBUTE_NS_URI, "xmlns:dc", DC_NS
             )
             setAttributeNS(
-                XMLConstants.XMLNS_ATTRIBUTE_NS_URI, "xmlns:paper", PEFNamespaceContext.PAPER_NAMESPACE
+                XMLConstants.XMLNS_ATTRIBUTE_NS_URI, "xmlns:paper", APH_PAPER_NS
             )
         }
         headElement.appendChild(metaElement)
-        bodyElement = _pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "body")
+        bodyElement = _pefDoc!!.createElementNS(PEF_NS, "body")
         rootElement.appendChild(bodyElement)
     }
 
@@ -249,14 +253,14 @@ class BBX2PEFConverter(
                     val n = formatList.item(i)
                     metaElement!!.removeChild(n)
                 }
-                val formatElement = _pefDoc!!.createElementNS(PEFNamespaceContext.DC_NAMESPACE, "dc:format")
+                val formatElement = _pefDoc!!.createElementNS(DC_NS, "dc:format")
                 formatElement.textContent = "application/x-pef+xml"
                 metaElement!!.appendChild(formatElement)
             } else if ("application/x-pef+xml" == formatList.item(0).textContent) {
                 formatList.item(0).textContent = "application/x-pef+xml"
             }
         } catch (_: XPathExpressionException) {
-            val formatElement = _pefDoc!!.createElementNS(PEFNamespaceContext.DC_NAMESPACE, "dc:format")
+            val formatElement = _pefDoc!!.createElementNS(DC_NS, "dc:format")
             formatElement.textContent = "application/x-pef+xml"
             metaElement!!.appendChild(formatElement)
         }
@@ -269,12 +273,12 @@ class BBX2PEFConverter(
                     metaElement!!.removeChild(n)
                 }
             } else if (identifierList.length < 1) {
-                val identifier: Node = _pefDoc!!.createElementNS(PEFNamespaceContext.DC_NAMESPACE, "dc:identifier")
+                val identifier: Node = _pefDoc!!.createElementNS(DC_NS, "dc:identifier")
                 identifier.textContent = defaultIdentifier
                 metaElement!!.appendChild(identifier)
             }
         } catch (_: XPathExpressionException) {
-            val identifier: Node = _pefDoc!!.createElementNS(PEFNamespaceContext.DC_NAMESPACE, "dc:identifier")
+            val identifier: Node = _pefDoc!!.createElementNS(DC_NS, "dc:identifier")
             identifier.textContent = defaultIdentifier
             metaElement!!.appendChild(identifier)
         }
@@ -313,15 +317,15 @@ class BBX2PEFConverter(
     }
 
     private fun createPageElement(): Element {
-        return _pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "page")
+        return _pefDoc!!.createElementNS(PEF_NS, "page")
     }
 
     private fun createSectionElement(): Element {
-        return _pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "section")
+        return _pefDoc!!.createElementNS(PEF_NS, "section")
     }
 
     private fun createVolumeElement(): Element {
-        val newVol = _pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "volume")
+        val newVol = _pefDoc!!.createElementNS(PEF_NS, "volume")
         newVol.setAttribute("duplex", isDuplex.toString())
         newVol.setAttribute("rowgap", 0.toString())
         newVol.setAttribute("rows", rows.toString())
@@ -399,7 +403,7 @@ class BBX2PEFConverter(
                     // Insert the blank lines which come before this line
                     insertBlankLines(lastNonBlankLine, i)
                     val row =
-                        _pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "row")
+                        _pefDoc!!.createElementNS(PEF_NS, "row")
                     row.textContent = curLine
                     curPageElement!!.appendChild(row)
                     lastNonBlankLine = i
@@ -421,12 +425,12 @@ class BBX2PEFConverter(
     private fun insertBlankLines(lastNonBlankLine: Int, i: Int) {
         repeat(i - lastNonBlankLine - 1) {
             insertionElement!!
-                .appendChild(_pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "row"))
+                .appendChild(_pefDoc!!.createElementNS(PEF_NS, "row"))
         }
     }
 
     private fun createGraphicElement(graphic: Graphic, lineLength: Int): Element {
-        val gElem = _pefDoc!!.createElementNS(PEFNamespaceContext.TG_NAMESPACE, "tg:graphic")
+        val gElem = _pefDoc!!.createElementNS(TACTILE_GRAPHICS_NS, "tg:graphic")
         gElem.setAttribute("height", (graphic.bottomLine + 1 - graphic.topLine).toString())
         gElem.setAttribute("width", lineLength.toString())
         if (graphic.image != null) {
@@ -441,7 +445,7 @@ class BBX2PEFConverter(
             ByteArrayOutputStream().use { output ->
                 ImageIO.write(img, "png", output)
                 val imageData = BaseEncoding.base64().encode(output.toByteArray())
-                val imageElement = _pefDoc!!.createElementNS(PEFNamespaceContext.TG_NAMESPACE, "tg:imageData")
+                val imageElement = _pefDoc!!.createElementNS(TACTILE_GRAPHICS_NS, "tg:imageData")
                 imageElement.setAttribute("format", "image/png")
                 imageElement.setAttribute("encoding", "base64")
                 imageElement.textContent = imageData
@@ -457,40 +461,40 @@ class BBX2PEFConverter(
         val childElements = head.childElements
         for (i in 0 until childElements.size()) {
             val child = childElements[i]
-            if (PEFNamespaceContext.DC_NAMESPACE == child.namespaceURI) {
+            if (DC_NS == child.namespaceURI) {
                 val name = child.localName
                 val value = child.value
-                addMetaItem(PEFNamespaceContext.DC_NAMESPACE, "dc:$name", value)
+                addMetaItem(DC_NS, "dc:$name", value)
             } else if ("meta" == child.localName) {
                 val name = child.getAttributeValue("name")
                 if (name != null && name.startsWith("dc:")) {
                     val value = child.value
-                    addMetaItem(PEFNamespaceContext.DC_NAMESPACE, name, value)
+                    addMetaItem(DC_NS, name, value)
                 }
             }
         }
         addMetaItem(
-            PEFNamespaceContext.PAPER_NAMESPACE,
+            APH_PAPER_NS,
             "paper:height", String.format(DIMENSION_TEMPLATE, paperHeight)
         )
         addMetaItem(
-            PEFNamespaceContext.PAPER_NAMESPACE,
+            APH_PAPER_NS,
             "paper:width", String.format(DIMENSION_TEMPLATE, paperWidth)
         )
         addMetaItem(
-            PEFNamespaceContext.PAPER_NAMESPACE,
+            APH_PAPER_NS,
             "paper:leftMargin", String.format(DIMENSION_TEMPLATE, leftMargin)
         )
         addMetaItem(
-            PEFNamespaceContext.PAPER_NAMESPACE,
+            APH_PAPER_NS,
             "paper:rightMargin", String.format(DIMENSION_TEMPLATE, rightMargin)
         )
         addMetaItem(
-            PEFNamespaceContext.PAPER_NAMESPACE,
+            APH_PAPER_NS,
             "paper:topMargin", String.format(DIMENSION_TEMPLATE, topMargin)
         )
         addMetaItem(
-            PEFNamespaceContext.PAPER_NAMESPACE,
+            APH_PAPER_NS,
             "paper:bottomMargin", String.format(DIMENSION_TEMPLATE, bottomMargin)
         )
     }

@@ -28,6 +28,7 @@ import org.brailleblaster.utd.Style
 import org.brailleblaster.utd.config.StyleDefinitions
 import org.brailleblaster.utd.exceptions.NodeException
 import org.brailleblaster.utd.internal.xml.FastXPath
+import org.brailleblaster.utils.BB_NS
 import org.brailleblaster.utils.UTD_NS
 
 /**
@@ -58,7 +59,7 @@ class BBXStyleMap(private val styleDefs: StyleDefinitions) : AbstractNonMatcherM
                 listWrapper = parent
             }
 
-            when (val listType = BBX.CONTAINER.LIST.ATTRIB_LIST_TYPE[listWrapper as Element]) {
+            when (val listType = BBX.CONTAINER.LIST.ATTRIB_LIST_TYPE[listWrapper]) {
                 ListType.POEM_LINE_GROUP -> {
                     //may be wrapped in a poem container which will have the list level
                     val poemWrapper =
@@ -107,7 +108,7 @@ class BBXStyleMap(private val styleDefs: StyleDefinitions) : AbstractNonMatcherM
         val BASIC_NAMESPACE_MAP: NamespaceMap = NamespaceMap()
 
         init {
-            BASIC_NAMESPACE_MAP.addNamespace("bb", BBX.BB_NAMESPACE)
+            BASIC_NAMESPACE_MAP.addNamespace("bb", BB_NS)
             BASIC_NAMESPACE_MAP.addNamespace("utd", UTD_NS)
         }
     }

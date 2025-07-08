@@ -23,6 +23,7 @@ import nu.xom.Element
 import org.assertj.core.api.Assertions
 import org.brailleblaster.utd.internal.elements.*
 import org.brailleblaster.utd.properties.UTDElements
+import org.brailleblaster.utils.DC_NS
 import org.testng.Assert
 import org.testng.annotations.BeforeClass
 import org.testng.annotations.Test
@@ -195,16 +196,16 @@ class BBX2PEFConverterTest {
         var metaElement: Element?
         val headElement = Element("head", "http://brailleblaster.org/ns/bb")
         val identifierStr = "Example001"
-        metaElement = Element("dc:identifier", PEFNamespaceContext.DC_NAMESPACE)
+        metaElement = Element("dc:identifier", DC_NS)
         metaElement.appendChild(identifierStr)
         headElement.appendChild(metaElement)
         val titleStr = "An example document"
-        metaElement = Element("dc:title", PEFNamespaceContext.DC_NAMESPACE)
+        metaElement = Element("dc:title", DC_NS)
         metaElement.appendChild(titleStr)
         headElement.appendChild(metaElement)
         val subjectsList: MutableList<String?> = Lists.newArrayList("Braille", "Transcription")
         for (subject in subjectsList) {
-            metaElement = Element("dc:subject", PEFNamespaceContext.DC_NAMESPACE)
+            metaElement = Element("dc:subject", DC_NS)
             metaElement.appendChild(subject)
             headElement.appendChild(metaElement)
         }

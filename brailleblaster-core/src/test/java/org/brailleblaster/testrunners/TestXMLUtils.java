@@ -26,7 +26,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.brailleblaster.utd.exceptions.NodeException;
 import org.brailleblaster.utd.internal.xml.FastXPath;
 import org.brailleblaster.utd.internal.xml.XMLHandler;
-import org.brailleblaster.utd.properties.UTDElements;
 import org.brailleblaster.utd.utils.UTDHelper;
 
 import nu.xom.Document;
@@ -50,7 +49,7 @@ public class TestXMLUtils {
                 + "xmlns='http://www.daisy.org/z3986/2005/dtbook/' "
                 + "xmlns:utd='" + NamespacesKt.UTD_NS + "' "
                 + "xmlns:m='" + "http://www.w3.org/1998/Math/MathML" + "' "
-                + "xmlns:bb='" + BBX.BB_NAMESPACE + "' "
+                + "xmlns:bb='" + NamespacesKt.BB_NS + "' "
                 + ">"
                 + "<head>"
                 + "<utd:isNormalised>true</utd:isNormalised>"
