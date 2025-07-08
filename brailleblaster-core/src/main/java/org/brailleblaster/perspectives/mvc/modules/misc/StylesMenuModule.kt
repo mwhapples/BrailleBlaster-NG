@@ -54,7 +54,6 @@ import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.internal.xml.XMLHandler2
 import org.brailleblaster.utd.properties.EmphasisType
-import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.TableUtils
 import org.brailleblaster.utd.utils.TableUtils.isTableCopy
 import org.brailleblaster.utd.utils.UTDHelper.Companion.stripUTDRecursive
@@ -62,6 +61,7 @@ import org.brailleblaster.utd.utils.dom.BoxUtils.unbox
 import org.brailleblaster.exceptions.BBNotifyException
 import org.brailleblaster.util.Notify
 import org.brailleblaster.util.Notify.notify
+import org.brailleblaster.utils.UTD_NS
 import org.brailleblaster.utils.swt.EasySWT.setSizeAndLocationMiddleScreen
 import org.brailleblaster.wordprocessor.WPManager
 import org.brailleblaster.wordprocessor.WPManager.Companion.getInstance
@@ -764,7 +764,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
             val checkSibling = parent.getChild(parent.indexOf(table) + 1)
             if (checkSibling is Element && checkSibling.getAttribute(
                     TableUtils.ATTRIB_TABLE_COPY,
-                    UTDElements.UTD_NAMESPACE
+                    UTD_NS
                 ) != null
             ) {
                 checkSibling.detach()

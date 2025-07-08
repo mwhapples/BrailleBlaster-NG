@@ -26,6 +26,7 @@ import org.brailleblaster.utd.utils.PageBuilderHelper
 import org.brailleblaster.utd.utils.UTDHelper
 import org.brailleblaster.utd.utils.dom.BoxUtils
 import org.brailleblaster.utils.SetList
+import org.brailleblaster.utils.UTD_NS
 import org.brailleblaster.utils.toRepeatingLetters
 import org.slf4j.LoggerFactory
 import java.util.*
@@ -68,7 +69,7 @@ class FormatSelector(styleMap: IStyleMap?, styleStack: StyleStack?, engine: ITra
 
     private fun isNewLine(node: Node): Boolean {
         if (node is Element) {
-            return UTDElements.UTD_NAMESPACE == node.namespaceURI && "newLine" == node.localName
+            return UTD_NS == node.namespaceURI && "newLine" == node.localName
         }
         return false
     }

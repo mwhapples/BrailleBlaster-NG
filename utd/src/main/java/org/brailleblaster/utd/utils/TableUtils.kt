@@ -25,6 +25,7 @@ import org.brailleblaster.utd.IStyleMap
 import org.brailleblaster.utd.ITranslationEngine
 import org.brailleblaster.utd.PageSettings
 import org.brailleblaster.utd.properties.UTDElements
+import org.brailleblaster.utils.UTD_NS
 import org.brailleblaster.utils.xom.detachAll
 
 object TableUtils {
@@ -45,7 +46,7 @@ object TableUtils {
         table.addAttribute(
             Attribute(
                 UTDElements.UTD_PREFIX + ":" + ATTRIB_TABLE_COPY,
-                UTDElements.UTD_NAMESPACE,
+                UTD_NS,
                 "true"
             )
         )
@@ -306,12 +307,12 @@ object TableUtils {
 	  fun isTableCopy(table: Element): Boolean {
         return table.getAttribute(
             ATTRIB_TABLE_COPY,
-            UTDElements.UTD_NAMESPACE
+            UTD_NS
         ) != null
     }
 
     fun findTableBrls(element: Element): List<Element> = element.childElements.flatMap { e ->
-        if (e.namespaceURI == UTDElements.UTD_NAMESPACE && e.localName == "tablebrl") listOf(e)
+        if (e.namespaceURI == UTD_NS && e.localName == "tablebrl") listOf(e)
         else findTableBrls(e)
     }
 

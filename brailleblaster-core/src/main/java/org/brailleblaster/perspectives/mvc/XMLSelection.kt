@@ -25,8 +25,8 @@ import org.brailleblaster.utd.exceptions.NodeException
 import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.internal.xml.XMLHandler2
-import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.TableUtils.isTableCopy
+import org.brailleblaster.utils.UTD_NS
 import org.brailleblaster.utils.xom.childNodes
 
 class XMLSelection(@JvmField val start: XMLNodeCaret, @JvmField val end: XMLNodeCaret) {
@@ -149,7 +149,7 @@ class XMLSelection(@JvmField val start: XMLNodeCaret, @JvmField val end: XMLNode
                 if (FastXPath.descendant(startElement)
                         .stream()
                         .filter { node: Node? -> node is Text }
-                        .filter { node: Node -> (node.parent as Element).namespaceURI != UTDElements.UTD_NAMESPACE }
+                        .filter { node: Node -> (node.parent as Element).namespaceURI != UTD_NS }
                         .findFirst()
                         .get() !== start
                 ) {
@@ -187,7 +187,7 @@ class XMLSelection(@JvmField val start: XMLNodeCaret, @JvmField val end: XMLNode
                 //Initial check if start is first in it's own parent
                 if (FastXPath.descendant(endElement)
                         .filterIsInstance<Text>()
-                        .lastOrNull { node -> (node.parent as Element).namespaceURI != UTDElements.UTD_NAMESPACE } !== end
+                        .lastOrNull { node -> (node.parent as Element).namespaceURI != UTD_NS } !== end
                 ) {
                     return null
                 }
