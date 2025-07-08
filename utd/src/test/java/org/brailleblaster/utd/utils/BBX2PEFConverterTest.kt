@@ -23,6 +23,7 @@ import nu.xom.Element
 import org.assertj.core.api.Assertions
 import org.brailleblaster.utd.internal.elements.*
 import org.brailleblaster.utd.properties.UTDElements
+import org.brailleblaster.utils.BB_NS
 import org.brailleblaster.utils.DC_NS
 import org.testng.Assert
 import org.testng.annotations.BeforeClass
@@ -194,7 +195,7 @@ class BBX2PEFConverterTest {
     fun basicDocumentMetaFromDC() {
         // The test DC elements
         var metaElement: Element?
-        val headElement = Element("head", "http://brailleblaster.org/ns/bb")
+        val headElement = Element("head", BB_NS)
         val identifierStr = "Example001"
         metaElement = Element("dc:identifier", DC_NS)
         metaElement.appendChild(identifierStr)
@@ -254,7 +255,7 @@ class BBX2PEFConverterTest {
     fun basicDocumentMetaFromMeta() {
         // The test DC elements
         var metaElement: Element?
-        val headElement = Element("head", "http://brailleblaster.org/ns/bb")
+        val headElement = Element("head", BB_NS)
         val identifierStr = "Example001"
         metaElement = Element("meta")
         metaElement.addAttribute(Attribute("name", "dc:identifier"))
@@ -636,8 +637,8 @@ class BBX2PEFConverterTest {
         brl.appendChild(UTDElements.NEW_PAGE.create())
         // Use ASCII Braille in brl, BBX2PEF will convert it.
         brl.appendChild(",te/ text")
-        val volumeContainer = Element("CONTAINER", "http://brailleblaster.org/ns/bb")
-        volumeContainer.addAttribute(Attribute("bb:type", "http://brailleblaster.org/ns/bb", "VOLUME"))
+        val volumeContainer = Element("CONTAINER", BB_NS)
+        volumeContainer.addAttribute(Attribute("bb:type", BB_NS, "VOLUME"))
         val endVolBrl = Brl()
         endVolBrl.appendChild(MoveTo(BigDecimal("0.0"), BigDecimal("20.0")))
         endVolBrl.appendChild(",5d volume")
@@ -696,8 +697,8 @@ class BBX2PEFConverterTest {
         brl.appendChild(UTDElements.NEW_PAGE.create())
         // Use ASCII Braille in brl, BBX2PEF will convert it.
         brl.appendChild(",te/ text")
-        val volumeContainer = Element("CONTAINER", "http://brailleblaster.org/ns/bb")
-        volumeContainer.addAttribute(Attribute("bb:type", "http://brailleblaster.org/ns/bb", "VOLUME"))
+        val volumeContainer = Element("CONTAINER", BB_NS)
+        volumeContainer.addAttribute(Attribute("bb:type", BB_NS, "VOLUME"))
         val endVolBrl = Brl()
         endVolBrl.appendChild(MoveTo(BigDecimal("0.0"), BigDecimal("20.0")))
         endVolBrl.appendChild(",5d volume #a")
@@ -705,8 +706,8 @@ class BBX2PEFConverterTest {
         val brl2 = Brl()
         brl2.appendChild(NewPage())
         brl2.appendChild(",text 9 vol#b")
-        val volumeContainer2 = Element("CONTAINER", "http://brailleblaster.org/ns/bb")
-        volumeContainer2.addAttribute(Attribute("bb:type", "http://brailleblaster.org/ns/bb", "VOLUME"))
+        val volumeContainer2 = Element("CONTAINER", BB_NS)
+        volumeContainer2.addAttribute(Attribute("bb:type", BB_NS, "VOLUME"))
         val endVolBrl2 = Brl()
         endVolBrl2.appendChild(MoveTo(BigDecimal("0.0"), BigDecimal("20.0")))
         endVolBrl2.appendChild(",5d volume #b")
