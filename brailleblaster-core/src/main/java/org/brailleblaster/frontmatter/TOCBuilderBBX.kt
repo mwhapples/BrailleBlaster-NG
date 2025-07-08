@@ -895,21 +895,25 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
         //Re-use page parent if possible for cleanliness
         val newPageWrapper: Element
         val parent = nodeToWrap.parent
-        if (parent.childCount == 1 && BBX.SPAN.isA(parent)) {
-            newPageWrapper = parent as Element
-        } else if (parent.childCount == 1 && BBX.INLINE.isA(parent)) {
-            newPageWrapper = BBX.SPAN.OTHER.create()
-            XMLHandler2.wrapNodeWithElement(
-                parent,
-                newPageWrapper
-            )
-        } else {
-            newPageWrapper = BBX.SPAN.OTHER.create()
-            XMLHandler2.wrapNodeWithElement(
-                nodeToWrap,
-                newPageWrapper
-            )
-            log.trace("Wrapped with element in {}", newPageWrapper.parent.toXML())
+        when (parent.childCount) {
+            1 if BBX.SPAN.isA(parent) -> {
+                newPageWrapper = parent as Element
+            }
+            1 if BBX.INLINE.isA(parent) -> {
+                newPageWrapper = BBX.SPAN.OTHER.create()
+                XMLHandler2.wrapNodeWithElement(
+                    parent,
+                    newPageWrapper
+                )
+            }
+            else -> {
+                newPageWrapper = BBX.SPAN.OTHER.create()
+                XMLHandler2.wrapNodeWithElement(
+                    nodeToWrap,
+                    newPageWrapper
+                )
+                log.trace("Wrapped with element in {}", newPageWrapper.parent.toXML())
+            }
         }
         log.trace("Applying page attrib to {}", newPageWrapper.toXML())
         setTOCType(newPageWrapper, "page", utdMan)
