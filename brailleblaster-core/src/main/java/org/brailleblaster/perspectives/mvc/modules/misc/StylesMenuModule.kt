@@ -54,7 +54,6 @@ import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.internal.xml.XMLHandler2
 import org.brailleblaster.utd.properties.EmphasisType
-import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.TableUtils
 import org.brailleblaster.utd.utils.TableUtils.isTableCopy
 import org.brailleblaster.utd.utils.UTDHelper.Companion.stripUTDRecursive
@@ -62,6 +61,7 @@ import org.brailleblaster.utd.utils.dom.BoxUtils.unbox
 import org.brailleblaster.exceptions.BBNotifyException
 import org.brailleblaster.util.Notify
 import org.brailleblaster.util.Notify.notify
+import org.brailleblaster.utils.UTD_NS
 import org.brailleblaster.utils.swt.EasySWT.setSizeAndLocationMiddleScreen
 import org.brailleblaster.wordprocessor.WPManager
 import org.brailleblaster.wordprocessor.WPManager.Companion.getInstance
@@ -556,28 +556,34 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
          * and wrap accordingly
          */
         var parent = startNode.parent as Element
-        if (startNode is Text && startNode == endNode) {
-            val splitTextNode = XMLHandler2.splitTextNode(
-                startNode,
-                (m.simpleManager.currentSelection.start as XMLTextCaret).offset,
-                (m.simpleManager.currentSelection.end as XMLTextCaret).offset
-            )
-            if (splitTextNode[0].value.isEmpty()) {
-                splitTextNode[0].detach()
+        when (startNode) {
+            is Text if startNode == endNode -> {
+                val splitTextNode = XMLHandler2.splitTextNode(
+                    startNode,
+                    (m.simpleManager.currentSelection.start as XMLTextCaret).offset,
+                    (m.simpleManager.currentSelection.end as XMLTextCaret).offset
+                )
+                if (splitTextNode[0].value.isEmpty()) {
+                    splitTextNode[0].detach()
+                }
+                guideWord.appendChild(splitTextNode[1].copy())
+                parent.replaceChild(splitTextNode[1], guideWord)
             }
-            guideWord.appendChild(splitTextNode[1].copy())
-            parent.replaceChild(splitTextNode[1], guideWord)
-        } else if (startNode is Element && startNode.getAttribute("utd-style") != null && startNode.getAttributeValue("utd-style") == "Guide Word") {
-            return
-        } else {
-            parent = getCommonParent(startNode, endNode)
 
-            val blocks = getBlocks(startNode, endNode)
+            is Element if startNode.getAttribute("utd-style") != null && startNode.getAttributeValue("utd-style") == "Guide Word" -> {
+                return
+            }
 
-            for (element in blocks) {
-                var guide = BBX.SPAN.GUIDEWORD.create()
-                guide = copyChildrenToElement(element, guide)
-                element.appendChild(guide)
+            else -> {
+                parent = getCommonParent(startNode, endNode)
+
+                val blocks = getBlocks(startNode, endNode)
+
+                for (element in blocks) {
+                    var guide = BBX.SPAN.GUIDEWORD.create()
+                    guide = copyChildrenToElement(element, guide)
+                    element.appendChild(guide)
+                }
             }
         }
 
@@ -758,7 +764,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
             val checkSibling = parent.getChild(parent.indexOf(table) + 1)
             if (checkSibling is Element && checkSibling.getAttribute(
                     TableUtils.ATTRIB_TABLE_COPY,
-                    UTDElements.UTD_NAMESPACE
+                    UTD_NS
                 ) != null
             ) {
                 checkSibling.detach()

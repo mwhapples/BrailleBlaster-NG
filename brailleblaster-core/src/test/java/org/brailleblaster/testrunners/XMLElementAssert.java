@@ -38,6 +38,7 @@ import org.brailleblaster.utd.internal.xml.XMLHandler;
 import org.brailleblaster.utd.properties.EmphasisType;
 import org.brailleblaster.utd.properties.UTDElements;
 import org.brailleblaster.utd.utils.UTDHelper;
+import org.brailleblaster.utils.NamespacesKt;
 import org.hamcrest.Matcher;
 import org.hamcrest.MatcherAssert;
 import org.slf4j.Logger;
@@ -330,7 +331,7 @@ public class XMLElementAssert {
 
     public XMLElementAssert hasAttributeUTD(String attribName, String expectedValue) {
         assertEquals(
-                elem.getAttributeValue(attribName, UTDElements.UTD_NAMESPACE),
+                elem.getAttributeValue(attribName, NamespacesKt.UTD_NS),
                 expectedValue,
                 "Attrib " + attribName + " value doesn't match expected"
         );
@@ -339,7 +340,7 @@ public class XMLElementAssert {
 
     public XMLElementAssert hasAttributeUTD(String attribName) {
         assertEquals(
-                elem.getAttributeValue(attribName, UTDElements.UTD_NAMESPACE) != null,
+                elem.getAttributeValue(attribName, NamespacesKt.UTD_NS) != null,
                 true,
                 "Attrib " + attribName + " value doesn't match expected"
         );

@@ -35,7 +35,7 @@ import org.brailleblaster.perspectives.mvc.events.XMLCaretEvent
 import org.brailleblaster.utd.exceptions.NodeException
 import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
-import org.brailleblaster.utd.properties.UTDElements
+import org.brailleblaster.utils.UTD_NS
 import org.eclipse.swt.custom.StyledText
 import org.slf4j.LoggerFactory
 import java.util.function.Supplier
@@ -167,7 +167,7 @@ class TextViewModule(private val manager: Manager) : AbstractModule(), SimpleLis
             for (curDescendant in descendants.get()) {
                 if (XMLHandler.ancestorElementIs(
                         curDescendant
-                    ) { curAncestor: Element -> curAncestor.namespaceURI == UTDElements.UTD_NAMESPACE }
+                    ) { curAncestor: Element -> curAncestor.namespaceURI == UTD_NS }
                 ) {
                     continue
                 }
@@ -205,7 +205,7 @@ class TextViewModule(private val manager: Manager) : AbstractModule(), SimpleLis
             for (curDescendant in Lists.reverse(descendants.get())) {
                 if (XMLHandler.ancestorElementIs(
                         curDescendant
-                    ) { curAncestor: Element -> curAncestor.namespaceURI == UTDElements.UTD_NAMESPACE }
+                    ) { curAncestor: Element -> curAncestor.namespaceURI == UTD_NS }
                 ) {
                     continue
                 }

@@ -35,6 +35,7 @@ import nu.xom.Node;
 import nu.xom.ParentNode;
 import nu.xom.Text;
 import org.brailleblaster.bbx.BBX;
+import org.brailleblaster.utils.NamespacesKt;
 
 /**
  * Utilities for XML..m
@@ -47,7 +48,7 @@ public class TestXMLUtils {
                 + "  'http://www.daisy.org/z3986/2005/dtbook-2005-3.dtd'>"
                 + "<dtbook version='2005-3' "
                 + "xmlns='http://www.daisy.org/z3986/2005/dtbook/' "
-                + "xmlns:utd='" + UTDElements.UTD_NAMESPACE + "' "
+                + "xmlns:utd='" + NamespacesKt.UTD_NS + "' "
                 + "xmlns:m='" + "http://www.w3.org/1998/Math/MathML" + "' "
                 + "xmlns:bb='" + BBX.BB_NAMESPACE + "' "
                 + ">"
