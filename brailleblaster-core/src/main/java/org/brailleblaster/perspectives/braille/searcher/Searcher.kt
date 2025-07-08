@@ -26,6 +26,7 @@ import org.brailleblaster.perspectives.braille.mapping.elements.TextMapElement
 import org.brailleblaster.utd.exceptions.NodeException
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.properties.UTDElements
+import org.brailleblaster.utils.UTD_NS
 import java.util.stream.Stream
 
 /**
@@ -67,7 +68,7 @@ object Searcher {
 
         @JvmStatic
 		fun noUTDAncestor(node: Node?): Boolean {
-            return XMLHandler.ancestorElementNot(node) { curElem: Element -> curElem.namespaceURI == UTDElements.UTD_NAMESPACE }
+            return XMLHandler.ancestorElementNot(node) { curElem: Element -> curElem.namespaceURI == UTD_NS }
         }
 
         @JvmStatic

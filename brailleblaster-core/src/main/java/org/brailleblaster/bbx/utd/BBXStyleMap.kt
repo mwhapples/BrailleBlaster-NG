@@ -28,7 +28,7 @@ import org.brailleblaster.utd.Style
 import org.brailleblaster.utd.config.StyleDefinitions
 import org.brailleblaster.utd.exceptions.NodeException
 import org.brailleblaster.utd.internal.xml.FastXPath
-import org.brailleblaster.utd.properties.UTDElements
+import org.brailleblaster.utils.UTD_NS
 
 /**
  * Auto-generated style map for
@@ -108,7 +108,7 @@ class BBXStyleMap(private val styleDefs: StyleDefinitions) : AbstractNonMatcherM
 
         init {
             BASIC_NAMESPACE_MAP.addNamespace("bb", BBX.BB_NAMESPACE)
-            BASIC_NAMESPACE_MAP.addNamespace("utd", UTDElements.UTD_NAMESPACE)
+            BASIC_NAMESPACE_MAP.addNamespace("utd", UTD_NS)
         }
     }
 }

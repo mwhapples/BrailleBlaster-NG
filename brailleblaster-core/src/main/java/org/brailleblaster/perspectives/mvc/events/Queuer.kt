@@ -21,7 +21,7 @@ import org.brailleblaster.bbx.BBX
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.eventQueue.EventFrame
 import org.brailleblaster.perspectives.braille.messages.Sender
-import org.brailleblaster.utd.properties.UTDElements
+import org.brailleblaster.utils.UTD_NS
 
 class Queuer(val manager: Manager) {
     fun handleEvent(f: EventFrame, sender: Sender) {
@@ -70,7 +70,7 @@ class Queuer(val manager: Manager) {
         val root = manager.document.rootElement
         val head = root.getFirstChildElement("head", BBX.BB_NAMESPACE) ?: return
 
-        val oldStyleMap = head.getFirstChildElement("styleMap", UTDElements.UTD_NAMESPACE)
+        val oldStyleMap = head.getFirstChildElement("styleMap", UTD_NS)
         if (styleMap != null) {
             if (oldStyleMap != null) oldStyleMap.parent.replaceChild(oldStyleMap, styleMap)
             else head.appendChild(styleMap)
@@ -78,7 +78,7 @@ class Queuer(val manager: Manager) {
             if (oldStyleMap != null) head.removeChild(oldStyleMap)
         }
 
-        val oldActionMap = head.getFirstChildElement("actionMap", UTDElements.UTD_NAMESPACE)
+        val oldActionMap = head.getFirstChildElement("actionMap", UTD_NS)
         if (actionMap != null) {
             if (oldActionMap != null) oldActionMap.parent.replaceChild(oldActionMap, actionMap)
             else head.appendChild(actionMap)
