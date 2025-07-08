@@ -79,7 +79,6 @@ class Replace {
 
     //The "Brains" of the replace function. Deals with calculating text positions and all that horrible stuff.
     private fun replaceControl(m: Manager, click: Click, domCon: DOMControl, viewCon: ViewControl) {
-        val selectionText: String = m.textView.selectionText
         val selection: Point = m.textView.selection
         val array: Array<TextMapElement> = m.mapList.getElementsOneByOne(selection.x, selection.y).toTypedArray()
         val acrossNodes = array.size > 1
