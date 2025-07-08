@@ -25,6 +25,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.brailleblaster.utd.exceptions.NodeException;
 import org.brailleblaster.utd.exceptions.UTDException;
 import org.brailleblaster.utd.properties.UTDElements;
+import org.brailleblaster.utils.NamespacesKt;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -166,7 +167,7 @@ public class XMLHandler2 {
             }
             wrapperDoc
                     .getRootElement()
-                    .addNamespaceDeclaration(UTDElements.UTD_PREFIX, UTDElements.UTD_NAMESPACE);
+                    .addNamespaceDeclaration(UTDElements.UTD_PREFIX, NamespacesKt.UTD_NS);
 
             serializer.write(wrapperDoc);
             return out.toString(StandardCharsets.UTF_8);
@@ -202,7 +203,7 @@ public class XMLHandler2 {
         }
 
         // Add utd specific namespace
-        context.addNamespace(UTDElements.UTD_PREFIX, UTDElements.UTD_NAMESPACE);
+        context.addNamespace(UTDElements.UTD_PREFIX, NamespacesKt.UTD_NS);
 
         context.addNamespace("m", "http://www.w3.org/1998/Math/MathML");
 

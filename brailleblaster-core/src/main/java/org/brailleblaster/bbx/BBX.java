@@ -24,6 +24,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.brailleblaster.utils.NamespacesKt;
 import org.jetbrains.annotations.Nullable;
 
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
@@ -149,12 +150,12 @@ public class BBX {
      * UTD action
      */
     public static final StringAttribute _ATTRIB_OVERRIDE_ACTION = new StringAttribute(
-            OverrideMap.OVERRIDE_ATTRIB_ACTION, UTDElements.UTD_PREFIX, UTDElements.UTD_NAMESPACE);
+            OverrideMap.OVERRIDE_ATTRIB_ACTION, UTDElements.UTD_PREFIX, NamespacesKt.UTD_NS);
     /**
      * UTD style
      */
     public static final StringAttribute _ATTRIB_OVERRIDE_STYLE = new StringAttribute(OverrideMap.OVERRIDE_ATTRIB_STYLE,
-            UTDElements.UTD_PREFIX, UTDElements.UTD_NAMESPACE);
+            UTDElements.UTD_PREFIX, NamespacesKt.UTD_NS);
     /**
      * BB subtype of whatever coretype the element is
      */
@@ -167,7 +168,7 @@ public class BBX {
     static {
         XPATH_CONTEXT = new XPathContext();
         XPATH_CONTEXT.addNamespace("bb", BB_NAMESPACE);
-        XPATH_CONTEXT.addNamespace("utd", UTDElements.UTD_NAMESPACE);
+        XPATH_CONTEXT.addNamespace("utd", NamespacesKt.UTD_NS);
         XPATH_CONTEXT.addNamespace("m", MATHML_NAMESPACE);
     }
 
@@ -182,7 +183,7 @@ public class BBX {
     public static Document newDocument() {
         Element root = newElement(DOCUMENT_ROOT_NAME);
         root.addNamespaceDeclaration("bb", BB_NAMESPACE);
-        root.addNamespaceDeclaration("utd", UTDElements.UTD_NAMESPACE);
+        root.addNamespaceDeclaration("utd", NamespacesKt.UTD_NS);
         root.addNamespaceDeclaration("m", MATHML_NAMESPACE);
 
         Element headElem = newElement("head");
@@ -969,9 +970,9 @@ public class BBX {
 
         public static class ImagePlaceholderType extends BlockSubType {
             public final IntAttribute ATTRIB_SKIP_LINES = new IntAttribute("skipLines", UTDElements.UTD_PREFIX,
-                    UTDElements.UTD_NAMESPACE);
+                    NamespacesKt.UTD_NS);
             public final StringAttribute ATTRIB_IMG_PATH = new StringAttribute("src", UTDElements.UTD_PREFIX,
-                    UTDElements.UTD_NAMESPACE);
+                    NamespacesKt.UTD_NS);
 
             private ImagePlaceholderType(BlockElement coreType, String name) {
                 super(coreType, name);

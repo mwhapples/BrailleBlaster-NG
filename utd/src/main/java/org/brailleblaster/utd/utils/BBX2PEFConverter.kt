@@ -24,6 +24,7 @@ import org.brailleblaster.libembosser.utils.xml.DocumentUtils
 import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.properties.UTDElements.Companion.findType
+import org.brailleblaster.utils.UTD_NS
 import org.brailleblaster.utils.xom.DocumentTraversal
 import org.w3c.dom.Document
 import org.w3c.dom.Element
@@ -542,12 +543,12 @@ class BBX2PEFConverter(
     }
 
     private fun processImagePlaceHolder(e: nu.xom.Element) {
-        val imageHeight = e.getAttributeValue("skipLines", UTDElements.UTD_NAMESPACE)?.toIntOrNull() ?: 1
+        val imageHeight = e.getAttributeValue("skipLines", UTD_NS)?.toIntOrNull() ?: 1
         // prevent images of height 0 or less
         if (imageHeight < 1) {
             return
         }
-        suppressNewPages = e.getAttributeValue("newPages", UTDElements.UTD_NAMESPACE)?.toIntOrNull() ?: 0
+        suppressNewPages = e.getAttributeValue("newPages", UTD_NS)?.toIntOrNull() ?: 0
         repeat(suppressNewPages) {
             endPage()
             startPage()
@@ -562,7 +563,7 @@ class BBX2PEFConverter(
             endPage()
             startPage()
         }
-        val image = e.getAttributeValue("src", UTDElements.UTD_NAMESPACE)?.let { loadImage(it) }
+        val image = e.getAttributeValue("src", UTD_NS)?.let { loadImage(it) }
         val endLine = cursorY + imageHeight - 1
         val graphic = Graphic(imageCounter++, image, cursorY, endLine)
         graphics.add(graphic)

@@ -704,6 +704,9 @@ public class TableEditor extends Dialog {
         EasySWT.buildGridData().setAlign(SWT.CENTER, SWT.BEGINNING).applyTo(leftTableLabel);
         //Use the left-page table to create text boxes
         List<CellText> leftBoxes = createTexts(leftSC, leftRows, ((InternalFacingTable) state).split, state.getRows(), new ArrayList<>(), null, false);
+        if (leftBoxes == null) {
+            return;
+        }
 
         Label border = new Label(tableContainer, SWT.BORDER);
         border.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WIDGET_DARK_SHADOW));
@@ -715,6 +718,9 @@ public class TableEditor extends Dialog {
         rightSC.setLayout(new GridLayout(1, false));
         //Use the right page table to create text boxes
         List<CellText> rightBoxes = createTexts(rightSC, rightRows, state.getCols() - ((InternalFacingTable) state).split, state.getRows(), new ArrayList<>(), null, false);
+        if (rightBoxes == null) {
+           return;
+        }
 
         rightBoxes.forEach((ct) -> ct.col = ct.col + ((InternalFacingTable) state).split);
 

@@ -22,8 +22,6 @@ import org.brailleblaster.settings.TableExceptions
 import org.brailleblaster.settings.TableExceptions.getCurrentExceptionFile
 import org.brailleblaster.tools.MenuToolListener
 import org.brailleblaster.utils.swt.EasySWT
-import org.brailleblaster.utils.swt.StyledTextBuilder
-import org.brailleblaster.utils.swt.TextBuilder
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.layout.GridLayout

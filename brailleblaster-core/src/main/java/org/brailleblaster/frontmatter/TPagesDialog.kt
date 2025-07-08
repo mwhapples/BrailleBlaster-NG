@@ -37,11 +37,11 @@ import org.brailleblaster.settings.UTDManager
 import org.brailleblaster.tools.DebugMenuToolListener
 import org.brailleblaster.utd.formatters.TPageFormatter
 import org.brailleblaster.utd.properties.EmphasisType
-import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.UTDHelper.Companion.stripUTDRecursive
 import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.utils.swt.MenuBuilder
 import org.brailleblaster.util.FormUIUtils
+import org.brailleblaster.utils.UTD_NS
 import org.brailleblaster.utils.gui.PickerDialog
 import org.brailleblaster.utils.swt.EasyListeners
 import org.brailleblaster.utils.swt.SubMenuBuilder
@@ -295,7 +295,7 @@ class TPagesDialog : DebugMenuToolListener {
                     //If element has TPageFormatter's centered attribute, it will be centered
                     return (titlePageCategory.parent as Element).getAttribute(
                         TPageFormatter.CENTERED_ATTR.localName,
-                        UTDElements.UTD_NAMESPACE
+                        UTD_NS
                     ) != null
                 }
             }
@@ -1146,7 +1146,7 @@ class TPagesDialog : DebugMenuToolListener {
             if (titlePageCentered) {
                 titlePageRoot.addAttribute(TPageFormatter.CENTERED_ATTR.copy())
             } else {
-                val attr = titlePageRoot.getAttribute(TPageFormatter.CENTERED_ATTR.localName, UTDElements.UTD_NAMESPACE)
+                val attr = titlePageRoot.getAttribute(TPageFormatter.CENTERED_ATTR.localName, UTD_NS)
                 if (attr != null) {
                     titlePageRoot.removeAttribute(attr)
                 }
