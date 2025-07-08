@@ -102,7 +102,7 @@ class WrapSelectionInTextSymbols(
         val newEnd = Text(this.end)
         Utils.insertChildCountSafe(parent, newEnd, index++)
         callback.wrap(newEnd)
-        Utils.insertChildCountSafe(parent, Text(endString), index++)
+        Utils.insertChildCountSafe(parent, Text(endString), index)
         start.node.detach()
     }
 
@@ -174,7 +174,7 @@ class WrapSelectionInTextSymbols(
         val newText = Text(if (end) this.end else this.start)
         Utils.insertChildCountSafe(parent, newText, index++)
         callback.wrap(newText)
-        Utils.insertChildCountSafe(parent, Text(endString), index++)
+        Utils.insertChildCountSafe(parent, Text(endString), index)
         start.node.detach()
     }
 
