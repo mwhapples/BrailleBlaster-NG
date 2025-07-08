@@ -23,14 +23,12 @@ import org.brailleblaster.utd.internal.elements.NewPage
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.tables.AutoTableFormatter
 import org.brailleblaster.utd.utils.PageBuilderHelper
-import org.brailleblaster.utd.utils.TableUtils
 import org.brailleblaster.utd.utils.UTDHelper
 import org.brailleblaster.utd.utils.dom.BoxUtils
 import org.brailleblaster.utils.SetList
 import org.brailleblaster.utils.toRepeatingLetters
 import org.slf4j.LoggerFactory
 import java.util.*
-import java.util.stream.Collectors
 
 class FormatSelector(styleMap: IStyleMap?, styleStack: StyleStack?, engine: ITranslationEngine) {
     @JvmField

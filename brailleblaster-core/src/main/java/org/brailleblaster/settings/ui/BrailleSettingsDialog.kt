@@ -16,7 +16,6 @@
 package org.brailleblaster.settings.ui
 
 import org.brailleblaster.BBIni
-import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.settings.UTDManager
 import org.brailleblaster.settings.UTDManager.Companion.userPageSettingsFile
@@ -27,11 +26,11 @@ import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.Notify
 import org.brailleblaster.util.Notify.notify
 import org.brailleblaster.util.Notify.showMessage
-import org.brailleblaster.utils.swt.EasySWT.addSwtBotKey
 import org.brailleblaster.util.WorkingDialog
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.swt.EasySWT.addSwtBotKey
 import org.eclipse.swt.SWT
 import org.eclipse.swt.events.TraverseEvent
-import org.eclipse.swt.events.TraverseListener
 import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.layout.RowLayout

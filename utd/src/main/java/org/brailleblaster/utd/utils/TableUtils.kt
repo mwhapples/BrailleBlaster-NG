@@ -230,11 +230,10 @@ object TableUtils {
             for (col in cols) {
                 columnNum++
                 columnElements.add(col)
-                var colBrl = ""
-                try {
-                    colBrl = col.getChild(1).getChild(0).value
+                val colBrl: String = try {
+                    col.getChild(1).getChild(0).value
                 }
-                catch (e: Exception) {
+                catch (_: Exception) {
                     // If the column doesn't have a braille element, skip it
                     continue
                 }
