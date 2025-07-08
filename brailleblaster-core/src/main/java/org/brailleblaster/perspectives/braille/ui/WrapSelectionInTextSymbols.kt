@@ -56,12 +56,10 @@ class WrapSelectionInTextSymbols(
         val endIsText = endNode is XMLTextCaret
         val startIsMath = MathModule.isMath(startNode.node)
         val endIsMath = MathModule.isMath(endNode.node)
-        val startIsElement = !startIsText && !startIsMath
-        val endIsElement = !endIsText && !endIsMath
         val singleNode = m.simpleManager.currentSelection.isSingleNode
-        if (startIsText && endIsText && singleNode) {
+        if (singleNode && startIsText && endIsText) {
             modifySameNodeText(startNode, endNode)
-        } else if (startIsMath && endIsMath && singleNode) {
+        } else if (singleNode && startIsMath && endIsMath) {
             modifySameNodeMath(startNode, endNode)
         } else {
             if (startIsMath) {
