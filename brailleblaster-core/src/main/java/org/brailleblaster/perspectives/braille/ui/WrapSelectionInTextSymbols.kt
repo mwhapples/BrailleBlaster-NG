@@ -111,7 +111,7 @@ class WrapSelectionInTextSymbols(
         val endText = Text(end)
         val parent = node.node.parent
         var index = parent.indexOf(node.node)
-        val parentBlock = BBXUtils.findBlock(node.node)
+        val parentBlock = BBXUtils.findBlockOrNull(node.node)
         if (parentBlock != null) {
             index = BBXUtils.getIndexInBlock(node.node)
             Utils.insertChildCountSafe(parentBlock, startText, index)
@@ -146,7 +146,7 @@ class WrapSelectionInTextSymbols(
         val newText = Text(if (end) this.end else start)
         val parent = node.node.parent
         var index = parent.indexOf(node.node) + if (end) 1 else 0
-        val parentBlock = BBXUtils.findBlock(node.node)
+        val parentBlock = BBXUtils.findBlockOrNull(node.node)
         if (parentBlock != null) {
             index = BBXUtils.getIndexInBlock(node.node) + if (end) 1 else 0
             Utils.insertChildCountSafe(parentBlock, newText, index)
