@@ -39,6 +39,7 @@ import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.Utils.runtimeToString
+import org.brailleblaster.utils.BB_NS
 import org.brailleblaster.utils.UTD_NS
 import org.brailleblaster.utils.swt.AccessibilityUtils.prependName
 import org.brailleblaster.utils.swt.EasySWT
@@ -94,7 +95,7 @@ class BreadcrumbsToolbar(private val manager: Manager) : SimpleListener {
         val caret = manager.simpleManager.currentCaret.node
 
         val ancestors = Lists.reverse(FastXPath.ancestor(caret).list())
-        if ((caret is Element) && caret.namespaceURI == BBX.BB_NAMESPACE) {
+        if ((caret is Element) && caret.namespaceURI == BB_NS) {
             ancestors.add(caret)
         }
         var running = false

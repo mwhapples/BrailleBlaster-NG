@@ -28,6 +28,7 @@ import org.brailleblaster.utd.Style
 import org.brailleblaster.utd.Style.StyleOption
 import org.brailleblaster.utd.config.StyleDefinitions
 import org.brailleblaster.utd.internal.DynamicOptionStyleMap
+import org.brailleblaster.utils.BB_NS
 import org.brailleblaster.utils.xom.attributes
 import java.util.function.Supplier
 import java.util.stream.Stream
@@ -40,7 +41,7 @@ class BBXDynamicOptionStyleMap(
     private val styleMap: Supplier<out IStyleMap?>
 ) : DynamicOptionStyleMap(
     BBX.BB_PREFIX,
-    BBX.BB_NAMESPACE,
+    BB_NS,
     OPTION_ATTRIB_PREFIX,
     UTDManager.DOCUMENT_STYLE_NAME_PREFIX,
     StylesBuilder.OPTIONS_CATEGORY_NAME
@@ -77,7 +78,7 @@ class BBXDynamicOptionStyleMap(
     }
 
     fun isStyleOptionAttrib(attrib: Attribute): Boolean {
-        return attrib.namespaceURI == BBX.BB_NAMESPACE && attrib.namespacePrefix == BBX.BB_PREFIX && optionAttribNames.containsKey(
+        return attrib.namespaceURI == BB_NS && attrib.namespacePrefix == BBX.BB_PREFIX && optionAttribNames.containsKey(
             attrib.localName
         )
     }
@@ -104,7 +105,7 @@ class BBXDynamicOptionStyleMap(
 
         fun setStyleOptionAttrib(element: Element, option: StyleOption, value: Any) {
             val attribName = styleOptionName(OPTION_ATTRIB_PREFIX, option)
-            element.addAttribute(Attribute("bb:$attribName", BBX.BB_NAMESPACE, value.toString()))
+            element.addAttribute(Attribute("bb:$attribName", BB_NS, value.toString()))
         }
     }
 }

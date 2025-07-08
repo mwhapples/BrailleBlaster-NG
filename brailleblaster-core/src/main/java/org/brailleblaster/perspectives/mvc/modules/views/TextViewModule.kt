@@ -35,6 +35,7 @@ import org.brailleblaster.perspectives.mvc.events.XMLCaretEvent
 import org.brailleblaster.utd.exceptions.NodeException
 import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
+import org.brailleblaster.utils.BB_NS
 import org.brailleblaster.utils.UTD_NS
 import org.eclipse.swt.custom.StyledText
 import org.slf4j.LoggerFactory
@@ -242,7 +243,7 @@ class TextViewModule(private val manager: Manager) : AbstractModule(), SimpleLis
                     return curTME
                 }
             }
-        } else if (node is Element && node.namespaceURI != BBX.BB_NAMESPACE) {
+        } else if (node is Element && node.namespaceURI != BB_NS) {
             // Accept utd linebreak elements
             return getTMEOfElement(node)
         }

@@ -36,7 +36,6 @@ import org.brailleblaster.utd.exceptions.NodeException;
 import org.brailleblaster.utd.internal.xml.FastXPath;
 import org.brailleblaster.utd.internal.xml.XMLHandler;
 import org.brailleblaster.utd.properties.EmphasisType;
-import org.brailleblaster.utd.properties.UTDElements;
 import org.brailleblaster.utd.utils.UTDHelper;
 import org.brailleblaster.utils.NamespacesKt;
 import org.hamcrest.Matcher;
@@ -385,7 +384,7 @@ public class XMLElementAssert {
 
     public XMLElementAssert hasBBNamespaceAttribute(String attribName, String expectedValue) {
         assertEquals(
-                elem.getAttributeValue(attribName, BBX.BB_NAMESPACE),
+                elem.getAttributeValue(attribName, NamespacesKt.BB_NS),
                 expectedValue,
                 "Attrib " + attribName + " value doesn't match expected"
         );

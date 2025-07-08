@@ -82,7 +82,7 @@ class FormatSelector(styleMap: IStyleMap?, styleStack: StyleStack?, engine: ITra
             if (!PageBuilderHelper.isSkipLinesNode(node)) {
                 val action = node.getAttributeValue("utd-action")
                 val action2 =
-                    node.getAttributeValue("overrideAction", "http://brailleblaster.org/ns/utd")
+                    node.getAttributeValue("overrideAction", UTD_NS)
                 if (action != null && action == "SkipAction" || action2 != null && action2 == "SkipAction") {
                     return true
                 }
