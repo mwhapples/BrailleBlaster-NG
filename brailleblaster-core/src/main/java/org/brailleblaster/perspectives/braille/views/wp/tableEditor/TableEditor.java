@@ -15,6 +15,7 @@
  */
 package org.brailleblaster.perspectives.braille.views.wp.tableEditor;
 
+import kotlin.Pair;
 import net.miginfocom.swt.MigLayout;
 import nu.xom.*;
 import org.apache.commons.lang3.StringUtils;
@@ -132,7 +133,7 @@ public class TableEditor extends Dialog {
         public void open(Shell parent, Element table, int columns, List<TableUtils.SimpleTableOptions> options, UTDManager m) {
             int pageWidth =
                     m.getEngine().getBrailleSettings().getCellType().getCellsForWidth(
-                        BigDecimal.valueOf(m.getEngine().getPageSettings().getDrawableWidth()));
+                            BigDecimal.valueOf(m.getEngine().getPageSettings().getDrawableWidth()));
 
             Shell dialog = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
             dialog.setText("Simple Table Options");
@@ -719,7 +720,7 @@ public class TableEditor extends Dialog {
         //Use the right page table to create text boxes
         List<CellText> rightBoxes = createTexts(rightSC, rightRows, state.getCols() - ((InternalFacingTable) state).split, state.getRows(), new ArrayList<>(), null, false);
         if (rightBoxes == null) {
-           return;
+            return;
         }
 
         rightBoxes.forEach((ct) -> ct.col = ct.col + ((InternalFacingTable) state).split);
@@ -1151,8 +1152,7 @@ public class TableEditor extends Dialog {
                     if (i + 1 < containerCopy.getChildCount()) {
                         try {
                             newText.text.setXML((Element) containerCopy.getChild(i + 1));
-                        }
-                        catch (NodeException ne){
+                        } catch (NodeException ne) {
                             Notify.showMessage("Error setting TN text. Table may be too long:\n" + ne.getMessage());
                             closeShell();
                             return null;
@@ -1486,7 +1486,7 @@ public class TableEditor extends Dialog {
                 for (int i = 0; i < firstRow.size(); i++) {
                     int margin = (i * 2) + 1;
                     //TODO: This can create styles that go out of range if they get big enough; max allowed is 11-11; indent level 10
-                    if (margin > 10){
+                    if (margin > 10) {
                         Notify.showMessage("Cannot add transcriber notes to a stairstep table of this size.");
                         closeShell();
                         return null;
@@ -1764,12 +1764,11 @@ public class TableEditor extends Dialog {
                 styles.stream().map(s -> new String[]{banaStyles.get(s.getName())}).collect(Collectors.toList());
         //Really wish they were sorted. Comparators aren't cooperating though.
         List<Style> newStyles = new ArrayList<>();
-        Integer shellX = null;
-        Integer shellY = null;
+        Pair<Integer, Integer> shellLoc = null;
 
         for (CellText text : textBoxes) {
             PickerDialog pd = new PickerDialog();
-            pd.setHeadings(new String[] {"Style"});
+            pd.setHeadings(new String[]{"Style"});
             pd.setContents(styleNames);
             pd.setMessage("Select the style for cell:\n\n" + StringUtils.abbreviate(text.getWidget().getText(), 100));
             final Shell pdShell = pd.open(shell, (i) -> {
@@ -1779,11 +1778,10 @@ public class TableEditor extends Dialog {
                     newStyles.add(null);
                 }
             });
-            if (shellX == null && shellY == null) {
-                shellX = pdShell.getLocation().x;
-                shellY = pdShell.getLocation().y;
+            if (shellLoc == null) {
+                shellLoc = new Pair<>(pdShell.getLocation().x, pdShell.getLocation().y);
             } else {
-                pdShell.setLocation(shellX, shellY);
+                pdShell.setLocation(shellLoc.getFirst(), shellLoc.getSecond());
             }
 
             while (!pdShell.isDisposed()) {
@@ -1846,7 +1844,7 @@ public class TableEditor extends Dialog {
                 styles.stream().map(s -> new String[]{banaStyles.get(s.getName())}).collect(Collectors.toList());
 
         PickerDialog pd = new PickerDialog();
-        pd.setHeadings(new String[] {"Style"});
+        pd.setHeadings(new String[]{"Style"});
         pd.setContents(styleNames);
         pd.setMessage("Select the style that should be applied to each table cell:");
         pd.open(shell, (i) -> {
