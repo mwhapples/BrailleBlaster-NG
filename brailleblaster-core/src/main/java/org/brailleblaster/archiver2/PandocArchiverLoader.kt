@@ -15,7 +15,6 @@
  */
 package org.brailleblaster.archiver2
 
-import com.google.common.collect.ImmutableMap
 import org.brailleblaster.BBIni
 import org.brailleblaster.pandoc.FixImage
 import org.brailleblaster.pandoc.FixMathML
@@ -58,19 +57,16 @@ object PandocArchiverLoader : ArchiverFactory.FileLoader {
         return archiver
     }
 
-    override val extensionsAndDescription: ImmutableMap<String, String>
-        get() {
-            return ImmutableMap.Builder<String, String>()
-                .put("*.docx", "Microsoft Word Files (*.docx)")
-                .put("*.epub", "Epub Books (*.epub)")
-                .put("*.htm", "HTML Files (*.htm)")
-                .put("*.html", "HTML Files (*.html)")
-                .put("*.xhtml;*.xhtm;*.xht", "XHTML Files (*.xhtml;*.xhtm;*.xht)")
-                .put("*.md", "Markdown Files (*.md)")
-                .put("*.odt", "Open Document Files (*.odt)")
-                .put("*.tex", "LaTeX files (*.tex)")
-                .build()
-        }
+    override val extensionsAndDescription: Map<String, String> = mapOf(
+        "*.docx" to "Microsoft Word Files (*.docx)",
+        "*.epub" to "Epub Books (*.epub)",
+        "*.htm" to "HTML Files (*.htm)",
+        "*.html" to "HTML Files (*.html)",
+        "*.xhtml;*.xhtm;*.xht" to "XHTML Files (*.xhtml;*.xhtm;*.xht)",
+        "*.md" to "Markdown Files (*.md)",
+        "*.odt" to "Open Document Files (*.odt)",
+        "*.tex" to "LaTeX files (*.tex)"
+    )
 
     @Throws(Exception::class)
     private fun pandocImport(filename: String, fromFormat: String?): Pair<String, String> {

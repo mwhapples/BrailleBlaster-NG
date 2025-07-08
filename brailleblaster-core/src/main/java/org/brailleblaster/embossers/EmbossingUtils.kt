@@ -25,13 +25,14 @@ import org.brailleblaster.libembosser.embossing.attribute.*
 import org.brailleblaster.libembosser.embossing.attribute.PaperSize
 import org.brailleblaster.libembosser.spi.*
 import org.brailleblaster.libembosser.spi.Notification.NotificationType
-import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.utd.ITranslationEngine
 import org.brailleblaster.utd.UTDTranslationEngine
-import org.brailleblaster.utd.utils.BBX2PEFConverter
+import org.brailleblaster.utd.utils.ALL_VOLUMES
+import org.brailleblaster.utd.utils.convertBBX2PEF
 import org.brailleblaster.util.Notify
-import org.brailleblaster.utils.PageFilterInputStream
 import org.brailleblaster.utils.LengthUtils.toLengthBigDecimal
+import org.brailleblaster.utils.PageFilterInputStream
+import org.brailleblaster.utils.localization.LocaleHandler
 import org.eclipse.jface.dialogs.MessageDialog
 import org.eclipse.jface.window.Window
 import org.eclipse.swt.SWT
@@ -53,9 +54,6 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 import javax.print.PrintService
 import javax.print.StreamPrintServiceFactory
-import kotlin.collections.component1
-import kotlin.collections.component2
-import kotlin.collections.set
 
 object EmbossingUtils {
   private const val EMBOSSER_OUTPUT_ENTRY = "embosser_output.dat"
@@ -130,8 +128,8 @@ object EmbossingUtils {
       attributes.add(BrailleCellType(BrlCell.NLS))
       val pages = if (scope == PrinterData.PAGE_RANGE) PageRanges(start, end) else PageRanges()
       attributes.add(pages)
-      val pef = BBX2PEFConverter.convertBBX2PEF(
-        document.doc, "EmbossJob", engine, BBX2PEFConverter.ALL_VOLUMES
+      val pef = convertBBX2PEF(
+        document.doc, "EmbossJob", engine, ALL_VOLUMES
       )
       if (embosser.isCreateDebugFile) {
         val funcBuilder = ImmutableMap.Builder<String, OutputToStreamFunction>()

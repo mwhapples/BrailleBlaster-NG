@@ -95,18 +95,30 @@ class TextRenderer(manager: Manager, private val textView: TextView) : Renderer(
         val n = t.node
         var brl = getBrlNode(n)
         if (brl == null) {
-            brl = if (t is BoxLineTextMapElement && UTDElements.BRL.isA(t.node)) {
-                t.node as Element
-            } else if (t is GuideDotsTextMapElement && UTDElements.BRLONLY.isA(t.node)) {
-                t.getNodeParent()
-            } else if (t is MathMLElement) {
-                MathModule.getBrl(n) as Element
-            } else if (t is PageIndicatorTextMapElement) {
-                t.node.childNodes.filterIsInstance<Element>().first { UTDElements.BRL.isA(it) }
-            } else if (t is UncontractedWordTextMapElement && UTDElements.BRLONLY.isA(t.node)) {
-                t.getNodeParent()
-            } else {
-                throw NullPointerException("No brl found")
+            brl = when (t) {
+                is BoxLineTextMapElement if UTDElements.BRL.isA(t.node) -> {
+                    t.node as Element
+                }
+
+                is GuideDotsTextMapElement if UTDElements.BRLONLY.isA(t.node) -> {
+                    t.getNodeParent()
+                }
+
+                is MathMLElement -> {
+                    MathModule.getBrl(n) as Element
+                }
+
+                is PageIndicatorTextMapElement -> {
+                    t.node.childNodes.filterIsInstance<Element>().first { UTDElements.BRL.isA(it) }
+                }
+
+                is UncontractedWordTextMapElement if UTDElements.BRLONLY.isA(t.node) -> {
+                    t.getNodeParent()
+                }
+
+                else -> {
+                    throw NullPointerException("No brl found")
+                }
             }
         }
         brl?.let { renderBrailleList(t, it, list) }

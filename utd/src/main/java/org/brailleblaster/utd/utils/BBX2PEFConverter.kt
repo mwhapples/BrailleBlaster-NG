@@ -16,16 +16,14 @@
 package org.brailleblaster.utd.utils
 
 import com.google.common.base.Preconditions
-import com.google.common.base.Strings
 import com.google.common.io.BaseEncoding
 import nu.xom.Text
+import org.brailleblaster.libembosser.spi.BrlCell
 import org.brailleblaster.libembosser.utils.BrailleMapper
 import org.brailleblaster.libembosser.utils.xml.DocumentUtils
 import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.properties.UTDElements.Companion.findType
-import org.brailleblaster.libembosser.spi.BrlCell
-import org.brailleblaster.utils.BBData
 import org.brailleblaster.utils.xom.DocumentTraversal
 import org.w3c.dom.Document
 import org.w3c.dom.Element
@@ -53,19 +51,29 @@ import javax.xml.xpath.XPathFactory
 import kotlin.math.max
 import kotlin.math.min
 
-class BBX2PEFConverter : DocumentTraversal() {
-    var paperHeight = 0.0
-        private set
-    var paperWidth = 0.0
-        private set
-    var leftMargin = 0.0
-        private set
-    var rightMargin = 0.0
-        private set
-    var topMargin = 0.0
-        private set
-    var bottomMargin = 0.0
-        private set
+private const val BB_NAMESPACE = "http://brailleblaster.org/ns/bb"
+private const val DIMENSION_TEMPLATE = "%.1fmm"
+@JvmField
+val ALL_VOLUMES = IntPredicate { true }
+
+class BBX2PEFConverter(
+    rows: Int = 25,
+    cols: Int = 40,
+    val paperHeight: Double = 0.0,
+    val paperWidth: Double = 0.0,
+    val leftMargin: Double = 0.0,
+    val rightMargin: Double = 0.0,
+    val topMargin: Double = 0.0,
+    val bottomMargin: Double = 0.0,
+    /**
+     * The default duplex mode used by the converter.
+     *
+     * When performing a conversion, unless the document contains an instruction otherwise, the
+     * default duplex mode will be used in the PEF document.
+     */
+    val isDuplex: Boolean = false, var defaultIdentifier: String = "TempID",
+    val volumeFilter: IntPredicate = ALL_VOLUMES
+) : DocumentTraversal.Handler {
 
     class ListBackedNodeList(private val nodes: List<Node> = emptyList()) : NodeList {
 
@@ -91,40 +99,25 @@ class BBX2PEFConverter : DocumentTraversal() {
     }
 
     private var docBuilder: DocumentBuilder? = null
-    private var pefDoc: Document? = null
+    private var _pefDoc: Document? = null
     private var imagesElement: Element? = null
         get() {
             if (field == null) {
-                field = pefDoc!!.createElementNS(PEFNamespaceContext.TG_NAMESPACE, "tg:images")
-                pefDoc!!.documentElement.appendChild(field)
+                field = _pefDoc!!.createElementNS(PEFNamespaceContext.TG_NAMESPACE, "tg:images")
+                _pefDoc!!.documentElement.appendChild(field)
             }
             return field
         }
-    var defaultIdentifier = "TempID"
-    var volumeFilter: IntPredicate = ALL_VOLUMES
     private var volumeCounter = 0
     private var includeVolume = false
-    /**
-     * The converter's default duplex mode.
-     *
-     * @return The duplex mode the converter sets by default.
-     */
-    /**
-     * Set the default duplex mode used by the converter.
-     *
-     *
-     * When performing a conversion, unless the document contains an instruction otherwise, the
-     * default duplex mode will be used in the PEF document.
-     */
-    var isDuplex = false
     private var cursorX = 0
     private var cursorY = 0
-    private var pageGrid: Array<CharArray>? = Array(25) { CharArray(40) }
+    private var pageGrid: Array<CharArray> = Array(rows) { CharArray(cols) }
     private val graphics: MutableList<Graphic> = mutableListOf()
     private var imageCounter = 0
 
     /**
-     * Number of new pages to supress
+     * Number of new pages to suppress
      *
      *
      * There are cases where new pages may have been handled before the utd:newPage element is
@@ -151,7 +144,7 @@ class BBX2PEFConverter : DocumentTraversal() {
         docBuilder = try {
             dbf.newDocumentBuilder()
         } catch (e: ParserConfigurationException) {
-            throw UnsupportedOperationException("No suitable XML DOM implementations.")
+            throw UnsupportedOperationException("No suitable XML DOM implementations.", e)
         }
         val xpath = XPathFactory.newInstance().newXPath()
         xpath.namespaceContext = PEFNamespaceContext()
@@ -162,30 +155,30 @@ class BBX2PEFConverter : DocumentTraversal() {
             findRelativeSections = xpath.compile("./pef:section")
             findRelativePages = xpath.compile("./pef:page")
         } catch (e: XPathExpressionException) {
-            throw UnsupportedOperationException("Unable to create some required XPath expressions")
+            throw UnsupportedOperationException("Unable to create some required XPath expressions", e)
         }
     }
 
     val rows: Int
-        get() = pageGrid!!.size
+        get() = pageGrid.size
     val cols: Int
-        get() = if (rows > 0) pageGrid!![0].size else 0
+        get() = if (rows > 0) pageGrid[0].size else 0
 
     fun setPageSize(rows: Int, cols: Int) {
         pageGrid = Array(rows) { CharArray(cols) }
     }
 
-    val pEFDoc: Document
+    val pefDoc: Document
         /**
          * Get the PEF document created by the last conversion.
          *
          * @return The PEF document.
          */
         get() {
-            return pefDoc ?: throw NoSuchElementException("No BBX has been converted")
+            return _pefDoc ?: throw NoSuchElementException("No BBX has been converted")
         }
 
-    public override fun onStartElement(e: nu.xom.Element): Boolean {
+    override fun onStartElement(e: nu.xom.Element): Boolean {
         var descend = true
         if (UTDElements.BRL.isA(e)) {
             // Only process BRL elements when volume is to be included
@@ -193,13 +186,13 @@ class BBX2PEFConverter : DocumentTraversal() {
                 processBrl(e)
             }
             descend = false
-        } else if ("http://brailleblaster.org/ns/bb" == e.namespaceURI && "head" == e.localName) {
+        } else if (BB_NAMESPACE == e.namespaceURI && "head" == e.localName) {
             processHeadElement(e)
             descend = false
-        } else if ("http://brailleblaster.org/ns/bb".contentEquals(e.namespaceURI)
+        } else if (BB_NAMESPACE.contentEquals(e.namespaceURI)
             && "BLOCK".contentEquals(e.localName)
         ) {
-            if ("IMAGE_PLACEHOLDER".contentEquals(e.getAttributeValue("type", "http://brailleblaster.org/ns/bb")) && includeVolume) {
+            if ("IMAGE_PLACEHOLDER".contentEquals(e.getAttributeValue("type", BB_NAMESPACE)) && includeVolume) {
                 processImagePlaceHolder(e)
                 descend = false
             }
@@ -207,10 +200,10 @@ class BBX2PEFConverter : DocumentTraversal() {
         return descend
     }
 
-    public override fun onEndElement(e: nu.xom.Element) {
-        if ("http://brailleblaster.org/ns/bb" == e.namespaceURI && "CONTAINER" == e.localName && "VOLUME" == e.getAttributeValue(
+    override fun onEndElement(e: nu.xom.Element) {
+        if (BB_NAMESPACE == e.namespaceURI && "CONTAINER" == e.localName && "VOLUME" == e.getAttributeValue(
                 "type",
-                "http://brailleblaster.org/ns/bb"
+                BB_NAMESPACE
             )
         ) {
             endVolume()
@@ -218,20 +211,20 @@ class BBX2PEFConverter : DocumentTraversal() {
         }
     }
 
-    public override fun onStartDocument(d: nu.xom.Document) {
+    override fun onStartDocument(d: nu.xom.Document) {
         // Start volumeCount at 0 as volume indexes start at 0.
         volumeCounter = 0
         imageCounter = 0
         suppressNewPages = 0
         includeVolume = volumeFilter.test(volumeCounter)
         // Now initialise the PEF document.
-        pefDoc = docBuilder!!.newDocument()
-        val rootElement = pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "pef")
+        _pefDoc = docBuilder!!.newDocument()
+        val rootElement = _pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "pef")
         rootElement.setAttribute("version", "2008-1")
-        pefDoc!!.appendChild(rootElement)
-        val headElement = pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "head")
+        _pefDoc!!.appendChild(rootElement)
+        val headElement = _pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "head")
         rootElement.appendChild(headElement)
-        metaElement = pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "meta").apply {
+        metaElement = _pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "meta").apply {
             setAttributeNS(
                 XMLConstants.XMLNS_ATTRIBUTE_NS_URI, "xmlns:dc", PEFNamespaceContext.DC_NAMESPACE
             )
@@ -240,34 +233,34 @@ class BBX2PEFConverter : DocumentTraversal() {
             )
         }
         headElement.appendChild(metaElement)
-        bodyElement = pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "body")
+        bodyElement = _pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "body")
         rootElement.appendChild(bodyElement)
     }
 
-    public override fun onEndDocument(d: nu.xom.Document) {
+    override fun onEndDocument(d: nu.xom.Document) {
         // When document ends then the volume must end
         endVolume()
         // Make sure the DOM complies with the minimum PEF requirements
         try {
-            val formatList = findDCFormat!!.evaluate(pefDoc, XPathConstants.NODESET) as NodeList
+            val formatList = findDCFormat!!.evaluate(_pefDoc, XPathConstants.NODESET) as NodeList
             if (formatList.length != 1) {
                 for (i in 0 until formatList.length) {
                     val n = formatList.item(i)
                     metaElement!!.removeChild(n)
                 }
-                val formatElement = pefDoc!!.createElementNS(PEFNamespaceContext.DC_NAMESPACE, "dc:format")
+                val formatElement = _pefDoc!!.createElementNS(PEFNamespaceContext.DC_NAMESPACE, "dc:format")
                 formatElement.textContent = "application/x-pef+xml"
                 metaElement!!.appendChild(formatElement)
             } else if ("application/x-pef+xml" == formatList.item(0).textContent) {
                 formatList.item(0).textContent = "application/x-pef+xml"
             }
-        } catch (e: XPathExpressionException) {
-            val formatElement = pefDoc!!.createElementNS(PEFNamespaceContext.DC_NAMESPACE, "dc:format")
+        } catch (_: XPathExpressionException) {
+            val formatElement = _pefDoc!!.createElementNS(PEFNamespaceContext.DC_NAMESPACE, "dc:format")
             formatElement.textContent = "application/x-pef+xml"
             metaElement!!.appendChild(formatElement)
         }
         try {
-            val identifierList = findDCIdentifier!!.evaluate(pefDoc, XPathConstants.NODESET) as NodeList
+            val identifierList = findDCIdentifier!!.evaluate(_pefDoc, XPathConstants.NODESET) as NodeList
             if (identifierList.length > 1) {
                 // Only keep the first identifier
                 for (i in 0 until identifierList.length) {
@@ -275,17 +268,17 @@ class BBX2PEFConverter : DocumentTraversal() {
                     metaElement!!.removeChild(n)
                 }
             } else if (identifierList.length < 1) {
-                val identifier: Node = pefDoc!!.createElementNS(PEFNamespaceContext.DC_NAMESPACE, "dc:identifier")
+                val identifier: Node = _pefDoc!!.createElementNS(PEFNamespaceContext.DC_NAMESPACE, "dc:identifier")
                 identifier.textContent = defaultIdentifier
                 metaElement!!.appendChild(identifier)
             }
-        } catch (e: XPathExpressionException) {
-            val identifier: Node = pefDoc!!.createElementNS(PEFNamespaceContext.DC_NAMESPACE, "dc:identifier")
+        } catch (_: XPathExpressionException) {
+            val identifier: Node = _pefDoc!!.createElementNS(PEFNamespaceContext.DC_NAMESPACE, "dc:identifier")
             identifier.textContent = defaultIdentifier
             metaElement!!.appendChild(identifier)
         }
         try {
-            var vols = findVolumes!!.evaluate(pefDoc, XPathConstants.NODESET) as NodeList
+            var vols = findVolumes!!.evaluate(_pefDoc, XPathConstants.NODESET) as NodeList
             if (vols.length == 0) {
                 val newVol = createVolumeElement()
                 bodyElement!!.appendChild(newVol)
@@ -307,7 +300,7 @@ class BBX2PEFConverter : DocumentTraversal() {
                     }
                 }
             }
-        } catch (e: XPathExpressionException) {
+        } catch (_: XPathExpressionException) {
             // We will assume there was no suitable nodes so we create an empty volume to ensure validity
             val vol = createVolumeElement()
             bodyElement!!.appendChild(vol)
@@ -319,15 +312,15 @@ class BBX2PEFConverter : DocumentTraversal() {
     }
 
     private fun createPageElement(): Element {
-        return pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "page")
+        return _pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "page")
     }
 
     private fun createSectionElement(): Element {
-        return pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "section")
+        return _pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "section")
     }
 
     private fun createVolumeElement(): Element {
-        val newVol = pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "volume")
+        val newVol = _pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "volume")
         newVol.setAttribute("duplex", isDuplex.toString())
         newVol.setAttribute("rowgap", 0.toString())
         newVol.setAttribute("rows", rows.toString())
@@ -369,7 +362,7 @@ class BBX2PEFConverter : DocumentTraversal() {
             startSection()
         }
         // Blank the page grid using \u2800 empty Braille cell
-        for (row in pageGrid!!) {
+        for (row in pageGrid) {
             Arrays.fill(row, '\u2800')
         }
         graphics.clear()
@@ -388,10 +381,10 @@ class BBX2PEFConverter : DocumentTraversal() {
         get() = if (graphicElement == null) curPageElement else graphicElement
 
     private fun endPage() {
-        if (curPageElement != null && pageGrid != null) {
+        if (curPageElement != null) {
             var lastNonBlankLine = -1
             graphicElement = null
-            for (i in pageGrid!!.indices) {
+            for (i in pageGrid.indices) {
                 // required so it can be used in lambdas.
                 var graphic = graphics.firstOrNull { it.topLine == i }
                 if (graphic != null) {
@@ -400,12 +393,12 @@ class BBX2PEFConverter : DocumentTraversal() {
                     curPageElement!!.appendChild(graphicElement)
                     lastNonBlankLine = i - 1
                 }
-                val curLine = getTrimmedLine(pageGrid!![i])
-                if (!Strings.isNullOrEmpty(curLine)) {
+                val curLine = getTrimmedLine(pageGrid[i])
+                if (curLine.isNotEmpty()) {
                     // Insert the blank lines which come before this line
                     insertBlankLines(lastNonBlankLine, i)
                     val row =
-                        pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "row")
+                        _pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "row")
                     row.textContent = curLine
                     curPageElement!!.appendChild(row)
                     lastNonBlankLine = i
@@ -425,14 +418,14 @@ class BBX2PEFConverter : DocumentTraversal() {
     }
 
     private fun insertBlankLines(lastNonBlankLine: Int, i: Int) {
-        for (lineCounter in lastNonBlankLine + 1 until i) {
+        repeat(i - lastNonBlankLine - 1) {
             insertionElement!!
-                .appendChild(pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "row"))
+                .appendChild(_pefDoc!!.createElementNS(PEFNamespaceContext.PEF_NAMESPACE, "row"))
         }
     }
 
     private fun createGraphicElement(graphic: Graphic, lineLength: Int): Element {
-        val gElem = pefDoc!!.createElementNS(PEFNamespaceContext.TG_NAMESPACE, "tg:graphic")
+        val gElem = _pefDoc!!.createElementNS(PEFNamespaceContext.TG_NAMESPACE, "tg:graphic")
         gElem.setAttribute("height", (graphic.bottomLine + 1 - graphic.topLine).toString())
         gElem.setAttribute("width", lineLength.toString())
         if (graphic.image != null) {
@@ -447,14 +440,14 @@ class BBX2PEFConverter : DocumentTraversal() {
             ByteArrayOutputStream().use { output ->
                 ImageIO.write(img, "png", output)
                 val imageData = BaseEncoding.base64().encode(output.toByteArray())
-                val imageElement = pefDoc!!.createElementNS(PEFNamespaceContext.TG_NAMESPACE, "tg:imageData")
+                val imageElement = _pefDoc!!.createElementNS(PEFNamespaceContext.TG_NAMESPACE, "tg:imageData")
                 imageElement.setAttribute("format", "image/png")
                 imageElement.setAttribute("encoding", "base64")
                 imageElement.textContent = imageData
                 imageElement.setAttribute("id", imageId)
                 imagesElement!!.appendChild(imageElement)
             }
-        } catch (e: IOException) {
+        } catch (_: IOException) {
             // Cannot do anything
         }
     }
@@ -502,7 +495,7 @@ class BBX2PEFConverter : DocumentTraversal() {
     }
 
     private fun addMetaItem(namespaceUri: String, name: String, value: String) {
-        val element = pefDoc!!.createElementNS(namespaceUri, name)
+        val element = _pefDoc!!.createElementNS(namespaceUri, name)
         element.textContent = value
         metaElement!!.appendChild(element)
     }
@@ -555,7 +548,7 @@ class BBX2PEFConverter : DocumentTraversal() {
             return
         }
         suppressNewPages = e.getAttributeValue("newPages", UTDElements.UTD_NAMESPACE)?.toIntOrNull() ?: 0
-        for (i in 0 until suppressNewPages) {
+        repeat(suppressNewPages) {
             endPage()
             startPage()
         }
@@ -565,7 +558,7 @@ class BBX2PEFConverter : DocumentTraversal() {
             cursorX = 0
         }
         // Check there is enough space on the page, start a new one as appropriate.
-        if (cursorY + imageHeight >= pageGrid!!.size) {
+        if (cursorY + imageHeight >= pageGrid.size) {
             endPage()
             startPage()
         }
@@ -574,13 +567,13 @@ class BBX2PEFConverter : DocumentTraversal() {
         val graphic = Graphic(imageCounter++, image, cursorY, endLine)
         graphics.add(graphic)
         cursorY = endLine
-        cursorX = pageGrid!![endLine].size
+        cursorX = pageGrid[endLine].size
     }
 
     private fun loadImage(imgSrc: String): BufferedImage? {
         val imageUri: URI = try {
             URI(imgSrc)
-        } catch (e1: URISyntaxException) {
+        } catch (_: URISyntaxException) {
             File(imgSrc).toURI()
         }
         return if ("file" == imageUri.scheme) {
@@ -593,7 +586,7 @@ class BBX2PEFConverter : DocumentTraversal() {
     private fun loadImageFile(imgFile: File): BufferedImage? {
         return try {
             ImageIO.read(imgFile)
-        } catch (e: IOException) {
+        } catch (_: IOException) {
             null
         }
     }
@@ -626,7 +619,7 @@ class BBX2PEFConverter : DocumentTraversal() {
         // Convert text to Unicode Braille
         val unicodeBrl = BrailleMapper.ASCII_TO_UNICODE_FAST.map(text)
         // Only copy the cells which fit on the remaining line
-        unicodeBrl.toCharArray(pageGrid!![cursorY], cursorX, 0, insertEnd)
+        unicodeBrl.toCharArray(pageGrid[cursorY], cursorX, 0, insertEnd)
         cursorX += insertEnd
         // Now check that any uncopied cells are either whitespace or empty Braille cells
         for (i in insertEnd until unicodeBrl.length) {
@@ -660,57 +653,53 @@ class BBX2PEFConverter : DocumentTraversal() {
         }
         return sb.toString()
     }
+}
 
-    companion object {
-        private const val DIMENSION_TEMPLATE = "%.1fmm"
-        @JvmField
-        val ALL_VOLUMES = IntPredicate { true }
-
-        @JvmStatic
-        fun convertBBX2PEF(
-            doc: nu.xom.Document?,
-            defaultIdentifier: String,
-            engine: UTDTranslationEngine,
-            volumeFilter: IntPredicate,
-            out: OutputStream?
-        ) {
-            val result = convertBBX2PEF(doc, defaultIdentifier, engine, volumeFilter)
-            DocumentUtils.prettyPrintDOM(result, out)
-        }
-
-        /**
-         * Helper method for converting BBX to PEF in one function call.
-         *
-         * @param doc The XOM Document object representing the BBX document.
-         * @param defaultIdentifier The default identifier to be used, if not actually contained in the
-         * XML document.
-         * @param engine The UTDTranslationEngine containing the document settings.
-         * @param volumeFilter A filter function for which volumes to include.
-         * @return The PEF document object.
-         */
-        fun convertBBX2PEF(
-            doc: nu.xom.Document?,
-            defaultIdentifier: String,
-            engine: UTDTranslationEngine,
-            volumeFilter: IntPredicate
-        ): Document {
-            val converter = BBX2PEFConverter()
-            val brlCellType = engine.brailleSettings.cellType
-            val pageSettings = engine.pageSettings
-            converter.paperHeight = pageSettings.paperHeight
-            converter.paperWidth = pageSettings.paperWidth
-            converter.leftMargin = pageSettings.leftMargin
-            converter.rightMargin = pageSettings.rightMargin
-            converter.topMargin = pageSettings.topMargin
-            converter.bottomMargin = pageSettings.bottomMargin
-            val cols = brlCellType.getCellsForWidth(pageSettings.drawableWidth.toBigDecimal())
-            val rows = brlCellType.getLinesForHeight(pageSettings.drawableHeight.toBigDecimal())
-            converter.defaultIdentifier = defaultIdentifier
-            converter.setPageSize(rows, cols)
-            converter.isDuplex = pageSettings.interpoint
-            converter.volumeFilter = volumeFilter
-            converter.traverseDocument(doc!!)
-            return converter.pEFDoc
-        }
+/**
+ * Helper method for converting BBX to PEF in one function call.
+ *
+ * @param doc The XOM Document object representing the BBX document.
+ * @param defaultIdentifier The default identifier to be used, if not actually contained in the
+ * XML document.
+ * @param engine The UTDTranslationEngine containing the document settings.
+ * @param volumeFilter A filter function for which volumes to include.
+ * @return The PEF document object.
+ */
+fun convertBBX2PEF(
+    doc: nu.xom.Document,
+    defaultIdentifier: String,
+    engine: UTDTranslationEngine,
+    volumeFilter: IntPredicate
+): Document {
+    val pageSettings = engine.pageSettings
+    val brlCellType = engine.brailleSettings.cellType
+    val cols = brlCellType.getCellsForWidth(pageSettings.drawableWidth.toBigDecimal())
+    val rows = brlCellType.getLinesForHeight(pageSettings.drawableHeight.toBigDecimal())
+    return BBX2PEFConverter(
+        rows = rows,
+        cols = cols,
+        paperHeight = pageSettings.paperHeight,
+        paperWidth = pageSettings.paperWidth,
+        leftMargin = pageSettings.leftMargin,
+        rightMargin = pageSettings.rightMargin,
+        topMargin = pageSettings.topMargin,
+        bottomMargin = pageSettings.bottomMargin,
+        isDuplex = pageSettings.interpoint,
+        defaultIdentifier = defaultIdentifier,
+        volumeFilter = volumeFilter
+    ).let {
+        DocumentTraversal.traverseDocument(doc, it)
+        it.pefDoc
     }
+}
+
+fun convertBBX2PEF(
+    doc: nu.xom.Document,
+    defaultIdentifier: String,
+    engine: UTDTranslationEngine,
+    volumeFilter: IntPredicate,
+    out: OutputStream?
+) {
+    val result = convertBBX2PEF(doc, defaultIdentifier, engine, volumeFilter)
+    DocumentUtils.prettyPrintDOM(result, out)
 }

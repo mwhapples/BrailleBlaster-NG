@@ -15,12 +15,9 @@
  */
 package org.brailleblaster.frontmatter
 
-import com.google.common.collect.Iterables
 import com.google.common.collect.Iterators
 import com.google.common.collect.PeekingIterator
-import com.google.common.collect.Streams
 import nu.xom.*
-import org.apache.commons.lang3.StringUtils
 import org.brailleblaster.BBIni.debugging
 import org.brailleblaster.BBIni.propertyFileManager
 import org.brailleblaster.abstractClasses.BBEditorView
@@ -809,11 +806,9 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
             return
         }
 
-        lastTextNode = Streams.findLast(FastXPath.descendant(block)
-            .stream()
-            .filter { node: Node? -> node is nu.xom.Text }
-            .filter { node: Node? -> !BBXUtils.isPageNumAncestor(node) })
-            .orElse(null) as nu.xom.Text?
+        lastTextNode = FastXPath.descendant(block)
+            .filterIsInstance<nu.xom.Text>()
+            .lastOrNull { node -> !BBXUtils.isPageNumAncestor(node) }
         log.debug("last Text node: {}", lastTextNode)
         if (lastTextNode == null) {
             // fail silently as it may be a page number or empty
@@ -832,10 +827,8 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
                 modifiedNodes.add(nextSibling)
 
                 //Find a text node
-                lastTextNode = Streams.findLast(FastXPath.descendant(nextSibling)
-                    .stream()
-                    .filter { node: Node? -> node is nu.xom.Text }
-                    .filter { node: Node? -> !BBXUtils.isPageNumAncestor(node) }).orElse(null) as nu.xom.Text?
+                lastTextNode = FastXPath.descendant(nextSibling)
+                    .filterIsInstance<nu.xom.Text>().lastOrNull { node -> !BBXUtils.isPageNumAncestor(node) }
 
                 if (lastTextNode == null) {
                     // fail silently as it may be a page number or empty
@@ -850,7 +843,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
 
                 // Only give last word
                 pageStart = indexOfPage(lastTextNode.value)
-                if (pageStart != -1 && !StringUtils.isBlank(lastTextNode.value.substring(0, pageStart))) {
+                if (pageStart != -1 && !lastTextNode.value.substring(0, pageStart).isBlank()) {
                     // found text before page in next entry
                     log.debug("ignoring as most likely found another toc entry")
                     return
@@ -882,7 +875,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
                 nodeToWrap = Text(page)
                 lastTextNode.parent.insertChild(nodeToWrap, lastTextNode.parent.indexOf(lastTextNode) + 1)
 
-                if (StringUtils.isBlank(lastTextNode.value)) {
+                if (lastTextNode.value.isBlank()) {
                     //Page was surrounded by spaces
 //					lastTextNode.detach();
                     throw RuntimeException("page still surrounded by spaces?")
@@ -901,21 +894,26 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
 
         //Re-use page parent if possible for cleanliness
         val newPageWrapper: Element
-        if (nodeToWrap.parent.childCount == 1 && BBX.SPAN.isA(nodeToWrap.parent)) {
-            newPageWrapper = nodeToWrap.parent as Element
-        } else if (nodeToWrap.parent.childCount == 1 && BBX.INLINE.isA(nodeToWrap.parent)) {
-            newPageWrapper = BBX.SPAN.OTHER.create()
-            XMLHandler2.wrapNodeWithElement(
-                nodeToWrap.parent,
-                newPageWrapper
-            )
-        } else {
-            newPageWrapper = BBX.SPAN.OTHER.create()
-            XMLHandler2.wrapNodeWithElement(
-                nodeToWrap,
-                newPageWrapper
-            )
-            log.trace("Wrapped with element in {}", newPageWrapper.parent.toXML())
+        val parent = nodeToWrap.parent
+        when (parent.childCount) {
+            1 if BBX.SPAN.isA(parent) -> {
+                newPageWrapper = parent as Element
+            }
+            1 if BBX.INLINE.isA(parent) -> {
+                newPageWrapper = BBX.SPAN.OTHER.create()
+                XMLHandler2.wrapNodeWithElement(
+                    parent,
+                    newPageWrapper
+                )
+            }
+            else -> {
+                newPageWrapper = BBX.SPAN.OTHER.create()
+                XMLHandler2.wrapNodeWithElement(
+                    nodeToWrap,
+                    newPageWrapper
+                )
+                log.trace("Wrapped with element in {}", newPageWrapper.parent.toXML())
+            }
         }
         log.trace("Applying page attrib to {}", newPageWrapper.toXML())
         setTOCType(newPageWrapper, "page", utdMan)
@@ -944,7 +942,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
      * Parse integers and roman numerals or return -1 if not found.
      */
     private fun indexOfPage(rawText: String): Int {
-        if (StringUtils.isBlank(rawText)) {
+        if (rawText.isBlank()) {
             return -1
         }
 
@@ -960,10 +958,10 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
         val lastWord: String = rawText.substring(start, end)
 
         val pagePrefix: String = findPagePrefixOrException
-        val result: String? = if (StringUtils.isEmpty(pagePrefix)) {
+        val result: String? = if (pagePrefix.isEmpty()) {
             _parsePageNumber(lastWord)
         } else {
-            val textToParse: String = StringUtils.stripStart(lastWord, pagePrefix)
+            val textToParse: String = lastWord.trimStart(*(pagePrefix.toCharArray()))
             if (textToParse == lastWord) {
                 // User entered prefix but text has no prefix
                 _parsePageNumber(rawText)
@@ -1005,7 +1003,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
             .findFirst()
             .orElseThrow()
         if (precedingText.value.endsWith(" ")) {
-            precedingText.value = StringUtils.stripEnd(precedingText.value, null)
+            precedingText.value = precedingText.value.trimEnd()
             if (precedingText.value.isEmpty()) {
                 precedingText.detach()
             } else {
@@ -1056,21 +1054,19 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
 
     private fun regenerateAllTOC(doc: Document) {
         manager.stopFormatting()
-        val volumes: List<Element> = getVolumeElements(doc)
+        val volumes = getVolumeElements(doc)
         if (volumes.isEmpty()) {
             throw BBNotifyException("Must create volumes first")
         }
-        val volumeSplitsNum: Long = FastXPath.descendant(doc)
-            .stream()
-            .filter { node: Node? -> BBX.BLOCK.TOC_VOLUME_SPLIT.isA(node) }
-            .filter { node: Node? ->
-                XMLHandler.ancestorElementNot(node
+        val volumeSplitsNum = FastXPath.descendant(doc)
+            .count { node ->
+                BBX.BLOCK.TOC_VOLUME_SPLIT.isA(node) && XMLHandler.ancestorElementNot(
+                    node
                 ) { node: Element? -> BBX.CONTAINER.VOLUME_TOC.isA(node) }
             }
-            .count()
-        if (volumeSplitsNum == 0L) {
+        if (volumeSplitsNum == 0) {
             throw BBNotifyException("No TOC Volume Splits defined")
-        } else if (volumeSplitsNum != volumes.size.toLong()) {
+        } else if (volumeSplitsNum != volumes.size) {
             if (debugging) {
                 _test_diffTOCSplitsThanVolumes = true
                 log.warn("More TOC Volumes than actual volumes")
@@ -1093,10 +1089,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
         //Step 1: Strip all existing autogenerated TOC so search doesn't find them
         //TODO: This is probably slow as all volume TOCs must be retranslated
         val volumeTocContainers: MutableList<Element> = ArrayList()
-        for (curVolume: Element in volumes) {
-            if (curVolume === Iterables.getLast(volumes)) {
-                break
-            }
+        for (curVolume: Element in volumes.dropLast(1)) {
             val tocContainer: Element = getOrCreateTOC(curVolume)
             tocContainer.removeChildren()
             log.debug("toc container: {}",
@@ -1160,12 +1153,12 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
         })
         val tocItr: PeekingIterator<Element> = Iterators.peekingIterator(tocElements.iterator())
 
-        for (curVolume: Element in volumes) {
+        for (i in volumes.indices) {
             if (!tocItr.hasNext()) {
                 break
             }
 
-            val tocContainer: Element = volumeTocContainers[volumes.indexOf(curVolume)]
+            val tocContainer: Element = volumeTocContainers[i]
             modifiedElements.add(tocContainer)
             tocContainer.removeChildren()
             log.info("toc {}", tocContainer.toXML())
