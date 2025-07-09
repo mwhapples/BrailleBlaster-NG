@@ -79,7 +79,6 @@ public class CorrectTranslationDialog extends Dialog implements MenuToolListener
     private static final String SAVE_TRANSLATION_LOCALLY = localeHandler.get("saveTranslationLocally");
     protected static final String BOTH_BOXES_NEED_INPUT = localeHandler.get("bothBoxesNeedInput");
     protected static final String ONE_WORD_CHARACTER_AT_ONCE = localeHandler.get("oneWordCharacterAtOnce");
-    private static final String SAVE_TRANSLATION_GLOBALLY = localeHandler.get("saveTranslationGlobally");
     private static final String CANCEL = localeHandler.get("ctd.cancel");
     private static final String VIEW_CORRECTIONS = localeHandler.get("viewCorrections");
     private static final String CORRECT_UNDEFINED_CHARACTER_WARNING = localeHandler.get("correctUndefinedCharacterWarning");
@@ -765,16 +764,6 @@ public class CorrectTranslationDialog extends Dialog implements MenuToolListener
      */
     public String getTableType() {
         return TableExceptions.getCurrentStandardName(man);
-    }
-
-    /**
-     * Upload the corrected phrase to the BB-dev team for review to be added to
-     * the translation tables permanently.
-     */
-    public boolean saveGlobally() {
-        // TODO in the future upload changes to a cloud server for the BB team
-
-        return true;
     }
 
     // --------View corrections dialog---------
