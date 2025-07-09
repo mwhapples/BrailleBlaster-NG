@@ -685,43 +685,6 @@ public class CorrectTranslationDialog extends Dialog implements MenuToolListener
         }
     }
 
-    public String dotsToString(String dotString) {
-        StringBuilder stringBuilder = new StringBuilder();
-        String[] dots = dotString.split("-");
-        for (String dot : dots) {
-            char ch = 0x2800;
-            for (int i = 0; i < dot.length(); i++)
-                switch (dot.charAt(i)) {
-                    case '1':
-                        ch |= 0x01;
-                        break;
-                    case '2':
-                        ch |= 0x02;
-                        break;
-                    case '3':
-                        ch |= 0x04;
-                        break;
-                    case '4':
-                        ch |= 0x08;
-                        break;
-                    case '5':
-                        ch |= 0x10;
-                        break;
-                    case '6':
-                        ch |= 0x20;
-                        break;
-                    case '7':
-                        ch |= 0x40;
-                        break;
-                    case '8':
-                        ch |= 0x80;
-                        break;
-                }
-            stringBuilder.append(ch);
-        }
-        return stringBuilder.toString();
-    }
-
     /**
      * This method puts the six key char, seen in simBraille, into the widget.
      */
@@ -729,17 +692,6 @@ public class CorrectTranslationDialog extends Dialog implements MenuToolListener
         if (s.isEmpty())
             return;
         brailleText.insert(s);
-    }
-
-    public String dotStringToAscii(String s) {
-        byte[] b = s.getBytes();
-        s = new String(b, StandardCharsets.UTF_8);
-        Louis translation = engine.getBrailleTranslator();
-        Louis.WideChar input = new Louis.WideChar(s);
-        Louis.WideChar outputLouis = new Louis.WideChar(s.length());
-        translation.dotsToChar(TableExceptions.getCurrentExceptionTable(man), input, outputLouis, s.length(), 1);
-        String outputStr = outputLouis.getText(outputLouis.length());
-        return outputStr.substring(0, 1);
     }
 
     /**
