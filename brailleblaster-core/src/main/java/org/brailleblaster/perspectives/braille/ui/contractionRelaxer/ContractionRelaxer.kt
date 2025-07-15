@@ -174,7 +174,7 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolList
 
   fun viewContractions(shell: Shell) {
     //TODO: Make a legible list of contractions for each unit. The liblouis tables are not exactly human-readable.
-    val contractionList = makeContractionList()
+    val contractionList = makePrettyContractionList()
 
     val vc =  Shell(shell, SWT.APPLICATION_MODAL or SWT.DIALOG_TRIM)
     vc.text = "Contraction List"
@@ -222,6 +222,19 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolList
       }
     }
     //println("Total contractions added: $totalUnits")
+    return f.toString()
+  }
+
+  fun makePrettyContractionList(): String {
+    //This is used for the preview window.
+    val f: StringBuilder = StringBuilder()
+    for (i in 0..unitToggle) {
+      val unit = UnitList.allPrettyUnits[i]
+      for (c in unit) {
+        f.append(c)
+        f.append(System.lineSeparator())
+      }
+    }
     return f.toString()
   }
 
