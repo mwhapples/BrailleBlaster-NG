@@ -145,19 +145,23 @@ object DocumentTraversal {
         while (curPath != null) {
             val curElement = curPath.element
             var descend = true
-            // Have we just entered the element.
+            // Have we just entered the element?
             if (curPath.curIndex == 0) {
                 descend = handler.onStartElement(curElement)
                 stack.push(curPath)
             }
-            // Are we at the end of an element.
+            // Are we at the end of an element?
             // Alternatively did the handler request not to descend.
             if (curPath.curIndex >= curElement.childCount || !descend) {
                 handler.onEndElement(curElement)
                 stack.pop()
                 curPath = stack.peek()
                 // Move to the next child of curPath for the next loop iteration.
-                curPath.curIndex += 1
+                //Prevent null pointer exception
+                if (curPath != null) {
+                    curPath.curIndex += 1
+                    //break?
+                }
                 continue
             }
             val curNode = curPath.curChild
