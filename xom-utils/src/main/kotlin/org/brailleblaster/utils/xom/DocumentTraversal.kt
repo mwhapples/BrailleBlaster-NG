@@ -141,8 +141,8 @@ object DocumentTraversal {
         handler.onStartDocument(doc)
         doc.docType?.let { handler.onDocType(it) }
         val stack: Deque<PathElement> = LinkedList()
-        var curPath: PathElement? = PathElement(doc.rootElement)
-        while (curPath != null) {
+        var curPath = PathElement(doc.rootElement)
+        while (true) {
             val curElement = curPath.element
             var descend = true
             // Have we just entered the element?
@@ -155,28 +155,32 @@ object DocumentTraversal {
             if (curPath.curIndex >= curElement.childCount || !descend) {
                 handler.onEndElement(curElement)
                 stack.pop()
-                curPath = stack.peek()
-                // Move to the next child of curPath for the next loop iteration.
-                //Prevent null pointer exception
-                if (curPath != null) {
-                    curPath.curIndex += 1
-                    //break?
-                }
-                continue
-            }
-            val curNode = curPath.curChild
-            if (curNode is Element) {
-                curPath = PathElement(curNode)
-                continue
-            } else if (curNode is Text) {
-                handler.onText(curNode)
-            } else if (curNode is ProcessingInstruction) {
-                handler.onProcessingInstruction(curNode)
-            } else if (curNode is Comment) {
-                handler.onComment(curNode)
+                curPath = stack.peek() ?: break
             } else {
-                // Unknown node type
-                handler.onUnknownNode(curNode)
+                val curNode = curPath.curChild
+                when (curNode) {
+                    is Element -> {
+                        curPath = PathElement(curNode)
+                        continue
+                    }
+
+                    is Text -> {
+                        handler.onText(curNode)
+                    }
+
+                    is ProcessingInstruction -> {
+                        handler.onProcessingInstruction(curNode)
+                    }
+
+                    is Comment -> {
+                        handler.onComment(curNode)
+                    }
+
+                    else -> {
+                        // Unknown node type
+                        handler.onUnknownNode(curNode)
+                    }
+                }
             }
             curPath.curIndex += 1
         }
