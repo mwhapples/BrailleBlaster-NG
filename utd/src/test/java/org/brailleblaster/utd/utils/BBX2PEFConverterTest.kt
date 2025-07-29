@@ -15,7 +15,6 @@
  */
 package org.brailleblaster.utd.utils
 
-import com.google.common.base.Strings
 import nu.xom.Attribute
 import nu.xom.Document
 import nu.xom.Element
@@ -590,7 +589,7 @@ class BBX2PEFConverterTest {
         val pages = findRelativePages!!.evaluate(sections.item(0), XPathConstants.NODESET) as org.w3c.dom.NodeList
         Assert.assertEquals(pages.length, 1, "Incorrect page count")
         val p = pages.item(0)
-        val expectedLines: Array<String> = arrayOf(Strings.repeat("\u2812", 40))
+        val expectedLines: Array<String> = arrayOf("\u2812".repeat(40))
         assertPageEquals(p, expectedLines)
     }
 
@@ -622,7 +621,7 @@ class BBX2PEFConverterTest {
         Assert.assertEquals(pages.length, 1, "Incorrect page count")
         val p = pages.item(0)
         val expectedLines: Array<String> = arrayOf(
-            Strings.repeat("\u2812", 40),
+            "\u2812".repeat(40),
             "\u2802\u2802\u2802"
         )
         assertPageEquals(p, expectedLines)
