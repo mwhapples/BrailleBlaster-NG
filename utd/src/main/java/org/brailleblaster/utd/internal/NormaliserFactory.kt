@@ -42,7 +42,7 @@ class NormaliserFactory : NodeFactory() {
             val value = curText.value
             val newValue = normaliseSpace(value)
             //In all real textbooks indentations is outside the element and contains newlines
-            if (StringUtils.isBlank(newValue) && StringUtils.containsAny(value, '\r', '\n')) {
+            if (newValue.isBlank() && StringUtils.containsAny(value, '\r', '\n')) {
                 curText.detach()
                 continue
             }
@@ -138,12 +138,12 @@ class NormaliserFactory : NodeFactory() {
 
             //XML formatters will put elements after a text node on a new line
             charsToTrim = startsWithWhitespace(value)
-            if (charsToTrim > 0 && StringUtils.containsAny(value.substring(0, charsToTrim), "\n", "\r")) {
+            if (charsToTrim > 0 && value.substring(0, charsToTrim).any { it in "\n\r" }) {
                 value = " " + value.substring(charsToTrim)
             }
 
             charsToTrim = endsWithWhitespace(value)
-            if (charsToTrim > 0 && StringUtils.containsAny(value.substring(value.length - charsToTrim), "\n", "\r")) {
+            if (charsToTrim > 0 && value.substring(value.length - charsToTrim).any { it in "\n\r" }) {
                 value = value.substring(0, value.length - charsToTrim) + " "
             }
 
