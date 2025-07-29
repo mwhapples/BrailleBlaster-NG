@@ -63,6 +63,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.*
+import kotlin.io.path.nameWithoutExtension
 
 /**
  * Save volume to brf dialog
@@ -364,8 +365,7 @@ class VolumeSaveDialog(
             // TODO: PEF testing
             return Format.BRF to debugSavePath.toString()
         } else {
-            var fileName = m.archiver.path.fileName.toString()
-            fileName = com.google.common.io.Files.getNameWithoutExtension(fileName)
+            val fileName = m.archiver.path.fileName.nameWithoutExtension
 
             val dialog = BBFileDialog(
                 m.wpManager.shell,

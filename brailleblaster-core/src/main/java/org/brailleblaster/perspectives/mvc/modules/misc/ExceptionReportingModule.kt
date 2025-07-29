@@ -15,7 +15,6 @@
  */
 package org.brailleblaster.perspectives.mvc.modules.misc
 
-import com.google.common.collect.ImmutableMap
 import com.google.common.util.concurrent.MoreExecutors
 import org.apache.commons.io.FileUtils
 import org.apache.commons.lang3.exception.ExceptionUtils
@@ -190,22 +189,18 @@ object ExceptionReportingModule /*implements SimpleListener*/ {
 
         return httpPost(
             ERROR_REPORT_ADDRESS,
-            ImmutableMap.builder<String, String>()
-                .put("exception", ExceptionUtils.getStackTrace(exception))
-                .put("description", description ?: "")
-                .put("versionBb", Project.BB.version)
-                .put("versionUtd", "Unknown")
-                .put("versionJLouis", "Unknown")
-                .put(
-                    "versionLibLouis",
-                    Project.LIBLOUIS.versionWithRev.split("]".toRegex(), limit = 2)
-                        .toTypedArray()[0] + "]"
+            mapOf(
+                "exception" to ExceptionUtils.getStackTrace(exception),
+                "description" to (description ?: ""),
+                "versionBb" to Project.BB.version,
+                "versionUtd" to "Unknown",
+                "versionJLouis" to "Unknown",
+                    "versionLibLouis" to Project.LIBLOUIS.versionWithRev.split("]".toRegex(), limit = 2).toTypedArray()[0] + "]",
+                "versionOs" to oSVersion,
+                "versionJava" to javaVersion,
+                "newLineSize" to "" + System.lineSeparator().length,
+                "userId" to userId,
                 )
-                .put("versionOs", oSVersion)
-                .put("versionJava", javaVersion)
-                .put("newLineSize", "" + System.lineSeparator().length)
-                .put("userId", userId)
-                .build()
         )
     }
 

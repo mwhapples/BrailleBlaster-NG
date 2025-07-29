@@ -15,7 +15,6 @@
  */
 package org.brailleblaster.perspectives.mvc
 
-import com.google.common.collect.Lists
 import nu.xom.Element
 import nu.xom.Node
 import nu.xom.Text
@@ -131,7 +130,7 @@ class XMLSelection(@JvmField val start: XMLNodeCaret, @JvmField val end: XMLNode
 		@JvmStatic
 		fun isValidTreeSelection(start: Node, end: Node): List<Node>? {
             val commonParent = XMLHandler.findCommonParent(
-                Lists.newArrayList(
+                listOf(
                     XMLHandler2.nodeToElementOrParentOrDocRoot(
                         start
                     ),
@@ -199,7 +198,7 @@ class XMLSelection(@JvmField val start: XMLNodeCaret, @JvmField val end: XMLNode
                 if (ancestor === commonParent) {
                     break
                 }
-                for (ancestorChild in Lists.reverse(ancestor.childNodes)) {
+                for (ancestorChild in ancestor.childNodes.reversed()) {
                     if (ancestorChild is Text) {
                         //not first
                         return null
