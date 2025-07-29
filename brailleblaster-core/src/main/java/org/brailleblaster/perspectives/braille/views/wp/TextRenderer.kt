@@ -507,7 +507,7 @@ class TextRenderer(manager: Manager, private val textView: TextView) : Renderer(
     private fun renderNewPages() {
         val newPages = state.newPages
         for (pair in newPages) {
-            handleNewPageElement(pair.left, pair.right, textView)
+            handleNewPageElement(pair.first, pair.second, textView)
         }
     }
 
