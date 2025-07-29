@@ -15,7 +15,6 @@
  */
 package org.brailleblaster.perspectives.mvc.modules.misc
 
-import com.google.common.base.Preconditions
 import nu.xom.*
 import nu.xom.Text
 import org.apache.commons.lang3.StringUtils
@@ -292,7 +291,6 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
 
 
     fun applyStyleOptionAndReformat(option: BBStyleOptionSelection, start: Node?, end: Node?) {
-        Preconditions.checkNotNull(option, "Option cannot be null")
 
         val blocks = getBlocks(start, end)
         val utdMan = m.document.settingsManager
