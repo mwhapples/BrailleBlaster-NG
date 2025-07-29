@@ -49,7 +49,7 @@ object PandocArchiverLoader : ArchiverFactory.FileLoader {
         val newFilePath = FileSystems.getDefault().getPath(bbxFile)
 
         // attempt to load file
-        archiver = ArchiverFactory.INSTANCE.load(newFilePath)
+        archiver = ArchiverFactory.load(newFilePath)
         // set new file name to be set in window tab
         archiver.newPath = Paths.get(fileTabName)
         // Set where the document was really imported from, not the temp bbx.

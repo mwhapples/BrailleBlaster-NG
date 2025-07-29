@@ -159,8 +159,8 @@ class FileModule : SimpleListener {
                     m.wpManager.shell,
                     SWT.SAVE,
                     fileName,
-                    ArchiverFactory.INSTANCE.getSupportedDescriptions(arch),
-                    ArchiverFactory.INSTANCE.getSupportedExtensions(arch)
+                    ArchiverFactory.getSupportedDescriptions(arch).toTypedArray(),
+                    ArchiverFactory.getSupportedExtensions(arch).toTypedArray()
                 )
                 filePath = dialog.open()
             } else {
