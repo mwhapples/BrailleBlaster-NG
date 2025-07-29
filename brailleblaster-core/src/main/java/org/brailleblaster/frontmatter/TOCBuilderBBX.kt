@@ -517,7 +517,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
             }
 
             log.debug("initial {}", pageWrapElem.toXML())
-            previousTitleBlock = _isValidToMakePage(pageWrapElem, true)
+            previousTitleBlock = isValidToMakePage(pageWrapElem, true)
 
             val parentBlock: Element = BBXUtils.findBlock(pageWrapElem)
             stripUTDRecursive(parentBlock)
@@ -559,7 +559,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
 
             val isFullySelected: Boolean =
                 selectionStart.offset == 0 && selectionEnd.offset >= selectionEnd.node.value.length
-            previousTitleBlock = _isValidToMakePage(textNode, isFullySelected)
+            previousTitleBlock = isValidToMakePage(textNode, isFullySelected)
 
             //Find the parent title
             val parentTitle: Element? = XMLHandler.ancestorVisitorElement(textNode
@@ -673,7 +673,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
     /**
      * @return Preceeding block to move page to
      */
-    private fun _isValidToMakePage(node: Node, isFullySelected: Boolean): Element? {
+    private fun isValidToMakePage(node: Node, isFullySelected: Boolean): Element? {
         var node: Node = node
         if (BBXUtils.isPageNumAncestor(node)) {
             throw BBNotifyException("Cannot convert print page num to TOC page number")
@@ -959,14 +959,14 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
 
         val pagePrefix: String = findPagePrefixOrException
         val result: String? = if (pagePrefix.isEmpty()) {
-            _parsePageNumber(lastWord)
+            parsePageNumber(lastWord)
         } else {
             val textToParse: String = lastWord.trimStart(*(pagePrefix.toCharArray()))
             if (textToParse == lastWord) {
                 // User entered prefix but text has no prefix
-                _parsePageNumber(rawText)
+                parsePageNumber(rawText)
             } else {
-                _parsePageNumber(textToParse)
+                parsePageNumber(textToParse)
             }
         }
 
@@ -976,7 +976,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
         return start
     }
 
-    private fun _parsePageNumber(input: String): String? {
+    private fun parsePageNumber(input: String): String? {
         try {
             //Might be a number
             return "" + input.toInt()
@@ -1068,7 +1068,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
             throw BBNotifyException("No TOC Volume Splits defined")
         } else if (volumeSplitsNum != volumes.size) {
             if (debugging) {
-                _test_diffTOCSplitsThanVolumes = true
+                test_diffTOCSplitsThanVolumes = true
                 log.warn("More TOC Volumes than actual volumes")
             } else if (!makeEasyYesNoDialog(
                     "TOC Warning",
@@ -1266,7 +1266,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
         private const val CUR_INDENT: Int = 1
         private const val CUR_RUNOVER: Int = 3
         @JvmField
-        var _test_diffTOCSplitsThanVolumes: Boolean = false
+        var test_diffTOCSplitsThanVolumes: Boolean = false
 
         /**
          * Ancestor Block that can be unwrapped and moved

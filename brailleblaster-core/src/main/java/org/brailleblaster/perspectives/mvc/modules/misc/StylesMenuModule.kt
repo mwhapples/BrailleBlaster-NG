@@ -61,6 +61,7 @@ import org.brailleblaster.utd.utils.dom.BoxUtils.unbox
 import org.brailleblaster.exceptions.BBNotifyException
 import org.brailleblaster.util.Notify
 import org.brailleblaster.util.Notify.notify
+import org.brailleblaster.utils.BB_NS
 import org.brailleblaster.utils.UTD_NS
 import org.brailleblaster.utils.swt.EasySWT.setSizeAndLocationMiddleScreen
 import org.brailleblaster.wordprocessor.WPManager
@@ -371,7 +372,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
                         || (isColorFullBox(style) && isColorFullBox(start))
                     ) {
                         val container = start as Element
-                        val child = BBXUtils.findBlockChild(container)
+                        val child = BBXUtils.findBlockChildOrNull(container)
                         unbox(container)
                         if (child != null) {
                             modifiedNodes.add(child)
@@ -963,7 +964,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
             for (i in 0 until listItems.size()) {
                 val listItem = listItems[i] as Element
                 maxItemLevel =
-                    max(listItem.getAttributeValue("itemLevel", BBX.BB_NAMESPACE).toInt(), maxItemLevel)
+                    max(listItem.getAttributeValue("itemLevel", BB_NS).toInt(), maxItemLevel)
             }
 
             if (ListType.POEM_LINE_GROUP.isA(container)) {
@@ -981,7 +982,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
                 }
             }
 
-            container.addAttribute(Attribute(name, BBX.BB_NAMESPACE, maxItemLevel.toString()))
+            container.addAttribute(Attribute(name, BB_NS, maxItemLevel.toString()))
         }
 
         private fun getCommonParent(start: Node, end: Node): Element {
