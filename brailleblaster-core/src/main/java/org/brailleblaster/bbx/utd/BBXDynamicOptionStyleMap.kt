@@ -15,7 +15,6 @@
  */
 package org.brailleblaster.bbx.utd
 
-import com.google.common.collect.ImmutableList
 import nu.xom.Attribute
 import nu.xom.Element
 import nu.xom.Node
@@ -89,15 +88,9 @@ class BBXDynamicOptionStyleMap(
             .filter { attrib: Attribute -> this.isStyleOptionAttrib(attrib) }
     }
 
-    val generatedStyles: ImmutableList<Style>
+    val generatedStyles: List<Style>
         get() {
-            val builder = ImmutableList.builder<Style>()
-            for (overrideOptionStyle in overrideOptionStyles.values) {
-                for (value in overrideOptionStyle.values) {
-                    builder.add(value)
-                }
-            }
-            return builder.build()
+            return overrideOptionStyles.values.flatMap { it.values }
         }
 
     companion object {
