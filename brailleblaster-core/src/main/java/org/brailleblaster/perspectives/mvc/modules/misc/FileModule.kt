@@ -136,7 +136,7 @@ class FileModule : SimpleListener {
                 success
             } else {
                 save(m, arch, arch.path)
-                ArchiverRecoverThread.removeFile(pathToRemove)
+                ArchiverRecoverThread.Companion.removeFile(Path(pathToRemove))
                 log.debug("Saved file")
                 true
             }
@@ -172,7 +172,7 @@ class FileModule : SimpleListener {
                 return false
             }
             save(m, arch, Path(filePath))
-            ArchiverRecoverThread.removeFile(pathToRemove)
+            ArchiverRecoverThread.Companion.removeFile(Path(pathToRemove))
             arch.setNotImported()
             log.debug("File saved")
             return true
