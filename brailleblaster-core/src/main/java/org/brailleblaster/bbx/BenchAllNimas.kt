@@ -15,7 +15,6 @@
  */
 package org.brailleblaster.bbx
 
-import com.google.common.collect.Lists
 import com.google.common.util.concurrent.ThreadFactoryBuilder
 import org.apache.commons.lang3.exception.ExceptionUtils
 import org.brailleblaster.Main.initBB
@@ -35,7 +34,7 @@ object BenchAllNimas {
     @Throws(Exception::class)
     @JvmStatic
     fun main(args: Array<String>) {
-        initBB(Lists.newArrayList(*args))
+        initBB(args.asList())
         //		args = new String[]{"/home/leon/nimas-books", "6"};;
         var booksPath = Paths.get(args[0])
         if (!Files.exists(booksPath)) {
