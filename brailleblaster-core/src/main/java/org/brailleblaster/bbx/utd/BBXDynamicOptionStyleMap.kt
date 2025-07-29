@@ -89,9 +89,7 @@ class BBXDynamicOptionStyleMap(
     }
 
     val generatedStyles: List<Style>
-        get() {
-            return overrideOptionStyles.values.flatMap { it.values }
-        }
+        get() = overrideOptionStyles.values.flatMap { it.values }
 
     companion object {
         const val OPTION_ATTRIB_PREFIX: String = "overrideOption-"

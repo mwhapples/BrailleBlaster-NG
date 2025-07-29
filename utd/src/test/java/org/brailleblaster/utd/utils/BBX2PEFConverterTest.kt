@@ -16,7 +16,6 @@
 package org.brailleblaster.utd.utils
 
 import com.google.common.base.Strings
-import com.google.common.collect.Lists
 import nu.xom.Attribute
 import nu.xom.Document
 import nu.xom.Element
@@ -204,7 +203,7 @@ class BBX2PEFConverterTest {
         metaElement = Element("dc:title", DC_NS)
         metaElement.appendChild(titleStr)
         headElement.appendChild(metaElement)
-        val subjectsList: MutableList<String?> = Lists.newArrayList("Braille", "Transcription")
+        val subjectsList: List<String> = listOf("Braille", "Transcription")
         for (subject in subjectsList) {
             metaElement = Element("dc:subject", DC_NS)
             metaElement.appendChild(subject)
@@ -266,7 +265,7 @@ class BBX2PEFConverterTest {
         metaElement.addAttribute(Attribute("name", "dc:title"))
         metaElement.appendChild(titleStr)
         headElement.appendChild(metaElement)
-        val subjectsList: MutableList<String?> = Lists.newArrayList("Braille", "Transcription")
+        val subjectsList: List<String> = listOf("Braille", "Transcription")
         for (subject in subjectsList) {
             metaElement = Element("meta")
             metaElement.addAttribute(Attribute("name", "dc:subject"))

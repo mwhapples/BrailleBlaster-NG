@@ -16,7 +16,6 @@
 package org.brailleblaster.perspectives.mvc.modules.views
 
 import com.google.common.base.Suppliers
-import com.google.common.collect.Lists
 import nu.xom.Element
 import nu.xom.Node
 import nu.xom.Text
@@ -203,7 +202,7 @@ class TextViewModule(private val manager: Manager) : AbstractModule(), SimpleLis
         if (preFilter != null) {
             return preFilter
         } else {
-            for (curDescendant in Lists.reverse(descendants.get())) {
+            for (curDescendant in descendants.get().reversed()) {
                 if (XMLHandler.ancestorElementIs(
                         curDescendant
                     ) { curAncestor: Element -> curAncestor.namespaceURI == UTD_NS }
