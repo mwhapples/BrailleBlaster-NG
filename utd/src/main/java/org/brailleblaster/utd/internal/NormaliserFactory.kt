@@ -15,7 +15,6 @@
  */
 package org.brailleblaster.utd.internal
 
-import com.google.common.collect.ImmutableList
 import nu.xom.*
 import org.apache.commons.lang3.StringUtils
 import org.brailleblaster.utd.config.DocumentUTDConfig
@@ -217,8 +216,8 @@ class NormaliserFactory : NodeFactory() {
     companion object {
         private val log: Logger = LoggerFactory.getLogger(NormaliserFactory::class.java)
         const val IS_NORMALISED_KEY: String = "isNormalised"
-        private val REMOVE_ADJACENT_SPACE_ELEMENTS: ImmutableList<String> = ImmutableList.of("img", "imggroup", "td")
-        private val HTML_BLOCK_ELEMENTS: ImmutableList<String> = ImmutableList.of(
+        private val REMOVE_ADJACENT_SPACE_ELEMENTS: List<String> = listOf("img", "imggroup", "td")
+        private val HTML_BLOCK_ELEMENTS: List<String> = listOf(
             "html",
             "body",
             "h1",
@@ -240,7 +239,7 @@ class NormaliserFactory : NodeFactory() {
             "td",
             "th"
         )
-        private val DTBOOK_BLOCK_ELEMENTS: ImmutableList<String> = ImmutableList.of(
+        private val DTBOOK_BLOCK_ELEMENTS: List<String> = listOf(
             "dtbook",
             "book",
             "frontmatter",
@@ -269,6 +268,6 @@ class NormaliserFactory : NodeFactory() {
             "td",
             "th"
         )
-        private val DEFAULT_BLOCK_ELEMENTS: ImmutableList<String> = ImmutableList.of()
+        private val DEFAULT_BLOCK_ELEMENTS: List<String> = listOf()
     }
 }

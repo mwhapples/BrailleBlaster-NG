@@ -16,8 +16,6 @@
 package org.brailleblaster.utd.config
 
 import com.google.common.base.CaseFormat
-import com.google.common.collect.ImmutableMap
-import com.google.common.collect.Lists
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import jakarta.xml.bind.JAXBContext
 import jakarta.xml.bind.Marshaller
@@ -52,11 +50,11 @@ import javax.xml.transform.stream.StreamResult
  */
 object UTDConfig {
     private val log: Logger = LoggerFactory.getLogger(UTDConfig::class.java)
-    val STYLE_FIELDS: ImmutableMap<String, Field>
-    val STYLE_FIELD_SETTERS: ImmutableMap<Field, Method>
-    val STYLE_FIELD_GETTERS: ImmutableMap<Field, Method>
+    val STYLE_FIELDS: Map<String, Field>
+    val STYLE_FIELD_SETTERS: Map<Field, Method>
+    val STYLE_FIELD_GETTERS: Map<Field, Method>
     @JvmField
-    val STYLE_OPTION_FIELDS: ImmutableMap<StyleOption, Field>
+    val STYLE_OPTION_FIELDS: Map<StyleOption, Field>
     private var JAXB_CONTEXT_SETTINGS: JAXBContext? = null
     private var JAXB_CONTEXT_ACTIONMAP: JAXBContext? = null
     private var JAXB_CONTEXT_STYLE_MAP: JAXBContext? = null
@@ -67,10 +65,10 @@ object UTDConfig {
 
     init {
         val fieldsDecl = Style::class.java.declaredFields
-        val styleFields = ImmutableMap.builder<String, Field>()
-        val styleSetters = ImmutableMap.builder<Field, Method>()
-        val styleGetters = ImmutableMap.builder<Field, Method>()
-        val styleOptionFields = ImmutableMap.builder<StyleOption, Field>()
+        val styleFields = mutableMapOf<String, Field>()
+        val styleSetters = mutableMapOf<Field, Method>()
+        val styleGetters = mutableMapOf<Field, Method>()
+        val styleOptionFields = mutableMapOf<StyleOption, Field>()
         for (curField in fieldsDecl) {
             val name = curField.name
             if (Modifier.isStatic(curField.modifiers)) continue
@@ -122,10 +120,10 @@ object UTDConfig {
                 throw RuntimeException("Unable to find methods for field $name", ex)
             }
         }
-        STYLE_FIELDS = styleFields.build()
-        STYLE_FIELD_SETTERS = styleSetters.build()
-        STYLE_FIELD_GETTERS = styleGetters.build()
-        STYLE_OPTION_FIELDS = styleOptionFields.build()
+        STYLE_FIELDS = styleFields.toMap()
+        STYLE_FIELD_SETTERS = styleSetters.toMap()
+        STYLE_FIELD_GETTERS = styleGetters.toMap()
+        STYLE_OPTION_FIELDS = styleOptionFields.toMap()
 
         // Expensive to make a new JAXBContext for each load, so only make
         // one on init
@@ -293,7 +291,7 @@ object UTDConfig {
         } finally {
             if (inputXml != null) {
                 try {
-                    inputXml!!.close()
+                    inputXml.close()
                 } catch (ex: XMLStreamException) {
                     log.warn("Could not close XML stream", ex)
                 }
@@ -328,7 +326,7 @@ object UTDConfig {
         // To get the style definitions into any matcher used in a blank line exception we need to use specific instances of StyleListAdapter
         // However that requires an instance of the style definitions. So we will copy the loaded ones into the one used by the adapter.
         val result = StyleDefinitions()
-        val adapters: List<XmlAdapter<*, *>> = Lists.newArrayList<XmlAdapter<*, *>>(ComparableStyleAdapter(result))
+        val adapters: List<XmlAdapter<*, *>> = listOf(ComparableStyleAdapter(result))
         val tmpStyleDefs = loadJAXB(
             styleDefsFile,
             StyleDefinitions::class.java, JAXB_CONTEXT_STYLE_DEFINITIONS!!, adapters

@@ -39,6 +39,7 @@ import java.nio.file.Path
 import kotlin.io.path.Path
 import kotlin.io.path.exists
 import kotlin.io.path.isDirectory
+import kotlin.io.path.nameWithoutExtension
 
 class FileModule : SimpleListener {
     override fun onEvent(event: SimpleEvent) {
@@ -153,8 +154,7 @@ class FileModule : SimpleListener {
             val pathToRemove = arch.path.fileName.toString()
             val filePath: String?
             if (!BBIni.debugging) {
-                var fileName: String = (arch.newPath ?: arch.path).fileName.toString()
-                fileName = com.google.common.io.Files.getNameWithoutExtension(fileName)
+                val fileName: String = (arch.newPath ?: arch.path).fileName.nameWithoutExtension
                 val dialog = BBFileDialog(
                     m.wpManager.shell,
                     SWT.SAVE,
