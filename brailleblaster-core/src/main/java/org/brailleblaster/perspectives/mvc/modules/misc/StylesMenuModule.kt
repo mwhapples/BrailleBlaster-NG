@@ -16,9 +16,6 @@
 package org.brailleblaster.perspectives.mvc.modules.misc
 
 import com.google.common.base.Preconditions
-import com.google.common.collect.ImmutableList
-import com.google.common.collect.Iterables
-import com.google.common.collect.Lists
 import nu.xom.*
 import nu.xom.Text
 import org.apache.commons.lang3.StringUtils
@@ -660,8 +657,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
             }
         }
         if (end is Element) {
-            Iterables.addAll(
-                nodes,
+                nodes.addAll(
                 FastXPath.descendant(end)
             )
         }
@@ -852,7 +848,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
         private val log: Logger = LoggerFactory.getLogger(StylesMenuModule::class.java)
 
         //TODO: These really need to be style options....
-        private val ALWAYS_WRAP_STYLES: ImmutableList<String> = ImmutableList.of(
+        private val ALWAYS_WRAP_STYLES: List<String> = listOf(
             "Box",
             "Color Box",
             "Color Full Box",
@@ -995,13 +991,11 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
                 end = end.parent
             }
 
-            return XMLHandler.findCommonParent(Lists.newArrayList(start as Element, end as Element))
+            return XMLHandler.findCommonParent(listOf(start as Element, end as Element))
         }
 
         fun isAlwaysWrapStyle(style: Style?): Boolean {
-            return Iterables.any(
-                ALWAYS_WRAP_STYLES
-            ) { curAlwaysUnwrap: String? ->
+            return ALWAYS_WRAP_STYLES.any{ curAlwaysUnwrap: String? ->
                 isStyle(
                     style,
                     curAlwaysUnwrap!!
