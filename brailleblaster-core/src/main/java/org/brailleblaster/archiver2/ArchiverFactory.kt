@@ -15,16 +15,13 @@
  */
 package org.brailleblaster.archiver2
 
-import com.google.common.collect.ImmutableMap
 import com.google.common.collect.ImmutableMultimap
-import com.google.common.collect.ImmutableSortedMap
 import com.google.common.collect.Multimap
 import jakarta.xml.bind.DatatypeConverter
 import nu.xom.Document
-import org.apache.commons.lang3.ArrayUtils
 import org.brailleblaster.bbx.BookToBBXConverter
-import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.exceptions.BBNotifyException
+import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.slf4j.LoggerFactory
 import java.io.IOException
 import java.nio.file.Files
@@ -38,7 +35,7 @@ import javax.xml.stream.XMLInputFactory
  * if necessary
  */
 class ArchiverFactory private constructor() {
-    private val supportedExtensionAndDesc: ImmutableMap<String, String>
+    private val supportedExtensionAndDesc: Map<String, String>
     private var loaders: Multimap<Types, FileLoader>? = null
     private val pandocExts =
         ArrayList(listOf("*.docx", "*.epub", "*.htm", "*.html", "*.xhtml;*.xhtm;*.xht", "*.md", "*.odt", "*tex"))
@@ -66,21 +63,21 @@ class ArchiverFactory private constructor() {
             loaders = loaderBuilder.build()
         }
         var alreadyLoaded = false // used to skip double loading pandoc loader
-        val extensionsBuilder: MutableMap<String, String> = HashMap()
-        for (loader in loaders!!.values()) {
-            // hack to avoid multiple listing of file types for pandoc
-            if (loader is PandocArchiverLoader) {
-                alreadyLoaded = if (alreadyLoaded) {
-                    continue
-                } else {
-                    true
+        supportedExtensionAndDesc = buildMap {
+            for (loader in loaders!!.values()) {
+                // hack to avoid multiple listing of file types for pandoc
+                if (loader is PandocArchiverLoader) {
+                    alreadyLoaded = if (alreadyLoaded) {
+                        continue
+                    } else {
+                        true
+                    }
+                }
+                for ((key, value) in loader.extensionsAndDescription) {
+                    merge(key, value) { existing: String, current: String -> "$existing $current" }
                 }
             }
-            for ((key, value) in loader.extensionsAndDescription) {
-                extensionsBuilder.merge(key, value) { existing: String, current: String -> "$existing $current" }
-            }
-        }
-        supportedExtensionAndDesc = ImmutableSortedMap.copyOf(extensionsBuilder)
+        }.toSortedMap()
     }
 
     fun load(path: Path): Archiver2 {
@@ -196,53 +193,20 @@ class ArchiverFactory private constructor() {
         return ParseData(Types.OTHER, null)
     }
 
-    private val supportedExtensions: Array<String?>
+    private val supportedExtensions: Array<String>
         get() {
             val pandoc = System.getProperty("PANDOC")
-            val a = supportedExtensionAndDesc.keys.toTypedArray()
-            val exts = ArrayList<String>()
-            for (x in a) {
-                if (null != pandoc) {
-                    exts.add(x)
-                } else {
-                    if (!pandocExts.contains(x)) {
-                        exts.add(x)
-                    }
-                }
-            }
-            val strExts = arrayOfNulls<String>(exts.size)
-            for (k in exts.indices) strExts[k] = exts[k]
-            return strExts
+            return supportedExtensionAndDesc.keys.filter { null != pandoc || it !in pandocExts }.toTypedArray()
         }
-    private val supportedDescriptions: Array<String?>
+    private val supportedDescriptions: Array<String>
         get() {
             val pandoc = System.getProperty("PANDOC")
-            val a = supportedExtensionAndDesc.keys.toTypedArray()
-            val b = supportedExtensionAndDesc.values.toTypedArray()
-            val desc = ArrayList<String>()
-            var k = 0
-            for (x in a) {
-                if (null != pandoc) {
-                    desc.add(b[k])
-                } else {
-                    if (!pandocExts.contains(x)) {
-                        desc.add(b[k])
-                    }
-                }
-                k++
-            }
-            val strDesc = arrayOfNulls<String>(desc.size)
-            k = 0
-            while (k < desc.size) {
-                strDesc[k] = desc[k]
-                k++
-            }
-            return strDesc
+            return supportedExtensionAndDesc.filterKeys { pandoc != null || it !in pandocExts }.values.toTypedArray()
         }
     val supportedExtensionsWithCombinedEntry: Array<String>
         get() {
             val supported = supportedExtensions
-            return ArrayUtils.insert(0, supported, supported.joinToString(";"))
+            return arrayOf(supported.joinToString(";"), *supported)
         }
 
     // This format seems to be the standard way to represent multiple extensions
@@ -250,10 +214,7 @@ class ArchiverFactory private constructor() {
         get() {
             val supported = supportedDescriptions
             // This format seems to be the standard way to represent multiple extensions
-            return ArrayUtils.insert(
-                0, supported,
-                "All BB Documents (" + supportedExtensions.joinToString(";") + ")"
-            )
+            return arrayOf("All BB Documents (${supportedExtensions.joinToString(";")})", *supported)
         }
 
     fun getSupportedExtensions(archiver: Archiver2): Array<String> {
