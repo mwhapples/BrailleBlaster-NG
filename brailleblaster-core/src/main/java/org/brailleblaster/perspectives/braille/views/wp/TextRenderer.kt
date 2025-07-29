@@ -18,8 +18,6 @@ package org.brailleblaster.perspectives.braille.views.wp
 import nu.xom.Element
 import nu.xom.Node
 import nu.xom.Text
-import org.apache.commons.lang3.tuple.MutablePair
-import org.apache.commons.lang3.tuple.Pair
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.math.mathml.MathMLElement
 import org.brailleblaster.math.mathml.MathMLTableElement
@@ -388,7 +386,7 @@ class TextRenderer(manager: Manager, private val textView: TextView) : Renderer(
     private fun handleBrlOnlyMapElement(tme: TextMapElement, bme: BrailleMapElement) {
         if (bme is LineNumberBrlMapElement) {
             //This is a line number that should be painted onto the view
-            lineNumberList.add(MutablePair(state.charCount, bme))
+            lineNumberList.add((state.charCount) to bme)
         } else if (bme is GuideWordBrlMapElement || bme is RunningHeadBrlMapElement) {
             //Skip guide words and running heads, they are painted on by PageIndicator
         } else if (bme is BoxLineBrlMapElement || bme is PageIndicatorBrlMapElement) {
@@ -513,7 +511,7 @@ class TextRenderer(manager: Manager, private val textView: TextView) : Renderer(
 
     private fun renderLineNumbers() {
         for (lineNumber in lineNumberList) {
-            handleLineNumber(lineNumber.right, lineNumber.left)
+            handleLineNumber(lineNumber.second, lineNumber.first)
         }
     }
 
