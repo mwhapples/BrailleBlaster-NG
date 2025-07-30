@@ -122,6 +122,7 @@ public class MultipleExclusionsMatcher extends NodeNameMatcher {
     }
 
     @XmlAttribute
+    @Override
     public void setNodeName(String nodeName) {
         this.nodeName = nodeName;
     }
