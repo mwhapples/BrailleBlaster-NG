@@ -42,7 +42,8 @@ public class MultipleExclusionsMatcher extends NodeNameMatcher {
     @Override
     public boolean isMatch(@NotNull Node node, @NotNull NamespaceMap namespaces) {
 
-        if (node instanceof Element currentElement) {
+        if (node instanceof Element) {
+            Element currentElement = (Element) node;
             if (!currentElement.getLocalName().equals(nodeName)) {
                 return false;
             } else {
@@ -62,7 +63,7 @@ public class MultipleExclusionsMatcher extends NodeNameMatcher {
         if (currentParent != doc) {
             Element parentElement = (Element) currentParent;
 
-            if (currentParent != doc && parentElement.getLocalName().equals(repeatOnce)) {
+            if (parentElement.getLocalName().equals(repeatOnce)) {
                 // Ancestor cannot be side bar unless that side bar has
                 // a side bar parent.
                 NodeAncestorMatcher ancestorMatcher = new NodeAncestorMatcher();
@@ -79,7 +80,8 @@ public class MultipleExclusionsMatcher extends NodeNameMatcher {
                 }
             }
             Node currentGrandparent = currentParent.getParent();
-            if (currentGrandparent instanceof Element grandparentElement) {
+            if (currentGrandparent instanceof Element) {
+                Element grandparentElement = (Element) currentGrandparent;
 
                 while (currentParent != null && currentGrandparent != null
                         && currentParent != doc) {
