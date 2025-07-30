@@ -16,7 +16,6 @@
 package org.brailleblaster.utd.internal
 
 import nu.xom.*
-import org.apache.commons.lang3.StringUtils
 import org.brailleblaster.utd.config.DocumentUTDConfig
 import org.brailleblaster.utd.utils.UTDHelper.Companion.endsWithWhitespace
 import org.brailleblaster.utd.utils.UTDHelper.Companion.startsWithWhitespace
@@ -42,7 +41,7 @@ class NormaliserFactory : NodeFactory() {
             val value = curText.value
             val newValue = normaliseSpace(value)
             //In all real textbooks indentations is outside the element and contains newlines
-            if (newValue.isBlank() && StringUtils.containsAny(value, '\r', '\n')) {
+            if (newValue.isBlank() && value.any { it in "\r\n" }) {
                 curText.detach()
                 continue
             }
@@ -60,13 +59,13 @@ class NormaliserFactory : NodeFactory() {
             for (i in 0 until childCount) {
                 val child = element.getChild(i)
                 if (previousChild != null) {
-                    if (previousChild is Text && child is Element && StringUtils.isWhitespace(previousChild.value) && blockElementNames.contains(
+                    if (previousChild is Text && child is Element && previousChild.value.isBlank() && blockElementNames.contains(
                             child.localName
                         )
                     ) {
                         // block element preceded by whitespace
                         whitespaceTexts.add(previousChild)
-                    } else if (child is Text && previousChild is Element && StringUtils.isWhitespace(child.value) && blockElementNames.contains(
+                    } else if (child is Text && previousChild is Element && child.value.isBlank() && blockElementNames.contains(
                             previousChild.localName
                         )
                     ) {
@@ -131,7 +130,7 @@ class NormaliserFactory : NodeFactory() {
                 curText.detach()
             }
 
-            if (StringUtils.isBlank(value)) {
+            if (value.isBlank()) {
                 //Not next to an image, but this is intended as it made it past makeText()
                 continue
             }
