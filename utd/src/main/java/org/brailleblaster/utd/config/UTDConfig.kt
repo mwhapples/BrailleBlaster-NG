@@ -110,7 +110,7 @@ object UTDConfig {
                             CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, xmlRef.name)
                         )
                         styleOptionFields.put(fieldStyleOption, curField)
-                    } catch (e: IllegalArgumentException) {
+                    } catch (_: IllegalArgumentException) {
                         //ignore unrelated style fields
                     }
                 }
@@ -155,7 +155,7 @@ object UTDConfig {
     @JvmStatic
     fun loadMappings(engine: UTDTranslationEngine, mappingsDir: File, mappingsPrefix: String) {
         require(mappingsDir.isDirectory) { "$mappingsDir for mappings is not a directory" }
-        require(!StringUtils.isBlank(mappingsPrefix)) { "Mapping file prefix cannot be blank" }
+        require(mappingsPrefix.isNotBlank()) { "Mapping file prefix cannot be blank" }
         engine.styleMap = loadStyle(File(mappingsDir, "$mappingsPrefix.styleMap.xml"), engine.styleDefinitions)!!
         engine.actionMap = loadActions(File(mappingsDir, "$mappingsPrefix.actionMap.xml"))!!
     }

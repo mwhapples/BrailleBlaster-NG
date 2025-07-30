@@ -17,7 +17,6 @@ package org.brailleblaster.perspectives.mvc.modules.misc
 
 import nu.xom.*
 import nu.xom.Text
-import org.apache.commons.lang3.StringUtils
 import org.brailleblaster.BBIni.debugging
 import org.brailleblaster.BBIni.propertyFileManager
 import org.brailleblaster.bbx.BBX
@@ -132,7 +131,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
 
         val boxString = propertyFileManager.getProperty(COLOR_PROP, "")
         val boxes: Array<String>
-        val array = ArrayList<String>()
+        val array = mutableListOf<String>()
         if (boxString.isNotEmpty()) {
             boxes = boxString.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             for (box in boxes) {
@@ -161,8 +160,8 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
                 } else {
                     val color = text.text
                     val sb = StringBuilder()
-                    array.iterator().forEachRemaining { z: String? ->
-                        if (!StringUtils.isEmpty(z)) {
+                    array.iterator().forEachRemaining { z: String ->
+                        if (z.isNotEmpty()) {
                             sb.append(z).append(",")
                         }
                     }
@@ -515,7 +514,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
                 val itr = splitTextNode.iterator()
                 while (itr.hasNext()) {
                     val next = itr.next()
-                    if (StringUtils.isEmpty(next.value)) {
+                    if (next.value.isEmpty()) {
                         next.detach()
                         itr.remove()
                     }
