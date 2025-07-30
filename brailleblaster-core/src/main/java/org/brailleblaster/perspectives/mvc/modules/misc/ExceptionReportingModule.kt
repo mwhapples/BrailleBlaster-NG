@@ -16,7 +16,6 @@
 package org.brailleblaster.perspectives.mvc.modules.misc
 
 import com.google.common.util.concurrent.MoreExecutors
-import org.apache.commons.io.FileUtils
 import org.apache.commons.lang3.exception.ExceptionUtils
 import org.brailleblaster.BBIni
 import org.brailleblaster.userHelp.Project
@@ -27,7 +26,6 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.IOException
 import java.net.ConnectException
-import java.nio.charset.StandardCharsets
 import java.nio.file.Paths
 import java.util.*
 import java.util.concurrent.ExecutorService
@@ -113,10 +111,7 @@ object ExceptionReportingModule /*implements SimpleListener*/ {
         // Fallback to installer selected option
         if (AUTO_REPORT_INSTALLER_CONFIG.exists()) {
             try {
-                return (FileUtils.readFileToString(
-                    AUTO_REPORT_INSTALLER_CONFIG,  // text is ascii only so should be fine
-                    StandardCharsets.UTF_8
-                )
+                return (AUTO_REPORT_INSTALLER_CONFIG.readText(Charsets.UTF_8)  // text is ascii only so should be fine
                     .trim { it <= ' ' }
                         == "true")
             } catch (e: Exception) {
