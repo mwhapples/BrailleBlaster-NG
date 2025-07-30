@@ -42,71 +42,69 @@ public class MultipleExclusionsMatcher extends NodeNameMatcher {
     @Override
     public boolean isMatch(@NotNull Node node, @NotNull NamespaceMap namespaces) {
 
-        if (node != null) {
-            if (node instanceof Element currentElement) {
-                if (!currentElement.getLocalName().equals(nodeName)) {
-                    return false;
-                } else {
-                    // The list cannot have an ancestor that is a list
-                    NodeAncestorMatcher ancestorMatcher = new NodeAncestorMatcher();
-                    ancestorMatcher.setSelfName(nodeName);
-                    ancestorMatcher.setParentName(nodeName);
-                    if (ancestorMatcher.isMatch(node, namespaces))
-                        return false;
-                }
-            } else {
-                // Not an element, don't format as list
+        if (node instanceof Element currentElement) {
+            if (!currentElement.getLocalName().equals(nodeName)) {
                 return false;
+            } else {
+                // The list cannot have an ancestor that is a list
+                NodeAncestorMatcher ancestorMatcher = new NodeAncestorMatcher();
+                ancestorMatcher.setSelfName(nodeName);
+                ancestorMatcher.setParentName(nodeName);
+                if (ancestorMatcher.isMatch(node, namespaces))
+                    return false;
             }
-            Document doc = node.getDocument();
-            Node currentParent = node.getParent();
-            if (currentParent != doc) {
-                Element parentElement = (Element) currentParent;
+        } else {
+            // Not an element, don't format as list
+            return false;
+        }
+        Document doc = node.getDocument();
+        Node currentParent = node.getParent();
+        if (currentParent != doc) {
+            Element parentElement = (Element) currentParent;
 
-                if (currentParent != doc && parentElement.getLocalName().equals(repeatOnce)) {
-                    // Ancestor cannot be side bar unless that side bar has
-                    // a side bar parent.
-                    NodeAncestorMatcher ancestorMatcher = new NodeAncestorMatcher();
-                    ancestorMatcher.setSelfName(repeatOnce);
-                    ancestorMatcher.setParentName(repeatOnce);
-                    if (ancestorMatcher.isMatch(currentParent, namespaces))
-                        return true;
-                    else {
-                        for (int i = 0; i < currentParent.getChildCount(); i++) {
-                            if (currentParent.getChild(i) != node && currentParent.getChild(i) instanceof Text) {
-                                return true;
-                            }
+            if (currentParent != doc && parentElement.getLocalName().equals(repeatOnce)) {
+                // Ancestor cannot be side bar unless that side bar has
+                // a side bar parent.
+                NodeAncestorMatcher ancestorMatcher = new NodeAncestorMatcher();
+                ancestorMatcher.setSelfName(repeatOnce);
+                ancestorMatcher.setParentName(repeatOnce);
+                if (ancestorMatcher.isMatch(currentParent, namespaces))
+                    return true;
+                else {
+                    for (int i = 0; i < currentParent.getChildCount(); i++) {
+                        if (currentParent.getChild(i) != node && currentParent.getChild(i) instanceof Text) {
+                            return true;
                         }
                     }
                 }
-                Node currentGrandparent = currentParent.getParent();
-                if (currentGrandparent instanceof Element grandparentElement) {
+            }
+            Node currentGrandparent = currentParent.getParent();
+            if (currentGrandparent instanceof Element grandparentElement) {
 
-                    while (currentParent != null && currentGrandparent != null
-                            && currentParent != doc) {
-                        for (String neverParentPart : neverParentParts) {
-                            // Parent can never be h2|h3|h4|h5|h6
-                            if (parentElement.getLocalName().equals(
-                                    neverParentPart)) {
-                                return false;
-                            }
-                            // Parent can be p unless its parent is
-                            // h2|h3|h4|h5|h6
-                            if (parentElement.getLocalName().equals(
-                                    sometimesParent)
-                                    && grandparentElement.getLocalName()
-                                    .equals(neverParentPart)) {
-                                return false;
-                            }
+                while (currentParent != null && currentGrandparent != null
+                        && currentParent != doc) {
+                    for (String neverParentPart : neverParentParts) {
+                        // Parent can never be h2|h3|h4|h5|h6
+                        if (parentElement.getLocalName().equals(
+                                neverParentPart)) {
+                            return false;
                         }
-                        currentParent = currentParent.getParent();
-                        if (currentParent instanceof Element)
-                            parentElement = (Element) currentParent;
-                        currentGrandparent = currentGrandparent.getParent();
-                        if (currentGrandparent instanceof Element)
-                            grandparentElement = (Element) currentGrandparent;
-
+                        // Parent can be p unless its parent is
+                        // h2|h3|h4|h5|h6
+                        if (parentElement.getLocalName().equals(
+                                sometimesParent)
+                                && grandparentElement.getLocalName()
+                                .equals(neverParentPart)) {
+                            return false;
+                        }
                     }
+                    currentParent = currentParent.getParent();
+                    if (currentParent instanceof Element)
+                        parentElement = (Element) currentParent;
+                    currentGrandparent = currentGrandparent.getParent();
+                    if (currentGrandparent instanceof Element)
+                        grandparentElement = (Element) currentGrandparent;
+
                 }
             }
         }
