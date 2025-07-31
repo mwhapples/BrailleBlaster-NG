@@ -92,7 +92,7 @@ child.project.url.inherit.append.path="false">
         <mavenenforcerplugin.version>3.0.0-M3</mavenenforcerplugin.version>
         <!-- Batik wants commons io 1.3.1 -->
         <commonsio.version>2.20.0</commonsio.version>
-        <commonstext.version>1.13.1</commonstext.version>
+        <commonstext.version>1.14.0</commonstext.version>
         <commons-lang3.version>3.18.0</commons-lang3.version>
         <commonsexec.version>1.5.0</commonsexec.version>
         <commonscollections4.version>4.5.0</commonscollections4.version>
@@ -141,19 +141,19 @@ child.project.url.inherit.append.path="false">
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.aphtech</groupId>
             <artifactId>jlouis</artifactId>
-            <version>${jlouis.version}</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.aphtech</groupId>
             <artifactId>jlouis</artifactId>
-            <version>${jlouis.version}</version>
             <type>zip</type>
             <classifier>tables</classifier>
             <scope>runtime</scope>
@@ -482,6 +482,19 @@ child.project.url.inherit.append.path="false">
                 <groupId>com.google.code.gson</groupId>
                 <artifactId>gson</artifactId>
                 <version>${gson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.aphtech</groupId>
+                <artifactId>jlouis</artifactId>
+                <version>${jlouis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.aphtech</groupId>
+                <artifactId>jlouis</artifactId>
+                <version>${jlouis.version}</version>
+                <type>zip</type>
+                <classifier>tables</classifier>
+                <scope>runtime</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
