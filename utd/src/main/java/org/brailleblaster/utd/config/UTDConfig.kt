@@ -270,9 +270,7 @@ object UTDConfig {
         var inputXml: XMLStreamReader? = null
         // User Exception #118: File potentially may have UTF BOM
         try {
-            BufferedInputStream(
-                BOMInputStream.builder().setInputStream(FileInputStream(inputFile)).get()
-            ).use { input ->
+            BOMInputStream.builder().setInputStream(FileInputStream(inputFile)).get().buffered().use { input ->
                 val unmarshaller = jaxbContext.createUnmarshaller()
                 for (adapter in adapterInstances) {
                     unmarshaller.setAdapter(adapter)
