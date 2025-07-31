@@ -251,7 +251,7 @@ class DocumentUTDConfig(private val rootElement: String, private val rootNamespa
     }
 
     fun getRootNamespace(doc: Document): String {
-        return StringUtils.defaultIfBlank(rootNamespace, doc.rootElement.namespaceURI)
+        return rootNamespace.ifBlank { doc.rootElement.namespaceURI }
     }
 
     fun getConfigElement(doc: Document, tagClass: Class<*>): Element? {

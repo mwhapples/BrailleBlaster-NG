@@ -115,7 +115,7 @@ public class XMLHandler2 {
     public static Text findFirstText(@NotNull Element someElement) {
         return queryStream(someElement, "descendant::text()[not(ancestor::utd:brl)]")
                 .map(n -> (Text) n)
-                .filter(t -> StringUtils.isNotBlank(t.getValue()))
+                .filter(t -> !t.getValue().isBlank())
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Couldn't find text in " + someElement.toXML()));
     }

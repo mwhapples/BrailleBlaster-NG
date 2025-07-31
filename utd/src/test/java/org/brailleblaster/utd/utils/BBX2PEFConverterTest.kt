@@ -15,8 +15,6 @@
  */
 package org.brailleblaster.utd.utils
 
-import com.google.common.base.Strings
-import com.google.common.collect.Lists
 import nu.xom.Attribute
 import nu.xom.Document
 import nu.xom.Element
@@ -204,7 +202,7 @@ class BBX2PEFConverterTest {
         metaElement = Element("dc:title", DC_NS)
         metaElement.appendChild(titleStr)
         headElement.appendChild(metaElement)
-        val subjectsList: MutableList<String?> = Lists.newArrayList("Braille", "Transcription")
+        val subjectsList: List<String> = listOf("Braille", "Transcription")
         for (subject in subjectsList) {
             metaElement = Element("dc:subject", DC_NS)
             metaElement.appendChild(subject)
@@ -266,7 +264,7 @@ class BBX2PEFConverterTest {
         metaElement.addAttribute(Attribute("name", "dc:title"))
         metaElement.appendChild(titleStr)
         headElement.appendChild(metaElement)
-        val subjectsList: MutableList<String?> = Lists.newArrayList("Braille", "Transcription")
+        val subjectsList: List<String> = listOf("Braille", "Transcription")
         for (subject in subjectsList) {
             metaElement = Element("meta")
             metaElement.addAttribute(Attribute("name", "dc:subject"))
@@ -591,7 +589,7 @@ class BBX2PEFConverterTest {
         val pages = findRelativePages!!.evaluate(sections.item(0), XPathConstants.NODESET) as org.w3c.dom.NodeList
         Assert.assertEquals(pages.length, 1, "Incorrect page count")
         val p = pages.item(0)
-        val expectedLines: Array<String> = arrayOf(Strings.repeat("\u2812", 40))
+        val expectedLines: Array<String> = arrayOf("\u2812".repeat(40))
         assertPageEquals(p, expectedLines)
     }
 
@@ -623,7 +621,7 @@ class BBX2PEFConverterTest {
         Assert.assertEquals(pages.length, 1, "Incorrect page count")
         val p = pages.item(0)
         val expectedLines: Array<String> = arrayOf(
-            Strings.repeat("\u2812", 40),
+            "\u2812".repeat(40),
             "\u2802\u2802\u2802"
         )
         assertPageEquals(p, expectedLines)

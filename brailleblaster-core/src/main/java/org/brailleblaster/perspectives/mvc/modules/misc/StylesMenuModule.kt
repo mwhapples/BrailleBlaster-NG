@@ -15,13 +15,8 @@
  */
 package org.brailleblaster.perspectives.mvc.modules.misc
 
-import com.google.common.base.Preconditions
-import com.google.common.collect.ImmutableList
-import com.google.common.collect.Iterables
-import com.google.common.collect.Lists
 import nu.xom.*
 import nu.xom.Text
-import org.apache.commons.lang3.StringUtils
 import org.brailleblaster.BBIni.debugging
 import org.brailleblaster.BBIni.propertyFileManager
 import org.brailleblaster.bbx.BBX
@@ -136,7 +131,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
 
         val boxString = propertyFileManager.getProperty(COLOR_PROP, "")
         val boxes: Array<String>
-        val array = ArrayList<String>()
+        val array = mutableListOf<String>()
         if (boxString.isNotEmpty()) {
             boxes = boxString.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             for (box in boxes) {
@@ -165,8 +160,8 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
                 } else {
                     val color = text.text
                     val sb = StringBuilder()
-                    array.iterator().forEachRemaining { z: String? ->
-                        if (!StringUtils.isEmpty(z)) {
+                    array.iterator().forEachRemaining { z: String ->
+                        if (z.isNotEmpty()) {
                             sb.append(z).append(",")
                         }
                     }
@@ -295,7 +290,6 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
 
 
     fun applyStyleOptionAndReformat(option: BBStyleOptionSelection, start: Node?, end: Node?) {
-        Preconditions.checkNotNull(option, "Option cannot be null")
 
         val blocks = getBlocks(start, end)
         val utdMan = m.document.settingsManager
@@ -520,7 +514,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
                 val itr = splitTextNode.iterator()
                 while (itr.hasNext()) {
                     val next = itr.next()
-                    if (StringUtils.isEmpty(next.value)) {
+                    if (next.value.isEmpty()) {
                         next.detach()
                         itr.remove()
                     }
@@ -660,8 +654,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
             }
         }
         if (end is Element) {
-            Iterables.addAll(
-                nodes,
+                nodes.addAll(
                 FastXPath.descendant(end)
             )
         }
@@ -852,7 +845,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
         private val log: Logger = LoggerFactory.getLogger(StylesMenuModule::class.java)
 
         //TODO: These really need to be style options....
-        private val ALWAYS_WRAP_STYLES: ImmutableList<String> = ImmutableList.of(
+        private val ALWAYS_WRAP_STYLES: List<String> = listOf(
             "Box",
             "Color Box",
             "Color Full Box",
@@ -995,13 +988,11 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
                 end = end.parent
             }
 
-            return XMLHandler.findCommonParent(Lists.newArrayList(start as Element, end as Element))
+            return XMLHandler.findCommonParent(listOf(start as Element, end as Element))
         }
 
         fun isAlwaysWrapStyle(style: Style?): Boolean {
-            return Iterables.any(
-                ALWAYS_WRAP_STYLES
-            ) { curAlwaysUnwrap: String? ->
+            return ALWAYS_WRAP_STYLES.any{ curAlwaysUnwrap: String? ->
                 isStyle(
                     style,
                     curAlwaysUnwrap!!
