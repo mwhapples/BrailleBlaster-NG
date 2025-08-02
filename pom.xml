@@ -55,7 +55,6 @@ child.project.url.inherit.append.path="false">
         <serialization.version>1.9.0</serialization.version>
         <jetbrains.annotations.version>26.0.2</jetbrains.annotations.version>
         <graalvm.version>24.2.2</graalvm.version>
-        <eclipse.collections.version>13.0.0</eclipse.collections.version>
         <slf4j.version>2.0.16</slf4j.version>
         <logback-core.version>1.5.15</logback-core.version>
         <logback-classic.version>1.5.15</logback-classic.version>
@@ -244,14 +243,6 @@ child.project.url.inherit.append.path="false">
             <artifactId>kotlin-stdlib</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.collections</groupId>
-            <artifactId>eclipse-collections-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.collections</groupId>
-            <artifactId>eclipse-collections</artifactId>
-        </dependency>
-        <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
         </dependency>
@@ -373,16 +364,6 @@ child.project.url.inherit.append.path="false">
                 <groupId>org.jetbrains</groupId>
                 <artifactId>annotations</artifactId>
                 <version>${jetbrains.annotations.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.collections</groupId>
-                <artifactId>eclipse-collections-api</artifactId>
-                <version>${eclipse.collections.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.collections</groupId>
-                <artifactId>eclipse-collections</artifactId>
-                <version>${eclipse.collections.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jsoup</groupId>
