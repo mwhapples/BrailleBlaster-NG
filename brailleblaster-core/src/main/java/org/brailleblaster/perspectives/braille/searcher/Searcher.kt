@@ -15,7 +15,6 @@
  */
 package org.brailleblaster.perspectives.braille.searcher
 
-import com.google.common.collect.Lists
 import nu.xom.Element
 import nu.xom.Node
 import org.brailleblaster.perspectives.braille.Manager
@@ -51,7 +50,7 @@ object Searcher {
     }
 
     fun streamCurrentBufferReverseFrom(m: Manager, tme: TextMapElement): Stream<TextMapElement> {
-        val reverseList = Lists.reverse(m.mapList)
+        val reverseList = m.mapList.reversed()
         val tmeIndex = reverseList.indexOf(tme)
         require(tmeIndex != -1) { "tme not found in current buffer $tme" }
         return reverseList.subList(tmeIndex, reverseList.size).stream()

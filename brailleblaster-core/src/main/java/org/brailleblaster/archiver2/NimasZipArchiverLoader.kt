@@ -16,7 +16,6 @@
 package org.brailleblaster.archiver2
 
 import nu.xom.Document
-import org.apache.commons.lang3.StringUtils
 import org.brailleblaster.archiver2.ArchiverFactory.FileLoader.Companion.convert
 import org.brailleblaster.archiver2.OPFUtils.ManifestEntry
 import org.brailleblaster.archiver2.OPFUtils.findOPFFilesInFolder
@@ -138,9 +137,9 @@ class NimasZipArchiverLoader : ArchiverFactory.FileLoader {
          * So we must guess and hope it's correct
          */
         fun guessNimasLocation(opfDocument: Document): ManifestEntry {
-            val opfFormat = getDCElementValueCaseInsensitive(opfDocument, "format")
+            val opfFormat = getDCElementValueCaseInsensitive(opfDocument, "format") ?: ""
             //TODO: When epub support is added this should be more explicit
-            if (!StringUtils.containsIgnoreCase(opfFormat, "nimas") //Standard name of DTD 2002
+            if (!opfFormat.contains("nimas", ignoreCase=true) //Standard name of DTD 2002
                 || opfFormat != "ANSI/NISO Z39.86-2002"
             ) {
                 log.warn(

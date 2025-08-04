@@ -54,8 +54,7 @@ child.project.url.inherit.append.path="false">
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
         <serialization.version>1.9.0</serialization.version>
         <jetbrains.annotations.version>26.0.2</jetbrains.annotations.version>
-        <graalvm.version>24.2.1</graalvm.version>
-        <eclipse.collections.version>13.0.0</eclipse.collections.version>
+        <graalvm.version>24.2.2</graalvm.version>
         <slf4j.version>2.0.16</slf4j.version>
         <logback-core.version>1.5.15</logback-core.version>
         <logback-classic.version>1.5.15</logback-classic.version>
@@ -91,8 +90,8 @@ child.project.url.inherit.append.path="false">
         <mockitocore.version>5.6.0</mockitocore.version>
         <mavenenforcerplugin.version>3.0.0-M3</mavenenforcerplugin.version>
         <!-- Batik wants commons io 1.3.1 -->
-        <commonsio.version>2.19.0</commonsio.version>
-        <commonstext.version>1.13.1</commonstext.version>
+        <commonsio.version>2.20.0</commonsio.version>
+        <commonstext.version>1.14.0</commonstext.version>
         <commons-lang3.version>3.18.0</commons-lang3.version>
         <commonsexec.version>1.5.0</commonsexec.version>
         <commonscollections4.version>4.5.0</commonscollections4.version>
@@ -134,8 +133,6 @@ child.project.url.inherit.append.path="false">
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>${commonsio.version}</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -143,19 +140,19 @@ child.project.url.inherit.append.path="false">
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.aphtech</groupId>
             <artifactId>jlouis</artifactId>
-            <version>${jlouis.version}</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.aphtech</groupId>
             <artifactId>jlouis</artifactId>
-            <version>${jlouis.version}</version>
             <type>zip</type>
             <classifier>tables</classifier>
             <scope>runtime</scope>
@@ -245,14 +242,6 @@ child.project.url.inherit.append.path="false">
             <artifactId>kotlin-stdlib</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.collections</groupId>
-            <artifactId>eclipse-collections-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.collections</groupId>
-            <artifactId>eclipse-collections</artifactId>
-        </dependency>
-        <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
         </dependency>
@@ -323,6 +312,11 @@ child.project.url.inherit.append.path="false">
                 <version>${commonstext.version}</version>
             </dependency>
             <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commonsio.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.ibm.icu</groupId>
                 <artifactId>icu4j</artifactId>
                 <version>${icu4j.version}</version>
@@ -369,16 +363,6 @@ child.project.url.inherit.append.path="false">
                 <groupId>org.jetbrains</groupId>
                 <artifactId>annotations</artifactId>
                 <version>${jetbrains.annotations.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.collections</groupId>
-                <artifactId>eclipse-collections-api</artifactId>
-                <version>${eclipse.collections.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.collections</groupId>
-                <artifactId>eclipse-collections</artifactId>
-                <version>${eclipse.collections.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jsoup</groupId>
@@ -479,6 +463,19 @@ child.project.url.inherit.append.path="false">
                 <groupId>com.google.code.gson</groupId>
                 <artifactId>gson</artifactId>
                 <version>${gson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.aphtech</groupId>
+                <artifactId>jlouis</artifactId>
+                <version>${jlouis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.aphtech</groupId>
+                <artifactId>jlouis</artifactId>
+                <version>${jlouis.version}</version>
+                <type>zip</type>
+                <classifier>tables</classifier>
+                <scope>runtime</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

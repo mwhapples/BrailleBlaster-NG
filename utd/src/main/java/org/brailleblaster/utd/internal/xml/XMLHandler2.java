@@ -20,7 +20,6 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Streams;
 import nu.xom.*;
-import org.apache.commons.collections4.iterators.ArrayIterator;
 import org.apache.commons.lang3.StringUtils;
 import org.brailleblaster.utd.exceptions.NodeException;
 import org.brailleblaster.utd.exceptions.UTDException;
@@ -115,7 +114,7 @@ public class XMLHandler2 {
     public static Text findFirstText(@NotNull Element someElement) {
         return queryStream(someElement, "descendant::text()[not(ancestor::utd:brl)]")
                 .map(n -> (Text) n)
-                .filter(t -> StringUtils.isNotBlank(t.getValue()))
+                .filter(t -> !t.getValue().isBlank())
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Couldn't find text in " + someElement.toXML()));
     }
@@ -236,7 +235,7 @@ public class XMLHandler2 {
         String text = textNode.getValue();
         int lastStart = 0;
         int insertIndex = textNode.getParent().indexOf(textNode);
-        Iterator<Integer> splitPosItr = new ArrayIterator<>(splitPos);
+        Iterator<Integer> splitPosItr = Arrays.stream(splitPos).iterator();
         while (lastStart != text.length()) {
             boolean finished = false;
             String textPart;

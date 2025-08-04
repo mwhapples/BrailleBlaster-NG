@@ -15,7 +15,7 @@
  */
 package org.brailleblaster.frontmatter
 
-import com.google.common.collect.Iterators
+import com.google.common.collect.Iterators.peekingIterator
 import com.google.common.collect.PeekingIterator
 import nu.xom.*
 import org.brailleblaster.BBIni.debugging
@@ -1151,7 +1151,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewList
                 tocElement.toXML()
             )
         })
-        val tocItr: PeekingIterator<Element> = Iterators.peekingIterator(tocElements.iterator())
+        val tocItr: PeekingIterator<Element> = peekingIterator(tocElements.iterator())
 
         for (i in volumes.indices) {
             if (!tocItr.hasNext()) {
