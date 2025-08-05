@@ -88,4 +88,6 @@ interface IBBRadioMenuItem : IBBMenuItem {
     override fun copy(): IBBRadioMenuItem = this
 }
 
-interface IBBSubMenu : IBBMenu
+interface IBBSubMenu : IBBMenu {
+    val subMenuItems: List<IBBMenu>
+}
