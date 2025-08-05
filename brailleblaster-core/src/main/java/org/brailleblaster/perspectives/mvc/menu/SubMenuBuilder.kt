@@ -24,7 +24,7 @@ import java.util.function.Consumer
  * Build submenus for use in MenuManager.addSubMenu()
  */
 class SubMenuBuilder private constructor(val menu: TopMenu?, val name: String, val parentSubMenu: SubMenuBuilder?) {
-    val items: MutableList<IBBMenu> = mutableListOf()
+    private val items: MutableList<IBBMenu> = mutableListOf()
 
     /**
      * Create a new submenu
