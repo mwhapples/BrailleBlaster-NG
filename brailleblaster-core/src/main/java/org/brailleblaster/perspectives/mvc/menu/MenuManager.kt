@@ -193,14 +193,11 @@ object MenuManager {
      */
 	@JvmStatic
 	fun addSubMenu(subMenu: SubMenuBuilder) = addSubMenu(subMenu.build())
-    fun addSubMenu(subMenu: BBSubMenu) {
+    fun addSubMenu(subMenu: IBBSubMenu) {
         // Merge duplicate sub menus, allows submenus to be defined in multiple modules
         var mergedWithExisting = false
         for (item in items) {
-            if (item !is BBSubMenu) {
-                continue
-            }
-            if (item.text == subMenu.text) {
+            if (item is BBSubMenu && item.text == subMenu.text) {
                 mergedWithExisting = true
                 for (subMenuItem in subMenu.subMenuItems) {
                     item.addItem(subMenuItem)
@@ -209,7 +206,7 @@ object MenuManager {
             }
         }
         if (!mergedWithExisting) {
-            items.add(subMenu)
+            items.add(BBSubMenu(topMenu = subMenu.topMenu, text = subMenu.text, subMenuItems = subMenu.subMenuItems.toMutableList()))
         }
     }
 

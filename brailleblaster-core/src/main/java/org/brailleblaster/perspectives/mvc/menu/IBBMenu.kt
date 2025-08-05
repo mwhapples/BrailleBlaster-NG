@@ -89,5 +89,6 @@ interface IBBRadioMenuItem : IBBMenuItem {
 }
 
 interface IBBSubMenu : IBBMenu {
+    val text: String
     val subMenuItems: List<IBBMenu>
 }
