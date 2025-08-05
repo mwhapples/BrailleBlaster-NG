@@ -96,12 +96,12 @@ class SubMenuBuilder private constructor(val menu: TopMenu?, val name: String, v
         accelerator: Int,
         selected: Boolean,
         sharedItem: SharedItem? = null,
-        onSelect: Consumer<BBSelectionData>
+        onSelect: (BBSelectionData) -> Unit
     ): SubMenuBuilder {
         return addCheckItem(object : CheckMenuTool {
             override val active: Boolean = selected
 
-            override fun onRun(bbData: BBSelectionData) = onSelect.accept(bbData)
+            override fun onRun(bbData: BBSelectionData) = onSelect(bbData)
 
             override val topMenu: TopMenu = TopMenu.DEBUG // This actually isn't used for submenus so can be any value
             override val title: String = text
