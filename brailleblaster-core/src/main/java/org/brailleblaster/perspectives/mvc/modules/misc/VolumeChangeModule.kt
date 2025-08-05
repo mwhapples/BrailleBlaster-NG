@@ -70,7 +70,8 @@ class VolumeChangeModule(private val manager: Manager) : SimpleListener {
                         changeVolumeType(
                             VolumeType.VOLUME_SUPPLEMENTAL
                         )
-                    })
+                    }.build()
+            )
             volumeManagerMenu.addItem(
                 MENU_DELETE_CURRENT_VOLUME,
                 SWT.NONE

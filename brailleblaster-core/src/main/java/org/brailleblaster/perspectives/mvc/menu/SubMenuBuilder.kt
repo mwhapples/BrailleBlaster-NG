@@ -134,12 +134,6 @@ class SubMenuBuilder private constructor(val menu: TopMenu?, val name: String, v
      *
      * @param newSubMenu New sub menu to inserted under the current sub menu
      */
-    fun addSubMenu(newSubMenu: SubMenuBuilder): SubMenuBuilder = addSubMenu(newSubMenu.build())
-    /**
-     * Add a nested submenu to this submenu. Note: Nested submenu's parent must be set to this SubMenuBuilder
-     *
-     * @param newSubMenu New sub menu to inserted under the current sub menu
-     */
     fun addSubMenu(newSubMenu: BBSubMenu): SubMenuBuilder {
         items.add(newSubMenu)
         return this

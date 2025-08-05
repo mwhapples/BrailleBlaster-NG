@@ -77,6 +77,7 @@ class VolumeInsertModule : SimpleListener {
                             VolumeType.VOLUME_SUPPLEMENTAL, e.manager
                         )
                     }
+                    .build()
             )
             addSubMenu(volumeManagerMenu)
         }

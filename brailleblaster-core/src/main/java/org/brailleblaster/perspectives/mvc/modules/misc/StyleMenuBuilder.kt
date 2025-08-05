@@ -174,7 +174,7 @@ class StyleMenuBuilder(shell: Shell, manager: Manager) : StylesBuilder(shell, ma
             logger.error("Miscellaneous style category not found")
         }
         for (subCategory in subCategories.values) {
-            subCategory.parentSubMenu!!.addSubMenu(subCategory)
+            subCategory.parentSubMenu!!.addSubMenu(subCategory.build())
         }
         for ((key, category) in categories) {
             addToStyleMenu(key, category)
@@ -237,8 +237,8 @@ class StyleMenuBuilder(shell: Shell, manager: Manager) : StylesBuilder(shell, ma
                 onLevelSelect.accept(e)
             }
         }
-        configureMenu.addSubMenu(loadoutsMenu)
-        configureMenu.addSubMenu(styleLevelsMenu)
+        configureMenu.addSubMenu(loadoutsMenu.build())
+        configureMenu.addSubMenu(styleLevelsMenu.build())
         addSubMenu(configureMenu)
     }
 
