@@ -36,7 +36,6 @@ import org.brailleblaster.perspectives.mvc.XMLTextCaret
 import org.brailleblaster.perspectives.mvc.events.BuildMenuEvent
 import org.brailleblaster.perspectives.mvc.events.ModifyEvent
 import org.brailleblaster.perspectives.mvc.menu.*
-import org.brailleblaster.perspectives.mvc.menu.MenuManager.addMenuItem
 import org.brailleblaster.perspectives.mvc.modules.misc.TableSelectionModule.Companion.displayInvalidTableMessage
 import org.brailleblaster.perspectives.mvc.modules.views.EmphasisModule.addEmphasis
 import org.brailleblaster.settings.UTDManager.Companion.hasUtdStyleTag
@@ -95,7 +94,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
 
     override fun onEvent(event: SimpleEvent) {
         if (event is BuildMenuEvent) {
-            addMenuItem(RepeatStyleTool())
+            MenuManager.add(RepeatStyleTool())
             MenuManager.add(BBSeparator(TopMenu.STYLES))
             val smb = StyleMenuBuilder(getInstance().shell, m)
             smb.generateStylesMenu(

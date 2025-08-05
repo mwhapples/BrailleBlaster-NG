@@ -31,7 +31,7 @@ import org.brailleblaster.perspectives.braille.ui.BBStyleableText.EmphasisTags
 import org.brailleblaster.perspectives.mvc.SimpleEvent
 import org.brailleblaster.perspectives.mvc.events.BuildMenuEvent
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
-import org.brailleblaster.perspectives.mvc.menu.MenuManager.addMenuItem
+import org.brailleblaster.perspectives.mvc.menu.MenuManager
 import org.brailleblaster.perspectives.mvc.modules.views.DebugModule
 import org.brailleblaster.settings.UTDManager
 import org.brailleblaster.tools.DebugMenuToolModule
@@ -108,7 +108,7 @@ class TPagesDialog : DebugMenuToolModule {
 
     override fun onEvent(event: SimpleEvent) {
         if (event is BuildMenuEvent && DebugModule.enabled) {
-            addMenuItem(this)
+            MenuManager.add(this)
         }
     }
 

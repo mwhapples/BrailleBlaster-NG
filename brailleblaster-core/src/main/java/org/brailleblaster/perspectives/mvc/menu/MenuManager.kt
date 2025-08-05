@@ -200,10 +200,6 @@ object MenuManager {
             }
         }
     }
-    @JvmStatic
-    fun addMenuItem(tool: IBBMenuItem) {
-        add(tool)
-    }
 
     /**
      * Adds a category submenu to the style menu

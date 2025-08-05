@@ -40,7 +40,6 @@ import org.brailleblaster.perspectives.mvc.events.BBViewListener
 import org.brailleblaster.perspectives.mvc.events.BuildMenuEvent
 import org.brailleblaster.perspectives.mvc.events.BuildToolBarEvent
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
-import org.brailleblaster.perspectives.mvc.menu.MenuManager.addMenuItem
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.perspectives.mvc.modules.views.DebugModule
 import org.brailleblaster.settings.UTDManager
@@ -58,6 +57,7 @@ import org.brailleblaster.utd.utils.UTDHelper.Companion.getTextChild
 import org.brailleblaster.utd.utils.UTDHelper.Companion.stripUTDRecursive
 import org.brailleblaster.utils.xom.childNodes
 import org.brailleblaster.exceptions.BBNotifyException
+import org.brailleblaster.perspectives.mvc.menu.MenuManager
 import org.brailleblaster.util.FormUIUtils.makeButton
 import org.brailleblaster.util.FormUIUtils.makeCheckbox
 import org.brailleblaster.util.FormUIUtils.makeComboDropdown
@@ -117,7 +117,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolModule, BBViewListen
     override fun onEvent(event: SimpleEvent) {
         if (event is BuildMenuEvent && DebugModule.enabled) {
             this.manager = event.manager.manager
-            addMenuItem(this)
+            MenuManager.add(this)
         }
         if (event is BuildToolBarEvent) {
             if (enabled) {

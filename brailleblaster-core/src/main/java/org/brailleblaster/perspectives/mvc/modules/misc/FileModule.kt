@@ -26,7 +26,6 @@ import org.brailleblaster.perspectives.mvc.BBSimpleManager.SimpleListener
 import org.brailleblaster.perspectives.mvc.SimpleEvent
 import org.brailleblaster.perspectives.mvc.events.BuildMenuEvent
 import org.brailleblaster.perspectives.mvc.menu.MenuManager
-import org.brailleblaster.perspectives.mvc.menu.MenuManager.addMenuItem
 import org.brailleblaster.perspectives.mvc.menu.SubMenuBuilder
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.tools.*
@@ -44,17 +43,17 @@ import kotlin.io.path.nameWithoutExtension
 class FileModule : SimpleListener {
     override fun onEvent(event: SimpleEvent) {
         if (event is BuildMenuEvent) {
-            addMenuItem(NewFileTool)
-            addMenuItem(OpenFileTool)
+            MenuManager.add(NewFileTool)
+            MenuManager.add(OpenFileTool)
             MenuManager.add(buildSubMenu().build())
             MenuManager.add(buildSubMenuAutoSave().build())
             //addMenuItem(RecentAutoSavesTool)
-            addMenuItem(SaveTool)
-            addMenuItem(SaveAsTool)
+            MenuManager.add(SaveTool)
+            MenuManager.add(SaveAsTool)
             MenuManager.add(ExportMenuTool)
-            addMenuItem(PrintTool)
-            addMenuItem(EmbossTool)
-            addMenuItem(BraillePreviewTool)
+            MenuManager.add(PrintTool)
+            MenuManager.add(EmbossTool)
+            MenuManager.add(BraillePreviewTool)
             // Disable split and merge as not being used.
 //			MenuManager.addMenuItem(
 //					MenuManager.TopMenu.FILE,
@@ -73,8 +72,8 @@ class FileModule : SimpleListener {
 //						e.manager.mergeBook();
 //					},
 //					null);
-            addMenuItem(CloseTool)
-            addMenuItem(ExitTool)
+            MenuManager.add(CloseTool)
+            MenuManager.add(ExitTool)
         }
     }
 

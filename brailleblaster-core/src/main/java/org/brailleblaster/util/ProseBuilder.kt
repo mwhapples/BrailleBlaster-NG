@@ -78,7 +78,7 @@ class ProseBuilder : MenuToolModule {
 
     override fun onEvent(event: SimpleEvent) {
         if (event is BuildMenuEvent) {
-            MenuManager.addMenuItem(this)
+            MenuManager.add(this)
         }
         if (event is BuildToolBarEvent) {
             if (toolbarEnabled) {

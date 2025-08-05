@@ -80,7 +80,7 @@ interface MenuToolModule : MenuTool, SimpleListener {
         get() = true
     override fun onEvent(event: SimpleEvent) {
         if (event is BuildMenuEvent && visible) {
-            MenuManager.addMenuItem(this)
+            MenuManager.add(this)
         }
     }
 }
