@@ -87,3 +87,5 @@ interface IBBRadioMenuItem : IBBMenuItem {
 
     override fun copy(): IBBRadioMenuItem = this
 }
+
+interface IBBSubMenu : IBBMenu

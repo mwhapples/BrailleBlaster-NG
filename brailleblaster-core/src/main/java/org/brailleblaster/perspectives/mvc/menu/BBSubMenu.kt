@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.MenuItem
 /**
  * Tracks submenus added to menus
  */
-class BBSubMenu internal constructor(override val topMenu: TopMenu?, val text: String, val subMenuItems: MutableList<IBBMenu> = mutableListOf()) : IBBMenu, MutableList<IBBMenu> by subMenuItems {
+class BBSubMenu internal constructor(override val topMenu: TopMenu?, val text: String, val subMenuItems: MutableList<IBBMenu> = mutableListOf()) : IBBSubMenu, MutableList<IBBMenu> by subMenuItems {
 
     fun addItem(newItem: IBBMenu) {
         subMenuItems.add(newItem)
