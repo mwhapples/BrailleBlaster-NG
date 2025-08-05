@@ -59,26 +59,36 @@ class ToggleViewsModule(private val m: Manager) : SimpleListener {
 
     override fun onEvent(event: SimpleEvent) {
         if (event is BuildMenuEvent) {
-            addSubMenu(
-                SubMenuBuilder(
-                    TopMenu.VIEW,
-                    TOGGLE_SUBMENU_TITLE
-                )
-                .addCheckItem(
-                    ToggleViewTool.TogglePrintViewTool(Views.PRINT in currentViews, makeSelectionListener(Views.PRINT))
-                )
-                .addCheckItem(
-                    ToggleViewTool.ToggleBrailleViewTool(Views.BRAILLE in currentViews, makeSelectionListener(Views.BRAILLE))
-                )
-                .addCheckItem(
-                    ToggleViewTool.ToggleStyleViewTool(Views.STYLE in currentViews, makeSelectionListener(Views.STYLE))
-                )
-                .addCheckItem(ToggleViewTool.ToggleBreadCrumbsToolbarTool(BreadcrumbsToolbar.enabled) {
-                    BreadcrumbsToolbar.enabled = !BreadcrumbsToolbar.enabled
-                    WPManager.getInstance().buildToolBar()
-                })
+            val tool = ToggleViewTool.TogglePrintViewTool(
+                Views.PRINT in currentViews,
+                makeSelectionListener(Views.PRINT)
+            )
+            val subMenuBuilder = SubMenuBuilder(
+                TopMenu.VIEW,
+                TOGGLE_SUBMENU_TITLE
+            )
+            subMenuBuilder.add(tool)
+            val tool1 = ToggleViewTool.ToggleBrailleViewTool(
+                Views.BRAILLE in currentViews,
+                makeSelectionListener(Views.BRAILLE)
+            )
+            subMenuBuilder.add(tool1)
+            val tool2 = ToggleViewTool.ToggleStyleViewTool(
+                Views.STYLE in currentViews,
+                makeSelectionListener(Views.STYLE)
+            )
+            subMenuBuilder.add(tool2)
+            val tool3 = ToggleViewTool.ToggleBreadCrumbsToolbarTool(BreadcrumbsToolbar.enabled) {
+                BreadcrumbsToolbar.enabled = !BreadcrumbsToolbar.enabled
+                WPManager.getInstance().buildToolBar()
+            }
+            subMenuBuilder.add(tool3)
+            val tool4 = RearrangeViewsTool()
+            val addSeparator = subMenuBuilder
                 .addSeparator()
-                .addItem(RearrangeViewsTool())
+            addSeparator.add(tool4)
+            addSubMenu(
+                addSeparator
             )
             windowedView = ViewManager.windowedView
             if (DebugModule.enabled) {

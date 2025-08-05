@@ -42,6 +42,14 @@ class SubMenuBuilder private constructor(val menu: TopMenu?, val name: String, v
      */
     constructor(parentSubMenu: SubMenuBuilder?, name: String) : this(null, name, parentSubMenu)
 
+    fun add(item: IBBMenu): SubMenuBuilder {
+        items.add(item)
+        when(item) {
+            is IBBMenuItem -> item.sharedItem?.let { MenuManager.sharedItems[it] = item }
+        }
+        return this
+    }
+
     /**
      * Add an item to the submenu
      *
@@ -55,22 +63,15 @@ class SubMenuBuilder private constructor(val menu: TopMenu?, val name: String, v
         swtOpts: Int = SWT.NONE,
         sharedItem: SharedItem? = null,
         onSelect: Consumer<BBSelectionData>
-    ): SubMenuBuilder {
-        return addItem(object : MenuTool {
-            override val topMenu: TopMenu = TopMenu.DEBUG // Does not matter as not used for subitems.
-            override val title: String = text
-            override val swtOpts: Int = swtOpts
-            override val accelerator: Int = accelerator
-            override val sharedItem: SharedItem? = sharedItem
+    ): SubMenuBuilder = add(object : MenuTool {
+        override val topMenu: TopMenu = TopMenu.DEBUG // Does not matter as not used for subitems.
+        override val title: String = text
+        override val swtOpts: Int = swtOpts
+        override val accelerator: Int = accelerator
+        override val sharedItem: SharedItem? = sharedItem
 
-            override fun onRun(bbData: BBSelectionData) = onSelect.accept(bbData)
-        })
-    }
-    fun addItem(tool: IBBMenuItem): SubMenuBuilder {
-        items.add(tool)
-        tool.sharedItem?.let { MenuManager.sharedItems[it] = tool }
-        return this
-    }
+        override fun onRun(bbData: BBSelectionData) = onSelect.accept(bbData)
+    })
 
     /**
      * Add an item with the checkbox style to the submenu
@@ -86,25 +87,18 @@ class SubMenuBuilder private constructor(val menu: TopMenu?, val name: String, v
         selected: Boolean,
         sharedItem: SharedItem? = null,
         onSelect: (BBSelectionData) -> Unit
-    ): SubMenuBuilder {
-        return addCheckItem(object : CheckMenuTool {
-            override val active: Boolean = selected
+    ): SubMenuBuilder = add(object : CheckMenuTool {
+        override val active: Boolean = selected
 
-            override fun onRun(bbData: BBSelectionData) = onSelect(bbData)
+        override fun onRun(bbData: BBSelectionData) = onSelect(bbData)
 
-            override val topMenu: TopMenu = TopMenu.DEBUG // This actually isn't used for submenus so can be any value
-            override val title: String = text
-            override val id: String = "$title (generated)"
+        override val topMenu: TopMenu = TopMenu.DEBUG // This actually isn't used for submenus so can be any value
+        override val title: String = text
+        override val id: String = "${title} (generated)"
 
-            override val accelerator: Int = accelerator
-            override val sharedItem: SharedItem? = sharedItem
-        })
-    }
-    fun addCheckItem(tool: IBBCheckMenuItem): SubMenuBuilder {
-        items.add(tool)
-        tool.sharedItem?.let { MenuManager.sharedItems[it] = tool }
-        return this
-    }
+        override val accelerator: Int = accelerator
+        override val sharedItem: SharedItem? = sharedItem
+    })
 
     /**
      * Add an item with the radio style to the submenu
@@ -119,25 +113,16 @@ class SubMenuBuilder private constructor(val menu: TopMenu?, val name: String, v
         accelerator: Int,
         selected: Boolean,
         onSelect: (BBSelectionData) -> Unit
-    ): SubMenuBuilder {
-        items.add(BBRadioMenuItem(null, text, accelerator, selected, onSelect))
-        return this
-    }
+    ): SubMenuBuilder = add(BBRadioMenuItem(null, text, accelerator, selected, onSelect))
 
-    fun addSeparator(): SubMenuBuilder {
-        items.add(BBSeparator(null))
-        return this
-    }
+    fun addSeparator(): SubMenuBuilder = add(BBSeparator(null))
 
     /**
      * Add a nested submenu to this submenu. Note: Nested submenu's parent must be set to this SubMenuBuilder
      *
      * @param newSubMenu New sub menu to inserted under the current sub menu
      */
-    fun addSubMenu(newSubMenu: BBSubMenu): SubMenuBuilder {
-        items.add(newSubMenu)
-        return this
-    }
+    fun addSubMenu(newSubMenu: BBSubMenu): SubMenuBuilder = add(newSubMenu)
 
     fun build(): BBSubMenu = BBSubMenu(menu, name, subMenuItems = items.toMutableList())
 }
