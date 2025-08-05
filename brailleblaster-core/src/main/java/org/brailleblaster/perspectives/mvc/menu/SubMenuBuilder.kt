@@ -49,23 +49,12 @@ class SubMenuBuilder private constructor(val menu: TopMenu?, val name: String, v
      * @param accelerator Either the SWT.MOD_ constants plus a character, or 0 for no accelerator
      * @param onSelect    Selection behavior when item is selected
      */
-    fun addItem(text: String, accelerator: Int, onSelect: Consumer<BBSelectionData>): SubMenuBuilder {
-        return addItem(text, accelerator, SWT.NONE, onSelect, null)
-    }
-
-    /**
-     * Add an item to the submenu
-     *
-     * @param text        Text of the menu item
-     * @param accelerator Either the SWT.MOD_ constants plus a character, or 0 for no accelerator
-     * @param onSelect    Selection behavior when item is selected
-     */
     fun addItem(
         text: String,
         accelerator: Int,
-        swtOpts: Int,
-        onSelect: Consumer<BBSelectionData>,
-        sharedItem: SharedItem? = null
+        swtOpts: Int = SWT.NONE,
+        sharedItem: SharedItem? = null,
+        onSelect: Consumer<BBSelectionData>
     ): SubMenuBuilder {
         return addItem(object : MenuTool {
             override val topMenu: TopMenu = TopMenu.DEBUG // Does not matter as not used for subitems.

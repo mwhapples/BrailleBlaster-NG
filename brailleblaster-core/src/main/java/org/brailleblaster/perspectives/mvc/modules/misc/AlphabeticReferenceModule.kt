@@ -31,11 +31,11 @@ class AlphabeticReferenceModule(var manager: Manager) : BBSimpleManager.SimpleLi
                     manager, manager.wpManager.shell
                 )
             }
-            smb.addItem(EDIT_GUIDE_WORD, 0, 0, {
+            smb.addItem(EDIT_GUIDE_WORD, 0, 0, SharedItem.EDIT_GUIDE_WORD) {
                 GuideWordEditor.open(
                     manager
                 )
-            }, SharedItem.EDIT_GUIDE_WORD)
+            }
             MenuManager.addSubMenu(smb)
         }
     }
