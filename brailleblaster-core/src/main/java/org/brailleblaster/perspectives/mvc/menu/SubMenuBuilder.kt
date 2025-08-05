@@ -65,7 +65,7 @@ class SubMenuBuilder private constructor(val menu: TopMenu?, val name: String, v
         accelerator: Int,
         swtOpts: Int,
         onSelect: Consumer<BBSelectionData>,
-        sharedItem: SharedItem?
+        sharedItem: SharedItem? = null
     ): SubMenuBuilder {
         return addItem(object : MenuTool {
             override val topMenu: TopMenu = TopMenu.DEBUG // Does not matter as not used for subitems.
@@ -77,26 +77,13 @@ class SubMenuBuilder private constructor(val menu: TopMenu?, val name: String, v
             override fun onRun(bbData: BBSelectionData) = onSelect.accept(bbData)
         })
     }
-    fun addItem(tool: MenuTool): SubMenuBuilder {
-        val sharedItem = tool.sharedItem
+    fun addItem(tool: IBBMenuItem): SubMenuBuilder {
         items.add(tool)
-        sharedItem?.let { MenuManager.sharedItems[it] = tool }
+        tool.sharedItem?.let { MenuManager.sharedItems[it] = tool }
         return this
     }
 
     /**
-     * Add an item to the submenu
-     *
-     * @param text        Text of the menu item
-     * @param accelerator Either the SWT.MOD_ constants plus a character, or 0 for no accelerator
-     * @param swtOpts     SWT options passed to its constructor on creation
-     * @param onSelect    Selection behavior when item is selected
-     */
-    fun addItem(text: String, accelerator: Int, swtOpts: Int, onSelect: Consumer<BBSelectionData>): SubMenuBuilder {
-        return addItem(text, accelerator, swtOpts, onSelect, null)
-    }
-
-    /**
      * Add an item with the checkbox style to the submenu
      *
      * @param text        Text of the menu item
@@ -108,25 +95,8 @@ class SubMenuBuilder private constructor(val menu: TopMenu?, val name: String, v
         text: String,
         accelerator: Int,
         selected: Boolean,
+        sharedItem: SharedItem? = null,
         onSelect: Consumer<BBSelectionData>
-    ): SubMenuBuilder {
-        return addCheckItem(text, accelerator, selected, onSelect, null)
-    }
-
-    /**
-     * Add an item with the checkbox style to the submenu
-     *
-     * @param text        Text of the menu item
-     * @param accelerator Either the SWT.MOD_ constants plus a character, or 0 for no accelerator
-     * @param selected    If true, will be checked on creation
-     * @param onSelect    Selection behavior when item is selected
-     */
-    fun addCheckItem(
-        text: String,
-        accelerator: Int,
-        selected: Boolean,
-        onSelect: Consumer<BBSelectionData>,
-        sharedItem: SharedItem?
     ): SubMenuBuilder {
         return addCheckItem(object : CheckMenuTool {
             override val active: Boolean = selected
@@ -141,12 +111,9 @@ class SubMenuBuilder private constructor(val menu: TopMenu?, val name: String, v
             override val sharedItem: SharedItem? = sharedItem
         })
     }
-    fun addCheckItem(tool: CheckMenuTool): SubMenuBuilder {
-        val sharedItem = tool.sharedItem
+    fun addCheckItem(tool: IBBCheckMenuItem): SubMenuBuilder {
         items.add(tool)
-        if (sharedItem != null) {
-            MenuManager.sharedItems[sharedItem] = tool
-        }
+        tool.sharedItem?.let { MenuManager.sharedItems[it] = tool }
         return this
     }
 
@@ -178,8 +145,14 @@ class SubMenuBuilder private constructor(val menu: TopMenu?, val name: String, v
      *
      * @param newSubMenu New sub menu to inserted under the current sub menu
      */
-    fun addSubMenu(newSubMenu: SubMenuBuilder): SubMenuBuilder {
-        items.add(newSubMenu.build())
+    fun addSubMenu(newSubMenu: SubMenuBuilder): SubMenuBuilder = addSubMenu(newSubMenu.build())
+    /**
+     * Add a nested submenu to this submenu. Note: Nested submenu's parent must be set to this SubMenuBuilder
+     *
+     * @param newSubMenu New sub menu to inserted under the current sub menu
+     */
+    fun addSubMenu(newSubMenu: BBSubMenu): SubMenuBuilder {
+        items.add(newSubMenu)
         return this
     }
 
