@@ -18,7 +18,6 @@ package org.brailleblaster.tools
 import org.brailleblaster.perspectives.mvc.BBSimpleManager.SimpleListener
 import org.brailleblaster.perspectives.mvc.menu.MenuManager
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
-import org.brailleblaster.perspectives.mvc.menu.EmphasisItem
 import org.brailleblaster.perspectives.mvc.menu.EnableListener
 import org.brailleblaster.perspectives.mvc.menu.SharedItem
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
@@ -27,7 +26,6 @@ import org.brailleblaster.perspectives.mvc.events.BuildMenuEvent
 import org.brailleblaster.perspectives.mvc.menu.IBBCheckMenuItem
 import org.brailleblaster.perspectives.mvc.menu.IBBMenuItem
 import org.brailleblaster.perspectives.mvc.modules.views.DebugModule
-import org.brailleblaster.perspectives.mvc.modules.views.EmphasisModule
 import org.brailleblaster.usage.logEnd
 import org.brailleblaster.usage.logException
 import org.brailleblaster.usage.logStart
@@ -76,8 +74,10 @@ interface CheckMenuTool : ToggleTool, MenuTool, IBBCheckMenuItem {
 }
 
 interface MenuToolListener : MenuTool, SimpleListener {
+    val visible: Boolean
+        get() = true
     override fun onEvent(event: SimpleEvent) {
-        if (event is BuildMenuEvent) {
+        if (event is BuildMenuEvent && visible) {
             MenuManager.addMenuItem(this)
         }
     }
@@ -85,20 +85,7 @@ interface MenuToolListener : MenuTool, SimpleListener {
 interface DebugMenuToolListener : MenuToolListener {
     override val topMenu: TopMenu
         get() = TopMenu.DEBUG
-    override fun onEvent(event: SimpleEvent) {
-        if (event is  BuildMenuEvent && DebugModule.enabled) {
-            MenuManager.addMenuItem(this)
-        }
-    }
+    override val visible: Boolean
+        get() = DebugModule.enabled
 }
-interface EmphasisMenuTool : MenuToolListener {
-    override val topMenu: TopMenu
-        get() = TopMenu.EMPHASIS
-    val emphasis: EmphasisItem
-    override val title: String
-        get() = emphasis.longName
 
-    override fun onRun(bbData: BBSelectionData) {
-        EmphasisModule.addEmphasis(bbData.manager.simpleManager, emphasis.emphasisType)
-    }
-}
