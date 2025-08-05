@@ -105,7 +105,7 @@ interface SubMenuModule : IBBSubMenu, SimpleListener {
     }
     override fun onEvent(event: SimpleEvent) {
         if (event is BuildMenuEvent && visible) {
-            MenuManager.addSubMenu(this)
+            MenuManager.add(this)
         }
     }
 }

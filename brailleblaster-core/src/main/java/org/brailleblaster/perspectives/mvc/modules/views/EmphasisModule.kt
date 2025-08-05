@@ -30,7 +30,6 @@ import org.brailleblaster.perspectives.mvc.events.BuildMenuEvent
 import org.brailleblaster.perspectives.mvc.events.ModifyEvent
 import org.brailleblaster.perspectives.mvc.menu.*
 import org.brailleblaster.perspectives.mvc.menu.MenuManager.addMenuItem
-import org.brailleblaster.perspectives.mvc.menu.MenuManager.addSubMenu
 import org.brailleblaster.perspectives.mvc.menu.MenuManager.addToSharedSubMenus
 import org.brailleblaster.perspectives.mvc.modules.misc.TableSelectionModule
 import org.brailleblaster.perspectives.mvc.modules.views.EmphasisModule.addEmphasis
@@ -91,7 +90,7 @@ object EmphasisModule : AbstractModule(), SimpleListener {
                 if (Utils.isLinux) SWT.MOD3 + SWT.MOD2 + '%'.code else SWT.MOD3 + SWT.MOD2 + '5'.code
             ) { addEmphasis(event.manager, EmphasisType.TRANS_5) }
             addToSharedSubMenus(SharedItem.TYPEFORMS, smb)
-            addSubMenu(smb.build())
+            MenuManager.add(smb.build())
             addMenuItem(RemoveAllEmphasisTool)
             addMenuItem(RemoveAllHeadingEmphasisTool)
             addMenuItem(RemoveAllListEmphasisTool)

@@ -47,7 +47,7 @@ class ToolBarModule(private val wp: WPManager) : SimpleListener {
                     wp.buildToolBar()
                 }
             }
-            MenuManager.addSubMenu(smb.build())
+            MenuManager.add(smb.build())
             val userScale = ToolBarSettings.scale
             val iconSMB =
                 SubMenuBuilder(TopMenu.VIEW, "Icon Size")
@@ -60,7 +60,7 @@ class ToolBarModule(private val wp: WPManager) : SimpleListener {
                     wp.buildToolBar()
                 }
             }
-            MenuManager.addSubMenu(iconSMB.build())
+            MenuManager.add(iconSMB.build())
         }
     }
 }

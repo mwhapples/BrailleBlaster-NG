@@ -79,7 +79,7 @@ class VolumeInsertModule : SimpleListener {
                     }
                     .build()
             )
-            MenuManager.addSubMenu(volumeManagerMenu.build())
+            MenuManager.add(volumeManagerMenu.build())
         }
     }
 

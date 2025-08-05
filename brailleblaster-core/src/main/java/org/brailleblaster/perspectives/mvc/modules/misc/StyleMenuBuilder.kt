@@ -21,7 +21,6 @@ import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.mvc.menu.*
 import org.brailleblaster.perspectives.mvc.menu.MenuManager.addSeparator
-import org.brailleblaster.perspectives.mvc.menu.MenuManager.addSubMenu
 import org.brailleblaster.perspectives.mvc.menu.MenuManager.addToStyleMenu
 import org.brailleblaster.settings.ui.Loadout
 import org.brailleblaster.settings.ui.Loadout.Companion.getAcc
@@ -178,7 +177,7 @@ class StyleMenuBuilder(shell: Shell, manager: Manager) : StylesBuilder(shell, ma
         }
         for ((key, category) in categories) {
             addToStyleMenu(key, category)
-            addSubMenu(category.build())
+            MenuManager.add(category.build())
         }
     }
 
@@ -188,7 +187,7 @@ class StyleMenuBuilder(shell: Shell, manager: Manager) : StylesBuilder(shell, ma
     ) {
         val smb = SubMenuBuilder(TopMenu.STYLES, "Options")
         getStyleOptions(smb, onOptionSelect, onStyleSelect!!)
-        addSubMenu(smb.build())
+        MenuManager.add(smb.build())
     }
 
     private fun getStyleName(styles: List<Style>, styleId: String): String {
@@ -239,7 +238,7 @@ class StyleMenuBuilder(shell: Shell, manager: Manager) : StylesBuilder(shell, ma
         }
         configureMenu.addSubMenu(loadoutsMenu.build())
         configureMenu.addSubMenu(styleLevelsMenu.build())
-        addSubMenu(configureMenu.build())
+        MenuManager.add(configureMenu.build())
     }
 
     private fun showLoadoutDialog(accelerator: Int) {

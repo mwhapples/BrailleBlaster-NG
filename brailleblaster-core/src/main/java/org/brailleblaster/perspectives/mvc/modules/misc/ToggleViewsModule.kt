@@ -87,13 +87,13 @@ class ToggleViewsModule(private val m: Manager) : SimpleListener {
             val addSeparator = subMenuBuilder
                 .addSeparator()
             addSeparator.add(tool4)
-            MenuManager.addSubMenu(
+            MenuManager.add(
                 addSeparator
-                    .build()
+                            .build()
             )
             windowedView = ViewManager.windowedView
             if (DebugModule.enabled) {
-                MenuManager.addSubMenu(
+                MenuManager.add(
                     SubMenuBuilder(
                         TopMenu.WINDOW,
                         WINDOWIZE_TITLE

@@ -40,7 +40,7 @@ class ChangeTranslationModule : SimpleListener {
                 UNCONTRACTED_HOTKEY
             ) { e: BBSelectionData -> EmphasisModule.addEmphasis(e.manager.simpleManager, EmphasisType.NO_CONTRACT) }
             addToSharedSubMenus(SharedItem.CHANGE_TRANSLATION, smb)
-            MenuManager.addSubMenu(smb.build())
+            MenuManager.add(smb.build())
         }
     }
 

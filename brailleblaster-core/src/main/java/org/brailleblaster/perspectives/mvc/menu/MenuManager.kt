@@ -214,10 +214,6 @@ object MenuManager {
         add(BBSeparator(menu))
     }
 
-    fun addSubMenu(tool: IBBSubMenu) {
-        add(tool)
-    }
-
     /**
      * Adds a category submenu to the style menu
      * @param category Category of the id of the style
