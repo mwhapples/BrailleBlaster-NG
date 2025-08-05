@@ -192,25 +192,24 @@ object MenuManager {
      * @see SubMenuBuilder
      */
 	@JvmStatic
-	fun addSubMenu(subMenu: SubMenuBuilder) {
-        val newMenu = subMenu.build()
-
+	fun addSubMenu(subMenu: SubMenuBuilder) = addSubMenu(subMenu.build())
+    fun addSubMenu(subMenu: BBSubMenu) {
         // Merge duplicate sub menus, allows submenus to be defined in multiple modules
         var mergedWithExisting = false
         for (item in items) {
             if (item !is BBSubMenu) {
                 continue
             }
-            if (item.text == newMenu.text) {
+            if (item.text == subMenu.text) {
                 mergedWithExisting = true
-                for (subMenuItem in newMenu.subMenuItems) {
+                for (subMenuItem in subMenu.subMenuItems) {
                     item.addItem(subMenuItem)
                 }
                 break
             }
         }
         if (!mergedWithExisting) {
-            items.add(newMenu)
+            items.add(subMenu)
         }
     }
 
