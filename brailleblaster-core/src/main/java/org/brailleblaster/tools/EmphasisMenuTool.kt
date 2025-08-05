@@ -20,7 +20,7 @@ import org.brailleblaster.perspectives.mvc.menu.EmphasisItem
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.perspectives.mvc.modules.views.EmphasisModule
 
-interface EmphasisMenuTool : MenuToolListener {
+interface EmphasisMenuTool : MenuToolModule {
     override val topMenu: TopMenu
         get() = TopMenu.EMPHASIS
     val emphasis: EmphasisItem

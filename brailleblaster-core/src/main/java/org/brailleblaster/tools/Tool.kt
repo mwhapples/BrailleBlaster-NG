@@ -24,7 +24,9 @@ import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.perspectives.mvc.SimpleEvent
 import org.brailleblaster.perspectives.mvc.events.BuildMenuEvent
 import org.brailleblaster.perspectives.mvc.menu.IBBCheckMenuItem
+import org.brailleblaster.perspectives.mvc.menu.IBBMenu
 import org.brailleblaster.perspectives.mvc.menu.IBBMenuItem
+import org.brailleblaster.perspectives.mvc.menu.IBBSubMenu
 import org.brailleblaster.perspectives.mvc.modules.views.DebugModule
 import org.brailleblaster.usage.logEnd
 import org.brailleblaster.usage.logException
@@ -73,7 +75,7 @@ interface CheckMenuTool : ToggleTool, MenuTool, IBBCheckMenuItem {
         get() = SWT.CHECK
 }
 
-interface MenuToolListener : MenuTool, SimpleListener {
+interface MenuToolModule : MenuTool, SimpleListener {
     val visible: Boolean
         get() = true
     override fun onEvent(event: SimpleEvent) {
@@ -82,10 +84,28 @@ interface MenuToolListener : MenuTool, SimpleListener {
         }
     }
 }
-interface DebugMenuToolListener : MenuToolListener {
+interface DebugMenuToolModule : MenuToolModule {
     override val topMenu: TopMenu
         get() = TopMenu.DEBUG
     override val visible: Boolean
         get() = DebugModule.enabled
 }
 
+interface SubMenuModule : IBBSubMenu, SimpleListener {
+    val visible: Boolean
+        get() = true
+
+    override fun copy(): SubMenuModule {
+        return object : SubMenuModule {
+            override val text: String = this@SubMenuModule.text
+            override val subMenuItems: List<IBBMenu> = this@SubMenuModule.subMenuItems.toList()
+            override val topMenu: TopMenu? = this@SubMenuModule.topMenu
+            override val visible: Boolean = this@SubMenuModule.visible
+        }
+    }
+    override fun onEvent(event: SimpleEvent) {
+        if (event is BuildMenuEvent && visible) {
+            MenuManager.addSubMenu(this)
+        }
+    }
+}

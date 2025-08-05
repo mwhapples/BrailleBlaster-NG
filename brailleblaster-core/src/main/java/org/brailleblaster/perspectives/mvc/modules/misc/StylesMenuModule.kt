@@ -42,7 +42,7 @@ import org.brailleblaster.perspectives.mvc.modules.misc.TableSelectionModule.Com
 import org.brailleblaster.perspectives.mvc.modules.views.EmphasisModule.addEmphasis
 import org.brailleblaster.settings.UTDManager.Companion.hasUtdStyleTag
 import org.brailleblaster.settings.UTDManager.Companion.isStyle
-import org.brailleblaster.tools.MenuToolListener
+import org.brailleblaster.tools.MenuToolModule
 import org.brailleblaster.utd.Style
 import org.brailleblaster.utd.exceptions.NodeException
 import org.brailleblaster.utd.internal.xml.FastXPath
@@ -73,7 +73,7 @@ import java.util.*
 import kotlin.math.max
 
 class StylesMenuModule(private val m: Manager) : SimpleListener {
-    inner class RepeatStyleTool : MenuToolListener {
+    inner class RepeatStyleTool : MenuToolModule {
         override val topMenu: TopMenu
             get() = TopMenu.STYLES
         override val title: String

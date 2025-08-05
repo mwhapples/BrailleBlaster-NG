@@ -28,21 +28,6 @@ class BBSubMenu internal constructor(override val topMenu: TopMenu?, override va
         subMenuItems.add(newItem)
     }
 
-    override fun build(parentMenu: Menu): MenuItem {
-        val parentSubMenu = MenuItem(parentMenu, SWT.CASCADE)
-        parentSubMenu.text = text
-        val subMenu = Menu(parentMenu.shell, SWT.DROP_DOWN)
-        for (item in subMenuItems) {
-            item.build(subMenu)
-        }
-        // empty menu looks ugly
-        if (subMenuItems.isEmpty()) {
-            parentSubMenu.isEnabled = false
-        }
-        parentSubMenu.menu = subMenu
-        return parentSubMenu
-    }
-
     override fun copy(): BBSubMenu {
         val copy = BBSubMenu(topMenu, text, subMenuItems = subMenuItems.map { it.copy() }.toMutableList())
         return copy

@@ -34,7 +34,7 @@ import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
 import org.brailleblaster.perspectives.mvc.menu.MenuManager.addMenuItem
 import org.brailleblaster.perspectives.mvc.modules.views.DebugModule
 import org.brailleblaster.settings.UTDManager
-import org.brailleblaster.tools.DebugMenuToolListener
+import org.brailleblaster.tools.DebugMenuToolModule
 import org.brailleblaster.utd.formatters.TPageFormatter
 import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.utd.utils.UTDHelper.Companion.stripUTDRecursive
@@ -61,7 +61,7 @@ import java.util.function.Consumer
 import kotlin.math.max
 import kotlin.math.min
 
-class TPagesDialog : DebugMenuToolListener {
+class TPagesDialog : DebugMenuToolModule {
     private lateinit var doc: Document
     private var manager: Manager? = null
     private lateinit var m: UTDManager

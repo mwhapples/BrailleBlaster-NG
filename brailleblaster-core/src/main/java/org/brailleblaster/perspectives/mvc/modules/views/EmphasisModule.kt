@@ -36,7 +36,7 @@ import org.brailleblaster.perspectives.mvc.modules.misc.TableSelectionModule
 import org.brailleblaster.perspectives.mvc.modules.views.EmphasisModule.addEmphasis
 import org.brailleblaster.perspectives.mvc.modules.views.EmphasisModule.verifyNumberedListItem
 import org.brailleblaster.tools.EmphasisMenuTool
-import org.brailleblaster.tools.MenuToolListener
+import org.brailleblaster.tools.MenuToolModule
 import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.internal.xml.XMLHandler2
@@ -375,7 +375,7 @@ object EmphasisModule : AbstractModule(), SimpleListener {
 
 
 }
-object RemoveAllEmphasisTool : MenuToolListener {
+object RemoveAllEmphasisTool : MenuToolModule {
     override val topMenu = TopMenu.EMPHASIS
     override val title = "Remove Emphasis From Selection"
     override val accelerator =
@@ -402,7 +402,7 @@ object RemoveAllEmphasisTool : MenuToolListener {
         process.close()
     }
 }
-object RemoveAllHeadingEmphasisTool : MenuToolListener {
+object RemoveAllHeadingEmphasisTool : MenuToolModule {
     override val topMenu = TopMenu.EMPHASIS
     override val title = "Remove All Emphasis from Headings"
     override val enableListener = EnableListener.SELECTION
@@ -443,7 +443,7 @@ object RemoveAllHeadingEmphasisTool : MenuToolListener {
         message.open()
     }
 }
-object RemoveAllListEmphasisTool : MenuToolListener {
+object RemoveAllListEmphasisTool : MenuToolModule {
     override val topMenu = TopMenu.EMPHASIS
     override val title = "Remove Emphasis from List Prefixes"
     override val enableListener = EnableListener.SELECTION
@@ -474,7 +474,7 @@ object RemoveAllListEmphasisTool : MenuToolListener {
         message.open()
     }
 }
-object RemoveAllGuideWordEmphasisTool : MenuToolListener {
+object RemoveAllGuideWordEmphasisTool : MenuToolModule {
     override val topMenu = TopMenu.EMPHASIS
     override val title = "Remove Emphasis from Alphabetic Reference Entry Words"
     override val enableListener = EnableListener.SELECTION

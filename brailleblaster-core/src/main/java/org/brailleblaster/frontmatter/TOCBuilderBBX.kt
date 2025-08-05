@@ -45,7 +45,7 @@ import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.perspectives.mvc.modules.views.DebugModule
 import org.brailleblaster.settings.UTDManager
 import org.brailleblaster.settings.UTDManager.Companion.isStyle
-import org.brailleblaster.tools.MenuToolListener
+import org.brailleblaster.tools.MenuToolModule
 import org.brailleblaster.utd.IStyle
 import org.brailleblaster.utd.Style
 import org.brailleblaster.utd.exceptions.NodeException
@@ -86,7 +86,7 @@ import java.util.regex.Pattern
 /**
  * TOC Builder toolbar updated for BBX format
  */
-class TOCBuilderBBX(private var manager: Manager) : MenuToolListener, BBViewListener, VerifyKeyListener {
+class TOCBuilderBBX(private var manager: Manager) : MenuToolModule, BBViewListener, VerifyKeyListener {
     /**
      * Note: instance variable to reset in between tests
      *

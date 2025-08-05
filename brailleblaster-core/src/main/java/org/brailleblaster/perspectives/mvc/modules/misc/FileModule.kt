@@ -25,8 +25,8 @@ import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.mvc.BBSimpleManager.SimpleListener
 import org.brailleblaster.perspectives.mvc.SimpleEvent
 import org.brailleblaster.perspectives.mvc.events.BuildMenuEvent
-import org.brailleblaster.perspectives.mvc.menu.MenuManager
 import org.brailleblaster.perspectives.mvc.menu.MenuManager.addMenuItem
+import org.brailleblaster.perspectives.mvc.menu.MenuManager.addSubMenu
 import org.brailleblaster.perspectives.mvc.menu.SubMenuBuilder
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.tools.*
@@ -46,12 +46,12 @@ class FileModule : SimpleListener {
         if (event is BuildMenuEvent) {
             addMenuItem(NewFileTool)
             addMenuItem(OpenFileTool)
-            MenuManager.addSubMenu(buildSubMenu().build())
-            MenuManager.addSubMenu(buildSubMenuAutoSave().build())
+            addSubMenu(buildSubMenu().build())
+            addSubMenu(buildSubMenuAutoSave().build())
             //addMenuItem(RecentAutoSavesTool)
             addMenuItem(SaveTool)
             addMenuItem(SaveAsTool)
-            addMenuItem(SaveVolumeBrfPefTool)
+            addSubMenu(ExportMenuTool)
             addMenuItem(PrintTool)
             addMenuItem(EmbossTool)
             addMenuItem(BraillePreviewTool)
