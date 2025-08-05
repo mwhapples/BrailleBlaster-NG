@@ -186,13 +186,6 @@ object MenuManager {
         items.add(BBSeparator(menu))
     }
 
-    /**
-     * Adds a sub menu.
-     * @param subMenu SubMenuBuilder to create the sub menu.
-     * @see SubMenuBuilder
-     */
-	@JvmStatic
-	fun addSubMenu(subMenu: SubMenuBuilder) = addSubMenu(subMenu.build())
     fun addSubMenu(subMenu: IBBSubMenu) {
         // Merge duplicate sub menus, allows submenus to be defined in multiple modules
         var mergedWithExisting = false

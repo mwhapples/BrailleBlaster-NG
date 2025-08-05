@@ -91,7 +91,7 @@ object EmphasisModule : AbstractModule(), SimpleListener {
                 if (Utils.isLinux) SWT.MOD3 + SWT.MOD2 + '%'.code else SWT.MOD3 + SWT.MOD2 + '5'.code
             ) { addEmphasis(event.manager, EmphasisType.TRANS_5) }
             addToSharedSubMenus(SharedItem.TYPEFORMS, smb)
-            addSubMenu(smb)
+            addSubMenu(smb.build())
             addMenuItem(RemoveAllEmphasisTool)
             addMenuItem(RemoveAllHeadingEmphasisTool)
             addMenuItem(RemoveAllListEmphasisTool)

@@ -36,7 +36,7 @@ class AlphabeticReferenceModule(var manager: Manager) : BBSimpleManager.SimpleLi
                     manager
                 )
             }
-            MenuManager.addSubMenu(smb)
+            MenuManager.addSubMenu(smb.build())
         }
     }
 

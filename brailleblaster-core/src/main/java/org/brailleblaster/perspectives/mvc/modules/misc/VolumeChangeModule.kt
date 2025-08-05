@@ -76,7 +76,7 @@ class VolumeChangeModule(private val manager: Manager) : SimpleListener {
                 MENU_DELETE_CURRENT_VOLUME,
                 SWT.NONE
             ) { deleteCurrentVolume() }
-            MenuManager.addSubMenu(volumeManagerMenu)
+            MenuManager.addSubMenu(volumeManagerMenu.build())
         }
     }
 

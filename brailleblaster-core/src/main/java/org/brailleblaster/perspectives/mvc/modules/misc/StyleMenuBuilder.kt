@@ -178,7 +178,7 @@ class StyleMenuBuilder(shell: Shell, manager: Manager) : StylesBuilder(shell, ma
         }
         for ((key, category) in categories) {
             addToStyleMenu(key, category)
-            addSubMenu(category)
+            addSubMenu(category.build())
         }
     }
 
@@ -188,7 +188,7 @@ class StyleMenuBuilder(shell: Shell, manager: Manager) : StylesBuilder(shell, ma
     ) {
         val smb = SubMenuBuilder(TopMenu.STYLES, "Options")
         getStyleOptions(smb, onOptionSelect, onStyleSelect!!)
-        addSubMenu(smb)
+        addSubMenu(smb.build())
     }
 
     private fun getStyleName(styles: List<Style>, styleId: String): String {
@@ -239,7 +239,7 @@ class StyleMenuBuilder(shell: Shell, manager: Manager) : StylesBuilder(shell, ma
         }
         configureMenu.addSubMenu(loadoutsMenu.build())
         configureMenu.addSubMenu(styleLevelsMenu.build())
-        addSubMenu(configureMenu)
+        addSubMenu(configureMenu.build())
     }
 
     private fun showLoadoutDialog(accelerator: Int) {

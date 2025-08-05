@@ -23,7 +23,7 @@ import org.brailleblaster.perspectives.mvc.SimpleEvent
 import org.brailleblaster.perspectives.mvc.ViewManager
 import org.brailleblaster.perspectives.mvc.events.BuildMenuEvent
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
-import org.brailleblaster.perspectives.mvc.menu.MenuManager.addSubMenu
+import org.brailleblaster.perspectives.mvc.menu.MenuManager
 import org.brailleblaster.perspectives.mvc.menu.SubMenuBuilder
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.perspectives.mvc.modules.views.DebugModule
@@ -87,12 +87,13 @@ class ToggleViewsModule(private val m: Manager) : SimpleListener {
             val addSeparator = subMenuBuilder
                 .addSeparator()
             addSeparator.add(tool4)
-            addSubMenu(
+            MenuManager.addSubMenu(
                 addSeparator
+                    .build()
             )
             windowedView = ViewManager.windowedView
             if (DebugModule.enabled) {
-                addSubMenu(
+                MenuManager.addSubMenu(
                     SubMenuBuilder(
                         TopMenu.WINDOW,
                         WINDOWIZE_TITLE
@@ -110,6 +111,7 @@ class ToggleViewsModule(private val m: Manager) : SimpleListener {
                             SWT.NONE,
                             windowedView == Views.STYLE
                         ) { e: BBSelectionData -> enableWindowedView(e, Views.STYLE) }
+                        .build()
                 )
             }
         }
