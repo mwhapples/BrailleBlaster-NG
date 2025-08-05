@@ -20,7 +20,7 @@ import org.brailleblaster.utils.localization.LocaleHandler.Companion.getBanaStyl
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.mvc.menu.*
-import org.brailleblaster.perspectives.mvc.menu.MenuManager.addSeparator
+import org.brailleblaster.perspectives.mvc.menu.BBSeparator
 import org.brailleblaster.perspectives.mvc.menu.MenuManager.addToStyleMenu
 import org.brailleblaster.settings.ui.Loadout
 import org.brailleblaster.settings.ui.Loadout.Companion.getAcc
@@ -72,10 +72,10 @@ class StyleMenuBuilder(shell: Shell, manager: Manager) : StylesBuilder(shell, ma
         onLevelSelect: Consumer<BBSelectionData>
     ) {
         addStyleConfiguration(onStyleSelect, onTypeformSelect, onLevelSelect)
-        addSeparator(TopMenu.STYLES)
+        MenuManager.add(BBSeparator(TopMenu.STYLES))
         if (onOptionSelect != null) {
             addStyleOptions(onOptionSelect, onStyleSelect)
-            addSeparator(TopMenu.STYLES)
+            MenuManager.add(BBSeparator(TopMenu.STYLES))
         }
         onStyleSelect?.let { getStyleCategories(it, onTypeformSelect) }
         addLoadoutListener(onStyleSelect)

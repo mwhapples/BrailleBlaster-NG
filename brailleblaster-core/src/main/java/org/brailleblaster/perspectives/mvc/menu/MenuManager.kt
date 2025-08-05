@@ -206,15 +206,6 @@ object MenuManager {
     }
 
     /**
-     * Adds a horizontal line to visually separate menu items
-     * @param menu Top-level menu the separator should appear under
-     */
-    @JvmStatic
-    fun addSeparator(menu: TopMenu?) {
-        add(BBSeparator(menu))
-    }
-
-    /**
      * Adds a category submenu to the style menu
      * @param category Category of the id of the style
      * @param subMenu SubMenuBuilder containing the styles for that category
