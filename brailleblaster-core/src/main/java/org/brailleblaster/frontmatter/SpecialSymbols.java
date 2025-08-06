@@ -18,9 +18,9 @@ package org.brailleblaster.frontmatter;
 import nu.xom.*;
 import org.brailleblaster.BBIni;
 import org.brailleblaster.settings.UTDManager;
+import org.brailleblaster.utd.internal.xml.XMLHandler;
 import org.brailleblaster.utd.internal.xml.XMLHandler2;
 import org.brailleblaster.utd.properties.UTDElements;
-import org.brailleblaster.util.FileUtils;
 import org.brailleblaster.util.Notify;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -648,7 +648,7 @@ public class SpecialSymbols {
             newPrefix.appendChild(newDesc);
             root.appendChild(newPrefix);
         }
-        FileUtils.INSTANCE.createXMLFile(custom, CUSTOM_SYMBOL_PATH);
+        new XMLHandler().save(custom, new File(CUSTOM_SYMBOL_PATH));
     }
 
     static final String[][] sharedSymbols = new String[][]{{"~", "^"}, {"`", "@"}, {"{", "["}, {"}", "]"}, {"|", "\\"}};
@@ -720,7 +720,7 @@ public class SpecialSymbols {
             }
             root.appendChild(newEntry);
         }
-        FileUtils.INSTANCE.createXMLFile(doc, path);
+        new XMLHandler().save(doc, new File(path));
     }
 
     private static @Nullable Document readDocFromPath(String path) {

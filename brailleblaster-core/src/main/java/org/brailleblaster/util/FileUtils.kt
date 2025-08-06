@@ -15,9 +15,7 @@
  */
 package org.brailleblaster.util
 
-import nu.xom.Document
 import org.brailleblaster.BBIni
-import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.util.Notify.showException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -89,11 +87,6 @@ object FileUtils {
                 showException(e)
             }
         }
-    }
-
-    //Writes XML files or logs an error if it fails
-    fun createXMLFile(xmlDoc: Document, path: String) {
-        XMLHandler().save(xmlDoc, File(path))
     }
 
     val logger: Logger = LoggerFactory.getLogger(FileUtils::class.java)
