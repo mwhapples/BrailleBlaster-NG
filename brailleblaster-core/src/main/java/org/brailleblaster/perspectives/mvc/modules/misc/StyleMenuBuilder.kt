@@ -111,14 +111,12 @@ class StyleMenuBuilder(shell: Shell, manager: Manager) : StylesBuilder(shell, ma
             }
             var afterCat = id.substring(id.indexOf('/') + 1)
             if (afterCat.indexOf('/') != -1) { //Id has a subcategory
-                afterCat = afterCat.substring(0, afterCat.lastIndexOf('/'))
-                if (afterCat.contains("Levels")) {
-                    val levelsIndex = afterCat.indexOf("Levels")
-                    if (levelsIndex > 0 && "0123456789".contains(afterCat.substring(levelsIndex - 1, levelsIndex))) {
-                        val curLevel = afterCat.substring(levelsIndex - 1, levelsIndex).toInt()
-                        if (curLevel > maxLevels) {
-                            continue
-                        }
+                afterCat = afterCat.substringBeforeLast('/')
+                val levelsIndex = afterCat.indexOf("Levels")
+                if (levelsIndex > 0 && "0123456789".contains(afterCat.substring(levelsIndex - 1, levelsIndex))) {
+                    val curLevel = afterCat.substring(levelsIndex - 1, levelsIndex).toInt()
+                    if (curLevel > maxLevels) {
+                        continue
                     }
                 }
                 val subId = "$cat/$afterCat"
@@ -398,9 +396,9 @@ class StyleMenuBuilder(shell: Shell, manager: Manager) : StylesBuilder(shell, ma
             styleId = curStyle.id
             if (styleId.startsWith(styleCategory)) {
                 //remove category
-                optionId = styleId.substring(styleId.indexOf("/") + 1)
+                optionId = styleId.substringAfter("/")
                 if (optionId.contains("/")) {
-                    optionId = styleId.substring(0, styleId.lastIndexOf("/"))
+                    optionId = styleId.substringBeforeLast("/")
                     if (!idList.contains(optionId)) {
                         idList.add(optionId)
                     }

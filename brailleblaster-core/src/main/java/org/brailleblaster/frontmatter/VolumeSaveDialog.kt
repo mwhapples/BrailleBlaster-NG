@@ -127,8 +127,8 @@ class VolumeSaveDialog(
             setGridData(saveFolderAll)
 
             // ----------------- Listeners --------------------
-            addSelectionListener(saveSingle) { e: SelectionEvent? -> clickSaveSingle() }
-            addSelectionListener(saveFolder) { e: SelectionEvent? -> clickSaveFolder(false) }
+            addSelectionListener(saveSingle) { _: SelectionEvent? -> clickSaveSingle() }
+            addSelectionListener(saveFolder) { _: SelectionEvent? -> clickSaveFolder(false) }
             addSelectionListener(saveFolderAll) { e: SelectionEvent? -> clickSaveFolder(true) }
 
             // -------------------- Data ---------------------

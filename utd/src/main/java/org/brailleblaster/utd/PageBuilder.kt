@@ -3293,8 +3293,8 @@ class PageBuilder {
                             } else {
                                 cells = pages.getCellsForNode(curBrlChild)
                             }
-                            curBrlChild.value = nodeStr.substring(0, splitPoint)
-                            val endText: Node = Text(nodeStr.substring(splitPoint))
+                            curBrlChild.value = nodeStr.take(splitPoint)
+                            val endText: Node = Text(nodeStr.drop(splitPoint))
                             curBrl.insertChild(endText, position)
                             val endCells: MutableList<Cell> = mutableListOf()
                             for (tmpCell in cells) {
@@ -3378,8 +3378,8 @@ class PageBuilder {
                 val brlStr = lastBrlChild.value
                 splitIndex++
                 val nodeCells = pages.getCellsForNode(lastBrlChild)
-                lastBrlChild.value = brlStr.substring(0, splitIndex)
-                val endText = Text(brlStr.substring(splitIndex))
+                lastBrlChild.value = brlStr.take(splitIndex)
+                val endText = Text(brlStr.drop(splitIndex))
                 for (cell in nodeCells) {
                     val newIndex = cell.index
                     if (newIndex >= splitIndex) {
