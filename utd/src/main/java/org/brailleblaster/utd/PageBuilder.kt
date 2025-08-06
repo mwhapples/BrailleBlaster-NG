@@ -2127,9 +2127,6 @@ class PageBuilder {
         if (!isEmptyNumberLine) {
             throw CellOccupiedException("Unable to insert a separator line on non-empty line")
         }
-        //TODO:  convert to LibLouisAPH
-        val useLLAPH = engine!!.brailleSettings.isUseLibLouisAPH
-        engine!!.brailleSettings.isUseLibLouisAPH = false
         val brailleStandard = engine!!.brailleSettings.mainTranslationTable
         if (!color.isNullOrEmpty()) {
             // add transcriber note symbols
@@ -2144,7 +2141,6 @@ class PageBuilder {
             }
             color = getStart(brailleStandard) + color + getEnd(brailleStandard) + " "
         }
-        engine!!.brailleSettings.isUseLibLouisAPH = useLLAPH
         val pageNumber = printPageValue
         val maxLines = linesPerPage
         val brlPagePos = PageBuilderHelper.getBraillePageNumberAt(pageSettings, braillePageNumber.pageNumber)
