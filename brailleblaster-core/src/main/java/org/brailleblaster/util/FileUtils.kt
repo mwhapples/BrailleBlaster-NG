@@ -101,20 +101,6 @@ object FileUtils {
         XMLHandler().save(xmlDoc, File(path))
     }
 
-
-    //Returns file name minus path and extension
-    fun getFileName(path: String): String {
-        return path.substring(path.lastIndexOf(FileSystems.getDefault().separator) + 1, path.lastIndexOf("."))
-    }
-
-    /**
-     * @param path : complete path of file
-     * @return : path to directory containing file
-     */
-    fun getPath(path: String): String {
-        return path.substring(0, path.lastIndexOf(FileSystems.getDefault().separator))
-    }
-
     val logger: Logger = LoggerFactory.getLogger(FileUtils::class.java)
 }
 
