@@ -1869,7 +1869,7 @@ class PageBuilder {
 
         // Protect against long page numbers, probably wrong mark up
         if (pageNum.length > cellsPerLine) {
-            pageNum = truncateBraille(pageNum, cellsPerLine)
+            pageNum = pageNum.take(cellsPerLine)
         }
 
         if (pageNum.isNotEmpty() && pageNumberType != PageNumberType.T_PAGE) {
@@ -2020,7 +2020,7 @@ class PageBuilder {
         var insertedElements = 0
 
         // Create the brlonly, append, put the text in the page
-        pageNumber = truncateBraille(pageNumber, cellsPerLine)
+        pageNumber = pageNumber.take(cellsPerLine)
         val remainingWidth = cellsPerLine - pageNumber.length
         val brlOnly = UTDElements.BRLONLY.create()
         // Add the brlonly to the brl
@@ -2217,7 +2217,7 @@ class PageBuilder {
                 //a really long color, truncate the color 
                 //and insert the transcriber end symbol
                 //at the end of the line
-            } else if (isColor && color!!.length > i) {
+            } else if (isColor && color.length > i) {
                 str.append(color[i])
             } else {
                 str.append(sepString)
@@ -3771,7 +3771,7 @@ class PageBuilder {
         }
         val brlPageLength = braillePageNum.length
         if (printGW.length > cellsPerLine - 6) {
-            printGW = printGW.substring(0, cellsPerLine - brlPageLength - 6)
+            printGW = printGW.take(cellsPerLine - brlPageLength - 6)
         }
         if (isSingle) {
             printGW += " (cont.)"
@@ -4112,13 +4112,6 @@ class PageBuilder {
         currentBrl = currBrl
     }
 
-    private fun truncateBraille(orig: String, maxLength: Int): String {
-        return if (orig.length > maxLength) {
-            // For now do not insert anything to indicate truncation, may be in the future.
-            orig.substring(0, maxLength)
-        } else orig
-    }
-
     fun isAfterTPage(): Boolean {
         return afterTPage
     }
@@ -4240,7 +4233,7 @@ class PageBuilder {
         var pageNumber = pageNumber
         try {
             pageNumber.toInt()
-        } catch (e: NumberFormatException) {
+        } catch (_: NumberFormatException) {
             //Take each character from the string and assign a number to it
             val number = StringBuilder()
             var i = 0
