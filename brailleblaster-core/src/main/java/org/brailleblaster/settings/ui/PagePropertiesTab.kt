@@ -542,7 +542,7 @@ class PagePropertiesTab private constructor(parent: Composite, engine: UTDTransl
                     val value = rawValue.toDouble()
                     setParsedValue.applyAsDouble(value)
                     function.accept(e)
-                } catch (ex: NumberFormatException) {
+                } catch (_: NumberFormatException) {
                     val msg = MessageBox(Display.getCurrent().activeShell)
                     msg.message = "Incorrect number format. Please enter another number."
                     msg.open()
@@ -565,7 +565,7 @@ class PagePropertiesTab private constructor(parent: Composite, engine: UTDTransl
                     val value = rawValue.toDouble()
                     setParsedValue.applyAsDouble(value)
                     function.accept(e)
-                } catch (ex: NumberFormatException) {
+                } catch (_: NumberFormatException) {
                     val msg = MessageBox(Display.getCurrent().activeShell)
                     msg.message = "Incorrect number format. Please enter another number."
                     msg.open()

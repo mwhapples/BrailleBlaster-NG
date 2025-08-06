@@ -315,13 +315,7 @@ class VolumeSaveDialog(
         }
     }
 
-    private fun identifierFromFileName(path: File): String {
-        var identifier = path.getName()
-        if (identifier.contains(".")) {
-            identifier = identifier.substring(0, identifier.lastIndexOf("."))
-        }
-        return identifier
-    }
+    private fun identifierFromFileName(path: File): String = path.name.substringBeforeLast(".")
 
     private fun checkDoSaveFolder(selectedItems: Array<TableItem>, path: String): Int {
         var existsFile = false
@@ -448,10 +442,7 @@ class VolumeSaveDialog(
             selectedFormat: Format?
         ): File {
             //Strip off extension
-            var name = documentPath.fileName.toString()
-            if (name.contains(".")) {
-                name = name.substring(0, name.lastIndexOf('.'))
-            }
+            var name = documentPath.fileName.toString().substringBeforeLast('.')
 
             var format = ".brf"
             if (selectedFormat == Format.PEF) {
