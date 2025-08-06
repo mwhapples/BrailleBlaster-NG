@@ -30,8 +30,6 @@ import org.eclipse.swt.widgets.Display
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
-import kotlin.io.path.Path
-import kotlin.io.path.nameWithoutExtension
 import kotlin.math.abs
 
 /**
