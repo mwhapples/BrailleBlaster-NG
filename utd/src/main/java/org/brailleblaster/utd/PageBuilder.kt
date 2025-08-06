@@ -3618,7 +3618,7 @@ class PageBuilder {
                 cellsPerLine - (braillePageNum.length + padding)
             }
             while (runHeadEnd > pageNumStart && runHead.isNotEmpty()) {
-                runHead = if (runHead.isNotEmpty()) runHead.substring(0, runHead.length - 1) else ""
+                runHead = if (runHead.isNotEmpty()) runHead.dropLast(1) else ""
                 runHeadStart = (cellsPerLine - runHead.length) / 2
                 runHeadEnd = runHeadStart + runHead.length
             }

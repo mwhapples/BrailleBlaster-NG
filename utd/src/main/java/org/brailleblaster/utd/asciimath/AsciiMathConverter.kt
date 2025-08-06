@@ -386,7 +386,7 @@ object AsciiMathConverter : AutoCloseable {
                 altTextStr = "`$altTextStr"
             }
             if (amStr.endsWith("`")) {
-                amStr = amStr.substring(0, amStr.length - 1)
+                amStr = amStr.dropLast(1)
             } else {
                 altTextStr = "$altTextStr`"
             }
@@ -409,7 +409,7 @@ object AsciiMathConverter : AutoCloseable {
             amStr = amStr.substring(1)
         }
         if (amStr.endsWith("`")) {
-            amStr = amStr.substring(0, amStr.length - 1)
+            amStr = amStr.dropLast(1)
         }
         return amParser.parseMath(amStr, false)
     }

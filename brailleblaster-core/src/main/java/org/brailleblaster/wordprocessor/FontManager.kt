@@ -364,7 +364,7 @@ class FontManager(@JvmField val m: Manager) {
 
         private fun adjustSizeDelta(additional: Int) {
             val newSize = BBIni.propertyFileManager.getPropertyAsInt(SETTING_SIZE_DELTA, 0) + additional
-            if (newSize < MINIMUM_FONT_SIZE_DELTA || newSize > MAXIMUM_FONT_SIZE_DELTA) {
+            if (newSize !in MINIMUM_FONT_SIZE_DELTA..MAXIMUM_FONT_SIZE_DELTA) {
                 return
             }
             BBIni.propertyFileManager.saveAsInt(
