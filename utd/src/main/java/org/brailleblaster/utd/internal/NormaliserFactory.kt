@@ -137,8 +137,8 @@ class NormaliserFactory : NodeFactory() {
 
             //XML formatters will put elements after a text node on a new line
             charsToTrim = startsWithWhitespace(value)
-            if (charsToTrim > 0 && value.substring(0, charsToTrim).any { it in "\n\r" }) {
-                value = " " + value.substring(charsToTrim)
+            if (charsToTrim > 0 && value.take(charsToTrim).any { it in "\n\r" }) {
+                value = " " + value.drop(charsToTrim)
             }
 
             charsToTrim = endsWithWhitespace(value)

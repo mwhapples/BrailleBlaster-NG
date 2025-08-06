@@ -131,7 +131,7 @@ class Replace {
             }
 
             val viewText: String = m.textView.getText(nodeStart, nodeEnd - 1)
-            var before = viewText.substring(0, selectionStart - nodeStart)
+            var before = viewText.take(selectionStart - nodeStart)
             val textWithControlChars = before.length
             //Strip out windows newlines
             before = before

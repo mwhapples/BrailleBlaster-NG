@@ -30,6 +30,8 @@ import org.eclipse.swt.widgets.Display
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
+import kotlin.io.path.Path
+import kotlin.io.path.nameWithoutExtension
 import kotlin.math.abs
 
 /**
@@ -232,11 +234,7 @@ class FontManager(@JvmField val m: Manager) {
         get() = m.viewManager.stylePane
 
     open class LoadedFont(protected val filename: String, val defaultHeight: Int) {
-        var name: String = if (filename.contains(".")) {
-            filename.substring(0, filename.lastIndexOf('.'))
-        } else {
-            filename
-        }
+        var name: String = filename.substringBeforeLast('.')
         private var loaded = false
 
         /**

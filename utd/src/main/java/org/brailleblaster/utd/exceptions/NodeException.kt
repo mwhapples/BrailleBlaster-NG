@@ -63,10 +63,7 @@ open class NodeException @JvmOverloads constructor(message: String, node: Node?,
                     return "$message [null]"
                 }
                 is Element -> {
-                    var toXML = node.toXML()
-                    if (toXML.length > MAX_NODE_TOXML_CHARACTERS) {
-                        toXML = toXML.substring(0, MAX_NODE_TOXML_CHARACTERS) + "...[excess toXML trimmed]"
-                    }
+                    val toXML = node.toXML().take(MAX_NODE_TOXML_CHARACTERS) + "...[excess toXML trimmed]"
                     message += " $toXML"
                 }
                 else -> {
@@ -119,7 +116,7 @@ open class NodeException @JvmOverloads constructor(message: String, node: Node?,
                 // Strip extension
                 var extensionIndex = 0
                 if (uri.isNotBlank() && uri.lastIndexOf('.').also { extensionIndex = it } != -1) {
-                    uri = uri.substring(0, extensionIndex)
+                    uri = uri.take(extensionIndex)
                     filenameBase += "_$uri"
                 }
             }

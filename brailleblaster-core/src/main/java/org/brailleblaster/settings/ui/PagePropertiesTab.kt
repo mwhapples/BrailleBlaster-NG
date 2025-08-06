@@ -485,7 +485,7 @@ class PagePropertiesTab private constructor(parent: Composite, engine: UTDTransl
     private fun replaceOldUnitLabel(label: Label, newUnit: String): String {
         // Replace the last word with the new unit
         var text = label.text
-        text = text.substring(0, text.lastIndexOf(" "))
+        text = text.substringBeforeLast(" ")
         return "$text ($newUnit)"
     }
 
