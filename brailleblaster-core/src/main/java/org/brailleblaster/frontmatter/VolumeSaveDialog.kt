@@ -376,12 +376,10 @@ class VolumeSaveDialog(
                 Format.entries.indexOf(selectedFormat)
             )
 
-            val filename = dialog.open()
-            if (filename == null) {
-                return null
+            return dialog.open()?.let { filename ->
+                val format: Format = Format.Companion.matchExtension(filename, dialog.widget.getFilterIndex())
+                format to filename
             }
-            val format: Format = Format.Companion.matchExtension(filename, dialog.widget.getFilterIndex())
-            return format to filename
         }
     }
 
