@@ -98,7 +98,7 @@ class Replace {
 
             if (!click.settings.isFindCaseSensitive) {
                 //println("Search is NOT case-sensitive")
-                if (replaceString.lowercase() == findString?.lowercase()) {
+                if (replaceString.equals(findString, ignoreCase = true)) {
                     //println("criteria are the same - Will do an extra find")
                     doExtraFind = true
                 }
