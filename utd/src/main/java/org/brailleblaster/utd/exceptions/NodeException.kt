@@ -87,7 +87,7 @@ open class NodeException @JvmOverloads constructor(message: String, node: Node?,
             // Add a callback attribute that can be found with ctrl+f)
             var callbackID = UUID.randomUUID().toString()
             // Simplify since it doesn't actually need to be 100% unique for eternity
-            callbackID = callbackID.substring(0, callbackID.indexOf('-'))
+            callbackID = callbackID.substringBefore('-')
             val callbackAttrib = Attribute(ATTRIBUTE_NAME, callbackID)
             val parentElement: Element
             if (node is ParentNode) {

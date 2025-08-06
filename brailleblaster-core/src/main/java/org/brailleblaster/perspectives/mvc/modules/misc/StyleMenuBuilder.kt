@@ -100,7 +100,7 @@ class StyleMenuBuilder(shell: Shell, manager: Manager) : StylesBuilder(shell, ma
             if (id.indexOf('/') == 0) { //Remove leading slashes
                 id = id.substring(1)
             }
-            val cat = id.substring(0, id.indexOf('/'))
+            val cat = id.substringBefore('/')
             if (RESTRICTED_CATEGORIES.contains(cat)) continue
             var subMenu: SubMenuBuilder?
             if (categories.containsKey(cat)) {
@@ -331,7 +331,7 @@ class StyleMenuBuilder(shell: Shell, manager: Manager) : StylesBuilder(shell, ma
             if (!currentLoadout.isNullOrEmpty()) {
                 label.append(localeHandler["loadedStyle"]).append(": ")
                 if (currentLoadout.contains("/")) {
-                    val styleCategory = currentLoadout.substring(0, currentLoadout.indexOf("/"))
+                    val styleCategory = currentLoadout.substringBefore("/")
                     val styleSubCategory = currentLoadout.substring(currentLoadout.indexOf("/") + 1)
                     label.append(localeHandler[styleCategory]).append("/").append(
                         localeHandler[styleSubCategory]
