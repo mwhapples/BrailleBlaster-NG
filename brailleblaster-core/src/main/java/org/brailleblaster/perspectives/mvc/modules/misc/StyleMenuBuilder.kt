@@ -20,8 +20,7 @@ import org.brailleblaster.utils.localization.LocaleHandler.Companion.getBanaStyl
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.mvc.menu.*
-import org.brailleblaster.perspectives.mvc.menu.MenuManager.addSeparator
-import org.brailleblaster.perspectives.mvc.menu.MenuManager.addSubMenu
+import org.brailleblaster.perspectives.mvc.menu.BBSeparator
 import org.brailleblaster.perspectives.mvc.menu.MenuManager.addToStyleMenu
 import org.brailleblaster.settings.ui.Loadout
 import org.brailleblaster.settings.ui.Loadout.Companion.getAcc
@@ -73,10 +72,10 @@ class StyleMenuBuilder(shell: Shell, manager: Manager) : StylesBuilder(shell, ma
         onLevelSelect: Consumer<BBSelectionData>
     ) {
         addStyleConfiguration(onStyleSelect, onTypeformSelect, onLevelSelect)
-        addSeparator(TopMenu.STYLES)
+        MenuManager.add(BBSeparator(TopMenu.STYLES))
         if (onOptionSelect != null) {
             addStyleOptions(onOptionSelect, onStyleSelect)
-            addSeparator(TopMenu.STYLES)
+            MenuManager.add(BBSeparator(TopMenu.STYLES))
         }
         onStyleSelect?.let { getStyleCategories(it, onTypeformSelect) }
         addLoadoutListener(onStyleSelect)
@@ -101,7 +100,7 @@ class StyleMenuBuilder(shell: Shell, manager: Manager) : StylesBuilder(shell, ma
             if (id.indexOf('/') == 0) { //Remove leading slashes
                 id = id.substring(1)
             }
-            val cat = id.substring(0, id.indexOf('/'))
+            val cat = id.substringBefore('/')
             if (RESTRICTED_CATEGORIES.contains(cat)) continue
             var subMenu: SubMenuBuilder?
             if (categories.containsKey(cat)) {
@@ -112,14 +111,12 @@ class StyleMenuBuilder(shell: Shell, manager: Manager) : StylesBuilder(shell, ma
             }
             var afterCat = id.substring(id.indexOf('/') + 1)
             if (afterCat.indexOf('/') != -1) { //Id has a subcategory
-                afterCat = afterCat.substring(0, afterCat.lastIndexOf('/'))
-                if (afterCat.contains("Levels")) {
-                    val levelsIndex = afterCat.indexOf("Levels")
-                    if (levelsIndex > 0 && "0123456789".contains(afterCat.substring(levelsIndex - 1, levelsIndex))) {
-                        val curLevel = afterCat.substring(levelsIndex - 1, levelsIndex).toInt()
-                        if (curLevel > maxLevels) {
-                            continue
-                        }
+                afterCat = afterCat.substringBeforeLast('/')
+                val levelsIndex = afterCat.indexOf("Levels")
+                if (levelsIndex > 0 && "0123456789".contains(afterCat.substring(levelsIndex - 1, levelsIndex))) {
+                    val curLevel = afterCat.substring(levelsIndex - 1, levelsIndex).toInt()
+                    if (curLevel > maxLevels) {
+                        continue
                     }
                 }
                 val subId = "$cat/$afterCat"
@@ -174,11 +171,11 @@ class StyleMenuBuilder(shell: Shell, manager: Manager) : StylesBuilder(shell, ma
             logger.error("Miscellaneous style category not found")
         }
         for (subCategory in subCategories.values) {
-            subCategory.parentSubMenu!!.addSubMenu(subCategory)
+            subCategory.parentSubMenu!!.addSubMenu(subCategory.build())
         }
         for ((key, category) in categories) {
             addToStyleMenu(key, category)
-            addSubMenu(category)
+            MenuManager.add(category.build())
         }
     }
 
@@ -188,7 +185,7 @@ class StyleMenuBuilder(shell: Shell, manager: Manager) : StylesBuilder(shell, ma
     ) {
         val smb = SubMenuBuilder(TopMenu.STYLES, "Options")
         getStyleOptions(smb, onOptionSelect, onStyleSelect!!)
-        addSubMenu(smb)
+        MenuManager.add(smb.build())
     }
 
     private fun getStyleName(styles: List<Style>, styleId: String): String {
@@ -237,9 +234,9 @@ class StyleMenuBuilder(shell: Shell, manager: Manager) : StylesBuilder(shell, ma
                 onLevelSelect.accept(e)
             }
         }
-        configureMenu.addSubMenu(loadoutsMenu)
-        configureMenu.addSubMenu(styleLevelsMenu)
-        addSubMenu(configureMenu)
+        configureMenu.addSubMenu(loadoutsMenu.build())
+        configureMenu.addSubMenu(styleLevelsMenu.build())
+        MenuManager.add(configureMenu.build())
     }
 
     private fun showLoadoutDialog(accelerator: Int) {
@@ -332,7 +329,7 @@ class StyleMenuBuilder(shell: Shell, manager: Manager) : StylesBuilder(shell, ma
             if (!currentLoadout.isNullOrEmpty()) {
                 label.append(localeHandler["loadedStyle"]).append(": ")
                 if (currentLoadout.contains("/")) {
-                    val styleCategory = currentLoadout.substring(0, currentLoadout.indexOf("/"))
+                    val styleCategory = currentLoadout.substringBefore("/")
                     val styleSubCategory = currentLoadout.substring(currentLoadout.indexOf("/") + 1)
                     label.append(localeHandler[styleCategory]).append("/").append(
                         localeHandler[styleSubCategory]
@@ -399,9 +396,9 @@ class StyleMenuBuilder(shell: Shell, manager: Manager) : StylesBuilder(shell, ma
             styleId = curStyle.id
             if (styleId.startsWith(styleCategory)) {
                 //remove category
-                optionId = styleId.substring(styleId.indexOf("/") + 1)
+                optionId = styleId.substringAfter("/")
                 if (optionId.contains("/")) {
-                    optionId = styleId.substring(0, styleId.lastIndexOf("/"))
+                    optionId = styleId.substringBeforeLast("/")
                     if (!idList.contains(optionId)) {
                         idList.add(optionId)
                     }

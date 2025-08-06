@@ -31,7 +31,7 @@ import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
 import org.brailleblaster.perspectives.mvc.menu.SharedItem
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.search.GoToPageDialog
-import org.brailleblaster.tools.MenuToolListener
+import org.brailleblaster.tools.MenuToolModule
 import org.brailleblaster.utd.MetadataHelper.changeBraillePageNumber
 import org.brailleblaster.utd.MetadataHelper.changePrintPageNumber
 import org.brailleblaster.utd.MetadataHelper.getUTDMeta
@@ -58,7 +58,7 @@ import org.eclipse.swt.layout.RowData
 import org.eclipse.swt.layout.RowLayout
 import org.eclipse.swt.widgets.*
 
-class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolListener {
+class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolModule {
     private var pageChangeListTab: PageChangeListTab? = null
     private var shell: Shell? = null
     private var folder: TabFolder? = null
@@ -250,7 +250,7 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolListe
                 // Remove all the children of the current ppi and replace with these
                 // new ones
                 ppIndicator!!.removeChild(0)
-                val startText = origText.substring(0, start)
+                val startText = origText.take(start)
                 if (startText.isNotEmpty()) {
                     ppIndicator!!.appendChild(startText)
                 }

@@ -13,22 +13,21 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.perspectives.mvc.modules.misc
+package org.brailleblaster.tools
 
-import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
+import org.brailleblaster.perspectives.mvc.menu.EmphasisItem
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
-import org.brailleblaster.tools.MenuToolModule
-import org.brailleblaster.wordprocessor.LogViewerDialog
+import org.brailleblaster.perspectives.mvc.modules.views.EmphasisModule
 
-object LogTool : MenuToolModule {
-    private val localeHandler = getDefault()
-    override val topMenu = TopMenu.HELP
-    override val title = localeHandler["View&Log"]
+interface EmphasisMenuTool : MenuToolModule {
+    override val topMenu: TopMenu
+        get() = TopMenu.EMPHASIS
+    val emphasis: EmphasisItem
+    override val title: String
+        get() = emphasis.longName
+
     override fun onRun(bbData: BBSelectionData) {
-        val parent = bbData.wpManager.shell
-        val logDialog = LogViewerDialog(parent)
-        logDialog.text = "Log Viewer"
-        logDialog.open()
+        EmphasisModule.addEmphasis(bbData.manager.simpleManager, emphasis.emphasisType)
     }
 }

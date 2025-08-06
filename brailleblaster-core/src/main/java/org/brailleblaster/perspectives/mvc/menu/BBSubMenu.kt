@@ -15,32 +15,13 @@
  */
 package org.brailleblaster.perspectives.mvc.menu
 
-import org.eclipse.swt.SWT
-import org.eclipse.swt.widgets.Menu
-import org.eclipse.swt.widgets.MenuItem
-
 /**
  * Tracks submenus added to menus
  */
-class BBSubMenu internal constructor(override val topMenu: TopMenu?, val text: String, val subMenuItems: MutableList<IBBMenu> = mutableListOf()) : IBBMenu, MutableList<IBBMenu> by subMenuItems {
+class BBSubMenu internal constructor(override val topMenu: TopMenu?, override val text: String, override val subMenuItems: MutableList<IBBMenu> = mutableListOf()) : IBBSubMenu {
 
     fun addItem(newItem: IBBMenu) {
         subMenuItems.add(newItem)
-    }
-
-    override fun build(parentMenu: Menu): MenuItem {
-        val parentSubMenu = MenuItem(parentMenu, SWT.CASCADE)
-        parentSubMenu.text = text
-        val subMenu = Menu(parentMenu.shell, SWT.DROP_DOWN)
-        for (item in subMenuItems) {
-            item.build(subMenu)
-        }
-        // empty menu looks ugly
-        if (subMenuItems.isEmpty()) {
-            parentSubMenu.isEnabled = false
-        }
-        parentSubMenu.menu = subMenu
-        return parentSubMenu
     }
 
     override fun copy(): BBSubMenu {

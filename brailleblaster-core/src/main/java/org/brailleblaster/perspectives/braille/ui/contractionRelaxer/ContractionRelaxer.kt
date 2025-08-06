@@ -20,7 +20,7 @@ import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.settings.TableExceptions
 import org.brailleblaster.settings.TableExceptions.getCurrentExceptionFile
-import org.brailleblaster.tools.MenuToolListener
+import org.brailleblaster.tools.MenuToolModule
 import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridData
@@ -37,7 +37,7 @@ import kotlin.experimental.and
 
 //Should probably set this as a dialog in the translation settings menu - and only have it enabled when
 // the translation is set to UEB Uncontracted. Doesn't make sense otherwise.
-class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolListener {
+class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
   override val topMenu: TopMenu = TopMenu.TOOLS
   override val title: String = "Contraction Relaxer"
 
@@ -134,7 +134,7 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolList
       //Doc is structured correctly, so clear everything between the header and footer.
       //println("Header and Footer found. Writing new contraction list.")
       val newContent =
-        fileContent.substring(0, headerIndex + RELAXER_HEADER.length) +
+        fileContent.take(headerIndex + RELAXER_HEADER.length) +
             System.lineSeparator() +
             contractionList +
             fileContent.substring(footerIndex)
