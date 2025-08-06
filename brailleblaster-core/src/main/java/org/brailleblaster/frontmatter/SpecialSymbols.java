@@ -513,7 +513,7 @@ public class SpecialSymbols {
     private static List<Symbol> readSymbolsFromFile(String path) {
         log.debug("Loading symbol map from path {} ", path);
         List<Symbol> returnList = new ArrayList<>();
-        if (FileUtils.INSTANCE.exists(path)) {
+        if (new File(path).exists()) {
             Document newDoc = readDocFromPath(path);
             if (newDoc == null)
                 return returnList;
@@ -589,14 +589,14 @@ public class SpecialSymbols {
     }
 
     public static String[] getPrefixDefault() {
-        if (FileUtils.INSTANCE.exists(CUSTOM_SYMBOL_PATH)) {
+        if (new File(CUSTOM_SYMBOL_PATH).exists()) {
             String[] prefix = loadPrefix(CUSTOM_SYMBOL_PATH);
             if (prefix != null) {
                 log.debug("Found custom symbol prefix: {}: {}", prefix[0], prefix[1]);
                 return prefix;
             }
         }
-        if (FileUtils.INSTANCE.exists(DEFAULT_SYMBOL_PATH)) {
+        if (new File(DEFAULT_SYMBOL_PATH).exists()) {
             String[] prefix = loadPrefix(DEFAULT_SYMBOL_PATH);
             if (prefix != null) {
                 log.debug("Found default symbol prefix: {}: {}", prefix[0], prefix[1]);
@@ -626,7 +626,7 @@ public class SpecialSymbols {
     }
 
     public static void setPrefixDefault(String symbol, String desc) {
-        if (!FileUtils.INSTANCE.exists(CUSTOM_SYMBOL_PATH)) {
+        if (!new File(CUSTOM_SYMBOL_PATH).exists()) {
             saveListToXML(new ArrayList<>(), CUSTOM_SYMBOL_PATH);
         }
         Document custom = readDocFromPath(CUSTOM_SYMBOL_PATH);

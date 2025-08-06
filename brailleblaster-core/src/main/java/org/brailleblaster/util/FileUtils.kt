@@ -33,10 +33,6 @@ import kotlin.io.path.exists
  * and for searching directories.
  */
 object FileUtils {
-    fun exists(fileName: String): Boolean {
-        val file = File(fileName)
-        return file.exists()
-    }
 
     fun create(fileName: String) {
         val f = File(fileName)
