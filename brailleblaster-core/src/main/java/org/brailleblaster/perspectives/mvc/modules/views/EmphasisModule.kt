@@ -15,7 +15,6 @@
  */
 package org.brailleblaster.perspectives.mvc.modules.views
 
-import com.google.common.base.Preconditions
 import nu.xom.Element
 import nu.xom.Node
 import nu.xom.ParentNode
@@ -518,7 +517,7 @@ private fun isGuideWordItem(node: Node): Boolean {
     //If node has style list
 }
 private fun stripEmphasis(emphasis: Element): Text {
-    Preconditions.checkArgument(BBX.INLINE.EMPHASIS.isA(emphasis), "Element must be emphasis")
+    require(BBX.INLINE.EMPHASIS.isA(emphasis)) { "Element must be emphasis" }
     val parent = emphasis.parent
     var text = Text(emphasis.value)
     parent.replaceChild(emphasis, text)
@@ -738,8 +737,8 @@ private fun processEmphasis(
     return parent
 }
 private fun applyEmphasis(emphasisToSet: EnumSet<EmphasisType>, node: Text, start: Int, end: Int): Text {
-    Preconditions.checkArgument(start >= NO_OFFSET, "Unexpected start $start")
-    Preconditions.checkArgument(end >= NO_OFFSET, "Unexpected end $end")
+    require(start >= NO_OFFSET) { "Unexpected start $start" }
+    require(end >= NO_OFFSET) { "Unexpected end $end" }
     val inlineElement = node.parent as Element
     log.debug("Emphasising text {}", node)
     return if (!BBX.INLINE.EMPHASIS.isA(inlineElement)) {
