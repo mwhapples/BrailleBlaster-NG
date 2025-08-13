@@ -25,6 +25,7 @@ import org.brailleblaster.bbx.BBX
 import org.brailleblaster.bbx.BBXUtils
 import org.brailleblaster.bbx.BBXUtils.ListStyleData
 import org.brailleblaster.bbx.findBlock
+import org.brailleblaster.bbx.getAncestorListLevel
 import org.brailleblaster.bbx.isPageNumEffectively
 import org.brailleblaster.frontmatter.VolumeUtils.VolumeData
 import org.brailleblaster.frontmatter.VolumeUtils.getOrCreateTOC
@@ -393,7 +394,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolModule, BBViewListen
             var runoverBlock: Int? = null
             if (BBX.BLOCK.LIST_ITEM.isA(curBlock)) {
                 indentBlock = BBX.BLOCK.LIST_ITEM.ATTRIB_ITEM_LEVEL.get(curBlock)
-                runoverBlock = BBXUtils.getAncestorListLevel(curBlock)
+                runoverBlock = curBlock.getAncestorListLevel()
             } else if (BBX.BLOCK.MARGIN.isA(curBlock)) {
                 indentBlock = BBX.BLOCK.MARGIN.ATTRIB_INDENT.get(curBlock)
                 runoverBlock = BBX.BLOCK.MARGIN.ATTRIB_RUNOVER.get(curBlock)

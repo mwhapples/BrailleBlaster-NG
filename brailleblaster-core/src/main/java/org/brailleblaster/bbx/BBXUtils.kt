@@ -75,6 +75,10 @@ fun Node?.findBlockOrNull(): Element? = XMLHandler.ancestorVisitor(
 
 fun Node?.findBlock(): Element = this.findBlockOrNull() ?: throw RuntimeException("Node not inside a block")
 
+fun Node?.getAncestorListLevel(): Int = BBX.CONTAINER.LIST.ATTRIB_LIST_LEVEL[XMLHandler.ancestorVisitorElement(
+    this
+) { BBX.CONTAINER.LIST.isA(it) }]
+
 object BBXUtils {
     private val log: Logger = LoggerFactory.getLogger(BBXUtils::class.java)
 
@@ -86,10 +90,6 @@ object BBXUtils {
 
     @JvmStatic
     fun findBlock(node: Node?): Element = node.findBlock()
-
-    fun getAncestorListLevel(node: Node?): Int = BBX.CONTAINER.LIST.ATTRIB_LIST_LEVEL[XMLHandler.ancestorVisitorElement(
-        node
-    ) { BBX.CONTAINER.LIST.isA(it) }]
 
     /**
      * @see .stripStyle
@@ -198,13 +198,9 @@ object BBXUtils {
         return ListStyleData(listType, marginType, indent, runover)
     }
 
-    fun indentFromLevel(level: Int): Int {
-        return ((level * 2) + 1)
-    }
+    fun indentFromLevel(level: Int): Int = ((level * 2) + 1)
 
-    fun indentToLevel(indent: Int): Int {
-        return (indent - 1) / 2
-    }
+    fun indentToLevel(indent: Int): Int = (indent - 1) / 2
 
     fun runoverFromLevel(level: Int): Int {
         //Stored runover is maximum indent, incriment for extra braille indent
@@ -212,9 +208,7 @@ object BBXUtils {
         return (((level + 1) * 2) + 1)
     }
 
-    fun runoverToLevel(runover: Int): Int {
-        return ((runover - 1) / 2) - 1
-    }
+    fun runoverToLevel(runover: Int): Int = ((runover - 1) / 2) - 1
 
     /**
      * Remove non-list item styles from list container and split list if necessary
