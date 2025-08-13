@@ -29,8 +29,8 @@ class ImageGroupToSpanImportFixer : AbstractFixer() {
     override fun fix(matchedNode: Node) {
         BBX.CONTAINER.IMAGE.assertIsA(matchedNode)
         getDescendantBlock(matchedNode)
-            .findFirst()
-            .ifPresent { elem: Element ->
+            .firstOrNull()
+            ?.let { elem: Element ->
                 XMLHandler2.unwrapElement(
                     elem
                 )
@@ -53,11 +53,10 @@ class ImageGroupToSpanImportFixer : AbstractFixer() {
     }
 
     companion object {
-        private fun getDescendantBlock(node: Node): Stream<Element> {
+        private fun getDescendantBlock(node: Node): List<Element> {
             return FastXPath.descendant(node)
-                .stream()
+                .filterIsInstance<Element>()
                 .filter { BBX.BLOCK.isA(it) }
-                .map { it as Element }
         }
 
         private fun getDescendantContainer(node: Node): Stream<Element> {
