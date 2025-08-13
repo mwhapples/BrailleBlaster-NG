@@ -16,8 +16,6 @@
 package org.brailleblaster.perspectives.braille.toolbar
 
 import org.apache.commons.lang3.StringUtils
-import org.brailleblaster.utils.localization.LocaleHandler
-import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.math.mathml.MathModule
 import org.brailleblaster.perspectives.braille.toolbar.ToolBarSettings.saveUserSettings
 import org.brailleblaster.perspectives.braille.toolbar.ToolBarSettings.scale
@@ -36,6 +34,8 @@ import org.brailleblaster.perspectives.mvc.modules.misc.ToggleViewsModule.Compan
 import org.brailleblaster.perspectives.mvc.modules.misc.ToggleViewsModule.Views
 import org.brailleblaster.perspectives.mvc.modules.views.DebugModule
 import org.brailleblaster.util.ImageHelper
+import org.brailleblaster.utils.localization.LocaleHandler
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.wordprocessor.WPManager.Companion.getInstance
 import org.eclipse.swt.SWT
 import org.eclipse.swt.events.MouseAdapter
@@ -50,7 +50,6 @@ import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.widgets.*
 import java.util.*
 import java.util.function.Consumer
-import java.util.stream.Collectors
 import kotlin.math.abs
 
 class ToolBarBuilder(
@@ -498,7 +497,7 @@ class ToolBarBuilder(
     }
 
     private fun getEndOfLineBounds(relocBounds: List<RelocatorRectangle>): List<RelocatorRectangle> {
-        return relocBounds.stream()
+        return relocBounds
             .filter { r: RelocatorRectangle ->
                 val index = relocBounds.indexOf(r)
                 if (index == relocBounds.size - 1) return@filter true
@@ -506,7 +505,7 @@ class ToolBarBuilder(
                     return@filter relocBounds[index - 1].rectangle.x < r.rectangle.x && relocBounds[index + 1].rectangle.x < r.rectangle.x
                 }
                 false
-            }.collect(Collectors.toList())
+            }
     }
 
     private fun getSectionsInToolBar(toolBar: ToolBar): List<IToolBarElement> {

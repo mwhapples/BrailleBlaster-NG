@@ -150,12 +150,13 @@ object EmphasisModule : AbstractModule(), SimpleListener {
                     }
                 } else {
                     //Element is selected. Apply emphasis to all descendant text nodes
-                    FastXPath.descendant(currentSelection.start.node).stream()
-                        .filter { n: Node? -> n is Text && !MathModule.isMath(n) }
-                        .forEach { n: Node ->
+                    FastXPath.descendant(currentSelection.start.node)
+                        .filterIsInstance<Text>()
+                        .filter { n -> !MathModule.isMath(n) }
+                        .forEach { n ->
                             callback.emphasize(
                                 emphasisType,
-                                n as Text,
+                                n,
                                 NO_OFFSET,
                                 NO_OFFSET,
                                 removeEmphasis

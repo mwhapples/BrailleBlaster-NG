@@ -26,7 +26,6 @@ import org.brailleblaster.utd.exceptions.NodeException
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utils.UTD_NS
-import java.util.stream.Stream
 
 /**
  * Common MapList and Element search util methods
@@ -45,15 +44,14 @@ object Searcher {
     }
 
     @JvmStatic
-	fun streamCurrentBufferReverseFromCurrentCursor(m: Manager): Stream<TextMapElement> {
-        return streamCurrentBufferReverseFrom(m, m.mapList.current)
-    }
+	fun streamCurrentBufferReverseFromCurrentCursor(m: Manager): Iterable<TextMapElement> =
+        streamCurrentBufferReverseFrom(m, m.mapList.current)
 
-    fun streamCurrentBufferReverseFrom(m: Manager, tme: TextMapElement): Stream<TextMapElement> {
+    fun streamCurrentBufferReverseFrom(m: Manager, tme: TextMapElement): Iterable<TextMapElement> {
         val reverseList = m.mapList.reversed()
         val tmeIndex = reverseList.indexOf(tme)
         require(tmeIndex != -1) { "tme not found in current buffer $tme" }
-        return reverseList.subList(tmeIndex, reverseList.size).stream()
+        return reverseList.subList(tmeIndex, reverseList.size)
     }
 
     //	private static Element getCurrent() {
