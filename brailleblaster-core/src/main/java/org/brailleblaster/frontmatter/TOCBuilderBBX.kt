@@ -444,13 +444,12 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolModule, BBViewListen
                         }
 
                         FastXPath.descendant(ancestorList)
-                            .stream()
-                            .filter { node: Node? ->
+                            .filter { node ->
                                 BBX.BLOCK.MARGIN.isA(node)
                                         && BBX.BLOCK.MARGIN.ATTRIB_RUNOVER.get(node as Element?) < runoverTarget
                             }
-                            .peek { e: Node -> modifiedNodes.add(e) }
-                            .forEach { node: Node? ->
+                            .onEach { e -> modifiedNodes.add(e) }
+                            .forEach { node ->
                                 BBX.BLOCK.MARGIN.ATTRIB_RUNOVER.set(
                                     node as Element?,
                                     runoverTarget
@@ -697,15 +696,13 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolModule, BBViewListen
         }
 
         val previousBlock: Element? = FastXPath.preceding(node)
-            .stream()
-            .filter { node: Node? -> BBX.BLOCK.isA(node) }
-            .map { node: Node? ->
+            .filter { node -> BBX.BLOCK.isA(node) }
+            .map { node ->
                 Searcher.Mappers.toElement(
                     node!!
                 )
             }
-            .findFirst()
-            .orElse(null)
+            .firstOrNull()
 
         //If it's a number and
         if (ancestorTitle != null) {

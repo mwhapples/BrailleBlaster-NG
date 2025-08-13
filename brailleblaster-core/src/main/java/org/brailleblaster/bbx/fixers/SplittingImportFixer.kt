@@ -59,10 +59,7 @@ class SplittingImportFixer : AbstractFixer {
 		BookToBBX has also allowed re-matching the same element in some cases
 		*/
         val elementToSplit = FastXPath.ancestor(matchedNode)
-            .stream()
-            .filter { curAncestor: Element? -> matcher!!.isMatch(curAncestor!!, NamespaceMap()) }
-            .findFirst()
-            .orElseThrow { NodeException("Node's ancestors don't pass matcher $matcher", matchedNode) }
+            .firstOrNull { curAncestor: Element -> matcher!!.isMatch(curAncestor, NamespaceMap()) } ?: throw NodeException("Node's ancestors don't pass matcher $matcher", matchedNode)
         log.trace("fix.3 Element to split: {}", elementToSplit.toString())
         NodeTreeSplitter.split(elementToSplit, matchedNode as Element)
 

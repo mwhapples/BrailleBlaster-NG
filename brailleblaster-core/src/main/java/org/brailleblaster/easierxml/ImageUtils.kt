@@ -206,7 +206,7 @@ object ImageUtils {
 
     private fun getPreviousNavigateBlock(caret: Element?): Element? {
         var block = caret
-        while (block != null && FastXPath.descendant(block).stream().noneMatch { node: Node ->
+        while (block != null && FastXPath.descendant(block).none { node: Node ->
                 (node is Text
                         && (node.parent as Element).namespaceURI != UTD_NS)
             }) {
