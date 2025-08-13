@@ -293,15 +293,14 @@ class ToolBarBuilder(
     private fun addListeners() {
         val relocBounds: MutableList<RelocatorRectangle> = ArrayList() //"Hitboxes" for the relocators
         for (toolBar in widgets) {
-            val sectionsInToolBar = sections.stream()
-                .filter { tb: IToolBarElement? -> tb is ToolBarSection && tb.parent === toolBar }.toList()
+            val sectionsInToolBar = sections
+                .filterIsInstance<ToolBarSection>()
+                .filter { tb -> tb.parent === toolBar }
             for (iToolBarElement in sectionsInToolBar) {
-                if (iToolBarElement is ToolBarSection) {
-                    relocBounds.add(RelocatorRectangle(iToolBarElement.relocator.bounds, toolBar))
-                }
+                relocBounds.add(RelocatorRectangle(iToolBarElement.relocator.bounds, toolBar))
             }
             if (sectionsInToolBar.isNotEmpty()) {
-                val lastSection = sectionsInToolBar[sectionsInToolBar.size - 1] as ToolBarSection
+                val lastSection = sectionsInToolBar[sectionsInToolBar.size - 1]
                 val endOfToolbar = lastSection.x + lastSection.width
                 relocBounds.add(
                     RelocatorRectangle(
@@ -511,8 +510,7 @@ class ToolBarBuilder(
     }
 
     private fun getSectionsInToolBar(toolBar: ToolBar): List<IToolBarElement> {
-        return sections.stream().filter { tbe: IToolBarElement? -> tbe is ToolBarSection && tbe.parent === toolBar }
-            .collect(Collectors.toList())
+        return sections.filter { tbe: IToolBarElement? -> tbe is ToolBarSection && tbe.parent === toolBar }
     }
 
     private fun findBottomDockPoint(toolBar: ToolBar): Rectangle {
@@ -541,8 +539,7 @@ class ToolBarBuilder(
     }
 
     private fun removeLineWrapNewLines() {
-        sections = sections.stream().filter { s: IToolBarElement? -> !(s is ToolBarNewLine && !s.saveInSettings) }
-            .collect(Collectors.toList())
+        sections = sections.filter { s: IToolBarElement? -> !(s is ToolBarNewLine && !s.saveInSettings) }.toMutableList()
     }
 
     private fun rectangleCollision(

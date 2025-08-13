@@ -62,7 +62,7 @@ object Searcher {
     //	}
     object Filters {
         fun braillePrintPageIndicator(tme: TextMapElement): Boolean {
-            return tme.brailleList.stream().anyMatch { brlTme: BrailleMapElement? -> brlTme is PrintPageBrlMapElement }
+            return tme.brailleList.any { brlTme: BrailleMapElement? -> brlTme is PrintPageBrlMapElement }
         }
 
         @JvmStatic

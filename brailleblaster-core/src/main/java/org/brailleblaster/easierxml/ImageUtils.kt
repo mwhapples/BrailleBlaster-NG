@@ -211,10 +211,7 @@ object ImageUtils {
                         && (node.parent as Element).namespaceURI != UTD_NS)
             }) {
             block = FastXPath.preceding(block)
-                .stream()
-                .filter { node: Node? -> BBX.BLOCK.isA(node) }
-                .findFirst()
-                .orElse(null) as Element
+                .filterIsInstance<Element>().firstOrNull { node -> BBX.BLOCK.isA(node) }
         }
         return block
     }

@@ -65,7 +65,6 @@ class SplittingImportFixer : AbstractFixer {
 
         // cleanup empty elements
         FastXPath.ancestorOrSelf(parent)
-            .stream()
             .filter { curNode: Node -> curNode.childCount == 0 }
             .forEach { obj: Node -> obj.detach() }
     }

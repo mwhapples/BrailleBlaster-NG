@@ -210,15 +210,11 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
         if (lastStyleId == null) {
             throw BBNotifyException("Must apply a style first before it can be repeated")
         }
-        val styleToApply = m.document.settingsManager.engine.styleDefinitions.styles
-            .stream()
-            .filter { style: Style -> style.id == lastStyleId }
-            .findFirst()
-            .orElseThrow {
-                RuntimeException(
+        val styleToApply =
+            m.document.settingsManager.engine.styleDefinitions.styles.firstOrNull { style: Style -> style.id == lastStyleId }
+                ?: throw RuntimeException(
                     "Unable to find lastStyleId $lastStyleId"
                 )
-            }
         val modifiedNodes = updateStyle(styleToApply)
         if (modifiedNodes.isNotEmpty()) {
             m.simpleManager.dispatchEvent(ModifyEvent(Sender.EMPHASIS, modifiedNodes, true))
@@ -656,7 +652,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
             }
         }
         if (end is Element) {
-                nodes.addAll(
+            nodes.addAll(
                 FastXPath.descendant(end)
             )
         }
@@ -774,8 +770,8 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
 
     private val isTableSelected: Boolean
         get() = m.simpleManager.getModule(
-                TableSelectionModule::class.java
-            )!!.isTableSelected
+            TableSelectionModule::class.java
+        )!!.isTableSelected
 
     private fun warnTable() {
         displayInvalidTableMessage(m.wpManager.shell)
@@ -994,7 +990,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
         }
 
         fun isAlwaysWrapStyle(style: Style?): Boolean {
-            return ALWAYS_WRAP_STYLES.any{ curAlwaysUnwrap: String? ->
+            return ALWAYS_WRAP_STYLES.any { curAlwaysUnwrap: String? ->
                 isStyle(
                     style,
                     curAlwaysUnwrap!!

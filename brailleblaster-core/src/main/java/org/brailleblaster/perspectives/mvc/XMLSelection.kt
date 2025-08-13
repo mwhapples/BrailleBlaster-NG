@@ -77,8 +77,8 @@ class XMLSelection(@JvmField val start: XMLNodeCaret, @JvmField val end: XMLNode
             //Convert end.node to a block
             var endBlock = end.node
             if (BBX.CONTAINER.isA(endBlock) || BBX.SECTION.isA(endBlock)) { //Mark the final block in its descendants as the ending block
-                val childBlocks = FastXPath.descendant(endBlock).stream()
-                    .filter { node: Node? -> BBX.BLOCK.isA(node) }.toList()
+                val childBlocks = FastXPath.descendant(endBlock)
+                    .filter { node -> BBX.BLOCK.isA(node) }
                 if (childBlocks.isEmpty()) {
                     for (next in FastXPath.precedingAndSelf(endBlock)) {
                         if (next === startBlock) {
