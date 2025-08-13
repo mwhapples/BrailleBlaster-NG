@@ -52,7 +52,6 @@ import org.eclipse.swt.widgets.Shell
 import org.slf4j.LoggerFactory
 import java.util.*
 import java.util.function.Consumer
-import java.util.stream.Collectors
 
 private const val NO_OFFSET = -1
 private val log = LoggerFactory.getLogger(EmphasisModule::class.java)
@@ -292,9 +291,8 @@ object EmphasisModule : AbstractModule(), SimpleListener {
 
         private fun mergeAdjacentInline(modifiedNodes: List<Element>) {
             modifiedNodes.forEach(Consumer { n: Element? ->
-                val descendantInlines = FastXPath.descendant(n).stream()
-                    .filter { node: Node? -> BBX.INLINE.EMPHASIS.isA(node) }
-                    .collect(Collectors.toList())
+                val descendantInlines = FastXPath.descendant(n)
+                    .filter { node: Node? -> BBX.INLINE.EMPHASIS.isA(node) }.toMutableList()
                 var i = 0
                 while (i < descendantInlines.size) {
                     val curNode = descendantInlines[i] as Element

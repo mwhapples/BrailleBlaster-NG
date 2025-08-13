@@ -272,7 +272,7 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
         for (curChild in containerSash.children) {
             if (weights.size > weightCounter) {
                 if (weights[weightCounter] != 0
-                    && views.stream().anyMatch { curView: BBEditorView -> curView.view === curChild }
+                    && views.any { curView: BBEditorView -> curView.view === curChild }
                 ) {
                     weightCounter++
                     continue
