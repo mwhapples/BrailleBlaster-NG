@@ -146,11 +146,8 @@ class XMLSelection(@JvmField val start: XMLNodeCaret, @JvmField val end: XMLNode
                 startElement = start.parent as Element
                 //Initial check if start is first in it's own parent
                 if (FastXPath.descendant(startElement)
-                        .stream()
-                        .filter { node: Node? -> node is Text }
-                        .filter { node: Node -> (node.parent as Element).namespaceURI != UTD_NS }
-                        .findFirst()
-                        .get() !== start
+                        .filterIsInstance<Text>()
+                        .first { node -> (node.parent as Element).namespaceURI != UTD_NS } !== start
                 ) {
                     return null
                 }

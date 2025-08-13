@@ -46,7 +46,6 @@ import java.nio.file.Path
 import java.util.*
 import java.util.function.Consumer
 import java.util.function.Function
-import java.util.stream.Collectors
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 import javax.print.PrintService
@@ -163,16 +162,11 @@ object EmbossingUtils {
             .toList()
         val noWarnings = prerequisiteWarnings.isEmpty()
         if (!noWarnings) {
-            val warningMsg = prerequisiteWarnings.stream()
-                .map { n: Notification -> n.getMessage(LocaleHandler.getDefault().locale) }
-                .collect(
-                    Collectors.joining(
-                        "\n", String.format(
-                            "%s%n%n", LocaleHandler.getDefault()["EmbossersManager.prerequisitesNotMet"]
-                        ),
-                        ""
-                    )
+            val warningMsg = prerequisiteWarnings.joinToString(
+                "\n", prefix = String.format(
+                    "%s%n%n", LocaleHandler.getDefault()["EmbossersManager.prerequisitesNotMet"]
                 )
+            ) { n: Notification -> n.getMessage(LocaleHandler.getDefault().locale) }
             Notify.showMessage(warningMsg)
         }
         return noWarnings
