@@ -34,14 +34,14 @@ import java.util.stream.Stream
 object Searcher {
 
     @JvmStatic
-	fun streamCurrentBufferFromCurrentCursor(m: Manager): Stream<TextMapElement> {
+	fun streamCurrentBufferFromCurrentCursor(m: Manager): Iterable<TextMapElement> {
         return streamCurrentBufferFrom(m, m.mapList.current)
     }
 
-    fun streamCurrentBufferFrom(m: Manager, tme: TextMapElement): Stream<TextMapElement> {
+    fun streamCurrentBufferFrom(m: Manager, tme: TextMapElement): Iterable<TextMapElement> {
         val tmeIndex = m.mapList.indexOf(tme)
         require(tmeIndex != -1) { "tme not found in current buffer $tme" }
-        return m.mapList.subList(tmeIndex, m.mapList.size).stream()
+        return m.mapList.subList(tmeIndex, m.mapList.size)
     }
 
     @JvmStatic

@@ -64,9 +64,9 @@ class XMLSelection(@JvmField val start: XMLNodeCaret, @JvmField val end: XMLNode
             }
             if (BBX.CONTAINER.isA(startBlock) || BBX.SECTION.isA(startBlock)) {
                 //Add all descendant blocks to the list
-                FastXPath.descendant(startBlock).stream()
-                    .filter { node: Node? -> BBX.BLOCK.isA(node) }
-                    .map { n: Node -> n as Element }
+                FastXPath.descendant(startBlock)
+                    .filterIsInstance<Element>()
+                    .filter { node -> BBX.BLOCK.isA(node) }
                     .forEach { e: Element -> returnList.add(e) }
                 if (returnList.isNotEmpty()) startBlock = returnList[0]
             }
