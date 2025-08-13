@@ -24,6 +24,7 @@ import org.brailleblaster.abstractClasses.BBEditorView
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.bbx.BBXUtils
 import org.brailleblaster.bbx.BBXUtils.ListStyleData
+import org.brailleblaster.bbx.findBlock
 import org.brailleblaster.bbx.isPageNumEffectively
 import org.brailleblaster.frontmatter.VolumeUtils.VolumeData
 import org.brailleblaster.frontmatter.VolumeUtils.getOrCreateTOC
@@ -513,14 +514,14 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolModule, BBViewListen
             } else {
                 //assume the user meant the whole piece of text
                 //The element needs to be an actual block (it could be inside an INLINE)
-                BBXUtils.findBlock(currentSelection.start.node)
+                currentSelection.start.node.findBlock()
                 //				pageWrapElem = (Element) currentSelection.start.node().getParent();
             }
 
             log.debug("initial {}", pageWrapElem.toXML())
             previousTitleBlock = isValidToMakePage(pageWrapElem, true)
 
-            val parentBlock: Element = BBXUtils.findBlock(pageWrapElem)
+            val parentBlock: Element = pageWrapElem.findBlock()
             stripUTDRecursive(parentBlock)
             modifiedNodes.add(parentBlock)
 
@@ -543,7 +544,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolModule, BBViewListen
             val selectionStart: XMLTextCaret = currentSelection.start
             val selectionEnd: XMLTextCaret = currentSelection.end
             val textNode: nu.xom.Text = selectionEnd.node
-            val parentBlock: Element = BBXUtils.findBlock(textNode)
+            val parentBlock: Element = textNode.findBlock()
 
             if (unwrapPage(textNode)) {
                 stripUTDRecursive(parentBlock)
@@ -658,7 +659,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolModule, BBViewListen
             // live fixer will cleanup block
         }
 
-        modifiedNodes.add(BBXUtils.findBlock(pageWrapElem))
+        modifiedNodes.add(pageWrapElem.findBlock())
 
         pageNumStripPrecedingText(pageWrapElem, modifiedNodes)
 
@@ -682,7 +683,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolModule, BBViewListen
 
         if (isFullySelected) {
             //Make sure that your node is its parent or else comparison below will be inaccurate
-            node = BBXUtils.findBlock(node)
+            node = node.findBlock()
         }
 
         // Find an associated title
@@ -888,7 +889,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolModule, BBViewListen
 
             //Rel 7254: If current block contains only this node, use it as a title, not a page.
             //Page should not have a blank title, but the title can live without a page.
-            if (BBXUtils.findBlock(nodeToWrap).childCount == 1 && moveableBlock == null) {
+            if (nodeToWrap.findBlock().childCount == 1 && moveableBlock == null) {
                 return
             }
         }

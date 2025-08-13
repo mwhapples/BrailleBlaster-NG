@@ -21,7 +21,6 @@ import nu.xom.Node
 import nu.xom.Text
 import org.brailleblaster.bbx.BBX.ListType
 import org.brailleblaster.bbx.BBX.MarginType
-import org.brailleblaster.bbx.BBXUtils.findBlock
 import org.brailleblaster.bbx.fixers.to3.ImageBlockToContainerImportFixer.Companion.convertImageBlockToContainer
 import org.brailleblaster.math.mathml.MathModule.Companion.isSpatialMath
 import org.brailleblaster.perspectives.braille.Manager
@@ -61,8 +60,8 @@ fun Node?.isPageNumEffectively(): Boolean = if (this.isPageNum() || this.isPageN
         .all { it.isPageNumAncestor() }
 }
 
-fun Node?.isTOCText(): Boolean = this != null && (BBX.BLOCK.MARGIN.isA(findBlock(this)) ||
-        BBX.BLOCK.TOC_VOLUME_SPLIT.isA(findBlock(this)))
+fun Node?.isTOCText(): Boolean = this != null && (this.findBlock().let { BBX.BLOCK.MARGIN.isA(it) ||
+        BBX.BLOCK.TOC_VOLUME_SPLIT.isA(it) })
 
 fun Element?.findBlockChildOrNull(): Element? = XMLHandler.childrenRecursiveVisitor(
     this

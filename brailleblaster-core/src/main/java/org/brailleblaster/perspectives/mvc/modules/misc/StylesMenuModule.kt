@@ -22,6 +22,7 @@ import org.brailleblaster.BBIni.propertyFileManager
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.bbx.BBX.ListType
 import org.brailleblaster.bbx.BBXUtils
+import org.brailleblaster.bbx.findBlock
 import org.brailleblaster.bbx.findBlockChildOrNull
 import org.brailleblaster.bbx.findBlockOrNull
 import org.brailleblaster.math.mathml.MathModule
@@ -308,7 +309,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
     fun boxBlock(start: Node, style: Style?): Node {
         val block = if ((BBX.CONTAINER.TABLE.isA(start) || BBX.CONTAINER.LIST.isA(start)
                     || BBX.CONTAINER.BOX.isA(start))
-        ) start as Element else BBXUtils.findBlock(start)
+        ) start as Element else start.findBlock()
         XMLHandler2.wrapNodeWithElement(
             block,
             BBX.CONTAINER.BOX.create()
@@ -318,8 +319,8 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
     }
 
     fun boxMultiBlocks(start: Node, end: Node, style: Style): Node? {
-        var b1 = if (isContainer(start)) start as Element else BBXUtils.findBlock(start)
-        var b2 = if (isContainer(end)) end as Element else BBXUtils.findBlock(end)
+        var b1 = if (isContainer(start)) start as Element else start.findBlock()
+        var b2 = if (isContainer(end)) end as Element else end.findBlock()
 
         var tableParent = Manager.getTableParent(b1)
         if (tableParent != null) b1 = tableParent
@@ -664,7 +665,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
         val blocks = LinkedHashSet<Element>()
         for (curNode in nodes) {
             if (curNode.findBlockOrNull() != null) {
-                blocks.add(BBXUtils.findBlock(curNode))
+                blocks.add(curNode.findBlock())
             }
         }
         return blocks
@@ -786,8 +787,8 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
 
         // find the containers
 
-        var b1 = if (isContainer(start)) start as Element else BBXUtils.findBlock(start)
-        var b2 = if (isContainer(end)) end as Element else BBXUtils.findBlock(end)
+        var b1 = if (isContainer(start)) start as Element else start.findBlock()
+        var b2 = if (isContainer(end)) end as Element else end.findBlock()
 
         var tableParent = Manager.getTableParent(b1)
         if (tableParent != null) b1 = tableParent
@@ -867,10 +868,10 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
             var startNode = startNode
             var endNode = endNode
             if (startNode is Text || isMath(startNode)) {
-                startNode = BBXUtils.findBlock(startNode)
+                startNode = startNode.findBlock()
             }
             if (endNode is Text || isMath(endNode)) {
-                endNode = BBXUtils.findBlock(endNode)
+                endNode = endNode.findBlock()
             }
 
             // TODO: This list query does NOT include poem
