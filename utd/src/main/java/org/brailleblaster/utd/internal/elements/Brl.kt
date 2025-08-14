@@ -66,17 +66,7 @@ class Brl : Element(PROTOTYPE) {
     companion object {
         private val PROTOTYPE = Element(UTDElements.BRL.qName, UTD_NS)
         fun convertIndexStringToArray(value: String): ImmutableIntArray {
-            val length = value.length
-            val builder = ImmutableIntArray.builder(value.length / 2)
-            var start = 0
-            var end: Int
-            while (start < length) {
-                end = value.indexOf(' ', start)
-                if (end < 0) end = length
-                if (start != end) builder.add(value.substring(start, end).toInt())
-                start = end + 1
-            }
-            return builder.build()
+            return ImmutableIntArray.copyOf(value.split(' ').mapNotNull { it.toIntOrNull() })
         }
     }
 
