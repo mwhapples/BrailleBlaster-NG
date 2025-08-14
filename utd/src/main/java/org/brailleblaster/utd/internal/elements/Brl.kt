@@ -20,7 +20,6 @@ import nu.xom.Attribute
 import nu.xom.Element
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utils.UTD_NS
-import java.util.stream.Collectors
 
 class Brl : Element(PROTOTYPE) {
     var indexArray: ImmutableIntArray? = ImmutableIntArray.of()
@@ -31,7 +30,7 @@ class Brl : Element(PROTOTYPE) {
                 super.removeAttribute(attr)
             }
         } else {
-            val indexStr = value.stream().mapToObj { i: Int -> i.toString() }.collect(Collectors.joining(" "))
+            val indexStr = value.asList().joinToString(separator = " ") { it.toString() }
             super.addAttribute(Attribute("index", indexStr))
         }
         field = value

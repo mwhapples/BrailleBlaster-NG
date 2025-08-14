@@ -21,6 +21,7 @@ import nu.xom.ParentNode
 import nu.xom.Text
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.bbx.BBXUtils
+import org.brailleblaster.bbx.findBlock
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.LineBreakElement
 import org.brailleblaster.perspectives.braille.mapping.elements.TextMapElement
@@ -30,7 +31,6 @@ import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utils.braille.BrailleUnicodeConverter.unicodeToAsciiLouis
-import java.util.stream.Collectors
 
 /**
  * Add support for 6 key input
@@ -57,7 +57,7 @@ object SixKeyUtils {
         val cursorOffset = m.textView.caretOffset
         var tme: TextMapElement? = m.mapList.current
         if (tme!!.node != null && tme !is LineBreakElement) {
-            val currentBlock: ParentNode = BBXUtils.findBlock(tme.node)
+            val currentBlock: ParentNode = tme.node.findBlock()
             while (tme != null && currentBlock == m.getBlock(tme.node) && BBXUtils.getIndexInBlock(tme.node) != 0) {
                 tme = m.mapList.getPrevious(m.mapList.indexOf(tme), true)
             }
@@ -127,19 +127,18 @@ object SixKeyUtils {
      * @return
      */
     fun formatPreviousImageDescription(brailleString: Node?): String {
-        return FastXPath.descendant(brailleString).stream().filter { node: Node? ->
+        return FastXPath.descendant(brailleString).filter { node: Node? ->
             node is Text && XMLHandler.ancestorElementNot(node) {
                 UTDElements.BRL.isA(it)
             } || BBX.INLINE.LINE_BREAK.isA(node) || BBX.SPAN.TAB.isA(node)
+        }.joinToString(separator = "") { node ->
+            if (node is Text) {
+                node.value
+            } else if (BBX.SPAN.TAB.isA(node)) {
+                SPACE.toString().repeat(BBX.SPAN.TAB.ATTRIB_VALUE[node as Element] - 1)
+            } else {
+                "\n"
+            }
         }
-            .map { node: Node ->
-                if (node is Text) {
-                    return@map node.value
-                } else if (BBX.SPAN.TAB.isA(node)) {
-                    return@map SPACE.toString().repeat(BBX.SPAN.TAB.ATTRIB_VALUE[node as Element] - 1)
-                } else {
-                    return@map "\n"
-                }
-            }.collect(Collectors.joining())
     }
 }

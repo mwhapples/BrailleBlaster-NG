@@ -22,6 +22,9 @@ import org.brailleblaster.BBIni.propertyFileManager
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.bbx.BBX.ListType
 import org.brailleblaster.bbx.BBXUtils
+import org.brailleblaster.bbx.findBlock
+import org.brailleblaster.bbx.findBlockChildOrNull
+import org.brailleblaster.bbx.findBlockOrNull
 import org.brailleblaster.math.mathml.MathModule
 import org.brailleblaster.math.mathml.MathModule.Companion.isMath
 import org.brailleblaster.math.mathml.MathModule.Companion.isSpatialMath
@@ -207,15 +210,11 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
         if (lastStyleId == null) {
             throw BBNotifyException("Must apply a style first before it can be repeated")
         }
-        val styleToApply = m.document.settingsManager.engine.styleDefinitions.styles
-            .stream()
-            .filter { style: Style -> style.id == lastStyleId }
-            .findFirst()
-            .orElseThrow {
-                RuntimeException(
+        val styleToApply =
+            m.document.settingsManager.engine.styleDefinitions.styles.firstOrNull { style: Style -> style.id == lastStyleId }
+                ?: throw RuntimeException(
                     "Unable to find lastStyleId $lastStyleId"
                 )
-            }
         val modifiedNodes = updateStyle(styleToApply)
         if (modifiedNodes.isNotEmpty()) {
             m.simpleManager.dispatchEvent(ModifyEvent(Sender.EMPHASIS, modifiedNodes, true))
@@ -306,7 +305,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
     fun boxBlock(start: Node, style: Style?): Node {
         val block = if ((BBX.CONTAINER.TABLE.isA(start) || BBX.CONTAINER.LIST.isA(start)
                     || BBX.CONTAINER.BOX.isA(start))
-        ) start as Element else BBXUtils.findBlock(start)
+        ) start as Element else start.findBlock()
         XMLHandler2.wrapNodeWithElement(
             block,
             BBX.CONTAINER.BOX.create()
@@ -316,8 +315,8 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
     }
 
     fun boxMultiBlocks(start: Node, end: Node, style: Style): Node? {
-        var b1 = if (isContainer(start)) start as Element else BBXUtils.findBlock(start)
-        var b2 = if (isContainer(end)) end as Element else BBXUtils.findBlock(end)
+        var b1 = if (isContainer(start)) start as Element else start.findBlock()
+        var b2 = if (isContainer(end)) end as Element else end.findBlock()
 
         var tableParent = Manager.getTableParent(b1)
         if (tableParent != null) b1 = tableParent
@@ -365,7 +364,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
                         || (isColorFullBox(style) && isColorFullBox(start))
                     ) {
                         val container = start as Element
-                        val child = BBXUtils.findBlockChildOrNull(container)
+                        val child = container.findBlockChildOrNull()
                         unbox(container)
                         if (child != null) {
                             modifiedNodes.add(child)
@@ -436,7 +435,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
                 }
                 modifiedNodes.addAll(blocks)
             } else {
-                val block = BBXUtils.findBlockOrNull(start) ?: throw NodeException("start not inside block", start)
+                val block = start.findBlockOrNull() ?: throw NodeException("start not inside block", start)
                 BBXUtils.stripStyle(block, m)
                 m.document.settingsManager.applyStyle(style, block)
                 modifiedNodes.add(block)
@@ -653,7 +652,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
             }
         }
         if (end is Element) {
-                nodes.addAll(
+            nodes.addAll(
                 FastXPath.descendant(end)
             )
         }
@@ -661,8 +660,8 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
         //Convert nodes to usable blocks without duplicates
         val blocks = LinkedHashSet<Element>()
         for (curNode in nodes) {
-            if (BBXUtils.findBlockOrNull(curNode) != null) {
-                blocks.add(BBXUtils.findBlock(curNode))
+            if (curNode.findBlockOrNull() != null) {
+                blocks.add(curNode.findBlock())
             }
         }
         return blocks
@@ -771,8 +770,8 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
 
     private val isTableSelected: Boolean
         get() = m.simpleManager.getModule(
-                TableSelectionModule::class.java
-            )!!.isTableSelected
+            TableSelectionModule::class.java
+        )!!.isTableSelected
 
     private fun warnTable() {
         displayInvalidTableMessage(m.wpManager.shell)
@@ -784,8 +783,8 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
 
         // find the containers
 
-        var b1 = if (isContainer(start)) start as Element else BBXUtils.findBlock(start)
-        var b2 = if (isContainer(end)) end as Element else BBXUtils.findBlock(end)
+        var b1 = if (isContainer(start)) start as Element else start.findBlock()
+        var b2 = if (isContainer(end)) end as Element else end.findBlock()
 
         var tableParent = Manager.getTableParent(b1)
         if (tableParent != null) b1 = tableParent
@@ -865,10 +864,10 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
             var startNode = startNode
             var endNode = endNode
             if (startNode is Text || isMath(startNode)) {
-                startNode = BBXUtils.findBlock(startNode)
+                startNode = startNode.findBlock()
             }
             if (endNode is Text || isMath(endNode)) {
-                endNode = BBXUtils.findBlock(endNode)
+                endNode = endNode.findBlock()
             }
 
             // TODO: This list query does NOT include poem
@@ -991,7 +990,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
         }
 
         fun isAlwaysWrapStyle(style: Style?): Boolean {
-            return ALWAYS_WRAP_STYLES.any{ curAlwaysUnwrap: String? ->
+            return ALWAYS_WRAP_STYLES.any { curAlwaysUnwrap: String? ->
                 isStyle(
                     style,
                     curAlwaysUnwrap!!

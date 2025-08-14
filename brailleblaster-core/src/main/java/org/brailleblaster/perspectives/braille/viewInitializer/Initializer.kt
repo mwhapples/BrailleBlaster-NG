@@ -22,7 +22,8 @@ import org.brailleblaster.abstractClasses.ViewUtils.followsMoveTo
 import org.brailleblaster.abstractClasses.ViewUtils.followsNewPage
 import org.brailleblaster.abstractClasses.ViewUtils.isElement
 import org.brailleblaster.bbx.BBX
-import org.brailleblaster.bbx.BBXUtils
+import org.brailleblaster.bbx.findBlockOrNull
+import org.brailleblaster.bbx.isPageNum
 import org.brailleblaster.math.mathml.MathMLElement
 import org.brailleblaster.math.mathml.MathMLTableElement
 import org.brailleblaster.perspectives.braille.Manager
@@ -192,7 +193,7 @@ open class Initializer {
                     }
                 } else if (isBoxLine((current.getChild(i) as Element))) {
                     initializeViews(current.getChild(i), m, 0)
-                } else if (BBXUtils.isPageNum(current.getChild(i))) {
+                } else if (current.getChild(i).isPageNum()) {
                     initializePrintPage(m, current.getChild(i) as Element)
                 } else if (inTable && lastTable.tableElements.isEmpty() && BBX.CONTAINER.CAPTION.isA(current.getChild(i))) {
                     val lastTable = sectionList[sectionList.size - 1].list.removeLast() as TableTextMapElement
@@ -320,7 +321,7 @@ open class Initializer {
         var i = index
         while (i > 0) {
             val prev = list[i - 1]
-            if (prev.node != null && BBXUtils.findBlockOrNull(prev.node) === BBXUtils.findBlockOrNull(brl)) {
+            if (prev.node != null && prev.node.findBlockOrNull() === brl.findBlockOrNull()) {
                 i--
             } else if (prev is LineBreakElement
                 || prev is PaintedWhiteSpaceElement

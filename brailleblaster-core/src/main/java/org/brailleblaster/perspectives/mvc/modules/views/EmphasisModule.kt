@@ -15,17 +15,19 @@
  */
 package org.brailleblaster.perspectives.mvc.modules.views
 
-import com.google.common.base.Preconditions
 import nu.xom.Element
 import nu.xom.Node
 import nu.xom.ParentNode
 import nu.xom.Text
 import org.brailleblaster.bbx.BBX
-import org.brailleblaster.bbx.BBXUtils
+import org.brailleblaster.bbx.isPageNumAncestor
 import org.brailleblaster.math.mathml.MathModule
 import org.brailleblaster.perspectives.braille.messages.Sender
-import org.brailleblaster.perspectives.mvc.*
+import org.brailleblaster.perspectives.mvc.BBSimpleManager
 import org.brailleblaster.perspectives.mvc.BBSimpleManager.SimpleListener
+import org.brailleblaster.perspectives.mvc.SimpleEvent
+import org.brailleblaster.perspectives.mvc.XMLSelection
+import org.brailleblaster.perspectives.mvc.XMLTextCaret
 import org.brailleblaster.perspectives.mvc.events.BuildMenuEvent
 import org.brailleblaster.perspectives.mvc.events.ModifyEvent
 import org.brailleblaster.perspectives.mvc.menu.*
@@ -40,8 +42,8 @@ import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.internal.xml.XMLHandler2
 import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.utd.utils.UTDHelper
-import org.brailleblaster.utils.xom.childNodes
 import org.brailleblaster.util.Utils
+import org.brailleblaster.utils.xom.childNodes
 import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT
 import org.eclipse.swt.widgets.Label
@@ -50,7 +52,6 @@ import org.eclipse.swt.widgets.Shell
 import org.slf4j.LoggerFactory
 import java.util.*
 import java.util.function.Consumer
-import java.util.stream.Collectors
 
 private const val NO_OFFSET = -1
 private val log = LoggerFactory.getLogger(EmphasisModule::class.java)
@@ -149,12 +150,13 @@ object EmphasisModule : AbstractModule(), SimpleListener {
                     }
                 } else {
                     //Element is selected. Apply emphasis to all descendant text nodes
-                    FastXPath.descendant(currentSelection.start.node).stream()
-                        .filter { n: Node? -> n is Text && !MathModule.isMath(n) }
-                        .forEach { n: Node ->
+                    FastXPath.descendant(currentSelection.start.node)
+                        .filterIsInstance<Text>()
+                        .filter { n -> !MathModule.isMath(n) }
+                        .forEach { n ->
                             callback.emphasize(
                                 emphasisType,
-                                n as Text,
+                                n,
                                 NO_OFFSET,
                                 NO_OFFSET,
                                 removeEmphasis
@@ -290,9 +292,8 @@ object EmphasisModule : AbstractModule(), SimpleListener {
 
         private fun mergeAdjacentInline(modifiedNodes: List<Element>) {
             modifiedNodes.forEach(Consumer { n: Element? ->
-                val descendantInlines = FastXPath.descendant(n).stream()
-                    .filter { node: Node? -> BBX.INLINE.EMPHASIS.isA(node) }
-                    .collect(Collectors.toList())
+                val descendantInlines = FastXPath.descendant(n)
+                    .filter { node: Node? -> BBX.INLINE.EMPHASIS.isA(node) }.toMutableList()
                 var i = 0
                 while (i < descendantInlines.size) {
                     val curNode = descendantInlines[i] as Element
@@ -518,7 +519,7 @@ private fun isGuideWordItem(node: Node): Boolean {
     //If node has style list
 }
 private fun stripEmphasis(emphasis: Element): Text {
-    Preconditions.checkArgument(BBX.INLINE.EMPHASIS.isA(emphasis), "Element must be emphasis")
+    require(BBX.INLINE.EMPHASIS.isA(emphasis)) { "Element must be emphasis" }
     val parent = emphasis.parent
     var text = Text(emphasis.value)
     parent.replaceChild(emphasis, text)
@@ -564,7 +565,7 @@ private fun emphasize(
     end: Int,
     remove: Boolean
 ): Text {
-    if (BBXUtils.isPageNumAncestor(node) || MathModule.isMath(node) || !validateEmphasis(
+    if (node.isPageNumAncestor() || MathModule.isMath(node) || !validateEmphasis(
             node.value.length,
             start,
             end
@@ -738,8 +739,8 @@ private fun processEmphasis(
     return parent
 }
 private fun applyEmphasis(emphasisToSet: EnumSet<EmphasisType>, node: Text, start: Int, end: Int): Text {
-    Preconditions.checkArgument(start >= NO_OFFSET, "Unexpected start $start")
-    Preconditions.checkArgument(end >= NO_OFFSET, "Unexpected end $end")
+    require(start >= NO_OFFSET) { "Unexpected start $start" }
+    require(end >= NO_OFFSET) { "Unexpected end $end" }
     val inlineElement = node.parent as Element
     log.debug("Emphasising text {}", node)
     return if (!BBX.INLINE.EMPHASIS.isA(inlineElement)) {
