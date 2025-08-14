@@ -15,14 +15,13 @@
  */
 package org.brailleblaster.utd.internal.elements
 
-import com.google.common.primitives.ImmutableIntArray
 import nu.xom.Attribute
 import nu.xom.Element
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utils.UTD_NS
 
 class Brl : Element(PROTOTYPE) {
-    var indexArray: ImmutableIntArray? = ImmutableIntArray.of()
+    var indexArray: List<Int>? = emptyList()
     set(value) {
         if (value == null) {
             val attr = getAttribute("index")
@@ -30,7 +29,7 @@ class Brl : Element(PROTOTYPE) {
                 super.removeAttribute(attr)
             }
         } else {
-            val indexStr = value.asList().joinToString(separator = " ") { it.toString() }
+            val indexStr = value.joinToString(separator = " ") { it.toString() }
             super.addAttribute(Attribute("index", indexStr))
         }
         field = value
@@ -65,8 +64,8 @@ class Brl : Element(PROTOTYPE) {
 
     companion object {
         private val PROTOTYPE = Element(UTDElements.BRL.qName, UTD_NS)
-        fun convertIndexStringToArray(value: String): ImmutableIntArray {
-            return ImmutableIntArray.copyOf(value.split(' ').mapNotNull { it.toIntOrNull() })
+        fun convertIndexStringToArray(value: String): List<Int> {
+            return value.split(' ').mapNotNull { it.toIntOrNull() }
         }
     }
 
