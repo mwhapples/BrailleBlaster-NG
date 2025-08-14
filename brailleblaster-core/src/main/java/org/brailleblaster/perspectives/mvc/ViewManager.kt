@@ -109,7 +109,7 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
             windowedShell!!.layout(true)
             windowedShell!!.setRedraw(true)
             windowedShell!!.text =
-                WordUtils.capitalize(windowedViewNew.name.lowercase(Locale.getDefault())) + " View"
+                "${WordUtils.capitalizeFully(windowedViewNew.name)} View"
             redrawMainContainer = true
         }
         windowedViewCurrent = windowedViewNew
