@@ -15,7 +15,7 @@ on:
     branches: [ "main" ]
 
 env:
-  BB_VERSION: '2025.1.15'
+  BB_VERSION: '3.1.0'
   BB_CHANGELIST: ''
 
 jobs:
@@ -35,7 +35,8 @@ jobs:
     - name: Build with Maven
       run: |
         mvn -B install --file pom.xml -DskipTests -Drevision=${{ env.BB_VERSION }} -Dsha1=-${{ github.sha }} -Dchangelist=${{ env.BB_CHANGELIST }}
-
+    - name: Get docs
+      run: brailleblaster-app/scripts/get-docs.sh brailleblaster-app/target/dist/docs
     - name: Zip distribution
       run: |
         mkdir brailleblaster-continuous

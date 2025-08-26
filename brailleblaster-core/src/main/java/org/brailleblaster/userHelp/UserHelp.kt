@@ -66,7 +66,7 @@ private val helpPath = BBIni.helpDocsPath.toString() + FileSystems.getDefault().
 private fun showHelp(helpChoice: HelpOptions) {
     when (helpChoice) {
         HelpOptions.GoToSite -> Program.launch(AppProperties.websiteUrl)
-        HelpOptions.UserGuide -> showHelp("index.html")
+        HelpOptions.UserGuide -> showHelp("manualV2_1.html")
         HelpOptions.AboutBB -> showAbout()
     }
 }

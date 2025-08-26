@@ -7,19 +7,19 @@ child.project.url.inherit.append.path="false">
     <groupId>org.brailleblaster</groupId>
     <artifactId>brailleblaster-parent</artifactId>
     <version>${revision}${sha1}${changelist}</version>
-    <name>BrailleBlaster-NG</name>
-    <description>BrailleBlaster-NG OpenSource Braille translation software.</description>
-    <url>https://brailleblaster-ng.app</url>
+    <name>BrailleBlaster</name>
+    <description>BrailleBlaster OpenSource Braille translation software.</description>
+    <url>https://www.brailleblaster.org</url>
     <organization>
-        <name>Michael Whapples</name>
+        <name>American Printing House for the Blind</name>
     </organization>
     <distributionManagement>
-        <downloadUrl>https://download.brailleblaster-ng.app</downloadUrl>
+        <downloadUrl>https://assets.brailleblaster.org/brailleblaster/downloads</downloadUrl>
     </distributionManagement>
     <scm child.scm.connection.inherit.append.path="false" child.scm.developerConnection.inherit.append.path="false" child.scm.url.inherit.append.path="false">
-        <connection>scm:git:https://github.com/mwhapples/BrailleBlaster-NG.git</connection>
-        <developerConnection>scm:git:https://github.com/mwhapples/BrailleBlaster-NG.git</developerConnection>
-        <url>https://github.com/mwhapples/BrailleBlaster-NG</url>
+        <connection>scm:git:https://github.com/aphtech/brailleblaster.git</connection>
+        <developerConnection>scm:git:https://github.com/aphtech/brailleblaster.git</developerConnection>
+        <url>https://github.com/aphtech/brailleblaster</url>
     </scm>
     <packaging>pom</packaging>
 
@@ -37,11 +37,11 @@ child.project.url.inherit.append.path="false">
     </modules>
 
     <properties>
-        <app.fsname>brailleblaster-ng</app.fsname>
-        <app.vendor-fsname>mwhapples</app.vendor-fsname>
-        <app.contact-email>software@mdw.onl</app.contact-email>
-        <app.rdns-name>app.brailleblaster-ng</app.rdns-name>
-        <revision>2025.1.15</revision>
+        <app.fsname>brailleblaster</app.fsname>
+        <app.vendor-fsname>aph</app.vendor-fsname>
+        <app.contact-email>cs@aph.org</app.contact-email>
+        <app.rdns-name>org.aph.brailleblaster</app.rdns-name>
+        <revision>3.1.0</revision>
         <sha1/>
         <changelist>-SNAPSHOT</changelist>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -95,8 +95,7 @@ child.project.url.inherit.append.path="false">
         <commonsexec.version>1.5.0</commonsexec.version>
         <commonscollections4.version>4.5.0</commonscollections4.version>
         <jna.version>5.17.0</jna.version>
-        <!-- Note that Mac AARCH64 does not use this as users do not like how 3.6.4 pushed to MacOSX 15. -->
-        <pandoc.version>3.7.0.2</pandoc.version>
+        <pandoc.version>3.6.4</pandoc.version>
         <orgeclipseswtbotswtfinder.version>f5b2edaee2</orgeclipseswtbotswtfinder.version>
     </properties>
 
