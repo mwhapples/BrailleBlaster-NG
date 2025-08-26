@@ -51,12 +51,6 @@
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
-        <!-- Used to optimise scripting, ASCIIMath JS -->
-        <dependency>
-            <groupId>org.graalvm.compiler</groupId>
-            <artifactId>compiler</artifactId>
-            <scope>runtime</scope>
-        </dependency>
     </dependencies>
     <build>
         <finalName>${app.fsname}</finalName>
@@ -129,7 +123,6 @@
                         <app.vendor-fsname>${app.vendor-fsname}</app.vendor-fsname>
                         <app.rdns-name>${app.rdns-name}</app.rdns-name>
                         <app.contact-email>${app.contact-email}</app.contact-email>
-                        <graalvm.version>${graalvm.version}</graalvm.version>
                     </properties>
                 </configuration>
             </plugin>
