@@ -871,7 +871,7 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
     private fun normalizeEmphasis(parent: Node) {
         if (parent.childCount == 0) return
         val children =
-            FastXPath.descendant(parent).stream().filter { node: Node? -> BBX.INLINE.EMPHASIS.isA(node) }.toList()
+            FastXPath.descendant(parent).filter { node -> BBX.INLINE.EMPHASIS.isA(node) }.toList()
         for (child in children) {
             val emphasis = child as Element
             val empParent = emphasis.parent
