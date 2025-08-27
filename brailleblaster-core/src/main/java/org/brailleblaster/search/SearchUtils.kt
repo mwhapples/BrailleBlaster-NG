@@ -213,7 +213,7 @@ object SearchUtils {
                 //if the element is not null after checking the criteria, it's probably valid
                 return true
             }
-        } catch (e: NullPointerException) {
+        } catch (_: NullPointerException) {
             throw SearchException(
                 """Null pointer thrown searching for "${click.settings.findString}" with styles: ${
                     click.settings.printStyleFormatting(
