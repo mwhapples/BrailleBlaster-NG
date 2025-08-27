@@ -59,6 +59,7 @@ import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -690,7 +691,7 @@ public class ClipboardModule implements SimpleListener {
         }
     }
 
-    private Element copyBlock(Node startNode, Node endNode, Element block, XMLSelection selection, boolean cut) {
+    private Element copyBlock(@Nullable Node startNode, @Nullable Node endNode, @NotNull Element block, @NotNull XMLSelection selection, boolean cut) {
         List<Node> children = FastXPath.descendant(block).list();
         if (!children.contains(startNode) && !children.contains(endNode)) {
             return block.copy();
