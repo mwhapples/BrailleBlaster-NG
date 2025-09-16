@@ -64,17 +64,16 @@ object BBXValidator {
         val bookRoot = BBX.getRoot(doc)
         assertEquals(bookRoot, doc.rootElement.childElements[1], doc)
         //TODO: skip comments in root
-//		assertEquals(doc.getRootElement().getChildCount(), 2, doc);
+        //assertEquals(doc.getRootElement().getChildCount(), 2, doc);
         val itrStack: Deque<Element> = ArrayDeque()
         itrStack.push(bookRoot)
         while (!itrStack.isEmpty()) {
             val curElem = itrStack.pop()
             when (curElem.namespaceURI) {
-                UTD_NS, MATHML_NS ->                    //do not try to validate
-                    continue
-
+                //do not try to validate
+                UTD_NS, MATHML_NS -> continue
                 BB_NS -> {}
-                else -> throw ValidateException(curElem, "Unexpected namspace " + curElem.namespaceURI)
+                else -> throw ValidateException(curElem, "Unexpected namespace " + curElem.namespaceURI)
             }
             val curType = BBX.getType(curElem)
             val curSubType = curType.getSubType(curElem)

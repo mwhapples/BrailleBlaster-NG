@@ -63,7 +63,8 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModu
     shell.layout = GridLayout(1, false)
 
     val shellText = EasySWT.makeLabel(shell)
-    shellText.text("Select a unit to toggle specific translation rules.\nThis will allow you to specify words and contractions up to and including the selected unit.")
+    shellText.text("Select a unit to toggle specific translation rules.\n" +
+        "This will allow you to specify words and contractions up to and including the selected unit.")
 
     //Drop-down list with all the units to toggle rules.
     val unitSelector = EasySWT.makeComboDropdown(shell)
