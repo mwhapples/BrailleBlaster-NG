@@ -306,7 +306,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
         val block = if ((BBX.CONTAINER.TABLE.isA(start) || BBX.CONTAINER.LIST.isA(start)
                     || BBX.CONTAINER.BOX.isA(start))
         ) start as Element else start.findBlock()
-        XMLHandler2.wrapNodeWithElement(
+        XMLHandler.wrapNodeWithElement(
             block,
             BBX.CONTAINER.BOX.create()
         )
@@ -519,7 +519,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
                 }
                 if (BBX.BLOCK.isA(parent) && parent.childCount == 1) {
                     // user highlighted entire block, undo wrap
-                    XMLHandler2.unwrapElement(page)
+                    XMLHandler.unwrapElement(page)
                     BBX.transform(parent, BBX.BLOCK.PAGE_NUM)
                     page = parent
                 }

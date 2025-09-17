@@ -31,7 +31,7 @@ import org.brailleblaster.perspectives.mvc.XMLNodeCaret.CursorPosition
 import org.brailleblaster.perspectives.mvc.events.ModifyEvent
 import org.brailleblaster.perspectives.mvc.modules.misc.TableSelectionModule
 import org.brailleblaster.perspectives.mvc.modules.views.TextViewModule
-import org.brailleblaster.utd.internal.xml.XMLHandler2
+import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.utils.UTDHelper
 import org.brailleblaster.util.Notify
 import org.brailleblaster.util.Utils
@@ -247,7 +247,7 @@ object MathEditHandler {
     val math = o.node
     val parent = block.getChild(index)
     block.replaceChild(parent, math)
-        XMLHandler2.wrapNodeWithElement(
+        XMLHandler.wrapNodeWithElement(
             math,
             BBX.INLINE.MATHML.create()
         )

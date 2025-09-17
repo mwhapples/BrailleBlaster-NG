@@ -461,14 +461,14 @@ On node $node"""
                     list[0]
                 ) { n: Node? -> n is Element && n.getAttributeValue("utd-style") != null && n.getAttributeValue("utd-style") == "Poetic Stanza" }
                 if (stanza != null) {
-                    XMLHandler2.unwrapElement(stanza as Element)
+                    XMLHandler.unwrapElement(stanza as Element)
                 }
             }
 
             "List Tag" -> {
                 val lnode = XMLHandler.ancestorVisitor(list[0]) { node: Node? -> BBX.CONTAINER.LIST.isA(node) }
                 if (lnode != null) {
-                    XMLHandler2.unwrapElement(lnode as Element)
+                    XMLHandler.unwrapElement(lnode as Element)
                 }
             }
 

@@ -679,7 +679,7 @@ private fun toggleWithPreviousEmphasis(
         //Simple toggle the whole thing
         if (emphasisBitsToggled.isEmpty()) {
             // Remove unnessesary emphasis element
-            XMLHandler2.unwrapElement(inlineElement)
+            XMLHandler.unwrapElement(inlineElement)
         } else {
             BBX.INLINE.EMPHASIS.ATTRIB_EMPHASIS[inlineElement] = emphasisBitsToggled
         }
@@ -779,7 +779,7 @@ private fun toggleNoPreviousEmphasis(
         //wrap all
         node
     }
-    XMLHandler2.wrapNodeWithElement(
+    XMLHandler.wrapNodeWithElement(
         nodeToWrap,
         BBX.INLINE.EMPHASIS.create(emphasisToSet)
     )

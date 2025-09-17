@@ -36,6 +36,7 @@ import org.brailleblaster.perspectives.mvc.events.BuildMenuEvent
 import org.brailleblaster.perspectives.mvc.events.BuildToolBarEvent
 import org.brailleblaster.perspectives.mvc.events.ModifyEvent
 import org.brailleblaster.tools.MenuToolModule
+import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.internal.xml.XMLHandler2
 import org.brailleblaster.utd.utils.TextTranslator
 import org.brailleblaster.utd.utils.UTDHelper
@@ -657,13 +658,13 @@ class ProseBuilder : MenuToolModule {
 
     private fun unwrapProseParent(node: Node?): Boolean {
         if (BBX.CONTAINER.PROSE.isA(node)) {
-            XMLHandler2.unwrapElement(node as Element)
+            XMLHandler.unwrapElement(node as Element)
             return true
         }
         val ancestors = node!!.query("ancestor::node()")
         for (i in ancestors.size() - 1 downTo -1 + 1) {
             if (BBX.CONTAINER.PROSE.isA(ancestors[i])) {
-                XMLHandler2.unwrapElement(ancestors[i] as Element)
+                XMLHandler.unwrapElement(ancestors[i] as Element)
                 return true
             }
         }

@@ -60,6 +60,25 @@ public class XMLHandler {
         return queryStream(node, xpathPattern, xpathArgs).filter(n -> n instanceof Element).map(n -> (Element)n).toList();
     }
 
+    public static void wrapNodeWithElement(@NotNull Node nodeToWrap, @NotNull Element wrapper) {
+        nodeToWrap.getParent().replaceChild(nodeToWrap, wrapper);
+        wrapper.appendChild(nodeToWrap);
+    }
+
+    public static void unwrapElement(@NotNull Element elem) {
+        if (elem.getChildCount() > 0) {
+            // Reverse insert as insertChild will move over subsequent children
+            ParentNode elemParent = elem.getParent();
+            int parentIndex = elemParent.indexOf(elem);
+            while (elem.getChildCount() != 0) {
+                Node curChildNode = elem.getChild(elem.getChildCount() - 1);
+                curChildNode.detach();
+                elemParent.insertChild(curChildNode, parentIndex);
+            }
+        }
+        elem.detach();
+    }
+
 
     @NotNull
     public Document load(Path xmlPathInput) {

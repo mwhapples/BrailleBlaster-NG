@@ -889,14 +889,14 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolModule, BBViewListen
             }
             1 if BBX.INLINE.isA(parent) -> {
                 newPageWrapper = BBX.SPAN.OTHER.create()
-                XMLHandler2.wrapNodeWithElement(
+                XMLHandler.wrapNodeWithElement(
                     parent,
                     newPageWrapper
                 )
             }
             else -> {
                 newPageWrapper = BBX.SPAN.OTHER.create()
-                XMLHandler2.wrapNodeWithElement(
+                XMLHandler.wrapNodeWithElement(
                     nodeToWrap,
                     newPageWrapper
                 )
