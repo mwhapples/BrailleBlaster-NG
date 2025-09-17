@@ -35,7 +35,6 @@ import org.brailleblaster.perspectives.braille.views.wp.SixKeyHandler
 import org.brailleblaster.perspectives.mvc.XMLNodeCaret
 import org.brailleblaster.perspectives.mvc.events.XMLCaretEvent
 import org.brailleblaster.utd.internal.xml.XMLHandler
-import org.brailleblaster.utd.internal.xml.XMLHandler2
 import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.util.FormUIUtils
@@ -635,7 +634,7 @@ class SimpleImageDescriberDialog(
                 image
             ) { e: Element ->
                 (BBX.INLINE.EMPHASIS.isA(e)
-                        && BBX.INLINE.EMPHASIS.ATTRIB_EMPHASIS[e].contains(EmphasisType.NO_TRANSLATE)) && XMLHandler2.findFirstText(
+                        && BBX.INLINE.EMPHASIS.ATTRIB_EMPHASIS[e].contains(EmphasisType.NO_TRANSLATE)) && XMLHandler.findFirstText(
                     e
                 ) != null
             }

@@ -18,7 +18,6 @@ package org.brailleblaster.utd.internal.xml;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Streams;
 import nu.xom.*;
 import org.apache.commons.lang3.StringUtils;
 import org.brailleblaster.utd.exceptions.NodeException;
@@ -36,7 +35,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.stream.Stream;
 
 public class XMLHandler2 {
     public static final Logger log = LoggerFactory.getLogger(XMLHandler2.class);
@@ -82,11 +80,6 @@ public class XMLHandler2 {
         }
     }
 
-    public static Stream<Node> queryStream(
-            @NotNull Node node, @NotNull String xpathPattern, Object... xpathArgs) {
-        return Streams.stream(query(node, xpathPattern, xpathArgs));
-    }
-
     /**
      * Utility to query using {@link #toXPathContext(ParentNode) } and with slf4j string arguments
      */
@@ -109,14 +102,6 @@ public class XMLHandler2 {
 
     public static List<Element> queryElements(@NotNull Node node, @NotNull String xpathPattern, Object... xpathArgs) {
         return Lists.newArrayList(Iterables.filter(query(node, xpathPattern, xpathArgs), Element.class));
-    }
-
-    public static Text findFirstText(@NotNull Element someElement) {
-        return queryStream(someElement, "descendant::text()[not(ancestor::utd:brl)]")
-                .map(n -> (Text) n)
-                .filter(t -> !t.getValue().isBlank())
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Couldn't find text in " + someElement.toXML()));
     }
 
     /**

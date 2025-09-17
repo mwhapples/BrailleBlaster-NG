@@ -15,6 +15,7 @@
  */
 package org.brailleblaster.utd.internal.xml;
 
+import com.google.common.collect.Streams;
 import nu.xom.*;
 import org.apache.commons.io.input.BOMInputStream;
 import org.brailleblaster.utd.exceptions.NodeException;
@@ -34,12 +35,26 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 /**
  * Handles processing of XML documents from and to the disk
  */
 public class XMLHandler {
     private static final Logger log = LoggerFactory.getLogger(XMLHandler.class);
+
+    public static @NotNull Stream<@NotNull Node> queryStream(
+            @NotNull Node node, @NotNull String xpathPattern, Object... xpathArgs) {
+        return Streams.stream(XMLHandler2.query(node, xpathPattern, xpathArgs));
+    }
+
+    public static Text findFirstText(@NotNull Element someElement) {
+        return queryStream(someElement, "descendant::text()[not(ancestor::utd:brl)]")
+                .map(n -> (Text) n)
+                .filter(t -> !t.getValue().isBlank())
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Couldn't find text in " + someElement.toXML()));
+    }
 
 
     @NotNull
