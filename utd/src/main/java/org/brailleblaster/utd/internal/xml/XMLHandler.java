@@ -56,6 +56,10 @@ public class XMLHandler {
                 .orElseThrow(() -> new RuntimeException("Couldn't find text in " + someElement.toXML()));
     }
 
+    public static List<Element> queryElements(@NotNull Node node, @NotNull String xpathPattern, Object... xpathArgs) {
+        return queryStream(node, xpathPattern, xpathArgs).filter(n -> n instanceof Element).map(n -> (Element)n).toList();
+    }
+
 
     @NotNull
     public Document load(Path xmlPathInput) {

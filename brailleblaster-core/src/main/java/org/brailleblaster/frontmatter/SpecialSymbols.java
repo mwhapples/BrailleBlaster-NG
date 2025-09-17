@@ -19,7 +19,6 @@ import nu.xom.*;
 import org.brailleblaster.BBIni;
 import org.brailleblaster.settings.UTDManager;
 import org.brailleblaster.utd.internal.xml.XMLHandler;
-import org.brailleblaster.utd.internal.xml.XMLHandler2;
 import org.brailleblaster.utd.properties.UTDElements;
 import org.brailleblaster.util.Notify;
 import org.jetbrains.annotations.Nullable;
@@ -517,7 +516,7 @@ public class SpecialSymbols {
             Document newDoc = readDocFromPath(path);
             if (newDoc == null)
                 return returnList;
-            List<Element> entries = XMLHandler2.queryElements(newDoc, "descendant::entry");
+            List<Element> entries = XMLHandler.queryElements(newDoc, "descendant::entry");
             for (Element entry : entries) {
                 if (entry.getChildElements().size() > 0) {
                     String name = entry.getChildElements().get(0).getValue();

@@ -16,8 +16,6 @@
 package org.brailleblaster.utd.internal.xml;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import nu.xom.*;
 import org.apache.commons.lang3.StringUtils;
 import org.brailleblaster.utd.exceptions.NodeException;
@@ -98,10 +96,6 @@ public class XMLHandler2 {
         XPathContext context = nodeAsParent != null ? toXPathContext(nodeAsParent) : null;
 
         return node.query(realXpath, context);
-    }
-
-    public static List<Element> queryElements(@NotNull Node node, @NotNull String xpathPattern, Object... xpathArgs) {
-        return Lists.newArrayList(Iterables.filter(query(node, xpathPattern, xpathArgs), Element.class));
     }
 
     /**
