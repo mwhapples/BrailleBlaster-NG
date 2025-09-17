@@ -37,7 +37,6 @@ import org.slf4j.LoggerFactory
 
 abstract class BBSimpleManager {
     private var privCurrentSelection: XMLSelection? = null
-    private val mutableListeners: MutableList<SimpleListener> = ArrayList()
     private val listenersByClass: ClassToInstanceMap<SimpleListener> = MutableClassToInstanceMap.create()
 
     val currentCaret: XMLNodeCaret
@@ -67,7 +66,7 @@ abstract class BBSimpleManager {
     abstract val manager: Manager
 
     val listeners: List<SimpleListener>
-        get() = mutableListeners
+        get() = listenersByClass.values.toList()
 
     fun dispatchEvent(event: SimpleEvent) {
         log.debug("Event: {}", event, RuntimeException("event"))
@@ -86,10 +85,8 @@ abstract class BBSimpleManager {
         }
 
 
-        for (curListener in mutableListeners) {
-            if (curListener !is AbstractModule || !(curListener.self(event.sender)) || event is ModifyEvent) {
-                curListener.onEvent(event)
-            }
+        listeners.filter { it !is AbstractModule || !(it.self(event.sender)) || event is ModifyEvent }.forEach {
+            it.onEvent(event)
         }
     }
 
@@ -100,8 +97,7 @@ abstract class BBSimpleManager {
     }
 
     fun registerModule(eventHandler: SimpleListener) {
-        log.trace("Registered listener: " + eventHandler.javaClass.simpleName)
-        mutableListeners.add(eventHandler)
+        log.trace("Registered listener: ${eventHandler.javaClass.simpleName}")
         listenersByClass[eventHandler.javaClass] = eventHandler
     }
 
