@@ -89,9 +89,7 @@ abstract class BBSimpleManager {
     }
 
     fun registerModules(eventHandlers: Sequence<SimpleListener>) {
-        for (eventHandler in eventHandlers) {
-            registerModule(eventHandler)
-        }
+        eventHandlers.forEach { registerModule(it) }
     }
 
     fun registerModule(eventHandler: SimpleListener) {
