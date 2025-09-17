@@ -15,8 +15,6 @@
  */
 package org.brailleblaster.perspectives.mvc
 
-import com.google.common.collect.ClassToInstanceMap
-import com.google.common.collect.MutableClassToInstanceMap
 import nu.xom.Document
 import org.brailleblaster.exceptions.OutdatedMapListException
 import org.brailleblaster.perspectives.braille.Manager
@@ -37,7 +35,7 @@ import org.slf4j.LoggerFactory
 
 abstract class BBSimpleManager {
     private var privCurrentSelection: XMLSelection? = null
-    private val listenersByClass: ClassToInstanceMap<SimpleListener> = MutableClassToInstanceMap.create()
+    private val listenersByClass: MutableMap<Class<out SimpleListener>, SimpleListener> = mutableMapOf()
 
     val currentCaret: XMLNodeCaret
         get() = checkSelection().start
@@ -102,7 +100,8 @@ abstract class BBSimpleManager {
     }
 
     fun <N : SimpleListener> getModule(clazz: Class<N>): N? {
-        return listenersByClass.getInstance(clazz)
+        @Suppress("UNCHECKED_CAST")
+        return listenersByClass[clazz] as N?
     }
 
     fun initMenu(shell: Shell) {
