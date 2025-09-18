@@ -248,7 +248,7 @@ class NumberedLineFormatter : Formatter() {
                 return formatRemainingAsLiterary(node, i, style, pageBuilders, formatSelector)
             }
 
-            var isParentLinenum = parentLinenum != null && parentLinenum!!.getAttribute("linenum") != null
+            var isParentLinenum = parentLinenum?.getAttribute("linenum") != null
 
             if (node.getChild(i) is Text) {
                 val brl = getAssociatedBrlElement(node, i)
@@ -346,7 +346,7 @@ class NumberedLineFormatter : Formatter() {
                         if (pageBuilders.size > size) {
                             try {
                                 handleBadPoetry(pageBuilders, brl, pageBuilder, style)
-                            } catch (e: BadPoetryException) {
+                            } catch (_: BadPoetryException) {
                                 pageBuilder.removeBrl(brl)
                                 pageBuilder = pageBuilders.last()
                                 pageBuilder.removeBrl(brl)
@@ -380,7 +380,7 @@ class NumberedLineFormatter : Formatter() {
                     if (pageBuilders.size > size) {
                         try {
                             handleBadPoetry(pageBuilders, brl, pageBuilder, style)
-                        } catch (e: BadPoetryException) {
+                        } catch (_: BadPoetryException) {
                             pageBuilder.removeBrl(brl)
                             pageBuilder = pageBuilders.last()
                             pageBuilder.removeBrl(brl)
