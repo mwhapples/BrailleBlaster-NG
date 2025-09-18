@@ -1054,8 +1054,8 @@ public class BBX {
         public final LinkSubType LINK = new LinkSubType(this);
 
         public static class EmphasisSubType extends InlineSubType {
-            public final EnumSetAttribute<EmphasisType> ATTRIB_EMPHASIS = new EnumSetAttribute<>("emphasis",
-                    EmphasisType.class);
+            public final EnumSetAttribute<EmphasisType> ATTRIB_EMPHASIS =
+                new EnumSetAttribute<>("emphasis", EmphasisType.class);
 
             private EmphasisSubType(InlineElement coreType) {
                 super(coreType, "EMPHASIS");
@@ -1119,10 +1119,9 @@ public class BBX {
 
         public static class LinkSubType extends InlineSubType{
 
-          //External links
-          public final StringAttribute ATTRIB_HREF = new StringAttribute("href");
-          //Internal links
-          public final StringAttribute ATTRIB_REF_ID = new StringAttribute("ref");
+          public final StringAttribute ATTRIB_HREF =
+              new StringAttribute("href", UTDElements.UTD_PREFIX, NamespacesKt.URL_NS);
+          public final BooleanAttribute IS_EXTERNAL = new BooleanAttribute("external");
 
           private LinkSubType(InlineElement coreType) {
             super(coreType, "LINK");
@@ -1130,10 +1129,10 @@ public class BBX {
 
           @Override
           protected String subValidate(Element elem) {
-            if (ATTRIB_HREF.has(elem) ^ ATTRIB_REF_ID.has(elem)) {
+            if (ATTRIB_HREF.has(elem) && IS_EXTERNAL.has(elem)) {
               return null;
             }
-            return "Link must have either href or ref attribute, but not both or neither";
+            return "Link must have href and external attributes";
           }
         }
 
@@ -1141,7 +1140,7 @@ public class BBX {
 
         private InlineElement() {
             super("INLINE", true);
-            subTypes = List.of(EMPHASIS, MATHML, LINE_BREAK);
+            subTypes = List.of(EMPHASIS, MATHML, LINE_BREAK, LINK);
         }
 
         @Override

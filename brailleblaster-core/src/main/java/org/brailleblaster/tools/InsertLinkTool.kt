@@ -1,5 +1,9 @@
 package org.brailleblaster.tools
 
+import nu.xom.Element
+import org.brailleblaster.bbx.BBX
+import org.brailleblaster.perspectives.braille.messages.Sender
+import org.brailleblaster.perspectives.mvc.events.ModifyEvent
 import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
@@ -18,14 +22,16 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
 
   override fun onRun(bbData: BBSelectionData) {
     //Get input from a simple dialog box
-    val sel = bbData.manager.simpleManager.currentSelection
+    val caretNode = bbData.manager.simpleManager.currentCaret.node as Element
     //Need to determine if the selection is valid for inserting a link
     //If a link already exists in the selection, fill the dialog box with that link
     var linkText = ""
     //Listen Jack, how do I mess with BBXs?
     //If it's a Link BBX, get the href attribute and set linkText to that
     //If it's not, leave linkText as an empty string
-
+    if (caretNode.equals(BBX.INLINE.LINK) && caretNode.getAttribute("external")?.value == "true"){
+      linkText = caretNode.getAttributeValue("href") ?: ""
+    }
 
     makeGUI(bbData, linkText)
   }
@@ -70,6 +76,18 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
     println("Link text: $link")
     val mapList = bbData.manager.mapList
     val sel = bbData.manager.simpleManager.currentSelection
+    val start = sel.start
+    val end = sel.end
+    val caretNode = bbData.manager.simpleManager.currentCaret.node as Element
+
+    if (caretNode.equals(BBX.INLINE.LINK) && caretNode.getAttribute("external")?.value == "true"){
+      //Modify existing link
+      BBX.INLINE.LINK.ATTRIB_HREF[caretNode] = link
+      //Do I need to do anything else here?
+      bbData.manager.simpleManager.dispatchEvent(ModifyEvent(Sender.TEXT, false, caretNode.parent))
+      return
+    }
+
     //TODO add code for modifying the Link subtype of the BBX node (InlineElement)
     //When inserting the link, if linkText is empty, create a new Link BBX
     //If it's not empty, modify the existing Link BBX to have the new href attribute
@@ -82,9 +100,6 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
     //Internal links might be more difficult - maybe don't show any tooltip, just the blue underline?
     //Will need a link manager GUI to deal with internal ones and where they point - separate class.
     //No idea what to do for braille view yet, if anything.
-
-
-
 
   }
 }
