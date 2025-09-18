@@ -37,10 +37,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.util.*
 import java.util.function.Predicate
-import java.util.function.Supplier
-import java.util.stream.Stream
 import javax.xml.parsers.ParserConfigurationException
-import kotlin.streams.asStream
 
 /**
  * Handles processing of XML documents from and to the disk
@@ -203,24 +200,14 @@ open class XMLHandler {
             }
         }
 
-        fun queryStream(
-            node: Node, xpathPattern: String, vararg xpathArgs: Any?
-        ): Stream<Node> {
-            return query(node, xpathPattern, *xpathArgs).asSequence().asStream()
-        }
-
-        fun findFirstText(someElement: Element): Text? {
-            return queryStream(someElement, "descendant::text()[not(ancestor::utd:brl)]")
-                .map { n: Node? -> n as Text }
-                .filter { t: Text? -> !t!!.value.isBlank() }
-                .findFirst()
-                .orElseThrow(Supplier { RuntimeException("Couldn't find text in " + someElement.toXML()) })
+        fun findFirstText(someElement: Element): Text {
+            return query(someElement, "descendant::text()[not(ancestor::utd:brl)]").filterIsInstance<Text>()
+                .firstOrNull { it.value.isNotBlank() } ?: throw RuntimeException("Couldn't find text in " + someElement.toXML())
         }
 
         @JvmStatic
         fun queryElements(node: Node, xpathPattern: String, vararg xpathArgs: Any?): List<Element> {
-            return queryStream(node, xpathPattern, *xpathArgs).filter { n: Node? -> n is Element }
-                .map { n: Node? -> n as Element }.toList()
+            return query(node, xpathPattern, *xpathArgs).filterIsInstance<Element>()
         }
 
         fun wrapNodeWithElement(nodeToWrap: Node, wrapper: Element) {
