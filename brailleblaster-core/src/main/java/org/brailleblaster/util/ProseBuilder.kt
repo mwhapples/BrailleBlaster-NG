@@ -37,7 +37,6 @@ import org.brailleblaster.perspectives.mvc.events.BuildToolBarEvent
 import org.brailleblaster.perspectives.mvc.events.ModifyEvent
 import org.brailleblaster.tools.MenuToolModule
 import org.brailleblaster.utd.internal.xml.XMLHandler
-import org.brailleblaster.utd.internal.xml.XMLHandler2
 import org.brailleblaster.utd.utils.TextTranslator
 import org.brailleblaster.utd.utils.UTDHelper
 import org.brailleblaster.utils.BB_NS
@@ -280,7 +279,7 @@ class ProseBuilder : MenuToolModule {
                     if (index == p.childCount - 1) p.appendChild(lineSpan) else p.insertChild(lineSpan, index + 1)
                 } else {
                     val splitTextNode =
-                        XMLHandler2.splitTextNode(
+                        XMLHandler.splitTextNode(
                             currentNode,
                             (manager!!.simpleManager.currentSelection.end as XMLTextCaret).offset
                         )

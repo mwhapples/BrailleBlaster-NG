@@ -114,7 +114,7 @@ public class TestXMLUtils {
     public static String toXMLnoNS(Node node) {
         Node copiedNode = node.copy();
         if (copiedNode instanceof ParentNode) {
-            UTDHelper.stripUTDRecursive((ParentNode) copiedNode);
+            UTDHelper.stripUTDRecursive((Element) copiedNode);
         }
         String xml = copiedNode.toXML();
         xml = StringUtils.replace(xml, " xmlns:utd=\"http://brailleblaster.org/ns/utd\"", "");

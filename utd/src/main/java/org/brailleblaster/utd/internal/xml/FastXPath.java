@@ -67,7 +67,7 @@ public class FastXPath {
 		return (N) descendantFindFirst(startNode, (curNode) -> {
 			if (matcher.test(curNode)) {
 				if (mutableObject.get() != null) {
-					XMLHandler2.nodeToElementOrParentOrDocRoot(startNode).addAttribute(new Attribute("first", "match"));
+					XMLHandler.nodeToElementOrParentOrDocRoot(startNode).addAttribute(new Attribute("first", "match"));
 					throw new NodeException("Already matched element with first=match attrib, matched again: ", startNode);
 				}
 				mutableObject.set(startNode);

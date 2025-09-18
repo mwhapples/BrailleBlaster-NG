@@ -122,18 +122,21 @@ object PageBreakTool : MenuToolModule {
                             }
                     }
                 }
-            if (nodeToBreak == null) {
-                // we can't find a node to add a page break to end of document
-                return
-            }
+        }
+        if (nodeToBreak == null) {
+            // we can't find a node to add a page break to end of document
+            return
         }
         if (isBraille(nodeToBreak)) {
             val nodes = m.simpleManager.currentSelection.start.node.query("following::text()")
             nodeToBreak = getFirstNonBraille(nodes, nodeToBreak)
         }
 
+        if (nodeToBreak == null) {
+            return
+        }
         //Place the catch for a boxline after you get the correct text nodeToBreak
-        if (XMLHandler.ancestorElementIs(nodeToBreak) { node: Element? -> BBX.CONTAINER.BOX.isA(node) }) {
+        if (XMLHandler.ancestorElementIs(nodeToBreak) { node: Element -> BBX.CONTAINER.BOX.isA(node) }) {
             nodeToBreak = XMLHandler.ancestorVisitor(nodeToBreak) { node: Node? -> BBX.CONTAINER.BOX.isA(node) }
         }
         var block = if (BBX.CONTAINER.BOX.isA(nodeToBreak)) nodeToBreak else m.getBlock(nodeToBreak)
@@ -238,7 +241,7 @@ object PageBreakTool : MenuToolModule {
         return null
     }
 
-    private fun isBraille(node: Node?): Boolean {
+    private fun isBraille(node: Node): Boolean {
         return XMLHandler.ancestorElementIs(
             node
         ) { e: Element ->

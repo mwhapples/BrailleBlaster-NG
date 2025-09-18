@@ -224,7 +224,7 @@ object MathEditHandler {
     // node
     val block: ParentNode
     if (mapElement.node is ParentNode) {
-      UTDHelper.stripUTDRecursive(mapElement.node as ParentNode)
+      UTDHelper.stripUTDRecursive(mapElement.node as Element)
     }
     val mathNode = ASCII2MathML.translate(text)
     val parent: Node = mapElement.nodeParent

@@ -344,7 +344,7 @@ class MathModule : SimpleListener {
             ) { node: Element? -> BBX.CONTAINER.SPATIAL_GRID.isA(node) } != null)
         }
 
-        fun getSpatialMathParent(node: Node?): Element {
+        fun getSpatialMathParent(node: Node): Element {
             return XMLHandler.ancestorVisitorElement(node) { node: Element? -> BBX.CONTAINER.isA(node) } ?: throw NoSuchElementException()
         }
 

@@ -220,7 +220,7 @@ object VolumeUtils {
 
         //Find the first text of the volume
         val text = XMLHandler.findFirstText(volumeElement)
-        log.debug("scrolling to text " + text.value)
+        log.debug("scrolling to text " + text?.value)
 
         //Make sure text is in a buffered section
         val nodeSection = manager.getNodeIndexAllSections(text).first

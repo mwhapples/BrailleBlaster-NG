@@ -24,7 +24,6 @@ import org.brailleblaster.bbx.BookToBBXConverter
 import org.brailleblaster.utd.NamespaceMap
 import org.brailleblaster.utd.exceptions.NodeException
 import org.brailleblaster.utd.internal.xml.XMLHandler
-import org.brailleblaster.utd.internal.xml.XMLHandler2
 import org.brailleblaster.utd.matchers.INodeMatcher
 import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.utils.xom.childNodes
@@ -72,7 +71,7 @@ class EmphasisImportFixer : AbstractFixer() {
                 throw NodeException("Unhandled node", curNode)
             } else {
                 log.warn("Unhandled node {}",
-                    XMLHandler2.toXMLSimple(curNode)
+                    XMLHandler.toXMLSimple(curNode)
                 )
             }
         }

@@ -248,7 +248,7 @@ object MathUtils {
     fun removeAllBBMarkupFromMathML(bbNode: Node): Node? {
         var mathNode: Node? = null
         if (MathModule.isMath(bbNode)) {
-            UTDHelper.stripUTDRecursive(bbNode as ParentNode)
+            UTDHelper.stripUTDRecursive(bbNode as Element)
             mathNode = bbNode.copy()
             removeAltText(mathNode)
         }

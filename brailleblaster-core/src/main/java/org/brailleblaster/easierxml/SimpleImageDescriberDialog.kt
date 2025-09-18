@@ -629,10 +629,10 @@ class SimpleImageDescriberDialog(
         private var captionEnabled = false
         private var braille = true
         private var previousLocation: SizeAndLocation? = null
-        fun alreadyHasBrailleElement(image: Element?): Node? {
+        fun alreadyHasBrailleElement(image: Element): Node? {
             return XMLHandler.childrenRecursiveVisitor(
                 image
-            ) { e: Element ->
+            ) { e ->
                 (BBX.INLINE.EMPHASIS.isA(e)
                         && BBX.INLINE.EMPHASIS.ATTRIB_EMPHASIS[e].contains(EmphasisType.NO_TRANSLATE)) && XMLHandler.findFirstText(
                     e

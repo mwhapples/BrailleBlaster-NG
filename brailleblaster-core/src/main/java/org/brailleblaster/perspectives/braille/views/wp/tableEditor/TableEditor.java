@@ -1604,7 +1604,7 @@ public class TableEditor extends Dialog {
         boolean emptyRow = true;
         for (Node node : finalRow) {
             Node nodeCopy = node.copy();
-            UTDHelper.stripUTDRecursive((ParentNode) nodeCopy);
+            UTDHelper.stripUTDRecursive((Element) nodeCopy);
             if (!nodeCopy.getValue().isEmpty()) {
                 emptyRow = false;
                 break;
@@ -1624,7 +1624,7 @@ public class TableEditor extends Dialog {
         boolean emptyCol = true;
         for (List<Node> row : nodes) {
             Node finalNode = row.get(row.size() - 1).copy();
-            UTDHelper.stripUTDRecursive((ParentNode) finalNode);
+            UTDHelper.stripUTDRecursive((Element) finalNode);
             if (!finalNode.getValue().isEmpty()) {
                 emptyCol = false;
                 break;

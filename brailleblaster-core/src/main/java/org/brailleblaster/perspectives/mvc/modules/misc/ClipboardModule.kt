@@ -165,31 +165,23 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
             val startNode = start.node
             val endNode = end.node
 
-            var startElement: Node? = startNode
-            var endElement: Node? = endNode
+            var startElement: Node = startNode
+            var endElement: Node = endNode
             if (XMLHandler.ancestorElementIs(
                     startElement
-                ) { node: Element? -> BBX.BLOCK.SPATIAL_MATH.isA(node) }
+                ) { node: Element -> BBX.BLOCK.SPATIAL_MATH.isA(node) }
             ) {
                 startElement = XMLHandler.ancestorVisitorElement(
                     startElement
-                ) { node: Element? -> BBX.CONTAINER.isA(node) }
-                if (startElement == null) {
-                    log.error("Spatial Math block does not start in a Spatial math container")
-                    return
-                }
+                ) { node: Element -> BBX.CONTAINER.isA(node) } ?: return
             }
             if (XMLHandler.ancestorElementIs(
                     endElement
-                ) { node: Element? -> BBX.BLOCK.SPATIAL_MATH.isA(node) }
+                ) { node: Element -> BBX.BLOCK.SPATIAL_MATH.isA(node) }
             ) {
                 endElement = XMLHandler.ancestorVisitorElement(
                     endElement
-                ) { node: Element? -> BBX.CONTAINER.isA(node) }
-                if (endElement == null) {
-                    log.error("Spatial Math block does not end in a Spatial math container")
-                    return
-                }
+                ) { node: Element -> BBX.CONTAINER.isA(node) } ?: return
             }
             // If either element is text, inline, or span, convert it to its parent block
             if (!BBX.CONTAINER.isA(startElement) && !BBX.SECTION.isA(startElement) && !BBX.BLOCK.isA(startElement)) {
@@ -200,13 +192,13 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
             }
 
             if (startElement === endElement) { // Text is selected. Parent must be blocks
-                addNodeToClipboard(startElement!!, startNode, endNode, sel)
+                addNodeToClipboard(startElement, startNode, endNode, sel)
             } else {
                 // Keep track of the sibling of startElement (or startElement's parent)
                 var curNode = XMLHandler.followingNode(startElement)
 
                 // Add the initially selected block
-                addNodeToClipboard(startElement!!, startNode, endNode, sel)
+                addNodeToClipboard(startElement, startNode, endNode, sel)
 
                 // Loop through following nodes until endElement is reached
                 while (curNode != null) {
@@ -221,7 +213,7 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
                 }
 
                 // Add the final selected block
-                addNodeToClipboard(endElement!!, startNode, endNode, sel)
+                addNodeToClipboard(endElement, startNode, endNode, sel)
             }
         }
         // Tests will fail when attempting to use the system clipboard
@@ -496,9 +488,9 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
         manager.stopFormatting()
 
         // Normalize nested emphasis
-        changedNodes.forEach { n: Node? ->
-            if (n is ParentNode) stripUTDRecursive(n)
-            normalizeEmphasis(n!!)
+        changedNodes.forEach { n: Node ->
+            if (n is Element) stripUTDRecursive(n)
+            normalizeEmphasis(n)
         }
 
         val changedNodesArray = changedNodes.toTypedArray()
@@ -647,7 +639,7 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
         } else {
             if (nodeToCopy is ParentNode) {
                 nodeToCopy = nodeToCopy.copy()
-                stripUTDRecursive((nodeToCopy as ParentNode?)!!)
+                stripUTDRecursive((nodeToCopy as Element))
                 clips.add(Clip(nodeToCopy))
             } else {
                 clips.add(Clip(nodeToCopy.copy()))
@@ -779,7 +771,7 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
 
     private fun addSimpleListItemToClipboard(
         listItem: Node,
-        startNode: Node?,
+        startNode: Node,
         endNode: Node?,
         selection: XMLSelection
     ) {
@@ -1006,7 +998,7 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
             val systemCB = StringBuilder()
             clips.forEach(Consumer { c: Clip? ->
                 val copy = c!!.node.copy()
-                if (copy is ParentNode) stripUTDRecursive(copy)
+                if (copy is Element) stripUTDRecursive(copy)
                 if (copy is Element && (BBX.SECTION.isA(copy) || BBX.CONTAINER.isA(copy))) {
 //				systemCB.append(getBlocksTextInSection((Element) copy).trim()); ticket 7627
                     systemCB.append(getBlocksTextInSection(copy))

@@ -867,13 +867,13 @@ public class BBX {
             public void assertComplete(Element node, StyleDefinitions styleDefs) {
                 super.assertComplete(node, styleDefs);
 
-                Element parentList = XMLHandler.ancestorVisitorElement(node,
+                Element parentList = XMLHandler.Companion.ancestorVisitorElement(node,
                         BBX.CONTAINER.LIST::isA);
                 if (parentList == null) {
                     throw new NodeException("List item not under list", node);
                 }
                 if (BBX.ListType.POEM_LINE_GROUP.isA(parentList)) {
-                    Element poemWrapper = XMLHandler.ancestorVisitorElement(parentList.getParent(),
+                    Element poemWrapper = XMLHandler.Companion.ancestorVisitorElement(parentList.getParent(),
                             ListType.POEM::isA);
                     if (poemWrapper != null) {
                         parentList = poemWrapper;

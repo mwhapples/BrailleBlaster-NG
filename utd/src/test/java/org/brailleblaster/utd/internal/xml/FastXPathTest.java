@@ -42,11 +42,11 @@ public class FastXPathTest {
 	public void descendantTest() {
 		Document doc = new XMLHandler().load(new File("src/test/resources/org/brailleblaster/utd/config/nimas.xml"));
 
-		XMLHandler.childrenRecursiveNodeVisitor(doc.getRootElement(), node -> {
+		XMLHandler.Companion.childrenRecursiveNodeVisitor(doc.getRootElement(), node -> {
 			//Test both node in doc and node without doc and parent
 			for (Node curNode : Arrays.asList(node, node.copy())) {
 				List<Node> fastResult = FastXPath.descendant(curNode).list();
-				List<Node> xomResult = Lists.newArrayList(XMLHandler2.query(curNode, "descendant::node()"));
+				List<Node> xomResult = Lists.newArrayList(XMLHandler.query(curNode, "descendant::node()"));
 				assertListEquals(fastResult, xomResult);
 			}
 			return false;
@@ -57,11 +57,11 @@ public class FastXPathTest {
 	public void descendantOrSelfTest() {
 		Document doc = new XMLHandler().load(new File("src/test/resources/org/brailleblaster/utd/config/nimas.xml"));
 
-		XMLHandler.childrenRecursiveNodeVisitor(doc.getRootElement(), node -> {
+		XMLHandler.Companion.childrenRecursiveNodeVisitor(doc.getRootElement(), node -> {
 			//Test both node in doc and node without doc and parent
 			for (Node curNode : Arrays.asList(node, node.copy())) {
 				List<Node> fastResult = FastXPath.descendantOrSelf(curNode).list();
-				List<Node> xomResult = Lists.newArrayList(XMLHandler2.query(curNode, "descendant-or-self::node()"));
+				List<Node> xomResult = Lists.newArrayList(XMLHandler.query(curNode, "descendant-or-self::node()"));
 				assertListEquals(fastResult, xomResult);
 			}
 			return false;
@@ -72,7 +72,7 @@ public class FastXPathTest {
 	public void followingTest() {
 		Document doc = new XMLHandler().load(new File("src/test/resources/org/brailleblaster/utd/config/nimas.xml"));
 
-		XMLHandler.childrenRecursiveNodeVisitor(doc.getRootElement(), node -> {
+		XMLHandler.Companion.childrenRecursiveNodeVisitor(doc.getRootElement(), node -> {
 			//Test both node in doc and node without doc and parent
 			List<Node> testNodes = new ArrayList<>();
 			testNodes.add(node);
@@ -84,7 +84,7 @@ public class FastXPathTest {
 			for (Node curNode : testNodes) {
 				log.debug("attached " + (curNode.getParent() != null) + " curNode " + curNode);
 				List<Node> fastResult = FastXPath.following(curNode).list();
-				List<Node> xomResult = Lists.newArrayList(XMLHandler2.query(curNode, "following::node()"));
+				List<Node> xomResult = Lists.newArrayList(XMLHandler.query(curNode, "following::node()"));
 				assertListEquals(fastResult, xomResult);
 			}
 			return false;

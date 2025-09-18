@@ -68,7 +68,6 @@ import org.brailleblaster.utd.exceptions.UTDInterruption;
 import org.brailleblaster.utd.internal.DocumentOrderComparator;
 import org.brailleblaster.utd.internal.xml.FastXPath;
 import org.brailleblaster.utd.internal.xml.XMLHandler;
-import org.brailleblaster.utd.internal.xml.XMLHandler2;
 import org.brailleblaster.utd.properties.UTDElements;
 import org.brailleblaster.utd.utils.TableUtils;
 import org.brailleblaster.utd.utils.UTDHelper;
@@ -215,13 +214,13 @@ public class Manager extends Controller {
                             return;
                         }
                         if (n instanceof Document || n.getDocument().getRootElement() == n) {
-                            LiveFixer.fix(XMLHandler2.nodeToElementOrParentOrDocRoot(n));
+                            LiveFixer.fix(XMLHandler.nodeToElementOrParentOrDocRoot(n));
                             refresh(false);
                             changedNodes.clear();
                             return;
                         } else {
                             // Issue #6022 #5947: cleanup document to prevent weird state or formatting
-                            Element section = XMLHandler.ancestorVisitorElement(n, BBX.SECTION::isA);
+                            Element section = XMLHandler.Companion.ancestorVisitorElement(n, BBX.SECTION::isA);
                             if (section != null && !liveFixedSections.contains(section)) {
                                 LiveFixer.fix(section);
                                 liveFixedSections.add(section);
@@ -232,7 +231,7 @@ public class Manager extends Controller {
                                 }
                             }
                         }
-                        Element tableParent = XMLHandler.ancestorVisitorElement(n,
+                        Element tableParent = XMLHandler.Companion.ancestorVisitorElement(n,
                                 BBX.CONTAINER.TABLE::isA);
                         if (tableParent != null) {
                             // Table formatter re-creates table, meaning a
@@ -909,9 +908,9 @@ public class Manager extends Controller {
                 return;
             } else {
                 // If the user is at the first section, find the first brl
-                Node firstBrl = XMLHandler.followingVisitor(firstNonWhitespace, UTDElements.BRL::isA);
+                Node firstBrl = XMLHandler.Companion.followingVisitor(firstNonWhitespace, UTDElements.BRL::isA);
                 if (firstBrl != null) {
-                    Node firstNode = XMLHandler.childrenRecursiveNodeVisitor(firstBrl,
+                    Node firstNode = XMLHandler.Companion.childrenRecursiveNodeVisitor(firstBrl,
                             n -> UTDElements.NEW_PAGE.isA(n) || n instanceof nu.xom.Text);
                     if (!(firstNode instanceof nu.xom.Text) && firstNode != null) {
                         reformat(firstNode);
