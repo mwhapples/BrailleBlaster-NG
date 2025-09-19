@@ -483,7 +483,11 @@ class TextRenderer(manager: Manager, private val textView: TextView) : Renderer(
         for (e in emphasisList) {
             if (BBX.INLINE.MATHML.isA(e.inlineNode)) {
                 textView.addMathHighlights(e.start, e.end - e.start, e.inlineNode)
-            } else {
+            }
+            else if (BBX.INLINE.LINK.isA(e.inlineNode)){
+              textView.addLinkStyleRange(e.start, e.end - e.start)
+            }
+            else {
                 textView.setFontStyleRange(e.start, e.end - e.start, manager.getAction(e.inlineNode), e.inlineNode)
             }
         }

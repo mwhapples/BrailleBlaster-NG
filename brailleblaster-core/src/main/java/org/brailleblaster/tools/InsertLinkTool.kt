@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2025 American Printing House for the Blind
+ *
+ * This program is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation, version 3.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 package org.brailleblaster.tools
 
 import nu.xom.Element
@@ -26,7 +41,6 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
     //Need to determine if the selection is valid for inserting a link
     //If a link already exists in the selection, fill the dialog box with that link
     var linkText = ""
-    //Listen Jack, how do I mess with BBXs?
     //If it's a Link BBX, get the href attribute and set linkText to that
     //If it's not, leave linkText as an empty string
     if (caretNode.equals(BBX.INLINE.LINK) && caretNode.getAttribute("external")?.value == "true"){
@@ -54,7 +68,7 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
       shell.close()
     }
 
-    val buttonsGroup = EasySWT.makeGroup(shell, SWT.CENTER, 2, true)
+    val buttonsGroup = EasySWT.makeGroup(shell, SWT.CENTER, 3, true)
     EasySWT.makePushButton(buttonsGroup, localeHandler["buttonOk"], 1)
     {
       //Insert the link at the current selection (same behavior as pressing Enter in the text box)
@@ -65,6 +79,12 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
     EasySWT.makePushButton(buttonsGroup, localeHandler["buttonCancel"], 1)
     {
       //Close dialog
+      shell.close()
+    }
+    EasySWT.makePushButton(buttonsGroup, localeHandler["removeLink"], 1)
+    {
+      //Remove link
+      removeExternalLink(bbData)
       shell.close()
     }
     EasySWT.addEscapeCloseListener(shell)
@@ -88,18 +108,32 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
       return
     }
 
+
+
+
+
     //TODO add code for modifying the Link subtype of the BBX node (InlineElement)
     //When inserting the link, if linkText is empty, create a new Link BBX
     //If it's not empty, modify the existing Link BBX to have the new href attribute
 
     //Reference Clipboard - Paste function for this?
-    //It won't be exactly the same, but it will be similar.
+    //It won't be exactly the same, but it may be similar.
+
+    //Listen Jack, how do I insert BBX?
+    //Specifically, need to get the bounds of the selection and wrap it in a Link BBX
+    //Can't insert a link with no selection - just like an html webpage.
 
     //Question: how are links going to be displayed?
     //Text view is easy, relatively: make the selection blue and underlined, make the hover text show the URL
     //Internal links might be more difficult - maybe don't show any tooltip, just the blue underline?
     //Will need a link manager GUI to deal with internal ones and where they point - separate class.
     //No idea what to do for braille view yet, if anything.
+
+  }
+
+  private fun removeExternalLink(bbData: BBSelectionData){
+
+
 
   }
 }

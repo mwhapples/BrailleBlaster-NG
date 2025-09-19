@@ -158,6 +158,16 @@ abstract class WPView(manager: Manager, parent: Composite) : AbstractView(manage
         this.ranges.add(range)
     }
 
+    fun addLinkStyleRange(start: Int, length: Int){
+        val ranges = view.getStyleRanges(start, length)
+        val range = if (ranges.isNotEmpty()) ranges[0] else StyleRange()
+        range.start = start
+        range.length = length
+        range.underline = true
+        range.foreground = ColorManager.getColor(ColorManager.Colors.BLUE, view)
+        this.ranges.add(range)
+    }
+
     /**
      * sets range and applies given form of emphasis
      *
@@ -514,7 +524,6 @@ abstract class WPView(manager: Manager, parent: Composite) : AbstractView(manage
         @JvmField
         var currentLine = 0
 
-        //Why is this static?
         protected var topIndex = 0
         private var topPixel = 0
 
