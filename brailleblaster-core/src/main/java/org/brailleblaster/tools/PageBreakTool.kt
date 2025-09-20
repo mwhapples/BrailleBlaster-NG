@@ -109,38 +109,34 @@ object PageBreakTool : MenuToolModule {
                         //Cursor is after table, so find the next non-table node
                         val tableParent: Node = Manager.getTableParent(nodeToBreak)
                         FastXPath.following(nodeToBreak)
-                            .stream()
-                            .filter { n: Node ->
-                                (n is Text
-                                        && !UTDElements.BRL.isA(n.parent)
+                            .filterIsInstance<Text>().firstOrNull { n: Node ->
+                                (!UTDElements.BRL.isA(n.parent)
                                         && XMLHandler.ancestorElementNot(n) { e: Element? -> Manager.getTableParent(e) === tableParent })
                             }
-                            .findFirst()
-                            .orElse(null)
                     } else {
                         FastXPath.following(currentSelection.start.node)
-                            .stream()
-                            .filter { n: Node ->
-                                n is Text && !UTDElements.BRL.isA(n.parent) && !UTDElements.BRLONLY.isA(
+                            .filterIsInstance<Text>().firstOrNull { n: Node ->
+                                !UTDElements.BRL.isA(n.parent) && !UTDElements.BRLONLY.isA(
                                     n.parent
                                 )
                             }
-                            .findFirst()
-                            .orElse(null)
                     }
                 }
-            if (nodeToBreak == null) {
-                // we can't find a node to add a page break to end of document
-                return
-            }
+        }
+        if (nodeToBreak == null) {
+            // we can't find a node to add a page break to end of document
+            return
         }
         if (isBraille(nodeToBreak)) {
             val nodes = m.simpleManager.currentSelection.start.node.query("following::text()")
             nodeToBreak = getFirstNonBraille(nodes, nodeToBreak)
         }
 
+        if (nodeToBreak == null) {
+            return
+        }
         //Place the catch for a boxline after you get the correct text nodeToBreak
-        if (XMLHandler.ancestorElementIs(nodeToBreak) { node: Element? -> BBX.CONTAINER.BOX.isA(node) }) {
+        if (XMLHandler.ancestorElementIs(nodeToBreak) { node: Element -> BBX.CONTAINER.BOX.isA(node) }) {
             nodeToBreak = XMLHandler.ancestorVisitor(nodeToBreak) { node: Node? -> BBX.CONTAINER.BOX.isA(node) }
         }
         var block = if (BBX.CONTAINER.BOX.isA(nodeToBreak)) nodeToBreak else m.getBlock(nodeToBreak)
@@ -222,13 +218,12 @@ object PageBreakTool : MenuToolModule {
     }
 
     private fun getFirstTextNode(node: ParentNode): Text? {
-        val children = FastXPath.descendant(node).stream()
-            .filter { n: Node? -> n is Text }.toList()
+        val children = FastXPath.descendant(node).filterIsInstance<Text>()
         for (child in children) {
             if (XMLHandler.ancestorElementIs(child) { e -> UTDElements.BRL.isA(e) }) {
                 continue
             }
-            return child as Text
+            return child
         }
         return null
     }
@@ -246,7 +241,7 @@ object PageBreakTool : MenuToolModule {
         return null
     }
 
-    private fun isBraille(node: Node?): Boolean {
+    private fun isBraille(node: Node): Boolean {
         return XMLHandler.ancestorElementIs(
             node
         ) { e: Element ->

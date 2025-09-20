@@ -194,7 +194,7 @@ public class VolumeTest {
 					//end of document
 					break Outer;
 				}
-			} while (XMLHandler.ancestorVisitor(
+			} while (XMLHandler.Companion.ancestorVisitor(
 					nodeToVolumize,
 					curNode -> BBX.CONTAINER.TABLE.isA(curNode)
 					|| BBX.CONTAINER.VOLUME.isA(curNode)

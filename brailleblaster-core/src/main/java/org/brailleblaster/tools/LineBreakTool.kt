@@ -31,7 +31,7 @@ import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.utd.Style
 import org.brailleblaster.utd.internal.xml.FastXPath
-import org.brailleblaster.utd.internal.xml.XMLHandler2
+import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.util.Utils
 
 object LineBreakTool : MenuToolModule {
@@ -92,10 +92,7 @@ object LineBreakTool : MenuToolModule {
                         Utils.insertChildCountSafe(parent, lineBreak, index)
                     } else if (offset == 0) {
                         val previousNode = FastXPath.precedingAndSelf(currentNode)
-                            .stream()
-                            .filter { node: Node? -> BBX.INLINE.LINE_BREAK.isA(node) }
-                            .findFirst()
-                            .orElse(null)
+                            .firstOrNull { node: Node? -> BBX.INLINE.LINE_BREAK.isA(node) }
                         if (previousNode != null && BBX.INLINE.LINE_BREAK.isA(previousNode) && previousNode.findBlock() == parent
                         ) {
                             val style = manager.getStyle(previousNode)
@@ -117,10 +114,7 @@ object LineBreakTool : MenuToolModule {
                         }
                     } else if (offset == currentNode.value.length) {
                         val nextNode = FastXPath.followingAndSelf(currentNode)
-                            .stream()
-                            .filter { node: Node? -> BBX.INLINE.LINE_BREAK.isA(node) }
-                            .findFirst()
-                            .orElse(null)
+                            .firstOrNull { node: Node? -> BBX.INLINE.LINE_BREAK.isA(node) }
                         if (nextNode != null && BBX.INLINE.LINE_BREAK.isA(nextNode) && nextNode.findBlock() == parent) {
                             val style = manager.getStyle(nextNode)
                             if (style != null) {
@@ -141,7 +135,7 @@ object LineBreakTool : MenuToolModule {
                         }
                     } else {
                         val splitTextNode =
-                            XMLHandler2.splitTextNode(
+                            XMLHandler.splitTextNode(
                                 currentNode,
                                 offset
                             )

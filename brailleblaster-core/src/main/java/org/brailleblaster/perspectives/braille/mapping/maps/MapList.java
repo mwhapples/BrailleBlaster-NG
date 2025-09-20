@@ -28,7 +28,6 @@ import org.brailleblaster.perspectives.braille.messages.Message;
 import org.brailleblaster.perspectives.braille.messages.Sender;
 import org.brailleblaster.utd.internal.xml.FastXPath;
 import org.brailleblaster.utd.internal.xml.XMLHandler;
-import org.brailleblaster.utd.internal.xml.XMLHandler2;
 import org.brailleblaster.utd.properties.UTDElements;
 import org.brailleblaster.utd.utils.TableUtils;
 import org.brailleblaster.utils.NamespacesKt;
@@ -468,12 +467,12 @@ public class MapList extends LinkedList<@NotNull TextMapElement> {
             //Text nodes under a <m:math> tag are not in the map list
             //However they are all under an element in the m: namespace
             //Find the INLINE.MATHML tag (which wraps <m:math>) then get <m:math>
-            n = XMLHandler.ancestorVisitor(
+            n = XMLHandler.Companion.ancestorVisitor(
                     n,
                     curAncestor -> BBX.INLINE.MATHML.isA(curAncestor.getParent())
             );
         }
-        Node potentialTable = XMLHandler.ancestorVisitor(n, e -> BBX.CONTAINER.TABLE.isA(e) && "simple".equals(((Element) e).getAttributeValue("format")));
+        Node potentialTable = XMLHandler.Companion.ancestorVisitor(Objects.requireNonNull(n), e -> BBX.CONTAINER.TABLE.isA(e) && "simple".equals(((Element) e).getAttributeValue("format")));
         if (potentialTable != null) {
             n = potentialTable;
         }
@@ -491,7 +490,7 @@ public class MapList extends LinkedList<@NotNull TextMapElement> {
         children.add(n);
         if (n instanceof Element && !BBX.CONTAINER.TABLE.isA(n)) {
             children.addAll(FastXPath.descendant(n).stream().filter(node ->
-                    XMLHandler.ancestorElementNot(node, UTDElements.BRL::isA)).toList());
+                    XMLHandler.Companion.ancestorElementNot(node, UTDElements.BRL::isA)).toList());
         }
 
         for (int i = startIndex; i < this.size(); i++) {
@@ -667,7 +666,7 @@ public class MapList extends LinkedList<@NotNull TextMapElement> {
                     .append(". Braillelist size: ")
                     .append(curTME.brailleList.size())
                     .append(" Node: ")
-                    .append(curTME.getNode() == null ? "null" : XMLHandler2.toXMLSimple(curTME.getNode()))
+                    .append(curTME.getNode() == null ? "null" : XMLHandler.toXMLSimple(curTME.getNode()))
                     .append("\n");
             i++;
             if (showBrailleList) {
@@ -678,7 +677,7 @@ public class MapList extends LinkedList<@NotNull TextMapElement> {
                             .append(" -- Index:")
                             .append(subI)
                             .append(" Braille: ")
-                            .append(brailleMapElement.getNode() == null ? "null" : XMLHandler2.toXMLSimple(brailleMapElement.getNode()))
+                            .append(brailleMapElement.getNode() == null ? "null" : XMLHandler.toXMLSimple(brailleMapElement.getNode()))
                             .append("\n");
                     subI++;
                 }

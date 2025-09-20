@@ -18,8 +18,7 @@ package org.brailleblaster.search
 import nu.xom.Node
 import nu.xom.Nodes
 import nu.xom.Text
-import org.brailleblaster.utd.internal.xml.XMLHandler2
-import java.util.stream.Collectors
+import org.brailleblaster.utd.internal.xml.XMLHandler
 
 class DOMControl(private val click: Click) {
     val possiblesCorrectAttributes: MutableList<Node> = ArrayList()
@@ -55,7 +54,7 @@ class DOMControl(private val click: Click) {
     }
 
     fun searchNoViewNoSpaces(array: List<Node>): String {
-        return array.stream().map { obj: Node -> obj.value }.collect(Collectors.joining())
+        return array.joinToString(separator = "") { it.value }
     }
 
     fun split(theNode: Node, nodeStart: Int, nodeEnd: Int, selectionStart: Int, selectionEnd: Int): Node {
@@ -65,7 +64,7 @@ class DOMControl(private val click: Click) {
             if (nodeEnd == selectionEnd) {
                 n
             } else {
-                val list = XMLHandler2.splitTextNode(
+                val list = XMLHandler.splitTextNode(
                     n,
                     selectionEnd - nodeStart
                 )
@@ -73,12 +72,12 @@ class DOMControl(private val click: Click) {
             }
         } else {
             val list: List<Text> = if (nodeEnd == selectionEnd) {
-                XMLHandler2.splitTextNode(
+                XMLHandler.splitTextNode(
                     n,
                     selectionStart - nodeStart
                 )
             } else {
-                XMLHandler2.splitTextNode(
+                XMLHandler.splitTextNode(
                     n,
                     selectionStart - nodeStart,
                     selectionEnd - nodeStart

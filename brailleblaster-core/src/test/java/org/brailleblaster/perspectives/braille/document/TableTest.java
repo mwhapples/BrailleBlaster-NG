@@ -32,7 +32,7 @@ import org.brailleblaster.testrunners.TestXMLUtils;
 import org.brailleblaster.testrunners.ViewTestRunner;
 import org.brailleblaster.testrunners.XMLElementAssert;
 import org.brailleblaster.utd.internal.xml.FastXPath;
-import org.brailleblaster.utd.internal.xml.XMLHandler2;
+import org.brailleblaster.utd.internal.xml.XMLHandler;
 import org.brailleblaster.utd.properties.UTDElements;
 import org.brailleblaster.utils.NamespacesKt;
 import org.brailleblaster.utils.gui.PickerDialog;
@@ -367,14 +367,14 @@ public class TableTest {
         assertEquals(
                 Manager.getTableParent(text),
                 TestXMLUtils.getTestIdElements(doc, "table").get(0),
-                XMLHandler2.toXMLPrettyPrint(doc)
+                XMLHandler.toXMLPrettyPrint(doc)
         );
 
         text = (Text) TestXMLUtils.getTestIdElements(doc, "first").get(1).getChild(0);
         assertEquals(
                 Manager.getTableParent(text),
                 TestXMLUtils.getTestIdElements(doc, "table").get(0),
-                XMLHandler2.toXMLPrettyPrint(doc)
+                XMLHandler.toXMLPrettyPrint(doc)
         );
     }
 

@@ -26,7 +26,7 @@ import org.brailleblaster.testrunners.BBXDocFactory;
 import org.brailleblaster.testrunners.ViewTestRunner;
 import org.brailleblaster.utd.exceptions.NodeException;
 import org.brailleblaster.utd.internal.xml.FastXPath;
-import org.brailleblaster.utd.internal.xml.XMLHandler2;
+import org.brailleblaster.utd.internal.xml.XMLHandler;
 import org.brailleblaster.utd.properties.EmphasisType;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
@@ -370,7 +370,7 @@ public class SimpleImageDescriberTest {
         describerBot.button(SimpleImageDescriberDialog.makeAllString(true, "6")).click();
         doPendingSWTWork();
 
-        System.out.println(XMLHandler2.toXMLPrettyPrint(bbTest.manager.getDoc()));
+        System.out.println(XMLHandler.toXMLPrettyPrint(bbTest.manager.getDoc()));
         bbTest.assertRootSection_NoBrlCopy()
                 .nextChildIs(
                         childAssert -> childAssert.isBlockDefaultStyle("Body Text")

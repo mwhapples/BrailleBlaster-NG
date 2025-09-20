@@ -42,21 +42,16 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
 
     // ----------- Layout ------------------
     @JvmField
-	val containerSash: SashForm = SashForm(folder, SWT.HORIZONTAL)
-    val textView: TextView
-    val brailleView: BrailleView
+	val containerSash: SashForm = SashForm(folder, SWT.HORIZONTAL).apply {
+        layout = FormLayout()
+    }
+    val textView: TextView = TextView(m, containerSash)
+    val brailleView: BrailleView = BrailleView(m, containerSash)
     @JvmField
-	val stylePane: StylePane
+	val stylePane: StylePane = StylePane(containerSash, m)
     private var windowedViewCurrent: Views? = null
 
     init {
-        containerSash.layout = FormLayout()
-
-        // --------- Views -----------
-        // treeManager = new TreeManager(m, miscSash);
-        stylePane = StylePane(containerSash, m)
-        textView = TextView(m, containerSash)
-        brailleView = BrailleView(m, containerSash)
         reparent()
 
         // ------ Listeners -----------
@@ -327,10 +322,10 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
         }
     }
 
-    fun removeModuleListeners(view: BBEditorView?) {
+    fun removeModuleListeners(view: BBEditorView) {
         for (curListener in m.simpleManager.listeners) {
             if (curListener is BBViewListener) {
-                (curListener as BBViewListener).removeListener(view!!)
+                (curListener as BBViewListener).removeListener(view)
             }
         }
     }
