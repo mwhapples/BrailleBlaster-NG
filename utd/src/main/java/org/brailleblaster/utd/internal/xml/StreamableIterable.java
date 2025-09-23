@@ -25,8 +25,5 @@ import java.util.List;
  * @param <T>
  */
 public interface StreamableIterable<T> extends Iterable<T> {
-
-    default List<T> list() {
-        return Lists.newArrayList(this);
-    }
+    
 }

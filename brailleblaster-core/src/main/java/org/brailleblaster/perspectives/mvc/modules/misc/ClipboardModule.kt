@@ -204,7 +204,7 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
                 while (curNode != null) {
                     if (curNode === endNode || curNode === endElement) break
                     // If the node is an ancestor of endElement, start looping through children
-                    if (FastXPath.descendant(curNode).list().contains(endElement)) {
+                    if (endElement in FastXPath.descendant(curNode)) {
                         curNode = curNode.getChild(0)
                         continue
                     }
@@ -632,8 +632,8 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
             stripUTDRecursive(copy)
             if (!blockCopy(
                     copy, selection,
-                    FastXPath.descendant(nodeToCopy).list().contains(startNode),
-                    FastXPath.descendant(nodeToCopy).list().contains(endNode)
+                    startNode in FastXPath.descendant(nodeToCopy),
+                    endNode in FastXPath.descendant(nodeToCopy)
                 )
             ) clips.add(Clip(copy))
         } else {
@@ -654,7 +654,7 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
         selection: XMLSelection,
         cut: Boolean
     ): Element {
-        val children: List<Node> = FastXPath.descendant(block).list()
+        val children: List<Node> = FastXPath.descendant(block).toList()
         if (!children.contains(startNode) && !children.contains(endNode)) {
             return block.copy()
         }
@@ -670,9 +670,9 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
             }
             val startNodeCopy = findStartNodeCopy // lambdas!
 
-            val following = FastXPath.followingAndSelf(blockCopy).list()
+            val following = FastXPath.followingAndSelf(blockCopy).toList()
             for (n in following) {
-                if (n !== blockCopy && n !== startNodeCopy && !FastXPath.descendant(n).list().contains(startNodeCopy)) {
+                if (n !== blockCopy && n !== startNodeCopy && startNodeCopy !in FastXPath.descendant(n)) {
                     nodesToDetach.add(n)
                 }
                 if (n === startNodeCopy) break
@@ -731,7 +731,7 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
             if (cut && (endNode is Text || isMath(endNode))) {
                 for (i in 0..<children.indexOf(endNode)) {
                     if (children[i].childCount == 0
-                        || !FastXPath.descendant(children[i]).list().contains(endNode)
+                        || endNode !in FastXPath.descendant(children[i])
                     ) nodesToDetach.add(children[i])
                 }
             }
@@ -748,8 +748,8 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
         val listLevel = BBX.CONTAINER.LIST.ATTRIB_LIST_LEVEL.get(listTag)
         val listItemCopy = copyBlock(startNode, endNode, listItem as Element, selection, false)
         if (blockCopy(
-                listItemCopy, selection, FastXPath.descendant(listItem).list().contains(startNode),
-                FastXPath.descendant(listItem).list().contains(endNode)
+                listItemCopy, selection, startNode in FastXPath.descendant(listItem),
+                endNode in FastXPath.descendant(listItem)
             )
         ) {
             return
@@ -811,8 +811,8 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
             node = block
         }
         if (blockCopy(
-                block, selection, FastXPath.descendant(listItem).list().contains(startNode),
-                FastXPath.descendant(listItem).list().contains(endNode)
+                block, selection, startNode in FastXPath.descendant(listItem),
+                endNode in FastXPath.descendant(listItem)
             )
         ) {
             return
@@ -851,7 +851,7 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
     private fun getFinalTextChild(node: Node, lookForMath: Boolean): Text? {
         if (node is Text) return node
         var returnText: Text? = null
-        val children = FastXPath.descendant(node).list()
+        val children = FastXPath.descendant(node).toList()
         for (child in children) {
             if (child is Text && ((!lookForMath || isMath(child)))
                 && !XMLHandler.ancestorElementIs(child) { node: Element? -> UTDElements.BRL.isA(node) }

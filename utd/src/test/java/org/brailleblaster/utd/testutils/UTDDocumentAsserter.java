@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
+import com.google.common.collect.Lists;
 import org.brailleblaster.utd.UTDTranslationEngine;
 import org.brailleblaster.utd.internal.elements.MoveTo;
 import org.brailleblaster.utd.internal.xml.FastXPath;
@@ -142,7 +143,7 @@ public class UTDDocumentAsserter {
 
         for (Element brl : brlElements) {
             //Compile all descendants of the brl element into a list
-            List<Node> descendants = FastXPath.descendant(brl).list();
+            List<Node> descendants = Lists.newArrayList(FastXPath.descendant(brl));
 
             for (Node child : descendants) {
                 if (child instanceof Element) {

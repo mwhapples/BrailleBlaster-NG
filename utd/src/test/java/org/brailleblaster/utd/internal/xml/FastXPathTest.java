@@ -46,7 +46,7 @@ public class FastXPathTest {
 		XMLHandler.Companion.childrenRecursiveNodeVisitor(doc.getRootElement(), node -> {
 			//Test both node in doc and node without doc and parent
 			for (Node curNode : Arrays.asList(node, node.copy())) {
-				List<Node> fastResult = FastXPath.descendant(curNode).list();
+				List<Node> fastResult = Lists.newArrayList(FastXPath.descendant(curNode));
 				List<Node> xomResult = Lists.newArrayList(XMLHandler.query(curNode, "descendant::node()"));
 				assertListEquals(fastResult, xomResult);
 			}
@@ -84,7 +84,7 @@ public class FastXPathTest {
 
 			for (Node curNode : testNodes) {
 				log.debug("attached " + (curNode.getParent() != null) + " curNode " + curNode);
-				List<Node> fastResult = FastXPath.following(curNode).list();
+				List<Node> fastResult = Lists.newArrayList(FastXPath.following(curNode));
 				List<Node> xomResult = Lists.newArrayList(XMLHandler.query(curNode, "following::node()"));
 				assertListEquals(fastResult, xomResult);
 			}

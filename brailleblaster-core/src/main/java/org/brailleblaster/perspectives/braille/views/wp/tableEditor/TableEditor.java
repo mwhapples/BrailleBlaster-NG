@@ -1899,8 +1899,7 @@ public class TableEditor extends Dialog {
         //Strip UTD
         UTDHelper.stripUTDRecursive(containerCopy);
 
-        List<Node> children = FastXPath.descendant(containerCopy).list();
-        for (Node child : children) {
+        for (Node child : FastXPath.descendant(containerCopy)) {
             if (BBX.SPAN.OTHER.isA(child)) {
                 if (type == TableType.LINEAR) {
                     //If linear, re-attach span tags as children of the container
