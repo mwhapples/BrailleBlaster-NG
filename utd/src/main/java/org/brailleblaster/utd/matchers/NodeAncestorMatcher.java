@@ -28,189 +28,189 @@ import java.util.Objects;
  * that matches the given parent* parameters
  */
 public class NodeAncestorMatcher implements INodeMatcher {
-	private String selfName;
-	private String selfAttribName;
-	private String selfAttribValue;
-	private String selfAttribNamespace;
-	private String selfNamespace;
-	private String parentName;
-	private String parentAttribName;
-	private String parentAttribValue;
-	private String parentAttribNamespace;
-	private String parentNamespace;
-	protected NodeAttributeMatcher selfMatcher;
-	protected NodeAttributeMatcher parentMatcher;
+    private String selfName;
+    private String selfAttribName;
+    private String selfAttribValue;
+    private String selfAttribNamespace;
+    private String selfNamespace;
+    private String parentName;
+    private String parentAttribName;
+    private String parentAttribValue;
+    private String parentAttribNamespace;
+    private String parentNamespace;
+    protected NodeAttributeMatcher selfMatcher;
+    protected NodeAttributeMatcher parentMatcher;
 
-	public NodeAncestorMatcher() {
-	}
+    public NodeAncestorMatcher() {
+    }
 
-	public NodeAncestorMatcher(String selfName, String selfAttribName, String selfAttribValue, String parentName, String parentAttribName, String parentAttribValue) {
-		this.selfName = selfName;
-		this.selfAttribName = selfAttribName;
-		this.selfAttribValue = selfAttribValue;
-		this.parentName = parentName;
-		this.parentAttribName = parentAttribName;
-		this.parentAttribValue = parentAttribValue;
-	}
+    public NodeAncestorMatcher(String selfName, String selfAttribName, String selfAttribValue, String parentName, String parentAttribName, String parentAttribValue) {
+        this.selfName = selfName;
+        this.selfAttribName = selfAttribName;
+        this.selfAttribValue = selfAttribValue;
+        this.parentName = parentName;
+        this.parentAttribName = parentAttribName;
+        this.parentAttribValue = parentAttribValue;
+    }
 
-	@Override
-	public boolean isMatch(Node node, @NotNull NamespaceMap namespaces) {
-		Document doc = node.getDocument();
-		if (selfMatcher != null && selfMatcher.isMatch(node, namespaces)) {
-			if (parentMatcher == null) {
-				return true;
-			}
-			Node parent = node.getParent();
-			while (parent != null && parent != doc) {
-				if (parentMatcher.isMatch(parent, namespaces))
-					return true;
-				parent = parent.getParent();
-			}
-		}
-		return false;
-	}
+    @Override
+    public boolean isMatch(Node node, @NotNull NamespaceMap namespaces) {
+        Document doc = node.getDocument();
+        if (selfMatcher != null && selfMatcher.isMatch(node, namespaces)) {
+            if (parentMatcher == null) {
+                return true;
+            }
+            Node parent = node.getParent();
+            while (parent != null && parent != doc) {
+                if (parentMatcher.isMatch(parent, namespaces))
+                    return true;
+                parent = parent.getParent();
+            }
+        }
+        return false;
+    }
 
-	@XmlAttribute
-	public void setSelfName(String selfName) {
-		this.selfName = selfName;
-		updateSelf();
-	}
+    public String getSelfName() {
+        return selfName;
+    }
 
-	@XmlAttribute
-	public void setSelfAttribName(String selfAttribName) {
-		this.selfAttribName = selfAttribName;
-		updateSelf();
-	}
+    public String getSelfAttribName() {
+        return selfAttribName;
+    }
 
-	@XmlAttribute
-	public void setSelfAttribValue(String selfAttribValue) {
-		this.selfAttribValue = selfAttribValue;
-		updateSelf();
-	}
+    public String getSelfAttribValue() {
+        return selfAttribValue;
+    }
 
-	@XmlAttribute
-	public void setSelfAttribNamespace(String selfAttribNamespace) {
-		this.selfAttribNamespace = selfAttribNamespace;
-		updateSelf();
-	}
+    public String getSelfAttribNamespace() {
+        return selfAttribNamespace;
+    }
 
-	@XmlAttribute
-	public void setSelfNamespace(String selfNamespace) {
-		this.selfNamespace = selfNamespace;
-		updateSelf();
-	}
+    public String getSelfNamespace() {
+        return selfNamespace;
+    }
 
-	@XmlAttribute
-	public void setParentName(String parentName) {
-		this.parentName = parentName;
-		updateParent();
-	}
+    public String getParentName() {
+        return parentName;
+    }
 
-	@XmlAttribute
-	public void setParentAttribName(String parentAttribName) {
-		this.parentAttribName = parentAttribName;
-		updateParent();
-	}
+    public String getParentAttribName() {
+        return parentAttribName;
+    }
 
-	@XmlAttribute
-	public void setParentAttribValue(String parentAttribValue) {
-		this.parentAttribValue = parentAttribValue;
-		updateParent();
-	}
+    public String getParentAttribValue() {
+        return parentAttribValue;
+    }
 
-	@XmlAttribute
-	public void setParentAttribNamespace(String parentAttribNamespace) {
-		this.parentAttribNamespace = parentAttribNamespace;
-		updateParent();
-	}
+    public String getParentAttribNamespace() {
+        return parentAttribNamespace;
+    }
 
-	@XmlAttribute
-	public void setParentNamespace(String parentNamespace) {
-		this.parentNamespace = parentNamespace;
-		updateParent();
-	}
+    public String getParentNamespace() {
+        return parentNamespace;
+    }
 
-	private void updateSelf() {
-		selfMatcher = new NodeAttributeMatcher(selfName, selfAttribName, selfAttribValue, selfAttribNamespace, selfNamespace);
-	}
+    public NodeAttributeMatcher getSelfMatcher() {
+        return selfMatcher;
+    }
 
-	private void updateParent() {
-		parentMatcher = new NodeAttributeMatcher(parentName, parentAttribName, parentAttribValue, parentAttribNamespace, parentNamespace);
-	}
+    public NodeAttributeMatcher getParentMatcher() {
+        return parentMatcher;
+    }
 
-	public String getSelfName() {
-		return selfName;
-	}
+    @XmlAttribute
+    public void setSelfName(String selfName) {
+        this.selfName = selfName;
+        updateSelf();
+    }
 
-	public String getSelfAttribName() {
-		return selfAttribName;
-	}
+    @XmlAttribute
+    public void setSelfAttribName(String selfAttribName) {
+        this.selfAttribName = selfAttribName;
+        updateSelf();
+    }
 
-	public String getSelfAttribValue() {
-		return selfAttribValue;
-	}
+    @XmlAttribute
+    public void setSelfAttribValue(String selfAttribValue) {
+        this.selfAttribValue = selfAttribValue;
+        updateSelf();
+    }
 
-	public String getSelfAttribNamespace() {
-		return selfAttribNamespace;
-	}
+    @XmlAttribute
+    public void setSelfAttribNamespace(String selfAttribNamespace) {
+        this.selfAttribNamespace = selfAttribNamespace;
+        updateSelf();
+    }
 
-	public String getSelfNamespace() {
-		return selfNamespace;
-	}
+    @XmlAttribute
+    public void setSelfNamespace(String selfNamespace) {
+        this.selfNamespace = selfNamespace;
+        updateSelf();
+    }
 
-	public String getParentName() {
-		return parentName;
-	}
+    @XmlAttribute
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+        updateParent();
+    }
 
-	public String getParentAttribName() {
-		return parentAttribName;
-	}
+    @XmlAttribute
+    public void setParentAttribName(String parentAttribName) {
+        this.parentAttribName = parentAttribName;
+        updateParent();
+    }
 
-	public String getParentAttribValue() {
-		return parentAttribValue;
-	}
+    @XmlAttribute
+    public void setParentAttribValue(String parentAttribValue) {
+        this.parentAttribValue = parentAttribValue;
+        updateParent();
+    }
 
-	public String getParentAttribNamespace() {
-		return parentAttribNamespace;
-	}
+    @XmlAttribute
+    public void setParentAttribNamespace(String parentAttribNamespace) {
+        this.parentAttribNamespace = parentAttribNamespace;
+        updateParent();
+    }
 
-	public String getParentNamespace() {
-		return parentNamespace;
-	}
+    @XmlAttribute
+    public void setParentNamespace(String parentNamespace) {
+        this.parentNamespace = parentNamespace;
+        updateParent();
+    }
 
-	public NodeAttributeMatcher getSelfMatcher() {
-		return selfMatcher;
-	}
+    private void updateSelf() {
+        selfMatcher = new NodeAttributeMatcher(selfName, selfAttribName, selfAttribValue, selfAttribNamespace, selfNamespace);
+    }
 
-	public NodeAttributeMatcher getParentMatcher() {
-		return parentMatcher;
-	}
+    private void updateParent() {
+        parentMatcher = new NodeAttributeMatcher(parentName, parentAttribName, parentAttribValue, parentAttribNamespace, parentNamespace);
+    }
 
-	@Override
-	public String toString() {
-		return "NodeAncestorMatcher{" + "selfMatcher=" + selfMatcher + ", parentMatcher=" + parentMatcher + '}';
-	}
+    @Override
+    public String toString() {
+        return "NodeAncestorMatcher{" + "selfMatcher=" + selfMatcher + ", parentMatcher=" + parentMatcher + '}';
+    }
 
-	@Override
-	public int hashCode() {
-		int hash = 7;
-		hash = 89 * hash + super.hashCode();
-		hash = 89 * hash + Objects.hashCode(this.selfMatcher);
-		hash = 89 * hash + Objects.hashCode(this.parentMatcher);
-		return hash;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + super.hashCode();
+        hash = 89 * hash + Objects.hashCode(this.selfMatcher);
+        hash = 89 * hash + Objects.hashCode(this.parentMatcher);
+        return hash;
+    }
 
-	@Override
-	public boolean equals(Object other) {
-		if (other == null)
-			return false;
-		if (getClass() != other.getClass())
-			return false;
-		final NodeAncestorMatcher obj = (NodeAncestorMatcher) other;
-		if (!super.equals(other))
-			return false;
-		if (!Objects.equals(this.selfMatcher, obj.selfMatcher))
-			return false;
+    @Override
+    public boolean equals(Object other) {
+        if (other == null)
+            return false;
+        if (getClass() != other.getClass())
+            return false;
+        final NodeAncestorMatcher obj = (NodeAncestorMatcher) other;
+        if (!super.equals(other))
+            return false;
+        if (!Objects.equals(this.selfMatcher, obj.selfMatcher))
+            return false;
         return Objects.equals(this.parentMatcher, obj.parentMatcher);
     }
 }
