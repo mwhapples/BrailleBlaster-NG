@@ -23,6 +23,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
@@ -99,8 +100,7 @@ public class FastXPathTest {
 		Assert.assertEquals(p.getLocalName(), "p");
 		Text text = (Text) p.getChild(0);
 		
-		FastXPath.ancestor(text)
-				.stream()
+		StreamSupport.stream(FastXPath.ancestor(text).spliterator(), false)
 				.filter(something -> something.getAttributeCount() == 1);
 
 		Iterator<? extends Element> iterator = FastXPath.ancestor(text).iterator();

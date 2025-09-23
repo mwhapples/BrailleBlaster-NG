@@ -35,6 +35,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.stream.StreamSupport;
 
 public class MapList extends LinkedList<@NotNull TextMapElement> {
     final @NotNull Manager dm;
@@ -489,7 +490,7 @@ public class MapList extends LinkedList<@NotNull TextMapElement> {
         List<Node> children = new ArrayList<>();
         children.add(n);
         if (n instanceof Element && !BBX.CONTAINER.TABLE.isA(n)) {
-            children.addAll(FastXPath.descendant(n).stream().filter(node ->
+            children.addAll(StreamSupport.stream(FastXPath.descendant(n).spliterator(), false).filter(node ->
                     XMLHandler.Companion.ancestorElementNot(node, UTDElements.BRL::isA)).toList());
         }
 

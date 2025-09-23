@@ -18,6 +18,7 @@ package org.brailleblaster.utd.testutils;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.StreamSupport;
 
 import org.brailleblaster.utd.UTDTranslationEngine;
 import org.brailleblaster.utd.internal.elements.MoveTo;
@@ -122,7 +123,7 @@ public class UTDDocumentAsserter {
      */
     private List<Element> findBrlElements(Document doc) {
         List<Element> returnList = new ArrayList<>();
-        FastXPath.descendant(doc.getRootElement()).stream()
+        StreamSupport.stream(FastXPath.descendant(doc.getRootElement()).spliterator(), false)
                 .filter(UTDElements.BRL::isA)
                 .forEach(n -> returnList.add((Element) n));
         return returnList;

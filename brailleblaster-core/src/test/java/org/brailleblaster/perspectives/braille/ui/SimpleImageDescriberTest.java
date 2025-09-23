@@ -41,6 +41,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.List;
+import java.util.stream.StreamSupport;
 
 import static org.brailleblaster.testrunners.ViewTestRunner.doPendingSWTWork;
 import static org.testng.Assert.*;
@@ -586,8 +587,7 @@ public class SimpleImageDescriberTest {
 
         bbTest.textViewTools.navigateToText(testText);
 
-        List<Node> imageList = FastXPath.descendant(bbTest.getDoc())
-                .stream()
+        List<Node> imageList = StreamSupport.stream(FastXPath.descendant(bbTest.getDoc()).spliterator(), false)
                 .filter(BBX.SPAN.IMAGE::isA)
                 .toList();
         try {

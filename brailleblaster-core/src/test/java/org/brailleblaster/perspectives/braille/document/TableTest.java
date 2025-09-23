@@ -46,6 +46,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotStyledText;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.util.stream.StreamSupport;
 
 import static org.brailleblaster.TestUtils.getFirstSectionChild;
 import static org.brailleblaster.TestUtils.getInnerSection;
@@ -266,8 +267,7 @@ public class TableTest {
         dialog.bot().button(TableEditor.SAVE_BUTTON).click();
         doPendingSWTWork();
 
-        Element[] rows = FastXPath.descendant(test.getDoc())
-                .stream()
+        Element[] rows = StreamSupport.stream(FastXPath.descendant(test.getDoc()).spliterator(), false)
                 .filter(BBX.BLOCK.TABLE_CELL::isA)
                 .map(node -> (Element) node)
                 .toArray(Element[]::new);

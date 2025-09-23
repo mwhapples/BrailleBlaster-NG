@@ -100,6 +100,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.stream.StreamSupport;
 
 //This class manages each document in an MDI environment. It controls the braille View and the daisy View.
 public class Manager extends Controller {
@@ -204,7 +205,7 @@ public class Manager extends Controller {
 
                     // Used to comminicate information before a formatting stage
                     // Can't just apply to mEvent.changedNodes as these might be added to a parent
-                    FastXPath.descendant(getDoc()).stream().filter(Searcher.Filters::isElement)
+                    StreamSupport.stream(FastXPath.descendant(getDoc()).spliterator(), false).filter(Searcher.Filters::isElement)
                             .map(Searcher.Mappers::toElement)
                             .filter(BBX.PreFormatterMarker.ATTRIB_PRE_FORMATTER_MARKER::has).forEach(BBX.PreFormatterMarker.ATTRIB_PRE_FORMATTER_MARKER::detach);
 
