@@ -940,11 +940,6 @@ public class BBX {
                 super(coreType, name);
             }
 
-            /**
-             * <b>NOTE: You probably want
-             * {@link BBXUtils#isPageNum(nu.xom.Node) } to also handle
-             * SPAN.PAGE_NUM </b>
-             */
             @Override
             public boolean isA(Node node) {
                 return super.isA(node);
@@ -1162,11 +1157,6 @@ public class BBX {
                 super(coreType, name);
             }
 
-            /**
-             * <b>NOTE: You probably want
-             * {@link BBXUtils#isPageNum(nu.xom.Node) } to also handle
-             * BLOCK.PAGE_NUM </b>
-             */
             @Override
             public boolean isA(Node node) {
                 return super.isA(node);

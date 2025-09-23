@@ -215,7 +215,7 @@ public class Manager extends Controller {
                             return;
                         }
                         if (n instanceof Document || n.getDocument().getRootElement() == n) {
-                            LiveFixer.fix(XMLHandler.nodeToElementOrParentOrDocRoot(n));
+                            LiveFixer.fix(Objects.requireNonNull(XMLHandler.nodeToElementOrParentOrDocRoot(n)));
                             refresh(false);
                             changedNodes.clear();
                             return;
