@@ -24,7 +24,6 @@ import org.brailleblaster.utd.internal.xml.NodeIterator.Companion.itrNextNode
 import org.brailleblaster.utd.internal.xml.XMLHandler.Companion.nodeToElementOrParentOrDocRoot
 import org.brailleblaster.utils.xom.childNodes
 import java.util.concurrent.atomic.AtomicReference
-import java.util.function.BiPredicate
 import java.util.function.Predicate
 
 /**
@@ -38,11 +37,11 @@ object FastXPath {
 
     fun <N : Node> descendantFindList(
         startNode: Node,
-        matcher: BiPredicate<MutableList<N>, Node>
+        matcher: (MutableList<N>, Node) -> Boolean
     ): MutableList<N> {
         val results = ArrayList<N>()
         descendantFindFirst(startNode) { curNode: Node ->
-            if (matcher.test(results, curNode)) {
+            if (matcher(results, curNode)) {
                 @Suppress("UNCHECKED_CAST")
                 results.add(curNode as N)
             }
