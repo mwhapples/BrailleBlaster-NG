@@ -23,6 +23,8 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.ArrayList;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
+
+import com.google.common.collect.Iterables;
 import nu.xom.Attribute;
 import nu.xom.Document;
 import nu.xom.Element;
@@ -90,7 +92,7 @@ public class FastXPath {
 		return null;
 	}
 
-	public static StreamableIterable<Node> descendant(Node startNode) {
+	public static Iterable<Node> descendant(Node startNode) {
 		return () -> {
 			Iterator<Node> result = descendantOrSelf(startNode).iterator();
 			//Skip first node which is the start node
@@ -99,7 +101,7 @@ public class FastXPath {
 		};
 	}
 
-	public static StreamableIterable<Node> following(Node startNode) {
+	public static Iterable<Node> following(Node startNode) {
 		return () -> new NodeIterator(
 				NodeIterator.itrNextNode(startNode, null, true),
 				false,
@@ -107,7 +109,7 @@ public class FastXPath {
 		);
 	}
 
-	public static StreamableIterable<Node> followingAndSelf(Node startNode) {
+	public static Iterable<Node> followingAndSelf(Node startNode) {
 		return () -> new NodeIterator(
 				startNode,
 				false,
@@ -120,7 +122,7 @@ public class FastXPath {
 	 * because it will match ancestors.
 	 */
 	@NotNull
-	public static StreamableIterable<@NotNull Node> preceding(Node startNode) {
+	public static Iterable<@NotNull Node> preceding(Node startNode) {
 		return () -> new NodeIterator(
 				NodeIterator.itrNextNode(startNode, null, false),
 				false,
@@ -133,27 +135,26 @@ public class FastXPath {
 	 * Note: This is different from XPath's preceding because it will
 	 * match ancestors.
 	 */
-	public static StreamableIterable<Node> precedingAndSelf(Node startNode) {
+	public static Iterable<Node> precedingAndSelf(Node startNode) {
 		return () -> new NodeIterator(startNode, false, false);
 	}
 
-	public static StreamableIterable<Node> descendantAndFollowing(Node startNode) {
+	public static Iterable<Node> descendantAndFollowing(Node startNode) {
 		return () -> new NodeIterator(startNode, false, true);
 	}
 
-	@SuppressWarnings("unchecked")
-	public static StreamableIterable<Element> ancestor(Node startNode) {
-		return (StreamableIterable<Element>) (Object) _ancestor(startNode.getParent() instanceof Element
+	public static Iterable<Element> ancestor(Node startNode) {
+		return Iterables.transform(_ancestor(startNode.getParent() instanceof Element
 				? startNode.getParent()
 				: null
-		);
+		), n -> (Element)n);
 	}
 
-	public static StreamableIterable<Node> ancestorOrSelf(Node startNode) {
+	public static Iterable<Node> ancestorOrSelf(Node startNode) {
 		return _ancestor(startNode);
 	}
 
-	public static StreamableIterable<Node> _ancestor(Node actualStart) {
+	public static Iterable<Node> _ancestor(Node actualStart) {
 		return () -> new Iterator<>() {
 			Node curElement = actualStart;
 

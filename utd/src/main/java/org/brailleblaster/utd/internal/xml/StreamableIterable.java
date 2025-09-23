@@ -25,5 +25,5 @@ import java.util.List;
  * @param <T>
  */
 public interface StreamableIterable<T> extends Iterable<T> {
-    
+
 }
