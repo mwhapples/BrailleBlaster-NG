@@ -620,16 +620,14 @@ private fun getFirstTextNode(node: Node): Node {
     if (node is Text) {
         return node
     }
-    val list = FastXPath.descendantOrSelf(node).filterIsInstance<Text>()
-    return if (list.isNotEmpty()) list[0] else node
+    return FastXPath.descendantOrSelf(node).filterIsInstance<Text>().firstOrNull() ?: node
 }
 
 private fun getFinalTextNode(node: Node): Node {
     if (node is Text) {
         return node
     }
-    val list = FastXPath.descendantOrSelf(node).filterIsInstance<Text>()
-    return if (list.isNotEmpty()) list[list.size - 1] else node
+    return FastXPath.descendantOrSelf(node).filterIsInstance<Text>().lastOrNull() ?: node
 }
 
 private fun hasEmphasis(node: Text, emphasisType: EmphasisType): Boolean {

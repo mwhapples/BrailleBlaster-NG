@@ -38,7 +38,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class FastXPath {
 
-	public static StreamableIterable<Node> descendantOrSelf(Node startNode) {
+	public static Iterable<@NotNull Node> descendantOrSelf(Node startNode) {
 		return () -> new NodeIterator(startNode, true, true);
 	}
 

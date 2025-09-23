@@ -18,10 +18,10 @@ package org.brailleblaster.utd.internal.xml
 import nu.xom.Node
 
 class NodeIterator(private val startNode: Node?, stayInsideStartNode: Boolean, forward: Boolean) :
-    Iterator<Node?> {
+    Iterator<Node> {
     private val stayInsideStartNode: Boolean
     private val forward: Boolean
-    private var nextNode: Node?
+    private var nextNode: Node? = startNode
 
     init {
         this.nextNode = startNode
@@ -33,10 +33,8 @@ class NodeIterator(private val startNode: Node?, stayInsideStartNode: Boolean, f
         return nextNode != null
     }
 
-    override fun next(): Node? {
-        val curNode = nextNode
-        doAdvance()
-        return curNode
+    override fun next(): Node {
+        return nextNode?.also { doAdvance() } ?: throw NoSuchElementException()
     }
 
     fun doAdvance() {

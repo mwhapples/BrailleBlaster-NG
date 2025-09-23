@@ -60,7 +60,7 @@ public class FastXPathTest {
 		XMLHandler.Companion.childrenRecursiveNodeVisitor(doc.getRootElement(), node -> {
 			//Test both node in doc and node without doc and parent
 			for (Node curNode : Arrays.asList(node, node.copy())) {
-				List<Node> fastResult = FastXPath.descendantOrSelf(curNode).list();
+				List<Node> fastResult = Lists.newArrayList(FastXPath.descendantOrSelf(curNode));
 				List<Node> xomResult = Lists.newArrayList(XMLHandler.query(curNode, "descendant-or-self::node()"));
 				assertListEquals(fastResult, xomResult);
 			}
