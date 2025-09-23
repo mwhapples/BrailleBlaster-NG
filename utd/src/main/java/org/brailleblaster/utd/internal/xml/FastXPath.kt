@@ -171,3 +171,55 @@ object FastXPath {
             }.asSequence()
     }
 }
+
+class NodeIterator(private val startNode: Node?, private val stayInsideStartNode: Boolean, private val forward: Boolean) :
+    Iterator<Node> {
+    private var nextNode: Node? = startNode
+
+    override fun hasNext(): Boolean {
+        return nextNode != null
+    }
+
+    override fun next(): Node {
+        return nextNode?.also { doAdvance() } ?: throw NoSuchElementException()
+    }
+
+    fun doAdvance() {
+        nextNode = if (nextNode!!.childCount != 0) {
+            nextNode!!.getChild(if (forward) 0 else nextNode!!.childCount - 1)
+        } else {
+            itrNextNode(
+                nextNode!!,
+                if (stayInsideStartNode) startNode else null,
+                forward
+            )
+        }
+    }
+
+    companion object {
+        /**
+         * Safe following node impl that stops once outside of the given start node
+         *
+         * @param stopNode     Parent we are not escaping from
+         * @param inputCurNode Assumed to be some (maybe nested) child of startNode
+         */
+        @JvmStatic
+        fun itrNextNode(inputCurNode: Node, stopNode: Node?, forward: Boolean): Node? {
+            var curNode: Node = inputCurNode
+            //TODO: This will break if inputCurNode is not descendant from stopNode
+            while (stopNode == null || stopNode !== curNode) {
+                val parent = curNode.parent ?: break
+                val index = parent.indexOf(curNode)
+                if (forward && index != parent.getChildCount() - 1) {
+                    return parent.getChild(index + 1)
+                } else if (!forward && index > 0) {
+                    return parent.getChild(index - 1)
+                }
+                //Last entry in parent, get parents sibling
+                curNode = parent
+            }
+            //Finished getting all childrens parents
+            return null
+        }
+    }
+}
