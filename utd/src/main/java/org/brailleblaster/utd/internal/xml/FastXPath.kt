@@ -38,16 +38,16 @@ object FastXPath {
     fun <N : Node> descendantFindList(
         startNode: Node,
         matcher: (MutableList<N>, Node) -> Boolean
-    ): MutableList<N> {
-        val results = ArrayList<N>()
-        descendantFindFirst(startNode) { curNode: Node ->
-            if (matcher(results, curNode)) {
-                @Suppress("UNCHECKED_CAST")
-                results.add(curNode as N)
+    ): List<N> {
+        return buildList {
+            descendantFindFirst(startNode) { curNode: Node ->
+                if (matcher(this, curNode)) {
+                    @Suppress("UNCHECKED_CAST")
+                    add(curNode as N)
+                }
+                true
             }
-            true
         }
-        return results
     }
 
     fun <N : Node> descendantFindOnly(startNode: Node, matcher: Predicate<Node>): N {
