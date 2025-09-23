@@ -201,16 +201,16 @@ public class NodeAncestorMatcher implements INodeMatcher {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (obj == null)
+	public boolean equals(Object other) {
+		if (other == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (getClass() != other.getClass())
 			return false;
-		final NodeAncestorMatcher other = (NodeAncestorMatcher) obj;
-		if (!super.equals(obj))
+		final NodeAncestorMatcher obj = (NodeAncestorMatcher) other;
+		if (!super.equals(other))
 			return false;
-		if (!Objects.equals(this.selfMatcher, other.selfMatcher))
+		if (!Objects.equals(this.selfMatcher, obj.selfMatcher))
 			return false;
-        return Objects.equals(this.parentMatcher, other.parentMatcher);
+        return Objects.equals(this.parentMatcher, obj.parentMatcher);
     }
 }
