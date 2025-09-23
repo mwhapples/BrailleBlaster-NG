@@ -143,17 +143,16 @@ object FastXPath {
                     startNode.parent
                 else
                     null
-            ).map { it as Element }
+            ).map { it as Element }.asIterable()
     }
 
     @JvmStatic
     fun ancestorOrSelf(startNode: Node?): Iterable<Node> {
-        return ancestorNode(startNode)
+        return ancestorNode(startNode).asIterable()
     }
 
-    private fun ancestorNode(actualStart: Node?): Iterable<Node> {
-        return Iterable {
-            object : Iterator<Node> {
+    private fun ancestorNode(actualStart: Node?): Sequence<Node> {
+        return object : Iterator<Node> {
                 var curElement: Node? = actualStart
 
                 override fun hasNext(): Boolean {
@@ -170,7 +169,6 @@ object FastXPath {
                         }
                     } ?: throw NoSuchElementException()
                 }
-            }
-        }
+            }.asSequence()
     }
 }
