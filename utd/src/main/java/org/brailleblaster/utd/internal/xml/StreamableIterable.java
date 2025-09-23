@@ -18,8 +18,6 @@ package org.brailleblaster.utd.internal.xml;
 import com.google.common.collect.Lists;
 
 import java.util.List;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 /**
  * Useful utils that java didn't think should be in the JDK
@@ -27,12 +25,6 @@ import java.util.stream.StreamSupport;
  * @param <T>
  */
 public interface StreamableIterable<T> extends Iterable<T> {
-    default Stream<T> stream() {
-        return StreamSupport.stream(
-                spliterator(),
-                false
-        );
-    }
 
     default List<T> list() {
         return Lists.newArrayList(this);
