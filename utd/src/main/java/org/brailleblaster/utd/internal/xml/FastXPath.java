@@ -17,6 +17,7 @@ package org.brailleblaster.utd.internal.xml;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -67,7 +68,7 @@ public class FastXPath {
 		return (N) descendantFindFirst(startNode, (curNode) -> {
 			if (matcher.test(curNode)) {
 				if (mutableObject.get() != null) {
-					XMLHandler.nodeToElementOrParentOrDocRoot(startNode).addAttribute(new Attribute("first", "match"));
+					Objects.requireNonNull(XMLHandler.nodeToElementOrParentOrDocRoot(startNode)).addAttribute(new Attribute("first", "match"));
 					throw new NodeException("Already matched element with first=match attrib, matched again: ", startNode);
 				}
 				mutableObject.set(startNode);
