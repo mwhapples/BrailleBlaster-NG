@@ -74,8 +74,20 @@ public class NodeAncestorMatcher implements INodeMatcher {
         return selfName;
     }
 
+    @XmlAttribute
+    public void setSelfName(String selfName) {
+        this.selfName = selfName;
+        updateSelf();
+    }
+
     public String getSelfAttribName() {
         return selfAttribName;
+    }
+
+    @XmlAttribute
+    public void setSelfAttribName(String selfAttribName) {
+        this.selfAttribName = selfAttribName;
+        updateSelf();
     }
 
     public String getSelfAttribValue() {
@@ -116,18 +128,6 @@ public class NodeAncestorMatcher implements INodeMatcher {
 
     public NodeAttributeMatcher getParentMatcher() {
         return parentMatcher;
-    }
-
-    @XmlAttribute
-    public void setSelfName(String selfName) {
-        this.selfName = selfName;
-        updateSelf();
-    }
-
-    @XmlAttribute
-    public void setSelfAttribName(String selfAttribName) {
-        this.selfAttribName = selfAttribName;
-        updateSelf();
     }
 
     @XmlAttribute
