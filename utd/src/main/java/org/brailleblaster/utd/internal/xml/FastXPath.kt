@@ -172,7 +172,7 @@ object FastXPath {
     }
 }
 
-class NodeIterator(private val startNode: Node?, private val stayInsideStartNode: Boolean, private val forward: Boolean) :
+private class NodeIterator(private val startNode: Node?, private val stayInsideStartNode: Boolean, private val forward: Boolean) :
     Iterator<Node> {
     private var nextNode: Node? = startNode
 
