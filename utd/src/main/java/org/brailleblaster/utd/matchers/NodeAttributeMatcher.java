@@ -33,14 +33,14 @@ import java.util.Objects;
 public class NodeAttributeMatcher extends NodeNameMatcher {
     @XmlAttribute
     public final String selfAttribName;
-    private String[] selfAttribValue;
+    private String[] _selfAttribValue;
     @XmlAttribute
     public final String selfAttribNamespace;
 
     public NodeAttributeMatcher() {
         super();
         selfAttribName = null;
-        selfAttribValue = null;
+        _selfAttribValue = null;
         selfAttribNamespace = null; //Default per element.getAttribute(String)
     }
 
@@ -85,12 +85,12 @@ public class NodeAttributeMatcher extends NodeNameMatcher {
         if (attrib == null)
             return false;
 
-        if (selfAttribValue == null) {
+        if (_selfAttribValue == null) {
             //Key exists but not value to check
             return true;
         }
 
-        for (String curValue : selfAttribValue) {
+        for (String curValue : _selfAttribValue) {
             if (curValue.equals(attrib.getValue())) {
                 return true;
             }
@@ -100,16 +100,16 @@ public class NodeAttributeMatcher extends NodeNameMatcher {
 
     @XmlAttribute
     public String getSelfAttribValue() {
-        return StringUtils.join(selfAttribValue, '|');
+        return String.join("|", _selfAttribValue);
     }
 
 
     public void setSelfAttribValue(String value) {
-        selfAttribValue = StringUtils.split(value, '|');
+        _selfAttribValue = StringUtils.split(value, '|');
     }
 
     public List<String> getSelfAttribValueList() {
-        return Arrays.asList(selfAttribValue);
+        return Arrays.asList(_selfAttribValue);
     }
 
     @Override
