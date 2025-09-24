@@ -28,16 +28,16 @@ import java.util.Objects;
  * that matches the given parent* parameters
  */
 public class NodeAncestorMatcher implements INodeMatcher {
-    private String selfName;
-    private String selfAttribName;
-    private String selfAttribValue;
-    private String selfAttribNamespace;
-    private String selfNamespace;
-    private String parentName;
-    private String parentAttribName;
-    private String parentAttribValue;
-    private String parentAttribNamespace;
-    private String parentNamespace;
+    private String _selfName;
+    private String _selfAttribName;
+    private String _selfAttribValue;
+    private String _selfAttribNamespace;
+    private String _selfNamespace;
+    private String _parentName;
+    private String _parentAttribName;
+    private String _parentAttribValue;
+    private String _parentAttribNamespace;
+    private String _parentNamespace;
     protected NodeAttributeMatcher selfMatcher;
     protected NodeAttributeMatcher parentMatcher;
 
@@ -45,12 +45,12 @@ public class NodeAncestorMatcher implements INodeMatcher {
     }
 
     public NodeAncestorMatcher(String selfName, String selfAttribName, String selfAttribValue, String parentName, String parentAttribName, String parentAttribValue) {
-        this.selfName = selfName;
-        this.selfAttribName = selfAttribName;
-        this.selfAttribValue = selfAttribValue;
-        this.parentName = parentName;
-        this.parentAttribName = parentAttribName;
-        this.parentAttribValue = parentAttribValue;
+        this._selfName = selfName;
+        this._selfAttribName = selfAttribName;
+        this._selfAttribValue = selfAttribValue;
+        this._parentName = parentName;
+        this._parentAttribName = parentAttribName;
+        this._parentAttribValue = parentAttribValue;
     }
 
     @Override
@@ -71,55 +71,55 @@ public class NodeAncestorMatcher implements INodeMatcher {
     }
 
     public String getSelfName() {
-        return selfName;
+        return _selfName;
     }
 
     @XmlAttribute
     public void setSelfName(String selfName) {
-        this.selfName = selfName;
+        this._selfName = selfName;
         updateSelf();
     }
 
     public String getSelfAttribName() {
-        return selfAttribName;
+        return _selfAttribName;
     }
 
     @XmlAttribute
     public void setSelfAttribName(String selfAttribName) {
-        this.selfAttribName = selfAttribName;
+        this._selfAttribName = selfAttribName;
         updateSelf();
     }
 
     public String getSelfAttribValue() {
-        return selfAttribValue;
+        return _selfAttribValue;
     }
 
     public String getSelfAttribNamespace() {
-        return selfAttribNamespace;
+        return _selfAttribNamespace;
     }
 
     public String getSelfNamespace() {
-        return selfNamespace;
+        return _selfNamespace;
     }
 
     public String getParentName() {
-        return parentName;
+        return _parentName;
     }
 
     public String getParentAttribName() {
-        return parentAttribName;
+        return _parentAttribName;
     }
 
     public String getParentAttribValue() {
-        return parentAttribValue;
+        return _parentAttribValue;
     }
 
     public String getParentAttribNamespace() {
-        return parentAttribNamespace;
+        return _parentAttribNamespace;
     }
 
     public String getParentNamespace() {
-        return parentNamespace;
+        return _parentNamespace;
     }
 
     public NodeAttributeMatcher getSelfMatcher() {
@@ -132,58 +132,58 @@ public class NodeAncestorMatcher implements INodeMatcher {
 
     @XmlAttribute
     public void setSelfAttribValue(String selfAttribValue) {
-        this.selfAttribValue = selfAttribValue;
+        this._selfAttribValue = selfAttribValue;
         updateSelf();
     }
 
     @XmlAttribute
     public void setSelfAttribNamespace(String selfAttribNamespace) {
-        this.selfAttribNamespace = selfAttribNamespace;
+        this._selfAttribNamespace = selfAttribNamespace;
         updateSelf();
     }
 
     @XmlAttribute
     public void setSelfNamespace(String selfNamespace) {
-        this.selfNamespace = selfNamespace;
+        this._selfNamespace = selfNamespace;
         updateSelf();
     }
 
     @XmlAttribute
     public void setParentName(String parentName) {
-        this.parentName = parentName;
+        this._parentName = parentName;
         updateParent();
     }
 
     @XmlAttribute
     public void setParentAttribName(String parentAttribName) {
-        this.parentAttribName = parentAttribName;
+        this._parentAttribName = parentAttribName;
         updateParent();
     }
 
     @XmlAttribute
     public void setParentAttribValue(String parentAttribValue) {
-        this.parentAttribValue = parentAttribValue;
+        this._parentAttribValue = parentAttribValue;
         updateParent();
     }
 
     @XmlAttribute
     public void setParentAttribNamespace(String parentAttribNamespace) {
-        this.parentAttribNamespace = parentAttribNamespace;
+        this._parentAttribNamespace = parentAttribNamespace;
         updateParent();
     }
 
     @XmlAttribute
     public void setParentNamespace(String parentNamespace) {
-        this.parentNamespace = parentNamespace;
+        this._parentNamespace = parentNamespace;
         updateParent();
     }
 
     private void updateSelf() {
-        selfMatcher = new NodeAttributeMatcher(selfName, selfAttribName, selfAttribValue, selfAttribNamespace, selfNamespace);
+        selfMatcher = new NodeAttributeMatcher(_selfName, _selfAttribName, _selfAttribValue, _selfAttribNamespace, _selfNamespace);
     }
 
     private void updateParent() {
-        parentMatcher = new NodeAttributeMatcher(parentName, parentAttribName, parentAttribValue, parentAttribNamespace, parentNamespace);
+        parentMatcher = new NodeAttributeMatcher(_parentName, _parentAttribName, _parentAttribValue, _parentAttribNamespace, _parentNamespace);
     }
 
     @Override
