@@ -124,20 +124,20 @@ public class NodeAttributeMatcher extends NodeNameMatcher {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null)
+    public boolean equals(Object other) {
+        if (other == null)
             return false;
-        if (getClass() != obj.getClass())
+        if (getClass() != other.getClass())
             return false;
-        final NodeAttributeMatcher other = (NodeAttributeMatcher) obj;
-        if (!super.equals(obj))
+        final NodeAttributeMatcher obj = (NodeAttributeMatcher) other;
+        if (!super.equals(other))
             return false;
-        if (!Objects.equals(this.selfAttribName, other.selfAttribName))
+        if (!Objects.equals(this.selfAttribName, obj.selfAttribName))
             return false;
         //Convert to string as different arrays are never equal
-        if (!Objects.equals(this.getSelfAttribValue(), other.getSelfAttribValue()))
+        if (!Objects.equals(this.getSelfAttribValue(), obj.getSelfAttribValue()))
             return false;
-        return Objects.equals(this.selfAttribNamespace, other.selfAttribNamespace);
+        return Objects.equals(this.selfAttribNamespace, obj.selfAttribNamespace);
     }
 
     @Override
