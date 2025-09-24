@@ -48,6 +48,8 @@ import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Listener
 import org.slf4j.LoggerFactory
+import java.awt.Desktop
+import java.net.URI
 
 class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
     val state: ViewStateObject = ViewStateObject()
@@ -172,6 +174,24 @@ class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
         }.also { caretListener = it })
         view.addMouseListener(object : MouseAdapter() {
             override fun mouseDown(e: MouseEvent) {
+                if (e.button == 1 && e.stateMask == SWT.MOD1){
+                  //Basically, check if selection is a link, get the href attribute, open it in browser
+                  //If it's an internal link, find whatever node it points to and move the cursor there
+                  if (manager.mapList.current.isLink){
+                    println("Node href: " + manager.mapList.current.linkhref)
+                    //Get the href attribute and open it in a browser
+                    try {
+                      Desktop.getDesktop().browse(URI(manager.mapList.current.linkhref))
+                    }
+                    catch (e: Exception){
+                      println("Error opening link: " + e.message)
+                    }
+                  }
+                  else{
+                    //Do nothing
+                    println("Clicked element is not a link")
+                  }
+                }
                 if (e.button == 2) return
                 if (e.button == 3 && !view.isTextSelected) {
                     //Original code in Kotlin, from V2 some time in Dec. 2021 - MNS

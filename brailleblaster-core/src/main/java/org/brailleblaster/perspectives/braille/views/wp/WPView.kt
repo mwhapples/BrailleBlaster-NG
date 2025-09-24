@@ -161,10 +161,17 @@ abstract class WPView(manager: Manager, parent: Composite) : AbstractView(manage
     fun addLinkStyleRange(start: Int, length: Int){
         val ranges = view.getStyleRanges(start, length)
         val range = if (ranges.isNotEmpty()) ranges[0] else StyleRange()
+        val elements = manager.mapList.getElementInSelectedRange(start, start + length)
+        for (e in elements){
+            if (e.isLink){
+                //Maybe?
+                range.data = e.linkhref
+                break
+            }
+        }
         range.start = start
         range.length = length
-        range.underline = true
-        range.foreground = ColorManager.getColor(ColorManager.Colors.BLUE, view)
+        range.underlineStyle = SWT.UNDERLINE_LINK
         this.ranges.add(range)
     }
 

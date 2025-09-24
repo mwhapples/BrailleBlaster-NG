@@ -420,7 +420,7 @@ class TextRenderer(manager: Manager, private val textView: TextView) : Renderer(
     private fun getEmphasisNode(node: Node): Element? {
         var parent = node.parent
         while (!BBX.BLOCK.isA(parent) && !BBX.SECTION.isA(parent)) {
-            if (BBX.INLINE.EMPHASIS.isA(parent) || BBX.INLINE.MATHML.isA(parent)) {
+            if (BBX.INLINE.EMPHASIS.isA(parent) || BBX.INLINE.MATHML.isA(parent) || BBX.INLINE.LINK.isA(parent)) {
                 return parent as Element
             }
             parent = parent.parent

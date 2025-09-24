@@ -15,9 +15,11 @@
  */
 package org.brailleblaster.perspectives.braille.mapping.elements;
 
+import nu.xom.Attribute;
 import nu.xom.Element;
 import nu.xom.Node;
 import nu.xom.ParentNode;
+import org.brailleblaster.bbx.BBX;
 import org.brailleblaster.math.mathml.MathModule;
 import org.brailleblaster.utd.internal.xml.XMLHandler;
 import org.jetbrains.annotations.Nullable;
@@ -80,10 +82,26 @@ public class TextMapElement extends AbstractMapElement {
 		Node node = getNode();
 		return getNode() != null && node.getDocument() != null && MathModule.isSpatialMath(node);
 	}
+
 	public boolean isMathML(){
 		Node node = getNode();
 		return node instanceof Element && (((Element) node).getLocalName().equals("math"));
 	}
+
+  //Might be unnecessary, but makes things clearer in some places
+  public boolean isLink(){
+    Node node = getNode();
+    return BBX.INLINE.LINK.isA(node);
+  }
+
+  public String getLinkhref(){
+    Node node = getNode();
+    if (isLink()){
+      Element e = (Element) node;
+      return e.getAttributeValue("href");
+    }
+    else return "";
+  }
 	
 	public boolean ancestorIsMath(Node text){
 		return XMLHandler.ancestorVisitorElement(text, n -> n.getLocalName().equals("math")) != null;

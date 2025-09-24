@@ -15,6 +15,7 @@
  */
 package org.brailleblaster.tools
 
+import nu.xom.Attribute
 import nu.xom.Element
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.perspectives.braille.messages.Sender
@@ -23,6 +24,7 @@ import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.utils.swt.EasySWT
+import org.brailleblaster.utils.xom.childNodes
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.widgets.Dialog
@@ -37,14 +39,20 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
 
   override fun onRun(bbData: BBSelectionData) {
     //Get input from a simple dialog box
-    val caretNode = bbData.manager.simpleManager.currentCaret.node as Element
+    val caretNode = bbData.manager.simpleManager.currentCaret.node
+    val childNodes = caretNode.childNodes
     //Need to determine if the selection is valid for inserting a link
     //If a link already exists in the selection, fill the dialog box with that link
     var linkText = ""
     //If it's a Link BBX, get the href attribute and set linkText to that
     //If it's not, leave linkText as an empty string
-    if (caretNode.equals(BBX.INLINE.LINK) && caretNode.getAttribute("external")?.value == "true"){
-      linkText = caretNode.getAttributeValue("href") ?: ""
+    if (caretNode.equals(BBX.INLINE.LINK)) {
+      //But how do we actually get the attribute value? Can't cast nu.xom.Text to nu.xom.Element
+      println("Existing link found")
+    }
+    else{
+      println("node xml: ${caretNode.toXML()}")
+      println("Child nodes: ${childNodes.size}\n ${childNodes.run{ forEach { println(it.toXML())}}}" )
     }
 
     makeGUI(bbData, linkText)
@@ -69,21 +77,16 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
     }
 
     val buttonsGroup = EasySWT.makeGroup(shell, SWT.CENTER, 3, true)
-    EasySWT.makePushButton(buttonsGroup, localeHandler["buttonOk"], 1)
-    {
+    EasySWT.makePushButton(buttonsGroup, localeHandler["InsertLink"], 1) {
       //Insert the link at the current selection (same behavior as pressing Enter in the text box)
       val linkText = entryText.getText()
       insertExternalLink(linkText, bbData)
       shell.close()
     }
-    EasySWT.makePushButton(buttonsGroup, localeHandler["buttonCancel"], 1)
-    {
-      //Close dialog
+    EasySWT.makePushButton(buttonsGroup, localeHandler["buttonCancel"], 1) {
       shell.close()
     }
-    EasySWT.makePushButton(buttonsGroup, localeHandler["removeLink"], 1)
-    {
-      //Remove link
+    EasySWT.makePushButton(buttonsGroup, localeHandler["removeLink"], 1) {
       removeExternalLink(bbData)
       shell.close()
     }
@@ -93,47 +96,38 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
   }
 
   private fun insertExternalLink(link: String, bbData: BBSelectionData) {
-    println("Link text: $link")
+    println("Inserting link text: $link")
     val mapList = bbData.manager.mapList
-    val sel = bbData.manager.simpleManager.currentSelection
-    val start = sel.start
-    val end = sel.end
-    val caretNode = bbData.manager.simpleManager.currentCaret.node as Element
+    val current = mapList.current
 
-    if (caretNode.equals(BBX.INLINE.LINK) && caretNode.getAttribute("external")?.value == "true"){
+    if (current.isLink){
       //Modify existing link
-      BBX.INLINE.LINK.ATTRIB_HREF[caretNode] = link
+      println("Modifying existing link (debug)")
+      //current.linkhref
       //Do I need to do anything else here?
-      bbData.manager.simpleManager.dispatchEvent(ModifyEvent(Sender.TEXT, false, caretNode.parent))
+      //bbData.manager.simpleManager.dispatchEvent(ModifyEvent(Sender.NO_SENDER, false, caretNode))
       return
     }
-
-
-
-
-
-    //TODO add code for modifying the Link subtype of the BBX node (InlineElement)
-    //When inserting the link, if linkText is empty, create a new Link BBX
-    //If it's not empty, modify the existing Link BBX to have the new href attribute
-
-    //Reference Clipboard - Paste function for this?
-    //It won't be exactly the same, but it may be similar.
-
-    //Listen Jack, how do I insert BBX?
-    //Specifically, need to get the bounds of the selection and wrap it in a Link BBX
-    //Can't insert a link with no selection - just like an html webpage.
-
-    //Question: how are links going to be displayed?
-    //Text view is easy, relatively: make the selection blue and underlined, make the hover text show the URL
-    //Internal links might be more difficult - maybe don't show any tooltip, just the blue underline?
-    //Will need a link manager GUI to deal with internal ones and where they point - separate class.
-    //No idea what to do for braille view yet, if anything.
-
+    else {
+      //Figure out some way to do something...
+      println("Checking caret Node (debug)")
+      return
+    }
   }
 
   private fun removeExternalLink(bbData: BBSelectionData){
+    val mapList = bbData.manager.mapList
+    val current = mapList.current
 
 
+    if (current.isLink){
+      //caretElement.removeAttribute(caretElement.getAttribute("external"))
+      //caretElement.removeAttribute(caretElement.getAttribute("href"))
+      //bbData.manager.simpleManager.dispatchEvent(ModifyEvent(Sender.NO_SENDER, false, caretElement))
+    }
+    else {
+      //If caret node is not an existing link, do we need to check the selection for one?
 
+    }
   }
 }

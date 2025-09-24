@@ -336,19 +336,6 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
      * @return
      */
     fun mainShellViewCount(): Int {
-        /*
-		Views windowedView = getWindowedView();
-		List<Views> visibleViews = ToggleViewsModule.loadSettings();
-		int count = visibleViews.size();
-//		log.info("reparent current {} new {} visible {} {}", windowedViewCurrent, windowedViewNew, viewVisible, visibleViews);
-		if (windowedView != null && !visibleViews.contains(windowedView)) {
-			count--;
-		}
-		return count;
-		*/
-
-        // why won't that work :-(
-        // this does though
         var count = 0
         for (child in containerSash.children) {
             if (child is StyledText) {
@@ -371,12 +358,7 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
         private const val SETTING_WINDOWED_VIEW = "viewManager.windowedView"
         private var windowedShell: Shell? = null
         @JvmStatic
-		fun colorizeCompositeRecursive(composite: Composite) {
-//		if (composite instanceof Shell) {
-//			composite.setBackground(ColorManager.getColor("1e1f1c", composite));
-//		} else {
-//			
-//		}
+		    fun colorizeCompositeRecursive(composite: Composite) {
             if (!isDarkMode) {
                 return
             }
@@ -404,7 +386,7 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
         }
 
         @JvmStatic
-		fun colorizeToolbarHolder(composite: Composite) {
+		    fun colorizeToolbarHolder(composite: Composite) {
             if (true) {
                 return
             }
@@ -414,7 +396,7 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
         }
 
         @JvmStatic
-		fun colorizeIconToolbars(bar: ToolBar) {
+		    fun colorizeIconToolbars(bar: ToolBar) {
             if (true) {
                 return
             }
@@ -424,7 +406,7 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
         }
 
         @JvmStatic
-		fun colorizeCustomToolbars(composite: Composite) {
+		    fun colorizeCustomToolbars(composite: Composite) {
             if (true) {
                 return
             }
@@ -436,7 +418,7 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
         val isDarkMode: Boolean
             get() = BBIni.propertyFileManager.getPropertyAsBoolean(SETTING_DARK_THEME, false)
         @JvmStatic
-		var windowedView: Views?
+		    var windowedView: Views?
             get() = BBIni.propertyFileManager.getPropertyAsEnumOrNull<Views>(SETTING_WINDOWED_VIEW)
             set(view) {
                 if (view == null) {
