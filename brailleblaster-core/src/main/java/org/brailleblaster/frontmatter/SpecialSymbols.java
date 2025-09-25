@@ -782,7 +782,7 @@ public class SpecialSymbols {
     }
 
     private static String[] splitSafely(String string) {
-        Pattern p = Pattern.compile("\\(.?\\,.?\\)");
+        Pattern p = Pattern.compile("\\(.?,.?\\)");
         Matcher m = p.matcher(string);
         ArrayList<String> array = new ArrayList<>();
         if (m.find()) {
