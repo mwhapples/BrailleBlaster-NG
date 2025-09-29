@@ -92,7 +92,7 @@ class PrintPreview private constructor(
     private val curPage: Text
     private val searchText: Text
     private lateinit var brfOutput: String
-    private val pageRanges: MutableList<Range<Int>> = ArrayList()
+    private val pageRanges: MutableList<Range<Int>> = mutableListOf()
     private var currentViewMode: ViewMode
     private val dualViewMode: ViewMode
     private val singleViewMode: ViewMode
