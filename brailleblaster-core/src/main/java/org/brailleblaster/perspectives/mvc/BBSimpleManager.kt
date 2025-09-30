@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory
 
 abstract class BBSimpleManager {
     private var privCurrentSelection: XMLSelection? = null
-    private val listenersByClass: MutableMap<Class<out SimpleListener>, SimpleListener> = mutableMapOf()
+    private val listenersByClass: MutableMap<Class<out SimpleListener>, MutableList<SimpleListener>> = mutableMapOf()
 
     val currentCaret: XMLNodeCaret
         get() = checkSelection().start
@@ -64,7 +64,7 @@ abstract class BBSimpleManager {
     abstract val manager: Manager
 
     val listeners: List<SimpleListener>
-        get() = listenersByClass.values.toList()
+        get() = listenersByClass.values.flatten()
 
     fun dispatchEvent(event: SimpleEvent) {
         log.debug("Event: {}", event, RuntimeException("event"))
@@ -94,12 +94,12 @@ abstract class BBSimpleManager {
 
     fun registerModule(eventHandler: SimpleListener) {
         log.trace("Registered listener: ${eventHandler.javaClass.simpleName}")
-        listenersByClass[eventHandler.javaClass] = eventHandler
+        listenersByClass.getOrPut(eventHandler.javaClass, ::mutableListOf).add(eventHandler)
     }
 
     fun <N : SimpleListener> getModule(clazz: Class<N>): N? {
         @Suppress("UNCHECKED_CAST")
-        return listenersByClass[clazz] as N?
+        return listenersByClass[clazz]?.lastOrNull() as N?
     }
 
     fun initMenu(shell: Shell) {
