@@ -782,7 +782,7 @@ public class SpecialSymbols {
     }
 
     private static String[] splitSafely(String string) {
-        Pattern p = Pattern.compile("\\(.?\\,.?\\)");
+        Pattern p = Pattern.compile("\\(.?,.?\\)");
         Matcher m = p.matcher(string);
         ArrayList<String> array = new ArrayList<>();
         if (m.find()) {
@@ -865,13 +865,9 @@ public class SpecialSymbols {
 
         List<DetectionRule> list1 = symbol1.getRules();
         List<DetectionRule> list2 = symbol2.getRules();
-        if (list1 == null && list2 == null) {
-            return true;
-        }
-        if ((list1 == null && list2 != null) || (list1 != null && list2 == null)) {
-            return false;
-        }
-        if (list1.size() != list2.size()) {
+        if (list1 == null || list2 == null) {
+            return list1 == list2;
+        } else if (list1.size() != list2.size()) {
             return false;
         }
         for (int i = 0; i < list1.size(); i++) {

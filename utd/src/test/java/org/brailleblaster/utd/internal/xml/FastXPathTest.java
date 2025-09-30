@@ -23,6 +23,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
@@ -45,7 +46,7 @@ public class FastXPathTest {
 		XMLHandler.Companion.childrenRecursiveNodeVisitor(doc.getRootElement(), node -> {
 			//Test both node in doc and node without doc and parent
 			for (Node curNode : Arrays.asList(node, node.copy())) {
-				List<Node> fastResult = FastXPath.descendant(curNode).list();
+				List<Node> fastResult = Lists.newArrayList(FastXPath.descendant(curNode));
 				List<Node> xomResult = Lists.newArrayList(XMLHandler.query(curNode, "descendant::node()"));
 				assertListEquals(fastResult, xomResult);
 			}
@@ -60,7 +61,7 @@ public class FastXPathTest {
 		XMLHandler.Companion.childrenRecursiveNodeVisitor(doc.getRootElement(), node -> {
 			//Test both node in doc and node without doc and parent
 			for (Node curNode : Arrays.asList(node, node.copy())) {
-				List<Node> fastResult = FastXPath.descendantOrSelf(curNode).list();
+				List<Node> fastResult = Lists.newArrayList(FastXPath.descendantOrSelf(curNode));
 				List<Node> xomResult = Lists.newArrayList(XMLHandler.query(curNode, "descendant-or-self::node()"));
 				assertListEquals(fastResult, xomResult);
 			}
@@ -83,7 +84,7 @@ public class FastXPathTest {
 
 			for (Node curNode : testNodes) {
 				log.debug("attached " + (curNode.getParent() != null) + " curNode " + curNode);
-				List<Node> fastResult = FastXPath.following(curNode).list();
+				List<Node> fastResult = Lists.newArrayList(FastXPath.following(curNode));
 				List<Node> xomResult = Lists.newArrayList(XMLHandler.query(curNode, "following::node()"));
 				assertListEquals(fastResult, xomResult);
 			}
@@ -99,8 +100,7 @@ public class FastXPathTest {
 		Assert.assertEquals(p.getLocalName(), "p");
 		Text text = (Text) p.getChild(0);
 		
-		FastXPath.ancestor(text)
-				.stream()
+		StreamSupport.stream(FastXPath.ancestor(text).spliterator(), false)
 				.filter(something -> something.getAttributeCount() == 1);
 
 		Iterator<? extends Element> iterator = FastXPath.ancestor(text).iterator();

@@ -67,6 +67,7 @@ import java.util.List;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 public class TableEditor extends Dialog {
     private static final LocaleHandler localeHandler = LocaleHandler.getDefault();
@@ -362,7 +363,7 @@ public class TableEditor extends Dialog {
             open((Node[] nodeList) -> {
                         if (manager.isEmptyDocument()) {
                             //Get rid of placeholder node
-                            FastXPath.descendant(manager.getDoc().getRootElement()).stream()
+                            StreamSupport.stream(FastXPath.descendant(manager.getDoc().getRootElement()).spliterator(), false)
                                     .filter(rootDesc -> BBX.BLOCK.isA(rootDesc) && BrailleDocument.isEmptyPlaceholder((Element) rootDesc))
                                     .findFirst().ifPresent(Node::detach);
                         }
@@ -395,8 +396,7 @@ public class TableEditor extends Dialog {
             int actualOffset = text.getOffset();
             int blockTextLength = 0;
             boolean pastOriginalText = false;
-            Iterator<Node> iter = FastXPath.descendant(block)
-                    .stream()
+            Iterator<Node> iter = StreamSupport.stream(FastXPath.descendant(block).spliterator(), false)
                     .filter(e -> e instanceof nu.xom.Text && !UTDElements.BRL.isA(e.getParent()))
                     .iterator();
             while (iter.hasNext()) {
@@ -1899,8 +1899,7 @@ public class TableEditor extends Dialog {
         //Strip UTD
         UTDHelper.stripUTDRecursive(containerCopy);
 
-        List<Node> children = FastXPath.descendant(containerCopy).list();
-        for (Node child : children) {
+        for (Node child : FastXPath.descendant(containerCopy)) {
             if (BBX.SPAN.OTHER.isA(child)) {
                 if (type == TableType.LINEAR) {
                     //If linear, re-attach span tags as children of the container

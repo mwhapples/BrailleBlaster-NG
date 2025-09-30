@@ -213,17 +213,17 @@ class StylePane(parent: Composite, private val m: Manager) : BBEditorView {
                 break
             }
 
-            var block: Element? = getImageNavigateBlock(imageNode) ?: continue
-
-            if (!processedBlocks.containsKey(block) || lines[processedBlocks[block]] == null) {
-                block = FastXPath.preceding(block)
-                    .filterIsInstance<Element>()
-                    .firstOrNull { node -> BBX.BLOCK.isA(node) && processedBlocks.containsKey(node) && lines[processedBlocks[node]] != null }
-                if (block == null) {
-                    //TODO: might be null when scrolling sometimes, not sure if this is the proper fix though
-                    continue
+            val block: Element = getImageNavigateBlock(imageNode)?.let { block ->
+                if (!processedBlocks.containsKey(block) || lines[processedBlocks[block]] == null) {
+                    FastXPath.preceding(block)
+                        .filterIsInstance<Element>()
+                        .firstOrNull { node -> BBX.BLOCK.isA(node) && processedBlocks.containsKey(node) && lines[processedBlocks[node]] != null }
+                } else {
+                    block
                 }
-            }
+            } ?: continue
+
+
 
             val lineOfBlock = processedBlocks[block]
             val blockStylePaneText = lines[lineOfBlock]
