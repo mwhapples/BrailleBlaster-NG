@@ -39,20 +39,6 @@ data class BrailleSettings(
     /** What table should be used to edit together parts of documents (eg. to join maths and text)  */
     var editTable: String = "nemeth_edit.ctb",
     var mathBrailleCode: MathBraileCode = MathBraileCode.Nemeth,
-    @Deprecated("No longer using LibLouisAPH")
-    var mainTranslationTableLLAPH: String = "english-ueb-grade2.rst",
-    @Deprecated("No longer using LibLouisAPH")
-    var uncontractedTableLLAPH: String = "english-ueb-grade2.rst",
-    @Deprecated("No longer using LibLouisAPH")
-    var mathExpressionTableLLAPH: String = "english-ueb-math.rst",
-    @Deprecated("No longer using LibLouisAPH")
-    var mathTextTableLLAPH: String = "english-ueb-math.rst",
-    @Deprecated("No longer using LibLouisAPH")
-    var editTableLLAPH: String = "english-ueb-math.rst",
-    @Deprecated("No longer using LibLouisAPH")
-    var computerBrailleTableLLAPH: String = "en-us-comp8.ctb",
-    @Deprecated("No longer using LibLouisAPH")
-    var isUseLibLouisAPH: Boolean = false,
     var isUseAsciiBraille: Boolean = false,
     /** The patterns for line wrapping math.  */
     @get:XmlElementWrapper(name = "mathLineWrapping")
