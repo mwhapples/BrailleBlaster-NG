@@ -63,13 +63,7 @@ data class InsertionPatternEntry @JvmOverloads constructor(
     companion object {
         @JvmStatic
         fun listToMap(listInsertions: List<InsertionPatternEntry>?): Map<String, String> {
-            val result: MutableMap<String, String> = LinkedHashMap()
-            if (listInsertions != null) {
-                for (i in listInsertions) {
-                    result[i.matchPattern] = i.insertionDots
-                }
-            }
-            return result
+            return listInsertions?.associate { it.matchPattern to it.insertionDots } ?: emptyMap()
         }
     }
 }
