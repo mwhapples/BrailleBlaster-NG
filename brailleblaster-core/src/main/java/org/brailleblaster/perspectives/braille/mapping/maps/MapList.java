@@ -157,8 +157,8 @@ public class MapList extends LinkedList<@NotNull TextMapElement> {
     private int getStartBrailleOffset(TextMapElement tme) {
         if (tme instanceof TableTextMapElement
                 && !((TableTextMapElement) tme).tableElements.isEmpty()
-                && !((TableTextMapElement) tme).tableElements.get(0).brailleList.isEmpty()) {
-            return ((TableTextMapElement) tme).tableElements.get(0).brailleList.get(0).getStart(this);
+                && !((TableTextMapElement) tme).tableElements.getFirst().brailleList.isEmpty()) {
+            return ((TableTextMapElement) tme).tableElements.getFirst().brailleList.getFirst().getStart(this);
         } else if (!tme.brailleList.isEmpty()) {
             return tme.brailleList.getFirst().getStart(this);
         }
@@ -168,8 +168,8 @@ public class MapList extends LinkedList<@NotNull TextMapElement> {
     private int getEndBrailleOffset(TextMapElement tme) {
         if (tme instanceof TableTextMapElement
                 && !((TableTextMapElement) tme).tableElements.isEmpty()
-                && !((TableTextMapElement) tme).tableElements.get(0).brailleList.isEmpty()) {
-            return ((TableTextMapElement) tme).tableElements.get(((TableTextMapElement) tme).tableElements.size() - 1).brailleList.getLast().getEnd(this);
+                && !((TableTextMapElement) tme).tableElements.getFirst().brailleList.isEmpty()) {
+            return ((TableTextMapElement) tme).tableElements.getLast().brailleList.getLast().getEnd(this);
         } else if (!tme.brailleList.isEmpty()) {
             return tme.brailleList.getLast().getEnd(this);
         }
@@ -400,7 +400,7 @@ public class MapList extends LinkedList<@NotNull TextMapElement> {
                 && !(this.get(countDown) instanceof PageIndicatorTextMapElement)
                 && doc.getParent(this.get(countDown).getNode()).equals(parent)) {
 
-            list.add(0, this.get(countDown));
+            list.addFirst(this.get(countDown));
             countDown--;
         }
 
@@ -431,7 +431,7 @@ public class MapList extends LinkedList<@NotNull TextMapElement> {
         int countDown = index - 1;
         int countUp = index + 1;
         while (countDown >= 0 && get(countDown).getNodeParent() != null && doc.getParent(this.get(countDown).getNode()).equals(parent)) {
-            list.add(0, countDown);
+            list.addFirst(countDown);
             countDown--;
         }
 
