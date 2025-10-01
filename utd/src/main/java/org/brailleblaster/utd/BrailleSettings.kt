@@ -50,9 +50,47 @@ data class BrailleSettings(
     var mathIndicators: MathIndicators = MathIndicators()
 )
 
-enum class MathBraileCode(val preferenceName: String) {
-    UEB("UEB"),
-    Nemeth("Nemeth")
+enum class MathBraileCode(
+    val preferenceName: String,
+    val lineWrapping: List<InsertionPatternEntry> = listOf(),
+    val startLines: List<InsertionPatternEntry> = listOf(),
+) {
+    UEB(
+        "UEB",
+        lineWrapping = listOf(
+            InsertionPatternEntry(
+                matchPattern = " (?=(\"7(`:)?|`[<>]) )"
+            ),
+            InsertionPatternEntry(
+                matchPattern = "(?=\"[68\\-/])"
+            ),
+            InsertionPatternEntry(
+                matchPattern = "[\\._\"]?>(?<contDots>)(?=[\\._\"]?<)",
+                insertionDots = "\""
+            )
+        )
+    ),
+    Nemeth(
+        "Nemeth",
+        lineWrapping = listOf(
+            InsertionPatternEntry(
+                matchPattern = " (?=(/?\\.k|\\.1|\"\\.) )"
+            ),
+            InsertionPatternEntry(
+                matchPattern = "(?=\\+|-|\\./|`\\*)"
+            )
+        ),
+        startLines = listOf(
+            InsertionPatternEntry(
+                matchPattern = "(?=[0-9])",
+                insertionDots = "#"
+            ),
+            InsertionPatternEntry(
+                matchPattern = "-(?=[0-9])",
+                insertionDots = "#"
+            )
+        )
+    )
 }
 
 data class InsertionPatternEntry @JvmOverloads constructor(
