@@ -243,10 +243,9 @@ object AsciiMathConverter : AutoCloseable {
         val navigator = JSNavigator("BrailleBlaster UTD")
         val window = JSWindow()
         val dbf = DocumentBuilderFactory.newInstance()
-        val jsDoc: Document
-        try {
+        val jsDoc: Document = try {
             val db = dbf.newDocumentBuilder()
-            jsDoc = db.parse(InputSource(StringReader("<html><head/><body/></html>")))
+            db.parse(InputSource(StringReader("<html><head/><body/></html>")))
         } catch (e1: ParserConfigurationException) {
             throw RuntimeException("Problem creating the DOM for the JavaScript library", e1)
         } catch (e1: SAXException) {
