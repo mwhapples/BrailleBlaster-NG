@@ -40,13 +40,6 @@ data class BrailleSettings(
     var editTable: String = "nemeth_edit.ctb",
     var mathBrailleCode: MathBraileCode = MathBraileCode.Nemeth,
     var isUseAsciiBraille: Boolean = false,
-    /** The patterns for line wrapping math.  */
-    @get:XmlElementWrapper(name = "mathLineWrapping")
-    @get:XmlElement(name = "lineWrap")
-    var mathLineWrapping: MutableList<InsertionPatternEntry> = mutableListOf(),
-    @get:XmlElementWrapper(name = "mathStartLines")
-    @get:XmlElement(name = "insertion")
-    var mathStartLines: List<InsertionPatternEntry>? = null,
     var mathIndicators: MathIndicators = MathIndicators()
 )
 
