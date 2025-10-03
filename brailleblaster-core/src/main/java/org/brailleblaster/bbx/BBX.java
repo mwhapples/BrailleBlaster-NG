@@ -1119,8 +1119,7 @@ public class BBX {
 
         public static class LinkSubType extends InlineSubType{
 
-          public final StringAttribute ATTRIB_HREF =
-              new StringAttribute("href", UTDElements.UTD_PREFIX, NamespacesKt.URL_NS);
+          public final StringAttribute ATTRIB_HREF = new StringAttribute("href");
           public final BooleanAttribute IS_EXTERNAL = new BooleanAttribute("external");
 
           private LinkSubType(InlineElement coreType) {

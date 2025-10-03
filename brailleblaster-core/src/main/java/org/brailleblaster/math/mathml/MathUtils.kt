@@ -59,6 +59,7 @@ object MathUtils {
     }
 
     fun wrapInMath(math: String?, block: ParentNode, index: Int) {
+        println("Wrapping in math: '$math'")
         val mathNode = translate(math!!)
         Utils.insertChildCountSafe(block, mathNode, index)
         XMLHandler2.wrapNodeWithElement(

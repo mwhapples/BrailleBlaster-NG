@@ -91,7 +91,23 @@ public class TextMapElement extends AbstractMapElement {
   //Might be unnecessary, but makes things clearer in some places
   public boolean isLink(){
     Node node = getNode();
-    return BBX.INLINE.LINK.isA(node);
+    //Unsure if this is correct. Look in the debug and see what the thing looks like.
+    //No sign of the link attributes in the nodes, but it is there in the bbx XML.
+    //Maybe it's just malformed xml / not loaded into the maplist right? Compare math and emphasis...
+    //Notably, the xml does not have a closing </inline> tag like the others.
+    // Indicates there is something wrong with my function...
+    //return BBX.INLINE.LINK.isA(node);
+    return node instanceof Element && ((Element) node).getLocalName().equals("link");
+  }
+
+  public boolean isExternal(){
+    Node node = getNode();
+    if (isLink()){
+      Element e = (Element) node;
+      Attribute a = e.getAttribute("external");
+      return a != null && a.getValue().equals("true");
+    }
+    return false;
   }
 
   public String getLinkhref(){

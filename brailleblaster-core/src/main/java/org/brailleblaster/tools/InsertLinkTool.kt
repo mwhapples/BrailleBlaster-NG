@@ -15,20 +15,26 @@
  */
 package org.brailleblaster.tools
 
-import nu.xom.Attribute
 import nu.xom.Element
+import nu.xom.Node
+import nu.xom.Text
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.perspectives.braille.messages.Sender
+import org.brailleblaster.perspectives.mvc.XMLTextCaret
 import org.brailleblaster.perspectives.mvc.events.ModifyEvent
 import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
+import org.brailleblaster.utd.internal.xml.XMLHandler
+import org.brailleblaster.utd.internal.xml.XMLHandler2
+import org.brailleblaster.utd.utils.UTDHelper
+import org.brailleblaster.util.Utils
 import org.brailleblaster.utils.swt.EasySWT
-import org.brailleblaster.utils.xom.childNodes
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.widgets.Dialog
 import org.eclipse.swt.widgets.Shell
+import java.util.function.Consumer
 
 private val localeHandler = LocaleHandler.getDefault()
 
@@ -39,21 +45,16 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
 
   override fun onRun(bbData: BBSelectionData) {
     //Get input from a simple dialog box
-    val caretNode = bbData.manager.simpleManager.currentCaret.node
-    val childNodes = caretNode.childNodes
+    val current = bbData.manager.mapList.current.node
     //Need to determine if the selection is valid for inserting a link
     //If a link already exists in the selection, fill the dialog box with that link
     var linkText = ""
+    val el = XMLHandler.ancestorVisitor(current) { _: Node? -> BBX.INLINE.LINK.isA(current) } as Element?
+    if (el != null){
+      linkText = BBX.INLINE.LINK.ATTRIB_HREF[el]
+    }
     //If it's a Link BBX, get the href attribute and set linkText to that
     //If it's not, leave linkText as an empty string
-    if (caretNode.equals(BBX.INLINE.LINK)) {
-      //But how do we actually get the attribute value? Can't cast nu.xom.Text to nu.xom.Element
-      println("Existing link found")
-    }
-    else{
-      println("node xml: ${caretNode.toXML()}")
-      println("Child nodes: ${childNodes.size}\n ${childNodes.run{ forEach { println(it.toXML())}}}" )
-    }
 
     makeGUI(bbData, linkText)
   }
@@ -100,34 +101,110 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
     val mapList = bbData.manager.mapList
     val current = mapList.current
 
-    if (current.isLink){
-      //Modify existing link
-      println("Modifying existing link (debug)")
-      //current.linkhref
-      //Do I need to do anything else here?
-      //bbData.manager.simpleManager.dispatchEvent(ModifyEvent(Sender.NO_SENDER, false, caretNode))
+    if (current.isLink) {
+      //Currently on an existing link - modify it
+      if (current.isExternal) {
+        //Modify existing link
+        println("Modifying existing link")
+        if (link.isNotEmpty()) { //Might want to validate the link format here
+          current.block?.addAttribute(BBX.INLINE.LINK.ATTRIB_HREF.newAttribute(link))
+          bbData.manager.simpleManager.dispatchEvent(ModifyEvent(Sender.TEXT, false, current.nodeParent))
+          bbData.manager.refresh()
+          //That kinda works!
+          //Need to update the display too - rendering isn't showing up. I think the code for that should work, but...
+        }
+      } else {
+        //Don't modify internal links...maybe perform this check earlier?
+      }
       return
+    } else {
+      //Not on a link - create one if there's a valid selection
+      if (current.isReadOnly || bbData.manager.simpleManager.currentSelection.isTextNoSelection) {
+        //Do not allow link creation in read-only areas or if there's no selection
+        println("No selection or read-only area - not creating link")
+        return
+      }
+      if (!bbData.manager.simpleManager.currentSelection.isSingleNode){
+        println("Multiple nodes selected - cannot create link")
+        return
+      }
+
+      println("Single node selected - creating link")
+      val newLink = BBX.INLINE.LINK.create()
+      newLink.addAttribute(BBX.INLINE.LINK.IS_EXTERNAL.newAttribute(true))
+      newLink.addAttribute(BBX.INLINE.LINK.ATTRIB_HREF.newAttribute(link))
+
+      val currentNode = bbData.manager.simpleManager.currentCaret.node
+      val modifiedBlocks = bbData.manager.simpleManager.currentSelection.selectedBlocks
+      //Idk, maybe it'll help?
+      modifiedBlocks.forEach(Consumer { rootRaw -> UTDHelper.stripUTDRecursive(rootRaw) })
+
+      if (currentNode !is Text) {
+        println("Current node is not text - cannot create link")
+        return
+      }
+
+      val nodeLength = currentNode.value.length
+      val start = (bbData.manager.simpleManager.currentSelection.start as XMLTextCaret).offset
+      val end = (bbData.manager.simpleManager.currentSelection.end as XMLTextCaret).offset
+      println("Adding link to Node ${currentNode.value}, length: $nodeLength, start: $start, end: $end")
+
+
+      val nodeToWrap = if (start > 0 && end != -1 && end != nodeLength) {
+        //get middle and wrap
+        val splitTextNode =
+          XMLHandler2.splitTextNode(currentNode, start, end)
+        splitTextNode[1]
+      } else if (start > 0) {
+        //get last and wrap
+        val splitTextNode =
+          XMLHandler2.splitTextNode(currentNode, start)
+        splitTextNode[1]
+      } else if (end != -1 && end != nodeLength) {
+        //get beginning and wrap
+        val splitTextNode = XMLHandler2.splitTextNode(currentNode, end)
+        splitTextNode[0]
+      } else {
+        //wrap all
+        currentNode
+      }
+      //New error at least - Start node is not attached to document. What have I missed?
+      XMLHandler2.wrapNodeWithElement(nodeToWrap, newLink)
+      //using newLink for changedNode causes out of bounds error
+      //using nodeToWrap as changedNode makes the node disappear
+
+      //Check lines 210 of EmphasisModule - need to clean and merge the nodes, then call dispatchEvent on the modified blocks
+
+      //Merge text
+      modifiedBlocks.forEach(Consumer { n ->
+        UTDHelper.stripUTDRecursive(n)
+        Utils.combineAdjacentTextNodes(n)
+      })
+
+      val modifiedNodes: List<Node> = ArrayList<Node>(modifiedBlocks)
+      if (modifiedNodes.isEmpty()) {
+        return
+      }
+      //Still same big crashout...Formatter, Runtime, Outdated maplist, Index out of bounds errors.
+      //What is the EmphasisModule doing that I'm not?
+      bbData.manager.simpleManager.dispatchEvent(ModifyEvent(Sender.TEXT, modifiedNodes, true))
     }
-    else {
-      //Figure out some way to do something...
-      println("Checking caret Node (debug)")
-      return
-    }
+
+    return
   }
+}
 
-  private fun removeExternalLink(bbData: BBSelectionData){
-    val mapList = bbData.manager.mapList
-    val current = mapList.current
+private fun removeExternalLink(bbData: BBSelectionData) {
+  val mapList = bbData.manager.mapList
+  val current = mapList.current
 
 
-    if (current.isLink){
-      //caretElement.removeAttribute(caretElement.getAttribute("external"))
-      //caretElement.removeAttribute(caretElement.getAttribute("href"))
-      //bbData.manager.simpleManager.dispatchEvent(ModifyEvent(Sender.NO_SENDER, false, caretElement))
-    }
-    else {
-      //If caret node is not an existing link, do we need to check the selection for one?
+  if (current.isLink) {
+    //Get current block and remove the link BBX, leaving only the text inside
+    println("Removing existing link (debug)")
 
-    }
+  } else {
+    //If caret node is not an existing link, do we need to check the selection for one?
+
   }
 }

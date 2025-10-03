@@ -148,7 +148,8 @@ object EmphasisModule : AbstractModule(), SimpleListener {
                             currentSelection.end.offset, removeEmphasis
                         )
                     }
-                } else {
+                }
+                else {
                     //Element is selected. Apply emphasis to all descendant text nodes
                     FastXPath.descendant(currentSelection.start.node)
                         .filterIsInstance<Text>()
@@ -163,7 +164,8 @@ object EmphasisModule : AbstractModule(), SimpleListener {
                             )
                         }
                 }
-            } else {
+            }
+            else {
                 modifiedBlocks.forEach(Consumer { rootRaw -> UTDHelper.stripUTDRecursive(rootRaw) })
                 var startNode: Node? = currentSelection.start.node
 
@@ -217,13 +219,6 @@ object EmphasisModule : AbstractModule(), SimpleListener {
             }
             manager.dispatchEvent(ModifyEvent(Sender.EMPHASIS, modifiedNodes, true))
         }
-
-
-
-
-
-
-
 
     /*
  * Check if this emphasis item is a numbering of some sort for a list.
@@ -361,17 +356,6 @@ object EmphasisModule : AbstractModule(), SimpleListener {
         private fun emphasize(emphasis: EmphasisType, node: Text, start: Int, end: Int, remove: Boolean): Text {
             return emphasize(EnumSet.of(emphasis), node, start, end, remove)
         }
-
-
-
-
-
-
-
-
-
-
-
 
 }
 object RemoveAllEmphasisTool : MenuToolModule {
@@ -585,10 +569,12 @@ private fun emphasize(
         node
     }
 }
+
 private fun hasEmphasis(node: Text, emphasisTypes: EnumSet<EmphasisType>): Boolean {
     val parent = getEmphasisInline(node)
     return parent != null && BBX.INLINE.EMPHASIS.ATTRIB_EMPHASIS[parent].containsAll(emphasisTypes)
 }
+
 private fun isAllEmphasized(selection: XMLSelection, emphasisType: EmphasisType): Boolean {
     var startNode = getFirstTextNode(selection.start.node)
     val endNode = getFinalTextNode(selection.end.node)
@@ -761,6 +747,7 @@ private fun toggleNoPreviousEmphasis(
  */
     val nodeToWrap: Text
     val nodeLength = node.value.length
+    println("Emphasizing node ${node.value}, length $nodeLength start $start, end $end")
     nodeToWrap = if (start > 0 && end != NO_OFFSET && end != nodeLength) {
         //get middle and wrap
         val splitTextNode =
