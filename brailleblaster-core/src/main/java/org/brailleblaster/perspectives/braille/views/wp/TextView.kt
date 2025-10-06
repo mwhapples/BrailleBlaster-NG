@@ -184,7 +184,7 @@ class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
                   val current = manager.mapList.current
                   if (BBX.INLINE.LINK.isA(current.nodeParent)){
                     //Need to work on attribute lookup. Checking node parent for Link works...
-                    println("Link clicked")
+                    //println("Link clicked")
                     val el = current.node.parent as Element
                     val isExternal = el.getAttributeValue("external", BB_NS).toBoolean()
                     val href = el.getAttributeValue("href", BB_NS)
@@ -197,19 +197,19 @@ class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
                       else if (!isExternal){
                         //Figure out internal navigation system with the href
                         //Maybe block hash? Managing that might prove very difficult.
-                        println("Internal link clicked, navigation not yet implemented")
+                        //println("Internal link clicked, navigation not yet implemented")
                       }
                       else{
-                        println("Link missing href or external attribute, cannot open")
+                        //println("Link missing href or external attribute, cannot open")
                       }
                     }
                     catch (e: Exception){
-                      println("Error opening link: " + e.message)
+                      //println("Error opening link: " + e.message)
                     }
                   }
                   else{
                     //Do nothing
-                    println("Clicked element is not a link")
+                    //println("Clicked element is not a link")
                   }
                 }
                 if (e.button == 2) return

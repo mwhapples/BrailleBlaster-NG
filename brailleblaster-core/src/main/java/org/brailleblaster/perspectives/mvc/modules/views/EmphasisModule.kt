@@ -743,7 +743,6 @@ private fun toggleNoPreviousEmphasis(
  */
     val nodeToWrap: Text
     val nodeLength = node.value.length
-    println("Emphasizing node ${node.value}, length $nodeLength start $start, end $end")
     nodeToWrap = if (start > 0 && end != NO_OFFSET && end != nodeLength) {
         //get middle and wrap
         val splitTextNode =

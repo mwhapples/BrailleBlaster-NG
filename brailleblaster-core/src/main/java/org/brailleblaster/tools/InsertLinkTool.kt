@@ -23,7 +23,7 @@ import org.brailleblaster.perspectives.mvc.events.ModifyEvent
 import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
-import org.brailleblaster.utd.internal.xml.XMLHandler2
+import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utils.BB_NS
 import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
@@ -114,15 +114,15 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
       //Not on a link - create one if there's a valid selection
       if (current.isReadOnly || bbData.manager.simpleManager.currentSelection.isTextNoSelection) {
         //Do not allow link creation in read-only areas or if there's no selection
-        println("No selection or read-only area - not creating link")
+        //println("No selection or read-only area - not creating link")
         return
       }
       if (!bbData.manager.simpleManager.currentSelection.isSingleNode){
-        println("Multiple nodes selected - cannot create link")
+        //println("Multiple nodes selected - cannot create link")
         return
       }
 
-      println("Single node selected - creating link")
+      //println("Single node selected - creating link")
       val newLink = BBX.INLINE.LINK.create()
       newLink.addAttribute(BBX.INLINE.LINK.IS_EXTERNAL.newAttribute(true))
       newLink.addAttribute(BBX.INLINE.LINK.ATTRIB_HREF.newAttribute(link))
@@ -137,7 +137,7 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
       val nodeLength = currentNode.value.length
       val start = (bbData.manager.simpleManager.currentSelection.start as XMLTextCaret).offset
       val end = (bbData.manager.simpleManager.currentSelection.end as XMLTextCaret).offset
-      println("Adding link to Node ${currentNode.value}, length: $nodeLength, start: $start, end: $end")
+      //println("Adding link to Node ${currentNode.value}, length: $nodeLength, start: $start, end: $end")
 
       //We want either the whole node, or a portion of it.
       //That portion might be from the start to somewhere in the middle, two middle points, or middle to end.
@@ -145,21 +145,21 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
       val nodeToWrap =
         if (start > 0 && end != -1 && end != nodeLength) {
           //get middle and wrap (two middle points)
-          val splitTextNode = XMLHandler2.splitTextNode(currentNode, start, end)
+          val splitTextNode = XMLHandler.splitTextNode(currentNode, start, end)
           splitTextNode[1]
         } else if (start > 0) {
           //get last and wrap (middle to very end of node)
-          val splitTextNode = XMLHandler2.splitTextNode(currentNode, start)
+          val splitTextNode = XMLHandler.splitTextNode(currentNode, start)
           splitTextNode[1]
         } else if (end != -1 && end != nodeLength) {
           //get beginning and wrap (start to middle)
-          val splitTextNode = XMLHandler2.splitTextNode(currentNode, end)
+          val splitTextNode = XMLHandler.splitTextNode(currentNode, end)
           splitTextNode[0]
         } else {
           //wrap all (start to very end)
           currentNode
         }
-      XMLHandler2.wrapNodeWithElement(nodeToWrap, newLink)
+      XMLHandler.wrapNodeWithElement(nodeToWrap, newLink)
       //That got it!
       bbData.manager.simpleManager.dispatchEvent(ModifyEvent(Sender.TEXT, true, nodeToWrap.parent))
     }
@@ -176,7 +176,7 @@ private fun removeExternalLink(bbData: BBSelectionData) {
       return
     }
     //Wow, this was way easier than I thought it would be
-    XMLHandler2.unwrapElement(current.nodeParent)
+    XMLHandler.unwrapElement(current.nodeParent)
     bbData.manager.simpleManager.dispatchEvent(ModifyEvent(Sender.TEXT, false, current.nodeParent))
   }
 }
