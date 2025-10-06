@@ -87,37 +87,6 @@ public class TextMapElement extends AbstractMapElement {
 		Node node = getNode();
 		return node instanceof Element && (((Element) node).getLocalName().equals("math"));
 	}
-
-  //Might be unnecessary, but makes things clearer in some places
-  public boolean isLink(){
-    Node node = getNode();
-    //Unsure if this is correct. Look in the debug and see what the thing looks like.
-    //No sign of the link attributes in the nodes, but it is there in the bbx XML.
-    //Maybe it's just malformed xml / not loaded into the maplist right? Compare math and emphasis...
-    //Notably, the xml does not have a closing </inline> tag like the others.
-    // Indicates there is something wrong with my function...
-    //return BBX.INLINE.LINK.isA(node);
-    return node instanceof Element && ((Element) node).getLocalName().equals("link");
-  }
-
-  public boolean isExternal(){
-    Node node = getNode();
-    if (isLink()){
-      Element e = (Element) node;
-      Attribute a = e.getAttribute("external");
-      return a != null && a.getValue().equals("true");
-    }
-    return false;
-  }
-
-  public String getLinkhref(){
-    Node node = getNode();
-    if (isLink()){
-      Element e = (Element) node;
-      return e.getAttributeValue("href");
-    }
-    else return "";
-  }
 	
 	public boolean ancestorIsMath(Node text){
 		return XMLHandler.ancestorVisitorElement(text, n -> n.getLocalName().equals("math")) != null;

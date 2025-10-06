@@ -15,8 +15,6 @@
  */
 package org.brailleblaster.tools
 
-import nu.xom.Element
-import nu.xom.Node
 import nu.xom.Text
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.perspectives.braille.messages.Sender
@@ -25,16 +23,14 @@ import org.brailleblaster.perspectives.mvc.events.ModifyEvent
 import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
-import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.internal.xml.XMLHandler2
-import org.brailleblaster.utd.utils.UTDHelper
-import org.brailleblaster.util.Utils
+import org.brailleblaster.utils.BB_NS
 import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.widgets.Dialog
 import org.eclipse.swt.widgets.Shell
-import java.util.function.Consumer
+
 
 private val localeHandler = LocaleHandler.getDefault()
 
@@ -45,13 +41,13 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
 
   override fun onRun(bbData: BBSelectionData) {
     //Get input from a simple dialog box
-    val current = bbData.manager.mapList.current.node
+    val current = bbData.manager.mapList.current
     //Need to determine if the selection is valid for inserting a link
     //If a link already exists in the selection, fill the dialog box with that link
     var linkText = ""
-    val el = XMLHandler.ancestorVisitor(current) { _: Node? -> BBX.INLINE.LINK.isA(current) } as Element?
-    if (el != null){
-      linkText = BBX.INLINE.LINK.ATTRIB_HREF[el]
+    val el = current.nodeParent
+    if (el != null && BBX.INLINE.LINK.isA(el)){
+      linkText = el.getAttributeValue("href", BB_NS)
     }
     //If it's a Link BBX, get the href attribute and set linkText to that
     //If it's not, leave linkText as an empty string
@@ -101,17 +97,14 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
     val mapList = bbData.manager.mapList
     val current = mapList.current
 
-    if (current.isLink) {
+    if (current.nodeParent != null && BBX.INLINE.LINK.isA(current.nodeParent)) {
       //Currently on an existing link - modify it
-      if (current.isExternal) {
+      if (current.nodeParent.getAttributeValue("external", BB_NS).toBoolean()) {
         //Modify existing link
         println("Modifying existing link")
         if (link.isNotEmpty()) { //Might want to validate the link format here
-          current.block?.addAttribute(BBX.INLINE.LINK.ATTRIB_HREF.newAttribute(link))
+          current.nodeParent.addAttribute(BBX.INLINE.LINK.ATTRIB_HREF.newAttribute(link))
           bbData.manager.simpleManager.dispatchEvent(ModifyEvent(Sender.TEXT, false, current.nodeParent))
-          bbData.manager.refresh()
-          //That kinda works!
-          //Need to update the display too - rendering isn't showing up. I think the code for that should work, but...
         }
       } else {
         //Don't modify internal links...maybe perform this check earlier?
@@ -135,9 +128,6 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
       newLink.addAttribute(BBX.INLINE.LINK.ATTRIB_HREF.newAttribute(link))
 
       val currentNode = bbData.manager.simpleManager.currentCaret.node
-      val modifiedBlocks = bbData.manager.simpleManager.currentSelection.selectedBlocks
-      //Idk, maybe it'll help?
-      modifiedBlocks.forEach(Consumer { rootRaw -> UTDHelper.stripUTDRecursive(rootRaw) })
 
       if (currentNode !is Text) {
         println("Current node is not text - cannot create link")
@@ -149,47 +139,30 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
       val end = (bbData.manager.simpleManager.currentSelection.end as XMLTextCaret).offset
       println("Adding link to Node ${currentNode.value}, length: $nodeLength, start: $start, end: $end")
 
-
-      val nodeToWrap = if (start > 0 && end != -1 && end != nodeLength) {
-        //get middle and wrap
-        val splitTextNode =
-          XMLHandler2.splitTextNode(currentNode, start, end)
-        splitTextNode[1]
-      } else if (start > 0) {
-        //get last and wrap
-        val splitTextNode =
-          XMLHandler2.splitTextNode(currentNode, start)
-        splitTextNode[1]
-      } else if (end != -1 && end != nodeLength) {
-        //get beginning and wrap
-        val splitTextNode = XMLHandler2.splitTextNode(currentNode, end)
-        splitTextNode[0]
-      } else {
-        //wrap all
-        currentNode
-      }
-      //New error at least - Start node is not attached to document. What have I missed?
+      //We want either the whole node, or a portion of it.
+      //That portion might be from the start to somewhere in the middle, two middle points, or middle to end.
+      //So 4 cases, and the return size of splitTextNode varies accordingly.
+      val nodeToWrap =
+        if (start > 0 && end != -1 && end != nodeLength) {
+          //get middle and wrap (two middle points)
+          val splitTextNode = XMLHandler2.splitTextNode(currentNode, start, end)
+          splitTextNode[1]
+        } else if (start > 0) {
+          //get last and wrap (middle to very end of node)
+          val splitTextNode = XMLHandler2.splitTextNode(currentNode, start)
+          splitTextNode[1]
+        } else if (end != -1 && end != nodeLength) {
+          //get beginning and wrap (start to middle)
+          val splitTextNode = XMLHandler2.splitTextNode(currentNode, end)
+          splitTextNode[0]
+        } else {
+          //wrap all (start to very end)
+          currentNode
+        }
       XMLHandler2.wrapNodeWithElement(nodeToWrap, newLink)
-      //using newLink for changedNode causes out of bounds error
-      //using nodeToWrap as changedNode makes the node disappear
-
-      //Check lines 210 of EmphasisModule - need to clean and merge the nodes, then call dispatchEvent on the modified blocks
-
-      //Merge text
-      modifiedBlocks.forEach(Consumer { n ->
-        UTDHelper.stripUTDRecursive(n)
-        Utils.combineAdjacentTextNodes(n)
-      })
-
-      val modifiedNodes: List<Node> = ArrayList<Node>(modifiedBlocks)
-      if (modifiedNodes.isEmpty()) {
-        return
-      }
-      //Still same big crashout...Formatter, Runtime, Outdated maplist, Index out of bounds errors.
-      //What is the EmphasisModule doing that I'm not?
-      bbData.manager.simpleManager.dispatchEvent(ModifyEvent(Sender.TEXT, modifiedNodes, true))
+      //That got it!
+      bbData.manager.simpleManager.dispatchEvent(ModifyEvent(Sender.TEXT, true, nodeToWrap.parent))
     }
-
     return
   }
 }
@@ -197,14 +170,13 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
 private fun removeExternalLink(bbData: BBSelectionData) {
   val mapList = bbData.manager.mapList
   val current = mapList.current
-
-
-  if (current.isLink) {
-    //Get current block and remove the link BBX, leaving only the text inside
-    println("Removing existing link (debug)")
-
-  } else {
-    //If caret node is not an existing link, do we need to check the selection for one?
-
+  if (current.nodeParent != null && BBX.INLINE.LINK.isA(current.nodeParent)) {
+    if (!current.nodeParent.getAttributeValue("external", BB_NS).toBoolean()) {
+      //Don't remove internal links from this interface
+      return
+    }
+    //Wow, this was way easier than I thought it would be
+    XMLHandler2.unwrapElement(current.nodeParent)
+    bbData.manager.simpleManager.dispatchEvent(ModifyEvent(Sender.TEXT, false, current.nodeParent))
   }
 }
