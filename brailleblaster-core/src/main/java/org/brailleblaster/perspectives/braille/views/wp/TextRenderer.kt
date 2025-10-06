@@ -481,11 +481,11 @@ class TextRenderer(manager: Manager, private val textView: TextView) : Renderer(
         textView.ranges.clear()
         val emphasisList = state.emphasis
         for (e in emphasisList) {
-          println("Rendering emphasis...")
             if (BBX.INLINE.MATHML.isA(e.inlineNode)) {
                 textView.addMathHighlights(e.start, e.end - e.start, e.inlineNode)
             }
             else if (BBX.INLINE.LINK.isA(e.inlineNode)){
+                //Should this be applied to internal and external links both?
                 textView.addLinkStyleRange(e.start, e.end - e.start, e.inlineNode)
             }
             else {

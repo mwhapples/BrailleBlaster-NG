@@ -39,6 +39,7 @@ import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.util.ColorManager
 import org.brailleblaster.utils.swt.DebugStyledText
 import org.brailleblaster.util.Utils
+import org.brailleblaster.utils.BB_NS
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyleRange
 import org.eclipse.swt.custom.StyledText
@@ -161,12 +162,14 @@ abstract class WPView(manager: Manager, parent: Composite) : AbstractView(manage
     fun addLinkStyleRange(start: Int, length: Int, inlineNode: Element?) {
         val ranges = view.getStyleRanges(start, length)
         val range = if (ranges.isNotEmpty()) ranges[0] else StyleRange()
-        range.data = inlineNode?.getAttribute("href") ?: ""
-        println("Adding link style range for href: ${range.data}")
+        //Not sure that the data field is actually useful here, but it might be?
+        range.data = inlineNode?.getAttributeValue("href", BB_NS)
+        //println("Adding link style range for href: ${range.data}")
         range.start = start
         range.length = length
-        range.underlineStyle = SWT.UNDERLINE_LINK
-        range.borderColor = ColorManager.getColor(ColorManager.Colors.BLUE, view)
+        range.underline = true //Have to set this to true to see underline
+        range.underlineStyle = SWT.UNDERLINE_SINGLE
+        range.foreground = ColorManager.getColor(ColorManager.Colors.DARK_BLUE, view)
         this.ranges.add(range)
     }
 
@@ -383,6 +386,15 @@ abstract class WPView(manager: Manager, parent: Composite) : AbstractView(manage
             }
             statusBarText += "Style: $styleName | "
         }
+
+      if (manager.mapList.current.nodeParent != null) {
+        if (BBX.INLINE.LINK.isA(manager.mapList.current.nodeParent)) {
+          val href = manager.mapList.current.nodeParent.getAttributeValue("href", BB_NS)
+          if (!href.isNullOrEmpty()) {
+            statusBarText += "Link: $href | "
+          }
+        }
+      }
 
         val statusMessage = UpdateStatusbarMessage(statusBarText)
         manager.dispatch(statusMessage)
