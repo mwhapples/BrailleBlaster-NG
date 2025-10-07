@@ -212,7 +212,7 @@
                             <goal>wget</goal>
                         </goals>
                         <configuration>
-                            <url>https://github.com/jgm/pandoc/releases/download/${pandoc.version}/pandoc-${pandoc.version}-x86_64-macOS.zip</url>
+                            <url>https://github.com/jgm/pandoc/releases/download/${pandoc.version.mac}/pandoc-${pandoc.version.mac}-x86_64-macOS.zip</url>
                             <unpack>true</unpack>
                             <includes>
                                 <include>**/pandoc</include>
@@ -230,7 +230,7 @@
                             <goal>wget</goal>
                         </goals>
                         <configuration>
-                            <url>https://github.com/jgm/pandoc/releases/download/3.6.3/pandoc-3.6.3-arm64-macOS.zip</url>
+                            <url>https://github.com/jgm/pandoc/releases/download/${pandoc.version.mac}/pandoc-${pandoc.version.mac}-arm64-macOS.zip</url>
                             <unpack>true</unpack>
                             <includes>
                                 <include>**/pandoc</include>
