@@ -221,7 +221,6 @@ class RendererState(engine: UTDTranslationEngine) {
         this.emphasisNode = emphasisNode
     }
 
-
     /*
      * Table mode allows the state to move backwards without requiring a newPage element
      */
