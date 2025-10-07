@@ -299,8 +299,8 @@ public class Manager extends Controller {
                  */
 
                 mEvent.changedNodes.sort(new DocumentOrderComparator());
-                if (!mEvent.changedNodes.isEmpty() && list.findNode(mEvent.changedNodes.get(0)) == null) {
-                    reformat(mEvent.changedNodes.get(0));
+                if (!mEvent.changedNodes.isEmpty() && list.findNode(mEvent.changedNodes.getFirst()) == null) {
+                    reformat(mEvent.changedNodes.getFirst());
                 } else {
                     reformat();
                 }
@@ -865,7 +865,7 @@ public class Manager extends Controller {
         text.setListenerLock(true);
 //		text.view.setFocus();
         text.getView().setTopIndex(text.getView().getLineCount() - 1);
-        SectionElement lastSection = getSectionList().get(getSectionList().size() - 1);
+        SectionElement lastSection = getSectionList().getLast();
         if (getSectionList().size() > 1 || !lastSection.list.isEmpty()) {
             setTextCaret(lastSection.list.getLast().getEnd(getMapList()));
         }
@@ -904,7 +904,7 @@ public class Manager extends Controller {
     private void reformat() {
         Node firstNonWhitespace = getFirstReformattableNode();
         if (firstNonWhitespace != null && firstNonWhitespace.getDocument() != null) {
-            if (viewInitializer.getSectionList().size() > 1 && getSection(list.get(0)) != 0) {
+            if (viewInitializer.getSectionList().size() > 1 && getSection(list.getFirst()) != 0) {
                 reformat(firstNonWhitespace);
                 return;
             } else {
@@ -1557,7 +1557,7 @@ public class Manager extends Controller {
     }
 
     public boolean isEmptyDocument() {
-        return list.size() == 1 && list.get(0).getText().isEmpty();
+        return list.size() == 1 && list.getFirst().getText().isEmpty();
     }
 
     //Addendum to isEmptyDocument - a document that's only newlines is bound to cause problems.
