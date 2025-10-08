@@ -17,6 +17,7 @@ package org.brailleblaster.perspectives.braille.views.wp
 
 import nu.xom.Element
 import nu.xom.Node
+import org.brailleblaster.bbx.BBX
 import org.brailleblaster.exceptions.CursorMovementException
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.*
@@ -32,8 +33,10 @@ import org.brailleblaster.perspectives.mvc.events.ModifyEvent
 import org.brailleblaster.perspectives.mvc.events.XMLCaretEvent
 import org.brailleblaster.utd.actions.GenericBlockAction
 import org.brailleblaster.utd.properties.Align
-import org.brailleblaster.utils.swt.AccessibilityUtils.setName
 import org.brailleblaster.util.FormUIUtils
+import org.brailleblaster.utils.BB_NS
+import org.brailleblaster.utils.URL_NS
+import org.brailleblaster.utils.swt.AccessibilityUtils.setName
 import org.eclipse.swt.SWT
 import org.eclipse.swt.accessibility.AccessibleAdapter
 import org.eclipse.swt.accessibility.AccessibleEvent
@@ -48,6 +51,9 @@ import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Listener
 import org.slf4j.LoggerFactory
+import java.awt.Desktop
+import java.net.URI
+import kotlin.coroutines.CoroutineContext
 
 class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
     val state: ViewStateObject = ViewStateObject()
@@ -172,6 +178,40 @@ class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
         }.also { caretListener = it })
         view.addMouseListener(object : MouseAdapter() {
             override fun mouseDown(e: MouseEvent) {
+                if (e.button == 1 && e.stateMask == SWT.MOD1){
+                  //Basically, check if selection is a link, get the href attribute, open it in browser
+                  //If it's an internal link, find whatever node it points to and move the cursor there
+                  val current = manager.mapList.current
+                  if (BBX.INLINE.LINK.isA(current.nodeParent)){
+                    //Need to work on attribute lookup. Checking node parent for Link works...
+                    //println("Link clicked")
+                    val el = current.node.parent as Element
+                    val isExternal = el.getAttributeValue("external", BB_NS).toBoolean()
+                    val href = el.getAttributeValue("href", BB_NS)
+                    //Get the href attribute and open it in a browser
+                    try {
+                      if (isExternal && !href.isNullOrBlank()) {
+                        //Need a method for URL checking, for now just assume it's valid
+                        Desktop.getDesktop().browse(URI(href.toString()))
+                      }
+                      else if (!isExternal){
+                        //Figure out internal navigation system with the href
+                        //Maybe block hash? Managing that might prove very difficult.
+                        //println("Internal link clicked, navigation not yet implemented")
+                      }
+                      else{
+                        //println("Link missing href or external attribute, cannot open")
+                      }
+                    }
+                    catch (e: Exception){
+                      //println("Error opening link: " + e.message)
+                    }
+                  }
+                  else{
+                    //Do nothing
+                    //println("Clicked element is not a link")
+                  }
+                }
                 if (e.button == 2) return
                 if (e.button == 3 && !view.isTextSelected) {
                     //Original code in Kotlin, from V2 some time in Dec. 2021 - MNS

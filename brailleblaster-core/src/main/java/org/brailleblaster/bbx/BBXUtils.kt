@@ -267,7 +267,7 @@ object BBXUtils {
     /**
      * Removes blocks if they are empty and converts blocks containing
      * only images to image containers. Node is any child of
-     * the block, or the block. Returns the parent of the removed element
+     * the block, or the block itself. Returns the parent of the removed element
      */
     @JvmStatic
     fun cleanupBlock(node: Node): Node? {
