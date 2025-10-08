@@ -425,10 +425,10 @@ public class BRFWriter {
 		}
 
 		public Collection<PageEntry> getEntryAtPos(int cell, int line) {
-			Collection<PageEntry> entries = pages.get(new Point(cell, line));
-			List<PageEntry> result = new ArrayList<>(entries);
-			entries.clear();
-			return result;
+            final Point point = new Point(cell, line);
+            Collection<PageEntry> entries = pages.getOrDefault(point, new ArrayList<>());
+            pages.remove(point);
+			return entries;
 		}
 
 		public void onAfterFlush(BRFWriter brfWriter) {
