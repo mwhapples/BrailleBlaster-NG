@@ -364,7 +364,9 @@ class BrailleDocument(dm: Manager, doc: Document) : BBDocument(dm, doc) {
                             if (e1.childCount > 0 && e1.getChild(0) is Text && e2.childCount > 0 && e2.getChild(0) is Text) {
                                 (e1.getChild(0) as Text).value = e1.getChild(0).value + e2.getChild(0).value
                                 val els = e2.childElements
-                                for (i in 0 until els.size()) e1.appendChild(e2.removeChild(els[0]))
+                                repeat(els.size()) {
+                                    e1.appendChild(e2.removeChild(els.first()))
+                                }
                                 e2.parent.removeChild(e2)
                                 merged = true
                             }
