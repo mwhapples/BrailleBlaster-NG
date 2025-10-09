@@ -57,7 +57,7 @@ open class UTDTranslationEngine(
             _tableID++
             return "utd_table_$_tableID"
         }
-    override var callback: UTDTranslationEngineCallback = object : UTDTranslationEngineCallback() {
+    override var callback: UTDTranslationEngineCallback = object : UTDTranslationEngineCallback {
         override fun onUpdateNode(n: Node) {}
         override fun onFormatComplete(root: Node) {}
     }

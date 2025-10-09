@@ -45,7 +45,7 @@ import org.slf4j.LoggerFactory
 
 class BrailleDocument(dm: Manager, doc: Document) : BBDocument(dm, doc) {
     init {
-        engine.callback = object : UTDTranslationEngineCallback() {
+        engine.callback = object : UTDTranslationEngineCallback {
             override fun onUpdateNode(n: Node) {
                 // //Reduce unnessesary logging
                 // if (n instanceof Document)
