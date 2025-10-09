@@ -75,7 +75,7 @@ class LocalEntityResolver : EntityResolver2 {
         try {
             val systemIdUri = URI(systemId)
             absoluteSystemId = systemIdUri.isAbsolute
-        } catch (e: URISyntaxException) {
+        } catch (_: URISyntaxException) {
             absoluteSystemId = false
         }
 
@@ -107,7 +107,7 @@ class LocalEntityResolver : EntityResolver2 {
                 ) {
                     return InputSource(sourceURI)
                 }
-            } catch (e: URISyntaxException) {
+            } catch (_: URISyntaxException) {
                 // Do nothing, we try the fallbacks below.
             }
         }
@@ -135,7 +135,7 @@ class LocalEntityResolver : EntityResolver2 {
                         BOMInputStream.builder().setInputStream(Files.newInputStream(Paths.get(sourcePathUri))).get()
                     )
                 }
-            } catch (e: URISyntaxException) {
+            } catch (_: URISyntaxException) {
                 // No problem, fallback.
                 log.error("URI of entity is invalid: {}", baseUri)
             } catch (e: IOException) {
