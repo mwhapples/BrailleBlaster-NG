@@ -15,7 +15,7 @@
  */
 package org.brailleblaster.utd.internal.xml
 
-import org.brailleblaster.utd.utils.EntityMap
+import org.brailleblaster.utils.EntityMap
 import org.slf4j.LoggerFactory
 import org.xml.sax.Attributes
 import org.xml.sax.InputSource
