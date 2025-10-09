@@ -20,6 +20,7 @@ import com.google.common.io.BaseEncoding
 import nu.xom.Text
 import org.brailleblaster.libembosser.spi.BrlCell
 import org.brailleblaster.libembosser.utils.BrailleMapper
+import org.brailleblaster.utils.PEFNamespaceContext
 import org.brailleblaster.libembosser.utils.xml.DocumentUtils
 import org.brailleblaster.utd.ITranslationEngine
 import org.brailleblaster.utd.properties.UTDElements
