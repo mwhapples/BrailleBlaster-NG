@@ -24,7 +24,7 @@ import org.brailleblaster.utd.exceptions.UTDException
 import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.properties.UTDElements
-import org.brailleblaster.utils.UTD_NS
+import org.brailleblaster.utils.xml.UTD_NS
 import java.lang.reflect.Field
 import java.util.*
 import java.util.function.Consumer

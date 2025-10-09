@@ -25,7 +25,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import org.brailleblaster.utils.NamespacesKt;
+import org.brailleblaster.utils.xml.NamespacesKt;
 import org.jetbrains.annotations.Nullable;
 
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;

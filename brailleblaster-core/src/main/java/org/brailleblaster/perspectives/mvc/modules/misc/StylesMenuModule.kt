@@ -57,8 +57,8 @@ import org.brailleblaster.exceptions.BBNotifyException
 import org.brailleblaster.perspectives.mvc.menu.BBSeparator
 import org.brailleblaster.util.Notify
 import org.brailleblaster.util.Notify.notify
-import org.brailleblaster.utils.BB_NS
-import org.brailleblaster.utils.UTD_NS
+import org.brailleblaster.utils.xml.BB_NS
+import org.brailleblaster.utils.xml.UTD_NS
 import org.brailleblaster.utils.swt.EasySWT.setSizeAndLocationMiddleScreen
 import org.brailleblaster.wordprocessor.WPManager
 import org.brailleblaster.wordprocessor.WPManager.Companion.getInstance

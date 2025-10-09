@@ -33,7 +33,7 @@ import org.brailleblaster.utils.xom.detachAll
 import org.brailleblaster.util.ColorManager
 import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.util.Notify.showMessage
-import org.brailleblaster.utils.BB_NS
+import org.brailleblaster.utils.xml.BB_NS
 import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.ExtendedModifyEvent
