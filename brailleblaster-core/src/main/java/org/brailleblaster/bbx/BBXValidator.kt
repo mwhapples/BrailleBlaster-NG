@@ -23,9 +23,9 @@ import org.brailleblaster.utd.exceptions.NodeException
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utils.xom.childNodes
 import org.brailleblaster.util.Utils
-import org.brailleblaster.utils.BB_NS
-import org.brailleblaster.utils.MATHML_NS
-import org.brailleblaster.utils.UTD_NS
+import org.brailleblaster.utils.xml.BB_NS
+import org.brailleblaster.utils.xml.MATHML_NS
+import org.brailleblaster.utils.xml.UTD_NS
 import org.slf4j.LoggerFactory
 import java.util.*
 

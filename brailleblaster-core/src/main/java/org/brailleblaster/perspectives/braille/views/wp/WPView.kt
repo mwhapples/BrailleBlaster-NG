@@ -39,7 +39,7 @@ import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.util.ColorManager
 import org.brailleblaster.utils.swt.DebugStyledText
 import org.brailleblaster.util.Utils
-import org.brailleblaster.utils.BB_NS
+import org.brailleblaster.utils.xml.BB_NS
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyleRange
 import org.eclipse.swt.custom.StyledText

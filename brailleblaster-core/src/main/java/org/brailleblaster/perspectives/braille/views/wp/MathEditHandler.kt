@@ -105,7 +105,7 @@ object MathEditHandler {
 	fun insertNew(o: MathSubject) {
     val m = WPManager.getInstance().controller
     val mapElement = m.mapList.current
-    if (!MathModule.isMath(mapElement.node)) {
+    if (!MathModuleUtils.isMath(mapElement.node)) {
       // check to make sure we aren't inserting new math into a toc or table
       if (mapElement.isReadOnly) {
         TableSelectionModule.displayInvalidTableMessage(m.wpManager.shell)
@@ -190,7 +190,7 @@ object MathEditHandler {
       m.simpleManager.dispatchEvent(ModifyEvent(Sender.MATH, true, block))
       var translatedText = o.string
       if ((o.node as Element).getAttributeValue("alttext") != null) {
-        translatedText = MathModule.getMathText(o.node)
+        translatedText = MathModuleUtils.getMathText(o.node)
       }
       TextViewModule.setCursorAfterInsert(m, translatedText.length, Sender.MATH)
     } else {
@@ -256,7 +256,7 @@ object MathEditHandler {
 
   fun replaceMathAtCursor(o: MathSubject) {
     val m = WPManager.getInstance().controller
-    if (MathModule.isMath(m.mapList.current.node)) {
+    if (MathModuleUtils.isMath(m.mapList.current.node)) {
       translateAndReplaceAtCursor(o)
     } else {
       insertNew(o)

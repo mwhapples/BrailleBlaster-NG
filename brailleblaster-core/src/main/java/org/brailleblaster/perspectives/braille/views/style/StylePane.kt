@@ -19,7 +19,7 @@ import nu.xom.Element
 import org.brailleblaster.abstractClasses.BBEditorView
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.easierxml.ImageUtils.getImageNavigateBlock
-import org.brailleblaster.math.mathml.MathModule
+import org.brailleblaster.math.mathml.MathModuleUtils
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.BraillePageBrlMapElement
 import org.brailleblaster.perspectives.braille.mapping.elements.PageIndicator
@@ -277,7 +277,7 @@ class StylePane(parent: Composite, private val m: Manager) : BBEditorView {
             styleName += " " + (BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_SKIP_LINES[ancestorBlock])
         }
         if (BBX.BLOCK.SPATIAL_MATH.isA(ancestorBlock)) {
-            styleName = MathModule.SPATIAL_MATH
+            styleName = MathModuleUtils.SPATIAL_MATH
         }
         return styleName
     }

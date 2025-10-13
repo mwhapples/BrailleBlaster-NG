@@ -33,8 +33,8 @@ import org.brailleblaster.perspectives.mvc.events.XMLCaretEvent
 import org.brailleblaster.utd.exceptions.NodeException
 import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
-import org.brailleblaster.utils.BB_NS
-import org.brailleblaster.utils.UTD_NS
+import org.brailleblaster.utils.xml.BB_NS
+import org.brailleblaster.utils.xml.UTD_NS
 import org.eclipse.swt.custom.StyledText
 import org.slf4j.LoggerFactory
 import java.util.function.Supplier

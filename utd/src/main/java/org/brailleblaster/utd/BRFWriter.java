@@ -427,9 +427,8 @@ public class BRFWriter {
         }
 
         public Collection<PageEntry> getEntryAtPos(int cell, int line) {
-            final Point point = new Point(cell, line);
-            Collection<PageEntry> entries = pages.remove(point);
-            return entries == null ? new ArrayList<>() : entries;
+            Collection<PageEntry> entries = pages.remove(new Point(cell, line));
+            return entries == null ? Collections.emptyList() : entries;
         }
 
         public void onAfterFlush(BRFWriter brfWriter) {
