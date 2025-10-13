@@ -20,16 +20,6 @@ import org.brailleblaster.perspectives.mvc.SimpleEvent
 import org.brailleblaster.perspectives.mvc.events.BuildMenuEvent
 import org.brailleblaster.perspectives.mvc.menu.MenuManager
 import org.brailleblaster.perspectives.mvc.modules.views.DebugModule
-import org.brailleblaster.tools.AboutMathTool
-import org.brailleblaster.tools.AsciiMathEditorTool
-import org.brailleblaster.tools.MathTableTool
-import org.brailleblaster.tools.NemethBlockTool
-import org.brailleblaster.tools.NemethInlineTool
-import org.brailleblaster.tools.NumericBlockTool
-import org.brailleblaster.tools.NumericInlineTool
-import org.brailleblaster.tools.NumericSeriesTool
-import org.brailleblaster.tools.SpatialComboTool
-import org.brailleblaster.tools.ToggleMathTool
 
 class MathModule : BBSimpleManager.SimpleListener {
     override fun onEvent(event: SimpleEvent) {
