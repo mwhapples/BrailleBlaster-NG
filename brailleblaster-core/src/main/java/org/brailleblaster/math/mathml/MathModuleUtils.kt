@@ -45,8 +45,6 @@ import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.wordprocessor.WPManager.Companion.getInstance
 import org.eclipse.swt.SWT
 import org.mwhapples.jlouis.Louis
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 
 object MathModuleUtils {
 
@@ -93,8 +91,6 @@ object MathModuleUtils {
     var BASIC_MATH_XML: String =
         StringEscapeUtils.escapeJava("<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mn>0</mn></math>")
 
-    @Suppress("unused")
-    private val log: Logger = LoggerFactory.getLogger(MathModuleUtils::class.java)
     const val MATH_ATTRIBUTE: String = "alttext"
     const val MATHML_NAMESPACE: String = "http://www.w3.org/1998/Math/MathML"
 
