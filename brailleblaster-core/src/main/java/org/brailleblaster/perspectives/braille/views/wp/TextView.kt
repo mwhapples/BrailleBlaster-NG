@@ -34,8 +34,8 @@ import org.brailleblaster.perspectives.mvc.events.XMLCaretEvent
 import org.brailleblaster.utd.actions.GenericBlockAction
 import org.brailleblaster.utd.properties.Align
 import org.brailleblaster.util.FormUIUtils
-import org.brailleblaster.utils.xml.BB_NS
 import org.brailleblaster.utils.swt.AccessibilityUtils.setName
+import org.brailleblaster.utils.xml.BB_NS
 import org.eclipse.swt.SWT
 import org.eclipse.swt.accessibility.AccessibleAdapter
 import org.eclipse.swt.accessibility.AccessibleEvent
@@ -52,7 +52,6 @@ import org.eclipse.swt.widgets.Listener
 import org.slf4j.LoggerFactory
 import java.awt.Desktop
 import java.net.URI
-import kotlin.coroutines.CoroutineContext
 
 class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
     val state: ViewStateObject = ViewStateObject()
@@ -191,7 +190,7 @@ class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
                     try {
                       if (isExternal && !href.isNullOrBlank()) {
                         //Need a method for URL checking, for now just assume it's valid
-                        Desktop.getDesktop().browse(URI(href.toString()))
+                        Desktop.getDesktop().browse(URI(href))
                       }
                       else if (!isExternal){
                         //Figure out internal navigation system with the href
@@ -232,7 +231,7 @@ class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
                                 view.caretOffset = offsetEnd
                             }
                         }
-                    } catch (ex: IllegalArgumentException) {
+                    } catch (_: IllegalArgumentException) {
                         //code above sets to exact location on a line of text
                         //will set caret to start of line, used for blank lines due to SWT Bug
                         val line = view.getLineIndex(e.y)
