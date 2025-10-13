@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.utils
+package org.brailleblaster.utils.xml
 
 const val UTD_NS ="http://brailleblaster.org/ns/utd"
 const val BB_NS = "http://brailleblaster.org/ns/bb"

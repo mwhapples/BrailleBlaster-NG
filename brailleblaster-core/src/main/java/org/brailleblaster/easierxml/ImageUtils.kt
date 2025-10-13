@@ -27,7 +27,7 @@ import org.brailleblaster.utd.exceptions.NodeException
 import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.utils.TableUtils
-import org.brailleblaster.utils.UTD_NS
+import org.brailleblaster.utils.xml.UTD_NS
 import org.brailleblaster.utils.xom.childNodes
 import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT

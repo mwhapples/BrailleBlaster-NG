@@ -30,7 +30,7 @@ import org.brailleblaster.utd.utils.PageBuilderHelper.setPageNumberType
 import org.brailleblaster.utd.utils.UTDHelper.Companion.containsBrl
 import org.brailleblaster.utd.utils.UTDHelper.Companion.getDescendantBrlFast
 import org.brailleblaster.libembosser.spi.BrlCell
-import org.brailleblaster.utils.UTD_NS
+import org.brailleblaster.utils.xml.UTD_NS
 import java.util.*
 import kotlin.math.max
 

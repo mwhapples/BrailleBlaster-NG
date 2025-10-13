@@ -24,7 +24,7 @@ import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.utd.internal.xml.XMLHandler
-import org.brailleblaster.utils.BB_NS
+import org.brailleblaster.utils.xml.BB_NS
 import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridLayout

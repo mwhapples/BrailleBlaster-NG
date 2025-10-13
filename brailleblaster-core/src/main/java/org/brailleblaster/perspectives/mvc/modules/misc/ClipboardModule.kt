@@ -24,10 +24,10 @@ import org.brailleblaster.bbx.BBXUtils.findBlockChild
 import org.brailleblaster.bbx.findBlockOrNull
 import org.brailleblaster.bbx.fixers.NodeTreeSplitter.split
 import org.brailleblaster.bbx.fixers2.LiveFixer
-import org.brailleblaster.math.mathml.MathModule.Companion.getMathText
-import org.brailleblaster.math.mathml.MathModule.Companion.isMath
-import org.brailleblaster.math.mathml.MathModule.Companion.makeMathFromSelection
-import org.brailleblaster.math.mathml.MathModule.Companion.selectionContainsMath
+import org.brailleblaster.math.mathml.MathModuleUtils.getMathText
+import org.brailleblaster.math.mathml.MathModuleUtils.isMath
+import org.brailleblaster.math.mathml.MathModuleUtils.makeMathFromSelection
+import org.brailleblaster.math.mathml.MathModuleUtils.selectionContainsMath
 import org.brailleblaster.math.mathml.MathSubject
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.TextMapElement

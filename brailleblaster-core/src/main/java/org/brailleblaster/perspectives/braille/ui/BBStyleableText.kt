@@ -19,7 +19,7 @@ import nu.xom.Element
 import nu.xom.Text
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.bbx.utd.BBXDynamicOptionStyleMap
-import org.brailleblaster.math.mathml.MathModule
+import org.brailleblaster.math.mathml.MathModuleUtils
 import org.brailleblaster.math.mathml.MathUtils.wrapInMath
 import org.brailleblaster.perspectives.braille.views.wp.TextRenderer
 import org.brailleblaster.perspectives.mvc.modules.misc.ChangeTranslationModule
@@ -33,7 +33,7 @@ import org.brailleblaster.utils.xom.detachAll
 import org.brailleblaster.util.ColorManager
 import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.util.Notify.showMessage
-import org.brailleblaster.utils.BB_NS
+import org.brailleblaster.utils.xml.BB_NS
 import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.ExtendedModifyEvent
@@ -296,9 +296,9 @@ class BBStyleableText(parent: Composite, buttonPanel: Composite?, buttons: Int, 
                     val end = startOffset + sb.length
                     styles.add(Range(start, end, relevantTag))
                 } else sb.append(child.value)
-            } else if (MathModule.isMathParent(child)) {
+            } else if (MathModuleUtils.isMathParent(child)) {
                 val start = startOffset + sb.length
-                sb.append(MathModule.getMathText(child))
+                sb.append(MathModuleUtils.getMathText(child))
                 val end = startOffset + sb.length
                 styles.add(Range(start, end, tags.first { n: Tag? -> n is MathTag }))
             } else if (child is Element) {
