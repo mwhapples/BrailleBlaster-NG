@@ -49,19 +49,6 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 object MathModuleUtils {
-    enum class MathOption(val key: String, val prettyString: String, val enabled: Boolean) {
-        MATHHELP(MATH_HELP_KEY, MATH_HELP, true),
-        ASCIIEDITOR(ASCII_EDITOR_KEY, ASCII_EDITOR, true),
-        MATHTOGGLE(MATH_TOGGLE_KEY, MATH_TOGGLE, true),
-        NEMETHBLOCK(NEMETH_BLOCK_KEY, NEMETH_BLOCK, true),
-        NEMETHINLINE(NEMETH_INLINE_KEY, NEMETH_INLINE, true),
-        NUMERICBLOCK(NUMERIC_PASSAGE_BLOCK_KEY, NUMERIC_PASSAGE_BLOCK, true),
-        NUMERICINLINE(NUMERIC_PASSAGE_INLINE_KEY, NUMERIC_PASSAGE_INLINE, true),
-        NUMERICSERIES(NUMERIC_SERIES_KEY, NUMERIC_SERIES, true),
-        MATHTABLE(MATH_TABLE_KEY, MATH_TABLE, false),
-        IMAGEDESCRIBER(IMAGE_DESCRIBER_KEY, IMAGE_DESCRIBER, true),
-        SPATIALCOMBO(SPATIAL_COMBO_KEY, SPATIAL_COMBO, true)
-    }
 
     private val localeHandler = getDefault()
     const val MATH_HELP_KEY: String = "mathHelp"

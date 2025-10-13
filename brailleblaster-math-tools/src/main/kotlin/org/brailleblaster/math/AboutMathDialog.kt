@@ -17,7 +17,6 @@ package org.brailleblaster.math
 
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.math.mathml.MathModuleUtils
-import org.brailleblaster.math.mathml.MathModuleUtils.MathOption
 import org.brailleblaster.perspectives.braille.toolbar.ToolBarBuilder
 import org.brailleblaster.perspectives.mvc.modules.views.DebugModule
 import org.brailleblaster.util.FormUIUtils
