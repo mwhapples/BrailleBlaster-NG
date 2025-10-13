@@ -35,6 +35,7 @@ child.project.url.inherit.append.path="false">
         <module>brailleblaster-java-checker</module>
         <module>brailleblaster-updater</module>
         <module>utd-cli</module>
+        <module>brailleblaster-math-tools</module>
     </modules>
 
     <properties>

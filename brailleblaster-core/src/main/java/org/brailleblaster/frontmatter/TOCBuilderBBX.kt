@@ -31,7 +31,7 @@ import org.brailleblaster.frontmatter.VolumeUtils.VolumeData
 import org.brailleblaster.frontmatter.VolumeUtils.getOrCreateTOC
 import org.brailleblaster.frontmatter.VolumeUtils.getVolumeElements
 import org.brailleblaster.frontmatter.VolumeUtils.getVolumeNames
-import org.brailleblaster.math.mathml.MathModuleUtils.Companion.blockContainsMath
+import org.brailleblaster.math.mathml.MathModuleUtils.blockContainsMath
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.messages.Sender
 import org.brailleblaster.perspectives.braille.searcher.Searcher
@@ -698,7 +698,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolModule, BBViewListen
             .filter { node -> BBX.BLOCK.isA(node) }
             .map { node ->
                 Searcher.Mappers.toElement(
-                    node!!
+                    node
                 )
             }
             .firstOrNull()
