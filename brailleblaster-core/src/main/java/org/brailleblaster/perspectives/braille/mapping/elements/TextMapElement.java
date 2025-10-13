@@ -15,11 +15,9 @@
  */
 package org.brailleblaster.perspectives.braille.mapping.elements;
 
-import nu.xom.Attribute;
 import nu.xom.Element;
 import nu.xom.Node;
 import nu.xom.ParentNode;
-import org.brailleblaster.bbx.BBX;
 import org.brailleblaster.math.mathml.MathModule;
 import org.brailleblaster.utd.internal.xml.XMLHandler;
 import org.jetbrains.annotations.Nullable;
