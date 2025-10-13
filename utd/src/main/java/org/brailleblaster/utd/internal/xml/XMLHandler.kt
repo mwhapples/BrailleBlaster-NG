@@ -23,7 +23,7 @@ import org.brailleblaster.utd.exceptions.UTDException
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.LocalEntityResolver
 import org.brailleblaster.utd.utils.LocalEntityResolver.Companion.createXomBuilder
-import org.brailleblaster.utils.UTD_NS
+import org.brailleblaster.utils.xml.UTD_NS
 import org.brailleblaster.utils.xom.childNodes
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

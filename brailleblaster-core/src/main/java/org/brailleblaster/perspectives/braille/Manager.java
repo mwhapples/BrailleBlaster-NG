@@ -32,7 +32,7 @@ import org.brailleblaster.embossers.EmbossingUtils;
 import org.brailleblaster.exceptions.*;
 import org.brailleblaster.frontmatter.VolumeUtils;
 import org.brailleblaster.utils.localization.LocaleHandler;
-import org.brailleblaster.math.mathml.MathModule;
+import org.brailleblaster.math.mathml.MathModuleUtils;
 import org.brailleblaster.perspectives.Controller;
 import org.brailleblaster.perspectives.braille.document.BrailleDocument;
 import org.brailleblaster.perspectives.braille.eventQueue.EventFrame;
@@ -516,7 +516,7 @@ public class Manager extends Controller {
     }
 
     private void initializeAllViews() {
-        MathModule.retranslateSpatial(document);
+        MathModuleUtils.retranslateSpatial(document);
         try (WorkingDialog ignored = new WorkingDialog(
                 archiver != null ? "Parsing book " + getArchiver().getPath() : "Starting BrailleBlaster")) {
             document.translateDocument();

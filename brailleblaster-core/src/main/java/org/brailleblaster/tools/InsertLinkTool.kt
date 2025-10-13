@@ -24,7 +24,7 @@ import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.utd.internal.xml.XMLHandler
-import org.brailleblaster.utils.BB_NS
+import org.brailleblaster.utils.xml.BB_NS
 import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridLayout
@@ -68,7 +68,7 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
     entryText.text = linkText
     EasySWT.addEnterListener(entryText) {
       //Insert the link at the current selection
-      val linkText = entryText.getText()
+      val linkText = entryText.text
       insertExternalLink(linkText, bbData)
       shell.close()
     }
@@ -76,7 +76,7 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
     val buttonsGroup = EasySWT.makeGroup(shell, SWT.CENTER, 3, true)
     EasySWT.makePushButton(buttonsGroup, localeHandler["InsertLink"], 1) {
       //Insert the link at the current selection (same behavior as pressing Enter in the text box)
-      val linkText = entryText.getText()
+      val linkText = entryText.text
       insertExternalLink(linkText, bbData)
       shell.close()
     }

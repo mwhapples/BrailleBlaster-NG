@@ -15,7 +15,7 @@
  */
 package org.brailleblaster.math.template
 
-import org.brailleblaster.math.mathml.MathModule
+import org.brailleblaster.math.mathml.MathModuleUtils
 import org.brailleblaster.math.spatial.*
 import org.brailleblaster.math.spatial.SpatialMathEnum.OPERATOR
 import org.brailleblaster.math.spatial.SpatialMathEnum.OPERATOR.Companion.stringArray
@@ -274,7 +274,7 @@ class TemplateWidget : ISpatialMathWidget {
     }
 
     private fun addOptionsMenu(shell: Shell, settingsMenu: Menu) {
-        if (MathModule.isNemeth) {
+        if (MathModuleUtils.isNemeth) {
             val b = MenuItem(settingsMenu, SWT.CHECK)
             b.text = TemplateConstants.STRAIGHT_VERTICAL
             b.selection = template!!.settings.isStraightRadicalSymbol

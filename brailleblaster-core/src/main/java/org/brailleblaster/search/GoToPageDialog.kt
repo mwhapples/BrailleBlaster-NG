@@ -21,7 +21,7 @@ import org.brailleblaster.BBIni
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.frontmatter.VolumeUtils
 import org.brailleblaster.frontmatter.VolumeUtils.VolumeData
-import org.brailleblaster.math.mathml.MathModule
+import org.brailleblaster.math.mathml.MathModuleUtils
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.TextMapElement
 import org.brailleblaster.perspectives.braille.messages.Sender
@@ -218,7 +218,7 @@ class GoToPageDialog(private val m: Manager) {
                 false
             }
                     &&
-                    !MathModule.isMath(curNode))
+                    !MathModuleUtils.isMath(curNode))
         }.first()
       val (_, value) = m.getBraillePageElementByUntranslatedPage(brlPage, textAfterVolume)
         ?: throw BBNotifyException(
