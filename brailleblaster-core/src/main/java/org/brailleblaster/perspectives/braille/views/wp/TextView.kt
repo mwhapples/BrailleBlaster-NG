@@ -35,7 +35,6 @@ import org.brailleblaster.utd.actions.GenericBlockAction
 import org.brailleblaster.utd.properties.Align
 import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.utils.xml.BB_NS
-import org.brailleblaster.utils.xml.URL_NS
 import org.brailleblaster.utils.swt.AccessibilityUtils.setName
 import org.eclipse.swt.SWT
 import org.eclipse.swt.accessibility.AccessibleAdapter
