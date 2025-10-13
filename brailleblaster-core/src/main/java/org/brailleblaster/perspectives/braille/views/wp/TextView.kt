@@ -34,8 +34,8 @@ import org.brailleblaster.perspectives.mvc.events.XMLCaretEvent
 import org.brailleblaster.utd.actions.GenericBlockAction
 import org.brailleblaster.utd.properties.Align
 import org.brailleblaster.util.FormUIUtils
-import org.brailleblaster.utils.swt.AccessibilityUtils.setName
 import org.brailleblaster.utils.xml.BB_NS
+import org.brailleblaster.utils.swt.AccessibilityUtils.setName
 import org.eclipse.swt.SWT
 import org.eclipse.swt.accessibility.AccessibleAdapter
 import org.eclipse.swt.accessibility.AccessibleEvent
@@ -52,6 +52,7 @@ import org.eclipse.swt.widgets.Listener
 import org.slf4j.LoggerFactory
 import java.awt.Desktop
 import java.net.URI
+import kotlin.coroutines.CoroutineContext
 
 class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
     val state: ViewStateObject = ViewStateObject()
@@ -179,6 +180,10 @@ class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
                 if (e.button == 1 && e.stateMask == SWT.MOD1){
                   //Basically, check if selection is a link, get the href attribute, open it in browser
                   //If it's an internal link, find whatever node it points to and move the cursor there
+                  //Still not sure about how to handle internal links - don't know if I want them pointing to a node
+                  // or an absolute position in the document. Both have pros and cons. Namely, I'm concerned about how nodes
+                  // could break; absolute positions would be easier to manage but could lead to broken links if text is heavily edited.
+                  // This will need to be discussed...
                   val current = manager.mapList.current
                   if (BBX.INLINE.LINK.isA(current.nodeParent)){
                     //Need to work on attribute lookup. Checking node parent for Link works...
@@ -188,17 +193,21 @@ class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
                     val href = el.getAttributeValue("href", BB_NS)
                     //Get the href attribute and open it in a browser
                     try {
-                      if (isExternal && !href.isNullOrBlank()) {
-                        //Need a method for URL checking, for now just assume it's valid
-                        Desktop.getDesktop().browse(URI(href))
+                      if (isExternal) {
+                        if (!href.isNullOrBlank()) {
+                          //Need a method for URL checking, for now just assume it's valid
+                          Desktop.getDesktop().browse(URI(href.toString()))
+                        }
+                        else{
+                          logger.warn("Tried to open a link with no href attribute")
+                        }
                       }
-                      else if (!isExternal){
+                      else {
                         //Figure out internal navigation system with the href
-                        //Maybe block hash? Managing that might prove very difficult.
+                        //Maybe block hash? Managing that might prove difficult to manage...
+                        //Gotta try something though!
                         //println("Internal link clicked, navigation not yet implemented")
-                      }
-                      else{
-                        //println("Link missing href or external attribute, cannot open")
+                        //Maybe a line number or positon? Would be simpler, but not as robust when the document is edited
                       }
                     }
                     catch (e: Exception){
@@ -231,7 +240,7 @@ class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
                                 view.caretOffset = offsetEnd
                             }
                         }
-                    } catch (_: IllegalArgumentException) {
+                    } catch (ex: IllegalArgumentException) {
                         //code above sets to exact location on a line of text
                         //will set caret to start of line, used for blank lines due to SWT Bug
                         val line = view.getLineIndex(e.y)

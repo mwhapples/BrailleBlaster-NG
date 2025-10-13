@@ -485,7 +485,6 @@ class TextRenderer(manager: Manager, private val textView: TextView) : Renderer(
                 textView.addMathHighlights(e.start, e.end - e.start, e.inlineNode)
             }
             else if (BBX.INLINE.LINK.isA(e.inlineNode)){
-                //Should this be applied to internal and external links both?
                 textView.addLinkStyleRange(e.start, e.end - e.start, e.inlineNode)
             }
             else {
