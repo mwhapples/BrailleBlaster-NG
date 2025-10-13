@@ -16,8 +16,8 @@
 package org.brailleblaster.math.ascii
 
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
-import org.brailleblaster.math.mathml.MathModule
-import org.brailleblaster.math.mathml.MathModule.MathOption
+import org.brailleblaster.math.mathml.MathModuleUtils
+import org.brailleblaster.math.mathml.MathModuleUtils.MathOption
 import org.brailleblaster.perspectives.braille.toolbar.ToolBarBuilder
 import org.brailleblaster.perspectives.mvc.modules.views.DebugModule
 import org.brailleblaster.util.FormUIUtils
@@ -39,7 +39,7 @@ object AboutMathDialog {
         val shell = Shell(parent, SWT.DIALOG_TRIM or SWT.RESIZE)
         shell.data = GridData(4, 4, true, true)
         shell.layout = GridLayout(1, false)
-        shell.text = MathModule.MATH_HELP
+        shell.text = MathModuleUtils.MATH_HELP
         val outer = Composite(shell, SWT.NONE)
         outer.layout = GridLayout(1, false)
         outer.layoutData = GridData(4, 4, true, true)
@@ -65,7 +65,7 @@ object AboutMathDialog {
                 }
 
                 // get description
-                val description = localeHandler[MathModule.HELP_PREFIX_KEY + item.key]
+                val description = localeHandler[MathModuleUtils.HELP_PREFIX_KEY + item.key]
                 val textLabel = StyledText(comp, SWT.NONE)
                 textLabel.data = GridData()
                 textLabel.text = wrapText(description, 80)

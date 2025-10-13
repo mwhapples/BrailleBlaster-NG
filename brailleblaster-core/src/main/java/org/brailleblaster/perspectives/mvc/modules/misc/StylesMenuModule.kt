@@ -25,9 +25,9 @@ import org.brailleblaster.bbx.BBXUtils
 import org.brailleblaster.bbx.findBlock
 import org.brailleblaster.bbx.findBlockChildOrNull
 import org.brailleblaster.bbx.findBlockOrNull
-import org.brailleblaster.math.mathml.MathModule
-import org.brailleblaster.math.mathml.MathModule.Companion.isMath
-import org.brailleblaster.math.mathml.MathModule.Companion.isSpatialMath
+import org.brailleblaster.math.mathml.MathModuleUtils
+import org.brailleblaster.math.mathml.MathModuleUtils.Companion.isMath
+import org.brailleblaster.math.mathml.MathModuleUtils.Companion.isSpatialMath
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.messages.Sender
 import org.brailleblaster.perspectives.mvc.BBSimpleManager.SimpleListener
@@ -251,7 +251,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
             isSpatialMath(endSelection)
         ) {
             if (style.id != "miscellaneous/doubleLine") {
-                notify(MathModule.SPATIAL_MATH_WARNING, Notify.ALERT_SHELL_NAME)
+                notify(MathModuleUtils.SPATIAL_MATH_WARNING, Notify.ALERT_SHELL_NAME)
                 return ArrayList()
             }
         }

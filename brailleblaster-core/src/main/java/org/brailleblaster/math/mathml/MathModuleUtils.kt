@@ -54,7 +54,7 @@ import org.mwhapples.jlouis.Louis
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-class MathModule : SimpleListener {
+class MathModuleUtils : SimpleListener {
     enum class MathOption(val key: String, val prettyString: String, val enabled: Boolean) {
         MATHHELP(MATH_HELP_KEY, MATH_HELP, true),
         ASCIIEDITOR(ASCII_EDITOR_KEY, ASCII_EDITOR, true),
@@ -128,7 +128,7 @@ class MathModule : SimpleListener {
             StringEscapeUtils.escapeJava("<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mn>0</mn></math>")
 
         @Suppress("unused")
-        private val log: Logger = LoggerFactory.getLogger(MathModule::class.java)
+        private val log: Logger = LoggerFactory.getLogger(MathModuleUtils::class.java)
         const val MATH_ATTRIBUTE: String = "alttext"
         const val MATHML_NAMESPACE: String = "http://www.w3.org/1998/Math/MathML"
         @JvmField

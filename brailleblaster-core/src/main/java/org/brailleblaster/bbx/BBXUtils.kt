@@ -22,7 +22,7 @@ import nu.xom.Text
 import org.brailleblaster.bbx.BBX.ListType
 import org.brailleblaster.bbx.BBX.MarginType
 import org.brailleblaster.bbx.fixers.to3.ImageBlockToContainerImportFixer.Companion.convertImageBlockToContainer
-import org.brailleblaster.math.mathml.MathModule.Companion.isSpatialMath
+import org.brailleblaster.math.mathml.MathModuleUtils.Companion.isSpatialMath
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.searcher.Searcher
 import org.brailleblaster.settings.UTDManager

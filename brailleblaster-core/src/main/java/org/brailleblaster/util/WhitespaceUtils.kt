@@ -19,7 +19,7 @@ import nu.xom.Element
 import nu.xom.Node
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.bbx.findBlock
-import org.brailleblaster.math.mathml.MathModule
+import org.brailleblaster.math.mathml.MathModuleUtils
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.*
 import org.brailleblaster.perspectives.braille.mapping.maps.MapList
@@ -75,8 +75,8 @@ object WhitespaceUtils {
                 throw IllegalStateException("Text node without parent block")
             }
         }
-        if (MathModule.isSpatialMath(n)) {
-            block = MathModule.getSpatialMathParent(n)
+        if (MathModuleUtils.isSpatialMath(n)) {
+            block = MathModuleUtils.getSpatialMathParent(n)
         }
         val parent = block.parent
         val lineBreak = UTDElements.NEW_LINE.create()

@@ -44,7 +44,7 @@ object MathUtils {
             if (XMLHandler.ancestorElementIs(text) { n -> UTDElements.BRL.isA(n) }) {
                 continue
             }
-            val thisMathParent = MathModule.getMathParent(text)
+            val thisMathParent = MathModuleUtils.getMathParent(text)
             if (thisMathParent == null) {
                 return false
             } else if (thisMathParent != mathParent) {
@@ -247,7 +247,7 @@ object MathUtils {
      */
     fun removeAllBBMarkupFromMathML(bbNode: Node): Node? {
         var mathNode: Node? = null
-        if (MathModule.isMath(bbNode)) {
+        if (MathModuleUtils.isMath(bbNode)) {
             UTDHelper.stripUTDRecursive(bbNode as Element)
             mathNode = bbNode.copy()
             removeAltText(mathNode)

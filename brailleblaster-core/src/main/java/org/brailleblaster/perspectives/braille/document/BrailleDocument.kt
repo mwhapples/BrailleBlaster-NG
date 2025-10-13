@@ -21,7 +21,7 @@ import org.brailleblaster.bbx.BBX.SubType
 import org.brailleblaster.bbx.BBXUtils
 import org.brailleblaster.bbx.findBlockOrNull
 import org.brailleblaster.document.BBDocument
-import org.brailleblaster.math.mathml.MathModule
+import org.brailleblaster.math.mathml.MathModuleUtils
 import org.brailleblaster.math.mathml.MathSubject
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.BoxLineTextMapElement
@@ -75,7 +75,7 @@ class BrailleDocument(dm: Manager, doc: Document) : BBDocument(dm, doc) {
             ?: throw NullPointerException("CurrentNode is null. TME: " + list.current)
         val block = engine.findTranslationBlock(currentNode)
         findAndRemoveBrailleElement(block as Element)
-        if (currentNode is Element && MathModule.isMath(currentNode)) {
+        if (currentNode is Element && MathModuleUtils.isMath(currentNode)) {
             log.debug("Insert new into math from Braille Document")
             translateAndReplaceAtCursor(MathSubject(text))
             return

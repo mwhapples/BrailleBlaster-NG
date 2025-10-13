@@ -15,7 +15,7 @@
  */
 package org.brailleblaster.perspectives.braille
 
-import org.brailleblaster.math.mathml.MathModule
+import org.brailleblaster.math.mathml.MathModuleUtils
 import org.brailleblaster.perspectives.braille.spellcheck.SpellCheckTool
 import org.brailleblaster.perspectives.braille.ui.CellTabTool
 import org.brailleblaster.perspectives.braille.ui.CorrectTranslationDialog
@@ -82,7 +82,7 @@ class CoreModulesFactory : ModuleFactory {
         add(PageBreakTool)
         add(LineBreakTool)
         add(BreadcrumbsToolbar(manager))
-        add(MathModule())
+        add(MathModuleUtils())
         add(CellTabTool)
         add(BlankPrintPageIndicatorTool)
         addAll(ElementNavigationModule.tools)
