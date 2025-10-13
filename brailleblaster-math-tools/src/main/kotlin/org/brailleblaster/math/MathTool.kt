@@ -16,7 +16,6 @@
 package org.brailleblaster.math
 
 import org.brailleblaster.math.ascii.ASCIIMathEditorDialog
-import org.brailleblaster.math.ascii.AboutMathDialog
 import org.brailleblaster.math.mathml.MathModuleUtils
 import org.brailleblaster.math.mathml.NemethIndicators
 import org.brailleblaster.math.mathml.NumericPassage

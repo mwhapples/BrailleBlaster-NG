@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.math.ascii
+package org.brailleblaster.math
 
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.math.mathml.MathModuleUtils
