@@ -205,11 +205,16 @@ object MathModuleUtils {
     }
 
     fun getMathParent(node: Node?): Node {
+        val node = getMathParentOrNull(node)
+        return node ?: throw NoSuchElementException()
+    }
+
+    fun getMathParentOrNull(node: Node?): Node? {
         var node = node
         while (node != null && !isMathParent(node)) {
             node = node.parent
         }
-        return node ?: throw NoSuchElementException()
+        return node
     }
 
     fun setASCIIText(node: Element) {
