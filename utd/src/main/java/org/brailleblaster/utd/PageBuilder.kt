@@ -3827,13 +3827,17 @@ class PageBuilder {
         for (i in guideWord.indices) {
             guideWordCells[i] = getCellInstance(guideWords, i)
         }
-        var startingCell = padding
         val centerPad = (length - guideWord.length) / 2
-        startingCell += centerPad
-        if (printPos == PageNumberPosition.BOTTOM_LEFT) {
-            startingCell += printPage.length
-        } else if (brlPos == PageNumberPosition.BOTTOM_LEFT) {
-            startingCell += braillePageNum.length
+        val startingCell = centerPad + when {
+            printPos == PageNumberPosition.BOTTOM_LEFT && printPage.isNotEmpty() -> {
+                printPage.length + padding
+            }
+            brlPos == PageNumberPosition.BOTTOM_LEFT && braillePageNum.isNotEmpty() -> {
+                braillePageNum.length + padding
+            }
+            else -> {
+                0
+            }
         }
         pageGrid.setCells(startingCell, pageGrid.height - 1, guideWordCells)
     }
