@@ -900,32 +900,31 @@ class PageBuilder {
 
     val cornerPageLength: Int
         get() {
-            val printPageLength = printPageValue.length + 3
             if (_y == 0 || _y > linesPerPage) {
                 if (PageBuilderHelper.getPrintPageNumberAt(
                         pageSettings,
                         braillePageNumber.pageNumber
-                    ) == PageNumberPosition.TOP_LEFT
+                    ) == PageNumberPosition.TOP_LEFT && printPageValue.isNotEmpty()
                 ) {
-                    return printPageLength
+                    return printPageValue.length + padding
                 } else if (PageBuilderHelper.getBraillePageNumberAt(
                         pageSettings,
                         braillePageNumber.pageNumber
-                    ) == PageNumberPosition.TOP_LEFT
+                    ) == PageNumberPosition.TOP_LEFT && braillePageNum.isNotEmpty()
                 ) {
-                    return braillePageNum.length + 3
+                    return braillePageNum.length + padding
                 }
             } else if (_y == linesPerPage || _y + lineSpacing == linesPerPage) {
                 if (PageBuilderHelper.getPrintPageNumberAt(
                         pageSettings,
                         braillePageNumber.pageNumber
-                    ) == PageNumberPosition.BOTTOM_LEFT
+                    ) == PageNumberPosition.BOTTOM_LEFT && printPageValue.isNotEmpty()
                 ) {
-                    return printPageLength
+                    return printPageValue.length + padding
                 } else if (PageBuilderHelper.getBraillePageNumberAt(
                         pageSettings,
                         braillePageNumber.pageNumber
-                    ) == PageNumberPosition.BOTTOM_LEFT
+                    ) == PageNumberPosition.BOTTOM_LEFT && braillePageNum.isNotEmpty()
                 ) {
                     return braillePageNum.length + 3
                 }
