@@ -182,10 +182,10 @@ class TPageFormatter : LiteraryFormatter() {
                             formatSelector!!.engine.pageSettings, pageBuilder.braillePageNumber.pageNumber
                         )
                         var pageNumberSize = 0
-                        if (braillePosition == PageNumberPosition.BOTTOM_LEFT || braillePosition == PageNumberPosition.BOTTOM_RIGHT) {
+                        if (pageBuilder.braillePageNum.isNotEmpty() && (braillePosition == PageNumberPosition.BOTTOM_LEFT || braillePosition == PageNumberPosition.BOTTOM_RIGHT)) {
                             pageNumberSize += pageBuilder.braillePageNum.length + pageBuilder.padding
                         }
-                        if (printPosition == PageNumberPosition.BOTTOM_LEFT || printPosition == PageNumberPosition.BOTTOM_RIGHT) {
+                        if (pageBuilder.printPageNumber.isNotEmpty() && (printPosition == PageNumberPosition.BOTTOM_LEFT || printPosition == PageNumberPosition.BOTTOM_RIGHT)) {
                             pageNumberSize += pageBuilder.printPageNumber.length + pageBuilder.padding
                         }
                         val lineLengthStyle = Style()
