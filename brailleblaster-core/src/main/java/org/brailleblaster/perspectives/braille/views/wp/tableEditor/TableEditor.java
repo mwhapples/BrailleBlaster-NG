@@ -28,7 +28,7 @@ import org.brailleblaster.util.FormUIUtils;
 import org.brailleblaster.util.Notify;
 import org.brailleblaster.utils.gui.PickerDialog;
 import org.brailleblaster.utils.localization.LocaleHandler;
-import org.brailleblaster.math.mathml.MathModule;
+import org.brailleblaster.math.mathml.MathModuleUtils;
 import org.brailleblaster.perspectives.braille.Manager;
 import org.brailleblaster.perspectives.braille.document.BrailleDocument;
 import org.brailleblaster.perspectives.braille.mapping.interfaces.Uneditable;
@@ -804,7 +804,7 @@ public class TableEditor extends Dialog {
                     rebuildView();
                 })
                 .addSubMenu("Add Emphasis To All", createEmphasisSubMenu(texts, rightTexts))
-                .addPushItem(localeHandler.get("tableEditor.mathToAll"), SWT.MOD3 | MathModule.MATH_ACCELERATOR, e -> {
+                .addPushItem(localeHandler.get("tableEditor.mathToAll"), SWT.MOD3 | MathModuleUtils.MATH_ACCELERATOR, e -> {
                     texts.forEach(t -> t.text.applyEmphasisToAll(MathTags.MATH));
                     if (rightTexts != null)
                         rightTexts.forEach(t -> t.text.applyEmphasisToAll(MathTags.MATH));
@@ -831,7 +831,7 @@ public class TableEditor extends Dialog {
                     if (curText != null)
                         curText.toggleTag(EmphasisTags.CTUNCONTRACTED);
                 })
-                .addPushItem("Math Translation", MathModule.MATH_ACCELERATOR, e -> {
+                .addPushItem("Math Translation", MathModuleUtils.MATH_ACCELERATOR, e -> {
                     BBStyleableText curText = getCurrentText(texts, rightTexts);
                     if (curText != null)
                         curText.toggleTag(MathTags.MATH);

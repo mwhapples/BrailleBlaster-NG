@@ -21,7 +21,7 @@ import org.brailleblaster.bbx.BBXUtils
 import org.brailleblaster.bbx.findBlock
 import org.brailleblaster.bbx.fixers2.LiveFixer
 import org.brailleblaster.exceptions.EditingException
-import org.brailleblaster.math.mathml.MathModule
+import org.brailleblaster.math.mathml.MathModuleUtils
 import org.brailleblaster.math.numberLine.NumberLine.Companion.middleNumberLine
 import org.brailleblaster.math.numberLine.NumberLineConstants
 import org.brailleblaster.math.spatial.Matrix.Companion.middleMatrix
@@ -1085,7 +1085,7 @@ class TextVerifyKeyListener(
             while (!BBX.BLOCK.isA(parent)) {
                 val newParent = parent.parent
                 var index = newParent.indexOf(parent)
-                if (MathModule.isMath(n)) {
+                if (MathModuleUtils.isMath(n)) {
                     index = BBXUtils.getIndexInBlock(n)
                 }
                 parent = newParent
@@ -1115,7 +1115,7 @@ class TextVerifyKeyListener(
                     return true
 
                 var index = newParent.indexOf(parent)
-                if (MathModule.isMath(n)) {
+                if (MathModuleUtils.isMath(n)) {
                     index = BBXUtils.getIndexInBlock(n)
                 }
                 parent = newParent
