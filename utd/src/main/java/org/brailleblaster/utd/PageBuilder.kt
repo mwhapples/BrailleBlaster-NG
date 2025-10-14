@@ -1863,15 +1863,11 @@ class PageBuilder {
         } else if (hasRunningHead()) {
             updateRunningHead()
         }
-        var pageNum = getPrintPageBrl(true)
+        // Protect against long page numbers, probably wrong mark up
+        val pageNum = getPrintPageBrl(true).take(cellsPerLine)
         //pageNumber is correct, but doesn't actually show on the print page. It shows in the braille though!
         val pageNumber: PageNumber
         val position = PageBuilderHelper.getPrintPageNumberAt(pageSettings, braillePageNumber.pageNumber)
-
-        // Protect against long page numbers, probably wrong mark up
-        if (pageNum.length > cellsPerLine) {
-            pageNum = pageNum.take(cellsPerLine)
-        }
 
         if (pageNum.isNotEmpty() && pageNumberType != PageNumberType.T_PAGE) {
             pageNumber = PrintPageNumber(pageNum)
@@ -1888,11 +1884,12 @@ class PageBuilder {
             pageNumber.addAttribute(Attribute("pageType", pageNumberType.toString()))
 
             if (verifyPageNumberProperty()) {
-                var padding = padding
-                if (pageNum.length + this.padding >= cellsPerLine) {
-                    padding = 0
+                placePageNumber(pageNumber, position, if (pageNum.length + padding >= cellsPerLine) {
+                    0
+                } else {
+                    padding
                 }
-                placePageNumber(pageNumber, position, padding)
+                )
             }
         }
     }
@@ -2157,7 +2154,7 @@ class PageBuilder {
             var numLength: Int
             // Remember both print and Braille page numbers may be on the same line
             // Therefore we must allow accounting for both.
-            if (brlPagePos.isTop) {
+            if (brlPagePos.isTop && braillePageNum.isNotEmpty()) {
                 numLength = braillePageNum.length
                 pageLength += numLength + padding
             }
