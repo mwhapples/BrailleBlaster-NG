@@ -21,7 +21,7 @@ import nu.xom.Text
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.math.mathml.MathMLElement
 import org.brailleblaster.math.mathml.MathMLTableElement
-import org.brailleblaster.math.mathml.MathModule
+import org.brailleblaster.math.mathml.MathModuleUtils
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.*
 import org.brailleblaster.perspectives.braille.mapping.maps.MapList
@@ -103,7 +103,7 @@ class TextRenderer(manager: Manager, private val textView: TextView) : Renderer(
                 }
 
                 is MathMLElement -> {
-                    MathModule.getBrl(n) as Element
+                    MathModuleUtils.getBrl(n) as Element
                 }
 
                 is PageIndicatorTextMapElement -> {
