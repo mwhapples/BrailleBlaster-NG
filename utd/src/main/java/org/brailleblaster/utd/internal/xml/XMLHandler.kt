@@ -488,11 +488,7 @@ open class XMLHandler {
         /**
          * Utility to linearly get ancestors
          */
-        fun ancestor(element: Element?): MutableList<Element> {
-            val ancestors: MutableList<Element> = ancestorOrSelf(element).toMutableList()
-            ancestors.removeFirst()
-            return ancestors
-        }
+        fun ancestor(element: Node?): MutableList<Element> = ancestorOrSelf(element?.parent as Element?).toMutableList()
 
         /**
          * Utility to linerally get ancestors
