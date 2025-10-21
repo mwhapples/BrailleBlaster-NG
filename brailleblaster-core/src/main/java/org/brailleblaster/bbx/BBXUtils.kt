@@ -75,6 +75,7 @@ fun Node.findBlockOrNull(): Element? = XMLHandler.ancestorVisitor(
 
 fun Node.findBlock(): Element = this.findBlockOrNull() ?: throw RuntimeException("Node not inside a block")
 
+fun Node.findContainers(): List<Element> = XMLHandler.ancestor(this)
 fun Node.getAncestorListLevel(): Int = BBX.CONTAINER.LIST.ATTRIB_LIST_LEVEL[XMLHandler.ancestorVisitorElement(
     this
 ) { BBX.CONTAINER.LIST.isA(it) }]
