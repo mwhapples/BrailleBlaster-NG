@@ -21,6 +21,8 @@ import nu.xom.ParentNode
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.bbx.BBXUtils
 import org.brailleblaster.bbx.findBlock
+import org.brailleblaster.bbx.findBlockOrNull
+import org.brailleblaster.bbx.findContainers
 import org.brailleblaster.bbx.isTOCText
 import org.brailleblaster.math.ascii.ASCII2MathML
 import org.brailleblaster.math.mathml.*
@@ -113,7 +115,6 @@ object MathEditHandler {
       }
       // insert new
       val block: Node
-      val blockParent: ParentNode?
       var index: Int
       val offset: Int
       val newBlockIndex: Int
@@ -126,12 +127,12 @@ object MathEditHandler {
           val previousTme = m.mapList.findPreviousNonWhitespace(m.mapList.indexOf(mapElement))
           if (previousTme != null) {
             val previousBlock: Node = previousTme.node.findBlock()
-            blockParent = previousBlock.parent
+            val blockParent = previousBlock.parent
             newBlockIndex = blockParent.indexOf(previousBlock)
             block = BBX.BLOCK.DEFAULT.create()
             Utils.insertChildCountSafe(blockParent, block, newBlockIndex)
           } else {
-            blockParent = m.simpleManager.currentCaret.node.findBlock().parent
+            val blockParent = m.simpleManager.currentCaret.node.findBlock().parent
             block = BBX.BLOCK.DEFAULT.create()
             Utils.insertChildCountSafe(blockParent, block, 0)
           }
@@ -139,13 +140,15 @@ object MathEditHandler {
           val nextTme = m.mapList.findNextNonWhitespace(m.mapList.indexOf(mapElement))
           if (nextTme != null) {
             val nextBlock: Node = nextTme.node.findBlock()
-            blockParent = nextBlock.parent
+            val blockParent = nextBlock.parent
             newBlockIndex = blockParent.indexOf(nextBlock)
             block = BBX.BLOCK.DEFAULT.create()
             Utils.insertChildCountSafe(blockParent, block, newBlockIndex)
           } else {
-            blockParent = m.simpleManager.currentCaret.node.findBlock()
-            val indexOfBlock = blockParent.parent.indexOf(blockParent)
+              val caretNode = m.simpleManager.currentCaret.node
+              val blockOrContainer = caretNode.findBlockOrNull() ?: caretNode.findContainers().last()
+              val blockParent = blockOrContainer.parent
+            val indexOfBlock = blockParent.indexOf(blockOrContainer)
             block = BBX.BLOCK.DEFAULT.create()
             //Yes, add 2 and not 1
             Utils.insertChildCountSafe(blockParent, block, indexOfBlock + 2)
