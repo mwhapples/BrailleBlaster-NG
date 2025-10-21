@@ -63,7 +63,7 @@ class ASCIIMathEditorDialog(m: Manager) {
   init {
     settings.loadSettings()
     open()
-    putAttributeInTextBox(m.mapList.current.node)
+    putAttributeInTextBox(m.simpleManager.currentCaret.node)
   }
 
   fun open() {
