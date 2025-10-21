@@ -84,6 +84,8 @@ fun Node.findContainers(): List<Element> {
     }
 }
 
+fun Node.findBlockOrContainer(): Element = this.findBlockOrNull() ?: this.findContainers().last()
+
 fun Node.getAncestorListLevel(): Int = BBX.CONTAINER.LIST.ATTRIB_LIST_LEVEL[XMLHandler.ancestorVisitorElement(
     this
 ) { BBX.CONTAINER.LIST.isA(it) }]
