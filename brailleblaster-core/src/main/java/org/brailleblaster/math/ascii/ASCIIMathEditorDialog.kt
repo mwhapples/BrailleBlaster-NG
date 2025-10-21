@@ -63,7 +63,7 @@ class ASCIIMathEditorDialog(m: Manager) {
   init {
     settings.loadSettings()
     open()
-    putAttributeInTextBox(m.mapList.current.node)
+    putAttributeInTextBox(m.simpleManager.currentCaret.node)
   }
 
   fun open() {
@@ -390,11 +390,10 @@ class ASCIIMathEditorDialog(m: Manager) {
   }
 
   private fun putAttributeInTextBox(startNode: Node?) {
-    if (startNode != null) {
-      textBox!!.text = if (MathModuleUtils.isMath(startNode)) MathModuleUtils.getMathText(startNode) else ""
-    }
-    else{
-      textBox!!.text = ""
+    textBox!!.text = if (startNode != null && MathModuleUtils.isMath(startNode)) {
+      MathModuleUtils.getMathText(startNode)
+    } else{
+      ""
     }
   }
 

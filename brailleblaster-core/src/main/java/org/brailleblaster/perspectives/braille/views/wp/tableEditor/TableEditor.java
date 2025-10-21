@@ -23,6 +23,7 @@ import org.brailleblaster.bbx.BBX;
 import org.brailleblaster.bbx.BBX.TableRowType;
 import org.brailleblaster.bbx.BBXUtils;
 import org.brailleblaster.exceptions.EditingException;
+import org.brailleblaster.perspectives.braille.mapping.maps.MapList;
 import org.brailleblaster.utd.exceptions.NodeException;
 import org.brailleblaster.util.FormUIUtils;
 import org.brailleblaster.util.Notify;
@@ -385,7 +386,7 @@ public class TableEditor extends Dialog {
 
     private Element createEmptyTable(BBSimpleManager m) {
         XMLNodeCaret caret = m.getCurrentCaret();
-        boolean before = true;
+        boolean before;
         if (caret instanceof XMLTextCaret text) {
             Node block = text.getNode();
             while (!BBX.BLOCK.isA(block)) {
@@ -409,6 +410,9 @@ public class TableEditor extends Dialog {
             }
             int blockHalfPoint = blockTextLength / 2;
             before = actualOffset <= blockHalfPoint;
+        } else {
+            MapList mapList = m.getManager().getMapList();
+            before = mapList.findNextNonWhitespace(mapList.indexOf(mapList.getCurrent())) != null;
         }
 
         Element table = BBX.CONTAINER.TABLE.create();
