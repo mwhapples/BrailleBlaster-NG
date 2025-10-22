@@ -43,7 +43,7 @@ child.project.url.inherit.append.path="false">
         <app.vendor-fsname>mwhapples</app.vendor-fsname>
         <app.contact-email>software@mdw.onl</app.contact-email>
         <app.rdns-name>app.brailleblaster-ng</app.rdns-name>
-        <revision>2025.1.21</revision>
+        <revision>2025.1.22</revision>
         <sha1/>
         <changelist>-SNAPSHOT</changelist>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
