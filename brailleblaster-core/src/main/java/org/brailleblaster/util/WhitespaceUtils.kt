@@ -18,7 +18,7 @@ package org.brailleblaster.util
 import nu.xom.Element
 import nu.xom.Node
 import org.brailleblaster.bbx.BBX
-import org.brailleblaster.bbx.findBlock
+import org.brailleblaster.bbx.findBlockOrNull
 import org.brailleblaster.math.mathml.MathModuleUtils
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.*
@@ -62,7 +62,7 @@ object WhitespaceUtils {
 
     private fun addLineBreakElement(n: Node, offset: Int): Element {
         var offset = offset
-        var block = n.findBlock()
+        var block = n.findBlockOrNull()
         if (block == null || BBX.BLOCK.TABLE_CELL.isA(block)) {
             if (Manager.getTableParent(n) != null) {
                 block = Manager.getTableParent(n)
