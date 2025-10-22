@@ -246,7 +246,7 @@ class ToolBarBuilder(
             cursorLoc = cursorControl.bounds //Should be the toolbar
         }
 
-        if (cursorLoc == null) cursorLoc = Rectangle(0, 0, 0, 0)
+        if (cursorLoc == null) cursorLoc = Rectangle.WithMonitor(0, 0, 0, 0, Display.getCurrent().primaryMonitor)
         val toolItem = (event.widget as ToolItem).bounds
         menu.setLocation(toolBarHolder.toDisplay(cursorLoc.x + toolItem.x, cursorLoc.y + toolItem.height))
         menu.isVisible = true
@@ -303,11 +303,12 @@ class ToolBarBuilder(
                 val endOfToolbar = lastSection.x + lastSection.width
                 relocBounds.add(
                     RelocatorRectangle(
-                        Rectangle(
+                        Rectangle.WithMonitor(
                             endOfToolbar,
                             lastSection.y,
                             lastSection.dockPoint.width,
-                            lastSection.height
+                            lastSection.height,
+                            Display.getCurrent().primaryMonitor
                         ), toolBar
                     )
                 )
@@ -517,13 +518,13 @@ class ToolBarBuilder(
         val bottomDockPoint: Rectangle
         if (lastToolBar === toolBar) {
             bottomDockPoint =
-                Rectangle(0, toolBar.bounds.height, toolBar.shell.clientArea.width, toolBar.bounds.height / 2)
+                Rectangle.WithMonitor(0, toolBar.bounds.height, toolBar.shell.clientArea.width, toolBar.bounds.height / 2, Display.getCurrent().primaryMonitor)
         } else {
             var bottomStart = (widgets.size - widgets.indexOf(toolBar)) * toolBar.bounds.height
             if (toolBar.parent.layout is GridLayout) bottomStart += (toolBar.parent.layout as GridLayout).verticalSpacing * (widgets.size - widgets.indexOf(
                 toolBar
             ))
-            bottomDockPoint = Rectangle(0, bottomStart, toolBar.shell.clientArea.width, toolBar.bounds.height / 2)
+            bottomDockPoint = Rectangle.WithMonitor(0, bottomStart, toolBar.shell.clientArea.width, toolBar.bounds.height / 2, Display.getCurrent().primaryMonitor)
         }
         return bottomDockPoint
     }
