@@ -12,7 +12,7 @@
 
     <properties>
         <!-- Versioning -->
-        <miglayoutswt.version>11.3</miglayoutswt.version>
+        <miglayoutswt.version>11.4.2</miglayoutswt.version>
         <jeuclid.version>c79273c782dbaccafafb5f92b53f353dbe52218d</jeuclid.version>
         <xmlgraphicscommons.version>2.8</xmlgraphicscommons.version>
 
