@@ -19,7 +19,7 @@ import nu.xom.Node
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.math.ascii.MathDialogSettings.CATEGORIES
 import org.brailleblaster.math.mathml.ImageCreator
-import org.brailleblaster.math.mathml.MathModule
+import org.brailleblaster.math.mathml.MathModuleUtils
 import org.brailleblaster.math.mathml.MathSubject
 import org.brailleblaster.math.mathml.MathUtils
 import org.brailleblaster.perspectives.braille.Manager
@@ -63,7 +63,7 @@ class ASCIIMathEditorDialog(m: Manager) {
   init {
     settings.loadSettings()
     open()
-    putAttributeInTextBox(m.mapList.current.node)
+    putAttributeInTextBox(m.simpleManager.currentCaret.node)
   }
 
   fun open() {
@@ -77,7 +77,7 @@ class ASCIIMathEditorDialog(m: Manager) {
         shell!!.children[0].dispose()
       }
     }
-    shell!!.text = MathModule.ASCII_EDITOR
+    shell!!.text = MathModuleUtils.ASCII_EDITOR
     shell!!.layout = GridLayout(2, false)
     if (settings.isFullScreen) {
       EasySWT.setFullScreen(shell!!)
@@ -390,11 +390,10 @@ class ASCIIMathEditorDialog(m: Manager) {
   }
 
   private fun putAttributeInTextBox(startNode: Node?) {
-    if (startNode != null) {
-      textBox!!.text = if (MathModule.isMath(startNode)) MathModule.getMathText(startNode) else ""
-    }
-    else{
-      textBox!!.text = ""
+    textBox!!.text = if (startNode != null && MathModuleUtils.isMath(startNode)) {
+      MathModuleUtils.getMathText(startNode)
+    } else{
+      ""
     }
   }
 

@@ -22,7 +22,7 @@ import nu.xom.Text
 import org.brailleblaster.bbx.BBX.ListType
 import org.brailleblaster.bbx.BBX.MarginType
 import org.brailleblaster.bbx.fixers.to3.ImageBlockToContainerImportFixer.Companion.convertImageBlockToContainer
-import org.brailleblaster.math.mathml.MathModule.Companion.isSpatialMath
+import org.brailleblaster.math.mathml.MathModuleUtils.isSpatialMath
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.searcher.Searcher
 import org.brailleblaster.settings.UTDManager
@@ -74,6 +74,17 @@ fun Node.findBlockOrNull(): Element? = XMLHandler.ancestorVisitor(
 ) { BBX.BLOCK.isA(it) } as Element?
 
 fun Node.findBlock(): Element = this.findBlockOrNull() ?: throw RuntimeException("Node not inside a block")
+
+fun Node.findContainers(): List<Element> {
+    val containers = XMLHandler.ancestor(this).filter { BBX.CONTAINER.isA(it) }
+    return if (this is Element && BBX.CONTAINER.isA(this)) {
+        listOf(this) + containers
+    } else {
+        containers
+    }
+}
+
+fun Node.findBlockOrContainer(): Element = this.findBlockOrNull() ?: this.findContainers().last()
 
 fun Node.getAncestorListLevel(): Int = BBX.CONTAINER.LIST.ATTRIB_LIST_LEVEL[XMLHandler.ancestorVisitorElement(
     this

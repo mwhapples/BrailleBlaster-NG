@@ -25,7 +25,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import org.brailleblaster.utils.NamespacesKt;
+import org.brailleblaster.utils.xml.NamespacesKt;
 import org.jetbrains.annotations.Nullable;
 
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
@@ -33,7 +33,7 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.brailleblaster.bbx.parsers.ImportParserUtils;
-import org.brailleblaster.math.mathml.MathModule;
+import org.brailleblaster.math.mathml.MathModuleUtils;
 import org.brailleblaster.math.numberLine.NumberLine;
 import org.brailleblaster.math.numberLine.NumberLineConstants;
 import org.brailleblaster.math.numberLine.NumberLineJson;
@@ -603,7 +603,7 @@ public class BBX {
 
             public Element create(NumberLine numberLine) {
                 Element elem = super.create();
-                String version = MathModule.SPATIAL_MATH_BBX_VERSION;
+                String version = MathModuleUtils.SPATIAL_MATH_BBX_VERSION;
                 JSON_NUMBER_LINE.set(elem, numberLine.getJson());
                 ATTRIB_VERSION.set(elem, version);
                 return elem;
@@ -637,7 +637,7 @@ public class BBX {
             public Element create(Matrix matrix) {
                 Element elem = super.create();
                 JSON_MATRIX.set(elem, matrix.getJson());
-                String version = MathModule.SPATIAL_MATH_BBX_VERSION;
+                String version = MathModuleUtils.SPATIAL_MATH_BBX_VERSION;
                 ATTRIB_VERSION.set(elem, version);
                 return elem;
             }
@@ -673,7 +673,7 @@ public class BBX {
 
             public Element create(Template template) {
                 Element elem = super.create();
-                String version = MathModule.SPATIAL_MATH_BBX_VERSION;
+                String version = MathModuleUtils.SPATIAL_MATH_BBX_VERSION;
                 JSON_TEMPLATE.set(elem, template.getJson());
                 ATTRIB_VERSION.set(elem, version);
                 return elem;
@@ -705,7 +705,7 @@ public class BBX {
             public Element create(Grid grid) {
                 Element elem = super.create();
                 JSON_GRID.set(elem, grid.getJson());
-                String version = MathModule.SPATIAL_MATH_BBX_VERSION;
+                String version = MathModuleUtils.SPATIAL_MATH_BBX_VERSION;
                 ATTRIB_VERSION.set(elem, version);
                 return elem;
             }
@@ -738,7 +738,7 @@ public class BBX {
             public Element create(ConnectingContainer container) {
                 Element elem = super.create();
                 JSON_CONNECTING_CONTAINER.set(elem, container.getJson());
-                String version = MathModule.SPATIAL_MATH_BBX_VERSION;
+                String version = MathModuleUtils.SPATIAL_MATH_BBX_VERSION;
                 ATTRIB_VERSION.set(elem, version);
                 return elem;
             }

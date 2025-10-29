@@ -41,7 +41,7 @@ import org.brailleblaster.utd.utils.UTDHelper.Companion.stripUTDRecursive
 import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.utils.swt.MenuBuilder
 import org.brailleblaster.util.FormUIUtils
-import org.brailleblaster.utils.UTD_NS
+import org.brailleblaster.utils.xml.UTD_NS
 import org.brailleblaster.utils.gui.PickerDialog
 import org.brailleblaster.utils.swt.EasyListeners
 import org.brailleblaster.utils.swt.SubMenuBuilder

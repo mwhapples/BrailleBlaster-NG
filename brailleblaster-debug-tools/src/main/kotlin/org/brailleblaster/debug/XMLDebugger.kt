@@ -28,7 +28,7 @@ import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.UTDHelper
 import org.brailleblaster.util.ColorManager
 import org.brailleblaster.util.FormUIUtils
-import org.brailleblaster.utils.UTD_NS
+import org.brailleblaster.utils.xml.UTD_NS
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyleRange
 import org.eclipse.swt.custom.StyledText
