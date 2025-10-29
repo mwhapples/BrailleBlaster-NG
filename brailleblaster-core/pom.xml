@@ -13,7 +13,7 @@
     <properties>
         <!-- Versioning -->
         <miglayoutswt.version>11.4.2</miglayoutswt.version>
-        <jeuclid.version>b854ac87dba1ace9609b010b1b750f3b042fae2a</jeuclid.version>
+        <jeuclid.version>3dd136499d543bf4863e05a94b8b1169834cf963</jeuclid.version>
         <xmlgraphicscommons.version>2.8</xmlgraphicscommons.version>
 
         <!-- For exec:java, put here so mainClass can be overridden with -Dexec.mainClass -->
