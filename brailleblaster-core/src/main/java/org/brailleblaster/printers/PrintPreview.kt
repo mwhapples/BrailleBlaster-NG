@@ -328,7 +328,7 @@ class PrintPreview private constructor(
             FormUIUtils.addSelectionListener(searchNext) { searchNext() }
             val skh = SixKeyHandler(null, null, searchSixKey.selection)
             searchText.addKeyListener(skh)
-            searchText.addVerifyListener { event -> skh.verifyKey(event) }
+            searchText.addVerifyListener(skh)
             FormUIUtils.addSelectionListener(searchSixKey) {
                 val sixKeyMode = searchSixKey.selection
                 BBIni.propertyFileManager.saveAsBoolean(SETTINGS_KEY_SEARCH_SIX_KEY, sixKeyMode)
