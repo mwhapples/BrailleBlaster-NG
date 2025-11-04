@@ -48,6 +48,7 @@ import org.eclipse.swt.dnd.Transfer
 import org.eclipse.swt.events.*
 import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.widgets.Composite
+import org.eclipse.swt.widgets.Display
 import org.eclipse.swt.widgets.Listener
 import org.slf4j.LoggerFactory
 import java.awt.Desktop
@@ -224,7 +225,7 @@ class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
                     //Original code in Kotlin, from V2 some time in Dec. 2021 - MNS
                     //This fixes the bug where right-clicking in the indent margin would send the caret to the doc start.
                     try {
-                        val offsetPoint = view.getOffsetAtPoint(Point(e.x, e.y))
+                        val offsetPoint = view.getOffsetAtPoint(Point.WithMonitor(e.x, e.y, Display.getCurrent().primaryMonitor))
                         view.caretOffset = offsetPoint
                         if (offsetPoint < 0) {
                             val line = view.getLineIndex(e.y)

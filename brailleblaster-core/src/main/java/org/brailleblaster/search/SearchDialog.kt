@@ -59,6 +59,7 @@ import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.widgets.Combo
 import org.eclipse.swt.widgets.Dialog
+import org.eclipse.swt.widgets.Display
 import org.eclipse.swt.widgets.Group
 import org.eclipse.swt.widgets.Shell
 import java.util.*
@@ -77,7 +78,7 @@ class SearchDialog(parent: Shell?, style: Int) : Dialog(parent, style),
     private var findList: org.eclipse.swt.widgets.List? = null
     private var replaceList: org.eclipse.swt.widgets.List? = null
     private var sc = SearchCriteria()
-    private val location = Point(0, 0)
+    private val location = Point.WithMonitor(0, 0, Display.getCurrent().primaryMonitor)
 
     private var findObj: Find? = null
     private var replaceObj: Replace? = null
