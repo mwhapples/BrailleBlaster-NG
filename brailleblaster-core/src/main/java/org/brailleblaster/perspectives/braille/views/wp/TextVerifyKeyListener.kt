@@ -267,12 +267,13 @@ class TextVerifyKeyListener(
             return
         }
 
-        for (override in overrides) {
-            if (override.stateMask == e.stateMask && override.keyCode == e.keyCode && override.criteria.test(e)) {
-                override.onOverride.accept(e)
-                e.doit = false
-                return
-            }
+        overrides.firstOrNull {
+            it.stateMask == e.stateMask && it.keyCode == e.keyCode && it.criteria.test(
+                e
+            )
+        }?.let {
+            it.onOverride.accept(e)
+            e.doit = false
         }
     }
 
