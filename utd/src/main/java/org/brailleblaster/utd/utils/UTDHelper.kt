@@ -26,15 +26,12 @@ import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utils.xml.UTD_NS
 import java.lang.reflect.Field
-import java.util.*
 import java.util.function.Consumer
 import java.util.function.Function
-import java.util.stream.Stream
 
 class UTDHelper {
     fun hasBaseStyle(style: Style?, baseStyle: String): Boolean {
-        return Stream.iterate(style, { obj: Style? -> Objects.nonNull(obj) }, { obj: Style? -> obj!!.baseStyle })
-            .anyMatch { x: Style? -> x!!.name == baseStyle }
+        return generateSequence(style) { it.baseStyle }.any { it.name == baseStyle }
     }
 
     companion object {
