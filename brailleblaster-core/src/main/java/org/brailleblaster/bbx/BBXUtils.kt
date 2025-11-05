@@ -31,8 +31,8 @@ import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.utd.toc.TOCAttributes
-import org.brailleblaster.utd.utils.UTDHelper.Companion.getDocumentHead
-import org.brailleblaster.utd.utils.UTDHelper.Companion.stripUTDRecursive
+import org.brailleblaster.utd.utils.UTDHelper.getDocumentHead
+import org.brailleblaster.utd.utils.UTDHelper.stripUTDRecursive
 import org.brailleblaster.utd.utils.dom.BoxUtils.stripBoxBrl
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

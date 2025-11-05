@@ -37,7 +37,7 @@ import org.brailleblaster.settings.UTDManager
 import org.brailleblaster.tools.DebugMenuToolModule
 import org.brailleblaster.utd.formatters.TPageFormatter
 import org.brailleblaster.utd.properties.EmphasisType
-import org.brailleblaster.utd.utils.UTDHelper.Companion.stripUTDRecursive
+import org.brailleblaster.utd.utils.UTDHelper.stripUTDRecursive
 import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.utils.swt.MenuBuilder
 import org.brailleblaster.util.FormUIUtils

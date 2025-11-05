@@ -51,7 +51,7 @@ import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.TableUtils
-import org.brailleblaster.utd.utils.UTDHelper.Companion.stripUTDRecursive
+import org.brailleblaster.utd.utils.UTDHelper.stripUTDRecursive
 import org.brailleblaster.util.Utils.combineAdjacentTextNodes
 import org.brailleblaster.utils.braille.BrailleUnicodeConverter.asciiToUnicodeLouis
 import org.eclipse.swt.SWT
