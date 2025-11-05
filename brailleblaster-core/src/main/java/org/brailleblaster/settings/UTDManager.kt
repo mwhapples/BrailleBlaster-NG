@@ -513,10 +513,10 @@ class UTDManager @JvmOverloads constructor(styleDefs: StyleDefinitions = loadSty
 
       else -> {
           val baseStyle = getBaseStyle(curStyle)
-          log.debug("Got base style {} frorm {}", baseStyle!!.name, curStyle.name)
+          log.debug("Got base style {} frorm {}", baseStyle.name, curStyle.name)
 
           // Extend default style if possible instead of changing to a BBX.BLOCK.STYLE with overrideStyle
-          if (getBaseStyle(engine.getStyle(element) as Style?) != baseStyle) {
+          if (getBaseStyle(engine.getStyle(element) as Style) != baseStyle) {
             applyStyle(baseStyle, element, element.document,  /*keep styling*/false)
           }
           BBXDynamicOptionStyleMap.setStyleOptionAttrib(element, styleOption, value)
@@ -535,10 +535,10 @@ class UTDManager @JvmOverloads constructor(styleDefs: StyleDefinitions = loadSty
   /**
    * @see .getBaseStyle
    */
-  fun getBaseStyle(styleName: String, node: Node?): String {
+  fun getBaseStyle(styleName: String, node: Node): String {
     //Wrap with if to avoid relatively expensive getStyle()
     return if (styleName.startsWith(DOCUMENT_STYLE_NAME_PREFIX)) {
-      getBaseStyle(engine.getStyle(node!!) as Style?)!!.name
+      getBaseStyle(engine.getStyle(node) as Style).name
     } else styleName
   }
 
@@ -650,7 +650,7 @@ class UTDManager @JvmOverloads constructor(styleDefs: StyleDefinitions = loadSty
     }
 
     @JvmStatic
-    fun getBaseStyle(style: Style?): Style? {
+    fun getBaseStyle(style: Style): Style {
         return generateSequence(style) { it.baseStyle }.firstOrNull { !it.name.startsWith(DOCUMENT_STYLE_NAME_PREFIX) } ?: style
     }
 
