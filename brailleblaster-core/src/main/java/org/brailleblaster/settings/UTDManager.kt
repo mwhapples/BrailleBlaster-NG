@@ -651,7 +651,7 @@ class UTDManager @JvmOverloads constructor(styleDefs: StyleDefinitions = loadSty
 
     @JvmStatic
     fun getBaseStyle(style: Style?): Style? {
-        return generateSequence(style) { it.baseStyle }.firstOrNull { it.name.startsWith(DOCUMENT_STYLE_NAME_PREFIX) } ?: style
+        return generateSequence(style) { it.baseStyle }.firstOrNull { !it.name.startsWith(DOCUMENT_STYLE_NAME_PREFIX) } ?: style
     }
 
     @JvmStatic
