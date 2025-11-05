@@ -42,7 +42,6 @@ import org.slf4j.LoggerFactory
 import java.io.File
 import java.nio.file.Paths
 import java.util.function.Consumer
-import java.util.stream.Stream
 
 /**
  * UTD settings, translation, and applying styles and actions management all in
@@ -652,10 +651,7 @@ class UTDManager @JvmOverloads constructor(styleDefs: StyleDefinitions = loadSty
 
     @JvmStatic
     fun getBaseStyle(style: Style?): Style? {
-      return Stream.iterate(
-        style,
-        { baseStyle: Style? -> baseStyle!!.name.startsWith(DOCUMENT_STYLE_NAME_PREFIX) }) { baseStyle: Style? -> baseStyle!!.baseStyle }
-        .findFirst().orElse(style)
+        return generateSequence(style) { it.baseStyle }.firstOrNull { it.name.startsWith(DOCUMENT_STYLE_NAME_PREFIX) } ?: style
     }
 
     @JvmStatic
