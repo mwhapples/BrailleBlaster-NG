@@ -267,8 +267,7 @@ class StylePane(parent: Composite, private val m: Manager) : BBEditorView {
             }
         }
 
-        styleName = m.document.settingsManager.getBaseStyle(styleName!!, ancestorBlock)
-        styleName = getBanaStyles()[styleName]
+        styleName = getBanaStyles()[m.document.settingsManager.getBaseStyle(styleName!!, ancestorBlock)]
         // Workaround for BLOCK.PAGE_NUM having a weird style
         if (BBX.BLOCK.PAGE_NUM.isA(ancestorBlock)) {
             styleName = "Print Page"
