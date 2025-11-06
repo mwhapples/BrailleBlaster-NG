@@ -21,12 +21,12 @@ import nu.xom.Text
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
+import org.brailleblaster.util.PILCROW
 
 /**
  * Cleanup documents while user is editing them
  */
 object LiveFixer {
-    const val PILCROW = "\u00B6"
     const val NEWPAGE_PLACEHOLDER_ATTRIB = "newPagePlaceholder"
     @JvmStatic
 	fun fix(root: Element) {
@@ -124,7 +124,7 @@ object LiveFixer {
         var stripped = false
         for (descendantTextNode in descendantTextNodes) {
             var value = descendantTextNode.value
-            if (value.length > 1 && value.contains("" + PILCROW)) {
+            if (value.length > 1 && value.contains(PILCROW)) {
                 value = value.replace(PILCROW, "")
                 descendantTextNode.value = value
                 stripped = true

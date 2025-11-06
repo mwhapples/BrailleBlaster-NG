@@ -51,8 +51,10 @@ import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.UTDHelper.stripUTDRecursive
+import org.brailleblaster.util.LINE_BREAK
 import org.brailleblaster.util.Notify
 import org.brailleblaster.util.Notify.notify
+import org.brailleblaster.util.PILCROW
 import org.brailleblaster.util.SoundManager.playSelectionBell
 import org.brailleblaster.util.Utils.combineAdjacentTextNodes
 import org.brailleblaster.util.WhitespaceUtils.appendLineBreakElement
@@ -415,7 +417,7 @@ class TextVerifyKeyListener(
 
                 val newBlock = BBX.BLOCK.DEFAULT.create()
                 newBlock.addAttribute(Attribute(LiveFixer.NEWPAGE_PLACEHOLDER_ATTRIB, "true"))
-                newBlock.appendChild(LiveFixer.PILCROW)
+                newBlock.appendChild(PILCROW)
                 lastBlock.parent.appendChild(newBlock)
 
                 dispatchModifyEvent(true, lastBlock, newBlock)
@@ -441,7 +443,7 @@ class TextVerifyKeyListener(
                     currentElement
                 )
                 dispatchModifyEvent(currentElement.nodeParent, false)
-                textView.setCursor(textView.view.caretOffset + LINE_BREAK_LENGTH)
+                textView.setCursor(textView.view.caretOffset + LINE_BREAK.length)
                 textView.setCurrent(textView.view.caretOffset)
             }
         } else {
@@ -501,8 +503,8 @@ class TextVerifyKeyListener(
                 val currentOffset = textView.view.caretOffset
                 removeWhitespace(currentElement, false)
 
-                if (currentOffset >= LINE_BREAK_LENGTH) {
-                    textView.setCursor(currentOffset - LINE_BREAK_LENGTH)
+                if (currentOffset >= LINE_BREAK.length) {
+                    textView.setCursor(currentOffset - LINE_BREAK.length)
                     textView.setCurrent(textView.view.caretOffset)
                 }
                 e.doit = false
@@ -648,8 +650,8 @@ class TextVerifyKeyListener(
             if (currentElement is WhiteSpaceElement) {
                 val currentOffset = textView.view.caretOffset
                 removeWhitespace(currentElement, true)
-                if (currentOffset >= LINE_BREAK_LENGTH) {
-                    textView.setCursor(currentOffset - LINE_BREAK_LENGTH)
+                if (currentOffset >= LINE_BREAK.length) {
+                    textView.setCursor(currentOffset - LINE_BREAK.length)
                     textView.setCurrent(textView.view.caretOffset)
                 }
                 e.doit = false
@@ -1067,12 +1069,9 @@ class TextVerifyKeyListener(
 
     companion object {
         val log: Logger = LoggerFactory.getLogger(TextVerifyKeyListener::class.java)
-        private val LINE_BREAK: String = System.lineSeparator()
-        private val LINE_BREAK_LENGTH = LINE_BREAK.length
 
         private val CTRL = SWT.MOD1
         private val SHIFT = SWT.MOD2
-        const val PILCROW: String = "\u00B6"
 
         // private final int ALT = SWT.MOD3;
         private val NO_ACTION = Consumer { _: VerifyEvent -> }
