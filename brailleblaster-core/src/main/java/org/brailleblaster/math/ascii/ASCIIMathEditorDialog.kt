@@ -67,107 +67,107 @@ class ASCIIMathEditorDialog(m: Manager) {
   }
 
   fun open() {
-    val m = WPManager.getInstance().controller
-    if (shell == null || shell!!.isDisposed) {
-      shell = Shell(m.display.activeShell, SWT.DIALOG_TRIM)
-    } else {
-      sizeLocation = EasySWT.saveLocation(shell!!)
-      val length = shell!!.children.size
-      for (i in 0 until length) {
-        shell!!.children[0].dispose()
+      val m = WPManager.getInstance().controller
+      if (shell == null || shell!!.isDisposed) {
+          shell = Shell(m.display.activeShell, SWT.DIALOG_TRIM)
+      } else {
+          sizeLocation = EasySWT.saveLocation(shell!!)
+          val length = shell!!.children.size
+          for (i in 0 until length) {
+              shell!!.children[0].dispose()
+          }
       }
-    }
-    shell!!.text = MathModuleUtils.ASCII_EDITOR
-    shell!!.layout = GridLayout(2, false)
-    if (settings.isFullScreen) {
-      EasySWT.setFullScreen(shell!!)
-    } else if (sizeLocation != null) {
-      EasySWT.setSizeAndLocation(shell!!, sizeLocation!!)
-    } else {
-      EasySWT.setSizeAndLocationHalfScreen(shell!!)
-    }
-    determineDialogProportions()
-    val menuBar = Menu(shell, SWT.BAR)
-    val settingsFileMenu = MenuItem(menuBar, SWT.CASCADE)
-    settingsFileMenu.text = SETTINGS
-    addSettingsDropDown(shell, settingsFileMenu, menuBar)
-    val leftPanel = EasySWT.makeGroup(shell, 0, 1, true)
-    val rightPanel = EasySWT.makeGroup(shell, 0, 1, true)
-    makeCombo(leftPanel)
-    makeButtons(leftPanel)
-    makeBrowserView(rightPanel)
-    makeTextBox(rightPanel)
-
-    val options = Group(rightPanel, SWT.NONE)
-    val optionsGrid = GridData(4, 4, true, true)
-    options.data = optionsGrid
-    options.layout = GridLayout(5, false)
-
-    val apply = Button(options, SWT.PUSH)
-    apply.text = INSERT_MATH
-    val grid = GridData(4, 4, true, true)
-    apply.data = grid
-    FormUIUtils.addSelectionListener(apply) { insert() }
-
-    val replace = Button(options, SWT.PUSH)
-    replace.text = REPLACE_CURRENT_MATH
-    replace.data = grid
-    FormUIUtils.addSelectionListener(replace) { replace() }
-
-    val previous = Button(options, SWT.PUSH)
-    previous.text = PREVIOUS_MATH
-    previous.data = grid
-    FormUIUtils.addSelectionListener(previous) { previous() }
-
-    val next = Button(options, SWT.PUSH)
-    next.text = NEXT_MATH
-    next.data = grid
-    FormUIUtils.addSelectionListener(next) { next() }
-
-    val clear = Button(options, SWT.PUSH)
-    clear.text = CLEAR_MATH
-    clear.data = grid
-    FormUIUtils.addSelectionListener(clear) { clear() }
-    FormUIUtils.addEscapeCloseListener(shell!!)
-
-    val fontControls = Group(rightPanel, SWT.NONE)
-    val fontControlsGrid = GridData(3,1,false, false)
-    fontControls.data = fontControlsGrid
-    fontControls.layout = GridLayout(3, false)
-
-    val fontSizeLabel = Label(fontControls, SWT.NONE)
-    fontSizeLabel.text = "Font Size: "
-
-    val fontPlus = Button(fontControls, SWT.PUSH)
-    fontPlus.text = " + "
-    EasySWT.addSelectionListener(fontPlus){
-      if (fontScale < fontScaleMax) {
-        fontScale++
+      shell!!.text = MathModuleUtils.ASCII_EDITOR
+      shell!!.layout = GridLayout(2, false)
+      if (settings.isFullScreen) {
+          EasySWT.setFullScreen(shell!!)
+      } else if (sizeLocation != null) {
+          EasySWT.setSizeAndLocation(shell!!, sizeLocation!!)
+      } else {
+          EasySWT.setSizeAndLocationHalfScreen(shell!!)
       }
-      shell!!.close()
-      open()
-    }
+      determineDialogProportions()
+      val menuBar = Menu(shell, SWT.BAR)
+      val settingsFileMenu = MenuItem(menuBar, SWT.CASCADE)
+      settingsFileMenu.text = SETTINGS
+      addSettingsDropDown(shell, settingsFileMenu, menuBar)
+      val leftPanel = EasySWT.makeGroup(shell, 0, 1, true)
+      val rightPanel = EasySWT.makeGroup(shell, 0, 1, true)
+      makeCombo(leftPanel)
+      makeButtons(leftPanel)
+      makeBrowserView(rightPanel)
+      makeTextBox(rightPanel)
 
-    val fontMinus = Button(fontControls, SWT.PUSH)
-    fontMinus.text = " - "
-    EasySWT.addSelectionListener(fontMinus){
-      if (fontScale > fontScaleMin){
-        fontScale--
+      val options = Group(rightPanel, SWT.NONE)
+      val optionsGrid = GridData(4, 4, true, true)
+      options.data = optionsGrid
+      options.layout = GridLayout(5, false)
+
+      val apply = Button(options, SWT.PUSH)
+      apply.text = INSERT_MATH
+      val grid = GridData(4, 4, true, true)
+      apply.data = grid
+      FormUIUtils.addSelectionListener(apply) { insert() }
+
+      val replace = Button(options, SWT.PUSH)
+      replace.text = REPLACE_CURRENT_MATH
+      replace.data = grid
+      FormUIUtils.addSelectionListener(replace) { replace() }
+
+      val previous = Button(options, SWT.PUSH)
+      previous.text = PREVIOUS_MATH
+      previous.data = grid
+      FormUIUtils.addSelectionListener(previous) { previous() }
+
+      val next = Button(options, SWT.PUSH)
+      next.text = NEXT_MATH
+      next.data = grid
+      FormUIUtils.addSelectionListener(next) { next() }
+
+      val clear = Button(options, SWT.PUSH)
+      clear.text = CLEAR_MATH
+      clear.data = grid
+      FormUIUtils.addSelectionListener(clear) { clear() }
+      EasySWT.addEscapeCloseListener(shell!!)
+
+      val fontControls = Group(rightPanel, SWT.NONE)
+      val fontControlsGrid = GridData(3, 1, false, false)
+      fontControls.data = fontControlsGrid
+      fontControls.layout = GridLayout(3, false)
+
+      val fontSizeLabel = Label(fontControls, SWT.NONE)
+      fontSizeLabel.text = "Font Size: "
+
+      val fontPlus = Button(fontControls, SWT.PUSH)
+      fontPlus.text = " + "
+      EasySWT.addSelectionListener(fontPlus) {
+          if (fontScale < fontScaleMax) {
+              fontScale++
+          }
+          shell!!.close()
+          open()
       }
-      shell!!.close()
-      open()
-    }
 
-    EasySWT.addEscapeCloseListener(shell!!)
+      val fontMinus = Button(fontControls, SWT.PUSH)
+      fontMinus.text = " - "
+      EasySWT.addSelectionListener(fontMinus) {
+          if (fontScale > fontScaleMin) {
+              fontScale--
+          }
+          shell!!.close()
+          open()
+      }
 
-    shell!!.pack()
-    shell!!.layout(true)
-    shell!!.setSize(panelWidth * 3, panelHeight * 3)
-    shell!!.open()
-    textBox!!.setFocus()
-    if (settings.currentName == CATEGORIES.SEARCH) {
-      setSearchBox()
-    }
+      EasySWT.addEscapeCloseListener(shell!!)
+
+      shell!!.pack()
+      shell!!.layout(true)
+      shell!!.setSize(panelWidth * 3, panelHeight * 3)
+      shell!!.open()
+      textBox!!.setFocus()
+      if (settings.currentName == CATEGORIES.SEARCH) {
+          setSearchBox()
+      }
   }
 
   private fun clear() {

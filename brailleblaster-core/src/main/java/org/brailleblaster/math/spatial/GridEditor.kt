@@ -31,7 +31,6 @@ import org.brailleblaster.perspectives.mvc.events.ModifyEvent
 import org.brailleblaster.perspectives.mvc.events.XMLCaretEvent
 import org.brailleblaster.perspectives.mvc.modules.views.DebugModule
 import org.brailleblaster.utd.internal.xml.XMLHandler
-import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.Utils
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.utils.swt.EasySWT
@@ -273,7 +272,7 @@ class GridEditor : ISpatialMathDialog {
             { ok() },
             { cancel() }
         )
-        FormUIUtils.addEscapeCloseListener(shell!!)
+        EasySWT.addEscapeCloseListener(shell!!)
         sc.content = innerContainer
         sc.setMinSize(innerContainer.computeSize(SWT.DEFAULT, SWT.DEFAULT))
         shell!!.pack()

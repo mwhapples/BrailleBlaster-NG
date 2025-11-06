@@ -117,16 +117,6 @@ object FormUIUtils {
         return Shell(parent, SWT.DIALOG_TRIM or SWT.RESIZE)
     }
 
-    fun addEscapeCloseListener(shell: Shell) {
-        shell.addTraverseListener { e: TraverseEvent ->
-            if (e.detail == SWT.TRAVERSE_ESCAPE) {
-                shell.close()
-                e.detail = SWT.TRAVERSE_NONE
-                e.doit = false
-            }
-        }
-    }
-
     /**
      * Generate a standard label
      */

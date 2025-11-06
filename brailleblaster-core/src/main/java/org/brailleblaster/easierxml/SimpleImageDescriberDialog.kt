@@ -211,7 +211,7 @@ class SimpleImageDescriberDialog(
         cancel.layoutData = GridData(SWT.FILL, SWT.FILL, true, false)
         FormUIUtils.addSelectionListener(cancel) { close() }
         sc.content = innerContainer
-        FormUIUtils.addEscapeCloseListener(shell)
+        EasySWT.addEscapeCloseListener(shell)
         shell.addShellListener(object : ShellListener {
             override fun shellActivated(e: ShellEvent) {}
             override fun shellClosed(e: ShellEvent) {
