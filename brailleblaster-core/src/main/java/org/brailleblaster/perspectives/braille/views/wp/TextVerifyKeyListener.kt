@@ -414,7 +414,7 @@ class TextVerifyKeyListener(
                 }
 
                 val newBlock = BBX.BLOCK.DEFAULT.create()
-                newBlock.addAttribute(Attribute(LiveFixer.NEWPAGE_PLACEHOLDER_ATTRIB, "tre"))
+                newBlock.addAttribute(Attribute(LiveFixer.NEWPAGE_PLACEHOLDER_ATTRIB, "true"))
                 newBlock.appendChild(LiveFixer.PILCROW)
                 lastBlock.parent.appendChild(newBlock)
 
