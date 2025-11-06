@@ -28,6 +28,7 @@ import org.brailleblaster.util.Notify.notify
 import org.brailleblaster.util.Notify.showMessage
 import org.brailleblaster.util.WorkingDialog
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.utils.swt.EasySWT.addSwtBotKey
 import org.eclipse.swt.SWT
 import org.eclipse.swt.events.TraverseEvent
@@ -121,7 +122,7 @@ class BrailleSettingsDialog(parent: Shell?, m: Manager?, tabToOpen: Class<out Se
             }
 
             //Autosize shell based on what the internal elements require
-            FormUIUtils.setLargeDialogSize(shell)
+            EasySWT.setLargeDialogSize(shell)
 
             //Show the window
             shell.open()

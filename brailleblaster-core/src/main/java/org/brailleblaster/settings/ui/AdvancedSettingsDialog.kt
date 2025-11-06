@@ -21,6 +21,7 @@ import org.brailleblaster.logging.getLogLevel
 import org.brailleblaster.logging.setLogLevel
 import org.brailleblaster.logging.updateLogSettings
 import org.brailleblaster.util.FormUIUtils
+import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridLayout
@@ -79,14 +80,16 @@ class AdvancedSettingsDialog {
             Level.ERROR -> logError.selection = true
             Level.WARN -> logWarn.selection =
                 true
+
             Level.INFO -> logInfo.selection =
                 true
+
             Level.DEBUG -> logDebug.selection = true
             else -> logAll.selection = true
         }
 
         //Shrink dialog to minimum size and display
-        FormUIUtils.setLargeDialogSize(dialog)
+        EasySWT.setLargeDialogSize(dialog)
         dialog.open()
     }
 

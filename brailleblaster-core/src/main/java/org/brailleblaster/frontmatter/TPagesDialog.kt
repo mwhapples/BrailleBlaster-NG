@@ -143,7 +143,7 @@ class TPagesDialog : DebugMenuToolModule {
         createTitlePageMenu()
         curVolLabel!!.parent.layout(true)
         shell.pack()
-        FormUIUtils.setLargeDialogSize(shell)
+        EasySWT.setLargeDialogSize(shell)
         shell.open()
     }
 

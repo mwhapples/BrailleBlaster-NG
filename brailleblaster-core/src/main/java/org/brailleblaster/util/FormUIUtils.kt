@@ -15,13 +15,9 @@
  */
 package org.brailleblaster.util
 
-import org.apache.commons.lang3.time.DurationFormatUtils
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.TextMapElement
-import org.brailleblaster.utils.swt.ButtonBuilder
-import org.brailleblaster.utils.swt.ComboBuilder
-import org.brailleblaster.utils.swt.NumberFilterKeyListener
-import org.brailleblaster.utils.swt.TextBuilder
+import org.brailleblaster.utils.swt.*
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyledText
 import org.eclipse.swt.events.*
@@ -129,41 +125,6 @@ object FormUIUtils {
                 e.doit = false
             }
         }
-    }
-
-    /**
-     * Calculate sane size for large windows that may run off the screen
-     */
-	@JvmStatic
-	fun setLargeDialogSize(shell: Shell) {
-        // Give the window a sane default size and location
-        val start = System.currentTimeMillis()
-        val size = shell.computeSize(SWT.DEFAULT, SWT.DEFAULT)
-        val clientArea = shell.monitor.clientArea
-        log.debug(
-            "Resizing dialog to {}x{} | Client area x {} y {} width {} height {} | took {}", size.x, size.y,
-            clientArea.x, clientArea.y, clientArea.width, clientArea.height,
-            DurationFormatUtils.formatDurationHMS(System.currentTimeMillis() - start)
-        )
-        val bounds = shell.bounds
-        if (size.y > clientArea.height) {
-            size.y = clientArea.height
-            // Also put window at the top of the screen
-            bounds.y = 0
-        }
-        if (size.x > clientArea.width) {
-            size.x = clientArea.width
-            // Put the window at the left of the screen
-            bounds.x = 0
-        }
-        if (bounds.x < clientArea.x) {
-            bounds.x = clientArea.x
-        }
-        if (bounds.y < clientArea.y) {
-            bounds.y = clientArea.y
-        }
-        shell.bounds = bounds
-        shell.size = size
     }
 
     /**

@@ -72,6 +72,7 @@ import org.brailleblaster.utd.properties.UTDElements;
 import org.brailleblaster.utd.utils.TableUtils;
 import org.brailleblaster.utd.utils.UTDHelper;
 import org.brailleblaster.util.*;
+import org.brailleblaster.utils.swt.EasySWT;
 import org.brailleblaster.wordprocessor.BBStatusBar;
 import org.brailleblaster.wordprocessor.FontManager;
 import org.brailleblaster.wordprocessor.RecentDocs;
@@ -664,7 +665,7 @@ public class Manager extends Controller {
                 Text workingText = new Text(working, SWT.NONE);
                 workingText.setText("Formatting, please wait...");
 
-                FormUIUtils.setLargeDialogSize(working);
+                EasySWT.INSTANCE.setLargeDialogSize(working);
 
                 working.open();
                 finishFormattingLatch.await();

@@ -38,10 +38,10 @@ import org.brailleblaster.utd.utils.convertBBX2PEF
 import org.brailleblaster.util.FormUIUtils.addSelectionListener
 import org.brailleblaster.util.FormUIUtils.makeDialog
 import org.brailleblaster.util.FormUIUtils.setGridData
-import org.brailleblaster.util.FormUIUtils.setLargeDialogSize
 import org.brailleblaster.util.LINE_BREAK
 import org.brailleblaster.util.Notify.showMessage
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.utils.swt.EasySWT.addSwtBotKey
 import org.brailleblaster.utils.swt.EasySWT.buildGridData
 import org.brailleblaster.utils.swt.EasySWT.makeComposite
@@ -138,7 +138,7 @@ class VolumeSaveDialog(
                 entry.setData(KEY_VOLUME_DATA, curVolume)
             }
 
-            setLargeDialogSize(shell)
+            EasySWT.setLargeDialogSize(shell)
             shell.open()
         }
     }

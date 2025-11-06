@@ -19,6 +19,7 @@ import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.TableTextMapElement
 import org.brailleblaster.perspectives.braille.mapping.elements.TextMapElement
 import org.brailleblaster.util.FormUIUtils
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyleRange
 import org.eclipse.swt.custom.StyledText
@@ -103,7 +104,7 @@ class MapListDebugger(private val m: Manager) {
             }
             start = nextNewLine
         }
-        FormUIUtils.setLargeDialogSize(dialog!!)
+        EasySWT.setLargeDialogSize(dialog!!)
     }
 
     fun setMapText(newElem: TextMapElement, curIndex: Int): String {

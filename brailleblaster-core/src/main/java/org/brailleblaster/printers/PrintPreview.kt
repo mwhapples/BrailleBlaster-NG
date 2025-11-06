@@ -39,6 +39,7 @@ import org.brailleblaster.utils.braille.BrailleUnicodeConverter
 import org.brailleblaster.utils.braille.BrailleUnicodeConverter.unicodeToAsciiLouis
 import org.brailleblaster.utils.braille.BrailleUnicodeConverter.unicodeToAsciiUppercase
 import org.brailleblaster.utils.swt.AccessibilityUtils.setName
+import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.wordprocessor.FontManager
 import org.brailleblaster.wordprocessor.FontManager.Companion.decreaseFontSetting
 import org.brailleblaster.wordprocessor.FontManager.Companion.increaseFontSetting
@@ -388,7 +389,7 @@ class PrintPreview private constructor(
                 viewLeft.setFocus()
             }
 
-            FormUIUtils.setLargeDialogSize(shell)
+            EasySWT.setLargeDialogSize(shell)
             shell.open()
         }
     }
@@ -409,7 +410,7 @@ class PrintPreview private constructor(
         }
         setFontsInView()
 
-        FormUIUtils.setLargeDialogSize(shell)
+        EasySWT.setLargeDialogSize(shell)
     }
 
     private fun setFontsInView() {

@@ -560,7 +560,7 @@ public class TableEditor extends Dialog {
             createFacingContents();
         }
         //Prefer setLargeDialogSize for automatic sizing without scrollbars and weird look on Linux
-        FormUIUtils.setLargeDialogSize(shell);
+        EasySWT.INSTANCE.setLargeDialogSize(shell);
         shell.open();
         shell.layout();
         this.callback = callback;

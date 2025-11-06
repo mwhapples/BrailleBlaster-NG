@@ -38,9 +38,9 @@ import org.brailleblaster.tools.RepeatSearchTool
 import org.brailleblaster.utd.Style
 import org.brailleblaster.utd.properties.EmphasisType.Companion.getEmphasisType
 import org.brailleblaster.util.FormUIUtils.makeDialogFloating
-import org.brailleblaster.util.FormUIUtils.setLargeDialogSize
 import org.brailleblaster.util.Notify
 import org.brailleblaster.util.Notify.notify
+import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.utils.swt.EasySWT.addSelectionListener
 import org.brailleblaster.utils.swt.EasySWT.makeCheckBox
 import org.brailleblaster.utils.swt.EasySWT.makeComboDropdown
@@ -123,7 +123,7 @@ class SearchDialog(parent: Shell?, style: Int) : Dialog(parent, style),
         createContents()
         Companion.shell!!.open()
         Companion.shell!!.layout()
-        setLargeDialogSize(Companion.shell!!)
+        EasySWT.setLargeDialogSize(Companion.shell!!)
     }
 
     private fun createContents() {
