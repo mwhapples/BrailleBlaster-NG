@@ -32,6 +32,7 @@ import org.brailleblaster.settings.ui.EmbosserSettingsTab
 import org.brailleblaster.utd.BRFWriter
 import org.brailleblaster.utd.BRFWriter.PageListener
 import org.brailleblaster.util.FormUIUtils
+import org.brailleblaster.util.LINE_BREAK
 import org.brailleblaster.util.Notify.showMessage
 import org.brailleblaster.util.WorkingDialog
 import org.brailleblaster.utils.braille.BrailleUnicodeConverter
@@ -328,7 +329,7 @@ class PrintPreview private constructor(
             FormUIUtils.addSelectionListener(searchNext) { searchNext() }
             val skh = SixKeyHandler(null, null, searchSixKey.selection)
             searchText.addKeyListener(skh)
-            searchText.addVerifyListener { event: VerifyEvent? -> skh.verifyKey(event!!) }
+            searchText.addVerifyListener(skh)
             FormUIUtils.addSelectionListener(searchSixKey) {
                 val sixKeyMode = searchSixKey.selection
                 BBIni.propertyFileManager.saveAsBoolean(SETTINGS_KEY_SEARCH_SIX_KEY, sixKeyMode)
@@ -965,10 +966,9 @@ class PrintPreview private constructor(
         } else {
             // Compute the number of lines and cells per page.
             // This is reliant on the first page of the brf being representative of the rest of the document.
-            val newline = System.lineSeparator()
             //Split the first page of text into lines, then find the longest line.
             val firstPage = brfOutput.substring(0, pageStartOffsets[1])
-            val lines = firstPage.split(newline)
+            val lines = firstPage.split(LINE_BREAK)
             val longestLine = lines.maxByOrNull { it.length }
             //I'm assuming there's a check somewhere along the way to prevent embossing a blank brf.
             val cellsPerLine = longestLine!!.length

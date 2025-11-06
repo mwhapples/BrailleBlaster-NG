@@ -37,10 +37,11 @@ import org.brailleblaster.settings.UTDManager
 import org.brailleblaster.tools.DebugMenuToolModule
 import org.brailleblaster.utd.formatters.TPageFormatter
 import org.brailleblaster.utd.properties.EmphasisType
-import org.brailleblaster.utd.utils.UTDHelper.Companion.stripUTDRecursive
+import org.brailleblaster.utd.utils.UTDHelper.stripUTDRecursive
 import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.utils.swt.MenuBuilder
 import org.brailleblaster.util.FormUIUtils
+import org.brailleblaster.util.LINE_BREAK
 import org.brailleblaster.utils.xml.UTD_NS
 import org.brailleblaster.utils.gui.PickerDialog
 import org.brailleblaster.utils.swt.EasyListeners
@@ -530,7 +531,7 @@ class TPagesDialog : DebugMenuToolModule {
                     for (text in texts) {
                         if (text.text.data === section && text.text.text == TRANSCRIBER_NOTES_HEADING) {
                             //Add linebreak after Transcriber's Notes heading
-                            text.text.append(System.lineSeparator())
+                            text.text.append(LINE_BREAK)
                             break
                         }
                     }
