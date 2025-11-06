@@ -98,15 +98,15 @@ class Validator(var manager: Manager, var view: StyledText) {
                 false
             } else if (selectionLength <= 0 && view.caretOffset == currentEnd) {
                 false
-            } else selectionStart != currentEnd || selectionStart + selectionLength != nextStart || selectionLength != lineBreakLength
-        } else if (selectionLength <= 0 && manager.mapList.inPrintPageRange(view.caretOffset + lineBreakLength) || selectionLength <= 0 && manager.mapList.getElementInRange(
-                view.caretOffset + lineBreakLength
+            } else selectionStart != currentEnd || selectionStart + selectionLength != nextStart || selectionLength != LINE_BREAK.length
+        } else if (selectionLength <= 0 && manager.mapList.inPrintPageRange(view.caretOffset + LINE_BREAK.length) || selectionLength <= 0 && manager.mapList.getElementInRange(
+                view.caretOffset + LINE_BREAK.length
             ) is BoxLineTextMapElement
         ) {
             return false
         } else if (selectionLength > 0) {
             val t = manager.mapList.getElementInRange(selectionStart)
-            return t !is Uneditable || selectionStart != t.getEnd(manager.mapList) || selectionLength != lineBreakLength
+            return t !is Uneditable || selectionStart != t.getEnd(manager.mapList) || selectionLength != LINE_BREAK.length
         }
         return true
     }
@@ -138,8 +138,4 @@ class Validator(var manager: Manager, var view: StyledText) {
         return true
     }
 
-    companion object {
-        val lineBreak: String = LINE_BREAK
-        val lineBreakLength = lineBreak.length
-    }
 }

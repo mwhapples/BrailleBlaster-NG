@@ -57,6 +57,6 @@ object NotifyUtils {
             ExceptionUtils.getStackTrace(
                 exception
             )
-        }${System.lineSeparator()}$versionsSimple")
+        }${LINE_BREAK}$versionsSimple")
     }
 }

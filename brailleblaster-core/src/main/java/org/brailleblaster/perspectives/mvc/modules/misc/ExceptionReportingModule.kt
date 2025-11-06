@@ -193,7 +193,7 @@ object ExceptionReportingModule /*implements SimpleListener*/ {
                     "versionLibLouis" to Project.LIBLOUIS.versionWithRev.split("]".toRegex(), limit = 2).toTypedArray()[0] + "]",
                 "versionOs" to oSVersion,
                 "versionJava" to javaVersion,
-                "newLineSize" to "" + System.lineSeparator().length,
+                "newLineSize" to "${LINE_BREAK.length}",
                 "userId" to userId,
                 )
         )

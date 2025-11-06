@@ -26,6 +26,7 @@ import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.*
 import org.brailleblaster.perspectives.braille.mapping.maps.MapList
 import org.brailleblaster.utd.properties.UTDElements
+import org.brailleblaster.util.LINE_BREAK
 import org.brailleblaster.utils.xom.childNodes
 import org.brailleblaster.util.Utils
 import org.eclipse.swt.SWT
@@ -148,7 +149,7 @@ class TextRenderer(manager: Manager, private val textView: TextView) : Renderer(
         while (index > 0 && list[index] is PaintedWhiteSpaceElement) {
             index--
         }
-        pb.setStart(list[index].getEnd(list) + System.lineSeparator().length)
+        pb.setStart(list[index].getEnd(list) + LINE_BREAK.length)
         lastPageBreak = pb
     }
 

@@ -333,7 +333,7 @@ class TextVerifyKeyListener(
                     textView.currentElement!!.getStart(manager.mapList),
                     textView.view.caretOffset - textView.currentElement!!.getStart(manager.mapList)
                 )
-                .replace(System.lineSeparator().toRegex(), "")
+                .replace(LINE_BREAK, "")
             val realOffset = text.length
             textView.update(false)
             textView.setCurrent(textView.view.caretOffset)

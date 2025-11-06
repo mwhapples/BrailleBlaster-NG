@@ -149,7 +149,7 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModu
       OutputStreamWriter(FileOutputStream(file), StandardCharsets.UTF_8).use { writer ->
         writer.write("")
         writer.append(RELAXER_HEADER)
-        writer.append(System.lineSeparator())
+        writer.append(LINE_BREAK)
         writer.append(contractionList)
         writer.append(RELAXER_FOOTER)
       }
