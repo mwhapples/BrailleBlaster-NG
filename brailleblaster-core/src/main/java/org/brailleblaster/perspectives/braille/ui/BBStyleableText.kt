@@ -335,7 +335,7 @@ class BBStyleableText(parent: Composite, buttonPanel: Composite?, buttons: Int, 
             }
         }
         val allText = text.text
-        val lines = allText.split(SEP.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        val lines = allText.split(LINE_BREAK.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         var startOffset = 0
         for (line in lines) {
             val ranges = getRangesInRange(startOffset, startOffset + line.length)
@@ -379,7 +379,7 @@ class BBStyleableText(parent: Composite, buttonPanel: Composite?, buttons: Int, 
                     parent.appendChild(allText.substring(curOffset, line.length + startOffset))
                 }
             }
-            startOffset += line.length + SEP.length
+            startOffset += line.length + LINE_BREAK.length
             if (newLineWrap) {
                 root.appendChild(parent)
                 parent = BBX.BLOCK.STYLE.create(newLineStyle)
@@ -520,7 +520,7 @@ class BBStyleableText(parent: Composite, buttonPanel: Composite?, buttons: Int, 
 
     private fun toggleTag(tag: Tag) {
         if (text.selectionCount != 0) {
-            val split = splitSelection(SEP)
+            val split = splitSelection(LINE_BREAK)
             var cont = true
             var i = 0
             while (i < split.size) {
@@ -1023,7 +1023,6 @@ class BBStyleableText(parent: Composite, buttonPanel: Composite?, buttons: Int, 
     }
 
     companion object {
-        val SEP: String = System.lineSeparator()
         private val log = LoggerFactory.getLogger(BBStyleableText::class.java)
 
         /**
