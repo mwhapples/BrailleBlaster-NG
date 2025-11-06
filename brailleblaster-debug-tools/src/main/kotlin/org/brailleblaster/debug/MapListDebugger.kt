@@ -43,7 +43,7 @@ class MapListDebugger(private val m: Manager) {
         dialog.layout = GridLayout(3, false)
 
         mapListViewer = StyledText(dialog, SWT.MULTI or SWT.BORDER or SWT.V_SCROLL or SWT.READ_ONLY)
-        FormUIUtils.setGridData(mapListViewer)
+        EasySWT.setGridData(mapListViewer)
         (mapListViewer.layoutData as GridData).horizontalSpan = 3
         (mapListViewer.layoutData as GridData).grabExcessVerticalSpace = true
 

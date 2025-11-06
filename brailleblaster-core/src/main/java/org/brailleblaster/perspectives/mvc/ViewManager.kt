@@ -27,6 +27,7 @@ import org.brailleblaster.perspectives.mvc.modules.misc.ToggleViewsModule.Compan
 import org.brailleblaster.perspectives.mvc.modules.misc.ToggleViewsModule.Views
 import org.brailleblaster.util.ColorManager
 import org.brailleblaster.util.FormUIUtils
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.custom.SashForm
@@ -100,7 +101,7 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
             }
             val windowedEditor = getView(windowedViewNew)
             windowedEditor.view.setParent(windowedShell)
-            FormUIUtils.setGridDataVertical(windowedEditor.view)
+            EasySWT.setGridDataVertical(windowedEditor.view)
             windowedShell!!.layout(true)
             windowedShell!!.setRedraw(true)
             windowedShell!!.text =

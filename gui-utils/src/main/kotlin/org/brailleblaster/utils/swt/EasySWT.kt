@@ -265,11 +265,16 @@ object EasySWT {
     private val log: Logger = LoggerFactory.getLogger(EasySWT::class.java)
 
     fun setGridData(c: Control) {
-        val gridData = GridData()
-        gridData.horizontalAlignment = GridData.FILL
-        gridData.verticalAlignment = GridData.FILL
-        gridData.grabExcessHorizontalSpace = true
-        c.layoutData = gridData
+        c.layoutData = GridData().apply {
+            horizontalAlignment = GridData.FILL
+            verticalAlignment = GridData.FILL
+            grabExcessHorizontalSpace = true
+        }
+    }
+
+    fun setGridDataVertical(c: Control) {
+        setGridData(c)
+        (c.layoutData as GridData).grabExcessVerticalSpace = true
     }
 
     fun setGridDataGroup(group: Group) {

@@ -50,7 +50,7 @@ class PageNumbersTab internal constructor(folder: TabFolder, pageSettingsDefault
         val brailleGroup = Group(parent, 0)
         brailleGroup.layout = GridLayout(2, true)
         brailleGroup.text = localeHandler["braille"]
-        FormUIUtils.setGridDataGroup(brailleGroup)
+        EasySWT.setGridDataGroup(brailleGroup)
         val evenBraille = EasySWT.addLabel(brailleGroup, "Even Braille Page Number")
         evenBraille.toolTipText = "Sets location of even braille page number."
         evenBrailleNumCombo = makeNumberPositionCombo(brailleGroup, pageSettingsDefault.evenBraillePageNumberAt)
@@ -64,7 +64,7 @@ class PageNumbersTab internal constructor(folder: TabFolder, pageSettingsDefault
         val printGroup = Group(parent, 0)
         printGroup.layout = GridLayout(2, true)
         printGroup.text = localeHandler["print"]
-        FormUIUtils.setGridDataGroup(printGroup)
+        EasySWT.setGridDataGroup(printGroup)
         val evenPrint = EasySWT.addLabel(printGroup, "Even Print Page Number")
         evenPrint.toolTipText = "Sets location of print page number when the braille page number is even."
         evenPrintNumCombo = makeNumberPositionCombo(printGroup, pageSettingsDefault.evenPrintPageNumberAt)
@@ -95,24 +95,24 @@ class PageNumbersTab internal constructor(folder: TabFolder, pageSettingsDefault
         val cpGroup = Group(parent, 0)
         cpGroup.layout = GridLayout(2, true)
         cpGroup.text = localeHandler["continue"]
-        FormUIUtils.setGridDataGroup(cpGroup)
+        EasySWT.setGridDataGroup(cpGroup)
 
         //Continue Pages
         val contPages = EasySWT.addLabel(cpGroup, "Continue Braille Pages Across Volumes")
         contPages.toolTipText = "Sets whether braille page numbering resets at start of new volume."
         continuePagesCombo = makeYesNoCombo(cpGroup, pageSettingsDefault.isContinuePages)
-        FormUIUtils.setGridData(continuePagesCombo)
+        EasySWT.setGridData(continuePagesCombo)
         appendName(continuePagesCombo, "Sets whether braille page numbering resets at start of new volume.")
 
         //Guide words group
         val guideWordsGrp = Group(parent, 0)
         guideWordsGrp.layout = GridLayout(2, true)
         guideWordsGrp.text = "Guide Words"
-        FormUIUtils.setGridDataGroup(guideWordsGrp)
+        EasySWT.setGridDataGroup(guideWordsGrp)
         val guideWords = EasySWT.addLabel(guideWordsGrp, "Guide Words")
         guideWords.toolTipText = "Turns automatic Guide Words on/off for entire document."
         guideWordsCombo = makeYesNoCombo(guideWordsGrp, pageSettingsDefault.isGuideWords)
-        FormUIUtils.setGridData(guideWordsCombo)
+        EasySWT.setGridData(guideWordsCombo)
         appendName(guideWordsCombo, "Turns automatic Guide Words on/off for entire document.")
     }
 
@@ -169,7 +169,7 @@ class PageNumbersTab internal constructor(folder: TabFolder, pageSettingsDefault
                 combo.add(curLoc.name)
             }
             combo.text = defaultValue.name
-            FormUIUtils.setGridData(combo)
+            EasySWT.setGridData(combo)
             return combo
         }
 
@@ -182,7 +182,7 @@ class PageNumbersTab internal constructor(folder: TabFolder, pageSettingsDefault
             } else {
                 combo.text = "No"
             }
-            FormUIUtils.setGridData(combo)
+            EasySWT.setGridData(combo)
             return combo
         }
     }

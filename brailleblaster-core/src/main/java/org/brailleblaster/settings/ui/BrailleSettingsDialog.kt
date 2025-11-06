@@ -76,7 +76,7 @@ class BrailleSettingsDialog(parent: Shell?, m: Manager?, tabToOpen: Class<out Se
             shell.layout = GridLayout(1, true)
 
             val folder = TabFolder(shell, SWT.NONE)
-            FormUIUtils.setGridData(folder)
+            EasySWT.setGridData(folder)
             (folder.layoutData as GridData).grabExcessVerticalSpace = true
 
             pageProperties = PagePropertiesTab.create(folder, engine, this.shell)
@@ -88,7 +88,7 @@ class BrailleSettingsDialog(parent: Shell?, m: Manager?, tabToOpen: Class<out Se
 
             //Button panel at the bottom
             val buttonPanel = Composite(shell, SWT.NONE)
-            FormUIUtils.setGridData(buttonPanel)
+            EasySWT.setGridData(buttonPanel)
             buttonPanel.layout = RowLayout(SWT.HORIZONTAL)
 
             val okButton = Button(buttonPanel, SWT.PUSH)

@@ -29,12 +29,12 @@ import org.brailleblaster.perspectives.braille.views.wp.WPView
 import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.properties.UTDElements
-import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.LINE_BREAK
 import org.brailleblaster.util.Utils.runtimeToString
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getBanaStyles
 import org.brailleblaster.utils.swt.AccessibilityUtils.setName
 import org.brailleblaster.utils.swt.DebugStyledText
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyledText
 import org.eclipse.swt.events.*
@@ -287,7 +287,7 @@ class StylePane(parent: Composite, private val m: Manager) : BBEditorView {
         widget = DebugStyledText(parent, SWT.BORDER or SWT.H_SCROLL).apply {
             alignment = SWT.RIGHT
             editable = false
-            FormUIUtils.setGridData(this)
+            EasySWT.setGridData(this)
             (layoutData as GridData).grabExcessVerticalSpace = true
         }
     }

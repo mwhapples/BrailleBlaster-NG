@@ -20,7 +20,6 @@ import org.brailleblaster.BBIni
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.tools.MenuToolModule
-import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.Notify.notify
 import org.brailleblaster.utils.BBData.getBrailleblasterPath
 import org.brailleblaster.utils.swt.EasySWT
@@ -88,10 +87,10 @@ private fun showAbout() {
         val text = Label(shell, SWT.PUSH)
         text.text = "APH Logo"
         text.image = img
-        FormUIUtils.setGridDataVertical(text)
+        EasySWT.setGridDataVertical(text)
     }
     val sidePanel = Composite(shell, SWT.NONE)
-    FormUIUtils.setGridDataVertical(sidePanel)
+    EasySWT.setGridDataVertical(sidePanel)
     sidePanel.layout = GridLayout()
     EasySWT.newLabel(
         sidePanel,
@@ -100,10 +99,10 @@ private fun showAbout() {
     run {
         val text = StyledText(sidePanel, SWT.BORDER or SWT.READ_ONLY)
         text.text = versionsSimple
-        FormUIUtils.setGridDataVertical(text)
+        EasySWT.setGridDataVertical(text)
     }
     val bottomPanel = Composite(sidePanel, SWT.NONE)
-    FormUIUtils.setGridDataVertical(bottomPanel)
+    EasySWT.setGridDataVertical(bottomPanel)
     //		((GridData) bottomPanel.getLayoutData()).horizontalSpan = 2;
     val rowLayout = RowLayout(SWT.HORIZONTAL)
     rowLayout.center = true

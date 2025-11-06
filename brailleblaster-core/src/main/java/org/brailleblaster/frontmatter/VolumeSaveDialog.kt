@@ -36,7 +36,6 @@ import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.ALL_VOLUMES
 import org.brailleblaster.utd.utils.convertBBX2PEF
 import org.brailleblaster.util.FormUIUtils.makeDialog
-import org.brailleblaster.util.FormUIUtils.setGridData
 import org.brailleblaster.util.LINE_BREAK
 import org.brailleblaster.util.Notify.showMessage
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
@@ -113,17 +112,17 @@ class VolumeSaveDialog(
             val saveSingle = Button(shell, SWT.NONE)
             addSwtBotKey(saveSingle, SWTBOT_SAVE_SINGLE)
             saveSingle.setText("Save All to Single File")
-            setGridData(saveSingle)
+            EasySWT.setGridData(saveSingle)
 
             val saveFolder = Button(shell, SWT.NONE)
             addSwtBotKey(saveFolder, SWTBOT_SAVE_FOLDER)
             saveFolder.setText("Save Selected to Folder")
-            setGridData(saveFolder)
+            EasySWT.setGridData(saveFolder)
 
             val saveFolderAll = Button(shell, SWT.NONE)
             addSwtBotKey(saveFolderAll, SWTBOT_SAVE_FOLDER_ALL)
             saveFolderAll.setText("Save All to Folder")
-            setGridData(saveFolderAll)
+            EasySWT.setGridData(saveFolderAll)
 
             // ----------------- Listeners --------------------
             EasySWT.addSelectionListener(saveSingle) { _: SelectionEvent? -> clickSaveSingle() }

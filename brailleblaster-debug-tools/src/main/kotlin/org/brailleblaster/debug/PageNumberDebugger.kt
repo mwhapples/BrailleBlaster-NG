@@ -22,6 +22,7 @@ import org.brailleblaster.perspectives.braille.mapping.elements.PageIndicatorTex
 import org.brailleblaster.perspectives.braille.mapping.elements.PrintPageBrlMapElement
 import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.LINE_BREAK
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyledText
 import org.eclipse.swt.layout.GridLayout
@@ -33,7 +34,7 @@ class PageNumberDebugger(manager: Manager) {
         val shell = FormUIUtils.makeDialogFloating(manager.wpManager.shell)
         shell.layout = GridLayout(1, true)
         val tabContainer = TabFolder(shell, SWT.NONE)
-        FormUIUtils.setGridDataVertical(tabContainer)
+        EasySWT.setGridDataVertical(tabContainer)
         val printPageTab = TabItem(tabContainer, SWT.NONE)
         printPageTab.text = "Print Pages"
         val printPageLabel = StyledText(tabContainer, SWT.READ_ONLY or SWT.V_SCROLL)

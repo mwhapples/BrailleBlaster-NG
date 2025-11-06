@@ -37,7 +37,6 @@ import org.brailleblaster.perspectives.mvc.events.XMLCaretEvent
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.utils.swt.EasySWT
-import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.Notify.notify
 import org.brailleblaster.util.Notify.showMessage
 import org.brailleblaster.utils.swt.SizeAndLocation
@@ -412,7 +411,7 @@ class SimpleImageDescriberDialog(
 
     private fun addStyledTextPane(shell: Shell, inputPane: Group, imgSrc: Path, imgElem: Element) {
         inputPane.layout = GridLayout(1, false)
-        FormUIUtils.setGridData(inputPane)
+        EasySWT.setGridData(inputPane)
         val actions = Group(inputPane, SWT.NONE)
         actions.layout = GridLayout(3, false)
         actions.layoutData = GridData(SWT.FILL, SWT.FILL, true, false)
@@ -426,7 +425,7 @@ class SimpleImageDescriberDialog(
         for (i in actions.children.indices) {
             actions.children[i].data = GridData(SWT.FILL, SWT.FILL, true, false)
         }
-        FormUIUtils.setGridDataVertical(descTextEditor!!.text)
+        EasySWT.setGridDataVertical(descTextEditor!!.text)
         val captionStyle = Button(inputPane, SWT.CHECK)
         captionStyle.text = "Wrap Text in Caption Style"
         // #4567: Do not check this by default as this tool isn't usually used

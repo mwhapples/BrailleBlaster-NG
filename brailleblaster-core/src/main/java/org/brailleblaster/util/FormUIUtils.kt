@@ -17,15 +17,11 @@ package org.brailleblaster.util
 
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.TextMapElement
-import org.brailleblaster.utils.swt.ButtonBuilder
-import org.brailleblaster.utils.swt.ComboBuilder
-import org.brailleblaster.utils.swt.EasySWT
-import org.brailleblaster.utils.swt.TextBuilder
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyledText
 import org.eclipse.swt.graphics.GC
-import org.eclipse.swt.layout.GridData
-import org.eclipse.swt.widgets.*
+import org.eclipse.swt.widgets.Composite
+import org.eclipse.swt.widgets.Shell
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.function.Consumer
@@ -36,26 +32,6 @@ import java.util.function.Supplier
  */
 object FormUIUtils {
     private val log: Logger = LoggerFactory.getLogger(FormUIUtils::class.java)
-
-    @JvmStatic
-	fun setGridData(c: Control) {
-        val gridData = GridData()
-        gridData.horizontalAlignment = GridData.FILL
-        gridData.verticalAlignment = GridData.FILL
-        gridData.grabExcessHorizontalSpace = true
-        c.layoutData = gridData
-    }
-
-    fun setGridDataVertical(c: Control) {
-        setGridData(c)
-        (c.layoutData as GridData).grabExcessVerticalSpace = true
-    }
-
-    @JvmStatic
-	fun setGridDataGroup(group: Group) {
-        setGridData(group)
-        (group.layoutData as GridData).grabExcessVerticalSpace = true
-    }
 
     /**
      * If the value is different from the getter, update the object with the setter.
