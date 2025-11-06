@@ -68,7 +68,7 @@ class BrailleSettingsDialog(parent: Shell?, m: Manager?, tabToOpen: Class<out Se
             this.engine = m.document.engine
             this.m = m
             shell = if (parent != null) {
-                FormUIUtils.makeDialog(parent)
+                EasySWT.makeDialog(parent)
             } else {
                 FormUIUtils.makeDialog(m)
             }

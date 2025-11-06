@@ -35,7 +35,6 @@ import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.ALL_VOLUMES
 import org.brailleblaster.utd.utils.convertBBX2PEF
-import org.brailleblaster.util.FormUIUtils.makeDialog
 import org.brailleblaster.util.LINE_BREAK
 import org.brailleblaster.util.Notify.showMessage
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
@@ -83,7 +82,7 @@ class VolumeSaveDialog(
     init {
         val volumes = getVolumeElements(doc)
 
-        shell = makeDialog(parent)
+        shell = EasySWT.makeDialog(parent)
         shell.text = localeHandler["&SaveVolumeBRFPEF"]
         shell.setLayout(GridLayout(2, false))
 

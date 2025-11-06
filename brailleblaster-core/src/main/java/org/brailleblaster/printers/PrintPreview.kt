@@ -31,7 +31,6 @@ import org.brailleblaster.settings.ui.BrailleSettingsDialog
 import org.brailleblaster.settings.ui.EmbosserSettingsTab
 import org.brailleblaster.utd.BRFWriter
 import org.brailleblaster.utd.BRFWriter.PageListener
-import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.LINE_BREAK
 import org.brailleblaster.util.Notify.showMessage
 import org.brailleblaster.util.WorkingDialog
@@ -174,7 +173,7 @@ class PrintPreview private constructor(
 
             curPage =
                 EasySWT.makeTextBuilder(pageNavPanel, SWT.BORDER or SWT.SINGLE)
-                    .rowDataWidth(FormUIUtils.calcAverageCharWidth(shell) * 5).get()
+                    .rowDataWidth(EasySWT.calcAverageCharWidth(shell) * 5).get()
 
             val pageOf = Label(pageNavPanel, SWT.NONE)
             pageOf.text = "of"
@@ -210,7 +209,7 @@ class PrintPreview private constructor(
 
             searchText =
                 EasySWT.makeTextBuilder(findPanel, SWT.BORDER or SWT.SINGLE)
-                    .rowDataWidth(FormUIUtils.calcAverageCharWidth(shell) * 20).get()
+                    .rowDataWidth(EasySWT.calcAverageCharWidth(shell) * 20).get()
 
             val searchPrev = Button(findPanel, SWT.NONE)
             searchPrev.text = "Previous"
@@ -454,8 +453,8 @@ class PrintPreview private constructor(
         viewData.grabExcessVerticalSpace = true
         view.layoutData = viewData
 
-        val marginH = FormUIUtils.calcAverageCharHeight(shell) * MARGIN_LINES
-        val marginW = FormUIUtils.calcAverageCharWidth(shell) * MARGIN_CELLS
+        val marginH = EasySWT.calcAverageCharHeight(shell) * MARGIN_LINES
+        val marginW = EasySWT.calcAverageCharWidth(shell) * MARGIN_CELLS
         view.setMargins(marginW, marginH, marginW, marginH)
 
         view.addVerifyKeyListener { e: VerifyEvent ->

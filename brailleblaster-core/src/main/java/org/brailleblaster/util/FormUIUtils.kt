@@ -17,10 +17,9 @@ package org.brailleblaster.util
 
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.TextMapElement
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyledText
-import org.eclipse.swt.graphics.GC
-import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Shell
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -54,12 +53,7 @@ object FormUIUtils {
      * clicked on. Is resizable and has dialog trim
      */
     fun makeDialog(manager: Manager): Shell {
-        return makeDialog(manager.wpManager.shell)
-    }
-
-    @JvmStatic
-	fun makeDialog(parent: Shell?): Shell {
-        return Shell(parent, SWT.APPLICATION_MODAL or SWT.DIALOG_TRIM or SWT.RESIZE)
+        return EasySWT.makeDialog(manager.wpManager.shell)
     }
 
     /**
@@ -67,26 +61,7 @@ object FormUIUtils {
      * clicked on. Is resizable and has dialog trim
      */
     fun makeDialogFloating(manager: Manager): Shell {
-        return makeDialogFloating(manager.wpManager.shell)
-    }
-
-    @JvmStatic
-	fun makeDialogFloating(parent: Shell?): Shell {
-        return Shell(parent, SWT.DIALOG_TRIM or SWT.RESIZE)
-    }
-
-    fun calcAverageCharWidth(parent: Composite?): Int {
-        val gc = GC(parent)
-        val averageCharWidth = gc.fontMetrics.averageCharacterWidth.toInt()
-        gc.dispose()
-        return averageCharWidth
-    }
-
-    fun calcAverageCharHeight(parent: Composite?): Int {
-        val gc = GC(parent)
-        val averageCharHeight = gc.fontMetrics.height
-        gc.dispose()
-        return averageCharHeight
+        return EasySWT.makeDialogFloating(manager.wpManager.shell)
     }
 
     fun getBottomIndex(text: StyledText): Int {

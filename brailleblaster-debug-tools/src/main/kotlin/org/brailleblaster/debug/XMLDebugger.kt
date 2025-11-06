@@ -66,7 +66,7 @@ class XMLDebugger(private val parent: Shell, private val simpleManager: BBSimple
     }
 
     fun open() {
-        dialog = FormUIUtils.makeDialogFloating(parent)
+        dialog = EasySWT.makeDialogFloating(parent)
         dialog.text = "Debug: XML Viewer"
         //		dialog.setSize(400, 200);
         val gridLayoutCols = 10

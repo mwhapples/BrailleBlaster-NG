@@ -46,6 +46,14 @@ object EasySWT {
         return GridDataBuilder()
     }
 
+    fun makeDialog(parent: Shell?): Shell {
+        return Shell(parent, SWT.APPLICATION_MODAL or SWT.DIALOG_TRIM or SWT.RESIZE)
+    }
+
+    fun makeDialogFloating(parent: Shell?): Shell {
+        return Shell(parent, SWT.DIALOG_TRIM or SWT.RESIZE)
+    }
+
     @JvmStatic
     fun makeComposite(parent: Composite?, columns: Int): Composite {
         return CompositeBuilder1(parent).apply {
@@ -474,6 +482,13 @@ object EasySWT {
      */
     private fun addNumberFilter(t: Text, noDecimal: Boolean) {
         t.addKeyListener(NumberFilterKeyListener(noDecimal))
+    }
+
+    fun calcAverageCharWidth(parent: Composite?): Int {
+        val gc = GC(parent)
+        val averageCharWidth = gc.fontMetrics.averageCharacterWidth.toInt()
+        gc.dispose()
+        return averageCharWidth
     }
 
     @JvmStatic
