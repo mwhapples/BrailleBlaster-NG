@@ -85,23 +85,23 @@ object FormUIUtils {
     }
 
     @JvmOverloads
-    fun makeButton(parent: Composite?, style: Int = SWT.PUSH): ButtonBuilder {
-        return ButtonBuilder(parent!!, style)
+    fun makeButton(parent: Composite, style: Int = SWT.PUSH): ButtonBuilder {
+        return ButtonBuilder(parent, style)
     }
 
     @JvmStatic
-	fun makeCheckbox(parent: Composite?): ButtonBuilder {
-        return ButtonBuilder(parent!!, SWT.CHECK)
+	fun makeCheckbox(parent: Composite): ButtonBuilder {
+        return ButtonBuilder(parent, SWT.CHECK)
     }
 
     @JvmStatic
-	fun makeComboDropdown(parent: Composite?): ComboBuilder {
-        return ComboBuilder(parent!!, SWT.DROP_DOWN or SWT.READ_ONLY)
+	fun makeComboDropdown(parent: Composite): ComboBuilder {
+        return ComboBuilder(parent, SWT.DROP_DOWN or SWT.READ_ONLY)
     }
 
     @JvmOverloads
-    fun makeText(parent: Composite?, style: Int = SWT.BORDER or SWT.SINGLE): TextBuilder {
-        return TextBuilder(parent!!, style)
+    fun makeText(parent: Composite, style: Int = SWT.BORDER or SWT.SINGLE): TextBuilder {
+        return TextBuilder(parent, style)
     }
 
     /**
