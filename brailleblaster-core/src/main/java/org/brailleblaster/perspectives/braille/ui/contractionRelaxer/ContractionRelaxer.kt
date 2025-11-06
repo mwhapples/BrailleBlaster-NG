@@ -21,6 +21,7 @@ import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.settings.TableExceptions
 import org.brailleblaster.settings.TableExceptions.getCurrentExceptionFile
 import org.brailleblaster.tools.MenuToolModule
+import org.brailleblaster.util.LINE_BREAK
 import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridData
@@ -126,7 +127,7 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModu
       //println("Header and footer not found. Appending new header and footer along with contraction list.")
       OutputStreamWriter(FileOutputStream(file), StandardCharsets.UTF_8).use { writer ->
         writer.append(RELAXER_HEADER)
-        writer.append(System.lineSeparator())
+        writer.append(LINE_BREAK)
         writer.append(contractionList)
         writer.append(RELAXER_FOOTER)
       }

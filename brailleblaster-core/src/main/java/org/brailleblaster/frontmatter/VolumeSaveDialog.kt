@@ -39,6 +39,7 @@ import org.brailleblaster.util.FormUIUtils.addSelectionListener
 import org.brailleblaster.util.FormUIUtils.makeDialog
 import org.brailleblaster.util.FormUIUtils.setGridData
 import org.brailleblaster.util.FormUIUtils.setLargeDialogSize
+import org.brailleblaster.util.LINE_BREAK
 import org.brailleblaster.util.Notify.showMessage
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.utils.swt.EasySWT.addSwtBotKey
@@ -538,7 +539,7 @@ class VolumeSaveDialog(
             }
 
             val finalBrf = finalBrfMut!!
-            check(!finalBrf.isBlank()) { "No finalBrf?! " + System.lineSeparator() + finalBrf + System.lineSeparator() + "=------=" }
+            check(!finalBrf.isBlank()) { "No finalBrf?! $LINE_BREAK$finalBrf$LINE_BREAK=------=" }
 
             //Remove lingering empty page from resetting the page to restart the BRF output
             val linesPerPage = engine.brailleSettings.cellType.getLinesForHeight(

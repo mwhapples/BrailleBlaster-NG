@@ -30,6 +30,7 @@ import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.util.FormUIUtils
+import org.brailleblaster.util.LINE_BREAK
 import org.brailleblaster.util.Utils.runtimeToString
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getBanaStyles
 import org.brailleblaster.utils.swt.AccessibilityUtils.setName
@@ -235,7 +236,7 @@ class StylePane(parent: Composite, private val m: Manager) : BBEditorView {
         var curLine = 0
         for ((key, value) in lines) {
             sb.append(
-                System.lineSeparator().toString().repeat(
+                LINE_BREAK.repeat(
                     max(0.0, (key!! - curLine).toDouble()).toInt()
                 )
             )

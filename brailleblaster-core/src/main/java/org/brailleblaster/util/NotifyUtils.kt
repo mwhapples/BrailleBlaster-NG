@@ -44,7 +44,7 @@ object NotifyUtils {
         //Might need to display as message
         var prefix: String = message ?: ""
         if (prefix.isNotBlank()) {
-            prefix += System.lineSeparator() + System.lineSeparator()
+            prefix += "$LINE_BREAK$LINE_BREAK"
         } else {
             prefix = ""
         }
@@ -53,7 +53,7 @@ object NotifyUtils {
         } else {
             null
         }
-        return ("$prefix$ENCOUNTERED_ERROR_COPY_TEXT${System.lineSeparator()}${System.lineSeparator()}Book $book${System.lineSeparator()}${
+        return ("$prefix$ENCOUNTERED_ERROR_COPY_TEXT${LINE_BREAK}${LINE_BREAK}Book $book${LINE_BREAK}${
             ExceptionUtils.getStackTrace(
                 exception
             )

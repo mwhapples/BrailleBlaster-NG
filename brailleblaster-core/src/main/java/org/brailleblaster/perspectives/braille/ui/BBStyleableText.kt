@@ -31,6 +31,7 @@ import org.brailleblaster.utd.utils.TableUtils
 import org.brailleblaster.utd.utils.UTDHelper
 import org.brailleblaster.utils.xom.detachAll
 import org.brailleblaster.util.ColorManager
+import org.brailleblaster.util.LINE_BREAK
 import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.util.Notify.showMessage
 import org.brailleblaster.utils.xml.BB_NS
@@ -222,16 +223,16 @@ class BBStyleableText(parent: Composite, buttonPanel: Composite?, buttons: Int, 
             }
         })
         text.addExtendedModifyListener { event: ExtendedModifyEvent ->
-            if (event.replacedText.contains(System.lineSeparator())) {
+            if (event.replacedText.contains(LINE_BREAK)) {
                 val startLine = text.getLineAtOffset(event.start) + 1
                 var index = 0
-                while (event.replacedText.indexOf(System.lineSeparator(), index) != -1) {
+                while (event.replacedText.indexOf(LINE_BREAK, index) != -1) {
                     if (startLine >= margins.size) {
                         log.error("Tried to delete a margin that did not exist. StartLine: " + startLine + " margins size:" + margins.size)
                         break
                     }
                     margins.removeAt(startLine)
-                    index = event.replacedText.indexOf(System.lineSeparator(), index) + 1
+                    index = event.replacedText.indexOf(LINE_BREAK, index) + 1
                 }
             }
         }

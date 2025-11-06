@@ -34,6 +34,7 @@ import org.brailleblaster.utd.actions.GenericBlockAction
 import org.brailleblaster.utd.properties.Align
 import org.brailleblaster.utils.swt.AccessibilityUtils.setName
 import org.brailleblaster.util.FormUIUtils
+import org.brailleblaster.util.LINE_BREAK
 import org.eclipse.swt.SWT
 import org.eclipse.swt.accessibility.AccessibleAdapter
 import org.eclipse.swt.accessibility.AccessibleEvent
@@ -301,7 +302,7 @@ class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
                 // reason this listener fires multiple times, adding the page number each time.
                 // Only add the page number if we're looking at the end of the line.
                 if (e.end == view.getOffsetAtLine(line) + view.getLine(line).length
-                    || e.end == view.getOffsetAtLine(line) + view.getLine(line).length + System.lineSeparator().length
+                    || e.end == view.getOffsetAtLine(line) + view.getLine(line).length + LINE_BREAK.length
                 ) {
                     if (offsetIsPrintPageNumberLine(e.start)) {
                         val pageNum = getPreviousPageIndicator(e.start)!!.printPageNum
@@ -341,7 +342,7 @@ class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
         val changedTextLength = state.originalEnd - state.originalStart - (currentEnd - currentStart)
         val updateMessage: Message = if (currentElement is WhiteSpaceElement) WhitespaceMessage(
             currentIndex, view.caretOffset, getString(currentStart, currentEnd - currentStart).replace(
-                System.lineSeparator().toRegex(), ""
+                LINE_BREAK, ""
             ), state.originalEnd - state.originalStart
         ) else UpdateMessage(
             view.caretOffset,
@@ -554,10 +555,10 @@ class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
 
     fun setCursor(offset: Int): Int {
         var offset = offset
-        if (System.lineSeparator().length == 2 && offset + 1 < view.charCount && view.getTextRange(
+        if (LINE_BREAK.length == 2 && offset + 1 < view.charCount && view.getTextRange(
                 offset,
                 1
-            ) == System.lineSeparator().substring(1)
+            ) == LINE_BREAK.substring(1)
         ) {
             offset++
         }

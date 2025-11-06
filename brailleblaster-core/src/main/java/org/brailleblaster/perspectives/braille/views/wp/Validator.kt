@@ -21,6 +21,7 @@ import org.brailleblaster.perspectives.braille.mapping.elements.*
 import org.brailleblaster.perspectives.braille.mapping.interfaces.Uneditable
 import org.brailleblaster.perspectives.mvc.modules.misc.TableSelectionModule
 import org.brailleblaster.utd.actions.GenericBlockAction
+import org.brailleblaster.util.LINE_BREAK
 import org.eclipse.swt.custom.StyledText
 
 class Validator(var manager: Manager, var view: StyledText) {
@@ -138,7 +139,7 @@ class Validator(var manager: Manager, var view: StyledText) {
     }
 
     companion object {
-        var lineBreak: String = System.lineSeparator()
-        var lineBreakLength = lineBreak.length
+        val lineBreak: String = LINE_BREAK
+        val lineBreakLength = lineBreak.length
     }
 }
