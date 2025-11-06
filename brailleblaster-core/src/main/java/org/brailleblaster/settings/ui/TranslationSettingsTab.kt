@@ -59,7 +59,7 @@ class TranslationSettingsTab internal constructor(folder: TabFolder?, private va
         standardsGroup.layout = GridLayout(2, true)
         standardsGroup.text = "Standards"
         FormUIUtils.setGridData(standardsGroup)
-        FormUIUtils.addLabel(standardsGroup, "Braille Standard")
+        EasySWT.addLabel(standardsGroup, "Braille Standard")
         standardCombo = Combo(standardsGroup, SWT.READ_ONLY)
         FormUIUtils.setGridData(standardCombo)
         EasySWT.addSwtBotKey(standardCombo, SWTBOT_STANDARD_COMBO)
@@ -69,7 +69,7 @@ class TranslationSettingsTab internal constructor(folder: TabFolder?, private va
         settingsGroup.layout = GridLayout(2, false)
         settingsGroup.text = "Selected Standard Settings"
         FormUIUtils.setGridData(settingsGroup)
-        FormUIUtils.addLabel(settingsGroup, "Cell type")
+        EasySWT.addLabel(settingsGroup, "Cell type")
         val cellTypeContainer = Composite(settingsGroup, SWT.NONE)
         cellTypeContainer.layout = RowLayout()
         for (curType in BrlCell.entries) {
@@ -81,23 +81,23 @@ class TranslationSettingsTab internal constructor(folder: TabFolder?, private va
             brailleCellRadios[curType.name] = typeButton
         }
 
-        FormUIUtils.addLabel(settingsGroup, "Main Translation Table")
+        EasySWT.addLabel(settingsGroup, "Main Translation Table")
         mainTableText = Text(settingsGroup, SWT.BORDER)
         mainTableText.isEnabled = false
         FormUIUtils.setGridData(mainTableText)
-        FormUIUtils.addLabel(settingsGroup, "Computer Braille Table")
+        EasySWT.addLabel(settingsGroup, "Computer Braille Table")
         compTableText = Text(settingsGroup, SWT.BORDER)
         compTableText.isEnabled = false
         FormUIUtils.setGridData(compTableText)
-        FormUIUtils.addLabel(settingsGroup, "Uncontracted Table")
+        EasySWT.addLabel(settingsGroup, "Uncontracted Table")
         unconTableText = Text(settingsGroup, SWT.BORDER)
         unconTableText.isEnabled = false
         FormUIUtils.setGridData(unconTableText)
-        FormUIUtils.addLabel(settingsGroup, "Math Text Table")
+        EasySWT.addLabel(settingsGroup, "Math Text Table")
         mathTextTableText = Text(settingsGroup, SWT.BORDER)
         mathTextTableText.isEnabled = false
         FormUIUtils.setGridData(mathTextTableText)
-        FormUIUtils.addLabel(settingsGroup, "Math Expression Table")
+        EasySWT.addLabel(settingsGroup, "Math Expression Table")
         mathExprTableText = Text(settingsGroup, SWT.BORDER)
         mathExprTableText.isEnabled = false
         FormUIUtils.setGridData(mathExprTableText)

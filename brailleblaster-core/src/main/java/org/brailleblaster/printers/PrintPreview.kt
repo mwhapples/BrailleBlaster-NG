@@ -173,7 +173,8 @@ class PrintPreview private constructor(
             pageNavPanel.layout = rowLayout
 
             curPage =
-                FormUIUtils.makeText(pageNavPanel).rowDataWidth(FormUIUtils.calcAverageCharWidth(shell) * 5).get()
+                EasySWT.makeTextBuilder(pageNavPanel, SWT.BORDER or SWT.SINGLE)
+                    .rowDataWidth(FormUIUtils.calcAverageCharWidth(shell) * 5).get()
 
             val pageOf = Label(pageNavPanel, SWT.NONE)
             pageOf.text = "of"
@@ -205,10 +206,11 @@ class PrintPreview private constructor(
             rowLayout.center = true
             findPanel.layout = rowLayout
 
-            FormUIUtils.newLabel(findPanel, "Find:")
+            EasySWT.newLabel(findPanel, "Find:")
 
             searchText =
-                FormUIUtils.makeText(findPanel).rowDataWidth(FormUIUtils.calcAverageCharWidth(shell) * 20).get()
+                EasySWT.makeTextBuilder(findPanel, SWT.BORDER or SWT.SINGLE)
+                    .rowDataWidth(FormUIUtils.calcAverageCharWidth(shell) * 20).get()
 
             val searchPrev = Button(findPanel, SWT.NONE)
             searchPrev.text = "Previous"
@@ -353,7 +355,8 @@ class PrintPreview private constructor(
                 searchText.text = ""
             }
 
-            EasySWT.addSelectionListener(unicodeMenuItem) {                val isUnicodeSelected = unicodeMenuItem.selection
+            EasySWT.addSelectionListener(unicodeMenuItem) {
+                val isUnicodeSelected = unicodeMenuItem.selection
                 BBIni.propertyFileManager.save(SETTINGS_KEY_UNICODE, isUnicodeSelected.toString())
                 try {
                     WorkingDialog(

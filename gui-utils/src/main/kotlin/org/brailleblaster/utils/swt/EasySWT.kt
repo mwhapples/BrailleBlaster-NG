@@ -456,6 +456,10 @@ object EasySWT {
         return makeKeyListener(swtmod, swtchar, function).also { shell.addKeyListener(it) }
     }
 
+    fun addDoubleFilter(t: Text) {
+        addNumberFilter(t, false)
+    }
+
     fun addIntegerFilter(t: Text) {
         addNumberFilter(t, true)
     }

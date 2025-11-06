@@ -19,12 +19,10 @@ import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.TextMapElement
 import org.brailleblaster.utils.swt.ButtonBuilder
 import org.brailleblaster.utils.swt.ComboBuilder
-import org.brailleblaster.utils.swt.NumberFilterKeyListener
+import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.utils.swt.TextBuilder
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyledText
-import org.eclipse.swt.events.ModifyEvent
-import org.eclipse.swt.events.ModifyListener
 import org.eclipse.swt.graphics.GC
 import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.widgets.*
@@ -88,26 +86,6 @@ object FormUIUtils {
         return Shell(parent, SWT.APPLICATION_MODAL or SWT.DIALOG_TRIM or SWT.RESIZE)
     }
 
-    @JvmOverloads
-    fun makeButton(parent: Composite, style: Int = SWT.PUSH): ButtonBuilder {
-        return ButtonBuilder(parent, style)
-    }
-
-    @JvmStatic
-	fun makeCheckbox(parent: Composite): ButtonBuilder {
-        return ButtonBuilder(parent, SWT.CHECK)
-    }
-
-    @JvmStatic
-	fun makeComboDropdown(parent: Composite): ComboBuilder {
-        return ComboBuilder(parent, SWT.DROP_DOWN or SWT.READ_ONLY)
-    }
-
-    @JvmOverloads
-    fun makeText(parent: Composite, style: Int = SWT.BORDER or SWT.SINGLE): TextBuilder {
-        return TextBuilder(parent, style)
-    }
-
     /**
      * Make dialog that doesn't have any modality, meaning the main shell can be
      * clicked on. Is resizable and has dialog trim
@@ -119,44 +97,6 @@ object FormUIUtils {
     @JvmStatic
 	fun makeDialogFloating(parent: Shell?): Shell {
         return Shell(parent, SWT.DIALOG_TRIM or SWT.RESIZE)
-    }
-
-    /**
-     * Generate a standard label
-     */
-	@JvmStatic
-	fun addLabel(parent: Composite?, text: String?): Label {
-        val label = newLabel(parent, text)
-        setGridData(label)
-        return label
-    }
-
-    @JvmStatic
-	fun newLabel(parent: Composite?, text: String?): Label {
-        val label = Label(parent, 0)
-        label.text = text
-        return label
-    }
-
-    fun makeModifyListener(function: Consumer<ModifyEvent>): ModifyListener {
-        return ModifyListener { function.accept(it) }
-    }
-
-    @JvmStatic
-	fun addDoubleFilter(t: Text) {
-        addNumberFilter(t, false)
-    }
-
-    @JvmStatic
-	fun addIntegerFilter(t: Text) {
-        addNumberFilter(t, true)
-    }
-
-    /**
-     * Disallow non-number and non-navigation keys in the text field
-     */
-    private fun addNumberFilter(t: Text, noDecimal: Boolean) {
-        t.addKeyListener(NumberFilterKeyListener(noDecimal))
     }
 
     fun calcAverageCharWidth(parent: Composite?): Int {

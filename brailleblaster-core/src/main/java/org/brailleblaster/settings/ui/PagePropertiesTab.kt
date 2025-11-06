@@ -19,9 +19,6 @@ import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.utd.utils.Page
 import org.brailleblaster.utils.swt.AccessibilityUtils.appendName
-import org.brailleblaster.util.FormUIUtils.addDoubleFilter
-import org.brailleblaster.util.FormUIUtils.addIntegerFilter
-import org.brailleblaster.util.FormUIUtils.addLabel
 import org.brailleblaster.util.FormUIUtils.setGridData
 import org.brailleblaster.util.FormUIUtils.setGridDataGroup
 import org.brailleblaster.util.FormUIUtils.updateObject
@@ -92,29 +89,29 @@ class PagePropertiesTab private constructor(parent: Composite, engine: UTDTransl
         pageGroup.layout = GridLayout(2, true)
         setGridDataGroup(pageGroup)
 
-        addLabel(pageGroup, localeHandler["pageSize"])
+        EasySWT.addLabel(pageGroup, localeHandler["pageSize"])
         pageTypes = Combo(pageGroup, SWT.READ_ONLY)
         setGridData(pageTypes)
 
-        addLabel(pageGroup, localeHandler["width"] + unitSuffix)
+        EasySWT.addLabel(pageGroup, localeHandler["width"] + unitSuffix)
         widthBox = Text(pageGroup, SWT.BORDER)
-        addDoubleFilter(widthBox)
+        EasySWT.addDoubleFilter(widthBox)
         setGridData(widthBox)
 
-        addLabel(pageGroup, localeHandler["height"] + unitSuffix)
+        EasySWT.addLabel(pageGroup, localeHandler["height"] + unitSuffix)
         heightBox = Text(pageGroup, SWT.BORDER)
-        addDoubleFilter(heightBox)
+        EasySWT.addDoubleFilter(heightBox)
         setGridData(heightBox)
 
-        addLabel(pageGroup, localeHandler["linesPerPage"])
+        EasySWT.addLabel(pageGroup, localeHandler["linesPerPage"])
         linesBox = Text(pageGroup, SWT.BORDER)
         setGridData(linesBox)
-        addIntegerFilter(linesBox)
+        EasySWT.addIntegerFilter(linesBox)
 
-        addLabel(pageGroup, localeHandler["cellsPerLine"])
+        EasySWT.addLabel(pageGroup, localeHandler["cellsPerLine"])
         cellsBox = Text(pageGroup, SWT.BORDER)
         setGridData(cellsBox)
-        addIntegerFilter(cellsBox)
+        EasySWT.addIntegerFilter(cellsBox)
 
         // Margin group
         val marginGroup = Group(parent, 0)
@@ -123,7 +120,7 @@ class PagePropertiesTab private constructor(parent: Composite, engine: UTDTransl
         setGridDataGroup(marginGroup)
 
         // Units subgroup
-        addLabel(marginGroup, localeHandler["measurementUnits"])
+        EasySWT.addLabel(marginGroup, localeHandler["measurementUnits"])
         val unitsGroup = Composite(marginGroup, 0)
         unitsGroup.layout = GridLayout(2, true)
         regionalButton = Button(unitsGroup, SWT.RADIO)
@@ -135,24 +132,24 @@ class PagePropertiesTab private constructor(parent: Composite, engine: UTDTransl
         setGridData(cellsLinesButton)
 
         // All other margins
-        marginTopLabel = addLabel(marginGroup, localeHandler["topMargin"] + unitSuffix)
+        marginTopLabel = EasySWT.addLabel(marginGroup, localeHandler["topMargin"] + unitSuffix)
         marginTopBox = Text(marginGroup, SWT.BORDER)
-        addDoubleFilter(marginTopBox)
+        EasySWT.addDoubleFilter(marginTopBox)
         setGridData(marginTopBox)
 
-        marginBottomLabel = addLabel(marginGroup, localeHandler["bottomMargin"] + unitSuffix)
+        marginBottomLabel = EasySWT.addLabel(marginGroup, localeHandler["bottomMargin"] + unitSuffix)
         marginBottomBox = Text(marginGroup, SWT.BORDER or SWT.READ_ONLY)
-        addDoubleFilter(marginBottomBox)
+        EasySWT.addDoubleFilter(marginBottomBox)
         setGridData(marginBottomBox)
 
-        marginLeftLabel = addLabel(marginGroup, localeHandler["leftMargin"] + unitSuffix)
+        marginLeftLabel = EasySWT.addLabel(marginGroup, localeHandler["leftMargin"] + unitSuffix)
         marginLeftBox = Text(marginGroup, SWT.BORDER)
-        addDoubleFilter(marginLeftBox)
+        EasySWT.addDoubleFilter(marginLeftBox)
         setGridData(marginLeftBox)
 
-        marginRightLabel = addLabel(marginGroup, localeHandler["rightMargin"] + unitSuffix)
+        marginRightLabel = EasySWT.addLabel(marginGroup, localeHandler["rightMargin"] + unitSuffix)
         marginRightBox = Text(marginGroup, SWT.BORDER or SWT.READ_ONLY)
-        addDoubleFilter(marginRightBox)
+        EasySWT.addDoubleFilter(marginRightBox)
         setGridData(marginRightBox)
 
         // Group for interpoint
@@ -161,7 +158,7 @@ class PagePropertiesTab private constructor(parent: Composite, engine: UTDTransl
         interpointGroup.text = "Interpoint"
         setGridDataGroup(interpointGroup)
 
-        val interpointLabel = addLabel(interpointGroup, "Interpoint")
+        val interpointLabel = EasySWT.addLabel(interpointGroup, "Interpoint")
         interpointLabel.toolTipText =
             "Sets embosser for interpoint embossing and puts t1, p1, and 1 on a right-hand page."
         interpointCombo = makeYesNoCombo(interpointGroup, engine.pageSettings.interpoint)

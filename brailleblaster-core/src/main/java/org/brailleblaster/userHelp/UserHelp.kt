@@ -93,7 +93,7 @@ private fun showAbout() {
     val sidePanel = Composite(shell, SWT.NONE)
     FormUIUtils.setGridDataVertical(sidePanel)
     sidePanel.layout = GridLayout()
-    FormUIUtils.newLabel(
+    EasySWT.newLabel(
         sidePanel,
         "For more information or to report bugs visit ${AppProperties.websiteUrl}"
     )
