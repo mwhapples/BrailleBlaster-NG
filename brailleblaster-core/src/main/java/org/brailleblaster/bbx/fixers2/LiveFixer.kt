@@ -32,34 +32,11 @@ object LiveFixer {
 	fun fix(root: Element) {
         ImportFixerCommon.applyToDescendantBlocks(
             root,
-            { obj: Element, block: MutableList<Text>, descendantTextNodes: MutableList<Node> ->
-                detachEmptyBlocks(
-                    obj,
-                    block,
-                    descendantTextNodes
-                )
-            },
-            { obj: Element, block: MutableList<Text>, descendantTextNodes: MutableList<Node> ->
-                trimBlockText(
-                    obj,
-                    block,
-                    descendantTextNodes
-                )
-            },
-            { obj: Element, block: List<Text>, descendantTextNodes: List<Node> ->
-                cleanupNewPagePlaceholder(
-                    obj,
-                    block,
-                    descendantTextNodes
-                )
-            },
-            { obj: Element, block: MutableList<Text>, descendantTextNodes: MutableList<Node> ->
-                detachEmptyTextNodes(
-                    obj,
-                    block,
-                    descendantTextNodes
-                )
-            })
+            ::detachEmptyBlocks,
+            ::trimBlockText,
+            ::cleanupNewPagePlaceholder,
+            ::detachEmptyTextNodes
+        )
         removeEmptyContainers(root)
     }
 
