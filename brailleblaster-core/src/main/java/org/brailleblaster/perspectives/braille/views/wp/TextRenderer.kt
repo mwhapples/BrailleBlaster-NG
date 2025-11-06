@@ -354,7 +354,7 @@ class TextRenderer(manager: Manager, private val textView: TextView) : Renderer(
         }
         //Reduce the end of the page break by the number of line breaks that follow it
         val pageBreakEnd =
-            state.charCount - System.lineSeparator().length - followingLineBreaks.size * System.lineSeparator().length
+            state.charCount - LINE_BREAK.length - followingLineBreaks.size * System.lineSeparator().length
         lastPageBreak!!.setEnd(pageBreakEnd)
         if (lastPageBreak!!.getEnd(list) <= lastPageBreak!!.getStart(list)) {
             lastPageBreak!!.setEnd(lastPageBreak!!.getStart(list))

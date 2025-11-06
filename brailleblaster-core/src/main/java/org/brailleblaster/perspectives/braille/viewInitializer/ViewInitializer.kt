@@ -27,6 +27,7 @@ import org.brailleblaster.perspectives.braille.views.wp.BrailleView
 import org.brailleblaster.perspectives.braille.views.wp.TextRenderer
 import org.brailleblaster.perspectives.braille.views.wp.TextView
 import org.brailleblaster.utd.exceptions.NodeException
+import org.brailleblaster.util.LINE_BREAK
 import org.brailleblaster.util.WhitespaceUtils.countLineBreaks
 
 abstract class ViewInitializer(val document: BrailleDocument, val text: TextView, val braille: BrailleView) :
@@ -402,7 +403,7 @@ abstract class ViewInitializer(val document: BrailleDocument, val text: TextView
                 if (//Safety check
                     start < end && end > 0 && start > 0 && end < text.view.charCount && !text.view.getText(start, end)
                         .contains(
-                            System.lineSeparator()
+                            LINE_BREAK
                         )
                 ) { //Check for newline between TMEs
                     val hwse = HorizontalFormattingWhiteSpaceElement(start, end)

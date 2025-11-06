@@ -304,7 +304,7 @@ class BBStyleableText(parent: Composite, buttonPanel: Composite?, buttons: Int, 
                 styles.add(Range(start, end, tags.first { n: Tag? -> n is MathTag }))
             } else if (child is Element) {
                 if (newLineWrap && BBX.BLOCK.isA(child) && sb.isNotEmpty()) {
-                    sb.append(System.lineSeparator())
+                    sb.append(LINE_BREAK)
                     computeMargin(child)
                 }
                 sb.append(extractTextFromXML(child, tags, startOffset + sb.length))

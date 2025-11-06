@@ -244,7 +244,7 @@ class StylePane(parent: Composite, private val m: Manager) : BBEditorView {
         }
 
         while (curLine - 1 != textViewWidget.lineCount) {
-            sb.append(System.lineSeparator())
+            sb.append(LINE_BREAK)
             curLine++
         }
 
