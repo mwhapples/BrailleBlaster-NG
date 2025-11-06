@@ -135,10 +135,11 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModu
       //Doc is structured correctly, so clear everything between the header and footer.
       //println("Header and Footer found. Writing new contraction list.")
       val newContent =
-        fileContent.take(headerIndex + RELAXER_HEADER.length) +
-            System.lineSeparator() +
-            contractionList +
-            fileContent.substring(footerIndex)
+          "${fileContent.take(headerIndex + RELAXER_HEADER.length)}$LINE_BREAK$contractionList${
+              fileContent.substring(
+                  footerIndex
+              )
+          }"
 
       OutputStreamWriter(FileOutputStream(file), StandardCharsets.UTF_8).use { writer ->
         writer.write(newContent)

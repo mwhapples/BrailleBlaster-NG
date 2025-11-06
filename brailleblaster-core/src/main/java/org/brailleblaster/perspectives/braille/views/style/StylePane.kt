@@ -239,9 +239,7 @@ class StylePane(parent: Composite, private val m: Manager) : BBEditorView {
                 LINE_BREAK.repeat(
                     max(0.0, (key!! - curLine).toDouble()).toInt()
                 )
-            )
-
-            sb.append(value).append(System.lineSeparator())
+            ).append(value).append(LINE_BREAK)
             curLine = key + 1
         }
 

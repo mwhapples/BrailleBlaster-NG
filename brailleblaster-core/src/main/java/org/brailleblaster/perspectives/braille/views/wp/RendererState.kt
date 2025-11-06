@@ -176,7 +176,7 @@ class RendererState(engine: UTDTranslationEngine) {
                     }
                     continue
                 }
-                count += curLine.text.length + System.lineSeparator().length
+                count += curLine.text.length + LINE_BREAK.length
             }
         }
         return count
