@@ -21,6 +21,7 @@ import org.brailleblaster.perspectives.braille.mapping.elements.BraillePageBrlMa
 import org.brailleblaster.perspectives.braille.mapping.elements.PageIndicatorTextMapElement
 import org.brailleblaster.perspectives.braille.mapping.elements.PrintPageBrlMapElement
 import org.brailleblaster.util.FormUIUtils
+import org.brailleblaster.util.LINE_BREAK
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyledText
 import org.eclipse.swt.layout.GridLayout
@@ -52,7 +53,7 @@ class PageNumberDebugger(manager: Manager) {
                         (curMapping.node as? Element ?: curMapping.nodeParent)
                     val brlPageNum = usableNode.getAttributeValue("printPage")
                     if (brlPageNum != null) printPageBuilder.append("PageMapElement: ").append(brlPageNum)
-                        .append(System.lineSeparator())
+                        .append(LINE_BREAK)
                 } else {
                     for (curBrailleElement in curMapping.brailleList) {
                         if (curBrailleElement is PrintPageBrlMapElement) {
@@ -61,11 +62,11 @@ class PageNumberDebugger(manager: Manager) {
                             val braillePage = curBrailleElement.node.value
                             printPageBuilder.append("PrintPageMapElement: ").append(origPage).append(" - ")
                                 .append(braillePage)
-                                .append(System.lineSeparator())
+                                .append(LINE_BREAK)
                         } else if (curBrailleElement is BraillePageBrlMapElement) {
                             val page = curBrailleElement.node.value
                             braillePageBuilder.append("BraillePageMapElement: ").append(page)
-                                .append(System.lineSeparator())
+                                .append(LINE_BREAK)
                         }
                     }
                 }

@@ -21,6 +21,7 @@ import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.settings.TableExceptions
 import org.brailleblaster.settings.TableExceptions.getCurrentExceptionFile
 import org.brailleblaster.tools.MenuToolModule
+import org.brailleblaster.util.LINE_BREAK
 import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridData
@@ -127,7 +128,7 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModu
       //println("Header and footer not found. Appending new header and footer along with contraction list.")
       OutputStreamWriter(FileOutputStream(file), StandardCharsets.UTF_8).use { writer ->
         writer.append(RELAXER_HEADER)
-        writer.append(System.lineSeparator())
+        writer.append(LINE_BREAK)
         writer.append(contractionList)
         writer.append(RELAXER_FOOTER)
       }
@@ -135,10 +136,11 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModu
       //Doc is structured correctly, so clear everything between the header and footer.
       //println("Header and Footer found. Writing new contraction list.")
       val newContent =
-        fileContent.take(headerIndex + RELAXER_HEADER.length) +
-            System.lineSeparator() +
-            contractionList +
-            fileContent.substring(footerIndex)
+          "${fileContent.take(headerIndex + RELAXER_HEADER.length)}$LINE_BREAK$contractionList${
+              fileContent.substring(
+                  footerIndex
+              )
+          }"
 
       OutputStreamWriter(FileOutputStream(file), StandardCharsets.UTF_8).use { writer ->
         writer.write(newContent)
@@ -149,7 +151,7 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModu
       OutputStreamWriter(FileOutputStream(file), StandardCharsets.UTF_8).use { writer ->
         writer.write("")
         writer.append(RELAXER_HEADER)
-        writer.append(System.lineSeparator())
+        writer.append(LINE_BREAK)
         writer.append(contractionList)
         writer.append(RELAXER_FOOTER)
       }

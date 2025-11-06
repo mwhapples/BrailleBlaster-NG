@@ -333,11 +333,11 @@ object FormUIUtils {
     fun getCaretAtTextNodeOffset(view: StyledText, tme: TextMapElement, offset: Int, manager: Manager): Int {
         var offset = offset
         var text = view.getTextRange(tme.getStart(manager.mapList), offset)
-        var lineBreakIndex = text.indexOf(System.lineSeparator())
+        var lineBreakIndex = text.indexOf(LINE_BREAK)
         while (lineBreakIndex >= 0) {
-            offset += System.lineSeparator().length
+            offset += LINE_BREAK.length
             text = view.getTextRange(tme.getStart(manager.mapList), offset)
-            lineBreakIndex = text.indexOf(System.lineSeparator(), lineBreakIndex + 1)
+            lineBreakIndex = text.indexOf(LINE_BREAK, lineBreakIndex + 1)
         }
         return offset + tme.getStart(manager.mapList)
     }

@@ -37,6 +37,7 @@ import org.brailleblaster.utd.actions.IAction
 import org.brailleblaster.utd.properties.Align
 import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.util.ColorManager
+import org.brailleblaster.util.LINE_BREAK
 import org.brailleblaster.utils.swt.DebugStyledText
 import org.brailleblaster.util.Utils
 import org.brailleblaster.utils.xml.BB_NS
@@ -534,7 +535,6 @@ abstract class WPView(manager: Manager, parent: Composite) : AbstractView(manage
     }
 
     companion object {
-        val LINE_BREAK: String = System.lineSeparator()
         @JvmField
         var currentLine = 0
 

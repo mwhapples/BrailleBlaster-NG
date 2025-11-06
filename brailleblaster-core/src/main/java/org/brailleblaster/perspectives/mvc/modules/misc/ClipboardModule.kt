@@ -51,7 +51,9 @@ import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.TableUtils
-import org.brailleblaster.utd.utils.UTDHelper.Companion.stripUTDRecursive
+import org.brailleblaster.utd.utils.UTDHelper.stripUTDRecursive
+import org.brailleblaster.util.LINE_BREAK
+import org.brailleblaster.util.PILCROW
 import org.brailleblaster.util.Utils.combineAdjacentTextNodes
 import org.brailleblaster.utils.braille.BrailleUnicodeConverter.asciiToUnicodeLouis
 import org.eclipse.swt.SWT
@@ -234,7 +236,7 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
                 // Convert it to BBX
                 clips.clear()
                 val blocks =
-                    cbString.split(System.lineSeparator().toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                    cbString.split(LINE_BREAK).dropLastWhile { it.isEmpty() }.toTypedArray()
                 for (block in blocks) {
                     var block = block
                     val newBlock = BBX.BLOCK.DEFAULT.create()
@@ -969,7 +971,7 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
              * removes it
              */
             val event = Event()
-            event.character = LiveFixer.PILCROW.first()
+            event.character = PILCROW.first()
             if (manager.text.view.isFocusControl) {
                 manager.text.view.notifyListeners(SWT.KeyDown, event)
                 manager.text.update(false)
