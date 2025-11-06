@@ -17,10 +17,14 @@ package org.brailleblaster.util
 
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.TextMapElement
-import org.brailleblaster.utils.swt.*
+import org.brailleblaster.utils.swt.ButtonBuilder
+import org.brailleblaster.utils.swt.ComboBuilder
+import org.brailleblaster.utils.swt.NumberFilterKeyListener
+import org.brailleblaster.utils.swt.TextBuilder
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyledText
-import org.eclipse.swt.events.*
+import org.eclipse.swt.events.ModifyEvent
+import org.eclipse.swt.events.ModifyListener
 import org.eclipse.swt.graphics.GC
 import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.widgets.*
@@ -134,86 +138,8 @@ object FormUIUtils {
         return label
     }
 
-    @JvmStatic
-	fun makeSelectedListener(function: Consumer<SelectionEvent>): SelectionListener {
-        return object : SelectionAdapter() {
-            override fun widgetSelected(se: SelectionEvent) {
-                function.accept(se)
-            }
-        }
-    }
-
     fun makeModifyListener(function: Consumer<ModifyEvent>): ModifyListener {
         return ModifyListener { function.accept(it) }
-    }
-
-    fun makeKeyListener(swtmod: Int, swtchar: Int, function: Consumer<KeyEvent>): KeyAdapter {
-        return object : KeyAdapter() {
-            override fun keyPressed(e: KeyEvent) {
-                if (e.stateMask == swtmod && e.character.code == swtchar) {
-                    function.accept(e)
-                }
-            }
-
-            override fun keyReleased(e: KeyEvent) {
-                // TODO Auto-generated method stub
-            }
-        }
-    }
-
-    fun addSelectionListener(item: MenuItem, function: Consumer<SelectionEvent>): SelectionListener {
-        val listener = makeSelectedListener(function)
-        item.addSelectionListener(listener)
-        return listener
-    }
-
-    fun addSelectionListener(item: ToolItem, function: Consumer<SelectionEvent>): SelectionListener {
-        val listener = makeSelectedListener(function)
-        item.addSelectionListener(listener)
-        return listener
-    }
-
-    @JvmStatic
-	fun addSelectionListener(button: Button, function: Consumer<SelectionEvent>): SelectionListener {
-        val listener = makeSelectedListener(function)
-        button.addSelectionListener(listener)
-        return listener
-    }
-
-    fun addSelectionListener(text: StyledText, function: Consumer<SelectionEvent>): SelectionListener {
-        val listener = makeSelectedListener(function)
-        text.addSelectionListener(listener)
-        return listener
-    }
-
-    fun addSelectionListener(combo: Combo, function: Consumer<SelectionEvent>): SelectionListener {
-        val listener = makeSelectedListener(function)
-        combo.addSelectionListener(listener)
-        return listener
-    }
-
-    fun addSelectionListener(combo: ScrollBar, function: Consumer<SelectionEvent>): SelectionListener {
-        val listener = makeSelectedListener(function)
-        combo.addSelectionListener(listener)
-        return listener
-    }
-
-    fun addSelectionListener(spinner: Spinner, function: Consumer<SelectionEvent>): SelectionListener {
-        val listener = makeSelectedListener(function)
-        spinner.addSelectionListener(listener)
-        return listener
-    }
-
-    fun addModifyListener(textBox: Text, function: Consumer<ModifyEvent>): ModifyListener {
-        val listener = makeModifyListener(function)
-        textBox.addModifyListener(listener)
-        return listener
-    }
-
-    fun addKeyListener(shell: Shell, swtmod: Int, swtchar: Int, function: Consumer<KeyEvent>): KeyAdapter {
-        val listener = makeKeyListener(swtmod, swtchar, function)
-        shell.addKeyListener(listener)
-        return listener
     }
 
     @JvmStatic

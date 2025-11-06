@@ -404,74 +404,56 @@ object EasySWT {
     fun addSelectionListener(
         item: MenuItem, function: Consumer<SelectionEvent>
     ): SelectionListener {
-        val listener = makeSelectedListener(function)
-        item.addSelectionListener(listener)
-        return listener
+        return makeSelectedListener(function).also { item.addSelectionListener(it) }
     }
 
     fun addSelectionListener(
         item: ToolItem, function: Consumer<SelectionEvent>
     ): SelectionListener {
-        val listener = makeSelectedListener(function)
-        item.addSelectionListener(listener)
-        return listener
+        return makeSelectedListener(function).also { item.addSelectionListener(it) }
     }
 
     @JvmStatic
     fun addSelectionListener(
         button: Button, function: Consumer<SelectionEvent>
     ): SelectionListener {
-        val listener = makeSelectedListener(function)
-        button.addSelectionListener(listener)
-        return listener
+        return makeSelectedListener(function).also { button.addSelectionListener(it) }
     }
 
     fun addSelectionListener(
         text: StyledText, function: Consumer<SelectionEvent>
     ): SelectionListener {
-        val listener = makeSelectedListener(function)
-        text.addSelectionListener(listener)
-        return listener
+        return makeSelectedListener(function).also { text.addSelectionListener(it) }
     }
 
     fun addSelectionListener(
         combo: Combo, function: Consumer<SelectionEvent>
     ): SelectionListener {
-        val listener = makeSelectedListener(function)
-        combo.addSelectionListener(listener)
-        return listener
+        return makeSelectedListener(function).also { combo.addSelectionListener(it) }
     }
 
     fun addSelectionListener(
         combo: CCombo, function: Consumer<SelectionEvent>
     ): SelectionListener {
-        val listener = makeSelectedListener(function)
-        combo.addSelectionListener(listener)
-        return listener
+        return makeSelectedListener(function).also { combo.addSelectionListener(it) }
     }
 
     fun addSelectionListener(
         combo: ScrollBar, function: Consumer<SelectionEvent>
     ): SelectionListener {
-        val listener = makeSelectedListener(function)
-        combo.addSelectionListener(listener)
-        return listener
+        return makeSelectedListener(function).also { combo.addSelectionListener(it) }
     }
 
     fun addSelectionListener(
         spinner: Spinner, function: Consumer<SelectionEvent>
     ): SelectionListener {
-        val listener = makeSelectedListener(function)
-        spinner.addSelectionListener(listener)
-        return listener
+        return makeSelectedListener(function).also { spinner.addSelectionListener(it) }
     }
 
     fun addKeyListener(
         shell: Shell, swtmod: Int, swtchar: Int, function: Consumer<KeyEvent>
     ): KeyAdapter {
-        val listener = makeKeyListener(swtmod, swtchar, function)
-        shell.addKeyListener(listener)
-        return listener
+        return makeKeyListener(swtmod, swtchar, function).also { shell.addKeyListener(it) }
     }
 
     fun addIntegerFilter(t: Text) {

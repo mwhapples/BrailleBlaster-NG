@@ -79,10 +79,10 @@ class GoToPageDialog(private val m: Manager) {
 
       //--------------------- Listeners -----------------------
       //Save user state
-      FormUIUtils.addSelectionListener(printPageButton) { savePageType(PageType.PRINT) }
-      FormUIUtils.addSelectionListener(braillePageButton) { savePageType(PageType.BRAILLE) }
-      FormUIUtils.addSelectionListener(rawPageButton) { savePageType(PageType.ORDINAL) }
-      FormUIUtils.addSelectionListener(volumeSelect) {
+      EasySWT.addSelectionListener(printPageButton) { it: SelectionEvent -> savePageType(PageType.PRINT) }
+      EasySWT.addSelectionListener(braillePageButton) { it: SelectionEvent -> savePageType(PageType.BRAILLE) }
+      EasySWT.addSelectionListener(rawPageButton) { it: SelectionEvent -> savePageType(PageType.ORDINAL) }
+      EasySWT.addSelectionListener(volumeSelect) { it: SelectionEvent ->
           val isVolumeSelected = volumeSelect.selectionIndex != 0
           printPageButton.isEnabled = !isVolumeSelected
           rawPageButton.isEnabled = !isVolumeSelected
@@ -100,7 +100,7 @@ class GoToPageDialog(private val m: Manager) {
               onSubmit()
           }
       })
-      FormUIUtils.addSelectionListener(submitButton) { onSubmit() }
+      EasySWT.addSelectionListener(submitButton) { it: SelectionEvent -> onSubmit() }
 
       // ------------------------ data ----------------------
       val volumeElements = VolumeUtils.getVolumeElements(m.doc)

@@ -25,6 +25,7 @@ import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.libembosser.spi.BrlCell
 import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
+import org.eclipse.swt.events.SelectionEvent
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.layout.RowLayout
 import org.eclipse.swt.widgets.*
@@ -102,7 +103,7 @@ class TranslationSettingsTab internal constructor(folder: TabFolder?, private va
         FormUIUtils.setGridData(mathExprTableText)
 
         //--Add listeners--
-        standardCombo.addSelectionListener(FormUIUtils.makeSelectedListener {
+        standardCombo.addSelectionListener(EasySWT.makeSelectedListener { it: SelectionEvent ->
             updateUI(
                 standardCombo.text
             )

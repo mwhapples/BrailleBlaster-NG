@@ -57,12 +57,12 @@ class MapListDebugger(private val m: Manager) {
 
         val seeWholeList = Button(dialog, SWT.PUSH)
         seeWholeList.text = "See Whole List"
-        FormUIUtils.addSelectionListener(seeWholeList) { reload() }
+        EasySWT.addSelectionListener(seeWholeList) { it: SelectionEvent -> reload() }
 
         val showBrailleButton = Button(dialog, SWT.CHECK)
         showBrailleButton.text = "Show Braille MapList"
         showBrailleButton.selection = showBrailleList
-        FormUIUtils.addSelectionListener(showBrailleButton) {
+        EasySWT.addSelectionListener(showBrailleButton) { it: SelectionEvent ->
             showBrailleList = showBrailleButton.selection
             reload()
         }

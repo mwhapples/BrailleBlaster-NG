@@ -35,7 +35,6 @@ import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.ALL_VOLUMES
 import org.brailleblaster.utd.utils.convertBBX2PEF
-import org.brailleblaster.util.FormUIUtils.addSelectionListener
 import org.brailleblaster.util.FormUIUtils.makeDialog
 import org.brailleblaster.util.FormUIUtils.setGridData
 import org.brailleblaster.util.LINE_BREAK
@@ -127,9 +126,9 @@ class VolumeSaveDialog(
             setGridData(saveFolderAll)
 
             // ----------------- Listeners --------------------
-            addSelectionListener(saveSingle) { _: SelectionEvent? -> clickSaveSingle() }
-            addSelectionListener(saveFolder) { _: SelectionEvent? -> clickSaveFolder(false) }
-            addSelectionListener(saveFolderAll) { clickSaveFolder(true) }
+            EasySWT.addSelectionListener(saveSingle) { _: SelectionEvent? -> clickSaveSingle() }
+            EasySWT.addSelectionListener(saveFolder) { _: SelectionEvent? -> clickSaveFolder(false) }
+            EasySWT.addSelectionListener(saveFolderAll) { it: SelectionEvent -> clickSaveFolder(true) }
 
             // -------------------- Data ---------------------
             for (curVolume in VolumeUtils.getVolumeNames(volumes)) {

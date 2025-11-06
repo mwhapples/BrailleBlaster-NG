@@ -22,12 +22,12 @@ import org.brailleblaster.utils.swt.AccessibilityUtils.appendName
 import org.brailleblaster.util.FormUIUtils.addDoubleFilter
 import org.brailleblaster.util.FormUIUtils.addIntegerFilter
 import org.brailleblaster.util.FormUIUtils.addLabel
-import org.brailleblaster.util.FormUIUtils.makeSelectedListener
 import org.brailleblaster.util.FormUIUtils.setGridData
 import org.brailleblaster.util.FormUIUtils.setGridDataGroup
 import org.brailleblaster.util.FormUIUtils.updateObject
 import org.brailleblaster.utils.LengthUtils
 import org.brailleblaster.utils.UnitConverter
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.events.*
 import org.eclipse.swt.layout.GridLayout
@@ -170,7 +170,7 @@ class PagePropertiesTab private constructor(parent: Composite, engine: UTDTransl
         // ----Add listeners----
         // When the user selects a page from the drop down, fill out the width,
         // height, cells, and lines boxes
-        pageTypes.addSelectionListener(makeSelectedListener { onStandardPageSelected() })
+        pageTypes.addSelectionListener(EasySWT.makeSelectedListener { it: SelectionEvent -> onStandardPageSelected() })
 
         // Size fields
         // When a user types a digit, adjust cells, lines and page combo
@@ -254,7 +254,7 @@ class PagePropertiesTab private constructor(parent: Composite, engine: UTDTransl
         // marginWidth.andThen((v) -> marginRight = v), (e) -> calculateCellsLinesAndUpdate()));
 
         // Margin unit suffixes
-        val marginUnitChangedListener = makeSelectedListener { _: SelectionEvent? -> onMarginUnitSelected() }
+        val marginUnitChangedListener = EasySWT.makeSelectedListener { _: SelectionEvent? -> onMarginUnitSelected() }
         regionalButton.addSelectionListener(marginUnitChangedListener)
         cellsLinesButton.addSelectionListener(marginUnitChangedListener)
 

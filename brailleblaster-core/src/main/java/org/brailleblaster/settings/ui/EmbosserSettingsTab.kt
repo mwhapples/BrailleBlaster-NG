@@ -22,8 +22,10 @@ import org.brailleblaster.embossers.EmbossingUtils.embossersFile
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.util.FormUIUtils
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.jface.window.Window
 import org.eclipse.swt.SWT
+import org.eclipse.swt.events.SelectionEvent
 import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.layout.RowLayout
@@ -74,7 +76,7 @@ class EmbosserSettingsTab(folder: TabFolder?) : SettingsUITab {
             FormUIUtils.makeButton(embosserButtonsContainer).text(localeHandler["EmbosserSettingsTab.removeEmbosser"])
                 .onSelection { removeEmbosser() }
                 .get()
-        FormUIUtils.addSelectionListener(defaultEmbosserCombo) { defaultEmbosserSelected() }
+        EasySWT.addSelectionListener(defaultEmbosserCombo) { it: SelectionEvent -> defaultEmbosserSelected() }
         // make sure add/edit/remove buttons match current selection.
         defaultEmbosserSelected()
     }

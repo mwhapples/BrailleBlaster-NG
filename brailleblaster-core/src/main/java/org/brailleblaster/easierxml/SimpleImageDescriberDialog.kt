@@ -49,6 +49,8 @@ import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.ScrolledComposite
 import org.eclipse.swt.custom.StyledText
+import org.eclipse.swt.events.KeyEvent
+import org.eclipse.swt.events.SelectionEvent
 import org.eclipse.swt.events.ShellEvent
 import org.eclipse.swt.events.ShellListener
 import org.eclipse.swt.layout.GridData
@@ -155,7 +157,7 @@ class SimpleImageDescriberDialog(
         val applySingleInlineButton = Button(nav1, SWT.NONE)
         applySingleInlineButton.text = INLINE_ONE
         applySingleInlineButton.layoutData = GridData(SWT.FILL, SWT.FILL, true, false)
-        FormUIUtils.addSelectionListener(applySingleInlineButton) {
+        EasySWT.addSelectionListener(applySingleInlineButton) { it: SelectionEvent ->
             clickApplySingleInline(
                 selectedImage
             )
@@ -163,7 +165,7 @@ class SimpleImageDescriberDialog(
         val applySingleBlockButton = Button(nav1, SWT.NONE)
         applySingleBlockButton.text = BLOCK_ONE
         applySingleBlockButton.layoutData = GridData(SWT.FILL, SWT.FILL, true, false)
-        FormUIUtils.addSelectionListener(applySingleBlockButton) {
+        EasySWT.addSelectionListener(applySingleBlockButton) { it: SelectionEvent ->
             clickApplySingleBlock(
                 selectedImage
             )
@@ -172,7 +174,7 @@ class SimpleImageDescriberDialog(
         EasySWT.addSwtBotKey(applyAllInlineButton, SWTBOT_APPLY_ALL_INLINE)
         applyAllInlineButton.layoutData = GridData(SWT.FILL, SWT.FILL, true, false)
         applyAllInlineButton.text = INLINE_ALL_P1 + matchingImages.size + INLINE_ALL_P2
-        FormUIUtils.addSelectionListener(applyAllInlineButton) {
+        EasySWT.addSelectionListener(applyAllInlineButton) { it: SelectionEvent ->
             clickApplyAllInline(
                 matchingImages
             )
@@ -181,19 +183,19 @@ class SimpleImageDescriberDialog(
         EasySWT.addSwtBotKey(applyAllBlockButton, SWTBOT_APPLY_ALL_BLOCK)
         applyAllBlockButton.layoutData = GridData(SWT.FILL, SWT.FILL, true, false)
         applyAllBlockButton.text = BLOCK_ALL_P1 + matchingImages.size + BLOCK_ALL_P2
-        FormUIUtils.addSelectionListener(applyAllBlockButton) { clickApplyAllBlock(matchingImages) }
+        EasySWT.addSelectionListener(applyAllBlockButton) { it: SelectionEvent -> clickApplyAllBlock(matchingImages) }
         val deleteSingleButton = Button(nav2, SWT.PUSH)
         deleteSingleButton.layoutData = GridData(SWT.FILL, SWT.FILL, true, false)
         deleteSingleButton.text = "Delete  description"
-        FormUIUtils.addSelectionListener(deleteSingleButton) { clickDeleteSingle(selectedImage) }
+        EasySWT.addSelectionListener(deleteSingleButton) { it: SelectionEvent -> clickDeleteSingle(selectedImage) }
         val deleteAllButton = Button(nav2, SWT.PUSH)
         deleteAllButton.layoutData = GridData(SWT.FILL, SWT.FILL, true, false)
         deleteAllButton.text = "Delete all " + matchingImages.size + " descriptions"
-        FormUIUtils.addSelectionListener(deleteAllButton) { clickDeleteAll(matchingImages) }
+        EasySWT.addSelectionListener(deleteAllButton) { it: SelectionEvent -> clickDeleteAll(matchingImages) }
         val previous = Button(nav2, SWT.PUSH)
         previous.text = "Previous Image"
         previous.layoutData = GridData(SWT.FILL, SWT.FILL, true, false)
-        FormUIUtils.addSelectionListener(previous) {
+        EasySWT.addSelectionListener(previous) { it: SelectionEvent ->
             clickPrevious(
                 shell
             )
@@ -201,7 +203,7 @@ class SimpleImageDescriberDialog(
         val next = Button(nav2, SWT.PUSH)
         next.text = "Next Image"
         next.layoutData = GridData(SWT.FILL, SWT.FILL, true, false)
-        FormUIUtils.addSelectionListener(next) {
+        EasySWT.addSelectionListener(next) { it: SelectionEvent ->
             clickNext(
                 shell
             )
@@ -209,7 +211,7 @@ class SimpleImageDescriberDialog(
         val cancel = Button(nav2, SWT.PUSH)
         cancel.text = "Close"
         cancel.layoutData = GridData(SWT.FILL, SWT.FILL, true, false)
-        FormUIUtils.addSelectionListener(cancel) { close() }
+        EasySWT.addSelectionListener(cancel) { it: SelectionEvent -> close() }
         sc.content = innerContainer
         EasySWT.addEscapeCloseListener(shell)
         shell.addShellListener(object : ShellListener {
@@ -224,12 +226,12 @@ class SimpleImageDescriberDialog(
             override fun shellDeiconified(e: ShellEvent) {}
             override fun shellIconified(e: ShellEvent) {}
         })
-        FormUIUtils.addKeyListener(shell, SWT.CTRL, 'n'.code) {
+        EasySWT.addKeyListener(shell, SWT.CTRL, 'n'.code) { it: KeyEvent ->
             clickNext(
                 shell
             )
         }
-        FormUIUtils.addKeyListener(shell, SWT.CTRL, 'p'.code) {
+        EasySWT.addKeyListener(shell, SWT.CTRL, 'p'.code) { it: KeyEvent ->
             clickPrevious(
                 shell
             )
@@ -432,7 +434,7 @@ class SimpleImageDescriberDialog(
         if (!captionEnabled) {
             captionStyle.isEnabled = false
         }
-        FormUIUtils.addSelectionListener(captionStyle) { wantsCaptionStyle = !wantsCaptionStyle }
+        EasySWT.addSelectionListener(captionStyle) { it: SelectionEvent -> wantsCaptionStyle = !wantsCaptionStyle }
         val parentImgGroup =
             XMLHandler.ancestorVisitorElement(imgElem) { node: Element? -> BBX.CONTAINER.IMAGE.isA(node) }
         if (parentImgGroup != null) {

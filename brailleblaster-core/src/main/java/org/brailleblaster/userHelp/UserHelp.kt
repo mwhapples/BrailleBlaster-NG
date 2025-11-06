@@ -23,8 +23,10 @@ import org.brailleblaster.tools.MenuToolModule
 import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.Notify.notify
 import org.brailleblaster.utils.BBData.getBrailleblasterPath
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyledText
+import org.eclipse.swt.events.SelectionEvent
 import org.eclipse.swt.graphics.Image
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.layout.RowLayout
@@ -114,7 +116,7 @@ private fun showAbout() {
     privacyPolicy.text = "APH Privacy Policy"
 
     // ------ Listeners ------
-    FormUIUtils.addSelectionListener(license) {
+    EasySWT.addSelectionListener(license) { it: SelectionEvent ->
         val licensePath = getBrailleblasterPath("LICENSE.txt")
         val text: String = try {
             licensePath.readText(Charsets.UTF_8)
@@ -123,7 +125,7 @@ private fun showAbout() {
         }
         notify(text, "License")
     }
-    FormUIUtils.addSelectionListener(privacyPolicy) {
+    EasySWT.addSelectionListener(privacyPolicy) { it: SelectionEvent ->
         val licensePath = getBrailleblasterPath("APH_Privacy_Policy.txt")
         val text: String = try {
             licensePath.readText(Charsets.UTF_8)

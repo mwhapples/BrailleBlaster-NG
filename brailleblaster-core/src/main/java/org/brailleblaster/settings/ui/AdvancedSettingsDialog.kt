@@ -20,10 +20,10 @@ import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.logging.getLogLevel
 import org.brailleblaster.logging.setLogLevel
 import org.brailleblaster.logging.updateLogSettings
-import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT
+import org.eclipse.swt.events.SelectionEvent
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.layout.RowLayout
 import org.eclipse.swt.widgets.Button
@@ -72,8 +72,8 @@ class AdvancedSettingsDialog {
         cancelButton.text = localeHandler["&Cancel"]
 
         //------ Set listenrs ------
-        saveButton.addSelectionListener(FormUIUtils.makeSelectedListener { onSave() })
-        cancelButton.addSelectionListener(FormUIUtils.makeSelectedListener { dialog.close() })
+        saveButton.addSelectionListener(EasySWT.makeSelectedListener { it: SelectionEvent -> onSave() })
+        cancelButton.addSelectionListener(EasySWT.makeSelectedListener { it: SelectionEvent -> dialog.close() })
 
         //------ Set default values -----
         when (getLogLevel()) {

@@ -290,25 +290,40 @@ class PrintPreview private constructor(
                 currentViewMode.goToOffset(offset)
             }
             // emboss
-            FormUIUtils.addSelectionListener(embossMenuItem) { fileEmbossNow() }
+            EasySWT.addSelectionListener(embossMenuItem) { fileEmbossNow() }
 
-            FormUIUtils.addSelectionListener(nextPageButton) { jumpToAdjacentPage(1) }
-            FormUIUtils.addSelectionListener(previousPageButton) { jumpToAdjacentPage(-1) }
-            FormUIUtils.addSelectionListener(brlPageButton) { updateCurrentPage() }
-            FormUIUtils.addSelectionListener(printPageButton) { updateCurrentPage() }
-            FormUIUtils.addSelectionListener(rawPageButton) { updateCurrentPage() }
+            EasySWT.addSelectionListener(nextPageButton) { jumpToAdjacentPage(1) }
+            EasySWT.addSelectionListener(previousPageButton) { jumpToAdjacentPage(-1) }
+            EasySWT.addSelectionListener(brlPageButton) { updateCurrentPage() }
+            EasySWT.addSelectionListener(printPageButton) { updateCurrentPage() }
+            EasySWT.addSelectionListener(rawPageButton) { updateCurrentPage() }
 
-            FormUIUtils.addSelectionListener(
+            EasySWT.addSelectionListener(
                 brlPageButton
-            ) { BBIni.propertyFileManager.save(SETTINGS_KEY_PAGE_TYPE, "braillePage") }
-            FormUIUtils.addSelectionListener(
+            ) {
+                BBIni.propertyFileManager.save(
+                    SETTINGS_KEY_PAGE_TYPE,
+                    "braillePage"
+                )
+            }
+            EasySWT.addSelectionListener(
                 printPageButton
-            ) { BBIni.propertyFileManager.save(SETTINGS_KEY_PAGE_TYPE, "printPage") }
-            FormUIUtils.addSelectionListener(
+            ) {
+                BBIni.propertyFileManager.save(
+                    SETTINGS_KEY_PAGE_TYPE,
+                    "printPage"
+                )
+            }
+            EasySWT.addSelectionListener(
                 rawPageButton
-            ) { BBIni.propertyFileManager.save(SETTINGS_KEY_PAGE_TYPE, "rawPage") }
+            ) {
+                BBIni.propertyFileManager.save(
+                    SETTINGS_KEY_PAGE_TYPE,
+                    "rawPage"
+                )
+            }
 
-            FormUIUtils.addSelectionListener(dualViewMenuItem) {
+            EasySWT.addSelectionListener(dualViewMenuItem) {
                 BBIni.propertyFileManager.save(
                     SETTINGS_KEY_DUAL_VIEW,
                     dualViewMenuItem.selection.toString()
@@ -326,20 +341,19 @@ class PrintPreview private constructor(
                 shell.pack(true)
             }
 
-            FormUIUtils.addSelectionListener(searchPrev) { searchPrev() }
-            FormUIUtils.addSelectionListener(searchNext) { searchNext() }
+            EasySWT.addSelectionListener(searchPrev) { searchPrev() }
+            EasySWT.addSelectionListener(searchNext) { searchNext() }
             val skh = SixKeyHandler(null, null, searchSixKey.selection)
             searchText.addKeyListener(skh)
             searchText.addVerifyListener(skh)
-            FormUIUtils.addSelectionListener(searchSixKey) {
+            EasySWT.addSelectionListener(searchSixKey) {
                 val sixKeyMode = searchSixKey.selection
                 BBIni.propertyFileManager.saveAsBoolean(SETTINGS_KEY_SEARCH_SIX_KEY, sixKeyMode)
                 skh.sixKeyMode = sixKeyMode
                 searchText.text = ""
             }
 
-            FormUIUtils.addSelectionListener(unicodeMenuItem) {
-                val isUnicodeSelected = unicodeMenuItem.selection
+            EasySWT.addSelectionListener(unicodeMenuItem) {                val isUnicodeSelected = unicodeMenuItem.selection
                 BBIni.propertyFileManager.save(SETTINGS_KEY_UNICODE, isUnicodeSelected.toString())
                 try {
                     WorkingDialog(
@@ -354,11 +368,11 @@ class PrintPreview private constructor(
             }
 
             viewLeft.addCaretListener { updateCurrentPage() }
-            FormUIUtils.addSelectionListener(viewLeft.verticalBar) { updateCurrentPage() }
+            EasySWT.addSelectionListener(viewLeft.verticalBar) { updateCurrentPage() }
 
             // Font
-            FormUIUtils.addSelectionListener(increaseFontMenuItem) { updateFont(true) }
-            FormUIUtils.addSelectionListener(decreaseFontMenuItem) { updateFont(false) }
+            EasySWT.addSelectionListener(increaseFontMenuItem) { updateFont(true) }
+            EasySWT.addSelectionListener(decreaseFontMenuItem) { updateFont(false) }
 
             // ------------------ Data ------------------------
             unicodeMenuItem.selection = userSettings.getProperty(SETTINGS_KEY_UNICODE, "false").toBoolean()
