@@ -36,7 +36,6 @@ object NotifyUtils {
 
     @JvmField
     val REPORT_COMMENT_TEXT = localeHandler["reportComment"]
-    val REPORT_DISABLED_NON_RELEASE_TEXT = localeHandler["notRelease"]
     private val ENCOUNTERED_ERROR_COPY_TEXT = localeHandler["encounteredErrorCopyText"]
 
     @JvmStatic
