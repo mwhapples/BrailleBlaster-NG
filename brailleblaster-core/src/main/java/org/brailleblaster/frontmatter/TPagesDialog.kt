@@ -1013,17 +1013,12 @@ class TPagesDialog : DebugMenuToolModule {
             }
         }
         //Dumb SWT manipulation
-        val keys = arrayOfNulls<String>(items.size)
-        val values = arrayOfNulls<String>(items.size)
-        for (i in items.indices) {
-            keys[i] = items[i].getText(0)
-            values[i] = items[i].getText(1)
-        }
+        val values = items.map { it.getText(0) to it.getText(1) }
         symbolsTable.removeAll()
-        for (i in keys.indices) {
+        for (i in values) {
             val newItem = TableItem(symbolsTable, SWT.NONE)
-            newItem.setText(0, keys[i])
-            newItem.setText(1, values[i])
+            newItem.setText(0, i.first)
+            newItem.setText(1, i.second)
         }
     }
 
