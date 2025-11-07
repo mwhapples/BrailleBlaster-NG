@@ -104,13 +104,9 @@ class MathDialogSettings {
     return null
   }
 
-  val categoriesEnumStringArray: Array<String?>
+  val categoriesEnumStringArray: Array<String>
     get() {
-      val array = arrayOfNulls<String>(CATEGORIES.entries.size)
-      for (i in CATEGORIES.entries.toTypedArray().indices) {
-        array[i] = CATEGORIES.entries[i].prettyName
-      }
-      return array
+        return CATEGORIES.entries.map { it.prettyName }.toTypedArray()
     }
 
   val currentCategory: ASCIICategory?
