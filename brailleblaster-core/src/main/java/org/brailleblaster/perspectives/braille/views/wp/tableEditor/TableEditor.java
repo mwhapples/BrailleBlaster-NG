@@ -25,7 +25,6 @@ import org.brailleblaster.bbx.BBXUtils;
 import org.brailleblaster.exceptions.EditingException;
 import org.brailleblaster.perspectives.braille.mapping.maps.MapList;
 import org.brailleblaster.utd.exceptions.NodeException;
-import org.brailleblaster.util.FormUIUtils;
 import org.brailleblaster.util.Notify;
 import org.brailleblaster.utils.gui.PickerDialog;
 import org.brailleblaster.utils.localization.LocaleHandler;
@@ -560,7 +559,7 @@ public class TableEditor extends Dialog {
             createFacingContents();
         }
         //Prefer setLargeDialogSize for automatic sizing without scrollbars and weird look on Linux
-        FormUIUtils.setLargeDialogSize(shell);
+        EasySWT.INSTANCE.setLargeDialogSize(shell);
         shell.open();
         shell.layout();
         this.callback = callback;
@@ -1066,7 +1065,7 @@ public class TableEditor extends Dialog {
         List<CellText> returnList = new ArrayList<>();
         Composite tableComp = new Composite(sc, SWT.NONE);
         tableComp.setLayout(new GridLayout(displayCols + 1, false));
-        FormUIUtils.setGridData(tableComp);
+        EasySWT.INSTANCE.setGridData(tableComp);
 
         //Copy rows list into temporary list
         List<List<Node>> tempRows = new ArrayList<>(rows);

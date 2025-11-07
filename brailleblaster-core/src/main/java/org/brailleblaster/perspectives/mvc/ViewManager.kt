@@ -26,7 +26,7 @@ import org.brailleblaster.perspectives.mvc.events.BBViewListener
 import org.brailleblaster.perspectives.mvc.modules.misc.ToggleViewsModule.Companion.loadSettings
 import org.brailleblaster.perspectives.mvc.modules.misc.ToggleViewsModule.Views
 import org.brailleblaster.util.ColorManager
-import org.brailleblaster.util.FormUIUtils
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.custom.SashForm
@@ -93,14 +93,14 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
         }
         if (windowedViewNew != null) {
             if (windowedShell == null) {
-                windowedShell = FormUIUtils.makeDialogFloating(m.wpManager.shell).apply {
+                windowedShell = EasySWT.makeDialogFloating(m.wpManager.shell).apply {
                     layout = GridLayout(1, true)
                     open()
                 }
             }
             val windowedEditor = getView(windowedViewNew)
             windowedEditor.view.setParent(windowedShell)
-            FormUIUtils.setGridDataVertical(windowedEditor.view)
+            EasySWT.setGridDataVertical(windowedEditor.view)
             windowedShell!!.layout(true)
             windowedShell!!.setRedraw(true)
             windowedShell!!.text =
