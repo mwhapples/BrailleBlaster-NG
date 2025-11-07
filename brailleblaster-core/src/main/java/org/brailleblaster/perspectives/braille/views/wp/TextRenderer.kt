@@ -26,6 +26,7 @@ import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.*
 import org.brailleblaster.perspectives.braille.mapping.maps.MapList
 import org.brailleblaster.utd.properties.UTDElements
+import org.brailleblaster.util.LINE_BREAK
 import org.brailleblaster.utils.xom.childNodes
 import org.brailleblaster.util.Utils
 import org.eclipse.swt.SWT
@@ -148,7 +149,7 @@ class TextRenderer(manager: Manager, private val textView: TextView) : Renderer(
         while (index > 0 && list[index] is PaintedWhiteSpaceElement) {
             index--
         }
-        pb.setStart(list[index].getEnd(list) + System.lineSeparator().length)
+        pb.setStart(list[index].getEnd(list) + LINE_BREAK.length)
         lastPageBreak = pb
     }
 
@@ -353,7 +354,7 @@ class TextRenderer(manager: Manager, private val textView: TextView) : Renderer(
         }
         //Reduce the end of the page break by the number of line breaks that follow it
         val pageBreakEnd =
-            state.charCount - System.lineSeparator().length - followingLineBreaks.size * System.lineSeparator().length
+            state.charCount - LINE_BREAK.length - followingLineBreaks.size * System.lineSeparator().length
         lastPageBreak!!.setEnd(pageBreakEnd)
         if (lastPageBreak!!.getEnd(list) <= lastPageBreak!!.getStart(list)) {
             lastPageBreak!!.setEnd(lastPageBreak!!.getStart(list))
@@ -488,11 +489,7 @@ class TextRenderer(manager: Manager, private val textView: TextView) : Renderer(
             }
         }
         //Convert list to array
-        val rangeArray = arrayOfNulls<StyleRange>(textView.ranges.size)
-        for (i in textView.ranges.indices) {
-            rangeArray[i] = textView.ranges[i]
-        }
-        textView.view.styleRanges = rangeArray
+        textView.view.styleRanges = textView.ranges.toTypedArray()
 
         // Highlight nbsp. Loop to prevent out of order errors or conflicts with existing style rnages
         for (curStyleRange in setNonBreakingSpaceEmphasis(

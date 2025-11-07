@@ -191,9 +191,8 @@ class BrailleDocument(dm: Manager, doc: Document) : BBDocument(dm, doc) {
                 val parent = n.parent
                 val index = parent.indexOf(n)
                 if (parent.childCount - index > 1 && BBX.SPAN.PAGE_NUM.isA(parent.getChild(index + 1))) {
-                    val copy = parent.getChild(index + 1).copy()
+                    val copy = parent.removeChild(index + 1)
                     parent.insertChild(copy, index)
-                    parent.getChild(index + 2).detach()
                 }
             }
             n.value = text

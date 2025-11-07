@@ -46,7 +46,6 @@ child.project.url.inherit.append.path="false">
         <revision>2025.1.22</revision>
         <sha1/>
         <changelist>-SNAPSHOT</changelist>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <wrappermavenplugin.version>3.3.2</wrappermavenplugin.version>
         <versions.plugin.version>2.18.0</versions.plugin.version>
         <maven.compiler.source>21</maven.compiler.source>
