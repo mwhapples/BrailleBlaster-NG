@@ -23,7 +23,6 @@ import org.brailleblaster.bbx.BBX.TPageSection
 import org.brailleblaster.frontmatter.VolumeUtils.getOrCreateTPage
 import org.brailleblaster.frontmatter.VolumeUtils.getVolumeElements
 import org.brailleblaster.frontmatter.VolumeUtils.updateEndOfVolume
-import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.messages.Sender
 import org.brailleblaster.perspectives.braille.ui.BBStyleableText
@@ -38,14 +37,14 @@ import org.brailleblaster.tools.DebugMenuToolModule
 import org.brailleblaster.utd.formatters.TPageFormatter
 import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.utd.utils.UTDHelper.stripUTDRecursive
+import org.brailleblaster.util.LINE_BREAK
+import org.brailleblaster.utils.gui.PickerDialog
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.swt.EasyListeners
 import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.utils.swt.MenuBuilder
-import org.brailleblaster.util.FormUIUtils
-import org.brailleblaster.util.LINE_BREAK
-import org.brailleblaster.utils.xml.UTD_NS
-import org.brailleblaster.utils.gui.PickerDialog
-import org.brailleblaster.utils.swt.EasyListeners
 import org.brailleblaster.utils.swt.SubMenuBuilder
+import org.brailleblaster.utils.xml.UTD_NS
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.ScrolledComposite
 import org.eclipse.swt.events.KeyEvent
@@ -143,7 +142,7 @@ class TPagesDialog : DebugMenuToolModule {
         createTitlePageMenu()
         curVolLabel!!.parent.layout(true)
         shell.pack()
-        FormUIUtils.setLargeDialogSize(shell)
+        EasySWT.setLargeDialogSize(shell)
         shell.open()
     }
 
