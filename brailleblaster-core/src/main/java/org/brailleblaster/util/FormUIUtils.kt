@@ -44,22 +44,6 @@ object FormUIUtils {
         } else updateFlag
     }
 
-    /**
-     * Make dialog that has application modal, meaning the main shell can NOT be
-     * clicked on. Is resizable and has dialog trim
-     */
-    fun makeDialog(manager: Manager): Shell {
-        return EasySWT.makeDialog(manager.wpManager.shell)
-    }
-
-    /**
-     * Make dialog that doesn't have any modality, meaning the main shell can be
-     * clicked on. Is resizable and has dialog trim
-     */
-    fun makeDialogFloating(manager: Manager): Shell {
-        return EasySWT.makeDialogFloating(manager.wpManager.shell)
-    }
-
     fun getCaretAtTextNodeOffset(view: StyledText, tme: TextMapElement, offset: Int, manager: Manager): Int {
         var offset = offset
         var text = view.getTextRange(tme.getStart(manager.mapList), offset)
