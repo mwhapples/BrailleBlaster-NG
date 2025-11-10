@@ -31,14 +31,11 @@ import org.brailleblaster.wordprocessor.WPManager
 object NotifyUtils {
     private val localeHandler = getDefault()
 
-    @JvmField
     val REPORT_TEXT = localeHandler["reportText"]
 
-    @JvmField
     val REPORT_COMMENT_TEXT = localeHandler["reportComment"]
     private val ENCOUNTERED_ERROR_COPY_TEXT = localeHandler["encounteredErrorCopyText"]
 
-    @JvmStatic
     fun generateExceptionMessage(message: String?, exception: Throwable?): String {
         //Might need to display as message
         var prefix: String = message ?: ""
