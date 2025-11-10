@@ -504,36 +504,28 @@ class PagePropertiesTab private constructor(parent: Composite, engine: UTDTransl
         val brailleSettings = engine.brailleSettings
 
         return FormUIUtils.updateObject(
-            brailleSettings::cellType::get,
-            brailleSettings::cellType::set,
+            brailleSettings::cellType,
             brailleCell
         ) || FormUIUtils.updateObject(
-            pageSettings::paperHeight::get,
-            pageSettings::paperHeight::set,
+            pageSettings::paperHeight,
             pageHeight
         ) || FormUIUtils.updateObject(
-            pageSettings::paperWidth::get,
-            pageSettings::paperWidth::set,
+            pageSettings::paperWidth,
             pageWidth
         ) || FormUIUtils.updateObject(
-            pageSettings::topMargin::get,
-            pageSettings::topMargin::set,
+            pageSettings::topMargin,
             marginTop
         ) || FormUIUtils.updateObject(
-            pageSettings::bottomMargin::get,
-            pageSettings::bottomMargin::set,
+            pageSettings::bottomMargin,
             marginBottom
         ) || FormUIUtils.updateObject(
-            pageSettings::leftMargin::get,
-            pageSettings::leftMargin::set,
+            pageSettings::leftMargin,
             marginLeft
         ) || FormUIUtils.updateObject(
-            pageSettings::rightMargin::get,
-            pageSettings::rightMargin::set,
+            pageSettings::rightMargin,
             marginRight
         ) || FormUIUtils.updateObject(
-            pageSettings::interpoint::get,
-            pageSettings::interpoint::set,
+            pageSettings::interpoint,
             interpointCombo.text == "Yes"
         )
     }

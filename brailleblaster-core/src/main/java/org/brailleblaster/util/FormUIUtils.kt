@@ -19,8 +19,7 @@ import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.TextMapElement
 import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.custom.StyledText
-import java.util.function.Consumer
-import java.util.function.Supplier
+import kotlin.reflect.KMutableProperty0
 
 /**
  * Useful utilities for creating the SWT UI
@@ -30,14 +29,13 @@ object FormUIUtils {
     /**
      * If the value is different from the getter, update the object with the setter.
      */
-	fun <V> updateObject(getter: Supplier<V>, setter: Consumer<V>, value: V?): Boolean {
+    fun <V> updateObject(prop: KMutableProperty0<V>, value: V?): Boolean {
         if (value == null) {
             throw RuntimeException("Value is null.")
         }
-        val getterValue = getter.get()
-        // Value didn't need updating but still need to pass on flag
-        return if (getterValue == null || getterValue != value) {
-            setter.accept(value)
+        val propValue = prop.get()
+        return if (propValue == null || propValue != value) {
+            prop.set(value)
             true
         } else false
     }
