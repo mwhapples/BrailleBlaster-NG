@@ -31,7 +31,6 @@ object FormUIUtils {
     /**
      * If the value is different from the getter, update the object with the setter.
      */
-	@JvmStatic
 	fun <V> updateObject(getter: Supplier<V>, setter: Consumer<V>, value: V?, updateFlag: Boolean): Boolean {
         if (value == null) {
             throw RuntimeException("Value is null.")
