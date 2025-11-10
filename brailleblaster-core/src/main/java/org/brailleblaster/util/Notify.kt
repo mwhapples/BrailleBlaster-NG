@@ -336,10 +336,6 @@ object Notify {
         return NotifyUtils.generateExceptionMessage(message, exception)
     }
 
-    fun interface Try {
-        fun run()
-    }
-
     class DebugException : RuntimeException {
         constructor(message: String?) : super(message)
         constructor(message: String?, cause: Throwable?) : super(message, cause)
