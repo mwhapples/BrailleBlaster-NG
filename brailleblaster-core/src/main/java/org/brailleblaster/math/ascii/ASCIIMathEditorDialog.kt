@@ -525,8 +525,7 @@ class ASCIIMathEditorDialog(m: Manager) {
     @JvmField
     val INSERT_MATH = localeHandler["insertMath"]
     val PLACEHOLDER = localeHandler["mathJaxPlaceHolder"]
-    val SHOW_TABS = localeHandler["showTabs"]
-    private var shell: Shell? = null
+      private var shell: Shell? = null
     private var sizeLocation: SizeAndLocation? = null
     private val SEARCH = localeHandler["search"]
     private val OK = localeHandler["lblOk"]

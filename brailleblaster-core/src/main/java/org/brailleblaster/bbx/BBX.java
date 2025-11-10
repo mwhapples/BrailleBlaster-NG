@@ -131,11 +131,6 @@ public class BBX {
      */
     public static final int FORMAT_VERSION = 6;
     /**
-     * Internal marker used for multi-step importers, aids debugging and bug
-     * hunting, should not exist in final document
-     */
-    public static final StringAttribute _ATTRIB_TODO = new StringAttribute("todo");
-    /**
      * Marker used by parsers to trigger fixers, should not exist in final
      * document
      */
