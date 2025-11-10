@@ -165,7 +165,7 @@ class PagePropertiesTab private constructor(parent: Composite, engine: UTDTransl
         // ----Add listeners----
         // When the user selects a page from the drop down, fill out the width,
         // height, cells, and lines boxes
-        pageTypes.addSelectionListener(EasySWT.makeSelectedListener { it: SelectionEvent -> onStandardPageSelected() })
+        pageTypes.addSelectionListener(EasySWT.makeSelectedListener { onStandardPageSelected() })
 
         // Size fields
         // When a user types a digit, adjust cells, lines and page combo
