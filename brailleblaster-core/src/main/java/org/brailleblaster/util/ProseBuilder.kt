@@ -473,41 +473,43 @@ class ProseBuilder : MenuToolModule {
                 }
             }
         })
+        fun navigateNumLine(newLineNum: Node?, msg: String) {
+            if (newLineNum != null || editText.text.isEmpty()) {
+                if (isProseLineNumber(activeLineNum)) {
+                    if (!editProseLineNumber(activeLineNum, editText.text)) {
+                        shell!!.setFocus()
+                    }
+                    activeLineNum = newLineNum as Element?
+                    if (activeLineNum != null) {
+                        editText.text = activeLineNum!!.getAttributeValue("printLineNum")
+                    } else {
+                        editText.text = ""
+                    }
+                } else if (isPoemLineNumber(activeLineNum)) {
+                    if (!editPoemLineNumber(activeLineNum, editText.text)) {
+                        shell!!.setFocus()
+                    }
+                    activeLineNum = newLineNum as Element?
+                    if (activeLineNum != null) {
+                        editText.text = activeLineNum!!.value
+                    } else {
+                        editText.text = ""
+                    }
+                }
+            }
+            if (newLineNum == null) {
+                val message = MessageBox(WPManager.getInstance().shell)
+                message.message = msg
+                message.open()
+                shell!!.close()
+            }
+        }
         val prevButton = Button(shell, SWT.PUSH)
         prevButton.text = "Previous"
         prevButton.layoutData = GridData(GridData.FILL_HORIZONTAL)
         prevButton.addSelectionListener(object : SelectionAdapter() {
             override fun widgetSelected(e: SelectionEvent) {
-                val newLineNum = retrievePrecedingLineNumber(activeLineNum)
-                if (newLineNum != null || editText.text.isEmpty()) {
-                    if (isProseLineNumber(activeLineNum)) {
-                        if (!editProseLineNumber(activeLineNum, editText.text)) {
-                            shell!!.setFocus()
-                        }
-                        activeLineNum = newLineNum as Element?
-                        if (activeLineNum != null) {
-                            editText.text = activeLineNum!!.getAttributeValue("printLineNum")
-                        } else {
-                            editText.text = ""
-                        }
-                    } else if (isPoemLineNumber(activeLineNum)) {
-                        if (!editPoemLineNumber(activeLineNum, editText.text)) {
-                            shell!!.setFocus()
-                        }
-                        activeLineNum = newLineNum as Element?
-                        if (activeLineNum != null) {
-                            editText.text = activeLineNum!!.value
-                        } else {
-                            editText.text = ""
-                        }
-                    }
-                }
-                if (newLineNum == null) {
-                    val message = MessageBox(WPManager.getInstance().shell)
-                    message.message = "Unable to find previous line number."
-                    message.open()
-                    shell!!.close()
-                }
+                navigateNumLine(retrievePrecedingLineNumber(activeLineNum), "Unable to find previous line number.")
             }
         })
         val nextButton = Button(shell, SWT.PUSH)
@@ -515,36 +517,7 @@ class ProseBuilder : MenuToolModule {
         nextButton.layoutData = GridData(GridData.FILL_HORIZONTAL)
         nextButton.addSelectionListener(object : SelectionAdapter() {
             override fun widgetSelected(e: SelectionEvent) {
-                val newLineNum = retrieveFollowingLineNumber(activeLineNum)
-                if (newLineNum != null || editText.text.isEmpty()) {
-                    if (isProseLineNumber(activeLineNum)) {
-                        if (!editProseLineNumber(activeLineNum, editText.text)) {
-                            shell!!.setFocus()
-                        }
-                        activeLineNum = newLineNum as Element?
-                        if (activeLineNum != null) {
-                            editText.text = activeLineNum!!.getAttributeValue("printLineNum")
-                        } else {
-                            editText.text = ""
-                        }
-                    } else if (isPoemLineNumber(activeLineNum)) {
-                        if (!editPoemLineNumber(activeLineNum, editText.text)) {
-                            shell!!.setFocus()
-                        }
-                        activeLineNum = newLineNum as Element?
-                        if (activeLineNum != null) {
-                            editText.text = activeLineNum!!.value
-                        } else {
-                            editText.text = ""
-                        }
-                    }
-                }
-                if (newLineNum == null) {
-                    val message = MessageBox(WPManager.getInstance().shell)
-                    message.message = "Unable to find next line number."
-                    message.open()
-                    shell!!.close()
-                }
+                navigateNumLine(retrieveFollowingLineNumber(activeLineNum), "Unable to find next line number.")
             }
         })
         val doneButton = Button(shell, SWT.PUSH)
