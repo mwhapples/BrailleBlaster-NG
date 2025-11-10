@@ -124,41 +124,31 @@ class PageNumbersTab internal constructor(folder: TabFolder, pageSettingsDefault
     @Throws(IllegalArgumentException::class)
     override fun updateEngine(engine: UTDTranslationEngine): Boolean {
         val pageSettings = engine.pageSettings
-        var updated = false
         val pageNumberLocations: MutableList<PageNumberPosition> = ArrayList()
         pageNumberLocations.add(PageNumberPosition.valueOf(evenPrintNumCombo.text))
         pageNumberLocations.add(PageNumberPosition.valueOf(oddPrintNumCombo.text))
         pageNumberLocations.add(PageNumberPosition.valueOf(evenBrailleNumCombo.text))
         pageNumberLocations.add(PageNumberPosition.valueOf(oddBrailleNumCombo.text))
-        updated = FormUIUtils.updateObject(
+        return FormUIUtils.updateObject(
             pageSettings::pageNumberLocations::get, pageSettings::pageNumberLocations::set,
-            pageNumberLocations, updated
-        )
-        updated = FormUIUtils.updateObject(
+            pageNumberLocations
+        ) || FormUIUtils.updateObject(
             pageSettings::isPrintPageNumberRange::get,
             pageSettings::isPrintPageNumberRange::set,
-            continueSymbolsCombo.text == "Yes",
-            updated
-        )
-        updated = FormUIUtils.updateObject(
+            continueSymbolsCombo.text == "Yes"
+        ) || FormUIUtils.updateObject(
             pageSettings::isContinuePages::get,
             pageSettings::isContinuePages::set,
-            continuePagesCombo.text == "Yes",
-            updated
-        )
-        updated = FormUIUtils.updateObject(
+            continuePagesCombo.text == "Yes"
+        ) || FormUIUtils.updateObject(
             pageSettings::isPrintPageLetterIndicator::get,
             pageSettings::isPrintPageLetterIndicator::set,
-            continuationIndicatorCombo.text == "Yes",
-            updated
-        )
-        updated = FormUIUtils.updateObject(
+            continuationIndicatorCombo.text == "Yes"
+        ) || FormUIUtils.updateObject(
             pageSettings::isGuideWords::get,
             pageSettings::isGuideWords::set,
-            guideWordsCombo.text == "Yes",
-            updated
+            guideWordsCombo.text == "Yes"
         )
-        return updated
     }
 
     companion object {

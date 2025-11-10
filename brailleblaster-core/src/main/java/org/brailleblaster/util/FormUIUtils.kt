@@ -19,7 +19,6 @@ import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.TextMapElement
 import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.custom.StyledText
-import org.eclipse.swt.widgets.Shell
 import java.util.function.Consumer
 import java.util.function.Supplier
 
@@ -31,7 +30,7 @@ object FormUIUtils {
     /**
      * If the value is different from the getter, update the object with the setter.
      */
-	fun <V> updateObject(getter: Supplier<V>, setter: Consumer<V>, value: V?, updateFlag: Boolean): Boolean {
+	fun <V> updateObject(getter: Supplier<V>, setter: Consumer<V>, value: V?): Boolean {
         if (value == null) {
             throw RuntimeException("Value is null.")
         }
@@ -40,7 +39,7 @@ object FormUIUtils {
         return if (getterValue == null || getterValue != value) {
             setter.accept(value)
             true
-        } else updateFlag
+        } else false
     }
 
     fun getCaretAtTextNodeOffset(view: StyledText, tme: TextMapElement, offset: Int, manager: Manager): Int {
