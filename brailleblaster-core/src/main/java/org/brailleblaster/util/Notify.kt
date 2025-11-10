@@ -336,14 +336,6 @@ object Notify {
         return NotifyUtils.generateExceptionMessage(message, exception)
     }
 
-    fun tryOrNotify(blockToTry: Try) {
-        try {
-            blockToTry.run()
-        } catch (e: Throwable) {
-            showException(e)
-        }
-    }
-
     fun interface Try {
         fun run()
     }
