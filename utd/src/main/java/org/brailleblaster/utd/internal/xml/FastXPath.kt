@@ -16,7 +16,6 @@
 package org.brailleblaster.utd.internal.xml
 
 import nu.xom.Attribute
-import nu.xom.Document
 import nu.xom.Element
 import nu.xom.Node
 import org.brailleblaster.utd.exceptions.NodeException
@@ -130,23 +129,12 @@ object FastXPath {
 
     @JvmStatic
     fun ancestor(startNode: Node): Iterable<Element> {
-        return ancestorIterator(
-            if (startNode.parent is Element)
-                startNode.parent
-            else
-                null
-        ).map { it as Element }.asIterable()
+        return generateSequence(startNode. parent as? Element) { it.parent as? Element }.asIterable()
     }
 
     @JvmStatic
     fun ancestorOrSelf(startNode: Node?): Iterable<Node> {
-        return ancestorIterator(startNode).asIterable()
-    }
-
-    private fun ancestorIterator(actualStart: Node?): Sequence<Node> {
-        return generateSequence(actualStart) { curElement ->
-            curElement.parent as? Element
-        }
+        return generateSequence(startNode) { it.parent }.asIterable()
     }
 
     private fun nodeSequence(startNode: Node?, stayInsideStartNode: Boolean, forward: Boolean): Sequence<Node> =
