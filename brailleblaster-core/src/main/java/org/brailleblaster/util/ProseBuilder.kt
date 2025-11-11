@@ -634,10 +634,10 @@ class ProseBuilder : MenuToolModule {
             XMLHandler.unwrapElement(node as Element)
             return true
         }
-        val ancestors = node!!.query("ancestor::node()")
-        for (i in ancestors.size() - 1 downTo -1 + 1) {
-            if (BBX.CONTAINER.PROSE.isA(ancestors[i])) {
-                XMLHandler.unwrapElement(ancestors[i] as Element)
+        val ancestors = FastXPath.ancestor(node!!)
+        for (ancestor in ancestors) {
+            if (BBX.CONTAINER.PROSE.isA(ancestor)) {
+                XMLHandler.unwrapElement(ancestor)
                 return true
             }
         }
