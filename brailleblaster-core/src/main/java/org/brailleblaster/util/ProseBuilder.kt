@@ -345,7 +345,7 @@ class ProseBuilder : MenuToolModule {
         }
 
         //Check if start and/or end node is already inside a prose tag. If so, unwrap and update
-        if (unwrapProseParent(startNode) || unwrapProseParent(endNode)) {
+        if (unwrapProseParent(startNode!!) || unwrapProseParent(endNode)) {
             manager!!.simpleManager.dispatchEvent(ModifyEvent(Sender.NO_SENDER, true, startNode!!.parent))
             return
         }
@@ -629,12 +629,12 @@ class ProseBuilder : MenuToolModule {
         return start.parent
     }
 
-    private fun unwrapProseParent(node: Node?): Boolean {
+    private fun unwrapProseParent(node: Node): Boolean {
         if (BBX.CONTAINER.PROSE.isA(node)) {
             XMLHandler.unwrapElement(node as Element)
             return true
         }
-        val ancestors = FastXPath.ancestor(node!!)
+        val ancestors = FastXPath.ancestor(node)
         for (ancestor in ancestors) {
             if (BBX.CONTAINER.PROSE.isA(ancestor)) {
                 XMLHandler.unwrapElement(ancestor)
