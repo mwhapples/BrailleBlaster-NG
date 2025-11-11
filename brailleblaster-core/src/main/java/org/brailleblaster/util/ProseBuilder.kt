@@ -36,6 +36,7 @@ import org.brailleblaster.perspectives.mvc.events.BuildMenuEvent
 import org.brailleblaster.perspectives.mvc.events.BuildToolBarEvent
 import org.brailleblaster.perspectives.mvc.events.ModifyEvent
 import org.brailleblaster.tools.MenuToolModule
+import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.utils.TextTranslator
 import org.brailleblaster.utd.utils.UTDHelper
@@ -344,7 +345,7 @@ class ProseBuilder : MenuToolModule {
         }
 
         //Check if start and/or end node is already inside a prose tag. If so, unwrap and update
-        if (unwrapProseParent(startNode) || unwrapProseParent(endNode)) {
+        if (unwrapProseParent(startNode!!) || unwrapProseParent(endNode)) {
             manager!!.simpleManager.dispatchEvent(ModifyEvent(Sender.NO_SENDER, true, startNode!!.parent))
             return
         }
@@ -614,10 +615,10 @@ class ProseBuilder : MenuToolModule {
 
     private fun getCommonParent(start: Node?, end: Node): Node {
         if (start!!.parent != end.parent) {
-            val startAncestors = start.query("ancestor::node()")
-            val endAncestors = end.query("ancestor::node()")
-            for (i in startAncestors.size() - 1 downTo -1 + 1) {
-                for (j in 0 until endAncestors.size()) {
+            val startAncestors = FastXPath.ancestor(start).toList()
+            val endAncestors = FastXPath.ancestor(end).toList()
+            for (i in startAncestors.size - 1 downTo -1 + 1) {
+                for (j in 0 until endAncestors.size) {
                     if (startAncestors[i] == endAncestors[j]) {
                         startNode = startAncestors[i + 1]
                         return startAncestors[i]
@@ -628,15 +629,15 @@ class ProseBuilder : MenuToolModule {
         return start.parent
     }
 
-    private fun unwrapProseParent(node: Node?): Boolean {
+    private fun unwrapProseParent(node: Node): Boolean {
         if (BBX.CONTAINER.PROSE.isA(node)) {
             XMLHandler.unwrapElement(node as Element)
             return true
         }
-        val ancestors = node!!.query("ancestor::node()")
-        for (i in ancestors.size() - 1 downTo -1 + 1) {
-            if (BBX.CONTAINER.PROSE.isA(ancestors[i])) {
-                XMLHandler.unwrapElement(ancestors[i] as Element)
+        val ancestors = FastXPath.ancestor(node)
+        for (ancestor in ancestors) {
+            if (BBX.CONTAINER.PROSE.isA(ancestor)) {
+                XMLHandler.unwrapElement(ancestor)
                 return true
             }
         }
