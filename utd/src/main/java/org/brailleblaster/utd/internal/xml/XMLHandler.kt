@@ -86,24 +86,7 @@ open class XMLHandler {
     fun load(xmlFileInput: File): Document {
         val xmlFile = xmlFileInput.getAbsoluteFile()
         if (!xmlFile.exists()) throw RuntimeException("XML File $xmlFile does not exist")
-        try {
-            val builder = createXomBuilder(false)
-            return builder.build(xmlFile)
-        } catch (e: ValidityException) {
-            throw RuntimeException("The document failed to validate in $xmlFileInput", e)
-        } catch (e: ParsingException) {
-            throw RuntimeException("The document XML is malformed in $xmlFileInput", e)
-        } catch (e: IOException) {
-            throw RuntimeException("Problem reading file $xmlFileInput", e)
-        } catch (e: SAXException) {
-            throw RuntimeException(
-                "Problem creating the XML parser, may be Apache Xerces is not installed", e
-            )
-        } catch (e: ParserConfigurationException) {
-            throw RuntimeException(
-                "Problem creating the XML parser, may be Apache Xerces is not installed", e
-            )
-        }
+        return load(xmlFile.toPath())
     }
 
     fun load(input: Reader?): Document {
