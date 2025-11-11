@@ -17,6 +17,7 @@ package org.brailleblaster.perspectives.braille.views.wp
 
 import nu.xom.Element
 import nu.xom.Node
+import nu.xom.Text
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.exceptions.CursorMovementException
 import org.brailleblaster.perspectives.braille.Manager
@@ -29,6 +30,7 @@ import org.brailleblaster.perspectives.braille.views.wp.listeners.ImageDisposeLi
 import org.brailleblaster.perspectives.braille.views.wp.listeners.ImagePaintListener
 import org.brailleblaster.perspectives.braille.views.wp.listeners.WPPaintListener
 import org.brailleblaster.perspectives.braille.views.wp.listeners.WPScrollListener
+import org.brailleblaster.perspectives.mvc.XMLTextCaret
 import org.brailleblaster.perspectives.mvc.events.ModifyEvent
 import org.brailleblaster.perspectives.mvc.events.XMLCaretEvent
 import org.brailleblaster.utd.actions.GenericBlockAction
@@ -55,7 +57,6 @@ import org.eclipse.swt.widgets.Listener
 import org.slf4j.LoggerFactory
 import java.awt.Desktop
 import java.net.URI
-import kotlin.coroutines.CoroutineContext
 
 class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
     val state: ViewStateObject = ViewStateObject()
@@ -170,8 +171,7 @@ class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
                     }
                     sendStatusBarUpdate(view.getLineAtOffset(view.caretOffset))
                 }
-
-//					setCurrent(view.getCaretOffset());
+                //setCurrent(view.getCaretOffset());
                 if (view.getLineAtOffset(view.caretOffset) != currentLine) sendStatusBarUpdate(view.getLineAtOffset(view.caretOffset))
 
                 //Change context menu if cursor is in a table
@@ -183,34 +183,43 @@ class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
                 if (e.button == 1 && e.stateMask == SWT.MOD1){
                   //Basically, check if selection is a link, get the href attribute, open it in browser
                   //If it's an internal link, find whatever node it points to and move the cursor there
-                  //Still not sure about how to handle internal links - don't know if I want them pointing to a node
-                  // or an absolute position in the document. Both have pros and cons. Namely, I'm concerned about how nodes
-                  // could break; absolute positions would be easier to manage but could lead to broken links if text is heavily edited.
-                  // This will need to be discussed...
                   val current = manager.mapList.current
                   if (BBX.INLINE.LINK.isA(current.nodeParent)){
-                    //Need to work on attribute lookup. Checking node parent for Link works...
-                    //println("Link clicked")
                     val el = current.node.parent as Element
                     val isExternal = el.getAttributeValue("external", BB_NS).toBoolean()
                     val href = el.getAttributeValue("href", BB_NS)
                     //Get the href attribute and open it in a browser
                     try {
-                      if (isExternal) {
-                        if (!href.isNullOrBlank()) {
+                      if (!href.isNullOrBlank()) {
+                        if (isExternal) {
                           //Need a method for URL checking, for now just assume it's valid
                           Desktop.getDesktop().browse(URI(href.toString()))
                         }
-                        else{
-                          logger.warn("Tried to open a link with no href attribute")
+                        else {
+                          //Find block with matching linkID in the blocklist and move the navigation pane to it.
+                          val internalLinkNodes = manager.mapList.filter { m ->
+                            m.node != null &&
+                           !(m.node.parent as Element).getAttributeValue("linkID", BB_NS).isNullOrEmpty()
+                          }
+                          //println("Filtered to ${internalLinkNodes.size} link nodes")
+                          for (tme in internalLinkNodes){
+                            val el = tme.node.parent as Element
+                            val linkID = el.getAttributeValue("linkID", BB_NS).toString()
+                            //println("Found internal link candidate with linkID: $linkID")
+                            if (linkID == href){
+                              //Found the target node, move the cursor there
+                              val pos = tme.getStart(manager.mapList)
+                              println("Found target node for internal link, moving cursor")
+                              //potential problem if node can't be case to text?
+                              //Would prefer to grab the position directly and move to it - how?
+                              manager.simpleManager.dispatchEvent(XMLCaretEvent(Sender.NO_SENDER, XMLTextCaret(tme.node as Text, 0)))
+                              break
+                            }
+                          }
                         }
                       }
                       else {
-                        //Figure out internal navigation system with the href
-                        //Maybe block hash? Managing that might prove difficult to manage...
-                        //Gotta try something though!
-                        //println("Internal link clicked, navigation not yet implemented")
-                        //Maybe a line number or positon? Would be simpler, but not as robust when the document is edited
+                        logger.warn("Tried to open a link with no href attribute")
                       }
                     }
                     catch (e: Exception){

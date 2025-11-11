@@ -836,6 +836,7 @@ public class BBX {
     public static class BlockElement extends CoreType {
         public final ListItemSubType LIST_ITEM = new ListItemSubType(this);
         public final BooleanAttribute ATTRIB_BLANKDOC_PLACEHOLDER = new BooleanAttribute("blankDocPlaceholder");
+        public final StringAttribute LINKID = new StringAttribute("linkID");
 
         public static class ListItemSubType extends BlockSubType {
             public final IntAttribute ATTRIB_ITEM_LEVEL = new IntAttribute("itemLevel");
@@ -1026,8 +1027,16 @@ public class BBX {
 
     @XmlJavaTypeAdapter(BlockSubType.TypeAdapter.class)
     public static class BlockSubType extends SubType {
+        public final StringAttribute linkID;
+
         private BlockSubType(BlockElement coreType, String name) {
-            super(coreType, name);
+          super(coreType, name);
+          this.linkID = new StringAttribute("linkID"); // Optional attribute for internally linking blocks
+          //May expand to other subtypes depending on how much work it is...or how well it works.
+          //Idea is to set some property in the manager to the highest linkID in the doc to avoid collisions.
+          //Then when adding or removing internal links, update as needed. The actual number is irrelevant beyond uniqueness.
+          //Broken links need to be handled gracefully as well - if the linked block is deleted, the link manager should
+          // notify the user and remove the linkID attribute from the link, or prompt to reassign it.
         }
 
         private static class TypeAdapter extends JAXBSubTypeAdapter<BlockSubType> {

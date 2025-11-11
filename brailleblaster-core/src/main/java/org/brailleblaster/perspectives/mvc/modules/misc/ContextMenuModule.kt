@@ -132,6 +132,16 @@ class ContextMenuModule(private val manager: Manager) : SimpleListener {
                 AlphabeticReferenceModule.EDIT_GUIDE_WORD,
                 { event: XMLCaretEvent -> isGuideWord(event) },
                 MenuManager.getSharedSelection(SharedItem.EDIT_GUIDE_WORD)
+            ),
+            ContextItem(
+              Items.INSERT_LINK.label,
+              { true },
+              MenuManager.getSharedSelection(SharedItem.INSERT_LINK)
+            ),
+            ContextItem(
+                Items.INSERT_BOOKMARK.label,
+                { true },
+                MenuManager.getSharedSelection(SharedItem.INSERT_BOOKMARK)
             )
         )
     }
@@ -211,7 +221,9 @@ class ContextMenuModule(private val manager: Manager) : SimpleListener {
         MATH_TOGGLE(MathModuleUtils.MATH_TOGGLE),
         NUMBER_LINE(MathModuleUtils.NUMBER_LINE),
         MATRIX(MathModuleUtils.MATRIX),
-        SPATIAL_COMBO(MathModuleUtils.SPATIAL_COMBO);
+        SPATIAL_COMBO(MathModuleUtils.SPATIAL_COMBO),
+        INSERT_LINK(LocaleHandler.getDefault()["InsertLink"]),
+        INSERT_BOOKMARK(LocaleHandler.getDefault()["BookmarksMenu"]),;
     }
 
     private open class ContextItem(

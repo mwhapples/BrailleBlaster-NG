@@ -29,6 +29,7 @@ import org.brailleblaster.settings.ResetBB
 import org.brailleblaster.settings.ui.PrivacyTool
 import org.brailleblaster.spi.ModuleFactory
 import org.brailleblaster.tools.BlankPrintPageIndicatorTool
+import org.brailleblaster.tools.InsertBookmarkTool
 import org.brailleblaster.tools.InsertLinkTool
 import org.brailleblaster.tools.LineBreakTool
 import org.brailleblaster.tools.PageBreakTool
@@ -89,5 +90,6 @@ class CoreModulesFactory : ModuleFactory {
         add(InsertUnicode(manager.wpManager.shell))
         add(ContractionRelaxer(manager.wpManager.shell))
         add(InsertLinkTool(manager.wpManager.shell))
+        add(InsertBookmarkTool(manager.wpManager.shell))
     }
 }
