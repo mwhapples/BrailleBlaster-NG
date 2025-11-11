@@ -348,14 +348,7 @@ object BBXUtils {
         if (start.parent != end.parent) {
             val startAncestors = FastXPath.ancestor(start).toList()
             val endAncestors = FastXPath.ancestor(end).toList()
-
-            for (i in startAncestors.size - 1 downTo -1 + 1) {
-                for (j in 0 until endAncestors.size) {
-                    if (startAncestors[i] == endAncestors[j]) {
-                        return startAncestors[i]
-                    }
-                }
-            }
+            return startAncestors.firstOrNull { it in endAncestors } ?: start.parent
         }
 
         return start.parent
