@@ -397,7 +397,7 @@ open class XMLHandler {
                 }
 
                 else -> {
-                    node.parent as Element?
+                    node.parent as? Element
                 }
             }
         }
