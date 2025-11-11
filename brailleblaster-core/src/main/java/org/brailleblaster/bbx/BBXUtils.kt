@@ -346,11 +346,11 @@ object BBXUtils {
 
     fun getCommonParent(start: Node, end: Node): Node {
         if (start.parent != end.parent) {
-            val startAncestors = start.query("ancestor::node()")
-            val endAncestors = end.query("ancestor::node()")
+            val startAncestors = FastXPath.ancestor(start).toList()
+            val endAncestors = FastXPath.ancestor(end).toList()
 
-            for (i in startAncestors.size() - 1 downTo -1 + 1) {
-                for (j in 0 until endAncestors.size()) {
+            for (i in startAncestors.size - 1 downTo -1 + 1) {
+                for (j in 0 until endAncestors.size) {
                     if (startAncestors[i] == endAncestors[j]) {
                         return startAncestors[i]
                     }
