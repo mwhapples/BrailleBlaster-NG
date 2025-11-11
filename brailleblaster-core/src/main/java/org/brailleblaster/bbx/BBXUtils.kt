@@ -346,8 +346,8 @@ object BBXUtils {
 
     fun getCommonParent(start: Node, end: Node): Node {
         if (start.parent != end.parent) {
-            val startAncestors = FastXPath.ancestor(start).toList()
-            val endAncestors = FastXPath.ancestor(end).toList()
+            val startAncestors = FastXPath.ancestor(start)
+            val endAncestors = FastXPath.ancestor(end)
             return startAncestors.firstOrNull { it in endAncestors } ?: start.parent
         }
 
