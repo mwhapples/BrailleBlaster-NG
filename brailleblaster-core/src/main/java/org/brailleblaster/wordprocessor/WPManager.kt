@@ -661,7 +661,7 @@ class WPManager private constructor(val usageManager: UsageManager) {
          * @return
          */
         fun newShellIcons(): Array<Image> {
-            return listOf("large", "medium", "small").map { BBIni.programDataPath.resolve(Paths.get("images", "toolbar", it, "logo.png")).inputStream(StandardOpenOption.READ).use { inputStream -> Image(Display.getCurrent(), inputStream) } }.toTypedArray()
+            return listOf("large", "medium", "small").map { Image(Display.getCurrent(), BBIni.programDataPath.resolve(Paths.get("images", "toolbar", it, "logo.png")).toString()) }.toTypedArray()
         }
     }
 }
