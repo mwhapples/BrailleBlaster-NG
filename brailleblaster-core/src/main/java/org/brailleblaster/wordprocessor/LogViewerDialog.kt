@@ -84,7 +84,7 @@ class LogViewerDialog @JvmOverloads constructor(parent: Shell?, style: Int = SWT
                         savedMsg.text = localeHandler["LogViewer.SavedMsgBox.Title"]
                         savedMsg.message = localeHandler["LogViewer.SavedMsgBox.Message"]
                         savedMsg.open()
-                    } catch (e: IOException) {
+                    } catch (_: IOException) {
                         val saveErrorMsg = MessageBox(dialogShell, SWT.ICON_ERROR or SWT.OK)
                         saveErrorMsg.text = localeHandler["LogViewer.SaveErrorMsgBox.Title"]
                         saveErrorMsg.message = localeHandler["LogViewer.SaveErrorMsgBox.Message"]

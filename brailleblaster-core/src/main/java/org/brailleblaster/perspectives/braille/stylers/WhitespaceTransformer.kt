@@ -37,6 +37,7 @@ import org.brailleblaster.perspectives.braille.messages.Sender
 import org.brailleblaster.perspectives.braille.messages.WhitespaceMessage
 import org.brailleblaster.perspectives.mvc.XMLTextCaret
 import org.brailleblaster.perspectives.mvc.events.XMLCaretEvent
+import org.brailleblaster.settings.UTDManager
 import org.brailleblaster.util.WhitespaceUtils.appendLineBreakElement
 import org.brailleblaster.util.WhitespaceUtils.prependLineBreakElement
 import org.brailleblaster.util.WhitespaceUtils.removeLineBreakElements
@@ -192,8 +193,8 @@ class WhitespaceTransformer(manager: Manager) : Handler(manager, manager.viewIni
             if (curElement != null) {
                 val block = curElement.block
                 val curStyle = block?.getAttributeValue("utd-style")
-                if (curStyle != null && !STYLES_NOT_TO_BE_RETAINED.contains(curStyle)) {
-                    style = curStyle
+                if (curStyle != null && curStyle !in STYLES_NOT_TO_BE_RETAINED) {
+                    style = manager.simpleManager.utdManager.getBaseStyle(curStyle, block)
                 }
             }
             val newElement = BBX.BLOCK.STYLE.create(style)

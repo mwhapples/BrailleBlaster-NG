@@ -35,6 +35,7 @@ import org.brailleblaster.utd.properties.Align
 import org.brailleblaster.utils.swt.AccessibilityUtils.setName
 import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.LINE_BREAK
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.accessibility.AccessibleAdapter
 import org.eclipse.swt.accessibility.AccessibleEvent
@@ -368,7 +369,7 @@ class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
                         ) - changedTextLength))
                     if (newOffset > 0 && newOffset < view.charCount) {
                         //Move cursor by how much it moved
-                        FormUIUtils.setCaretAfterLineBreaks(view, newOffset)
+                        EasySWT.setCaretAfterLineBreaks(view, newOffset)
                     }
                 }
             }
@@ -378,7 +379,7 @@ class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
     }
 
     fun scrollToCursor() {
-        FormUIUtils.scrollViewToCursor(view)
+        EasySWT.scrollViewToCursor(view)
     }
 
     fun setCurrentElement(pos: Int) {
