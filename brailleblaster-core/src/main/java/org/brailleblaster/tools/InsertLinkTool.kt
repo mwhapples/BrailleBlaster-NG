@@ -18,7 +18,6 @@ package org.brailleblaster.tools
 import nu.xom.Element
 import nu.xom.Text
 import org.brailleblaster.bbx.BBX
-import org.brailleblaster.bbx.findBlock
 import org.brailleblaster.perspectives.braille.mapping.elements.TextMapElement
 import org.brailleblaster.perspectives.braille.messages.Sender
 import org.brailleblaster.perspectives.braille.views.wp.TextView
@@ -109,11 +108,10 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
     }
     EasySWT.makePushButton(internalTabGroup, "Set Internal Link", 1) {
       //Set a link pointer at the current block based on the selected bookmark
-      if (bookmarkList.selection.toString().isEmpty()){
-        //No selection - do nothing. Should have a notice to the user here eventually.
-      }
-      else {
-        setInternalLinkID(bookmarkList.selection.toString(), bbData)
+      if (bookmarkList.selectionIndex != -1){
+        //Surely there's a more elegant way to get the list selection?
+        val bookmarkID = bookmarkList.selection[bookmarkList.selectionIndex]
+        insertLink(bookmarkID, false, bbData)
       }
       shell.close()
     }
@@ -134,7 +132,7 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
   }
 
   private fun insertLink(link: String, isExternal: Boolean, bbData: BBSelectionData) {
-    //println("Inserting link text: $link")
+    //println("Inserting link text: $link; isExternal: $isExternal")
     val mapList = bbData.manager.mapList
     val current = mapList.current
 
@@ -175,6 +173,8 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
       val nodeLength = currentNode.value.length
       val start = (bbData.manager.simpleManager.currentSelection.start as XMLTextCaret).offset
       val end = (bbData.manager.simpleManager.currentSelection.end as XMLTextCaret).offset
+      //Getting a DebugStyledText error in the "A Christmas Carol" txt document. What's going on there?
+      //Mark had problems in a Nimas file too. Maybe too many blocks to handle?
       //println("Adding link to Node ${currentNode.value}, length: $nodeLength, start: $start, end: $end")
 
       //We want either the whole node, or a portion of it.
@@ -197,57 +197,18 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
           //wrap all (start to very end)
           currentNode
         }
+      //println("Node wrapped, calling XMLHandler and dispatching event")
       XMLHandler.wrapNodeWithElement(nodeToWrap, newLink)
-      //That got it!
       bbData.manager.simpleManager.dispatchEvent(ModifyEvent(Sender.TEXT, true, nodeToWrap.parent))
     }
     return
   }
 
-  private fun getInternalID(currentLink: String, bbData: BBSelectionData) {
-    val maplist = bbData.manager.mapList
-    val current = maplist.current
-    //Need to add a linkID attribute to BBX.Block - also need some kind of link management to go with it
-    //Either in manager class or similarly high up. Want it as simple as possible - an incrementing integer should be fine
-    //Just need a reliable way to count existing linkIDs in the document when it loads, and increment from there.
-    //Inserting internal link then pegs the linkID to the inline link's href attribute
-    //That way the link is contained within a node that gets saved with the document
-    //Then we need a way to jump to that linkID from the link - presumably in TextView.
-    //Might be slow since we'll have to search the maplist for it.
-    //Maybe some way to cache the list in manager? Then it's a slower operation to add/remove links, but faster to jump to them.
-    println("node.toXML:" + current.node.findBlock().toXML())
-    println("node.toString: " + current.node.toString())
-
-    //there is a method for jumping the selection to a line, right?
-    //From GoToPageDialog:
-    //m.simpleManager.dispatchEvent(XMLCaretEvent(Sender.GO_TO_PAGE, XMLTextCaret(node, 0)))
-    //getting the node is the hard part...maybe just use the maplist index?
-    // Will have to do a few checks, and accept the fact that things will get weird if the document changes.
-    //Either that or have the link manager monitor changes and update the link targets as needed...big nuisance.
-    //That would have to be a core feature of the document manager, not just the link tool.
-
-    //println("Current hash: ${current.hashCode()}")
-    //println("Current nodeparent hash: ${current.nodeParent.hashCode()}")
-    //Can't use node hashes for internal ID - they change every time the document loads.
-    //How about absolute positions? Not dynamic, but at least stable across sessions.
-
-  }
-
-  private fun setInternalLinkID(currentLink: String, bbData: BBSelectionData) {
+  private fun setInternalLinkID(currentLink: TextMapElement, bbData: BBSelectionData) {
     //Create a link "pointer" at the current selection. The linkID must match a bookmark with the given linkID.
     //The bookmarksTMEList is populated when the dialog box is created,
     // and should always match what the list in the menu shows.
 
-    for (tme in bookmarksTMEList){
-      val el = tme.node.parent as Element
-      val linkID = el.getAttributeValue("linkID", BB_NS).toString()
-      if (linkID == currentLink){
-        //println("Found bookmark element: ${el.toXML()}")
-        //Set the link pointer
-        insertLink(currentLink, false, bbData)
-        return
-      }
-    }
   }
 
   //Generate the strings for the SWT List and populate bookmarksTMEList for later use

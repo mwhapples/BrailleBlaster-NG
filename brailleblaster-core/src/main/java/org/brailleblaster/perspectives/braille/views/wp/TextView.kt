@@ -192,7 +192,7 @@ class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
                     try {
                       if (!href.isNullOrBlank()) {
                         if (isExternal) {
-                          //Need a method for URL checking, for now just assume it's valid
+                          //Need a method for URL checking, for now just assume it's valid - browser can handle it.
                           Desktop.getDesktop().browse(URI(href.toString()))
                         }
                         else {
@@ -209,9 +209,8 @@ class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
                             if (linkID == href){
                               //Found the target node, move the cursor there
                               val pos = tme.getStart(manager.mapList)
-                              println("Found target node for internal link, moving cursor")
-                              //potential problem if node can't be case to text?
-                              //Would prefer to grab the position directly and move to it - how?
+                              //println("Found target node for internal link, moving cursor")
+                              //potential problem if node can't be cast to text?
                               manager.simpleManager.dispatchEvent(XMLCaretEvent(Sender.NO_SENDER, XMLTextCaret(tme.node as Text, 0)))
                               break
                             }
@@ -233,7 +232,6 @@ class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
                 }
                 if (e.button == 2) return
                 if (e.button == 3 && !view.isTextSelected) {
-                    //Original code in Kotlin, from V2 some time in Dec. 2021 - MNS
                     //This fixes the bug where right-clicking in the indent margin would send the caret to the doc start.
                     try {
                         val offsetPoint = view.getOffsetAtPoint(Point.WithMonitor(e.x, e.y, Display.getCurrent().primaryMonitor))

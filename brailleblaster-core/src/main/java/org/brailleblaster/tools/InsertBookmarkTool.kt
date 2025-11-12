@@ -73,6 +73,7 @@ class InsertBookmarkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModu
       getBookmarksList(bbData).forEach {
         bookmarksList.add(it)
       }
+      bookmarksList.redraw()
     }
 
     val bookmarkAtCursor = Button(buttonsGroup, SWT.PUSH)
@@ -88,6 +89,7 @@ class InsertBookmarkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModu
         getBookmarksList(bbData).forEach {
           bookmarksList.add(it)
         }
+        bookmarksList.redraw()
       }
     }
 
@@ -119,7 +121,7 @@ class InsertBookmarkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModu
       try {
         current.block!!.addAttribute(BBX.BLOCK.LINKID.newAttribute(newLinkID))
         bbData.manager.simpleManager.dispatchEvent(ModifyEvent(Sender.TEXT, false, current.nodeParent))
-        println("Added $newLinkID to block: ${current.block!!.toXML()}")
+        //println("Added $newLinkID to block: ${current.block!!.toXML()}")
       }
       catch (e: Exception) {
         e.printStackTrace()
