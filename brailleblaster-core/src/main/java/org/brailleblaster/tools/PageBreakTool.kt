@@ -49,8 +49,6 @@ object PageBreakTool : MenuToolModule {
     }
 
     private fun existsFollowingText(m: Manager, currentSelection: XMLSelection): Boolean {
-        val lastNode = currentSelection.end.node
-        val moreNodes = lastNode.query("following::text()")
         if (inBlock(m)) {
             return true
         }
@@ -59,12 +57,8 @@ object PageBreakTool : MenuToolModule {
                 return true
             }
         }
-        for (i in 0 until moreNodes.size()) {
-            if (!isBraille(moreNodes[i])) {
-                return true
-            }
-        }
-        return false
+        val lastNode = currentSelection.end.node
+        return FastXPath.following(lastNode).filterIsInstance<Text>().any { !isBraille(it) }
     }
 
     private fun pageBreak(m: Manager) {
