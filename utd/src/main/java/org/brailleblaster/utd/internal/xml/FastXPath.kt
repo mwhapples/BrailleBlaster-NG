@@ -128,8 +128,8 @@ object FastXPath {
     }
 
     @JvmStatic
-    fun ancestor(startNode: Node): Iterable<Element> {
-        return generateSequence(startNode. parent as? Element) { it.parent as? Element }.asIterable()
+    fun ancestor(startNode: Node): Sequence<Element> {
+        return generateSequence(startNode. parent as? Element) { it.parent as? Element }
     }
 
     @JvmStatic

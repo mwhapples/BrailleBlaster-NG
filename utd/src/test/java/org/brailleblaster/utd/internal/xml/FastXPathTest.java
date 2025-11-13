@@ -100,7 +100,7 @@ public class FastXPathTest {
 		Assert.assertEquals(p.getLocalName(), "p");
 		Text text = (Text) p.getChild(0);
 		
-		StreamSupport.stream(FastXPath.ancestor(text).spliterator(), false)
+		StreamSupport.stream(((Iterable<Element>)FastXPath.ancestor(text)::iterator).spliterator(), false)
 				.filter(something -> something.getAttributeCount() == 1);
 
 		Iterator<? extends Element> iterator = FastXPath.ancestor(text).iterator();
