@@ -230,8 +230,7 @@ object PageBreakTool : MenuToolModule {
     private fun getLastTextNode(node: ParentNode): Text? {
         val children = FastXPath.descendant(node)
             .filterIsInstance<Text>()
-        for (i in children.indices.reversed()) {
-            val child = children[i]
+        for (child in children.asIterable().reversed()) {
             if (XMLHandler.ancestorElementIs(child) { e -> UTDElements.BRL.isA(e) }) {
                 continue
             }

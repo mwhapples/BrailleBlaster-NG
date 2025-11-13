@@ -206,20 +206,20 @@ public class Manager extends Controller {
 
                     // Used to comminicate information before a formatting stage
                     // Can't just apply to mEvent.changedNodes as these might be added to a parent
-                    StreamSupport.stream(FastXPath.descendant(getDoc()).spliterator(), false).filter(Searcher.Filters::isElement)
+                    StreamSupport.stream(((Iterable<Node>)FastXPath.descendant(getDoc())::iterator).spliterator(), false).filter(Searcher.Filters::isElement)
                             .map(Searcher.Mappers::toElement)
                             .filter(BBX.PreFormatterMarker.ATTRIB_PRE_FORMATTER_MARKER::has).forEach(BBX.PreFormatterMarker.ATTRIB_PRE_FORMATTER_MARKER::detach);
 
                     Set<Element> liveFixedSections = new HashSet<>();
-                    mEvent.changedNodes.forEach(n -> {
+                    for (Node n : mEvent.changedNodes) {
                         if (n.getDocument() == null) {
-                            return;
+                            continue;
                         }
                         if (n instanceof Document || n.getDocument().getRootElement() == n) {
                             LiveFixer.fix(Objects.requireNonNull(XMLHandler.nodeToElementOrParentOrDocRoot(n)));
                             refresh(false);
                             changedNodes.clear();
-                            return;
+                            continue;
                         } else {
                             // Issue #6022 #5947: cleanup document to prevent weird state or formatting
                             Element section = XMLHandler.Companion.ancestorVisitorElement(n, BBX.SECTION::isA);
@@ -229,7 +229,7 @@ public class Manager extends Controller {
 
                                 if (n.getDocument() == null) {
                                     // was removed by fixer
-                                    return;
+                                    continue;
                                 }
                             }
                         }
@@ -242,12 +242,12 @@ public class Manager extends Controller {
                             // after reformat
                             changedNodes.add(tableParent);
                         } else if (BBX.SECTION.isA(n) || (BBX.CONTAINER.isA(n) && !BBX.CONTAINER.TABLE.isA(n))) {
-                            for (Node child : FastXPath.descendantOrSelf(n)) {
+                            for (Node child : (Iterable<Node>) FastXPath.descendantOrSelf(n)::iterator) {
                                 if (BBX.CONTAINER.TABLE.isA(child)
                                         && ((Element) child).getAttribute(TableUtils.ATTRIB_TABLE_COPY) == null
                                         && !changedNodes.contains(child)) {
                                     changedNodes.add((Element) child.getParent());
-                                } else if (!BBX.BLOCK.TABLE_CELL.isA(child) && BBX.BLOCK.isA(child) && !changedNodes.contains((Element) child)) {
+                                } else if (!BBX.BLOCK.TABLE_CELL.isA(child) && BBX.BLOCK.isA(child) && !changedNodes.contains(child)) {
                                     changedNodes.add((Element) child);
                                 }
                             }
@@ -259,13 +259,13 @@ public class Manager extends Controller {
                             while (!BBX.BLOCK.isA(n)) {
                                 n = n.getParent();
                             }
-                            if (n instanceof Element && !changedNodes.contains((Element)n))
+                            if (n instanceof Element && !changedNodes.contains(n))
                                 changedNodes.add((Element) n);
                         } else {
-                            if (n instanceof Element && !changedNodes.contains((Element)n))
+                            if (n instanceof Element && !changedNodes.contains(n))
                                 changedNodes.add((Element) n);
                         }
-                    });
+                    }
 
                     mEvent.changedNodes.clear();
                     if (!changedNodes.isEmpty()) {

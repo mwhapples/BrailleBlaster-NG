@@ -29,8 +29,8 @@ import java.util.function.Predicate
  */
 object FastXPath {
     @JvmStatic
-    fun descendantOrSelf(startNode: Node?): Iterable<Node> {
-        return nodeSequence(startNode, stayInsideStartNode = true, forward = true).asIterable()
+    fun descendantOrSelf(startNode: Node?): Sequence<Node> {
+        return nodeSequence(startNode, stayInsideStartNode = true, forward = true)
     }
 
     fun <N : Node> descendantFindList(
@@ -80,7 +80,7 @@ object FastXPath {
     }
 
     @JvmStatic
-    fun descendant(startNode: Node?): Iterable<Node> {
+    fun descendant(startNode: Node?): Sequence<Node> {
         return descendantOrSelf(startNode).drop(1)
     }
 
