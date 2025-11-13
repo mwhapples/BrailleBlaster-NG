@@ -163,7 +163,7 @@ object PageBreakTool : MenuToolModule {
                 val pagesBefore = style.newPagesBefore + 1
                 m.dispatch(AdjustLocalStyleMessage.adjustPages(block as Element, pagesBefore, 0))
                 if (!BBX.CONTAINER.BOX.isA(nodeToBreak)) {
-                    nodeToBreak = block.query("descendant::text()")[0]
+                    nodeToBreak = FastXPath.descendant(block).filterIsInstance<Text>().first()
                 }
                 if (nodeToBreak != null && !isPage(nodeToBreak)) {
                     // simple table nodes are not in the maplist
