@@ -84,7 +84,7 @@ public class FastXPathTest {
 
 			for (Node curNode : testNodes) {
 				log.debug("attached " + (curNode.getParent() != null) + " curNode " + curNode);
-				List<Node> fastResult = Lists.newArrayList(FastXPath.following(curNode));
+				List<Node> fastResult = Lists.newArrayList(FastXPath.following(curNode)::iterator);
 				List<Node> xomResult = Lists.newArrayList(XMLHandler.query(curNode, "following::node()"));
 				assertListEquals(fastResult, xomResult);
 			}

@@ -85,12 +85,12 @@ object FastXPath {
     }
 
     @JvmStatic
-    fun following(startNode: Node): Iterable<Node> {
+    fun following(startNode: Node): Sequence<Node> {
         return nodeSequence(
             itrNextNode(startNode, null, true),
             stayInsideStartNode = false,
             forward = true
-        ).asIterable()
+        )
     }
 
     fun followingAndSelf(startNode: Node?): Iterable<Node> {
