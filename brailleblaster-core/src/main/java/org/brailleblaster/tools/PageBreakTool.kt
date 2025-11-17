@@ -118,7 +118,7 @@ object PageBreakTool : MenuToolModule {
             }
         }?.let { nodeToBreak ->
             if (isBraille(nodeToBreak)) {
-                val nodes = FastXPath.following(m.simpleManager.currentSelection.start.node).toList()
+                val nodes = FastXPath.following(m.simpleManager.currentSelection.start.node).filterIsInstance<Text>().toList()
                 getFirstNonBraille(nodes, nodeToBreak)
             } else {
                 nodeToBreak
