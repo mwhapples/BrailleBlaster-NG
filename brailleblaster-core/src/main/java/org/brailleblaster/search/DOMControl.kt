@@ -16,8 +16,8 @@
 package org.brailleblaster.search
 
 import nu.xom.Node
-import nu.xom.Nodes
 import nu.xom.Text
+import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
 
 class DOMControl(private val click: Click) {
@@ -25,28 +25,13 @@ class DOMControl(private val click: Click) {
     private val possiblesPastStart: MutableList<Node> = ArrayList()
 
     init {
-        val allNodes = click.initialView.mapElement.node.query("following::text()")
-        nodesToArrayList(allNodes)
+        val allNodes = FastXPath.following(click.initialView.mapElement.node).filterIsInstance<Text>()
+        possiblesPastStart += allNodes
         if (SearchUtils.checkCorrectAttributes(click.initialView.mapElement.node, click)) {
             possiblesCorrectAttributes.add(0, click.initialView.mapElement.node)
             // following::text will not add the current element
         }
-        getNodes(allNodes)
-    }
-
-    private fun nodesToArrayList(nodes: Nodes) {
-        for (i in 0 until nodes.size()) {
-            possiblesPastStart.add(nodes[i])
-        }
-    }
-
-    private fun getNodes(nodes: Nodes) {
-        for (i in 0 until nodes.size()) {
-            val node = nodes[i]
-            if (SearchUtils.checkCorrectAttributes(node, click)) {
-                possiblesCorrectAttributes.add(node)
-            }
-        }
+        possiblesCorrectAttributes += allNodes.filter { SearchUtils.checkCorrectAttributes(it, click) }
     }
 
     fun searchNoView(array: List<Node>): String {
