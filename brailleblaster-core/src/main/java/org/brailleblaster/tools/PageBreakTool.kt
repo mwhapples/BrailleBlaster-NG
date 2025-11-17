@@ -118,7 +118,7 @@ object PageBreakTool : MenuToolModule {
             }
         }?.let { nodeToBreak ->
             if (isBraille(nodeToBreak)) {
-                val nodes = m.simpleManager.currentSelection.start.node.query("following::text()")
+                val nodes = FastXPath.following(m.simpleManager.currentSelection.start.node).toList()
                 getFirstNonBraille(nodes, nodeToBreak)
             } else {
                 nodeToBreak
@@ -182,13 +182,13 @@ object PageBreakTool : MenuToolModule {
         ) { node: Element? -> BBX.CONTAINER.TABLETN.isA(node) }
     }
 
-    private fun getFirstNonBraille(nodes: Nodes, startNode: Node?): Node? {
-        if (nodes.size() == 0) {
+    private fun getFirstNonBraille(nodes: List<Node>, startNode: Node?): Node? {
+        if (nodes.isEmpty()) {
             return null
         }
         var i = 0
         var returnNode = nodes[i]
-        while (i < nodes.size() && isBraille(returnNode)) {
+        while (i < nodes.size && isBraille(returnNode)) {
             returnNode = nodes[i]
             i++
         }
