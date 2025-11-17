@@ -914,8 +914,8 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolModul
         intersection.add(end)
         if (start !== end) {
             //V1 - Do not use following-sibling in case the two nodes are in different containers
-            val siblingsAfter = FastXPath.following(start)
-            val siblingsBefore = FastXPath.preceding(end)
+            val siblingsAfter = FastXPath.following(start).filterIsInstance<Element>()
+            val siblingsBefore = FastXPath.preceding(end).filterIsInstance<Element>()
             intersection.addAll(siblingsAfter.filter { sibling -> BBX.BLOCK.isA(sibling) && sibling in siblingsBefore })
         }
         return intersection
