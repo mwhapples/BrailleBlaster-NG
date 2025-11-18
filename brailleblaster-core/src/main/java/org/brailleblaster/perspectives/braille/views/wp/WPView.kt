@@ -393,9 +393,10 @@ abstract class WPView(manager: Manager, parent: Composite) : AbstractView(manage
       if (manager.mapList.current.nodeParent != null) {
         if (BBX.INLINE.LINK.isA(manager.mapList.current.nodeParent)) {
           val href = manager.mapList.current.nodeParent.getAttributeValue("href", BB_NS)
-          if (!href.isNullOrEmpty()) {
-            statusBarText += "Link: $href | "
-          }
+          val isExternal = manager.mapList.current.nodeParent.getAttributeValue("isExternal", BB_NS).toBoolean()
+          if (!href.isNullOrEmpty())
+            statusBarText += if (isExternal) "Link: $href | "
+            else "Internal Link to Bookmark: \"$href\" | "
         }
         if (!(manager.mapList.current.node.parent as Element).getAttributeValue("linkID", BB_NS).isNullOrEmpty()) {
           val linkID = manager.mapList.current.nodeParent.getAttributeValue("linkID", BB_NS)

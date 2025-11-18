@@ -118,7 +118,7 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
     EasySWT.makePushButton(internalTabGroup, "Remove Internal Link", 1) {
       //Works the same for internal and external links
       removeLink(bbData)
-      //shell.close()
+      shell.close()
     }
     EasySWT.makePushButton(internalTabGroup, localeHandler["buttonCancel"], 1) {
       shell.close()
@@ -132,7 +132,7 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
   }
 
   private fun insertLink(link: String, isExternal: Boolean, bbData: BBSelectionData) {
-    //println("Inserting link text: $link; isExternal: $isExternal")
+    logger.info("Inserting link text: $link; isExternal: $isExternal")
     val mapList = bbData.manager.mapList
     val current = mapList.current
 
@@ -150,15 +150,14 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
       //Not on a link - create one if there's a valid selection
       if (current.isReadOnly || bbData.manager.simpleManager.currentSelection.isTextNoSelection) {
         //Do not allow link creation in read-only areas or if there's no selection
-        //println("No selection or read-only area - not creating link")
+        logger.debug("No selection or read-only area - not creating link")
         return
       }
       if (!bbData.manager.simpleManager.currentSelection.isSingleNode) {
-        //println("Multiple nodes selected - cannot create link")
+        logger.debug("Multiple nodes selected - cannot create link")
         return
       }
 
-      //println("Single node selected - creating link")
       val newLink = BBX.INLINE.LINK.create()
       newLink.addAttribute(BBX.INLINE.LINK.IS_EXTERNAL.newAttribute(isExternal))
       newLink.addAttribute(BBX.INLINE.LINK.ATTRIB_HREF.newAttribute(link))
@@ -173,9 +172,8 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
       val nodeLength = currentNode.value.length
       val start = (bbData.manager.simpleManager.currentSelection.start as XMLTextCaret).offset
       val end = (bbData.manager.simpleManager.currentSelection.end as XMLTextCaret).offset
-      //Getting a DebugStyledText error in the "A Christmas Carol" txt document. What's going on there?
       //Mark had problems in a Nimas file too. Maybe too many blocks to handle?
-      //println("Adding link to Node ${currentNode.value}, length: $nodeLength, start: $start, end: $end")
+      logger.info("Adding link to Node ${currentNode.value}, length: $nodeLength, start: $start, end: $end")
 
       //We want either the whole node, or a portion of it.
       //That portion might be from the start to somewhere in the middle, two middle points, or middle to end.
@@ -197,18 +195,10 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
           //wrap all (start to very end)
           currentNode
         }
-      //println("Node wrapped, calling XMLHandler and dispatching event")
       XMLHandler.wrapNodeWithElement(nodeToWrap, newLink)
       bbData.manager.simpleManager.dispatchEvent(ModifyEvent(Sender.TEXT, true, nodeToWrap.parent))
     }
     return
-  }
-
-  private fun setInternalLinkID(currentLink: TextMapElement, bbData: BBSelectionData) {
-    //Create a link "pointer" at the current selection. The linkID must match a bookmark with the given linkID.
-    //The bookmarksTMEList is populated when the dialog box is created,
-    // and should always match what the list in the menu shows.
-
   }
 
   //Generate the strings for the SWT List and populate bookmarksTMEList for later use
