@@ -29,8 +29,8 @@ import java.util.function.Predicate
  */
 object FastXPath {
     @JvmStatic
-    fun descendantOrSelf(startNode: Node?): Iterable<Node> {
-        return nodeSequence(startNode, stayInsideStartNode = true, forward = true).asIterable()
+    fun descendantOrSelf(startNode: Node?): Sequence<Node> {
+        return nodeSequence(startNode, stayInsideStartNode = true, forward = true)
     }
 
     fun <N : Node> descendantFindList(
@@ -80,17 +80,17 @@ object FastXPath {
     }
 
     @JvmStatic
-    fun descendant(startNode: Node?): Iterable<Node> {
+    fun descendant(startNode: Node?): Sequence<Node> {
         return descendantOrSelf(startNode).drop(1)
     }
 
     @JvmStatic
-    fun following(startNode: Node): Iterable<Node> {
+    fun following(startNode: Node): Sequence<Node> {
         return nodeSequence(
             itrNextNode(startNode, null, true),
             stayInsideStartNode = false,
             forward = true
-        ).asIterable()
+        )
     }
 
     fun followingAndSelf(startNode: Node?): Iterable<Node> {
@@ -128,13 +128,13 @@ object FastXPath {
     }
 
     @JvmStatic
-    fun ancestor(startNode: Node): Iterable<Element> {
-        return generateSequence(startNode. parent as? Element) { it.parent as? Element }.asIterable()
+    fun ancestor(startNode: Node): Sequence<Element> {
+        return generateSequence(startNode. parent as? Element) { it.parent as? Element }
     }
 
     @JvmStatic
-    fun ancestorOrSelf(startNode: Node?): Iterable<Node> {
-        return generateSequence(startNode) { it.parent }.asIterable()
+    fun ancestorOrSelf(startNode: Node?): Sequence<Node> {
+        return generateSequence(startNode) { it.parent }
     }
 
     private fun nodeSequence(startNode: Node?, stayInsideStartNode: Boolean, forward: Boolean): Sequence<Node> =

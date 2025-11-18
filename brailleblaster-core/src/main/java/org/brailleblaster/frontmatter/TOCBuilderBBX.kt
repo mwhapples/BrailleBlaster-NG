@@ -750,14 +750,14 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolModule, BBViewListen
         }
 
         //Ignore blocks that just contain a page number
-        val textNodes: List<Node> = FastXPath.descendant(curBlock)
+        val textNodes = FastXPath.descendant(curBlock)
             .filterIsInstance<nu.xom.Text>()
-        if (textNodes.isEmpty()) {
+        if (textNodes.none()) {
             return true
-        } else if (textNodes.size > 1) {
+        } else if (textNodes.count() > 1) {
             return false
         }
-        return BBXUtils.isPageNumAncestor(textNodes[0])
+        return BBXUtils.isPageNumAncestor(textNodes.first())
     }
 
     private fun applyTOC(block: Element, type: String, utdMan: UTDManager, modifiedNodes: MutableList<Node>) {

@@ -1108,7 +1108,7 @@ public class BBX {
                     throw new NodeException("Expected only container child to be math, got ", mathTag);
                 }
 
-                List<Element> nonMathMl = StreamSupport.stream(FastXPath.descendant(node).spliterator(), false).filter(n -> n instanceof Element)
+                List<Element> nonMathMl = StreamSupport.stream(((Iterable<Node>)FastXPath.descendant(node)::iterator).spliterator(), false).filter(n -> n instanceof Element)
                         .map(n -> (Element) n).filter(e -> !e.getNamespaceURI().equals(NamespacesKt.MATHML_NS)).toList();
                 if (!nonMathMl.isEmpty()) {
                     throw new NodeException("Unexpected non-mathml elements " + StringUtils.join(nonMathMl, ", "),

@@ -38,7 +38,7 @@ object VolumeUtils {
     private val log = LoggerFactory.getLogger(VolumeUtils::class.java)
     @JvmStatic
 	fun getVolumeElements(doc: Document?): List<Element> {
-        return FastXPath.descendant(doc)
+        return FastXPath.descendant(doc).toList()
             .filterIsInstance<Element>()
             .filter { node -> BBX.CONTAINER.VOLUME.isA(node) }
     }
