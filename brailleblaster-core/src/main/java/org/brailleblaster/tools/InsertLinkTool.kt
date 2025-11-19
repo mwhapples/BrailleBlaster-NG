@@ -32,6 +32,7 @@ import org.brailleblaster.utils.xml.BB_NS
 import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.FillLayout
+import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.widgets.Dialog
 import org.eclipse.swt.widgets.Group
@@ -84,6 +85,10 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
     externalTabGroup.layout = GridLayout(2, false)
     val internalTabGroup = Group(tabs, SWT.NONE)
     internalTabGroup.layout = GridLayout(2, false)
+    val internalListGroup = Group(internalTabGroup, SWT.NONE)
+    internalListGroup.layout = GridLayout(1, false)
+    val internalButtonsGroup = Group(internalTabGroup, SWT.NONE)
+    internalButtonsGroup.layout = GridLayout(1, false)
 
     val entryText = EasySWT.makeText(externalTabGroup, 180, 2)
     entryText.text = linkText
@@ -101,26 +106,33 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
     }
     tabExternal.control = externalTabGroup
 
-    val bookmarkList = List(internalTabGroup, SWT.BORDER or SWT.V_SCROLL or SWT.SINGLE)
+    val gd1 = GridData()
+    gd1.widthHint = 180
+    gd1.heightHint = 90
+    gd1.grabExcessVerticalSpace = true
+    gd1.grabExcessHorizontalSpace = true
+
+    val bookmarkList = List(internalListGroup, SWT.BORDER or SWT.V_SCROLL or SWT.SINGLE)
     bookmarkList //Set list with names of bookmarks in document; subsequent buttons will use the selected bookmark
     getBookmarksList(bbData).forEach {
       bookmarkList.add(it)
     }
-    EasySWT.makePushButton(internalTabGroup, "Set Internal Link", 1) {
+    bookmarkList.layoutData = gd1
+
+    EasySWT.makePushButton(internalButtonsGroup, "Set Internal Link", 1) {
       //Set a link pointer at the current block based on the selected bookmark
-      if (bookmarkList.selectionIndex != -1){
-        //Surely there's a more elegant way to get the list selection?
-        val bookmarkID = bookmarkList.selection[bookmarkList.selectionIndex]
+      if (bookmarkList.selectionIndex != -1){ // Ensure something is selected
+        val bookmarkID = bookmarkList.selection[0] // List is single selection, so it should always be index 0
         insertLink(bookmarkID, false, bbData)
       }
       shell.close()
     }
-    EasySWT.makePushButton(internalTabGroup, "Remove Internal Link", 1) {
+    EasySWT.makePushButton(internalButtonsGroup, "Remove Internal Link", 1) {
       //Works the same for internal and external links
       removeLink(bbData)
       shell.close()
     }
-    EasySWT.makePushButton(internalTabGroup, localeHandler["buttonCancel"], 1) {
+    EasySWT.makePushButton(internalButtonsGroup, localeHandler["buttonCancel"], 1) {
       shell.close()
     }
     tabInternal.control = internalTabGroup

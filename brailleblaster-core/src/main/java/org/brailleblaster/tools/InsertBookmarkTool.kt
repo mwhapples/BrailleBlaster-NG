@@ -15,6 +15,7 @@ import org.brailleblaster.utils.localization.LocaleHandler
 import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.utils.xml.BB_NS
 import org.eclipse.swt.SWT
+import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Dialog
@@ -35,10 +36,16 @@ class InsertBookmarkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModu
   override fun onRun(bbData: BBSelectionData) {
     val shell = Shell(parent.display)
     shell.text = "Bookmarks"
-    shell.layout = GridLayout(3, false)
+    shell.layout = GridLayout(2, false)
     
     val textBoxGroup = EasySWT.makeGroup(shell, SWT.NONE, 1, true)
     val buttonsGroup = EasySWT.makeGroup(shell, SWT.NONE, 1, true)
+
+    val gd = GridData()
+    gd.widthHint = 180
+    gd.heightHint = 90
+    gd.grabExcessVerticalSpace = true
+    gd.grabExcessHorizontalSpace = true
 
     val entryBox = EasySWT.makeText(textBoxGroup, 180, 1)
 
@@ -52,8 +59,42 @@ class InsertBookmarkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModu
         moveToBookmark(bbData, bookmarksList.selectionIndex)
       }
     }
+    bookmarksList.layoutData = gd
 
-    EasySWT.makePushButton(buttonsGroup, "Go To Bookmark", 1) {
+    val bookmarkAtCursor = Button(buttonsGroup, SWT.PUSH)
+    bookmarkAtCursor.text = "Add Bookmark at Cursor"
+    //Work on enabling/disabling the button based on text entry and existing bookmarks.
+    //bookmarkAtCursor.enabled = !entryBox.text.isEmpty() && !bookmarksList.items.contains(entryBox.text)
+    bookmarkAtCursor.addListener(SWT.Selection) {
+      if (!entryBox.text.isEmpty() && !bookmarksList.items.contains(entryBox.text)) {
+        addBookmark(bbData, entryBox.text)
+
+        bookmarksList.deselectAll()
+        //Regenerate bookmarks list
+        bookmarksList.removeAll()
+        getBookmarksList(bbData).forEach {
+          bookmarksList.add(it)
+        }
+        bookmarksList.redraw()
+        bookmarksList.update()
+      }
+    }
+
+    EasySWT.makePushButton(buttonsGroup, "Remove Selected Bookmark", 1) {
+      //remove currently selected bookmark
+      removeBookmark(bbData, bookmarksList.selectionIndex)
+
+      //Regenerate bookmarks list
+      bookmarksList.deselectAll()
+      bookmarksList.removeAll()
+      getBookmarksList(bbData).forEach {
+        bookmarksList.add(it)
+      }
+      bookmarksList.redraw()
+      bookmarksList.update()
+    }
+
+    EasySWT.makePushButton(buttonsGroup, "Go To Selected Bookmark", 1) {
       if (bookmarksList.selectionIndex != -1) {
         moveToBookmark(bbData, bookmarksList.selectionIndex)
         bookmarksList.deselectAll()
@@ -64,34 +105,7 @@ class InsertBookmarkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModu
       bookmarksList.deselectAll()
     }
 
-    EasySWT.makePushButton(buttonsGroup, "Remove Bookmark", 1) {
-      //remove currently selected bookmark
-      removeBookmark(bbData, bookmarksList.selectionIndex)
-      //Regenerate bookmarks list
-      bookmarksList.deselectAll()
-      bookmarksList.removeAll()
-      getBookmarksList(bbData).forEach {
-        bookmarksList.add(it)
-      }
-      bookmarksList.redraw()
-    }
-
-    val bookmarkAtCursor = Button(buttonsGroup, SWT.PUSH)
-    bookmarkAtCursor.text = "Add Bookmark at Cursor"
-    //Work on enabling/disabling the button based on text entry and existing bookmarks.
-    //bookmarkAtCursor.enabled = !entryBox.text.isEmpty() && !bookmarksList.items.contains(entryBox.text)
-    bookmarkAtCursor.addListener(SWT.Selection) {
-      if (!entryBox.text.isEmpty() && !bookmarksList.items.contains(entryBox.text)) {
-        addBookmark(bbData, entryBox.text)
-        bookmarksList.deselectAll()
-        //Regenerate bookmarks list
-        bookmarksList.removeAll()
-        getBookmarksList(bbData).forEach {
-          bookmarksList.add(it)
-        }
-        bookmarksList.redraw()
-      }
-    }
+    EasySWT.addEscapeCloseListener(shell)
 
     shell.pack()
     shell.open()
