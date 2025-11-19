@@ -107,6 +107,14 @@ class InsertLinkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.NONE)
 
     val entryText = EasySWT.makeText(externalTabGroup, 180, 2)
     entryText.text = linkText
+    entryText.message = "Enter URL, email, or file link here"
+    EasySWT.addEnterListener(entryText){
+      //Insert the link at the current selection (same behavior as pressing the button)
+      if (entryText.text.isNotEmpty()) {
+        insertLink(entryText.text, true, bbData)
+      }
+      shell.close()
+    }
     EasySWT.makePushButton(externalTabGroup, localeHandler["InsertLink"], 1) {
       //Insert the link at the current selection (same behavior as pressing Enter in the text box)
       insertLink(entryText.text, true, bbData)
@@ -134,7 +142,7 @@ class InsertLinkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.NONE)
     }
     bookmarkList.layoutData = gd1
 
-    val iInternalButton = EasySWT.makePushButton(internalButtonsGroup, "Set Internal Link", 1) {
+    EasySWT.makePushButton(internalButtonsGroup, "Set Internal Link", 1) {
       //Set a link pointer at the current block based on the selected bookmark
       if (bookmarkList.selectionIndex != -1){ // Ensure something is selected
         val bookmarkID = bookmarkList.selection[0] // List is single selection, so it should always be index 0
@@ -142,7 +150,7 @@ class InsertLinkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.NONE)
       }
       shell.close()
     }
-    EasySWT.addEnterListener(iInternalButton){
+    EasySWT.addEnterListener(bookmarkList){
       //Set a link pointer at the current block based on the selected bookmark
       if (bookmarkList.selectionIndex != -1){ // Ensure something is selected
         val bookmarkID = bookmarkList.selection[0] // List is single selection, so it should always be index 0

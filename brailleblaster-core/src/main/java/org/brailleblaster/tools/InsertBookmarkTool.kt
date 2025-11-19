@@ -3,6 +3,7 @@ package org.brailleblaster.tools
 import nu.xom.Element
 import nu.xom.Text
 import org.brailleblaster.bbx.BBX
+import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.TextMapElement
 import org.brailleblaster.perspectives.braille.messages.Sender
 import org.brailleblaster.perspectives.mvc.XMLTextCaret
@@ -26,7 +27,7 @@ import org.eclipse.swt.widgets.Shell
 //The link manager then handles linking internal links to those bookmarks, much like MS Word
 private val localeHandler = LocaleHandler.getDefault()
 
-class InsertBookmarkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
+class InsertBookmarkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.NONE), MenuToolModule {
   override val topMenu: TopMenu = TopMenu.NAVIGATE
   override val title: String = localeHandler["BookmarksMenu"]
   override val sharedItem: SharedItem = SharedItem.INSERT_BOOKMARK
@@ -48,7 +49,7 @@ class InsertBookmarkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModu
     gd.grabExcessHorizontalSpace = true
 
     val entryBox = EasySWT.makeText(textBoxGroup, 180, 1)
-
+    entryBox.message = "Enter a unique bookmark name"
     val bookmarksList = List(textBoxGroup, SWT.BORDER or SWT.V_SCROLL or SWT.SINGLE)
     getBookmarksList(bbData).forEach {
       bookmarksList.add(it)
@@ -60,11 +61,33 @@ class InsertBookmarkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModu
       }
     }
     bookmarksList.layoutData = gd
+    bookmarksList.setFocus()
+
+    EasySWT.addEnterListener(bookmarksList){
+      if (bookmarksList.selectionIndex != -1) {
+        //Navigate to existing bookmark if already present
+        moveToBookmark(bbData, bookmarksList.selectionIndex)
+        bookmarksList.deselectAll()
+      }
+    }
+
+    EasySWT.addEnterListener(entryBox) {
+      if (!entryBox.text.isEmpty() && !bookmarksList.items.contains(entryBox.text)) {
+        addBookmark(bbData, entryBox.text)
+
+        bookmarksList.deselectAll()
+        //Regenerate bookmarks list
+        bookmarksList.removeAll()
+        getBookmarksList(bbData).forEach {
+          bookmarksList.add(it)
+        }
+        bookmarksList.redraw()
+        bookmarksList.update()
+      }
+    }
 
     val bookmarkAtCursor = Button(buttonsGroup, SWT.PUSH)
     bookmarkAtCursor.text = "Add Bookmark at Cursor"
-    //Work on enabling/disabling the button based on text entry and existing bookmarks.
-    //bookmarkAtCursor.enabled = !entryBox.text.isEmpty() && !bookmarksList.items.contains(entryBox.text)
     bookmarkAtCursor.addListener(SWT.Selection) {
       if (!entryBox.text.isEmpty() && !bookmarksList.items.contains(entryBox.text)) {
         addBookmark(bbData, entryBox.text)

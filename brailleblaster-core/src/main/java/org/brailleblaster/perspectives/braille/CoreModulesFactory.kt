@@ -90,6 +90,6 @@ class CoreModulesFactory : ModuleFactory {
         add(InsertUnicode(manager.wpManager.shell))
         add(ContractionRelaxer(manager.wpManager.shell))
         add(InsertLinkTool(manager))
-        add(InsertBookmarkTool(manager.wpManager.shell))
+        add(InsertBookmarkTool(manager))
     }
 }
