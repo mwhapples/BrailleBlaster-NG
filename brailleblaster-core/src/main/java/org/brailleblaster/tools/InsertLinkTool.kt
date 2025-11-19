@@ -18,6 +18,7 @@ package org.brailleblaster.tools
 import nu.xom.Element
 import nu.xom.Text
 import org.brailleblaster.bbx.BBX
+import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.TextMapElement
 import org.brailleblaster.perspectives.braille.messages.Sender
 import org.brailleblaster.perspectives.braille.views.wp.TextView
@@ -45,11 +46,13 @@ import org.slf4j.LoggerFactory
 
 private val localeHandler = LocaleHandler.getDefault()
 
-class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
+class InsertLinkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.NONE), MenuToolModule {
   override val topMenu: TopMenu = TopMenu.INSERT
   override val title: String = localeHandler["InsertLink"]
   override val accelerator: Int = SWT.MOD1 or 'K'.code
   override val sharedItem: SharedItem = SharedItem.INSERT_LINK
+  //Figure out a way to disable if no selection; need to call from manager
+  // but the usual call will crash on load due to nullability.
 
   private val logger = LoggerFactory.getLogger(TextView::class.java)
   private var bookmarksTMEList = mutableListOf<TextMapElement>()
@@ -61,17 +64,29 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
     //Only applies to external links - internal links are handled in separate menu tab
     var linkText = ""
     val el = current.nodeParent
-    if (el != null && BBX.INLINE.LINK.isA(el)
-      && el.getAttributeValue("external", BB_NS).toBoolean()) {
-      //If it's a Link BBX, get the href attribute and set linkText to that
-      //If it's not, leave linkText as an empty string
-      linkText = el.getAttributeValue("href", BB_NS)
+    var isLink = false
+    var startInternal = false
+    if (el != null && BBX.INLINE.LINK.isA(el)) {
+      if (el.getAttributeValue("external", BB_NS).toBoolean()) {
+        //If it's a Link BBX, get the href attribute and set linkText to that
+        //If it's not, leave linkText as an empty string
+        linkText = el.getAttributeValue("href", BB_NS)
+      }
+      else{
+        startInternal = true
+      }
+      isLink = true
     }
-    makeGUI(bbData, linkText)
+    //In lieu of a tool disable mechanism, just don't open the dialog if there's no selection and no existing link
+    if (bbData.manager.simpleManager.currentSelection.isTextNoSelection && !isLink) {
+      return
+    }
+
+    makeGUI(bbData, linkText, startInternal)
   }
 
-  private fun makeGUI(bbData: BBSelectionData, linkText: String) {
-    val shell = Shell(parent.display)
+  private fun makeGUI(bbData: BBSelectionData, linkText: String, startInternal: Boolean = false) {
+    val shell = Shell(parent.shell)
     shell.text = localeHandler["InsertLink"]
     shell.layout = FillLayout()
 
@@ -119,7 +134,7 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
     }
     bookmarkList.layoutData = gd1
 
-    EasySWT.makePushButton(internalButtonsGroup, "Set Internal Link", 1) {
+    val iInternalButton = EasySWT.makePushButton(internalButtonsGroup, "Set Internal Link", 1) {
       //Set a link pointer at the current block based on the selected bookmark
       if (bookmarkList.selectionIndex != -1){ // Ensure something is selected
         val bookmarkID = bookmarkList.selection[0] // List is single selection, so it should always be index 0
@@ -127,6 +142,15 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
       }
       shell.close()
     }
+    EasySWT.addEnterListener(iInternalButton){
+      //Set a link pointer at the current block based on the selected bookmark
+      if (bookmarkList.selectionIndex != -1){ // Ensure something is selected
+        val bookmarkID = bookmarkList.selection[0] // List is single selection, so it should always be index 0
+        insertLink(bookmarkID, false, bbData)
+      }
+      shell.close()
+    }
+
     EasySWT.makePushButton(internalButtonsGroup, "Remove Internal Link", 1) {
       //Works the same for internal and external links
       removeLink(bbData)
@@ -138,6 +162,10 @@ class InsertLinkTool(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModule {
     tabInternal.control = internalTabGroup
 
     EasySWT.addEscapeCloseListener(shell)
+
+    if (startInternal) {
+      tabs.setSelection(tabInternal)
+    }
 
     shell.pack()
     shell.open()

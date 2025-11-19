@@ -89,7 +89,7 @@ class CoreModulesFactory : ModuleFactory {
         add(PageDownUpModule(manager))
         add(InsertUnicode(manager.wpManager.shell))
         add(ContractionRelaxer(manager.wpManager.shell))
-        add(InsertLinkTool(manager.wpManager.shell))
+        add(InsertLinkTool(manager))
         add(InsertBookmarkTool(manager.wpManager.shell))
     }
 }
