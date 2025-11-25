@@ -30,6 +30,7 @@ import org.brailleblaster.perspectives.braille.views.wp.listeners.ImageDisposeLi
 import org.brailleblaster.perspectives.braille.views.wp.listeners.ImagePaintListener
 import org.brailleblaster.perspectives.braille.views.wp.listeners.WPPaintListener
 import org.brailleblaster.perspectives.braille.views.wp.listeners.WPScrollListener
+import org.brailleblaster.perspectives.mvc.XMLNodeCaret
 import org.brailleblaster.perspectives.mvc.XMLTextCaret
 import org.brailleblaster.perspectives.mvc.events.ModifyEvent
 import org.brailleblaster.perspectives.mvc.events.XMLCaretEvent
@@ -196,22 +197,19 @@ class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
                           Desktop.getDesktop().browse(URI(href.toString()))
                         }
                         else {
-                          //Find block with matching linkID in the blocklist and move the navigation pane to it.
-                          val internalLinkNodes = manager.mapList.filter { m ->
-                            m.node != null &&
-                           !(m.node.parent as Element).getAttributeValue("linkID", BB_NS).isNullOrEmpty()
-                          }
-                          //println("Filtered to ${internalLinkNodes.size} link nodes")
-                          for (tme in internalLinkNodes){
-                            val el = tme.node.parent as Element
-                            val linkID = el.getAttributeValue("linkID", BB_NS).toString()
+                          //Find block with matching linkID and move the navigation pane to it.
+                          //Don't like using xpath so much, but it's simple and not that slow for occasional use.
+                          val xpath = """//*[@*[local-name() = 'linkID']]"""
+                          val internalLinkNodes = manager.simpleManager.doc.query(xpath).toList()
+                          //println("Found ${internalLinkNodes.size} bookmarks in doc")
+                          for (node in internalLinkNodes){
+                            val np = node as Element
+                            val linkID = np.getAttributeValue("linkID", BB_NS).toString()
                             //println("Found internal link candidate with linkID: $linkID")
                             if (linkID == href){
                               //Found the target node, move the cursor there
-                              val pos = tme.getStart(manager.mapList)
-                              //println("Found target node for internal link, moving cursor")
-                              //potential problem if node can't be cast to text?
-                              manager.simpleManager.dispatchEvent(XMLCaretEvent(Sender.NO_SENDER, XMLTextCaret(tme.node as Text, 0)))
+                              //println("Moving to internal link with linkID: $linkID\n node: ${np.toXML()}")
+                              manager.simpleManager.dispatchEvent(XMLCaretEvent(Sender.GO_TO_PAGE, XMLNodeCaret(np)))
                               break
                             }
                           }

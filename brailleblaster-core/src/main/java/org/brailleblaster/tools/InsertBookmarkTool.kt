@@ -6,6 +6,7 @@ import org.brailleblaster.bbx.BBX
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.TextMapElement
 import org.brailleblaster.perspectives.braille.messages.Sender
+import org.brailleblaster.perspectives.mvc.XMLNodeCaret
 import org.brailleblaster.perspectives.mvc.XMLTextCaret
 import org.brailleblaster.perspectives.mvc.events.ModifyEvent
 import org.brailleblaster.perspectives.mvc.events.XMLCaretEvent
@@ -30,9 +31,10 @@ private val localeHandler = LocaleHandler.getDefault()
 class InsertBookmarkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.NONE), MenuToolModule {
   override val topMenu: TopMenu = TopMenu.NAVIGATE
   override val title: String = localeHandler["BookmarksMenu"]
+  override val accelerator: Int = SWT.MOD1 or SWT.MOD2 or 'K'.code
   override val sharedItem: SharedItem = SharedItem.INSERT_BOOKMARK
 
-  private var bookmarksTMEList = mutableListOf<TextMapElement>()
+  private var bookmarksNodeList = mutableListOf<Element>()
 
   override fun onRun(bbData: BBSelectionData) {
     val shell = Shell(parent.display)
@@ -51,13 +53,13 @@ class InsertBookmarkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.N
     val entryBox = EasySWT.makeText(textBoxGroup, 180, 1)
     entryBox.message = "Enter a unique bookmark name"
     val bookmarksList = List(textBoxGroup, SWT.BORDER or SWT.V_SCROLL or SWT.SINGLE)
-    getBookmarksList(bbData).forEach {
+    getBookmarksXPath(bbData).forEach {
       bookmarksList.add(it)
     }
     //Add a double-click listener to the list to go to the selected bookmark
     bookmarksList.addListener(SWT.MouseDoubleClick) {
       if (bookmarksList.selectionIndex != -1) {
-        moveToBookmark(bbData, bookmarksList.selectionIndex)
+        moveToNode(bbData, bookmarksList.selectionIndex)
       }
     }
     bookmarksList.layoutData = gd
@@ -66,7 +68,7 @@ class InsertBookmarkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.N
     EasySWT.addEnterListener(bookmarksList){
       if (bookmarksList.selectionIndex != -1) {
         //Navigate to existing bookmark if already present
-        moveToBookmark(bbData, bookmarksList.selectionIndex)
+        moveToNode(bbData, bookmarksList.selectionIndex)
         bookmarksList.deselectAll()
       }
     }
@@ -74,15 +76,15 @@ class InsertBookmarkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.N
     EasySWT.addEnterListener(entryBox) {
       if (!entryBox.text.isEmpty() && !bookmarksList.items.contains(entryBox.text)) {
         addBookmark(bbData, entryBox.text)
-
+        //Refresh manager to avoid errors when navigating to newly added bookmarks
+        //Not sure why it works, but it does fix the problem. The nodes in the list here don't cause the problem.
+        bbData.manager.refresh()
         bookmarksList.deselectAll()
         //Regenerate bookmarks list
         bookmarksList.removeAll()
-        getBookmarksList(bbData).forEach {
+        getBookmarksXPath(bbData).forEach {
           bookmarksList.add(it)
         }
-        bookmarksList.redraw()
-        bookmarksList.update()
       }
     }
 
@@ -91,35 +93,30 @@ class InsertBookmarkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.N
     bookmarkAtCursor.addListener(SWT.Selection) {
       if (!entryBox.text.isEmpty() && !bookmarksList.items.contains(entryBox.text)) {
         addBookmark(bbData, entryBox.text)
-
+        //Refresh manager to avoid errors when navigating to newly added bookmarks
+        bbData.manager.refresh()
         bookmarksList.deselectAll()
-        //Regenerate bookmarks list
         bookmarksList.removeAll()
-        getBookmarksList(bbData).forEach {
+        getBookmarksXPath(bbData).forEach {
           bookmarksList.add(it)
         }
-        bookmarksList.redraw()
-        bookmarksList.update()
       }
     }
 
     EasySWT.makePushButton(buttonsGroup, "Remove Selected Bookmark", 1) {
       //remove currently selected bookmark
       removeBookmark(bbData, bookmarksList.selectionIndex)
-
       //Regenerate bookmarks list
       bookmarksList.deselectAll()
       bookmarksList.removeAll()
-      getBookmarksList(bbData).forEach {
+      getBookmarksXPath(bbData).forEach {
         bookmarksList.add(it)
       }
-      bookmarksList.redraw()
-      bookmarksList.update()
     }
 
     EasySWT.makePushButton(buttonsGroup, "Go To Selected Bookmark", 1) {
       if (bookmarksList.selectionIndex != -1) {
-        moveToBookmark(bbData, bookmarksList.selectionIndex)
+        moveToNode(bbData, bookmarksList.selectionIndex)
         bookmarksList.deselectAll()
       }
     }
@@ -137,9 +134,8 @@ class InsertBookmarkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.N
   private fun removeBookmark(bbData: BBSelectionData, bookmarkIndex: Int) {
     //Remove the link pointer in the selected block with the given linkID.
     //Note that this does not remove any links that point to this bookmark...Does MS Word even do that?
-    if (bookmarkIndex in bookmarksTMEList.indices) {
-      val tme = bookmarksTMEList[bookmarkIndex]
-      val el = tme.node.parent as Element
+    if (bookmarkIndex in bookmarksNodeList.indices) {
+      val el = bookmarksNodeList[bookmarkIndex]
       el.removeAttribute(el.getAttribute("linkID", BB_NS))
       bbData.manager.simpleManager.dispatchEvent(ModifyEvent(Sender.TEXT, false, el.parent))
     }
@@ -149,16 +145,22 @@ class InsertBookmarkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.N
   }
 
   private fun addBookmark(bbData: BBSelectionData, newLinkID: String) {
-    //Create a link "pointer" in a selected block with a unique name (provided by user)
-    //Later I may want to have the manager or other high-level class maintain a linkID list for quick access.
-    val mapList = bbData.manager.mapList
-    val current = mapList.current
+    //Create a linkID in a selected block with a unique name (provided by user)
+    //Rework this using xpath nodes instead of maplist filtering?
+    //bookmarks list uses xpath to find existing bookmarks, so it's probably fine to keep as-is.
+    //println("Adding bookmark with linkID: $newLinkID")
+    val block = bbData.manager.mapList.current.block
 
-    if (current.block != null) {
+    if (block != null) {
       try {
-        current.block!!.addAttribute(BBX.BLOCK.LINKID.newAttribute(newLinkID))
-        bbData.manager.simpleManager.dispatchEvent(ModifyEvent(Sender.TEXT, false, current.nodeParent))
-        //println("Added $newLinkID to block: ${current.block!!.toXML()}")
+        block.addAttribute(BBX.BLOCK.LINKID.newAttribute(newLinkID))
+        bbData.manager.simpleManager.dispatchEvent(ModifyEvent(Sender.TEXT, false, block.parent))
+        //println("Added $newLinkID to block: ${block.toXML()}")
+        //Grasping at straws - not sure why jumping to new bookmark causes an error.
+        //Oddly a refresh fixes it / prevents it.
+        // Closing the window after adding would probably fix it too, even if it is a little annoying.
+        //Note this problem and commit what works.
+        //bbData.manager.refresh()
       }
       catch (e: Exception) {
         e.printStackTrace()
@@ -166,24 +168,39 @@ class InsertBookmarkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.N
     }
   }
 
-  private fun moveToBookmark(bbData: BBSelectionData, bookmarkIndex: Int) {
-    //Move the caret to the block that contains the bookmark with the given index in bookmarksTMEList
-    if (bookmarkIndex in bookmarksTMEList.indices) {
-      val tme = bookmarksTMEList[bookmarkIndex]
-      bbData.manager.simpleManager.dispatchEvent(XMLCaretEvent(Sender.NO_SENDER, XMLTextCaret(tme.node as Text, 0)))
+  private fun moveToNode(bbData: BBSelectionData, bookmarkIndex: Int) {
+    //Move the caret to the block that contains the given node
+    if (bookmarkIndex in bookmarksNodeList.indices) {
+      //println("Moving to bookmark index $bookmarkIndex; bookmark count: ${bookmarksNodeList.size}")
+      val node = bookmarksNodeList[bookmarkIndex]
+      //println("Bookmark node: ${node.toXML()}")
+      //Problem: after adding a bookmark, trying to navigate to subsequent ones causes a null error. Follow the stack trace up.
+      bbData.manager.simpleManager.dispatchEvent(XMLCaretEvent(Sender.GO_TO_PAGE, XMLNodeCaret(node)))
     }
   }
 
-  //Generate the strings for the SWT List and populate bookmarksTMEList for later use
-  private fun getBookmarksList(bbData: BBSelectionData): kotlin.collections.List<String> {
-    val internalLinkNodes = bbData.manager.mapList.filter { m ->
-      m.node != null && !(m.node.parent as Element).getAttributeValue("linkID", BB_NS).isNullOrEmpty()
-    }
-    bookmarksTMEList = internalLinkNodes as MutableList<TextMapElement>
+  private fun getBookmarksXPath(bbData: BBSelectionData): kotlin.collections.List<String> {
+    var elementStrings = listOf<String>()
+    try {
+      //By Jove, it works!
+      val xpath = """//*[@*[local-name() = 'linkID']]"""
+      val results = bbData.manager.simpleManager.doc.query(xpath).toList()
+      //println("Found ${results.size} bookmarks via XPath")
+      bookmarksNodeList.clear()
+      bookmarksNodeList = results.map{
+        it as Element
+      } as MutableList<Element>
+      //println("${bookmarksNodeList.size} nodes added to bookmarksNodeList")
 
-    return internalLinkNodes.map {
-      val el = it.node.parent as Element
-      el.getAttributeValue("linkID", BB_NS).toString()
-    }.toList()
+      elementStrings = results.map {
+        val el = it as Element
+        el.getAttributeValue("linkID", BB_NS).toString()
+      }
+    }
+    catch (e: Exception) {
+      e.printStackTrace()
+    }
+
+    return elementStrings
   }
 }

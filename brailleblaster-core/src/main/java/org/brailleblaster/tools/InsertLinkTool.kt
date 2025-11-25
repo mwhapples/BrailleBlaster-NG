@@ -19,7 +19,6 @@ import nu.xom.Element
 import nu.xom.Text
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.perspectives.braille.Manager
-import org.brailleblaster.perspectives.braille.mapping.elements.TextMapElement
 import org.brailleblaster.perspectives.braille.messages.Sender
 import org.brailleblaster.perspectives.braille.views.wp.TextView
 import org.brailleblaster.perspectives.mvc.XMLTextCaret
@@ -55,7 +54,6 @@ class InsertLinkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.NONE)
   // but the usual call will crash on load due to nullability.
 
   private val logger = LoggerFactory.getLogger(TextView::class.java)
-  private var bookmarksTMEList = mutableListOf<TextMapElement>()
 
   override fun onRun(bbData: BBSelectionData) {
     //Get input from a simple dialog box
@@ -136,7 +134,7 @@ class InsertLinkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.NONE)
     gd1.grabExcessHorizontalSpace = true
 
     val bookmarkList = List(internalListGroup, SWT.BORDER or SWT.V_SCROLL or SWT.SINGLE)
-    bookmarkList //Set list with names of bookmarks in document; subsequent buttons will use the selected bookmark
+    //Set list with names of bookmarks in document; subsequent buttons will use the selected bookmark
     getBookmarksList(bbData).forEach {
       bookmarkList.add(it)
     }
@@ -249,17 +247,22 @@ class InsertLinkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.NONE)
     return
   }
 
-  //Generate the strings for the SWT List and populate bookmarksTMEList for later use
+  //Generate the strings for the SWT List
   private fun getBookmarksList(bbData: BBSelectionData): kotlin.collections.List<String> {
-    val internalLinkNodes = bbData.manager.mapList.filter { m ->
-      m.node != null && !(m.node.parent as Element).getAttributeValue("linkID", BB_NS).isNullOrEmpty()
+    var elementStrings = listOf<String>()
+    try {
+      val xpath = """//*[@*[local-name() = 'linkID']]"""
+      val results = bbData.manager.simpleManager.doc.query(xpath).toList()
+      elementStrings = results.map {
+        val el = it as Element
+        el.getAttributeValue("linkID", BB_NS).toString()
+      }
     }
-    bookmarksTMEList = internalLinkNodes as MutableList<TextMapElement>
+    catch (e: Exception) {
+      e.printStackTrace()
+    }
 
-    return internalLinkNodes.map {
-      val el = it.node.parent as Element
-      el.getAttributeValue("linkID", BB_NS).toString()
-    }.toList()
+    return elementStrings
   }
 
   private fun removeLink(bbData: BBSelectionData) {
