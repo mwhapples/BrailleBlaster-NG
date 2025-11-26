@@ -85,6 +85,7 @@ class InsertBookmarkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.N
         getBookmarksXPath(bbData).forEach {
           bookmarksList.add(it)
         }
+        shell.forceFocus()
       }
     }
 
@@ -100,6 +101,7 @@ class InsertBookmarkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.N
         getBookmarksXPath(bbData).forEach {
           bookmarksList.add(it)
         }
+        shell.forceFocus()
       }
     }
 
