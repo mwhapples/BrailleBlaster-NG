@@ -80,6 +80,7 @@ public class TextMapElement extends AbstractMapElement {
 		Node node = getNode();
 		return getNode() != null && node.getDocument() != null && MathModuleUtils.isSpatialMath(node);
 	}
+
 	public boolean isMathML(){
 		Node node = getNode();
 		return node instanceof Element && (((Element) node).getLocalName().equals("math"));

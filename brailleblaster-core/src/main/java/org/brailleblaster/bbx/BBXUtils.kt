@@ -214,7 +214,7 @@ object BBXUtils {
     fun indentToLevel(indent: Int): Int = (indent - 1) / 2
 
     fun runoverFromLevel(level: Int): Int {
-        //Stored runover is maximum indent, incriment for extra braille indent
+        //Stored runover is maximum indent, increment for extra braille indent
         //eg max indent is 1 cell, so must use 1-3 style
         return (((level + 1) * 2) + 1)
     }
@@ -252,7 +252,7 @@ object BBXUtils {
             if (style != null) {
                 style.name
                 if (parseListStyle(style.name) == null) {
-//not a list item
+                    //not a list item
                     val listCopy = listContainer.copy()
                     listCopy.removeChildren()
                     val index = listContainer.indexOf(node)
@@ -278,7 +278,7 @@ object BBXUtils {
     /**
      * Removes blocks if they are empty and converts blocks containing
      * only images to image containers. Node is any child of
-     * the block, or the block. Returns the parent of the removed element
+     * the block, or the block itself. Returns the parent of the removed element
      */
     @JvmStatic
     fun cleanupBlock(node: Node): Node? {

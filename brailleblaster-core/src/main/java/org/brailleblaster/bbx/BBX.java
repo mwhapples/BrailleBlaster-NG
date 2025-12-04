@@ -814,8 +814,9 @@ public class BBX {
     }
 
     public enum VolumeType {
-        VOLUME_PRELIMINARY("Preliminary Volume", "Preliminary", "Preliminary"), VOLUME("Volume", "Volume",
-                "Normal"), VOLUME_SUPPLEMENTAL("Supplemental Volume", "Supplemental", "Supplemental");
+      VOLUME_PRELIMINARY("Preliminary Volume", "Preliminary", "Preliminary"),
+      VOLUME("Volume", "Volume", "Normal"),
+      VOLUME_SUPPLEMENTAL("Supplemental Volume", "Supplemental", "Supplemental");
 
         public final String volumeName, volumeNameShort, volumeMenuName;
 
@@ -835,6 +836,7 @@ public class BBX {
     public static class BlockElement extends CoreType {
         public final ListItemSubType LIST_ITEM = new ListItemSubType(this);
         public final BooleanAttribute ATTRIB_BLANKDOC_PLACEHOLDER = new BooleanAttribute("blankDocPlaceholder");
+        public final StringAttribute LINKID = new StringAttribute("linkID");
 
         public static class ListItemSubType extends BlockSubType {
             public final IntAttribute ATTRIB_ITEM_LEVEL = new IntAttribute("itemLevel");
@@ -1025,8 +1027,16 @@ public class BBX {
 
     @XmlJavaTypeAdapter(BlockSubType.TypeAdapter.class)
     public static class BlockSubType extends SubType {
+        public final StringAttribute linkID;
+
         private BlockSubType(BlockElement coreType, String name) {
-            super(coreType, name);
+          super(coreType, name);
+          this.linkID = new StringAttribute("linkID"); // Optional attribute for internally linking blocks
+          //May expand to other subtypes depending on how much work it is...or how well it works.
+          //Idea is to set some property in the manager to the highest linkID in the doc to avoid collisions.
+          //Then when adding or removing internal links, update as needed. The actual number is irrelevant beyond uniqueness.
+          //Broken links need to be handled gracefully as well - if the linked block is deleted, the link manager should
+          // notify the user and remove the linkID attribute from the link, or prompt to reassign it.
         }
 
         private static class TypeAdapter extends JAXBSubTypeAdapter<BlockSubType> {
@@ -1041,10 +1051,11 @@ public class BBX {
     public static class InlineElement extends CoreType {
         public final EmphasisSubType EMPHASIS = new EmphasisSubType(this);
         public final MathSubType MATHML = new MathSubType(this);
+        public final LinkSubType LINK = new LinkSubType(this);
 
         public static class EmphasisSubType extends InlineSubType {
-            public final EnumSetAttribute<EmphasisType> ATTRIB_EMPHASIS = new EnumSetAttribute<>("emphasis",
-                    EmphasisType.class);
+            public final EnumSetAttribute<EmphasisType> ATTRIB_EMPHASIS =
+                new EnumSetAttribute<>("emphasis", EmphasisType.class);
 
             private EmphasisSubType(InlineElement coreType) {
                 super(coreType, "EMPHASIS");
@@ -1106,11 +1117,29 @@ public class BBX {
             }
         }
 
+        public static class LinkSubType extends InlineSubType{
+
+          public final StringAttribute ATTRIB_HREF = new StringAttribute("href");
+          public final BooleanAttribute IS_EXTERNAL = new BooleanAttribute("external");
+
+          private LinkSubType(InlineElement coreType) {
+            super(coreType, "LINK");
+          }
+
+          @Override
+          protected String subValidate(Element elem) {
+            if (ATTRIB_HREF.has(elem) && IS_EXTERNAL.has(elem)) {
+              return null;
+            }
+            return "Link must have href and external attributes";
+          }
+        }
+
         public final InlineSubType LINE_BREAK = new InlineSubType(this, "LINE_BREAK");
 
         private InlineElement() {
             super("INLINE", true);
-            subTypes = List.of(EMPHASIS, MATHML, LINE_BREAK);
+            subTypes = List.of(EMPHASIS, MATHML, LINE_BREAK, LINK);
         }
 
         @Override
@@ -1262,8 +1291,8 @@ public class BBX {
         }
     }
 
-    public static final List<BBX.@NotNull CoreType> CORE_TYPES = List.of(SECTION, CONTAINER, BLOCK, INLINE,
-            SPAN);
+    public static final List<BBX.@NotNull CoreType> CORE_TYPES =
+        List.of(SECTION, CONTAINER, BLOCK, INLINE, SPAN);
 
     public static CoreType getType(Element elem) {
         CoreType result = getTypeOrNull(elem);

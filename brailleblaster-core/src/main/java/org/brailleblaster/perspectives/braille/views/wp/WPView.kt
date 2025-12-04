@@ -40,6 +40,7 @@ import org.brailleblaster.util.ColorManager
 import org.brailleblaster.util.LINE_BREAK
 import org.brailleblaster.utils.swt.DebugStyledText
 import org.brailleblaster.util.Utils
+import org.brailleblaster.utils.xml.BB_NS
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyleRange
 import org.eclipse.swt.custom.StyledText
@@ -156,6 +157,21 @@ abstract class WPView(manager: Manager, parent: Composite) : AbstractView(manage
         range.start = start
         range.length = length
         range.background = ColorManager.getColor(ColorManager.Colors.LIGHT_PURPLE, view)
+        this.ranges.add(range)
+    }
+
+    //TODO: Fix link styling when other emphasis types are added.
+    fun addLinkStyleRange(start: Int, length: Int, inlineNode: Element?) {
+        val ranges = view.getStyleRanges(start, length)
+        val range = if (ranges.isNotEmpty()) ranges[0] else StyleRange()
+        //Not sure that the data field is actually useful here, but it might be?
+        range.data = inlineNode?.getAttributeValue("href", BB_NS)
+        //println("Adding link style range for href: ${range.data}")
+        range.start = start
+        range.length = length
+        range.underline = true //Have to set this to true to see underline
+        range.underlineStyle = SWT.UNDERLINE_SINGLE
+        range.foreground = ColorManager.getColor(ColorManager.Colors.DARK_BLUE, view)
         this.ranges.add(range)
     }
 
@@ -300,6 +316,7 @@ abstract class WPView(manager: Manager, parent: Composite) : AbstractView(manage
         val showIndent = fileMgr.getPropertyAsBoolean("StatusBar.indents", true)
         val showAlignment = fileMgr.getPropertyAsBoolean("StatusBar.alignment", true)
         val showStyle = fileMgr.getPropertyAsBoolean("StatusBar.styles", true)
+        //TODO: Add properties for showing links and bookmarks
 
         //TODO: Localize strings
         if (showPrintPage) {
@@ -372,6 +389,22 @@ abstract class WPView(manager: Manager, parent: Composite) : AbstractView(manage
             }
             statusBarText += "Style: $styleName | "
         }
+
+      if (manager.mapList.current.nodeParent != null) {
+        if (BBX.INLINE.LINK.isA(manager.mapList.current.nodeParent)) {
+          val href = manager.mapList.current.nodeParent.getAttributeValue("href", BB_NS)
+          val isExternal = manager.mapList.current.nodeParent.getAttributeValue("isExternal", BB_NS).toBoolean()
+          if (!href.isNullOrEmpty())
+            statusBarText += if (isExternal) "Link: $href | "
+            else "Internal Link to Bookmark: \"$href\" | "
+        }
+        if (!(manager.mapList.current.node.parent as Element).getAttributeValue("linkID", BB_NS).isNullOrEmpty()) {
+          val linkID = manager.mapList.current.nodeParent.getAttributeValue("linkID", BB_NS)
+          if (!linkID.isNullOrEmpty()) {
+            statusBarText += "Bookmark ID: $linkID | "
+          }
+        }
+      }
 
         val statusMessage = UpdateStatusbarMessage(statusBarText)
         manager.dispatch(statusMessage)
@@ -514,7 +547,6 @@ abstract class WPView(manager: Manager, parent: Composite) : AbstractView(manage
         @JvmField
         var currentLine = 0
 
-        //Why is this static?
         protected var topIndex = 0
         private var topPixel = 0
 
