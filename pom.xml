@@ -46,7 +46,6 @@ child.project.url.inherit.append.path="false">
         <revision>3.1.0</revision>
         <sha1/>
         <changelist>-SNAPSHOT</changelist>
-        <wrappermavenplugin.version>3.3.2</wrappermavenplugin.version>
         <versions.plugin.version>2.18.0</versions.plugin.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
@@ -60,7 +59,8 @@ child.project.url.inherit.append.path="false">
         <logback-core.version>1.5.20</logback-core.version>
         <logback-classic.version>1.5.20</logback-classic.version>
         <icu4j.version>77.1</icu4j.version>
-        <mathcat4j.version>0.6.8-1</mathcat4j.version>
+        <mathcat4j.version>1.0.0</mathcat4j.version>
+        <mathcat4j-jni.version>0.7.2-0</mathcat4j-jni.version>
         <jlouis.version>c75db74718cea465f839f7cb5b4bcf716ba3e3e3</jlouis.version>
         <libembosser.version>1.4.3</libembosser.version>
         <jaxbapi.version>4.0.4</jaxbapi.version>
@@ -122,11 +122,21 @@ child.project.url.inherit.append.path="false">
     <dependencies>
         <dependency>
             <groupId>onl.mdw</groupId>
-            <artifactId>mathcat4j-core</artifactId>
+            <artifactId>mathcat4j-api</artifactId>
         </dependency>
         <dependency>
             <groupId>onl.mdw</groupId>
-            <artifactId>mathcat4j-core</artifactId>
+            <artifactId>mathcat4j-jni-loader-jna</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>onl.mdw</groupId>
+            <artifactId>mathcat4j-jni</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>onl.mdw</groupId>
+            <artifactId>mathcat4j-jni</artifactId>
             <classifier>rules</classifier>
             <type>zip</type>
             <scope>runtime</scope>
@@ -273,7 +283,7 @@ child.project.url.inherit.append.path="false">
             </dependency>
             <dependency>
                 <groupId>org.graalvm.polyglot</groupId>
-                <artifactId>js-community</artifactId>
+                <artifactId>js</artifactId>
                 <version>${graalvm.version}</version>
                 <type>pom</type>
             </dependency>
@@ -324,26 +334,25 @@ child.project.url.inherit.append.path="false">
             </dependency>
             <dependency>
                 <groupId>onl.mdw</groupId>
-                <artifactId>mathcat4j-core</artifactId>
+                <artifactId>mathcat4j-api</artifactId>
                 <version>${mathcat4j.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.jetbrains.kotlin</groupId>
-                        <artifactId>kotlin-stdlib</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>onl.mdw</groupId>
-                <artifactId>mathcat4j-core</artifactId>
-                <version>${mathcat4j.version}</version>
+                <artifactId>mathcat4j-jni-loader-jna</artifactId>
+                <version>${mathcat4j-jni.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>onl.mdw</groupId>
+                <artifactId>mathcat4j-jni</artifactId>
+                <version>${mathcat4j-jni.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>onl.mdw</groupId>
+                <artifactId>mathcat4j-jni</artifactId>
+                <version>${mathcat4j-jni.version}</version>
                 <classifier>rules</classifier>
                 <type>zip</type>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.jetbrains.kotlin</groupId>
-                        <artifactId>kotlin-stdlib</artifactId>
-                    </exclusion></exclusions>
             </dependency>
             <dependency>
                 <groupId>org.jetbrains.kotlinx</groupId>
@@ -478,13 +487,6 @@ child.project.url.inherit.append.path="false">
 
     <build>
         <plugins>
-            <!-- Generate a maven wrapper script, similar to gradle wrapper -->
-            <!-- Regenerate with wrapper:wrapper -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-wrapper-plugin</artifactId>
-                <version>${wrappermavenplugin.version}</version>
-            </plugin>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>

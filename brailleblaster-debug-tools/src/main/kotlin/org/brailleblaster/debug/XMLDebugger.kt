@@ -196,7 +196,7 @@ class XMLDebugger(private val parent: Shell, private val simpleManager: BBSimple
         if (n is nu.xom.Text) n = n.parent
         if (n == null) return
         curNode = n
-        activeDocument = if (n is Document) n else Document(n.copy() as Element)
+        activeDocument = n as? Document ?: Document(n.copy() as Element)
         if (!showBrlValue) UTDHelper.getDescendantBrlFast(activeDocument) { it.detach() }
         if (warnEmptyText) {
             FastXPath.descendant(activeDocument)
