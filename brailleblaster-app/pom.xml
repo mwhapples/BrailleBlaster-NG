@@ -273,8 +273,8 @@
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>onl.mdw</groupId>
-                                    <artifactId>mathcat4j-core</artifactId>
-                                    <version>${mathcat4j.version}</version>
+                                    <artifactId>mathcat4j-jni</artifactId>
+                                    <version>${mathcat4j-jni.version}</version>
                                     <type>zip</type>
                                     <classifier>rules</classifier>
                                 </artifactItem>
