@@ -35,13 +35,12 @@ import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.utd.properties.UTDElements
-import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.Utils.runtimeToString
-import org.brailleblaster.utils.xml.BB_NS
-import org.brailleblaster.utils.xml.UTD_NS
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getBanaStyles
 import org.brailleblaster.utils.swt.AccessibilityUtils.prependName
 import org.brailleblaster.utils.swt.EasySWT
-import org.brailleblaster.utils.localization.LocaleHandler.Companion.getBanaStyles
+import org.brailleblaster.utils.xml.BB_NS
+import org.brailleblaster.utils.xml.UTD_NS
 import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT
 import org.eclipse.swt.accessibility.ACC
@@ -92,7 +91,7 @@ class BreadcrumbsToolbar(private val manager: Manager) : SimpleListener {
         val crumbsBuilder = StringBuilder()
         val caret = manager.simpleManager.currentCaret.node
 
-        val ancestors = FastXPath.ancestor(caret).reversed().also {
+        val ancestors = FastXPath.ancestor(caret).toList().reversed().also {
             if ((caret is Element) && caret.namespaceURI == BB_NS) {
                 it + caret
             }
@@ -169,7 +168,7 @@ class BreadcrumbsToolbar(private val manager: Manager) : SimpleListener {
                 crumbsBuilder.append(" ").append(elemType.replace("BLOCK".toRegex(), ""))
             }
             EasySWT.addSwtBotKey(button, SWTBOT_ANCESTOR_PREFIX + counter++)
-            FormUIUtils.addSelectionListener(button) {
+            EasySWT.addSelectionListener(button) {
                 manager.waitForFormatting(true)
                 manager.simpleManager.dispatchEvent(XMLCaretEvent(Sender.BREADCRUMBS, XMLNodeCaret(curAncestor)))
                 manager.textView.forceFocus()
@@ -184,7 +183,7 @@ class BreadcrumbsToolbar(private val manager: Manager) : SimpleListener {
                     emphasisButton.text = curEmphasis.longName
                     EasySWT.addSwtBotKey(emphasisButton, SWTBOT_ANCESTOR_PREFIX + (counter - 1) + curEmphasis)
                     log.trace("Added {}", emphasisButton.getData(EasySWT.SWTBOT_WIDGET_KEY))
-                    FormUIUtils.addSelectionListener(emphasisButton) {
+                    EasySWT.addSelectionListener(emphasisButton) {
                         selectSurroundingEmphasis(curAncestor, curEmphasis)
                         manager.textView.forceFocus()
                     }

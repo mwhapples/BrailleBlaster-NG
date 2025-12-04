@@ -46,6 +46,14 @@ object EasySWT {
         return GridDataBuilder()
     }
 
+    fun makeDialog(parent: Shell?): Shell {
+        return Shell(parent, SWT.APPLICATION_MODAL or SWT.DIALOG_TRIM or SWT.RESIZE)
+    }
+
+    fun makeDialogFloating(parent: Shell?): Shell {
+        return Shell(parent, SWT.DIALOG_TRIM or SWT.RESIZE)
+    }
+
     @JvmStatic
     fun makeComposite(parent: Composite?, columns: Int): Composite {
         return CompositeBuilder1(parent).apply {
@@ -265,11 +273,16 @@ object EasySWT {
     private val log: Logger = LoggerFactory.getLogger(EasySWT::class.java)
 
     fun setGridData(c: Control) {
-        val gridData = GridData()
-        gridData.horizontalAlignment = GridData.FILL
-        gridData.verticalAlignment = GridData.FILL
-        gridData.grabExcessHorizontalSpace = true
-        c.layoutData = gridData
+        c.layoutData = GridData().apply {
+            horizontalAlignment = GridData.FILL
+            verticalAlignment = GridData.FILL
+            grabExcessHorizontalSpace = true
+        }
+    }
+
+    fun setGridDataVertical(c: Control) {
+        setGridData(c)
+        (c.layoutData as GridData).grabExcessVerticalSpace = true
     }
 
     fun setGridDataGroup(group: Group) {
@@ -404,74 +417,60 @@ object EasySWT {
     fun addSelectionListener(
         item: MenuItem, function: Consumer<SelectionEvent>
     ): SelectionListener {
-        val listener = makeSelectedListener(function)
-        item.addSelectionListener(listener)
-        return listener
+        return makeSelectedListener(function).also { item.addSelectionListener(it) }
     }
 
     fun addSelectionListener(
         item: ToolItem, function: Consumer<SelectionEvent>
     ): SelectionListener {
-        val listener = makeSelectedListener(function)
-        item.addSelectionListener(listener)
-        return listener
+        return makeSelectedListener(function).also { item.addSelectionListener(it) }
     }
 
     @JvmStatic
     fun addSelectionListener(
         button: Button, function: Consumer<SelectionEvent>
     ): SelectionListener {
-        val listener = makeSelectedListener(function)
-        button.addSelectionListener(listener)
-        return listener
+        return makeSelectedListener(function).also { button.addSelectionListener(it) }
     }
 
     fun addSelectionListener(
         text: StyledText, function: Consumer<SelectionEvent>
     ): SelectionListener {
-        val listener = makeSelectedListener(function)
-        text.addSelectionListener(listener)
-        return listener
+        return makeSelectedListener(function).also { text.addSelectionListener(it) }
     }
 
     fun addSelectionListener(
         combo: Combo, function: Consumer<SelectionEvent>
     ): SelectionListener {
-        val listener = makeSelectedListener(function)
-        combo.addSelectionListener(listener)
-        return listener
+        return makeSelectedListener(function).also { combo.addSelectionListener(it) }
     }
 
     fun addSelectionListener(
         combo: CCombo, function: Consumer<SelectionEvent>
     ): SelectionListener {
-        val listener = makeSelectedListener(function)
-        combo.addSelectionListener(listener)
-        return listener
+        return makeSelectedListener(function).also { combo.addSelectionListener(it) }
     }
 
     fun addSelectionListener(
         combo: ScrollBar, function: Consumer<SelectionEvent>
     ): SelectionListener {
-        val listener = makeSelectedListener(function)
-        combo.addSelectionListener(listener)
-        return listener
+        return makeSelectedListener(function).also { combo.addSelectionListener(it) }
     }
 
     fun addSelectionListener(
         spinner: Spinner, function: Consumer<SelectionEvent>
     ): SelectionListener {
-        val listener = makeSelectedListener(function)
-        spinner.addSelectionListener(listener)
-        return listener
+        return makeSelectedListener(function).also { spinner.addSelectionListener(it) }
     }
 
     fun addKeyListener(
         shell: Shell, swtmod: Int, swtchar: Int, function: Consumer<KeyEvent>
     ): KeyAdapter {
-        val listener = makeKeyListener(swtmod, swtchar, function)
-        shell.addKeyListener(listener)
-        return listener
+        return makeKeyListener(swtmod, swtchar, function).also { shell.addKeyListener(it) }
+    }
+
+    fun addDoubleFilter(t: Text) {
+        addNumberFilter(t, false)
     }
 
     fun addIntegerFilter(t: Text) {
@@ -483,6 +482,13 @@ object EasySWT {
      */
     private fun addNumberFilter(t: Text, noDecimal: Boolean) {
         t.addKeyListener(NumberFilterKeyListener(noDecimal))
+    }
+
+    fun calcAverageCharWidth(parent: Composite?): Int {
+        val gc = GC(parent)
+        val averageCharWidth = gc.fontMetrics.averageCharacterWidth.toInt()
+        gc.dispose()
+        return averageCharWidth
     }
 
     @JvmStatic
@@ -575,5 +581,38 @@ object EasySWT {
                 callback.accept(text)
             }
         })
+    }
+    fun getBottomIndex(text: StyledText): Int {
+        // From JFaceTextUtil.getPartialBottomIndex
+        val caHeight = text.clientArea.height
+        val lastPixel = caHeight - 1
+        // XXX what if there is a margin? can't take trim as this includes the
+        // scrollbars which are not part of the client area
+        return text.getLineIndex(lastPixel)
+    }
+
+    fun scrollViewToCursor(view: StyledText) {
+        val offsetLine = view.getLineAtOffset(view.caretOffset)
+        val topIndex = view.topIndex
+        val bottomIndex = getBottomIndex(view)
+        log.debug("Offset at line {}, currently between line {} and {}", offsetLine, topIndex, bottomIndex)
+        if (offsetLine !in (bottomIndex + 1)..<topIndex) {
+            log.debug("Scrolling")
+            view.topIndex = offsetLine - 10
+        }
+    }
+
+    fun getCaretAfterLineBreaks(view: StyledText, startPos: Int): Int {
+        var startPos = startPos
+        if (SWT.getPlatform() == "win32") {
+            if (startPos > 0) {
+                if (view.getTextRange(startPos - 1, 1) == "\r") startPos++
+            }
+        }
+        return startPos
+    }
+
+    fun setCaretAfterLineBreaks(view: StyledText, startPos: Int) {
+        view.caretOffset = getCaretAfterLineBreaks(view, startPos)
     }
 }

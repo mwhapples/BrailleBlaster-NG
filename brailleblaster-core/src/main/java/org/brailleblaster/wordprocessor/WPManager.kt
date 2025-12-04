@@ -37,6 +37,7 @@ import org.brailleblaster.perspectives.mvc.modules.misc.ExceptionReportingModule
 import org.brailleblaster.printers.PrintPreview
 import org.brailleblaster.usage.SimpleUsageManager
 import org.brailleblaster.usage.UsageManager
+import org.brailleblaster.util.LINE_BREAK
 import org.brailleblaster.util.Notify.showException
 import org.brailleblaster.util.Notify.showMessage
 import org.brailleblaster.util.Utils.runtimeToString
@@ -264,12 +265,11 @@ class WPManager private constructor(val usageManager: UsageManager) {
                         handleFatalException(e)
                     } else {
                         throw RuntimeException(
-                            "Fatal Exception caught by WPManager.start"
-                                    + System.lineSeparator()
-                                    + "----------------- First exception ------------------"
-                                    + ExceptionUtils.getStackTrace(e)
-                                    + System.lineSeparator()
-                                    + "----------------- Nested exception ------------------",
+                            "Fatal Exception caught by WPManager.start$LINE_BREAK----------------- First exception ------------------${
+                                ExceptionUtils.getStackTrace(
+                                    e
+                                )
+                            }${LINE_BREAK}----------------- Nested exception ------------------",
                             e2
                         )
                     }
@@ -659,11 +659,7 @@ class WPManager private constructor(val usageManager: UsageManager) {
          * @return
          */
         fun newShellIcons(): Array<Image> {
-            return arrayOf(
-                Image(Display.getCurrent(), BBIni.programDataPath.resolve(Paths.get("images", "toolbar", "large", "logo.png")).toString()),
-                Image(Display.getCurrent(), BBIni.programDataPath.resolve(Paths.get("images", "toolbar", "medium", "logo.png")).toString()),
-                Image(Display.getCurrent(), BBIni.programDataPath.resolve(Paths.get("images", "toolbar", "small", "logo.png")).toString()),
-            )
+            return listOf("large", "medium", "small").map { Image(Display.getCurrent(), BBIni.programDataPath.resolve(Paths.get("images", "toolbar", it, "logo.png")).toString()) }.toTypedArray()
         }
     }
 }

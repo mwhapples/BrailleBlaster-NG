@@ -15,19 +15,14 @@
  */
 package org.brailleblaster.settings.ui
 
-import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.utd.utils.Page
-import org.brailleblaster.utils.swt.AccessibilityUtils.appendName
-import org.brailleblaster.util.FormUIUtils.addDoubleFilter
-import org.brailleblaster.util.FormUIUtils.addIntegerFilter
-import org.brailleblaster.util.FormUIUtils.addLabel
-import org.brailleblaster.util.FormUIUtils.makeSelectedListener
-import org.brailleblaster.util.FormUIUtils.setGridData
-import org.brailleblaster.util.FormUIUtils.setGridDataGroup
-import org.brailleblaster.util.FormUIUtils.updateObject
+import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.utils.LengthUtils
 import org.brailleblaster.utils.UnitConverter
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.swt.AccessibilityUtils.appendName
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.events.*
 import org.eclipse.swt.layout.GridLayout
@@ -90,78 +85,78 @@ class PagePropertiesTab private constructor(parent: Composite, engine: UTDTransl
         val pageGroup = Group(parent, 0)
         pageGroup.text = localeHandler["pageSize"]
         pageGroup.layout = GridLayout(2, true)
-        setGridDataGroup(pageGroup)
+        EasySWT.setGridDataGroup(pageGroup)
 
-        addLabel(pageGroup, localeHandler["pageSize"])
+        EasySWT.addLabel(pageGroup, localeHandler["pageSize"])
         pageTypes = Combo(pageGroup, SWT.READ_ONLY)
-        setGridData(pageTypes)
+        EasySWT.setGridData(pageTypes)
 
-        addLabel(pageGroup, localeHandler["width"] + unitSuffix)
+        EasySWT.addLabel(pageGroup, localeHandler["width"] + unitSuffix)
         widthBox = Text(pageGroup, SWT.BORDER)
-        addDoubleFilter(widthBox)
-        setGridData(widthBox)
+        EasySWT.addDoubleFilter(widthBox)
+        EasySWT.setGridData(widthBox)
 
-        addLabel(pageGroup, localeHandler["height"] + unitSuffix)
+        EasySWT.addLabel(pageGroup, localeHandler["height"] + unitSuffix)
         heightBox = Text(pageGroup, SWT.BORDER)
-        addDoubleFilter(heightBox)
-        setGridData(heightBox)
+        EasySWT.addDoubleFilter(heightBox)
+        EasySWT.setGridData(heightBox)
 
-        addLabel(pageGroup, localeHandler["linesPerPage"])
+        EasySWT.addLabel(pageGroup, localeHandler["linesPerPage"])
         linesBox = Text(pageGroup, SWT.BORDER)
-        setGridData(linesBox)
-        addIntegerFilter(linesBox)
+        EasySWT.setGridData(linesBox)
+        EasySWT.addIntegerFilter(linesBox)
 
-        addLabel(pageGroup, localeHandler["cellsPerLine"])
+        EasySWT.addLabel(pageGroup, localeHandler["cellsPerLine"])
         cellsBox = Text(pageGroup, SWT.BORDER)
-        setGridData(cellsBox)
-        addIntegerFilter(cellsBox)
+        EasySWT.setGridData(cellsBox)
+        EasySWT.addIntegerFilter(cellsBox)
 
         // Margin group
         val marginGroup = Group(parent, 0)
         marginGroup.layout = GridLayout(2, true)
         marginGroup.text = localeHandler["margins"]
-        setGridDataGroup(marginGroup)
+        EasySWT.setGridDataGroup(marginGroup)
 
         // Units subgroup
-        addLabel(marginGroup, localeHandler["measurementUnits"])
+        EasySWT.addLabel(marginGroup, localeHandler["measurementUnits"])
         val unitsGroup = Composite(marginGroup, 0)
         unitsGroup.layout = GridLayout(2, true)
         regionalButton = Button(unitsGroup, SWT.RADIO)
         regionalButton.text = unitName
         regionalButton.selection = true
-        setGridData(regionalButton)
+        EasySWT.setGridData(regionalButton)
         cellsLinesButton = Button(unitsGroup, SWT.RADIO)
         cellsLinesButton.text = localeHandler["cellsLines"]
-        setGridData(cellsLinesButton)
+        EasySWT.setGridData(cellsLinesButton)
 
         // All other margins
-        marginTopLabel = addLabel(marginGroup, localeHandler["topMargin"] + unitSuffix)
+        marginTopLabel = EasySWT.addLabel(marginGroup, localeHandler["topMargin"] + unitSuffix)
         marginTopBox = Text(marginGroup, SWT.BORDER)
-        addDoubleFilter(marginTopBox)
-        setGridData(marginTopBox)
+        EasySWT.addDoubleFilter(marginTopBox)
+        EasySWT.setGridData(marginTopBox)
 
-        marginBottomLabel = addLabel(marginGroup, localeHandler["bottomMargin"] + unitSuffix)
+        marginBottomLabel = EasySWT.addLabel(marginGroup, localeHandler["bottomMargin"] + unitSuffix)
         marginBottomBox = Text(marginGroup, SWT.BORDER or SWT.READ_ONLY)
-        addDoubleFilter(marginBottomBox)
-        setGridData(marginBottomBox)
+        EasySWT.addDoubleFilter(marginBottomBox)
+        EasySWT.setGridData(marginBottomBox)
 
-        marginLeftLabel = addLabel(marginGroup, localeHandler["leftMargin"] + unitSuffix)
+        marginLeftLabel = EasySWT.addLabel(marginGroup, localeHandler["leftMargin"] + unitSuffix)
         marginLeftBox = Text(marginGroup, SWT.BORDER)
-        addDoubleFilter(marginLeftBox)
-        setGridData(marginLeftBox)
+        EasySWT.addDoubleFilter(marginLeftBox)
+        EasySWT.setGridData(marginLeftBox)
 
-        marginRightLabel = addLabel(marginGroup, localeHandler["rightMargin"] + unitSuffix)
+        marginRightLabel = EasySWT.addLabel(marginGroup, localeHandler["rightMargin"] + unitSuffix)
         marginRightBox = Text(marginGroup, SWT.BORDER or SWT.READ_ONLY)
-        addDoubleFilter(marginRightBox)
-        setGridData(marginRightBox)
+        EasySWT.addDoubleFilter(marginRightBox)
+        EasySWT.setGridData(marginRightBox)
 
         // Group for interpoint
         val interpointGroup = Group(parent, 0)
         interpointGroup.layout = GridLayout(2, true)
         interpointGroup.text = "Interpoint"
-        setGridDataGroup(interpointGroup)
+        EasySWT.setGridDataGroup(interpointGroup)
 
-        val interpointLabel = addLabel(interpointGroup, "Interpoint")
+        val interpointLabel = EasySWT.addLabel(interpointGroup, "Interpoint")
         interpointLabel.toolTipText =
             "Sets embosser for interpoint embossing and puts t1, p1, and 1 on a right-hand page."
         interpointCombo = makeYesNoCombo(interpointGroup, engine.pageSettings.interpoint)
@@ -170,7 +165,7 @@ class PagePropertiesTab private constructor(parent: Composite, engine: UTDTransl
         // ----Add listeners----
         // When the user selects a page from the drop down, fill out the width,
         // height, cells, and lines boxes
-        pageTypes.addSelectionListener(makeSelectedListener { onStandardPageSelected() })
+        pageTypes.addSelectionListener(EasySWT.makeSelectedListener { onStandardPageSelected() })
 
         // Size fields
         // When a user types a digit, adjust cells, lines and page combo
@@ -254,7 +249,7 @@ class PagePropertiesTab private constructor(parent: Composite, engine: UTDTransl
         // marginWidth.andThen((v) -> marginRight = v), (e) -> calculateCellsLinesAndUpdate()));
 
         // Margin unit suffixes
-        val marginUnitChangedListener = makeSelectedListener { _: SelectionEvent? -> onMarginUnitSelected() }
+        val marginUnitChangedListener = EasySWT.makeSelectedListener { _: SelectionEvent? -> onMarginUnitSelected() }
         regionalButton.addSelectionListener(marginUnitChangedListener)
         cellsLinesButton.addSelectionListener(marginUnitChangedListener)
 
@@ -508,24 +503,31 @@ class PagePropertiesTab private constructor(parent: Composite, engine: UTDTransl
         val pageSettings = engine.pageSettings
         val brailleSettings = engine.brailleSettings
 
-        var updated =
-            updateObject(brailleSettings::cellType::get, brailleSettings::cellType::set, brailleCell, false)
-        updated =
-            updateObject(pageSettings::paperHeight::get, pageSettings::paperHeight::set, pageHeight, updated)
-        updated =
-            updateObject(pageSettings::paperWidth::get, pageSettings::paperWidth::set, pageWidth, updated)
-        updated =
-            updateObject(pageSettings::topMargin::get, pageSettings::topMargin::set, marginTop, updated)
-        updated =
-            updateObject(pageSettings::bottomMargin::get, pageSettings::bottomMargin::set, marginBottom, updated)
-        updated =
-            updateObject(pageSettings::leftMargin::get, pageSettings::leftMargin::set, marginLeft, updated)
-        updated =
-            updateObject(pageSettings::rightMargin::get, pageSettings::rightMargin::set, marginRight, updated)
-        updated =
-            updateObject(pageSettings::interpoint::get, pageSettings::interpoint::set, interpointCombo.text == "Yes", updated)
-
-        return updated
+        return FormUIUtils.updateObject(
+            brailleSettings::cellType,
+            brailleCell
+        ) || FormUIUtils.updateObject(
+            pageSettings::paperHeight,
+            pageHeight
+        ) || FormUIUtils.updateObject(
+            pageSettings::paperWidth,
+            pageWidth
+        ) || FormUIUtils.updateObject(
+            pageSettings::topMargin,
+            marginTop
+        ) || FormUIUtils.updateObject(
+            pageSettings::bottomMargin,
+            marginBottom
+        ) || FormUIUtils.updateObject(
+            pageSettings::leftMargin,
+            marginLeft
+        ) || FormUIUtils.updateObject(
+            pageSettings::rightMargin,
+            marginRight
+        ) || FormUIUtils.updateObject(
+            pageSettings::interpoint,
+            interpointCombo.text == "Yes"
+        )
     }
 
     private fun makeFieldListener(
@@ -611,7 +613,7 @@ class PagePropertiesTab private constructor(parent: Composite, engine: UTDTransl
                 combo.text = "No"
             }
 
-            setGridData(combo)
+            EasySWT.setGridData(combo)
             return combo
         }
     }

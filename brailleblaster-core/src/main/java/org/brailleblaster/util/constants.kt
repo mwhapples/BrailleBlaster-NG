@@ -13,16 +13,8 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.utils.braille
+package org.brailleblaster.util
 
-import onl.mdw.mathcat4j.api.MathCat
-import onl.mdw.mathcat4j.api.MathCatLoader
-import java.util.concurrent.Callable
-import java.util.concurrent.Executors
+val LINE_BREAK: String = System.lineSeparator()
 
-private val mcManager = MathCatLoader.INSTANCE.mathCatFactory.orElseThrow().create()
-private val mathCATExecutor = Executors.newSingleThreadExecutor().also {
-    Runtime.getRuntime().addShutdownHook(Thread(it::shutdown))
-}
-
-fun <T> singleThreadedMathCAT(block: MathCat.() -> T): T = mathCATExecutor.submit(Callable { mcManager.run { it.block() } }).get()
+const val PILCROW = "\u00b6"

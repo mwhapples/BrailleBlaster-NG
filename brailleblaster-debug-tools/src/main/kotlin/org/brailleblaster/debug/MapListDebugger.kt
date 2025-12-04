@@ -18,7 +18,7 @@ package org.brailleblaster.debug
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.TableTextMapElement
 import org.brailleblaster.perspectives.braille.mapping.elements.TextMapElement
-import org.brailleblaster.util.FormUIUtils
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyleRange
 import org.eclipse.swt.custom.StyledText
@@ -36,13 +36,13 @@ class MapListDebugger(private val m: Manager) {
     private var showBrailleList = false
 
     fun open() {
-        val dialog = FormUIUtils.makeDialogFloating(m)
+        val dialog = EasySWT.makeDialogFloating(m.wpManager.shell)
         this.dialog = dialog
         dialog.setSize(400, 300)
         dialog.layout = GridLayout(3, false)
 
         mapListViewer = StyledText(dialog, SWT.MULTI or SWT.BORDER or SWT.V_SCROLL or SWT.READ_ONLY)
-        FormUIUtils.setGridData(mapListViewer)
+        EasySWT.setGridData(mapListViewer)
         (mapListViewer.layoutData as GridData).horizontalSpan = 3
         (mapListViewer.layoutData as GridData).grabExcessVerticalSpace = true
 
@@ -56,12 +56,12 @@ class MapListDebugger(private val m: Manager) {
 
         val seeWholeList = Button(dialog, SWT.PUSH)
         seeWholeList.text = "See Whole List"
-        FormUIUtils.addSelectionListener(seeWholeList) { reload() }
+        EasySWT.addSelectionListener(seeWholeList) { it: SelectionEvent -> reload() }
 
         val showBrailleButton = Button(dialog, SWT.CHECK)
         showBrailleButton.text = "Show Braille MapList"
         showBrailleButton.selection = showBrailleList
-        FormUIUtils.addSelectionListener(showBrailleButton) {
+        EasySWT.addSelectionListener(showBrailleButton) { it: SelectionEvent ->
             showBrailleList = showBrailleButton.selection
             reload()
         }
@@ -103,7 +103,7 @@ class MapListDebugger(private val m: Manager) {
             }
             start = nextNewLine
         }
-        FormUIUtils.setLargeDialogSize(dialog!!)
+        EasySWT.setLargeDialogSize(dialog!!)
     }
 
     fun setMapText(newElem: TextMapElement, curIndex: Int): String {

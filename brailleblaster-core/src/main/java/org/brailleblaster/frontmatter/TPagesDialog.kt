@@ -23,7 +23,6 @@ import org.brailleblaster.bbx.BBX.TPageSection
 import org.brailleblaster.frontmatter.VolumeUtils.getOrCreateTPage
 import org.brailleblaster.frontmatter.VolumeUtils.getVolumeElements
 import org.brailleblaster.frontmatter.VolumeUtils.updateEndOfVolume
-import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.messages.Sender
 import org.brailleblaster.perspectives.braille.ui.BBStyleableText
@@ -37,14 +36,15 @@ import org.brailleblaster.settings.UTDManager
 import org.brailleblaster.tools.DebugMenuToolModule
 import org.brailleblaster.utd.formatters.TPageFormatter
 import org.brailleblaster.utd.properties.EmphasisType
-import org.brailleblaster.utd.utils.UTDHelper.Companion.stripUTDRecursive
+import org.brailleblaster.utd.utils.UTDHelper.stripUTDRecursive
+import org.brailleblaster.util.LINE_BREAK
+import org.brailleblaster.utils.gui.PickerDialog
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.swt.EasyListeners
 import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.utils.swt.MenuBuilder
-import org.brailleblaster.util.FormUIUtils
-import org.brailleblaster.utils.xml.UTD_NS
-import org.brailleblaster.utils.gui.PickerDialog
-import org.brailleblaster.utils.swt.EasyListeners
 import org.brailleblaster.utils.swt.SubMenuBuilder
+import org.brailleblaster.utils.xml.UTD_NS
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.ScrolledComposite
 import org.eclipse.swt.events.KeyEvent
@@ -142,7 +142,7 @@ class TPagesDialog : DebugMenuToolModule {
         createTitlePageMenu()
         curVolLabel!!.parent.layout(true)
         shell.pack()
-        FormUIUtils.setLargeDialogSize(shell)
+        EasySWT.setLargeDialogSize(shell)
         shell.open()
     }
 
@@ -530,7 +530,7 @@ class TPagesDialog : DebugMenuToolModule {
                     for (text in texts) {
                         if (text.text.data === section && text.text.text == TRANSCRIBER_NOTES_HEADING) {
                             //Add linebreak after Transcriber's Notes heading
-                            text.text.append(System.lineSeparator())
+                            text.text.append(LINE_BREAK)
                             break
                         }
                     }
@@ -958,10 +958,7 @@ class TPagesDialog : DebugMenuToolModule {
     private fun moveTableItemUp(symbolsTable: Table) {
         if (symbolsTable.selectionCount > 0 && symbolsTable.selectionIndex > 0) {
             val selectedItem = symbolsTable.selection[0]
-            val newText = arrayOfNulls<String>(symbolsTable.columnCount)
-            for (i in 0 until symbolsTable.columnCount) {
-                newText[i] = selectedItem.getText(i)
-            }
+            val newText = Array(symbolsTable.columnCount) { selectedItem.getText(it) }
             val index = symbolsTable.selectionIndex
             symbolsTable.remove(index)
             val copyItem = TableItem(symbolsTable, SWT.NONE, index - 1)
@@ -973,10 +970,7 @@ class TPagesDialog : DebugMenuToolModule {
     private fun moveTableItemDown(symbolsTable: Table) {
         if (symbolsTable.selectionCount > 0 && symbolsTable.selectionIndex < symbolsTable.itemCount - 1) {
             val selectedItem = symbolsTable.selection[0]
-            val newText = arrayOfNulls<String>(symbolsTable.columnCount)
-            for (i in 0 until symbolsTable.columnCount) {
-                newText[i] = selectedItem.getText(i)
-            }
+            val newText = Array(symbolsTable.columnCount) { selectedItem.getText(it) }
             val index = symbolsTable.selectionIndex
             symbolsTable.remove(index)
             val copyItem = TableItem(symbolsTable, SWT.NONE, index + 1)
@@ -1019,17 +1013,12 @@ class TPagesDialog : DebugMenuToolModule {
             }
         }
         //Dumb SWT manipulation
-        val keys = arrayOfNulls<String>(items.size)
-        val values = arrayOfNulls<String>(items.size)
-        for (i in items.indices) {
-            keys[i] = items[i].getText(0)
-            values[i] = items[i].getText(1)
-        }
+        val values = items.map { it.getText(0) to it.getText(1) }
         symbolsTable.removeAll()
-        for (i in keys.indices) {
+        for (i in values) {
             val newItem = TableItem(symbolsTable, SWT.NONE)
-            newItem.setText(0, keys[i])
-            newItem.setText(1, values[i])
+            newItem.setText(0, i.first)
+            newItem.setText(1, i.second)
         }
     }
 
@@ -1314,7 +1303,6 @@ class TPagesDialog : DebugMenuToolModule {
         const val SWTBOT_OK_BUTTON: String = "tpagesDialog.ok"
         private const val BUTTON_WIDTH = 100
         private const val TEXT_WIDTH = 400
-        private const val SHELL_HEIGHT = 500
         private const val TRANSCRIBER_NOTES_HEADING = "TRANSCRIBER'S NOTES"
         private const val SS_HEADING = "<Heading>"
         private const val TPAGE_HEADING_STYLE = "TPage Heading"

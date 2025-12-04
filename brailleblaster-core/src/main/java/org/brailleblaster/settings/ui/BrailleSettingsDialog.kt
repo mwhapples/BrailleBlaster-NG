@@ -22,14 +22,15 @@ import org.brailleblaster.settings.UTDManager.Companion.userPageSettingsFile
 import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.utd.config.DocumentUTDConfig
 import org.brailleblaster.utd.config.UTDConfig
-import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.Notify
 import org.brailleblaster.util.Notify.notify
 import org.brailleblaster.util.Notify.showMessage
 import org.brailleblaster.util.WorkingDialog
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
+import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.utils.swt.EasySWT.addSwtBotKey
 import org.eclipse.swt.SWT
+import org.eclipse.swt.events.SelectionEvent
 import org.eclipse.swt.events.TraverseEvent
 import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.layout.GridLayout
@@ -66,15 +67,15 @@ class BrailleSettingsDialog(parent: Shell?, m: Manager?, tabToOpen: Class<out Se
             this.engine = m.document.engine
             this.m = m
             shell = if (parent != null) {
-                FormUIUtils.makeDialog(parent)
+                EasySWT.makeDialog(parent)
             } else {
-                FormUIUtils.makeDialog(m)
+                EasySWT.makeDialog(m.wpManager.shell)
             }
             shell.text = localeHandler["settings"]
             shell.layout = GridLayout(1, true)
 
             val folder = TabFolder(shell, SWT.NONE)
-            FormUIUtils.setGridData(folder)
+            EasySWT.setGridData(folder)
             (folder.layoutData as GridData).grabExcessVerticalSpace = true
 
             pageProperties = PagePropertiesTab.create(folder, engine, this.shell)
@@ -86,7 +87,7 @@ class BrailleSettingsDialog(parent: Shell?, m: Manager?, tabToOpen: Class<out Se
 
             //Button panel at the bottom
             val buttonPanel = Composite(shell, SWT.NONE)
-            FormUIUtils.setGridData(buttonPanel)
+            EasySWT.setGridData(buttonPanel)
             buttonPanel.layout = RowLayout(SWT.HORIZONTAL)
 
             val okButton = Button(buttonPanel, SWT.PUSH)
@@ -106,9 +107,9 @@ class BrailleSettingsDialog(parent: Shell?, m: Manager?, tabToOpen: Class<out Se
             }
             shell.addListener(SWT.Close) { close() }
 
-            okButton.addSelectionListener(FormUIUtils.makeSelectedListener { saveConfig(false) })
-            okDefaultButton.addSelectionListener(FormUIUtils.makeSelectedListener { saveConfig(true) })
-            cancelButton.addSelectionListener(FormUIUtils.makeSelectedListener { close() })
+            okButton.addSelectionListener(EasySWT.makeSelectedListener { it: SelectionEvent -> saveConfig(false) })
+            okDefaultButton.addSelectionListener(EasySWT.makeSelectedListener { it: SelectionEvent -> saveConfig(true) })
+            cancelButton.addSelectionListener(EasySWT.makeSelectedListener { it: SelectionEvent -> close() })
 
             //--------------- Data ---------------
             when (tabToOpen) {
@@ -121,7 +122,7 @@ class BrailleSettingsDialog(parent: Shell?, m: Manager?, tabToOpen: Class<out Se
             }
 
             //Autosize shell based on what the internal elements require
-            FormUIUtils.setLargeDialogSize(shell)
+            EasySWT.setLargeDialogSize(shell)
 
             //Show the window
             shell.open()

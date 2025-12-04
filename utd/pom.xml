@@ -29,7 +29,7 @@
         <!-- Needed for AsciiMathConverter -->
         <dependency>
             <groupId>org.graalvm.polyglot</groupId>
-            <artifactId>js-community</artifactId>
+            <artifactId>js</artifactId>
             <type>pom</type>
         </dependency>
         <dependency>

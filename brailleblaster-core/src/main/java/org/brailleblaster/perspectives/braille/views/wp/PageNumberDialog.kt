@@ -41,8 +41,8 @@ import org.brailleblaster.utd.properties.PageNumberType
 import org.brailleblaster.utd.utils.TextTranslator
 import org.brailleblaster.utd.utils.UTDHelper
 import org.brailleblaster.exceptions.BBNotifyException
+import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utils.swt.EasySWT
-import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.utils.swt.EasyListeners
 import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT
@@ -855,7 +855,7 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolModul
         shell!!.text = "Page Number Dialog"
         shell!!.layout = GridLayout(1, true)
         createTabs()
-        FormUIUtils.setLargeDialogSize(shell!!)
+        EasySWT.setLargeDialogSize(shell!!)
         addKeyListeners()
         shell!!.open()
         shell!!.defaultButton = okButton
@@ -914,13 +914,9 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolModul
         intersection.add(end)
         if (start !== end) {
             //V1 - Do not use following-sibling in case the two nodes are in different containers
-            val siblingsAfter = start.query("following::*")
-            val siblingsBefore = end.query("preceding::*")
-            for (i in 0 until siblingsAfter.size()) {
-                if (BBX.BLOCK.isA(siblingsAfter[i]) && siblingsBefore.contains(siblingsAfter[i])) {
-                    intersection.add(siblingsAfter[i])
-                }
-            }
+            val siblingsAfter = FastXPath.following(start).filterIsInstance<Element>()
+            val siblingsBefore = FastXPath.preceding(end).filterIsInstance<Element>()
+            intersection.addAll(siblingsAfter.filter { sibling -> BBX.BLOCK.isA(sibling) && sibling in siblingsBefore })
         }
         return intersection
     }

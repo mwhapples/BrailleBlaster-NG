@@ -25,7 +25,6 @@ import org.brailleblaster.bbx.BBXUtils;
 import org.brailleblaster.exceptions.EditingException;
 import org.brailleblaster.perspectives.braille.mapping.maps.MapList;
 import org.brailleblaster.utd.exceptions.NodeException;
-import org.brailleblaster.util.FormUIUtils;
 import org.brailleblaster.util.Notify;
 import org.brailleblaster.utils.gui.PickerDialog;
 import org.brailleblaster.utils.localization.LocaleHandler;
@@ -364,7 +363,7 @@ public class TableEditor extends Dialog {
             open((Node[] nodeList) -> {
                         if (manager.isEmptyDocument()) {
                             //Get rid of placeholder node
-                            StreamSupport.stream(FastXPath.descendant(manager.getDoc().getRootElement()).spliterator(), false)
+                            StreamSupport.stream(((Iterable<Node>)FastXPath.descendant(manager.getDoc().getRootElement())::iterator).spliterator(), false)
                                     .filter(rootDesc -> BBX.BLOCK.isA(rootDesc) && BrailleDocument.isEmptyPlaceholder((Element) rootDesc))
                                     .findFirst().ifPresent(Node::detach);
                         }
@@ -397,7 +396,7 @@ public class TableEditor extends Dialog {
             int actualOffset = text.getOffset();
             int blockTextLength = 0;
             boolean pastOriginalText = false;
-            Iterator<Node> iter = StreamSupport.stream(FastXPath.descendant(block).spliterator(), false)
+            Iterator<Node> iter = StreamSupport.stream(((Iterable<Node>)FastXPath.descendant(block)::iterator).spliterator(), false)
                     .filter(e -> e instanceof nu.xom.Text && !UTDElements.BRL.isA(e.getParent()))
                     .iterator();
             while (iter.hasNext()) {
@@ -560,7 +559,7 @@ public class TableEditor extends Dialog {
             createFacingContents();
         }
         //Prefer setLargeDialogSize for automatic sizing without scrollbars and weird look on Linux
-        FormUIUtils.setLargeDialogSize(shell);
+        EasySWT.INSTANCE.setLargeDialogSize(shell);
         shell.open();
         shell.layout();
         this.callback = callback;
@@ -1066,7 +1065,7 @@ public class TableEditor extends Dialog {
         List<CellText> returnList = new ArrayList<>();
         Composite tableComp = new Composite(sc, SWT.NONE);
         tableComp.setLayout(new GridLayout(displayCols + 1, false));
-        FormUIUtils.setGridData(tableComp);
+        EasySWT.INSTANCE.setGridData(tableComp);
 
         //Copy rows list into temporary list
         List<List<Node>> tempRows = new ArrayList<>(rows);
@@ -1903,7 +1902,7 @@ public class TableEditor extends Dialog {
         //Strip UTD
         UTDHelper.stripUTDRecursive(containerCopy);
 
-        for (Node child : FastXPath.descendant(containerCopy)) {
+        for (Node child : (Iterable<Node>)FastXPath.descendant(containerCopy)::iterator) {
             if (BBX.SPAN.OTHER.isA(child)) {
                 if (type == TableType.LINEAR) {
                     //If linear, re-attach span tags as children of the container

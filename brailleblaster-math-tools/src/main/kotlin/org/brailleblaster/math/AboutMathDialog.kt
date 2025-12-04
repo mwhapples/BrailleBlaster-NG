@@ -19,8 +19,8 @@ import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.math.mathml.MathModuleUtils
 import org.brailleblaster.perspectives.braille.toolbar.ToolBarBuilder
 import org.brailleblaster.perspectives.mvc.modules.views.DebugModule
-import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.ImageHelper
+import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.ScrolledComposite
 import org.eclipse.swt.custom.StyledText
@@ -72,7 +72,7 @@ object AboutMathDialog {
             }
         }
         addResizeListener(shell, sc, comp)
-        FormUIUtils.addEscapeCloseListener(shell)
+        EasySWT.addEscapeCloseListener(shell)
         sc.content = comp
         shell.pack()
         shell.layout(true)

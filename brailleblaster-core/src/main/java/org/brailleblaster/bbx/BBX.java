@@ -131,11 +131,6 @@ public class BBX {
      */
     public static final int FORMAT_VERSION = 6;
     /**
-     * Internal marker used for multi-step importers, aids debugging and bug
-     * hunting, should not exist in final document
-     */
-    public static final StringAttribute _ATTRIB_TODO = new StringAttribute("todo");
-    /**
      * Marker used by parsers to trigger fixers, should not exist in final
      * document
      */
@@ -1102,7 +1097,7 @@ public class BBX {
                     throw new NodeException("Expected only container child to be math, got ", mathTag);
                 }
 
-                List<Element> nonMathMl = StreamSupport.stream(FastXPath.descendant(node).spliterator(), false).filter(n -> n instanceof Element)
+                List<Element> nonMathMl = StreamSupport.stream(((Iterable<Node>)FastXPath.descendant(node)::iterator).spliterator(), false).filter(n -> n instanceof Element)
                         .map(n -> (Element) n).filter(e -> !e.getNamespaceURI().equals(NamespacesKt.MATHML_NS)).toList();
                 if (!nonMathMl.isEmpty()) {
                     throw new NodeException("Unexpected non-mathml elements " + StringUtils.join(nonMathMl, ", "),
