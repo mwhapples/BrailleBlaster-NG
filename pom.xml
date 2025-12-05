@@ -69,6 +69,7 @@ child.project.url.inherit.append.path="false">
         <activation.version>1.1</activation.version>
         <swt.platform>win32.win32.x86_64</swt.platform>
         <swt.version>3.131.0</swt.version>
+        <swt.svg.version>3.130.100</swt.svg.version>
         <orgeclipsejface.version>3.38.0</orgeclipsejface.version>
         <org.eclipse.equinox.common.version>3.20.200</org.eclipse.equinox.common.version>
         <hamcrest.version>2.2</hamcrest.version>
@@ -265,6 +266,11 @@ child.project.url.inherit.append.path="false">
                 <groupId>org.eclipse.platform</groupId>
                 <artifactId>org.eclipse.swt</artifactId>
                 <version>${swt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.platform</groupId>
+                <artifactId>org.eclipse.swt.svg</artifactId>
+                <version>${swt.svg.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.platform</groupId>
