@@ -60,8 +60,8 @@ child.project.url.inherit.append.path="false">
         <logback-core.version>1.5.21</logback-core.version>
         <logback-classic.version>1.5.21</logback-classic.version>
         <icu4j.version>78.1</icu4j.version>
-        <mathcat4j.version>1.0.0</mathcat4j.version>
-        <mathcat4j-jni.version>0.7.2-0</mathcat4j-jni.version>
+        <mathcat4j.version>1.0.2</mathcat4j.version>
+        <mathcat4j-jni.version>0.7.2-1</mathcat4j-jni.version>
         <jlouis.version>c75db74718cea465f839f7cb5b4bcf716ba3e3e3</jlouis.version>
         <libembosser.version>1.4.3</libembosser.version>
         <jaxbapi.version>4.0.4</jaxbapi.version>
