@@ -421,7 +421,7 @@ class TextRenderer(manager: Manager, private val textView: TextView) : Renderer(
     private fun getEmphasisNode(node: Node): Element? {
         var parent = node.parent
         while (!BBX.BLOCK.isA(parent) && !BBX.SECTION.isA(parent)) {
-            if (BBX.INLINE.EMPHASIS.isA(parent) || BBX.INLINE.MATHML.isA(parent)) {
+            if (BBX.INLINE.EMPHASIS.isA(parent) || BBX.INLINE.MATHML.isA(parent) || BBX.INLINE.LINK.isA(parent)) {
                 return parent as Element
             }
             parent = parent.parent
@@ -484,7 +484,11 @@ class TextRenderer(manager: Manager, private val textView: TextView) : Renderer(
         for (e in emphasisList) {
             if (BBX.INLINE.MATHML.isA(e.inlineNode)) {
                 textView.addMathHighlights(e.start, e.end - e.start, e.inlineNode)
-            } else {
+            }
+            else if (BBX.INLINE.LINK.isA(e.inlineNode)){
+                textView.addLinkStyleRange(e.start, e.end - e.start, e.inlineNode)
+            }
+            else {
                 textView.setFontStyleRange(e.start, e.end - e.start, manager.getAction(e.inlineNode), e.inlineNode)
             }
         }

@@ -204,7 +204,7 @@ public class Manager extends Controller {
                 if (mEvent.translate) {
                     List<Element> changedNodes = new ArrayList<>();
 
-                    // Used to comminicate information before a formatting stage
+                    // Used to communicate information before a formatting stage
                     // Can't just apply to mEvent.changedNodes as these might be added to a parent
                     StreamSupport.stream(((Iterable<Node>)FastXPath.descendant(getDoc())::iterator).spliterator(), false).filter(Searcher.Filters::isElement)
                             .map(Searcher.Mappers::toElement)
