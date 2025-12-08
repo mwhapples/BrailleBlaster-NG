@@ -77,7 +77,7 @@ class InsertBookmarkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.N
       if (!entryBox.text.isEmpty() && !bookmarksList.items.contains(entryBox.text)) {
         addBookmark(bbData, entryBox.text)
         //Refresh manager to avoid errors when navigating to newly added bookmarks
-        //Not sure why it works, but it does fix the problem. The nodes in the list here don't cause the problem.
+        //Not sure why it works, but it does fix the problem.
         bbData.manager.refresh()
         bookmarksList.deselectAll()
         //Regenerate bookmarks list
@@ -148,8 +148,6 @@ class InsertBookmarkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.N
 
   private fun addBookmark(bbData: BBSelectionData, newLinkID: String) {
     //Create a linkID in a selected block with a unique name (provided by user)
-    //Rework this using xpath nodes instead of maplist filtering?
-    //bookmarks list uses xpath to find existing bookmarks, so it's probably fine to keep as-is.
     //println("Adding bookmark with linkID: $newLinkID")
     val block = bbData.manager.mapList.current.block
 
@@ -157,12 +155,6 @@ class InsertBookmarkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.N
       try {
         block.addAttribute(BBX.BLOCK.LINKID.newAttribute(newLinkID))
         bbData.manager.simpleManager.dispatchEvent(ModifyEvent(Sender.TEXT, false, block.parent))
-        //println("Added $newLinkID to block: ${block.toXML()}")
-        //Grasping at straws - not sure why jumping to new bookmark causes an error.
-        //Oddly a refresh fixes it / prevents it.
-        // Closing the window after adding would probably fix it too, even if it is a little annoying.
-        //Note this problem and commit what works.
-        //bbData.manager.refresh()
       }
       catch (e: Exception) {
         e.printStackTrace()
@@ -176,7 +168,6 @@ class InsertBookmarkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.N
       //println("Moving to bookmark index $bookmarkIndex; bookmark count: ${bookmarksNodeList.size}")
       val node = bookmarksNodeList[bookmarkIndex]
       //println("Bookmark node: ${node.toXML()}")
-      //Problem: after adding a bookmark, trying to navigate to subsequent ones causes a null error. Follow the stack trace up.
       bbData.manager.simpleManager.dispatchEvent(XMLCaretEvent(Sender.GO_TO_PAGE, XMLNodeCaret(node)))
     }
   }

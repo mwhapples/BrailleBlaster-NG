@@ -50,8 +50,6 @@ class InsertLinkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.NONE)
   override val title: String = localeHandler["InsertLink"]
   override val accelerator: Int = SWT.MOD1 or 'K'.code
   override val sharedItem: SharedItem = SharedItem.INSERT_LINK
-  //Figure out a way to disable if no selection; need to call from manager
-  // but the usual call will crash on load due to nullability.
 
   private val logger = LoggerFactory.getLogger(TextView::class.java)
 
