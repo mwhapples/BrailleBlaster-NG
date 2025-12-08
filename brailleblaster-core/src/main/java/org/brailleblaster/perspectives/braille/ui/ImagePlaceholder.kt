@@ -15,9 +15,10 @@
  */
 package org.brailleblaster.perspectives.braille.ui
 
-import com.sun.jna.Platform
 import org.brailleblaster.BBIni
 import org.brailleblaster.perspectives.braille.Manager
+import org.brailleblaster.utils.OS
+import org.brailleblaster.utils.os
 import org.brailleblaster.utils.swt.EasyListeners
 import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.wordprocessor.WPManager
@@ -151,7 +152,7 @@ class ImagePlaceholder(parent: Shell?, manager: Manager, private val callback: C
             if (updates != null) {
                 filterPath = updates
             }
-            if (Platform.isWindows()) {
+            if (OS.Windows == os) {
                 filterPath = System.getProperty("user.home", "c:\\")
             }
             dialog.filterPath = filterPath

@@ -47,7 +47,6 @@ import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.perspectives.mvc.modules.views.DebugModule
 import org.brailleblaster.settings.UTDManager
 import org.brailleblaster.settings.UTDManager.Companion.isStyle
-import org.brailleblaster.tools.MenuToolModule
 import org.brailleblaster.utd.IStyle
 import org.brailleblaster.utd.Style
 import org.brailleblaster.utd.exceptions.NodeException
@@ -60,6 +59,8 @@ import org.brailleblaster.utd.utils.UTDHelper.stripUTDRecursive
 import org.brailleblaster.utils.xom.childNodes
 import org.brailleblaster.exceptions.BBNotifyException
 import org.brailleblaster.perspectives.mvc.menu.MenuManager
+import org.brailleblaster.tools.CheckMenuTool
+import org.brailleblaster.tools.MenuToolModule
 import org.brailleblaster.util.Notify.notify
 import org.brailleblaster.utils.swt.ButtonBuilder
 import org.brailleblaster.utils.swt.EasySWT
@@ -84,13 +85,13 @@ import java.util.regex.Pattern
 /**
  * TOC Builder toolbar updated for BBX format
  */
-class TOCBuilderBBX(private var manager: Manager) : MenuToolModule, BBViewListener, VerifyKeyListener {
+class TOCBuilderBBX(private var manager: Manager) : CheckMenuTool, MenuToolModule, BBViewListener, VerifyKeyListener {
     /**
      * Note: instance variable to reset in between tests
      *
      * @see .isEnabled
      */
-    override var enabled: Boolean = propertyFileManager.getPropertyAsBoolean(SETTING_ENABLED, false) // public for tests
+    override var active: Boolean = propertyFileManager.getPropertyAsBoolean(SETTING_ENABLED, false) // public for tests
     private var indentText: Text? = null
     private var runoverText: Text? = null
     private var pageNumberPrefix: Text? = null
@@ -106,8 +107,8 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolModule, BBViewListen
         get() = TopMenu.DEBUG
 
     override fun onRun(bbData: BBSelectionData) {
-        enabled = !enabled
-        propertyFileManager.saveAsBoolean(SETTING_ENABLED, enabled)
+        active = !active
+        propertyFileManager.saveAsBoolean(SETTING_ENABLED, active)
         enableChanged = true
         getInstance().buildToolBar()
     }
@@ -118,7 +119,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolModule, BBViewListen
             MenuManager.add(this)
         }
         if (event is BuildToolBarEvent) {
-            if (enabled) {
+            if (active) {
                 getInstance().currentPerspective.addToToolBar(
                     userDefined { parent: Composite -> this.buildToolbar(parent) }
                 )
@@ -249,7 +250,7 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolModule, BBViewListen
     }
 
     override fun verifyKey(event: VerifyEvent) {
-        if (!enabled) {
+        if (!active) {
             return
         }
 
@@ -1207,8 +1208,8 @@ class TOCBuilderBBX(private var manager: Manager) : MenuToolModule, BBViewListen
         }
 
     private fun close() {
-        enabled = false
-        propertyFileManager.saveAsBoolean(SETTING_ENABLED, enabled)
+        active = false
+        propertyFileManager.saveAsBoolean(SETTING_ENABLED, active)
         getInstance().buildToolBar()
     }
 

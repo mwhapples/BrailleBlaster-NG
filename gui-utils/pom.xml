@@ -14,6 +14,14 @@
     <dependencies>
         <dependency>
             <groupId>org.eclipse.platform</groupId>
+            <artifactId>org.eclipse.jface</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.platform</groupId>
+            <artifactId>org.eclipse.swt.svg</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.platform</groupId>
             <artifactId>org.eclipse.swt</artifactId>
         </dependency>
         <dependency>
