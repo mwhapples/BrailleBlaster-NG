@@ -77,7 +77,7 @@ class AutoFillSpecialSymbols(
         EasySWT.buildGridData().setHint(TEXT_WIDTH, TEXT_HEIGHT).setGrabSpace(horizontally = true, vertically = true).applyTo(statusText)
         val simBraille = Font(Display.getCurrent(), "SimBraille", statusText.font.fontData[0].getHeight(), SWT.NORMAL)
 
-        val onFind = BiConsumer<String, String> { symbol: String, location: String ->
+        val onFind = BiConsumer { symbol: String, location: String ->
             var curLength = statusText.text.length
             statusText.append(FOUND_SYMBOL_MESSAGE_1 + symbol + FOUND_SYMBOL_MESSAGE_2 + location + "\n")
             curLength += FOUND_SYMBOL_MESSAGE_1.length
@@ -93,7 +93,7 @@ class AutoFillSpecialSymbols(
             }
         }
 
-        val onMessage = Consumer<String> { s: String ->
+        val onMessage = Consumer { s: String ->
             statusText.append(s + "\n")
             statusText.setSelection(statusText.text.length - 1)
             val display = Display.getCurrent()

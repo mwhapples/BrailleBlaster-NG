@@ -244,7 +244,7 @@ object UnitList {
       )
     )
 
-    val Unit2Pretty = listOf<String>(
+    val Unit2Pretty = listOf(
       "but -> ⠃",
       "can -> ⠉",
       "do -> ⠙",
@@ -365,7 +365,7 @@ object UnitList {
       )
     )
 
-    val Unit3Pretty = listOf<String>(
+    val Unit3Pretty = listOf(
       "and -> ⠯",
       "for -> ⠿",
       "of -> ⠷",
@@ -404,7 +404,7 @@ object UnitList {
       )
     )
 
-    val Unit5Pretty = listOf<String>(
+    val Unit5Pretty = listOf(
       ", -> ⠂",
       "“ -> ⠦",
       "” -> ⠴",
@@ -622,7 +622,7 @@ object UnitList {
       )
     )
 
-    val Unit6Pretty = listOf<String>(
+    val Unit6Pretty = listOf(
       "ch -> ⠡",
       "sh -> ⠩",
       "th -> ⠹",
@@ -819,7 +819,7 @@ object UnitList {
       )
     )
 
-    val Unit7Pretty = listOf<String>(
+    val Unit7Pretty = listOf(
       "ar -> ⠜",
       "ed -> ⠫",
       "er -> ⠻",
@@ -1198,7 +1198,7 @@ object UnitList {
       )
     )
 
-    val Unit9Pretty = listOf<String>(
+    val Unit9Pretty = listOf(
       "day -> ⠐⠙",
       "ever -> ⠐⠑",
       "father -> ⠐⠋",
@@ -1280,7 +1280,7 @@ object UnitList {
       )
     )
 
-    val Unit11Pretty = listOf<String>(
+    val Unit11Pretty = listOf(
       /*
       //Symbols are not actually listed in the table.
       "$ -> ⠈⠎",
@@ -1352,7 +1352,7 @@ object UnitList {
       )
     )
 
-    val Unit12Pretty = listOf<String>(
+    val Unit12Pretty = listOf(
       "upon -> ⠘⠥",
       "word -> ⠘⠺",
       "these -> ⠘⠮",
@@ -1449,7 +1449,7 @@ object UnitList {
       )
     )
 
-    val Unit14Pretty = listOf<String>(
+    val Unit14Pretty = listOf(
       "enough -> ⠢",
       "his -> ⠦",
       "was -> ⠴",
@@ -1812,7 +1812,7 @@ object UnitList {
       )
     )
 
-    val Unit15Pretty = listOf<String>(
+    val Unit15Pretty = listOf(
       "in -> ⠔",
       "en -> ⠑",
       "be -> ⠆",
@@ -1957,7 +1957,7 @@ object UnitList {
       )
     )
 
-    val Unit17Pretty = listOf<String>(
+    val Unit17Pretty = listOf(
       "ance -> ⠨⠑",
       "ound -> ⠨⠙",
       "less -> ⠨⠎",
