@@ -17,7 +17,6 @@ package org.brailleblaster.perspectives.braille.views.wp
 
 import nu.xom.Element
 import nu.xom.Node
-import nu.xom.Text
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.exceptions.CursorMovementException
 import org.brailleblaster.perspectives.braille.Manager
@@ -31,16 +30,15 @@ import org.brailleblaster.perspectives.braille.views.wp.listeners.ImagePaintList
 import org.brailleblaster.perspectives.braille.views.wp.listeners.WPPaintListener
 import org.brailleblaster.perspectives.braille.views.wp.listeners.WPScrollListener
 import org.brailleblaster.perspectives.mvc.XMLNodeCaret
-import org.brailleblaster.perspectives.mvc.XMLTextCaret
 import org.brailleblaster.perspectives.mvc.events.ModifyEvent
 import org.brailleblaster.perspectives.mvc.events.XMLCaretEvent
 import org.brailleblaster.utd.actions.GenericBlockAction
 import org.brailleblaster.utd.properties.Align
 import org.brailleblaster.util.FormUIUtils
-import org.brailleblaster.utils.xml.BB_NS
-import org.brailleblaster.utils.swt.AccessibilityUtils.setName
 import org.brailleblaster.util.LINE_BREAK
+import org.brailleblaster.utils.swt.AccessibilityUtils.setName
 import org.brailleblaster.utils.swt.EasySWT
+import org.brailleblaster.utils.xml.BB_NS
 import org.eclipse.swt.SWT
 import org.eclipse.swt.accessibility.AccessibleAdapter
 import org.eclipse.swt.accessibility.AccessibleEvent
