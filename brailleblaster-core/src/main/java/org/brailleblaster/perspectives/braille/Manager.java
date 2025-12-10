@@ -247,7 +247,7 @@ public class Manager extends Controller {
                                         && ((Element) child).getAttribute(TableUtils.ATTRIB_TABLE_COPY) == null
                                         && !changedNodes.contains(child)) {
                                     changedNodes.add((Element) child.getParent());
-                                } else if (!BBX.BLOCK.TABLE_CELL.isA(child) && BBX.BLOCK.isA(child) && !changedNodes.contains(child)) {
+                                } else if (!BBX.BLOCK.TABLE_CELL.isA(child) && BBX.BLOCK.isA(child) && !changedNodes.contains((Element)child)) {
                                     changedNodes.add((Element) child);
                                 }
                             }
