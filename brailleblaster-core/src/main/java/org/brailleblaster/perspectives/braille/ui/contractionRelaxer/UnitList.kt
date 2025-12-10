@@ -17,7 +17,7 @@ package org.brailleblaster.perspectives.braille.ui.contractionRelaxer
 
 import org.brailleblaster.perspectives.braille.ui.contractionRelaxer.ContractionRelaxer.Unit
 
-class UnitList() {
+class UnitList {
 
   companion object {
     //Note that this omits math contractions, which are handled completely differently than text substitutions.

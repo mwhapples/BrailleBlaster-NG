@@ -194,7 +194,7 @@ class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
                       if (!href.isNullOrBlank()) {
                         if (isExternal) {
                           //Need a method for URL checking, for now just assume it's valid - browser can handle it.
-                          Desktop.getDesktop().browse(URI(href.toString()))
+                          Desktop.getDesktop().browse(URI(href))
                         }
                         else {
                           //Find block with matching linkID and move the navigation pane to it.
