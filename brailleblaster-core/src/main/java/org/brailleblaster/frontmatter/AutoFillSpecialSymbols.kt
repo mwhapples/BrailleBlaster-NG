@@ -33,8 +33,6 @@ import org.eclipse.swt.events.SelectionEvent
 import org.eclipse.swt.graphics.Font
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.widgets.*
-import java.util.function.Function
-import java.util.function.Supplier
 
 class AutoFillSpecialSymbols(
     val doc: Document, val m: UTDManager,
@@ -217,7 +215,7 @@ class AutoFillSpecialSymbols(
         val vt = VolumeTracker()
         vt.allVolumes = volume == -1
 
-        val onBrl = Function<Element, List<SpecialSymbols.Symbol>> { brlElement: Element ->
+        val onBrl = { brlElement: Element ->
             for (i in 0 until brlElement.childCount) {
                 if (!vt.allVolumes && vt.volume != volume) {
                     break
@@ -262,7 +260,7 @@ class AutoFillSpecialSymbols(
             localSymbols
         }
 
-        val onVolume = Supplier<List<SpecialSymbols.Symbol>> {
+        val onVolume = {
             vt.increaseVolume()
             volumes.add(ArrayList(foundSymbols))
             if (vt.allVolumes) onMessage("Finished volume " + volumes.size)
@@ -276,7 +274,7 @@ class AutoFillSpecialSymbols(
 
         if (volumes.isEmpty()) {
             //If book has no volumes, onVolume never runs
-            onVolume.get()
+            onVolume()
         }
 
         onMessage("Completed special symbol search")
@@ -285,8 +283,8 @@ class AutoFillSpecialSymbols(
     }
 
     private fun iterateThruXML(
-        onBrl: Function<Element, List<SpecialSymbols.Symbol>>,
-        onVolume: Supplier<List<SpecialSymbols.Symbol>>,
+        onBrl: (Element) -> List<SpecialSymbols.Symbol>,
+        onVolume: () -> List<SpecialSymbols.Symbol>,
         listOfSymbols: List<SpecialSymbols.Symbol>,
         node: Node
     ) {
@@ -294,7 +292,7 @@ class AutoFillSpecialSymbols(
         var inVolumeEndBlock = false
         if (node is Element) {
             if (UTDElements.BRL.isA(node)) {
-                symbols = onBrl.apply(node)
+                symbols = onBrl(node)
             } else if (BBX.BLOCK.VOLUME_END.isA(node)) {
                 inVolumeEndBlock = true
             }
@@ -303,7 +301,7 @@ class AutoFillSpecialSymbols(
             iterateThruXML(onBrl, onVolume, symbols, node.getChild(i))
         }
         if (inVolumeEndBlock) //Finish processing the end of volume block before marking the end of a volume
-            onVolume.get()
+            onVolume()
     }
 
     private fun finish(dialog: Shell, data: List<List<SpecialSymbols.Symbol>>) {
