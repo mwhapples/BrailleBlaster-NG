@@ -331,11 +331,6 @@ open class XMLHandler {
             require(splitPos.isNotEmpty()) { "Must specify Positions to split" }
             var lastPos = -2
             for (curSplitPos in splitPos) {
-                // Below useless so tidying up
-                // if (curSplitPos <= 0) {
-                //					throw new NodeException("Postion " + curSplitPos + " must be greater than 0",
-                // textNode);
-                //				} else
                 if (curSplitPos in 1..lastPos) {
                     throw NodeException("Positions must sorted and uniq", textNode)
                 }
@@ -348,12 +343,12 @@ open class XMLHandler {
             val text = textNode.value
             var lastStart = 0
             var insertIndex = textNode.parent.indexOf(textNode)
-            val splitPosItr: MutableIterator<Int?> = Arrays.stream(splitPos).iterator()
+            val splitPosItr: IntIterator = splitPos.iterator()
             while (lastStart != text.length) {
                 var finished = false
                 val textPart: String?
                 if (splitPosItr.hasNext()) {
-                    val curSplitPos: Int = splitPosItr.next()!!
+                    val curSplitPos: Int = splitPosItr.next()
                     textPart = text.substring(lastStart, curSplitPos)
                     lastStart = curSplitPos
                 } else {
@@ -490,7 +485,7 @@ open class XMLHandler {
             var counter = 1
             val doc = curParent.document
             while (true) {
-                val remainingElements: MutableSet<Element?> = HashSet<Element?>(elements)
+                val remainingElements: MutableSet<Element?> = HashSet(elements)
                 val curCounter = counter
                 childrenRecursiveVisitor(
                     (curParent as Element?)!!
