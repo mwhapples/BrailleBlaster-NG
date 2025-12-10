@@ -33,8 +33,6 @@ import org.eclipse.swt.events.SelectionEvent
 import org.eclipse.swt.graphics.Font
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.widgets.*
-import java.util.function.BiConsumer
-import java.util.function.Consumer
 import java.util.function.Function
 import java.util.function.Supplier
 
@@ -43,7 +41,7 @@ class AutoFillSpecialSymbols(
     /**
      * List of special symbols by volume
      */
-    val callback: Consumer<List<List<SpecialSymbols.Symbol>>>
+    val callback: (List<List<SpecialSymbols.Symbol>>) -> Unit
 ) {
     fun openDialog(parent: Shell, curVolume: Int) {
         val dialog = Shell(parent, SWT.APPLICATION_MODAL or SWT.DIALOG_TRIM)
@@ -183,14 +181,14 @@ class AutoFillSpecialSymbols(
     }
 
     private fun beginAutoFill(
-        onFind: BiConsumer<String, String>,
-        onMessage: Consumer<String>,
+        onFind: (String, String) -> Unit,
+        onMessage: (String) -> Unit,
         volume: Int
     ): List<List<SpecialSymbols.Symbol>> {
-        onMessage.accept("Loading local symbol definitions")
+        onMessage("Loading local symbol definitions")
         val symbols = SpecialSymbols.getSymbols()
 
-        onMessage.accept("Begin special symbol search")
+        onMessage("Begin special symbol search")
         val found = searchSymbols(onFind, onMessage, volume, symbols)
         for (symbolList in found) {
             symbolList.sortWith(SymbolComparator())
@@ -208,8 +206,8 @@ class AutoFillSpecialSymbols(
     }
 
     private fun searchSymbols(
-        onFind: BiConsumer<String, String>,
-        onMessage: Consumer<String>,
+        onFind: (String, String) -> Unit,
+        onMessage: (String) -> Unit,
         volume: Int,
         symbols: List<SpecialSymbols.Symbol>
     ): List<MutableList<SpecialSymbols.Symbol>> {
@@ -253,7 +251,7 @@ class AutoFillSpecialSymbols(
                                 iteration++
                                 continue
                             }
-                            onFind.accept(symbolPerm, StringUtils.abbreviate(brl, brl.indexOf(symbolPerm), 30))
+                            onFind(symbolPerm, StringUtils.abbreviate(brl, brl.indexOf(symbolPerm), 30))
                             foundSymbols.add(symbol)
                             iter.remove()
                             break@permLoop
@@ -267,7 +265,7 @@ class AutoFillSpecialSymbols(
         val onVolume = Supplier<List<SpecialSymbols.Symbol>> {
             vt.increaseVolume()
             volumes.add(ArrayList(foundSymbols))
-            if (vt.allVolumes) onMessage.accept("Finished volume " + volumes.size)
+            if (vt.allVolumes) onMessage("Finished volume " + volumes.size)
             foundSymbols.clear()
             localSymbols.clear()
             localSymbols.addAll(symbols)
@@ -281,7 +279,7 @@ class AutoFillSpecialSymbols(
             onVolume.get()
         }
 
-        onMessage.accept("Completed special symbol search")
+        onMessage("Completed special symbol search")
 
         return volumes
     }
@@ -309,7 +307,7 @@ class AutoFillSpecialSymbols(
     }
 
     private fun finish(dialog: Shell, data: List<List<SpecialSymbols.Symbol>>) {
-        callback.accept(data)
+        callback(data)
         dialog.close()
     }
 
