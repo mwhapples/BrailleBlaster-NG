@@ -17,9 +17,8 @@ package org.brailleblaster.perspectives.braille.ui.contractionRelaxer
 
 import org.brailleblaster.perspectives.braille.ui.contractionRelaxer.ContractionRelaxer.Unit
 
-class UnitList() {
+object UnitList {
 
-  companion object {
     //Note that this omits math contractions, which are handled completely differently than text substitutions.
     //Honestly I'm not sure how we'd do math subs at all...this has creeped far beyond what I thought it would take.
 
@@ -2012,7 +2011,5 @@ class UnitList() {
       Unit17Pretty,
       EmptyUnit
     )
-
-  }
 
 }

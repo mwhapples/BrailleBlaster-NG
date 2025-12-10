@@ -177,7 +177,7 @@ class ProseBuilder : MenuToolModule {
             message.open()
             return
         }
-        val pastedSpan = addLineElement(lineNumberText.text) as Element? ?: return
+        val pastedSpan = addLineElement(lineNumberText.text) as? Element ?: return
         try {
             checkForSpace(pastedSpan)
         } catch (_: Exception) {

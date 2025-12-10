@@ -36,7 +36,6 @@ import org.brailleblaster.perspectives.mvc.menu.MenuManager
 import org.brailleblaster.perspectives.mvc.menu.SharedItem
 import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.utils.localization.LocaleHandler
-import org.brailleblaster.utils.xml.BB_NS
 import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT
 import org.eclipse.swt.events.SelectionAdapter
