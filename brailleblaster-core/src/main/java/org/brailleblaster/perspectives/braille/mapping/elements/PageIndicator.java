@@ -210,16 +210,9 @@ public class PageIndicator implements PaintedElement {
     private Node searchForPreviousNode(Node startPoint, Predicate<Node> test) {
         Element curElement = (Element) startPoint.getParent();
         int startIndex = curElement.indexOf(startPoint) - 1;
-        for (int i = startIndex; i >= 0; i--) {
-            Node child = curElement.getChild(i);
-            if (test.test(child)) {
-                return child;
-            } else if (child instanceof Element) {
-                Node searchElement = searchDescendantsForNodeBackwards((Element) child, test);
-                if (searchElement != null) {
-                    return searchElement;
-                }
-            }
+        Node searchResult = searchDescendantsForNodeBackwards(curElement, startIndex, test);
+        if (searchResult != null) {
+            return searchResult;
         }
         ParentNode parent = curElement.getParent();
         if (parent == null || parent instanceof Document) {
@@ -229,7 +222,10 @@ public class PageIndicator implements PaintedElement {
     }
 
     private Node searchDescendantsForNodeBackwards(Element parent, Predicate<Node> test) {
-        for (int i = parent.getChildCount() - 1; i >= 0; i--) {
+        return searchDescendantsForNodeBackwards(parent, parent.getChildCount() -1, test);
+    }
+    private Node searchDescendantsForNodeBackwards(Element parent, int startIndex, Predicate<Node> test) {
+        for (int i = startIndex; i >= 0; i--) {
             Node child = parent.getChild(i);
             if (test.test(child)) {
                 return child;
@@ -246,16 +242,9 @@ public class PageIndicator implements PaintedElement {
     private Node searchForNode(Node startPoint, Predicate<Node> test) {
         Element curElement = (Element) startPoint.getParent();
         int startIndex = curElement.indexOf(startPoint) + 1;
-        for (int i = startIndex; i < curElement.getChildCount(); i++) {
-            Node child = curElement.getChild(i);
-            if (test.test(child)) {
-                return child;
-            } else if (child instanceof Element) {
-                Node searchElement = searchDescendantsForNode((Element) child, test);
-                if (searchElement != null) {
-                    return searchElement;
-                }
-            }
+        Node searchResult = searchDescendantsForNode(curElement, startIndex, test);
+        if (searchResult != null) {
+            return searchResult;
         }
         ParentNode parent = curElement.getParent();
         if (parent == null || parent instanceof Document)
@@ -264,7 +253,10 @@ public class PageIndicator implements PaintedElement {
     }
 
     private Node searchDescendantsForNode(Element parent, Predicate<Node> test) {
-        for (int i = 0; i < parent.getChildCount(); i++) {
+        return searchDescendantsForNode(parent, 0, test);
+    }
+    private Node searchDescendantsForNode(Element parent, int startIndex, Predicate<Node> test) {
+        for (int i = startIndex; i < parent.getChildCount(); i++) {
             Node child = parent.getChild(i);
             if (test.test(child)) {
                 return child;

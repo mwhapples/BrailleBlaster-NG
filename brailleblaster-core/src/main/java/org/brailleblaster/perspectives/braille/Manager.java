@@ -1127,16 +1127,9 @@ public class Manager extends Controller {
             throw new IllegalArgumentException("Node " + startPoint.toXML() + " has no parent");
         Element curElement = (Element) startPoint.getParent();
         int startIndex = curElement.indexOf(startPoint) - 1;
-        for (int i = startIndex; i >= 0; i--) {
-            Node child = curElement.getChild(i);
-            if (test.test(child)) {
-                return child;
-            } else if (child instanceof Element) {
-                Node searchElement = searchDescendantsForNodeBackwards((Element) child, test);
-                if (searchElement != null) {
-                    return searchElement;
-                }
-            }
+        Node searchResult = searchDescendantsForNodeBackwards(curElement, startIndex, test);
+        if (searchResult != null) {
+            return searchResult;
         }
         ParentNode parent = curElement.getParent();
         if (parent == null || parent instanceof Document) {
@@ -1166,7 +1159,10 @@ public class Manager extends Controller {
     }
 
     private Node searchDescendantsForNodeBackwards(Element parent, Predicate<Node> test) {
-        for (int i = parent.getChildCount() - 1; i >= 0; i--) {
+        return searchDescendantsForNodeBackwards(parent, parent.getChildCount() - 1, test);
+    }
+    private Node searchDescendantsForNodeBackwards(Element parent, int startIndex, Predicate<Node> test) {
+        for (int i = startIndex; i >= 0; i--) {
             Node child = parent.getChild(i);
             if (test.test(child)) {
                 return child;
