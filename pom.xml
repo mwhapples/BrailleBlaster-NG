@@ -44,7 +44,7 @@ child.project.url.inherit.append.path="false">
         <app.vendor-fsname>aph</app.vendor-fsname>
         <app.contact-email>cs@aph.org</app.contact-email>
         <app.rdns-name>org.aph.brailleblaster</app.rdns-name>
-        <revision>3.1.0</revision>
+        <revision>3.2.0</revision>
         <sha1/>
         <changelist>-SNAPSHOT</changelist>
         <versions.plugin.version>2.18.0</versions.plugin.version>
