@@ -39,6 +39,19 @@ import java.util.*
 import java.util.function.Predicate
 import javax.xml.parsers.ParserConfigurationException
 
+private val log: Logger = LoggerFactory.getLogger(XMLHandler::class.java)
+
+private fun checkSortedAndUniqueSplitPositions(splitPos: IntArray): Boolean {
+    var lastPos = 0
+    for (curSplitPos in splitPos) {
+        if (curSplitPos <= lastPos) {
+            return false
+        }
+        lastPos = curSplitPos
+    }
+    return true
+}
+
 /**
  * Handles processing of XML documents from and to the disk
  */
@@ -149,7 +162,6 @@ open class XMLHandler {
     }
 
     companion object {
-        private val log: Logger = LoggerFactory.getLogger(XMLHandler::class.java)
         private val FIELD_XPATHCONTEXT_NAMESPACES: Field
 
         init {
@@ -320,60 +332,6 @@ open class XMLHandler {
             context.addNamespace("m", "http://www.w3.org/1998/Math/MathML")
 
             return context
-        }
-
-        /**
-         * Split a text node at the given positions
-         */
-        fun splitTextNode(textNode: Text, vararg splitPos: Int): List<Text> {
-            log.trace("Input string '{}' split {}", textNode.value, splitPos.contentToString())
-            requireNotNull(textNode.parent) { "TextNode must have parent" }
-            require(splitPos.isNotEmpty()) { "Must specify Positions to split" }
-            if (!checkSortedAndUniqueSplitPositions(splitPos)) {
-                throw NodeException("Positions must be sorted and unique, positions=$splitPos", textNode)
-            }
-
-            val replacementNodes: MutableList<Text> = mutableListOf()
-
-            // do splitting
-            val text = textNode.value
-            var lastStart = 0
-            var insertIndex = textNode.parent.indexOf(textNode)
-            val splitPosItr: IntIterator = splitPos.iterator()
-            while (lastStart != text.length) {
-                var finished = false
-                val textPart: String?
-                if (splitPosItr.hasNext()) {
-                    val curSplitPos: Int = splitPosItr.next()
-                    textPart = text.substring(lastStart, curSplitPos)
-                    lastStart = curSplitPos
-                } else {
-                    textPart = text.substring(lastStart)
-                    finished = true
-                }
-
-                val replacementNode = Text(textPart)
-                textNode.parent.insertChild(replacementNode, insertIndex++)
-                replacementNodes.add(replacementNode)
-
-                if (finished) {
-                    break
-                }
-            }
-            textNode.detach()
-
-            return replacementNodes.toList()
-        }
-
-        private fun checkSortedAndUniqueSplitPositions(splitPos: IntArray): Boolean {
-            var lastPos = 0
-            for (curSplitPos in splitPos) {
-                if (curSplitPos <= lastPos) {
-                    return false
-                }
-                lastPos = curSplitPos
-            }
-            return true
         }
 
         /**
@@ -629,4 +587,44 @@ open class XMLHandler {
             return null
         }
     }
+}
+
+fun Text.splitNode(vararg splitPos: Int): List<Text> {
+    log.trace("Input string '{}' split {}", this.value, splitPos.contentToString())
+    requireNotNull(this.parent) { "TextNode must have parent" }
+    require(splitPos.isNotEmpty()) { "Must specify Positions to split" }
+    if (!checkSortedAndUniqueSplitPositions(splitPos)) {
+        throw NodeException("Positions must be sorted and unique, positions=$splitPos", this)
+    }
+
+    val replacementNodes: MutableList<Text> = mutableListOf()
+
+    // do splitting
+    val text = this.value
+    var lastStart = 0
+    var insertIndex = this.parent.indexOf(this)
+    val splitPosItr: IntIterator = splitPos.iterator()
+    while (lastStart != text.length) {
+        var finished = false
+        val textPart: String?
+        if (splitPosItr.hasNext()) {
+            val curSplitPos: Int = splitPosItr.next()
+            textPart = text.substring(lastStart, curSplitPos)
+            lastStart = curSplitPos
+        } else {
+            textPart = text.substring(lastStart)
+            finished = true
+        }
+
+        val replacementNode = Text(textPart)
+        this.parent.insertChild(replacementNode, insertIndex++)
+        replacementNodes.add(replacementNode)
+
+        if (finished) {
+            break
+        }
+    }
+    detach()
+
+    return replacementNodes.toList()
 }

@@ -31,7 +31,7 @@ import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.utd.Style
 import org.brailleblaster.utd.internal.xml.FastXPath
-import org.brailleblaster.utd.internal.xml.XMLHandler
+import org.brailleblaster.utd.internal.xml.splitNode
 import org.brailleblaster.util.Utils
 
 object LineBreakTool : MenuToolModule {
@@ -135,8 +135,7 @@ object LineBreakTool : MenuToolModule {
                         }
                     } else {
                         val splitTextNode =
-                            XMLHandler.splitTextNode(
-                                currentNode,
+                            currentNode.splitNode(
                                 offset
                             )
                         if (splitTextNode.size < 2) {
