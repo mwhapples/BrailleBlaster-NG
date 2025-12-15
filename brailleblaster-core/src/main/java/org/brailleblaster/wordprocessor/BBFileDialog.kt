@@ -42,8 +42,8 @@ class BBFileDialog @JvmOverloads constructor(
             w.fileName = suggestedFileName
         }
         w.filterPath = filterPath
-        w.filterNames = filterNames
-        w.filterExtensions = filterExtensions
+        w.setFilterNames(*filterNames)
+        w.setFilterExtensions(*filterExtensions)
         w.overwrite = true
         w.filterPath = filterPath
     }
