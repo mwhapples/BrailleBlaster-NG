@@ -61,6 +61,7 @@ import org.brailleblaster.exceptions.BBNotifyException
 import org.brailleblaster.perspectives.mvc.menu.MenuManager
 import org.brailleblaster.tools.CheckMenuTool
 import org.brailleblaster.tools.MenuToolModule
+import org.brailleblaster.utd.internal.xml.splitNode
 import org.brailleblaster.util.Notify.notify
 import org.brailleblaster.utils.swt.ButtonBuilder
 import org.brailleblaster.utils.swt.EasySWT
@@ -580,15 +581,13 @@ class TOCBuilderBBX(private var manager: Manager) : CheckMenuTool, MenuToolModul
                 val textNodeToWrap: nu.xom.Text
                 if (selectionStart.offset == 0) {
                     val splitTextNodes: List<nu.xom.Text> =
-                        XMLHandler.splitTextNode(
-                            textNode,
+                        textNode.splitNode(
                             selectionEnd.offset
                         )
                     textNodeToWrap = splitTextNodes[0]
                 } else {
                     val splitTextNodes: List<nu.xom.Text> =
-                        XMLHandler.splitTextNode(
-                            textNode,
+                        textNode.splitNode(
                             selectionStart.offset,
                             selectionEnd.offset
                         )

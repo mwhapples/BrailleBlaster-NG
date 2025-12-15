@@ -28,6 +28,7 @@ import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
 import org.brailleblaster.perspectives.mvc.menu.SharedItem
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.utd.internal.xml.XMLHandler
+import org.brailleblaster.utd.internal.xml.splitNode
 import org.brailleblaster.utils.xml.BB_NS
 import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
@@ -225,15 +226,15 @@ class InsertLinkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.NONE)
       val nodeToWrap =
         if (start > 0 && end != -1 && end != nodeLength) {
           //get middle and wrap (two middle points)
-          val splitTextNode = XMLHandler.splitTextNode(currentNode, start, end)
+          val splitTextNode = currentNode.splitNode(start, end)
           splitTextNode[1]
         } else if (start > 0) {
           //get last and wrap (middle to very end of node)
-          val splitTextNode = XMLHandler.splitTextNode(currentNode, start)
+          val splitTextNode = currentNode.splitNode(start)
           splitTextNode[1]
         } else if (end != -1 && end != nodeLength) {
           //get beginning and wrap (start to middle)
-          val splitTextNode = XMLHandler.splitTextNode(currentNode, end)
+          val splitTextNode = currentNode.splitNode(end)
           splitTextNode[0]
         } else {
           //wrap all (start to very end)
