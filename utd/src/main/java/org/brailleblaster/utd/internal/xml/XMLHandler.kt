@@ -204,19 +204,6 @@ open class XMLHandler {
         }
 
         /**
-         * Avoids potentially expensive deep copies
-         */
-        fun shallowCopy(elem: Element): Element {
-            try {
-                val method = Element::class.java.getDeclaredMethod("copyTag", Element::class.java)
-                method.setAccessible(true)
-                return method.invoke(null, elem) as Element
-            } catch (e: Exception) {
-                throw UTDException("Failed to invoke writeStartTag method", e)
-            }
-        }
-
-        /**
          * Utility to query using [.toXPathContext] and with slf4j string arguments
          */
         @JvmStatic
@@ -586,6 +573,16 @@ open class XMLHandler {
             }
             return null
         }
+    }
+}
+
+fun Element.shallowcopy(): Element {
+    try {
+        val method = Element::class.java.getDeclaredMethod("copyTag", Element::class.java)
+        method.setAccessible(true)
+        return method.invoke(null, this) as Element
+    } catch (e: Exception) {
+        throw UTDException("Failed to invoke writeStartTag method", e)
     }
 }
 
