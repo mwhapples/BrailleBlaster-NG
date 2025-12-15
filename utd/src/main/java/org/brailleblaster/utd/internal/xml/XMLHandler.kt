@@ -329,12 +329,8 @@ open class XMLHandler {
             log.trace("Input string '{}' split {}", textNode.value, splitPos.contentToString())
             requireNotNull(textNode.parent) { "TextNode must have parent" }
             require(splitPos.isNotEmpty()) { "Must specify Positions to split" }
-            var lastPos = -2
-            for (curSplitPos in splitPos) {
-                if (curSplitPos in 1..lastPos) {
-                    throw NodeException("Positions must sorted and uniq", textNode)
-                }
-                lastPos = curSplitPos
+            if (!checkSortedAndUniqueSplitPositions(splitPos)) {
+                throw NodeException("Positions must be sorted and unique, positions=$splitPos", textNode)
             }
 
             val replacementNodes: MutableList<Text> = mutableListOf()
@@ -367,6 +363,17 @@ open class XMLHandler {
             textNode.detach()
 
             return replacementNodes.toList()
+        }
+
+        private fun checkSortedAndUniqueSplitPositions(splitPos: IntArray): Boolean {
+            var lastPos = 0
+            for (curSplitPos in splitPos) {
+                if (curSplitPos <= lastPos) {
+                    return false
+                }
+                lastPos = curSplitPos
+            }
+            return true
         }
 
         /**
