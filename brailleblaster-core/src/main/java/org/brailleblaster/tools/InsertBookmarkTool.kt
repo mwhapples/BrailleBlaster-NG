@@ -1,13 +1,10 @@
 package org.brailleblaster.tools
 
 import nu.xom.Element
-import nu.xom.Text
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.perspectives.braille.Manager
-import org.brailleblaster.perspectives.braille.mapping.elements.TextMapElement
 import org.brailleblaster.perspectives.braille.messages.Sender
 import org.brailleblaster.perspectives.mvc.XMLNodeCaret
-import org.brailleblaster.perspectives.mvc.XMLTextCaret
 import org.brailleblaster.perspectives.mvc.events.ModifyEvent
 import org.brailleblaster.perspectives.mvc.events.XMLCaretEvent
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData

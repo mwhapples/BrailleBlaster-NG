@@ -210,7 +210,7 @@ class BreadcrumbsToolbar(private val manager: Manager) : SimpleListener {
     }
 
     private fun getStyleLong(block: Element): String {
-        val style = manager.document.settingsManager.engine.getStyle(block) as Style?
+        val style = manager.document.settingsManager.engine.getStyle(block) as? Style
             ?: //EG PageNum Blocks
             return ""
         //throw new NodeException("Block with no style/", ancestorBlock);
