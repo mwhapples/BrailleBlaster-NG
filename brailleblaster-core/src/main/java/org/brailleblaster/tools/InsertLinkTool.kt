@@ -28,6 +28,7 @@ import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
 import org.brailleblaster.perspectives.mvc.menu.SharedItem
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.utd.internal.xml.XMLHandler
+import org.brailleblaster.utd.internal.xml.splitNode
 import org.brailleblaster.utils.xml.BB_NS
 import org.brailleblaster.utils.swt.EasySWT
 import org.eclipse.swt.SWT
@@ -50,8 +51,6 @@ class InsertLinkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.NONE)
   override val title: String = localeHandler["InsertLink"]
   override val accelerator: Int = SWT.MOD1 or 'K'.code
   override val sharedItem: SharedItem = SharedItem.INSERT_LINK
-  //Figure out a way to disable if no selection; need to call from manager
-  // but the usual call will crash on load due to nullability.
 
   private val logger = LoggerFactory.getLogger(TextView::class.java)
 
@@ -227,15 +226,15 @@ class InsertLinkTool(parent: Manager) : Dialog(parent.wpManager.shell, SWT.NONE)
       val nodeToWrap =
         if (start > 0 && end != -1 && end != nodeLength) {
           //get middle and wrap (two middle points)
-          val splitTextNode = XMLHandler.splitTextNode(currentNode, start, end)
+          val splitTextNode = currentNode.splitNode(start, end)
           splitTextNode[1]
         } else if (start > 0) {
           //get last and wrap (middle to very end of node)
-          val splitTextNode = XMLHandler.splitTextNode(currentNode, start)
+          val splitTextNode = currentNode.splitNode(start)
           splitTextNode[1]
         } else if (end != -1 && end != nodeLength) {
           //get beginning and wrap (start to middle)
-          val splitTextNode = XMLHandler.splitTextNode(currentNode, end)
+          val splitTextNode = currentNode.splitNode(end)
           splitTextNode[0]
         } else {
           //wrap all (start to very end)

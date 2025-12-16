@@ -608,7 +608,7 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolModul
         private fun cancelPageChange() {
             val head = UTDHelper.getDocumentHead(manager!!.doc)
             if (head != null) {
-                for (i in 0 until metaCounter) {
+                repeat(metaCounter) {
                     head.removeChild(head.childCount - 1)
                 }
                 refreshDocumentAndClose()
