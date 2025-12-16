@@ -158,8 +158,10 @@ object ImageCreator {
     ): Browser {
         // checkInternet();
         return Browser(rightPanel, SWT.NONE).apply {
-            data = GridData(SWT.FILL, SWT.FILL, true, true)
-            setSize(imageWidth, imageHeight)
+            layoutData = GridData(SWT.FILL, SWT.FILL, true, true).apply {
+                widthHint = imageWidth
+                heightHint = imageHeight
+            }
             javascriptEnabled = true
             text = HTML_HEAD + if (mmlString.isEmpty()) {
                 HTML_PLACEHOLDER
