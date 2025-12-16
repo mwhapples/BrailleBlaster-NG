@@ -144,23 +144,22 @@ class ImagePlaceholder(parent: Shell?, manager: Manager, private val callback: C
     }
 
     private fun retrieveImagePath() {
-        if (!BBIni.debugging) {
-            // Use the image placeholder dialog as parent so focus returns correctly, RT#8361
-            val dialog = FileDialog(shell, SWT.OPEN)
-            var filterPath: String? = "/"
-            val updates = BBIni.propertyFileManager.getProperty("lastFileLocation")
-            if (updates != null) {
-                filterPath = updates
-            }
-            if (OS.Windows == os) {
-                filterPath = System.getProperty("user.home", "c:\\")
-            }
-            dialog.filterPath = filterPath
-            val imagePath = dialog.open()
-            if (imagePath != null) {
-                path.text += imagePath
-                this.imagePath = imagePath
-            }
+        // Use the image placeholder dialog as parent so focus returns correctly, RT#8361
+        val dialog = FileDialog(shell, SWT.OPEN)
+        dialog.setFilterExtensions("*.jpg;*.jpeg;*.pdf;*.png;*.svg")
+        var filterPath: String? = "/"
+        val updates = BBIni.propertyFileManager.getProperty("lastFileLocation")
+        if (updates != null) {
+            filterPath = updates
+        }
+        if (OS.Windows == os) {
+            filterPath = System.getProperty("user.home", "c:\\")
+        }
+        dialog.filterPath = filterPath
+        val imagePath = dialog.open()
+        if (imagePath != null) {
+            path.text += imagePath
+            this.imagePath = imagePath
         }
     }
 }
