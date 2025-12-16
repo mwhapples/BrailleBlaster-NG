@@ -160,13 +160,12 @@ object ImageCreator {
         browser.data = GridData(SWT.FILL, SWT.FILL, true, true)
         browser.setSize(imageWidth, imageHeight)
         browser.javascriptEnabled = true
-        if (mmlString.isEmpty()) {
-            browser.text = HTML_HEAD + HTML_PLACEHOLDER + HTML_TAIL
+        browser.text = HTML_HEAD + if (mmlString.isEmpty()) {
+            HTML_PLACEHOLDER
         } else {
             val math = translateUseHTML(mmlString)
-            val str = getHTMLString(math)
-            browser.text = HTML_HEAD + str + HTML_TAIL
-        }
+            getHTMLString(math)
+        } + HTML_TAIL
         return browser
     }
 
