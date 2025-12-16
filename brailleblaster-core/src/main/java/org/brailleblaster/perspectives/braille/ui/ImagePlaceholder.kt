@@ -144,7 +144,6 @@ class ImagePlaceholder(parent: Shell?, manager: Manager, private val callback: C
     }
 
     private fun retrieveImagePath() {
-        // Use the image placeholder dialog as parent so focus returns correctly, RT#8361
         val dialog = FileDialog(shell, SWT.OPEN)
         dialog.setFilterExtensions("*.jpg;*.jpeg;*.pdf;*.png;*.svg")
         var filterPath: String? = "/"
