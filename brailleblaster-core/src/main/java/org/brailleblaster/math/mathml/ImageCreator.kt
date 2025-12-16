@@ -157,7 +157,7 @@ object ImageCreator {
     ): Browser {
         // checkInternet();
         val browser = Browser(rightPanel, SWT.NONE)
-        browser.data = GridData(4, 4, true, true)
+        browser.data = GridData(SWT.FILL, SWT.FILL, true, true)
         browser.setSize(imageWidth, imageHeight)
         browser.javascriptEnabled = true
         if (mmlString.isEmpty()) {
