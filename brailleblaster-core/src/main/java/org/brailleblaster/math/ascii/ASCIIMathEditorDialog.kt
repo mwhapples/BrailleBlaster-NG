@@ -404,9 +404,10 @@ class ASCIIMathEditorDialog(m: Manager) {
     outer.setMinSize(panelWidth, panelHeight)
     outer.expandHorizontal = true
     outer.expandVertical = true
-    textBox = StyledText(outer, SWT.BORDER or SWT.V_SCROLL or SWT.H_SCROLL)
-    textBox!!.data = GridData(4, 4, true, true)
-    textBox!!.setSize(panelWidth, panelHeight)
+    textBox = StyledText(outer, SWT.BORDER or SWT.V_SCROLL or SWT.H_SCROLL).apply {
+        data = GridData(4, 4, true, true)
+        setSize(panelWidth, panelHeight)
+    }
     outer.content = textBox
     val fontdata = textBox!!.font.fontData
     fontdata[0].setHeight(fontScale * 2)
