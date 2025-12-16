@@ -196,7 +196,6 @@ class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
                         }
                         else {
                           //Find block with matching linkID and move the navigation pane to it.
-                          //Don't like using xpath so much, but it's simple and not that slow for occasional use.
                           val xpath = """//*[@*[local-name() = 'linkID']]"""
                           val internalLinkNodes = manager.simpleManager.doc.query(xpath).toList()
                           //println("Found ${internalLinkNodes.size} bookmarks in doc")
