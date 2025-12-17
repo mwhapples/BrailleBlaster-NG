@@ -55,7 +55,7 @@ class CoreModulesFactory : ModuleFactory {
         add(FontSizeModule)
         add(PageNumberDialog(manager.wpManager.shell))
         add(SearchDialog(manager.wpManager.shell, 0))
-        add(SpellCheckTool)
+        // add(SpellCheckTool)
         addAll(NavigateModule.tools)
         add(CorrectTranslationDialog(manager.wpManager.shell, SWT.APPLICATION_MODAL))
         add(SixKeyModeModule(manager))
