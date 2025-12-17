@@ -15,7 +15,6 @@
  */
 package org.brailleblaster.perspectives.braille
 
-import org.brailleblaster.perspectives.braille.spellcheck.SpellCheckTool
 import org.brailleblaster.perspectives.braille.ui.CellTabTool
 import org.brailleblaster.perspectives.braille.ui.CorrectTranslationDialog
 import org.brailleblaster.perspectives.braille.ui.contractionRelaxer.ContractionRelaxer
@@ -55,7 +54,6 @@ class CoreModulesFactory : ModuleFactory {
         add(FontSizeModule)
         add(PageNumberDialog(manager.wpManager.shell))
         add(SearchDialog(manager.wpManager.shell, 0))
-        add(SpellCheckTool)
         addAll(NavigateModule.tools)
         add(CorrectTranslationDialog(manager.wpManager.shell, SWT.APPLICATION_MODAL))
         add(SixKeyModeModule(manager))
