@@ -86,8 +86,6 @@ child.project.url.inherit.append.path="false">
         <mavensurefireplugin.version>3.0.0-M6</mavensurefireplugin.version>
         <mavencompilerplugin.version>3.14.0</mavencompilerplugin.version>
         <downloadmavenplugin.version>2.0.0</downloadmavenplugin.version>
-        <guava.version>33.5.0-jre</guava.version>
-        <jcommander.version>3.0</jcommander.version>
         <mockitocore.version>5.6.0</mockitocore.version>
         <mavenenforcerplugin.version>3.0.0-M3</mavenenforcerplugin.version>
         <orgeclipseswtbotswtfinder.version>f5b2edaee2</orgeclipseswtbotswtfinder.version>
@@ -377,7 +375,7 @@ child.project.url.inherit.append.path="false">
             <dependency>
                 <groupId>org.jcommander</groupId>
                 <artifactId>jcommander</artifactId>
-                <version>${jcommander.version}</version>
+                <version>3.0</version>
             </dependency>
             <dependency>
                 <groupId>xml-apis</groupId>
@@ -398,7 +396,7 @@ child.project.url.inherit.append.path="false">
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>${guava.version}</version>
+                <version>33.5.0-jre</version>
             </dependency>
             <dependency>
                 <groupId>commons-logging</groupId>
