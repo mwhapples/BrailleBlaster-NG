@@ -169,33 +169,7 @@ child.project.url.inherit.append.path="false">
         <!-- embosser support -->
         <dependency>
             <groupId>com.github.aphtech.libembosser</groupId>
-            <artifactId>libembosser-api</artifactId>
-            <version>${libembosser.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.aphtech.libembosser</groupId>
-            <artifactId>libembosser-aph-driver</artifactId>
-            <version>${libembosser.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.aphtech.libembosser</groupId>
-            <artifactId>libembosser-core-drivers</artifactId>
-            <version>${libembosser.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.aphtech.libembosser</groupId>
-            <artifactId>libembosser-braillo-driver</artifactId>
-            <version>${libembosser.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.aphtech.libembosser</groupId>
-            <artifactId>libembosser-viewplus-driver</artifactId>
-            <version>${libembosser.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.aphtech.libembosser</groupId>
             <artifactId>libembosser-utils</artifactId>
-            <version>${libembosser.version}</version>
         </dependency>
 
         <!-- Unit Tests -->
@@ -243,6 +217,37 @@ child.project.url.inherit.append.path="false">
 
     <dependencyManagement>
         <dependencies>
+            <!-- embosser support -->
+            <dependency>
+                <groupId>com.github.aphtech.libembosser</groupId>
+                <artifactId>libembosser-api</artifactId>
+                <version>${libembosser.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.aphtech.libembosser</groupId>
+                <artifactId>libembosser-aph-driver</artifactId>
+                <version>${libembosser.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.aphtech.libembosser</groupId>
+                <artifactId>libembosser-core-drivers</artifactId>
+                <version>${libembosser.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.aphtech.libembosser</groupId>
+                <artifactId>libembosser-braillo-driver</artifactId>
+                <version>${libembosser.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.aphtech.libembosser</groupId>
+                <artifactId>libembosser-viewplus-driver</artifactId>
+                <version>${libembosser.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.aphtech.libembosser</groupId>
+                <artifactId>libembosser-utils</artifactId>
+                <version>${libembosser.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.eclipse.platform</groupId>
                 <artifactId>org.eclipse.swt</artifactId>

@@ -30,6 +30,10 @@
     
     <dependencies>
         <dependency>
+            <groupId>com.github.aphtech.libembosser</groupId>
+            <artifactId>libembosser-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.jetbrains.kotlinx</groupId>
             <artifactId>kotlinx-serialization-json</artifactId>
         </dependency>
