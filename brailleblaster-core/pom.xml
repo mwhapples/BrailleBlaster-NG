@@ -44,14 +44,12 @@
         <dependency>
             <groupId>com.github.jtidy</groupId>
             <artifactId>jtidy</artifactId>
-            <version>1.0.5</version>
         </dependency>
 
         <!-- Used for JSON serialisation in spatial math -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>${gson.version}</version>
         </dependency>
         <!-- Localisation -->
         <dependency>
