@@ -34,11 +34,13 @@ import org.brailleblaster.perspectives.mvc.events.ModifyEvent
 import org.brailleblaster.perspectives.mvc.events.XMLCaretEvent
 import org.brailleblaster.utd.actions.GenericBlockAction
 import org.brailleblaster.utd.properties.Align
+import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.LINE_BREAK
 import org.brailleblaster.utils.swt.AccessibilityUtils.setName
 import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.utils.xml.BB_NS
+import org.brailleblaster.utils.xml.UTD_NS
 import org.eclipse.swt.SWT
 import org.eclipse.swt.accessibility.AccessibleAdapter
 import org.eclipse.swt.accessibility.AccessibleEvent
@@ -219,6 +221,18 @@ class TextView(manager: Manager, sash: Composite) : WPView(manager, sash) {
                     catch (e: Exception){
                       //println("Error opening link: " + e.message)
                     }
+                  }
+                  else if (BBX.BLOCK.IMAGE_PLACEHOLDER.isA(current.nodeParent)){
+                      //Open the image via the system default
+                      val src = current.nodeParent.getAttributeValue("src", UTD_NS)
+                      try {
+                          if (!src.isNullOrEmpty()) {
+                              println("Opening image placeholder with src: $src")
+                              Desktop.getDesktop().open(java.io.File(src))
+                          }
+                      } catch (ex: Exception) {
+                          logger.warn("Error opening image placeholder: " + ex.message)
+                      }
                   }
                   else{
                     //Do nothing
