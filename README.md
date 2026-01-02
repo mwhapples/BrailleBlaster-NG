@@ -6,7 +6,7 @@ BrailleBlaster is a free, open-source Braille transcription program developed by
 
 ## Obtaining BrailleBlaster-NG
 
-The latest release of BrailleBlaster-NG can be downloaded from the [download page](https://download.brailleblaster-ng.app/download.html). Older releases are archived on the project's [GitHub Releases page](https://github.com/mwhapples/BrailleBlaster-NG/releases).
+The latest release of BrailleBlaster-NG can be downloaded from the [download page](https://download.brailleblaster-ng.app/download.html). Alternatively Windows users can get BrailleBlaster-NG from the [Windows Store](https://apps.microsoft.com/detail/9P3KHJWK7730). Older releases are archived on the project's [GitHub Releases page](https://github.com/mwhapples/BrailleBlaster-NG/releases).
 
 Users who want to be on the bleeding edge and are prepared to take the risks of using development builds may wish to try out the [continuous release](https://github.com/mwhapples/brailleblaster-ng/releases/continuous). See the below details for running a development build.
 
