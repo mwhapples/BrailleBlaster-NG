@@ -34,17 +34,13 @@ class ImagePlaceholderHandler(manager: Manager?, vi: ViewInitializer?, list: Map
         var atEnd = false
         val posList: List<Int>
 
-        if (lines == null || imagePath == null) return
-        //Alt text is optional when inserting a new placeholder
+        if (lines == null || imagePath == null || altText.isNullOrEmpty()) return
 
         if (list.current is WhiteSpaceElement) {
             val newPlaceholder = BBX.BLOCK.IMAGE_PLACEHOLDER.create()
             newPlaceholder.addAttribute(BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_SKIP_LINES.newAttribute(lines))
             newPlaceholder.addAttribute(BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_IMG_PATH.newAttribute(imagePath))
-            if (altText != null)
-                newPlaceholder.addAttribute(BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_ALT_TEXT.newAttribute(altText))
-            else
-                newPlaceholder.addAttribute(BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_ALT_TEXT.newAttribute(""))
+            newPlaceholder.addAttribute(BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_ALT_TEXT.newAttribute(altText))
 
             val wt = WhitespaceTransformer(manager)
             wt.transformWhiteSpace(list.current as WhiteSpaceElement, newPlaceholder)
@@ -67,10 +63,7 @@ class ImagePlaceholderHandler(manager: Manager?, vi: ViewInitializer?, list: Map
             val attrs = LinkedList<Attribute>()
             attrs.add(BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_SKIP_LINES.newAttribute(lines))
             attrs.add(BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_IMG_PATH.newAttribute(imagePath))
-            if (altText != null)
-                attrs.add(BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_ALT_TEXT.newAttribute(altText))
-            else
-                attrs.add(BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_ALT_TEXT.newAttribute(""))
+            attrs.add(BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_ALT_TEXT.newAttribute(altText))
 
             val m = InsertNodeMessage(atStart, atEnd, BBX.BLOCK.IMAGE_PLACEHOLDER, null, attrs)
             val ieh = InsertElementHandler(manager, vi, list)

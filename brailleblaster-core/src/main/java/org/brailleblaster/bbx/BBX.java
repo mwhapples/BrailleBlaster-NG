@@ -965,6 +965,8 @@ public class BBX {
                     NamespacesKt.UTD_NS);
             public final StringAttribute ATTRIB_ALT_TEXT = new StringAttribute("alt", UTDElements.UTD_PREFIX,
                     NamespacesKt.UTD_NS);
+            public final StringAttribute ATTRIB_DESCRIPTION = new StringAttribute("description", UTDElements.UTD_PREFIX,
+                    NamespacesKt.UTD_NS);
 
             private ImagePlaceholderType(BlockElement coreType, String name) {
                 super(coreType, name);
