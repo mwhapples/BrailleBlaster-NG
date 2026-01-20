@@ -233,7 +233,7 @@ open class Initializer {
                     setBraillePosition(b, brlChild)
                     t.brailleList.add(b)
                 } else if (UTDElements.BRLONLY.isA(brlChild)) {
-                    if (!inTable && isGuideDots(brlChild as Element)) {
+                    if (!inTable && isGuideDots(brlChild)) {
                         //If the guide dots occur at the beginning of an element,
                         //initializeGuideDots will take care of it. Otherwise,
                         //treat it as normal
@@ -242,7 +242,7 @@ open class Initializer {
                         }
                     }
 
-                    if (isUncontractedWord(brlChild as Element)) {
+                    if (isUncontractedWord(brlChild)) {
                         val newTME = initializeUncontractedWord(m, t, brlChild)
                         if (newTME != null) {
                             t = newTME
