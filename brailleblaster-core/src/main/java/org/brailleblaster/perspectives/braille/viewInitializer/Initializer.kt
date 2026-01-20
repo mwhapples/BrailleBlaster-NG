@@ -499,23 +499,9 @@ open class Initializer {
         return length == 0 && index < e.childCount - 1 && UTDElements.BRL.isA(e.getChild(index + 1))
     }
 
-    protected fun utdStyleEquals(e: Element, value: String): Boolean {
-        val key = "utd-style"
-        return attributeEquals(e, key, value)
-    }
-
-    protected fun utdActionEquals(e: Element, value: String): Boolean {
-        val key = "utd-action"
-        return attributeEquals(e, key, value)
-    }
-
     private fun attributeEquals(e: Element, key: String, value: String): Boolean {
         val atr = e.getAttribute(key)
-        if (atr != null) {
-            return atr.value == value
-        }
-
-        return false
+        return atr?.value == value
     }
 
     /**
