@@ -20,7 +20,6 @@ import nu.xom.Node
 import nu.xom.Text
 import org.brailleblaster.abstractClasses.ViewUtils.followsMoveTo
 import org.brailleblaster.abstractClasses.ViewUtils.followsNewPage
-import org.brailleblaster.abstractClasses.ViewUtils.isElement
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.bbx.findBlockOrNull
 import org.brailleblaster.bbx.isPageNum
@@ -224,7 +223,7 @@ open class Initializer {
                 val b = BrailleMapElement(brlChild)
                 setBraillePosition(b, brlChild)
                 t.brailleList.add(b)
-            } else if (isElement(brlChild)) {
+            } else if ((brlChild is Element)) {
                 if (UTDElements.PRINT_PAGE_NUM.isA(brlChild)) {
                     val p = PrintPageBrlMapElement(brlChild)
                     setBraillePosition(p, brlChild)
