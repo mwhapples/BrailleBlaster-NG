@@ -25,8 +25,8 @@ class PostViewUpdateModule : SimpleListener {
     private val onXMLCaretEvent: MutableList<Procedure> = ArrayList()
 
     override fun onEvent(event: SimpleEvent) {
-        if (event is ModifyEvent && onModifyEvent != null) {
-            onModifyEvent!!.execute()
+        if (event is ModifyEvent) {
+            onModifyEvent?.execute()
             onModifyEvent = null
         } else if (event is XMLCaretEvent) {
             for (procedure in onXMLCaretEvent) {
