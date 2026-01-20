@@ -140,10 +140,6 @@ object Utils {
     }
 
 
-    fun httpGet(requestURL: String, firstLineOnly: Boolean): String {
-        return httpRun(requestURL, firstLineOnly) { }
-    }
-
     /**
      * Warning: URL must not redirect, POST parameters will be lost
      */
