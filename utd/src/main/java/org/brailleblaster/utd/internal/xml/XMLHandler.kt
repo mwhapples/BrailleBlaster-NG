@@ -17,7 +17,6 @@ package org.brailleblaster.utd.internal.xml
 
 import nu.xom.*
 import org.apache.commons.io.input.BOMInputStream
-import org.apache.commons.lang3.StringUtils
 import org.brailleblaster.utd.exceptions.NodeException
 import org.brailleblaster.utd.exceptions.UTDException
 import org.brailleblaster.utd.properties.UTDElements
@@ -35,7 +34,6 @@ import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.Path
-import java.util.*
 import java.util.function.Predicate
 import javax.xml.parsers.ParserConfigurationException
 
@@ -298,7 +296,7 @@ open class XMLHandler {
 
             // Reassign default namespace to book
             val bookNS = element.namespaceURI
-            if (StringUtils.isNotBlank(bookNS)) {
+            if (bookNS.isNotBlank()) {
                 context.addNamespace("book", bookNS)
             } else {
                 // Doc doesn't have a namespace, but its needed for queries using book: NS prefix

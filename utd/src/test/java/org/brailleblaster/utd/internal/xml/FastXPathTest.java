@@ -23,7 +23,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
@@ -83,7 +82,7 @@ public class FastXPathTest {
 			}
 
 			for (Node curNode : testNodes) {
-				log.debug("attached " + (curNode.getParent() != null) + " curNode " + curNode);
+                log.debug("attached {} curNode {}", curNode.getParent() != null, curNode);
 				List<Node> fastResult = Lists.newArrayList(FastXPath.following(curNode)::iterator);
 				List<Node> xomResult = Lists.newArrayList(XMLHandler.query(curNode, "following::node()"));
 				assertListEquals(fastResult, xomResult);
@@ -99,9 +98,6 @@ public class FastXPathTest {
 		Element p = (Element) doc.getRootElement().getChild(1);
 		Assert.assertEquals(p.getLocalName(), "p");
 		Text text = (Text) p.getChild(0);
-		
-		StreamSupport.stream(((Iterable<Element>)FastXPath.ancestor(text)::iterator).spliterator(), false)
-				.filter(something -> something.getAttributeCount() == 1);
 
 		Iterator<? extends Element> iterator = FastXPath.ancestor(text).iterator();
 		Assert.assertEquals(iterator.next(), p);
