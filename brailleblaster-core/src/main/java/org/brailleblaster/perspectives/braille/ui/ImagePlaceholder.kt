@@ -19,7 +19,10 @@ import nu.xom.Element
 import org.brailleblaster.BBIni
 import org.brailleblaster.perspectives.braille.mapping.elements.ImagePlaceholderTextMapElement
 import org.brailleblaster.perspectives.braille.mapping.interfaces.Uneditable
+import org.brailleblaster.perspectives.braille.messages.Sender
 import org.brailleblaster.perspectives.braille.stylers.ImagePlaceholderHandler
+import org.brailleblaster.perspectives.mvc.XMLNodeCaret
+import org.brailleblaster.perspectives.mvc.events.XMLCaretEvent
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
 import org.brailleblaster.utils.OS
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
@@ -36,10 +39,10 @@ import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.widgets.*
 import kotlin.math.floor
 
-class ImagePlaceholder(bbdata: BBSelectionData) {
-    val parent = bbdata.manager.wpManager.shell
+class ImagePlaceholder(bbData: BBSelectionData) {
+    val parent = bbData.manager.wpManager.shell
     var shell: Shell
-    val manager = bbdata.manager
+    val manager = bbData.manager
     var linesText: Text
     var cancelButton: Button
     var submitButton: Button
@@ -82,6 +85,12 @@ class ImagePlaceholder(bbdata: BBSelectionData) {
         getImageList().forEach {
             imageList.add(it)
         }
+        val gdList = GridData()
+        gdList.widthHint = 100
+        gdList.heightHint = 90
+        gdList.grabExcessVerticalSpace = true
+        gdList.grabExcessHorizontalSpace = true
+        imageList.layoutData = gdList
 
         val layout = GridLayout(2, false)
         shell.layout = layout
@@ -116,7 +125,7 @@ class ImagePlaceholder(bbdata: BBSelectionData) {
         altTextText = Text(shell, SWT.MULTI or SWT.BORDER or SWT.V_SCROLL or SWT.WRAP)
         altTextText.layoutData = gd2
         if (isImage){
-            altTextText.text = manager.mapList.current.nodeParent.getAttributeValue("altText", UTD_NS) ?: ""
+            altTextText.text = manager.mapList.current.nodeParent.getAttributeValue("alt", UTD_NS) ?: ""
         }
 
         submitButton = Button(shell, SWT.PUSH)
@@ -129,17 +138,29 @@ class ImagePlaceholder(bbdata: BBSelectionData) {
 
         cancelButton = Button(shell, SWT.PUSH)
         cancelButton.text = "Cancel"
-        addListeners()
+        addListeners(bbData)
         shell.pack()
         shell.open()
     }
 
-    private fun addListeners() {
+    private fun addListeners(bbData: BBSelectionData) {
         shell.addListener(SWT.Close, Listener {
             //imagePath = null
             //lines = null
             //println("Closing image placeholder dialog")
         }.also { closeListener = it })
+
+        imageList.addListener(SWT.MouseDoubleClick){
+            val index = imageList.selectionIndex
+            if (index != -1 && index < imageNodes.size) {
+                val selectedNode = imageNodes[index]
+                bbData.manager.simpleManager.dispatchEvent(XMLCaretEvent(Sender.GO_TO_PAGE, XMLNodeCaret(selectedNode)))
+                shell.forceFocus()
+                refreshValues(selectedNode)
+                shell.redraw()
+                imageList.deselectAll()
+            }
+        }
 
         cancelButton.addSelectionListener(object : SelectionAdapter() {
             override fun widgetSelected(e: SelectionEvent) {
@@ -179,7 +200,7 @@ class ImagePlaceholder(bbdata: BBSelectionData) {
         }
     }
 
-    fun submit() {
+    private fun submit() {
         //Three cases:
         //New placeholder with lines and path
         //Modify existing placeholder's lines and/or path
@@ -235,6 +256,16 @@ class ImagePlaceholder(bbdata: BBSelectionData) {
             pathLabel.redraw()
             this.imagePath = imagePath
         }
+    }
+
+    private fun refreshValues(node: Element) {
+        println("Current image placeholder element: ${node.toXML()}")
+        lines = node.getAttributeValue("skipLines", UTD_NS).toInt()
+        linesText.text = lines.toString()
+        imagePath = node.getAttributeValue("src", UTD_NS)
+        pathLabel.text = "Path: $imagePath"
+        altTextText.text = node.getAttributeValue("alt", UTD_NS) ?: ""
+        submitButton.text = "Update"
     }
 
     private fun getImageList(): List<String> {

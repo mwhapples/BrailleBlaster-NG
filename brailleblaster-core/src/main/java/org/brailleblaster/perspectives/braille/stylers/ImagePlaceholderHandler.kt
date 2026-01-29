@@ -68,6 +68,9 @@ class ImagePlaceholderHandler(manager: Manager?, vi: ViewInitializer?, list: Map
             val m = InsertNodeMessage(atStart, atEnd, BBX.BLOCK.IMAGE_PLACEHOLDER, null, attrs)
             val ieh = InsertElementHandler(manager, vi, list)
             ieh.insertElement(m)
+            //TODO: Per bug #67524, ensure lines after placeholder return to default style
+            //This would be a good place for alt-text to show. And it should with NIMAS files too (#30992)
+
         }
     }
 
