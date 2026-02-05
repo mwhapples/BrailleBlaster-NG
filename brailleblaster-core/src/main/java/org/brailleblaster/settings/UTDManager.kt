@@ -19,10 +19,11 @@ import ch.qos.logback.classic.Level
 import com.google.common.base.CaseFormat
 import nu.xom.*
 import org.brailleblaster.BBIni
-import org.brailleblaster.bbx.BBX
+import org.brailleblaster.bbx.BBX.*
+import org.brailleblaster.bbx.BBX.PreFormatterMarker.ATTRIB_PRE_FORMATTER_MARKER
 import org.brailleblaster.bbx.BBXUtils
 import org.brailleblaster.bbx.BBXUtils.ListStyleData
-import org.brailleblaster.bbx.fixers.NodeTreeSplitter.split
+import org.brailleblaster.bbx.fixers.NodeTreeSplitter
 import org.brailleblaster.bbx.utd.BBXDynamicOptionStyleMap
 import org.brailleblaster.bbx.utd.BBXStyleMap
 import org.brailleblaster.logging.getLogLevel
@@ -206,29 +207,14 @@ class UTDManager @JvmOverloads constructor(styleDefs: StyleDefinitions = loadSty
      * @param action
      * @param element
      */
-    fun applyAction(action: IAction?, element: Element) {
+    fun applyAction(action: IAction, element: Element) {
         if (element.document == null) {
             throw NodeException("Element must be attached to document", element)
         }
-        applyAction(action, element, element.document)
-    }
-
-    fun applyAction(action: IAction?, element: Element?, doc: Document?) {
-        if (action == null) {
-            throw NullPointerException("action")
-        }
-        if (element == null) {
-            throw NullPointerException("element")
-        }
-        if (doc == null) {
-            throw NullPointerException("doc")
-        }
-        require(!(element.document != null && element.document !== doc))
-        { "Element is attached to different document than given" }
         val actionName = action.javaClass.simpleName
         if (overrideActionMap!!.values.any { it.javaClass.simpleName == actionName }) {
             // Use simpler override style map
-            BBX._ATTRIB_OVERRIDE_ACTION[element] = actionName
+            _ATTRIB_OVERRIDE_ACTION[element] = actionName
             log.debug(
                 "Applied override action {} to {}", action,
                 XMLHandler.toXMLStartTag(element)
@@ -236,7 +222,6 @@ class UTDManager @JvmOverloads constructor(styleDefs: StyleDefinitions = loadSty
         } else {
             throw RuntimeException("Unhandlable action (does it take fields?) $action")
         }
-
         // Sanity check
         val lookedUpAction = engine.actionMap.findValueOrDefault(element)
         if (lookedUpAction != action) {
@@ -253,7 +238,7 @@ class UTDManager @JvmOverloads constructor(styleDefs: StyleDefinitions = loadSty
         if (element.document == null) {
             throw NodeException("Element must be attached to document", element)
         }
-        val attrib = BBX._ATTRIB_OVERRIDE_ACTION.getAttribute(element)
+        val attrib = _ATTRIB_OVERRIDE_ACTION.getAttribute(element)
         attrib?.detach()
         return element
     }
@@ -265,36 +250,10 @@ class UTDManager @JvmOverloads constructor(styleDefs: StyleDefinitions = loadSty
      * @param style
      * @param element
      */
-    fun applyStyle(style: Style?, element: Element) {
+    @JvmOverloads
+    fun applyStyle(style: IStyle, element: Element, stripStyle: Boolean = true) {
         if (element.document == null) {
             throw NodeException("Element must be attached to document", element)
-        }
-        applyStyle(style, element, element.document)
-    }
-
-    /**
-     * Apply style to node that might not be attached to the given document
-     *
-     * @param style
-     * @param element
-     * @param doc
-     */
-
-    //Fundamental problem is I'm not sure how to start messing with this. General unfamiliarity with nodified XML -
-    // I intentionally sidestepped that problem in Dots123 for the same reason.
-    @JvmOverloads
-    fun applyStyle(style: Style?, element: Element?, doc: Document?, stripStyle: Boolean = true) {
-        if (style == null) {
-            throw NullPointerException("style")
-        }
-        if (element == null) {
-            throw NullPointerException("element")
-        }
-        if (doc == null) {
-            throw NullPointerException("doc")
-        }
-        require(!(element.document != null && element.document !== doc)) {
-            "Element is attached to different document than given"
         }
         if (stripStyle) {
             BBXUtils.stripStyle(element, this)
@@ -302,17 +261,17 @@ class UTDManager @JvmOverloads constructor(styleDefs: StyleDefinitions = loadSty
         val itemStyleData = BBXUtils.parseListStyle(style.name)
         if (itemStyleData != null) {
             //println("UTDMgr.ApplyStyle style: ${style.name} itemStyleData: ${itemStyleData.toString()}")
-            BBX.BLOCK.assertIsA(element)
+            BLOCK.assertIsA(element)
             if (itemStyleData.listType == null) {
                 //Margin style
-                BBX.BLOCK.MARGIN.set(element)
-                BBX.BLOCK.MARGIN.ATTRIB_MARGIN_TYPE[element] = itemStyleData.marginType
-                BBX.BLOCK.MARGIN.ATTRIB_INDENT[element] = itemStyleData.indentLevel
-                BBX.BLOCK.MARGIN.ATTRIB_RUNOVER[element] = itemStyleData.runoverLevel
+                BLOCK.MARGIN.set(element)
+                BLOCK.MARGIN.ATTRIB_MARGIN_TYPE[element] = itemStyleData.marginType
+                BLOCK.MARGIN.ATTRIB_INDENT[element] = itemStyleData.indentLevel
+                BLOCK.MARGIN.ATTRIB_RUNOVER[element] = itemStyleData.runoverLevel
             } else {
                 //println("ListType is not null")
                 val parentList =
-                    XMLHandler.ancestorVisitorElement(element) { node -> BBX.CONTAINER.LIST.isA(node) }
+                    XMLHandler.ancestorVisitorElement(element) { node -> CONTAINER.LIST.isA(node) }
                 // For RT 5752 added getPreviousBBXSiblingNode and getNextBBXSiblingNode
                 val previousSiblingNode = getPreviousBBXSiblingNode(element)
                 val nextSiblingNode = getNextBBXSiblingNode(element)
@@ -325,9 +284,9 @@ class UTDManager @JvmOverloads constructor(styleDefs: StyleDefinitions = loadSty
                         val previousSiblingList = XMLHandler.previousSiblingNode(parentList)
                         val nextSiblingList = XMLHandler.nextSiblingNode(parentList)
                         val isNextSiblingList = (nextSiblingList is Element
-                                && BBX.PreFormatterMarker.LIST_SPLIT.has(nextSiblingList))
+                                && PreFormatterMarker.LIST_SPLIT.has(nextSiblingList))
                         val isPreviousSiblingList = (previousSiblingList is Element
-                                && BBX.PreFormatterMarker.LIST_SPLIT.has(previousSiblingList))
+                                && PreFormatterMarker.LIST_SPLIT.has(previousSiblingList))
                         if (isPreviousSiblingList || isNextSiblingList) {
                             if (element.parent.childCount == 1) {
                                 element.parent.detach()
@@ -339,45 +298,45 @@ class UTDManager @JvmOverloads constructor(styleDefs: StyleDefinitions = loadSty
                         } else {
                             // must split the list ourselves
                             log.debug("UTDMgr splitting list")
-                            wrapperList = BBX.CONTAINER.LIST.create(itemStyleData.listType)
-                            BBX.PreFormatterMarker.ATTRIB_PRE_FORMATTER_MARKER[wrapperList] =
-                                BBX.PreFormatterMarker.LIST_SPLIT
-                            split(parentList, element)
+                            wrapperList = CONTAINER.LIST.create(itemStyleData.listType)
+                            ATTRIB_PRE_FORMATTER_MARKER[wrapperList] =
+                                PreFormatterMarker.LIST_SPLIT
+                            NodeTreeSplitter.split(parentList, element)
                             element.parent.replaceChild(element, wrapperList)
                             wrapperList.appendChild(element)
-                            BBX.CONTAINER.LIST.ATTRIB_LIST_LEVEL[wrapperList] = itemStyleData.runoverLevel
+                            CONTAINER.LIST.ATTRIB_LIST_LEVEL[wrapperList] = itemStyleData.runoverLevel
                         }
                     }
-                } else if (previousSiblingNode != null && BBX.CONTAINER.LIST.isA(previousSiblingNode)
-                    && BBX.CONTAINER.LIST.ATTRIB_LIST_TYPE[previousSiblingNode as Element?] == itemStyleData.listType
+                } else if (previousSiblingNode != null && CONTAINER.LIST.isA(previousSiblingNode)
+                    && CONTAINER.LIST.ATTRIB_LIST_TYPE[previousSiblingNode as Element?] == itemStyleData.listType
                     && isCompatibleList(previousSiblingNode, itemStyleData)
                 ) {
                     element.detach()
                     wrapperList = previousSiblingNode
                     wrapperList.appendChild(element)
-                    if (nextSiblingNode != null && BBX.CONTAINER.LIST.isA(nextSiblingNode)
-                        && BBX.CONTAINER.LIST.ATTRIB_LIST_TYPE[nextSiblingNode as Element?] == itemStyleData.listType
+                    if (nextSiblingNode != null && CONTAINER.LIST.isA(nextSiblingNode)
+                        && CONTAINER.LIST.ATTRIB_LIST_TYPE[nextSiblingNode as Element?] == itemStyleData.listType
                         && isCompatibleList(nextSiblingNode, itemStyleData)
                     ) {
                         wrapperList = mergeContainers(wrapperList, nextSiblingNode)
                     }
-                } else if (nextSiblingNode != null && BBX.CONTAINER.LIST.isA(nextSiblingNode)
-                    && BBX.CONTAINER.LIST.ATTRIB_LIST_TYPE[nextSiblingNode as Element?] == itemStyleData.listType
+                } else if (nextSiblingNode != null && CONTAINER.LIST.isA(nextSiblingNode)
+                    && CONTAINER.LIST.ATTRIB_LIST_TYPE[nextSiblingNode as Element?] == itemStyleData.listType
                     && isCompatibleList(nextSiblingNode, itemStyleData)
                 ) {
                     element.detach()
                     wrapperList = nextSiblingNode
                     wrapperList.insertChild(element, 0)
                 } else {
-                    wrapperList = BBX.CONTAINER.LIST.create(itemStyleData.listType)
+                    wrapperList = CONTAINER.LIST.create(itemStyleData.listType)
                     element.parent.replaceChild(element, wrapperList)
                     wrapperList.appendChild(element)
-                    BBX.CONTAINER.LIST.ATTRIB_LIST_LEVEL[wrapperList] = itemStyleData.runoverLevel
+                    CONTAINER.LIST.ATTRIB_LIST_LEVEL[wrapperList] = itemStyleData.runoverLevel
                 }
 
-                if (BBX.CONTAINER.LIST.ATTRIB_LIST_TYPE[wrapperList] == BBX.ListType.POEM_LINE_GROUP) {
+                if (CONTAINER.LIST.ATTRIB_LIST_TYPE[wrapperList] == ListType.POEM_LINE_GROUP) {
                     val ancestorPoem = XMLHandler.ancestorVisitorElement(wrapperList) { e ->
-                        BBX.CONTAINER.LIST.ATTRIB_LIST_TYPE.getOptional(e).orElse(null) == BBX.ListType.POEM
+                        CONTAINER.LIST.ATTRIB_LIST_TYPE.getOptional(e).orElse(null) == ListType.POEM
                     }
                     if (ancestorPoem != null) {
                         wrapperList = ancestorPoem
@@ -387,31 +346,31 @@ class UTDManager @JvmOverloads constructor(styleDefs: StyleDefinitions = loadSty
                 //apply style - be sure to comment this out once replace() is working with lists...
                 log.debug(
                     "WrapperList XML: \n" + wrapperList.toXML() +
-                            "\nWlist: " + BBX.CONTAINER.LIST.ATTRIB_LIST_LEVEL[wrapperList] +
+                            "\nWlist: " + CONTAINER.LIST.ATTRIB_LIST_LEVEL[wrapperList] +
                             " runover: " + itemStyleData.runoverLevel
                 )
 
 
-                if (BBX.CONTAINER.LIST.ATTRIB_LIST_LEVEL[wrapperList] < itemStyleData.runoverLevel) {
-                    BBX.CONTAINER.LIST.ATTRIB_LIST_LEVEL[wrapperList] = itemStyleData.runoverLevel
+                if (CONTAINER.LIST.ATTRIB_LIST_LEVEL[wrapperList] < itemStyleData.runoverLevel) {
+                    CONTAINER.LIST.ATTRIB_LIST_LEVEL[wrapperList] = itemStyleData.runoverLevel
                 }
 
-                BBX.transform(element, BBX.BLOCK.LIST_ITEM)
-                BBX.BLOCK.LIST_ITEM.ATTRIB_ITEM_LEVEL[element] = itemStyleData.indentLevel
+                transform(element, BLOCK.LIST_ITEM)
+                BLOCK.LIST_ITEM.ATTRIB_ITEM_LEVEL[element] = itemStyleData.indentLevel
             }
         } else if (overrideStyleMap!!.values.contains(style)) {
             // Use simpler override style map
-            BBX._ATTRIB_OVERRIDE_STYLE[element] = style.name
+            _ATTRIB_OVERRIDE_STYLE[element] = style.name
 
             // Prevent breaking BBX when changing from the given style based on type
-            if (BBX.BLOCK.isA(element)) {
+            if (BLOCK.isA(element)) {
                 BBXUtils.stripStyleExceptOverrideStyle(element)
-                BBX.transform(element, BBX.BLOCK.STYLE)
+                transform(element, BLOCK.STYLE)
             }
-            if (XMLHandler.ancestorElementIs(element) { node -> BBX.CONTAINER.LIST.isA(node) }) {
+            if (XMLHandler.ancestorElementIs(element) { node -> CONTAINER.LIST.isA(node) }) {
                 BBXUtils.stripStyleExceptOverrideStyle(element)
                 BBXUtils.checkListStyle(
-                    XMLHandler.ancestorVisitorElement(element) { node -> BBX.CONTAINER.LIST.isA(node) },
+                    XMLHandler.ancestorVisitorElement(element) { node -> CONTAINER.LIST.isA(node) },
                     element,
                     this
                 )
@@ -419,15 +378,13 @@ class UTDManager @JvmOverloads constructor(styleDefs: StyleDefinitions = loadSty
         } else {
             throw RuntimeException("Unhandled style " + style.name)
         }
-
         if (element.document == null) {
             throw NodeException(
                 "Element missing from document? " + XMLHandler.toXMLSimple(
                     element
-                ), doc
+                ), element.document
             )
         }
-
         // Sanity check
         val lookedUpStyle = engine.styleMap.findValueOrDefault(element)
         if (lookedUpStyle != style && bbxOptionStyleMap!!.getStyleOptions(element).isEmpty()) {
@@ -489,7 +446,7 @@ class UTDManager @JvmOverloads constructor(styleDefs: StyleDefinitions = loadSty
         if (element.document == null) {
             throw NodeException("Element must be attached to document " + element.toXML(), element)
         }
-        val attrib = BBX._ATTRIB_OVERRIDE_STYLE.getAttribute(element)
+        val attrib = _ATTRIB_OVERRIDE_STYLE.getAttribute(element)
         attrib?.detach()
         return element
     }
@@ -521,7 +478,7 @@ class UTDManager @JvmOverloads constructor(styleDefs: StyleDefinitions = loadSty
 
                 // Extend default style if possible instead of changing to a BBX.BLOCK.STYLE with overrideStyle
                 if (getBaseStyle(engine.getStyle(element) as Style) != baseStyle) {
-                    applyStyle(baseStyle, element, element.document,  /*keep styling*/false)
+                    applyStyle(baseStyle, element, stripStyle = false)
                 }
                 BBXDynamicOptionStyleMap.setStyleOptionAttrib(element, styleOption, value)
                 val newStyle = engine.getStyle(element) as Style?
@@ -650,11 +607,11 @@ class UTDManager @JvmOverloads constructor(styleDefs: StyleDefinitions = loadSty
         var totalMilliLoad: Long = 0
         private fun isCompatibleList(list: Element, itemStyleData: ListStyleData): Boolean {
             val actualList =
-                if (BBX.ListType.POEM_LINE_GROUP.isA(list) && !BBX.CONTAINER.LIST.ATTRIB_LIST_LEVEL.has(list)) {
-                    XMLHandler.ancestorVisitorElement(list.parent) { node -> BBX.CONTAINER.LIST.isA(node) }
+                if (ListType.POEM_LINE_GROUP.isA(list) && !CONTAINER.LIST.ATTRIB_LIST_LEVEL.has(list)) {
+                    XMLHandler.ancestorVisitorElement(list.parent) { node -> CONTAINER.LIST.isA(node) }
                 } else list
-            return (BBX.CONTAINER.LIST.ATTRIB_LIST_LEVEL[actualList] <= itemStyleData.runoverLevel
-                    && BBX.CONTAINER.LIST.ATTRIB_LIST_TYPE.getOptional(actualList)
+            return (CONTAINER.LIST.ATTRIB_LIST_LEVEL[actualList] <= itemStyleData.runoverLevel
+                    && CONTAINER.LIST.ATTRIB_LIST_TYPE.getOptional(actualList)
                 .orElse(null) == itemStyleData.listType)
         }
 
@@ -714,7 +671,7 @@ class UTDManager @JvmOverloads constructor(styleDefs: StyleDefinitions = loadSty
         fun getNextPageNum(element: Element?): String {
             val pagenum = XMLHandler.followingWithSelfVisitor(
                 element
-            ) { n: Node -> n is Text && n.parent != null && BBX.BLOCK.PAGE_NUM.isA(n.parent) }
+            ) { n: Node -> n is Text && n.parent != null && BLOCK.PAGE_NUM.isA(n.parent) }
             return if (pagenum != null) {
                 pagenum.value
             } else "Page Not Found"
