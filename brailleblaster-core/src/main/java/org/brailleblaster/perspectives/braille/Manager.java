@@ -195,8 +195,7 @@ public class Manager extends Controller {
         // Core wiring module
         // This must be first as the event must be translated
         simpleManager.registerModule((SimpleEvent event) -> {
-            if (event instanceof ModifyEvent) {
-                ModifyEvent mEvent = (ModifyEvent) event;
+            if (event instanceof ModifyEvent mEvent) {
                 stopFormatting();
 
                 mEvent.changedNodes.removeIf(n -> n.getDocument() == null);

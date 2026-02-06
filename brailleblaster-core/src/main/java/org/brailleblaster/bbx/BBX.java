@@ -1312,10 +1312,9 @@ public class BBX {
     }
 
     public static boolean isA(Node node) {
-        if (!(node instanceof Element)) {
+        if (!(node instanceof Element elem)) {
             return false;
         }
-        Element elem = (Element) node;
 
         return getTypeOrNull(elem) != null;
     }
@@ -1388,10 +1387,9 @@ public class BBX {
                 throw new NullPointerException("node");
             }
 
-            if (!(node instanceof Element)) {
+            if (!(node instanceof Element element)) {
                 return "Expected element";
             }
-            Element element = (Element) node;
 
             if (!NamespacesKt.BB_NS.equals(element.getNamespaceURI())) {
                 return "Not in BB namespace";
