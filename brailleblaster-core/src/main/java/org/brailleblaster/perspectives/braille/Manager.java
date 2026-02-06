@@ -16,10 +16,7 @@
 package org.brailleblaster.perspectives.braille;
 
 import kotlin.Pair;
-import nu.xom.Document;
-import nu.xom.Element;
-import nu.xom.Node;
-import nu.xom.ParentNode;
+import nu.xom.*;
 import org.apache.commons.lang3.time.StopWatch;
 import org.brailleblaster.BBIni;
 import org.brailleblaster.Main;
@@ -84,9 +81,12 @@ import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.*;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Shell;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -142,7 +142,7 @@ public class Manager extends Controller {
      * DO NOT USE, ONLY getArchiver() IS ACCURATE!!! Internal use for
      * {@link #open() }
      */
-    private final @NotNull Path _initFile;
+    private final @NonNull Path _initFile;
 
     // Common init
     public Manager(WPManager wp, @Nullable Path file) {
@@ -158,19 +158,19 @@ public class Manager extends Controller {
         simpleManager = new BBSimpleManager() {
             // TODO: temporary workarounds to keep current manager design
             @Override
-            @NotNull
+            @NonNull
             public UTDManager getUtdManager() {
                 return getDocument().getSettingsManager();
             }
 
             @Override
-            @NotNull
+            @NonNull
             public Document getDoc() {
                 return Manager.this.getDoc();
             }
 
             @Override
-            @NotNull
+            @NonNull
             public Manager getManager() {
                 return Manager.this;
             }
@@ -661,7 +661,7 @@ public class Manager extends Controller {
                 working.setLayout(new GridLayout(1, false));
                 working.setText("Formatting...");
 
-                Text workingText = new Text(working, SWT.NONE);
+                var workingText = new org.eclipse.swt.widgets.Text(working, SWT.NONE);
                 workingText.setText("Formatting, please wait...");
 
                 EasySWT.INSTANCE.setLargeDialogSize(working);
@@ -923,7 +923,7 @@ public class Manager extends Controller {
         reformatDocument(getDoc());
     }
 
-    private void reformat(@NotNull Node node) {
+    private void reformat(@NonNull Node node) {
         if (reformatter.busy) {
             // Note: It may be tempting to substitute this line for
             // stopFormatting(), but in 90% of cases, if you've reached the
@@ -1036,7 +1036,7 @@ public class Manager extends Controller {
         final int REFORMATTER_BUG_BUFFER = 2;
         document.getEngine().setCallback(new UTDTranslationEngineCallback() {
             @Override
-            public void onUpdateNode(@NotNull Node n) {
+            public void onUpdateNode(@NonNull Node n) {
                 if (restartFormatFlag)
                     throw new UTDInterruption();
                 incrementPages();
@@ -1060,7 +1060,7 @@ public class Manager extends Controller {
             }
 
             @Override
-            public void onFormatComplete(@NotNull Node root) {
+            public void onFormatComplete(@NonNull Node root) {
                 logger.debug("Formatting completed");
                 if (pages != null && pages < maxPages + extraPages + REFORMATTER_BUG_BUFFER) {
                     logger.debug("MaxPages never reached.");
@@ -1073,11 +1073,11 @@ public class Manager extends Controller {
     private void removeReformattingCallback() {
         document.getEngine().setCallback(new UTDTranslationEngineCallback() {
             @Override
-            public void onUpdateNode(@NotNull Node n) {
+            public void onUpdateNode(@NonNull Node n) {
             }
 
             @Override
-            public void onFormatComplete(@NotNull Node root) {
+            public void onFormatComplete(@NonNull Node root) {
             }
         });
     }
@@ -1628,7 +1628,7 @@ public class Manager extends Controller {
         reformatter.close();
     }
 
-    @NotNull
+    @NonNull
     @Override
     public Document getDoc() {
         return document.doc;
@@ -1767,7 +1767,7 @@ public class Manager extends Controller {
 
     @Nullable
     public Pair<Integer, TextMapElement> getBraillePageElementByUntranslatedPage(
-            String untranslatedBraillePage, @Nullable nu.xom.Text startNode) {
+            String untranslatedBraillePage, @Nullable Text startNode) {
         boolean afterStartNode = false;
         for (SectionElement curSection : viewInitializer.getSectionList()) {
             for (TextMapElement curElement : curSection.list) {
@@ -1915,7 +1915,7 @@ public class Manager extends Controller {
         return document.getEngine().getActionMap().findValueOrDefault(n);
     }
 
-    public @Nullable IStyle getStyle(@NotNull Node n) {
+    public @Nullable IStyle getStyle(@NonNull Node n) {
         return document.getEngine().getStyle(n);
     }
 
@@ -1956,7 +1956,7 @@ public class Manager extends Controller {
         }
     }
 
-    @NotNull
+    @NonNull
     @Override
     public Archiver2 getArchiver() {
         return Objects.requireNonNull(archiver, "Manager not open");

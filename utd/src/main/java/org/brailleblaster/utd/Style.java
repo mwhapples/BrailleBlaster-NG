@@ -30,8 +30,8 @@ import org.brailleblaster.utd.properties.NumberLinePosition;
 import org.brailleblaster.utd.properties.PageNumberType;
 import org.brailleblaster.utd.properties.PageSide;
 import org.brailleblaster.utd.utils.UTDHelper;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -204,7 +204,7 @@ public class Style implements IStyle, Serializable {
     }
 
     @Override
-    public @NotNull Style copy(@NotNull String id, @NotNull String name) {
+    public @NonNull Style copy(@NonNull String id, @NonNull String name) {
         Style copy = new Style();
 
         if (this.baseStyle != null)
@@ -308,7 +308,7 @@ public class Style implements IStyle, Serializable {
     }
 
     @Override
-    public @NotNull String getId() {
+    public @NonNull String getId() {
         return id;
     }
 
@@ -320,7 +320,7 @@ public class Style implements IStyle, Serializable {
     }
 
     @Override
-    public @NotNull String getName() {
+    public @NonNull String getName() {
         return name;
     }
 

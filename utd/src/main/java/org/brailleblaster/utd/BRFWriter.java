@@ -20,7 +20,7 @@ import nu.xom.Element;
 import org.apache.commons.lang3.StringUtils;
 import org.brailleblaster.libembosser.spi.BrlCell;
 import org.brailleblaster.utd.utils.UTDHelper;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.mwhapples.jlouis.Louis;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,16 +82,16 @@ public class BRFWriter {
     private record NonsequentialState(char[][] grid, String translatedBrlNum, String brlNum, int curCell, int curLine) {
     }
 
-    @NotNull
+    @NonNull
     private final InputPageListener inputPageListenerImpl = new InputPageListener();
-    @NotNull
+    @NonNull
     private final PageListener outputPageListener;
     private StringBuilder pendingSpaces = new StringBuilder();
-    @NotNull
+    @NonNull
     public static final PageListener EMPTY_PAGE_LISTENER = new PageListener() {
     };
 
-    public BRFWriter(UTDTranslationEngine engine, OutputCharStream output, int opts, @NotNull PageListener outputPageListener) {
+    public BRFWriter(UTDTranslationEngine engine, OutputCharStream output, int opts, @NonNull PageListener outputPageListener) {
         this.opts = opts;
         this.outputPageListener = outputPageListener;
         this.engine = engine;
@@ -308,7 +308,7 @@ public class BRFWriter {
         }
     }
 
-    @NotNull
+    @NonNull
     public PageListener getInputPageListener() {
         return inputPageListenerImpl;
     }

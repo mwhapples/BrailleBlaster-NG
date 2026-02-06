@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.brailleblaster.utils.xml.NamespacesKt;
-import org.jetbrains.annotations.Nullable;
 
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -61,7 +60,8 @@ import org.brailleblaster.utd.internal.xml.FastXPath;
 import org.brailleblaster.utd.internal.xml.XMLHandler;
 import org.brailleblaster.utd.properties.EmphasisType;
 import org.brailleblaster.utd.properties.UTDElements;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -169,11 +169,11 @@ public class BBX {
     private BBX() {
     }
 
-    public static Element newElement(String name) {
+    public static @NonNull Element newElement(@NonNull String name) {
         return new Element(name, NamespacesKt.BB_NS);
     }
 
-    public static Document newDocument() {
+    public static @NonNull Document newDocument() {
         Element root = newElement(DOCUMENT_ROOT_NAME);
         root.addNamespaceDeclaration("bb", NamespacesKt.BB_NS);
         root.addNamespaceDeclaration("utd", NamespacesKt.UTD_NS);
@@ -189,7 +189,7 @@ public class BBX {
         return doc;
     }
 
-    public static Element getHead(Document doc) {
+    public static @NonNull Element getHead(@NonNull Document doc) {
         Element head = doc.getRootElement().getFirstChildElement("head", NamespacesKt.BB_NS);
         if (head == null) {
             head = new Element("head", NamespacesKt.BB_NS);
@@ -198,7 +198,7 @@ public class BBX {
         return head;
     }
 
-    public static int getFormatVersion(Document doc) {
+public static int getFormatVersion(@NonNull Document doc) {
         Element head = getHead(doc);
         Element versionElem = head.getFirstChildElement("version", NamespacesKt.BB_NS);
         if (versionElem == null) {
@@ -207,7 +207,7 @@ public class BBX {
         return Integer.parseInt(versionElem.getValue());
     }
 
-    public static void setFormatVersion(Document doc, int version) {
+    public static void setFormatVersion(@NonNull Document doc, int version) {
         Element head = getHead(doc);
         Element versionElem = head.getFirstChildElement("version", NamespacesKt.BB_NS);
         if (versionElem == null) {
@@ -218,7 +218,7 @@ public class BBX {
         versionElem.appendChild(String.valueOf(version));
     }
 
-    public static void assertIsA(Document doc) {
+    public static void assertIsA(@NonNull Document doc) {
         // TODO: will throw an exception if not found
         getFormatVersion(doc);
         getRoot(doc);
@@ -231,7 +231,7 @@ public class BBX {
         }
     }
 
-    public static @NotNull Element getRoot(@NotNull Document doc) {
+    public static @NonNull Element getRoot(@NonNull Document doc) {
         if (doc.getRootElement().getChildElements().size() != 2) {
             throw new NodeException("Root should have both <head> and <section bb:type='ROOT'>", doc.getRootElement());
         }
@@ -244,7 +244,7 @@ public class BBX {
      * Transform an element into another type. <b>You shouldn't have to use this
      * in normal tools</b>
      */
-    public static void transform(@NotNull Element elem, @NotNull SubType destType) {
+    public static void transform(@NonNull Element elem, @NonNull SubType destType) {
         elem.setLocalName(destType.coreType.name);
         _ATTRIB_TYPE.set(elem, destType.name);
     }
@@ -1291,7 +1291,7 @@ public class BBX {
         }
     }
 
-    public static final List<BBX.@NotNull CoreType> CORE_TYPES =
+    public static final List<BBX.@NonNull CoreType> CORE_TYPES =
         List.of(SECTION, CONTAINER, BLOCK, INLINE, SPAN);
 
     public static CoreType getType(Element elem) {
@@ -1353,7 +1353,7 @@ public class BBX {
         // instance fields/methods
         // So this workaround was used so getSubType works, is performant, can
         // still use final, just a bit more verbose
-        protected List<@NotNull SubType> subTypes;
+        protected List<@NonNull SubType> subTypes;
 
         public CoreType(String name, boolean textChildrenValid) {
             if (StringUtils.isBlank(name)) {
@@ -1377,7 +1377,7 @@ public class BBX {
             throw new NodeException("Missing subtype " + subtypeName + " for", sectionNode);
         }
 
-        public List<@NotNull SubType> getSubTypes() {
+        public List<@NonNull SubType> getSubTypes() {
             return subTypes;
         }
 
