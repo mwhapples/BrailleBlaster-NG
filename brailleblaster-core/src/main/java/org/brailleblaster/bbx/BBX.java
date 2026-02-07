@@ -224,13 +224,6 @@ public static int getFormatVersion(@NonNull Document doc) {
         getRoot(doc);
     }
 
-    public static void assertAttachedToDocument(Node node) {
-        BBX.CONTAINER.VOLUME.assertIsA(node);
-        if (node.getDocument() == null) {
-            throw new NodeException("Node not attached to document", node);
-        }
-    }
-
     public static @NonNull Element getRoot(@NonNull Document doc) {
         if (doc.getRootElement().getChildElements().size() != 2) {
             throw new NodeException("Root should have both <head> and <section bb:type='ROOT'>", doc.getRootElement());
@@ -1294,7 +1287,7 @@ public static int getFormatVersion(@NonNull Document doc) {
     public static final List<BBX.@NonNull CoreType> CORE_TYPES =
         List.of(SECTION, CONTAINER, BLOCK, INLINE, SPAN);
 
-    public static CoreType getType(Element elem) {
+    public static @NonNull CoreType getType(@NonNull Element elem) {
         CoreType result = getTypeOrNull(elem);
         if (result == null) {
             throw new NodeException("No coreType found for element", elem);
@@ -1302,7 +1295,7 @@ public static int getFormatVersion(@NonNull Document doc) {
         return result;
     }
 
-    public static CoreType getTypeOrNull(Element elem) {
+    public static CoreType getTypeOrNull(@NonNull Element elem) {
         for (CoreType coreType : CORE_TYPES) {
             if (coreType.name.equals(elem.getLocalName())) {
                 return coreType;
