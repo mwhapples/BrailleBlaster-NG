@@ -120,11 +120,11 @@ public class BBX {
     /**
      * Element and attribute prefix, eg bb:type="OTHER"
      */
-    public static final String BB_PREFIX = "bb";
+    public static final @NonNull String BB_PREFIX = "bb";
     /**
      * XML Root
      */
-    public static final String DOCUMENT_ROOT_NAME = "bbdoc";
+    public static final @NonNull String DOCUMENT_ROOT_NAME = "bbdoc";
     /**
      * The version of the BBX Format, increment and write converter if
      * drastically changing
@@ -134,29 +134,29 @@ public class BBX {
      * Marker used by parsers to trigger fixers, should not exist in final
      * document
      */
-    public static final EnumAttribute<FixerTodo> _ATTRIB_FIXER_TODO = new EnumAttribute<>("fixerTodo", FixerTodo.class);
+    public static final @NonNull EnumAttribute<@NonNull FixerTodo> _ATTRIB_FIXER_TODO = new EnumAttribute<>("fixerTodo", FixerTodo.class);
     /**
      * Internal data of the original imported element name
      */
-    public static final StringAttribute _ATTRIB_ORIGINAL_ELEMENT = new StringAttribute("origElement");
+    public static final @NonNull StringAttribute _ATTRIB_ORIGINAL_ELEMENT = new StringAttribute("origElement");
     /**
      * UTD action
      */
-    public static final StringAttribute _ATTRIB_OVERRIDE_ACTION = new StringAttribute(
+    public static final @NonNull StringAttribute _ATTRIB_OVERRIDE_ACTION = new StringAttribute(
             OverrideMap.OVERRIDE_ATTRIB_ACTION, UTDElements.UTD_PREFIX, NamespacesKt.UTD_NS);
     /**
      * UTD style
      */
-    public static final StringAttribute _ATTRIB_OVERRIDE_STYLE = new StringAttribute(OverrideMap.OVERRIDE_ATTRIB_STYLE,
+    public static final @NonNull StringAttribute _ATTRIB_OVERRIDE_STYLE = new StringAttribute(OverrideMap.OVERRIDE_ATTRIB_STYLE,
             UTDElements.UTD_PREFIX, NamespacesKt.UTD_NS);
     /**
      * BB subtype of whatever coretype the element is
      */
-    public static final StringAttribute _ATTRIB_TYPE = new StringAttribute("type");
+    public static final @NonNull StringAttribute _ATTRIB_TYPE = new StringAttribute("type");
     /**
      * Usable as entire document should only have elements in these namespaces
      */
-    public static final XPathContext XPATH_CONTEXT;
+    public static final @NonNull XPathContext XPATH_CONTEXT;
 
     static {
         XPATH_CONTEXT = new XPathContext();
@@ -243,7 +243,7 @@ public static int getFormatVersion(@NonNull Document doc) {
     }
 
     // ----------------- Definitions -------------------------
-    public static final SectionElement SECTION = new SectionElement();
+    public static final @NonNull SectionElement SECTION = new SectionElement();
 
     public static class SectionElement extends CoreType {
         public final SectionSubType ROOT = new SectionSubType(this, "ROOT");
@@ -1295,7 +1295,7 @@ public static int getFormatVersion(@NonNull Document doc) {
         return result;
     }
 
-    public static CoreType getTypeOrNull(@NonNull Element elem) {
+    public static @Nullable CoreType getTypeOrNull(@NonNull Element elem) {
         for (CoreType coreType : CORE_TYPES) {
             if (coreType.name.equals(elem.getLocalName())) {
                 return coreType;
