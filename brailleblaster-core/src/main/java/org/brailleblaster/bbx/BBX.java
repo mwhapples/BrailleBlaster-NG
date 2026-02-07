@@ -273,7 +273,7 @@ public static int getFormatVersion(@NonNull Document doc) {
         }
     }
 
-    public static final ContainerElement CONTAINER = new ContainerElement();
+    public static final @NonNull ContainerElement CONTAINER = new ContainerElement();
 
     public static class ContainerElement extends CoreType {
         public final ListSubType LIST = new ListSubType(this, "LIST");
@@ -824,7 +824,7 @@ public static int getFormatVersion(@NonNull Document doc) {
         return BBX.BLOCK.isA(node) || BBX.SPAN.isA(node) || BBX.INLINE.isA(node);
     }
 
-    public static final BlockElement BLOCK = new BlockElement();
+public static final @NonNull BlockElement BLOCK = new BlockElement();
 
     public static class BlockElement extends CoreType {
         public final ListItemSubType LIST_ITEM = new ListItemSubType(this);
@@ -1039,7 +1039,7 @@ public static int getFormatVersion(@NonNull Document doc) {
         }
     }
 
-    public static final InlineElement INLINE = new InlineElement();
+    public static final @NonNull InlineElement INLINE = new InlineElement();
 
     public static class InlineElement extends CoreType {
         public final EmphasisSubType EMPHASIS = new EmphasisSubType(this);
@@ -1154,7 +1154,7 @@ public static int getFormatVersion(@NonNull Document doc) {
         }
     }
 
-    public static final SpanElement SPAN = new SpanElement();
+    public static final @NonNull SpanElement SPAN = new SpanElement();
 
     public static class SpanElement extends CoreType {
         public final ImageSubType IMAGE = new ImageSubType(this, "IMAGE");
@@ -1284,7 +1284,7 @@ public static int getFormatVersion(@NonNull Document doc) {
         }
     }
 
-    public static final List<BBX.@NonNull CoreType> CORE_TYPES =
+    public static final @NonNull List<BBX.@NonNull CoreType> CORE_TYPES =
         List.of(SECTION, CONTAINER, BLOCK, INLINE, SPAN);
 
     public static @NonNull CoreType getType(@NonNull Element elem) {
