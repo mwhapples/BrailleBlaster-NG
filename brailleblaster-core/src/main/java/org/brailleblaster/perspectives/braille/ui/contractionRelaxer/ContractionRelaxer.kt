@@ -64,7 +64,8 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModu
     shell.layout = GridLayout(1, false)
 
     val shellText = EasySWT.makeLabel(shell)
-    shellText.text("Select a unit to toggle specific translation rules.\nThis will allow you to specify words and contractions up to and including the selected unit.")
+    shellText.text("Select a unit to toggle specific translation rules.\n" +
+        "This will allow you to specify words and contractions up to and including the selected unit.")
 
     //Drop-down list with all the units to toggle rules.
     val unitSelector = EasySWT.makeComboDropdown(shell)
@@ -202,29 +203,18 @@ class ContractionRelaxer(parent: Shell) : Dialog(parent, SWT.NONE), MenuToolModu
 
   fun makeContractionList(): String {
     //println("Making contraction list. UnitToggle: $unitToggle")
-    var totalUnits = 0
-    val f: StringBuilder = StringBuilder()
-
-    if (unitToggle == 0 || unitToggle == UnitList.allUnits.lastIndex){
-      //Return nothing - no need to add contractions if None or All is selected.
-      if (unitToggle == UnitList.allUnits.lastIndex){
+    return when (unitToggle) {
+      0 -> ""
+      UnitList.allUnits.lastIndex -> {
         changeToContracted = true
+        ""
       }
-      return ""
-    }
-
-    //Start at 1, since the 0th unit has no contraction list.
-    for (i in 1..unitToggle) {
-      val unit = UnitList.allUnits[i]
-      //println("Adding: ${unit.unitName}")
-      for (c in unit.contractions) {
-        f.append(c)
-        f.append(System.lineSeparator())
-        totalUnits++
+      else -> {
+        //Start at 1, since the 0th unit has no contraction list.
+        UnitList.allUnits.drop(1).take(unitToggle)
+          .flatMap { unit -> unit.contractions.map { "$it${System.lineSeparator()}" } }.joinToString(separator = "")
       }
     }
-    //println("Total contractions added: $totalUnits")
-    return f.toString()
   }
 
   fun makePrettyContractionList(): String {

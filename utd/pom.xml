@@ -14,14 +14,32 @@
     <properties>
         <findbugsXML>false</findbugsXML>
         <!-- Versioning -->
-        <assertjcore.version>3.24.2</assertjcore.version>
-        <equalsverifier.version>3.15.2</equalsverifier.version>
         <xmlunitmatchers.version>2.10.0</xmlunitmatchers.version>
         <findbugsmavenplugin.version>3.0.5</findbugsmavenplugin.version>
         <mavenpmdplugin.version>3.13.0</mavenpmdplugin.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.aphtech.libembosser</groupId>
+            <artifactId>libembosser-utils</artifactId>
+        </dependency>
         <dependency>
             <groupId>net.java.dev.jna</groupId>
             <artifactId>jna</artifactId>
@@ -39,7 +57,6 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>${assertjcore.version}</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -51,7 +68,6 @@
         <dependency>
             <groupId>nl.jqno.equalsverifier</groupId>
             <artifactId>equalsverifier</artifactId>
-            <version>${equalsverifier.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -85,7 +101,7 @@
                         <polyglot.engine.WarnInterpreterOnly>false</polyglot.engine.WarnInterpreterOnly>
                     </systemProperties>
                     <additionalClasspathElements>
-                        <additionalClasspathElement>${project.build.outputDirectory}/data</additionalClasspathElement>
+                        <additionalClasspathElement>${project.build.testOutputDirectory}/data</additionalClasspathElement>
                     </additionalClasspathElements>
                     <trimStackTrace>false</trimStackTrace>
                 </configuration>
@@ -98,7 +114,7 @@
                     <!-- Unpack liblouis tables to build/data/liblouis/tables -->
                     <execution>
                         <id>import-tables</id>
-                        <phase>generate-resources</phase>
+                        <phase>generate-test-resources</phase>
                         <goals>
                             <goal>unpack</goal>
                         </goals>
@@ -110,7 +126,7 @@
                                     <version>${jlouis.version}</version>
                                     <type>zip</type>
                                     <classifier>tables</classifier>
-                                    <outputDirectory>${project.build.outputDirectory}/data</outputDirectory>
+                                    <outputDirectory>${project.build.testOutputDirectory}/data</outputDirectory>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>

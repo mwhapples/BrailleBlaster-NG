@@ -55,6 +55,7 @@ import org.brailleblaster.utd.utils.UTDHelper.stripUTDRecursive
 import org.brailleblaster.utd.utils.dom.BoxUtils.unbox
 import org.brailleblaster.exceptions.BBNotifyException
 import org.brailleblaster.perspectives.mvc.menu.BBSeparator
+import org.brailleblaster.utd.internal.xml.splitNode
 import org.brailleblaster.util.Notify
 import org.brailleblaster.util.Notify.notify
 import org.brailleblaster.utils.xml.BB_NS
@@ -301,7 +302,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
         m.simpleManager.dispatchEvent(ModifyEvent(Sender.SIMPLEMANAGER, ArrayList(blocks), true))
     }
 
-    fun boxBlock(start: Node, style: Style?): Node {
+    fun boxBlock(start: Node, style: Style): Node {
         val block = if ((BBX.CONTAINER.TABLE.isA(start) || BBX.CONTAINER.LIST.isA(start)
                     || BBX.CONTAINER.BOX.isA(start))
         ) start as Element else start.findBlock()
@@ -475,8 +476,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
                 ) { node: Element? -> BBX.BLOCK.isA(node) }!!
                 stripUTDRecursive(ancestorElement)
 
-                val splitTextNode = XMLHandler.splitTextNode(
-                    startNode,
+                val splitTextNode = startNode.splitNode(
                     (m.simpleManager.currentSelection.start as XMLTextCaret).offset,
                     (m.simpleManager.currentSelection.end as XMLTextCaret).offset
                 ).toMutableList()
@@ -550,8 +550,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
         var parent = startNode.parent as Element
         when (startNode) {
             is Text if startNode == endNode -> {
-                val splitTextNode = XMLHandler.splitTextNode(
-                    startNode,
+                val splitTextNode = startNode.splitNode(
                     (m.simpleManager.currentSelection.start as XMLTextCaret).offset,
                     (m.simpleManager.currentSelection.end as XMLTextCaret).offset
                 )

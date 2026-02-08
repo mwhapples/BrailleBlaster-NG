@@ -56,14 +56,14 @@ object EasySWT {
 
     @JvmStatic
     fun makeComposite(parent: Composite?, columns: Int): Composite {
-        return CompositeBuilder1(parent).apply {
+        return CompositeBuilder(parent).apply {
             this.columns = columns
         }.build()
     }
 
     @JvmStatic
-    fun buildComposite(parent: Composite?): CompositeBuilder1 {
-        return CompositeBuilder1(parent)
+    fun buildComposite(parent: Composite?): CompositeBuilder {
+        return CompositeBuilder(parent)
     }
 
     @JvmStatic

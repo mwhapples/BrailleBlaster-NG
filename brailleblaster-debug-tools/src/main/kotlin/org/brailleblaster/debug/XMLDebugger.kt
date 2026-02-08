@@ -268,7 +268,7 @@ class XMLDebugger(private val parent: Shell, private val simpleManager: BBSimple
     private fun save() {
         //Restricted version of BBFileDialog
         val saveAs = FileDialog(dialog, SWT.SAVE)
-        saveAs.filterExtensions = arrayOf("*.xml")
+        saveAs.setFilterExtensions("*.xml")
         val path = saveAs.open()
         if (path == null) log.debug("canceled save") else {
             val doc = BBX.newDocument()

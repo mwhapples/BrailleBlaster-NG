@@ -20,7 +20,7 @@ import nu.xom.Node;
 import nu.xom.ParentNode;
 import org.brailleblaster.math.mathml.MathModuleUtils;
 import org.brailleblaster.utd.internal.xml.XMLHandler;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -80,6 +80,7 @@ public class TextMapElement extends AbstractMapElement {
 		Node node = getNode();
 		return getNode() != null && node.getDocument() != null && MathModuleUtils.isSpatialMath(node);
 	}
+
 	public boolean isMathML(){
 		Node node = getNode();
 		return node instanceof Element && (((Element) node).getLocalName().equals("math"));

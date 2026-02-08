@@ -222,7 +222,6 @@ class RendererState(engine: UTDTranslationEngine) {
         this.emphasisNode = emphasisNode
     }
 
-
     /*
      * Table mode allows the state to move backwards without requiring a newPage element
      */
@@ -279,12 +278,8 @@ class RendererState(engine: UTDTranslationEngine) {
         }
 
         fun addSpacesToLine() {
-            val spaceBuilder = StringBuilder(text)
-            for (i in 0 until pendingHorizontalSpaces) {
-                spaceBuilder.append(" ")
-                _charCount++
-            }
-            text = spaceBuilder.toString()
+            text += " ".repeat(pendingHorizontalSpaces)
+            _charCount +=pendingHorizontalSpaces
             resetSpaces()
         }
 

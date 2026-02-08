@@ -17,7 +17,6 @@ package org.brailleblaster.bbx
 
 import nu.xom.*
 import org.brailleblaster.BBIni
-import org.brailleblaster.bbx.BBX.CoreType
 import org.brailleblaster.utd.config.StyleDefinitions
 import org.brailleblaster.utd.exceptions.NodeException
 import org.brailleblaster.utd.internal.xml.XMLHandler
@@ -35,25 +34,6 @@ import java.util.*
 object BBXValidator {
     private val log = LoggerFactory.getLogger(BBXValidator::class.java)
 
-    @Throws(ValidateException::class)
-    fun validElementType(type: CoreType?, node: Node?) {
-        if (type == null) {
-            throw NullPointerException("type")
-        }
-        if (node == null) {
-            throw NullPointerException("node")
-        }
-        val validateResult = type.validate(node)
-        if (validateResult != null) {
-            throw ValidateException(
-                node,
-                "Input node is not expected type {}: {}",
-                type,
-                validateResult
-            )
-        }
-    }
-
     fun validateDocument(doc: Document, styleDefs: StyleDefinitions) {
         if (!BBIni.debugging) {
             return
@@ -64,17 +44,16 @@ object BBXValidator {
         val bookRoot = BBX.getRoot(doc)
         assertEquals(bookRoot, doc.rootElement.childElements[1], doc)
         //TODO: skip comments in root
-//		assertEquals(doc.getRootElement().getChildCount(), 2, doc);
+        //assertEquals(doc.getRootElement().getChildCount(), 2, doc);
         val itrStack: Deque<Element> = ArrayDeque()
         itrStack.push(bookRoot)
         while (!itrStack.isEmpty()) {
             val curElem = itrStack.pop()
             when (curElem.namespaceURI) {
-                UTD_NS, MATHML_NS ->                    //do not try to validate
-                    continue
-
+                //do not try to validate
+                UTD_NS, MATHML_NS -> continue
                 BB_NS -> {}
-                else -> throw ValidateException(curElem, "Unexpected namspace " + curElem.namespaceURI)
+                else -> throw ValidateException(curElem, "Unexpected namespace " + curElem.namespaceURI)
             }
             val curType = BBX.getType(curElem)
             val curSubType = curType.getSubType(curElem)

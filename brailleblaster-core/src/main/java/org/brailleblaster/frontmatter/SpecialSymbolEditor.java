@@ -20,7 +20,7 @@ import org.brailleblaster.frontmatter.SpecialSymbols.DetectionRule;
 import org.brailleblaster.frontmatter.SpecialSymbols.Symbol;
 import org.brailleblaster.settings.UTDManager;
 import org.brailleblaster.utils.swt.ButtonBuilder1;
-import org.brailleblaster.utils.swt.CompositeBuilder1;
+import org.brailleblaster.utils.swt.CompositeBuilder;
 import org.brailleblaster.utils.swt.EasyListeners;
 import org.brailleblaster.utils.swt.EasySWT;
 import org.eclipse.swt.SWT;
@@ -28,6 +28,7 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.*;
+import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +71,7 @@ public class SpecialSymbolEditor {
         TableColumn rulesColumn = new TableColumn(symbolsTable, SWT.NONE);
         rulesColumn.setText("Rules");
 
-        CompositeBuilder1 compositeBuilder = EasySWT.buildComposite(dialog);
+        CompositeBuilder compositeBuilder = EasySWT.buildComposite(dialog);
         compositeBuilder.setColumns(3);
         compositeBuilder.setEqualColumnWidth(true);
         compositeBuilder.addButton("Add...", BUTTON_WIDTH, 1, (i) -> new SymbolDialog(dialog, symbolsTable).open(null));
@@ -109,7 +110,7 @@ public class SpecialSymbolEditor {
         dialog.open();
     }
 
-    private void resizeRulesColumn(TableColumn rulesColumn) {
+    private void resizeRulesColumn(@NonNull TableColumn rulesColumn) {
         Table symbolsTable = rulesColumn.getParent();
         int longestRulesCol = (SHELL_WIDTH - 100) / 2;
         GC gc = new GC(symbolsTable);
@@ -123,7 +124,7 @@ public class SpecialSymbolEditor {
     /**
      * Read symbols from map and insert them into table
      */
-    private void fillTable(Table symbolsTable, List<Symbol> symbols) {
+private void fillTable(@NonNull Table symbolsTable, @NonNull List<@NonNull Symbol> symbols) {
         for (Symbol symbol : symbols) {
             String desc = symbol.getDesc();
             if (desc == null)

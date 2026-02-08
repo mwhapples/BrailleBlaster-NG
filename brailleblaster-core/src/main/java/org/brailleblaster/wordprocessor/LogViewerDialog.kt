@@ -72,8 +72,8 @@ class LogViewerDialog @JvmOverloads constructor(parent: Shell?, style: Int = SWT
         saveButton.addSelectionListener(object : SelectionAdapter() {
             override fun widgetSelected(arg0: SelectionEvent) {
                 val saveDialog = FileDialog(dialogShell, SWT.SAVE)
-                saveDialog.filterNames = arrayOf("Log file (*.log)")
-                saveDialog.filterExtensions = arrayOf("*.log")
+                saveDialog.setFilterNames("Log file (*.log)")
+                saveDialog.setFilterExtensions("*.log")
                 saveDialog.filterPath = System.getProperty("user.home")
                 saveDialog.overwrite = true
                 val saveResult = saveDialog.open()

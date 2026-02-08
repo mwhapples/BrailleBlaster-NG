@@ -117,16 +117,16 @@ class TextViewModule(private val manager: Manager) : AbstractModule(), SimpleLis
                     if (event.sender == Sender.BREADCRUMBS || event.sender == Sender.IMAGE_DESCRIBER) {
                         if (actualStart == -1) {
                             /*
-							tme is most likely in previous loaded section
-							this is just a visual indicator, right? as long as the XMLCaret is correct it should be fine
-							*/
+                            tme is most likely in previous loaded section
+                            this is just a visual indicator, right? as long as the XMLCaret is correct it should be fine
+                            */
                             actualStart = 0
                         }
                         if (actualEnd == -1) {
                             /*
-							tme is most likely in previous loaded section
-							this is just a visual indicator, right? as long as the XMLCaret is correct it should be fine
-							*/
+                            tme is most likely in previous loaded section
+                            this is just a visual indicator, right? as long as the XMLCaret is correct it should be fine
+                            */
                             actualEnd = manager.textView.charCount - actualStart
                         }
                         manager.text.setCurrentSelection(actualStart, actualEnd)
@@ -313,8 +313,8 @@ class TextViewModule(private val manager: Manager) : AbstractModule(), SimpleLis
             }
             m.text.setCurrentElement(cursorPos + numberCharsAdded)
             //		m.getText().update(true);
-//		m.getTextView().setCaretOffset(cursorPos + numberCharsAdded);
-//		m.getMapList().setCurrent(m.getMapList().indexOf(m.getMapList().getClosest(cursorPos+ numberCharsAdded, true)));
+            //		m.getTextView().setCaretOffset(cursorPos + numberCharsAdded);
+            //		m.getMapList().setCurrent(m.getMapList().indexOf(m.getMapList().getClosest(cursorPos+ numberCharsAdded, true)));
         }
     }
 }

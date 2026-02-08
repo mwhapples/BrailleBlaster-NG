@@ -24,6 +24,7 @@ import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.mvc.modules.misc.StylesMenuModule
 import org.brailleblaster.search.SearchCriteria.*
 import org.brailleblaster.utd.internal.xml.XMLHandler
+import org.brailleblaster.utd.internal.xml.splitNode
 import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.UTDHelper.stripUTDRecursive
@@ -207,7 +208,7 @@ object SearchUtils {
             //Grab an element that matches the stylesFormatting
             val parent = XMLHandler.ancestorVisitorElement(
                 node
-            ) { n: Element -> hasStyles(n, click.settings.findStyleFormatting) }
+            ) { n -> hasStyles(n, click.settings.findStyleFormatting) }
             if (parent != null) {
                 //if the element is not null after checking the criteria, it's probably valid
                 return true
@@ -284,7 +285,7 @@ On node $node"""
 
     internal fun addEmphasisNoViews(node: Text, start: Int, end: Int, et: EnumSet<EmphasisType>?): EmphasisReturn {
         val nodesWithEmpty =
-            XMLHandler.splitTextNode(node, start, end)
+            node.splitNode(start, end)
         val splitTextNode: MutableList<Text> = ArrayList()
         var index = 0
 

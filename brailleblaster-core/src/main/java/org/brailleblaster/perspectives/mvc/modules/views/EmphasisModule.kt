@@ -38,6 +38,7 @@ import org.brailleblaster.tools.EmphasisMenuTool
 import org.brailleblaster.tools.MenuToolModule
 import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
+import org.brailleblaster.utd.internal.xml.splitNode
 import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.utd.utils.UTDHelper
 import org.brailleblaster.util.Utils
@@ -146,7 +147,8 @@ object EmphasisModule : AbstractModule(), SimpleListener {
                             currentSelection.end.offset, removeEmphasis
                         )
                     }
-                } else {
+                }
+                else {
                     //Element is selected. Apply emphasis to all descendant text nodes
                     FastXPath.descendant(currentSelection.start.node)
                         .filterIsInstance<Text>()
@@ -161,7 +163,8 @@ object EmphasisModule : AbstractModule(), SimpleListener {
                             )
                         }
                 }
-            } else {
+            }
+            else {
                 modifiedBlocks.forEach(Consumer { rootRaw -> UTDHelper.stripUTDRecursive(rootRaw) })
                 var startNode: Node? = currentSelection.start.node
 
@@ -215,13 +218,6 @@ object EmphasisModule : AbstractModule(), SimpleListener {
             }
             manager.dispatchEvent(ModifyEvent(Sender.EMPHASIS, modifiedNodes, true))
         }
-
-
-
-
-
-
-
 
     /*
  * Check if this emphasis item is a numbering of some sort for a list.
@@ -359,17 +355,6 @@ object EmphasisModule : AbstractModule(), SimpleListener {
         private fun emphasize(emphasis: EmphasisType, node: Text, start: Int, end: Int, remove: Boolean): Text {
             return emphasize(EnumSet.of(emphasis), node, start, end, remove)
         }
-
-
-
-
-
-
-
-
-
-
-
 
 }
 object RemoveAllEmphasisTool : MenuToolModule {
@@ -583,10 +568,12 @@ private fun emphasize(
         node
     }
 }
+
 private fun hasEmphasis(node: Text, emphasisTypes: EnumSet<EmphasisType>): Boolean {
     val parent = getEmphasisInline(node)
     return parent != null && BBX.INLINE.EMPHASIS.ATTRIB_EMPHASIS[parent].containsAll(emphasisTypes)
 }
+
 private fun isAllEmphasized(selection: XMLSelection, emphasisType: EmphasisType): Boolean {
     var startNode = getFirstTextNode(selection.start.node)
     val endNode = getFinalTextNode(selection.end.node)
@@ -682,7 +669,7 @@ private fun toggleWithPreviousEmphasis(
         return node
     } else if (start > 0 && end != NO_OFFSET && end != nodeLength) {
         val splitTextNode =
-            XMLHandler.splitTextNode(node, start, end)
+            node.splitNode(start, end)
         insertionIndex++
         processEmphasis(emphasisBits, splitTextNode[0], inlineElementParent, insertionIndex)
         insertionIndex++
@@ -692,14 +679,14 @@ private fun toggleWithPreviousEmphasis(
         nodeToWrap = splitTextNode[1]
     } else if (start > 0) {
         val splitTextNode =
-            XMLHandler.splitTextNode(node, start)
+            node.splitNode(start)
         nodeToWrap = splitTextNode[1]
         insertionIndex++
         processEmphasis(emphasisBits, splitTextNode[0], inlineElementParent, insertionIndex)
         insertionIndex++
         processEmphasis(emphasisBitsToggled, splitTextNode[1], inlineElementParent, insertionIndex)
     } else { // start == 0 || start == NO_OFFSET && (end != NO_OFFSET && end != nodeLength)
-        val splitTextNode = XMLHandler.splitTextNode(node, end)
+        val splitTextNode = node.splitNode(end)
         nodeToWrap = splitTextNode[0]
         insertionIndex++
         processEmphasis(emphasisBitsToggled, splitTextNode[0], inlineElementParent, insertionIndex)
@@ -760,16 +747,16 @@ private fun toggleNoPreviousEmphasis(
     nodeToWrap = if (start > 0 && end != NO_OFFSET && end != nodeLength) {
         //get middle and wrap
         val splitTextNode =
-            XMLHandler.splitTextNode(node, start, end)
+            node.splitNode(start, end)
         splitTextNode[1]
     } else if (start > 0) {
         //get last and wrap
         val splitTextNode =
-            XMLHandler.splitTextNode(node, start)
+            node.splitNode(start)
         splitTextNode[1]
     } else if (end != NO_OFFSET && end != nodeLength) {
         //get beginning and wrap
-        val splitTextNode = XMLHandler.splitTextNode(node, end)
+        val splitTextNode = node.splitNode(end)
         splitTextNode[0]
     } else {
         //wrap all

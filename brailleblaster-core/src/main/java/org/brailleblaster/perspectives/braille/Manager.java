@@ -16,10 +16,7 @@
 package org.brailleblaster.perspectives.braille;
 
 import kotlin.Pair;
-import nu.xom.Document;
-import nu.xom.Element;
-import nu.xom.Node;
-import nu.xom.ParentNode;
+import nu.xom.*;
 import org.apache.commons.lang3.time.StopWatch;
 import org.brailleblaster.BBIni;
 import org.brailleblaster.Main;
@@ -84,9 +81,12 @@ import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.*;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Shell;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -94,7 +94,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -142,7 +141,7 @@ public class Manager extends Controller {
      * DO NOT USE, ONLY getArchiver() IS ACCURATE!!! Internal use for
      * {@link #open() }
      */
-    private final @NotNull Path _initFile;
+    private final @NonNull Path _initFile;
 
     // Common init
     public Manager(WPManager wp, @Nullable Path file) {
@@ -158,19 +157,19 @@ public class Manager extends Controller {
         simpleManager = new BBSimpleManager() {
             // TODO: temporary workarounds to keep current manager design
             @Override
-            @NotNull
+            @NonNull
             public UTDManager getUtdManager() {
                 return getDocument().getSettingsManager();
             }
 
             @Override
-            @NotNull
+            @NonNull
             public Document getDoc() {
                 return Manager.this.getDoc();
             }
 
             @Override
-            @NotNull
+            @NonNull
             public Manager getManager() {
                 return Manager.this;
             }
@@ -195,8 +194,7 @@ public class Manager extends Controller {
         // Core wiring module
         // This must be first as the event must be translated
         simpleManager.registerModule((SimpleEvent event) -> {
-            if (event instanceof ModifyEvent) {
-                ModifyEvent mEvent = (ModifyEvent) event;
+            if (event instanceof ModifyEvent mEvent) {
                 stopFormatting();
 
                 mEvent.changedNodes.removeIf(n -> n.getDocument() == null);
@@ -204,7 +202,7 @@ public class Manager extends Controller {
                 if (mEvent.translate) {
                     List<Element> changedNodes = new ArrayList<>();
 
-                    // Used to comminicate information before a formatting stage
+                    // Used to communicate information before a formatting stage
                     // Can't just apply to mEvent.changedNodes as these might be added to a parent
                     StreamSupport.stream(((Iterable<Node>)FastXPath.descendant(getDoc())::iterator).spliterator(), false).filter(Searcher.Filters::isElement)
                             .map(Searcher.Mappers::toElement)
@@ -247,7 +245,7 @@ public class Manager extends Controller {
                                         && ((Element) child).getAttribute(TableUtils.ATTRIB_TABLE_COPY) == null
                                         && !changedNodes.contains(child)) {
                                     changedNodes.add((Element) child.getParent());
-                                } else if (!BBX.BLOCK.TABLE_CELL.isA(child) && BBX.BLOCK.isA(child) && !changedNodes.contains(child)) {
+                                } else if (!BBX.BLOCK.TABLE_CELL.isA(child) && BBX.BLOCK.isA(child) && !changedNodes.contains((Element)child)) {
                                     changedNodes.add((Element) child);
                                 }
                             }
@@ -662,7 +660,7 @@ public class Manager extends Controller {
                 working.setLayout(new GridLayout(1, false));
                 working.setText("Formatting...");
 
-                Text workingText = new Text(working, SWT.NONE);
+                var workingText = new org.eclipse.swt.widgets.Text(working, SWT.NONE);
                 workingText.setText("Formatting, please wait...");
 
                 EasySWT.INSTANCE.setLargeDialogSize(working);
@@ -924,7 +922,7 @@ public class Manager extends Controller {
         reformatDocument(getDoc());
     }
 
-    private void reformat(@NotNull Node node) {
+    private void reformat(@NonNull Node node) {
         if (reformatter.busy) {
             // Note: It may be tempting to substitute this line for
             // stopFormatting(), but in 90% of cases, if you've reached the
@@ -1037,7 +1035,7 @@ public class Manager extends Controller {
         final int REFORMATTER_BUG_BUFFER = 2;
         document.getEngine().setCallback(new UTDTranslationEngineCallback() {
             @Override
-            public void onUpdateNode(@NotNull Node n) {
+            public void onUpdateNode(@NonNull Node n) {
                 if (restartFormatFlag)
                     throw new UTDInterruption();
                 incrementPages();
@@ -1061,7 +1059,7 @@ public class Manager extends Controller {
             }
 
             @Override
-            public void onFormatComplete(@NotNull Node root) {
+            public void onFormatComplete(@NonNull Node root) {
                 logger.debug("Formatting completed");
                 if (pages != null && pages < maxPages + extraPages + REFORMATTER_BUG_BUFFER) {
                     logger.debug("MaxPages never reached.");
@@ -1074,11 +1072,11 @@ public class Manager extends Controller {
     private void removeReformattingCallback() {
         document.getEngine().setCallback(new UTDTranslationEngineCallback() {
             @Override
-            public void onUpdateNode(@NotNull Node n) {
+            public void onUpdateNode(@NonNull Node n) {
             }
 
             @Override
-            public void onFormatComplete(@NotNull Node root) {
+            public void onFormatComplete(@NonNull Node root) {
             }
         });
     }
@@ -1127,17 +1125,14 @@ public class Manager extends Controller {
             throw new IllegalArgumentException("Node " + startPoint.toXML() + " has no parent");
         Element curElement = (Element) startPoint.getParent();
         int startIndex = curElement.indexOf(startPoint) - 1;
-        for (int i = startIndex; i >= 0; i--) {
-            if (test.test(curElement.getChild(i)))
-                return curElement.getChild(i);
-            if (curElement.getChild(i) instanceof Element) {
-                Node searchElement = searchDescendantsForNodeBackwards((Element) curElement.getChild(i), test);
-                if (searchElement != null)
-                    return searchElement;
-            }
+        Node searchResult = searchDescendantsForNodeBackwards(curElement, startIndex, test);
+        if (searchResult != null) {
+            return searchResult;
         }
-        if (curElement.getParent() instanceof Document)
+        ParentNode parent = curElement.getParent();
+        if (parent == null || parent instanceof Document) {
             return null;
+        }
         return searchForPreviousNode(curElement, test);
     }
 
@@ -1162,13 +1157,18 @@ public class Manager extends Controller {
     }
 
     private Node searchDescendantsForNodeBackwards(Element parent, Predicate<Node> test) {
-        for (int search = parent.getChildCount() - 1; search >= 0; search--) {
-            if (test.test(parent.getChild(search)))
-                return parent.getChild(search);
-            if (parent.getChild(search) instanceof Element) {
-                Node searchElement = searchDescendantsForNodeBackwards((Element) parent.getChild(search), test);
-                if (searchElement != null)
+        return searchDescendantsForNodeBackwards(parent, parent.getChildCount() - 1, test);
+    }
+    private Node searchDescendantsForNodeBackwards(Element parent, int startIndex, Predicate<Node> test) {
+        for (int i = startIndex; i >= 0; i--) {
+            Node child = parent.getChild(i);
+            if (test.test(child)) {
+                return child;
+            } else if (child instanceof Element) {
+                Node searchElement = searchDescendantsForNodeBackwards((Element) child, test);
+                if (searchElement != null) {
                     return searchElement;
+                }
             }
         }
         return null;
@@ -1238,12 +1238,9 @@ public class Manager extends Controller {
         // This needs to run after the views are finished updating, because
         // moving the caret will trigger code inside Style View, which
         // would be working with an outdated, unformatted document
-//		simpleManager.getModule(PostViewUpdateModule.class).onModifyEvent(() -> { //commented for RT 7363
         text.setListenerLock(true);
         setTextCaret(newPos);
         text.setListenerLock(false);
-//		});
-        text.setListenerLock(false); //Does this need to be done twice?
         containerSash.setRedraw(true);
         sw.stop();
         logger.debug("Completed refreshFormat in: {}", sw);
@@ -1630,7 +1627,7 @@ public class Manager extends Controller {
         reformatter.close();
     }
 
-    @NotNull
+    @NonNull
     @Override
     public Document getDoc() {
         return document.doc;
@@ -1769,7 +1766,7 @@ public class Manager extends Controller {
 
     @Nullable
     public Pair<Integer, TextMapElement> getBraillePageElementByUntranslatedPage(
-            String untranslatedBraillePage, @Nullable nu.xom.Text startNode) {
+            String untranslatedBraillePage, @Nullable Text startNode) {
         boolean afterStartNode = false;
         for (SectionElement curSection : viewInitializer.getSectionList()) {
             for (TextMapElement curElement : curSection.list) {
@@ -1917,7 +1914,7 @@ public class Manager extends Controller {
         return document.getEngine().getActionMap().findValueOrDefault(n);
     }
 
-    public @Nullable IStyle getStyle(@NotNull Node n) {
+    public @Nullable IStyle getStyle(@NonNull Node n) {
         return document.getEngine().getStyle(n);
     }
 
@@ -1958,7 +1955,7 @@ public class Manager extends Controller {
         }
     }
 
-    @NotNull
+    @NonNull
     @Override
     public Archiver2 getArchiver() {
         return Objects.requireNonNull(archiver, "Manager not open");
