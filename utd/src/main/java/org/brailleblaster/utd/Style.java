@@ -340,7 +340,7 @@ public class Style implements IStyle, Serializable {
         return (Integer) StyleOption.LINES_BEFORE.getDefaultValue();
     }
 
-    public @NonNull Style setLinesBefore(int linesBefore) {
+    public void setLinesBefore(int linesBefore) {
         validateLinesBefore(linesBefore);
         if (this.baseStyle == null && (int) StyleOption.LINES_BEFORE.getDefaultValue() == linesBefore) {
             this.linesBefore = null;
@@ -349,7 +349,6 @@ public class Style implements IStyle, Serializable {
         } else {
             this.linesBefore.setValue(linesBefore);
         }
-        return this;
     }
 
     private void validateLinesBefore(int linesBefore) {
@@ -368,7 +367,7 @@ public class Style implements IStyle, Serializable {
         return (Integer) StyleOption.LINES_AFTER.getDefaultValue();
     }
 
-    public @NonNull Style setLinesAfter(int linesAfter) {
+    public void setLinesAfter(int linesAfter) {
         validateLinesAfter(linesAfter);
         if (this.baseStyle == null && (int) StyleOption.LINES_AFTER.getDefaultValue() == linesAfter) {
             this.linesAfter = null;
@@ -377,7 +376,6 @@ public class Style implements IStyle, Serializable {
         } else {
             this.linesAfter.setValue(linesAfter);
         }
-        return this;
     }
 
     private void validateLinesAfter(int linesAfter) {
@@ -401,7 +399,7 @@ public class Style implements IStyle, Serializable {
         return (Integer) StyleOption.INDENT.getDefaultValue();
     }
 
-    public @NonNull Style setIndent(Integer indent) {
+    public void setIndent(Integer indent) {
         validateIndent(indent);
         if (this.baseStyle == null && Objects.equals(StyleOption.INDENT.getDefaultValue(), indent)) {
             this.indent = null;
@@ -410,7 +408,6 @@ public class Style implements IStyle, Serializable {
         } else {
             this.indent.setValue(indent);
         }
-        return this;
     }
 
     private void validateIndent(Integer indent) {
@@ -429,7 +426,7 @@ public class Style implements IStyle, Serializable {
         return (Integer) StyleOption.LINE_LENGTH.getDefaultValue();
     }
 
-    public @NonNull Style setLineLength(Integer lineLength) {
+    public void setLineLength(Integer lineLength) {
         if (this.baseStyle == null && Objects.equals(StyleOption.LINE_LENGTH.getDefaultValue(), lineLength)) {
             this.lineLength = null;
         } else if (this.lineLength == null) {
@@ -437,7 +434,6 @@ public class Style implements IStyle, Serializable {
         } else {
             this.lineLength.setValue(lineLength);
         }
-        return this;
     }
 
     @Override
@@ -451,7 +447,7 @@ public class Style implements IStyle, Serializable {
         return (Integer) StyleOption.FIRST_LINE_INDENT.getDefaultValue();
     }
 
-    public @NonNull Style setFirstLineIndent(Integer firstLineIndent) {
+    public void setFirstLineIndent(Integer firstLineIndent) {
         validateFirstLineIndent(firstLineIndent);
         if (this.baseStyle == null && Objects.equals(StyleOption.FIRST_LINE_INDENT.getDefaultValue(), firstLineIndent)) {
             this.firstLineIndent = null;
@@ -460,7 +456,6 @@ public class Style implements IStyle, Serializable {
         } else {
             this.firstLineIndent.setValue(firstLineIndent);
         }
-        return this;
     }
 
     private void validateFirstLineIndent(Integer firstLineIndent) {
@@ -479,7 +474,7 @@ public class Style implements IStyle, Serializable {
         return (NumberLinePosition) StyleOption.SKIP_NUMBER_LINES.getDefaultValue();
     }
 
-    public @NonNull  Style setSkipNumberLines(NumberLinePosition skipNumberLines) {
+    public void setSkipNumberLines(NumberLinePosition skipNumberLines) {
         if (this.baseStyle == null && Objects.equals(StyleOption.SKIP_NUMBER_LINES.getDefaultValue(), skipNumberLines)) {
             this.skipNumberLines = null;
         } else if (this.skipNumberLines == null) {
@@ -487,7 +482,6 @@ public class Style implements IStyle, Serializable {
         } else {
             this.skipNumberLines.setValue(skipNumberLines);
         }
-        return this;
     }
 
     @Override
@@ -549,7 +543,7 @@ public class Style implements IStyle, Serializable {
         return (Format) StyleOption.FORMAT.getDefaultValue();
     }
 
-    public Style setFormat(Format format) {
+    public void setFormat(Format format) {
         validateFormat(format);
         if (this.baseStyle == null && Objects.equals(StyleOption.FORMAT.getDefaultValue(), format)) {
             this.format = null;
@@ -558,7 +552,6 @@ public class Style implements IStyle, Serializable {
         } else {
             this.format.setValue(format);
         }
-        return this;
     }
 
     private void validateFormat(Format format) {
@@ -576,7 +569,7 @@ public class Style implements IStyle, Serializable {
         return (Integer) StyleOption.NEW_PAGES_BEFORE.getDefaultValue();
     }
 
-    public Style setNewPagesBefore(int newPageBefore) {
+    public void setNewPagesBefore(int newPageBefore) {
         if (this.baseStyle == null && (int) StyleOption.NEW_PAGES_BEFORE.getDefaultValue() == newPageBefore) {
             this.newPagesBefore = null;
         } else if (this.newPagesBefore == null) {
@@ -584,7 +577,6 @@ public class Style implements IStyle, Serializable {
         } else {
             this.newPagesBefore.setValue(newPageBefore);
         }
-        return this;
     }
 
     @Override
@@ -598,7 +590,7 @@ public class Style implements IStyle, Serializable {
         return (Integer) StyleOption.NEW_PAGES_AFTER.getDefaultValue();
     }
 
-    public Style setNewPagesAfter(int newPageAfter) {
+    public void setNewPagesAfter(int newPageAfter) {
         if (this.baseStyle == null && (int) StyleOption.NEW_PAGES_AFTER.getDefaultValue() == newPageAfter) {
             this.newPagesAfter = null;
         } else if (this.newPagesAfter == null) {
@@ -606,7 +598,6 @@ public class Style implements IStyle, Serializable {
         } else {
             this.newPagesAfter.setValue(newPageAfter);
         }
-        return this;
     }
 
     @Override
@@ -667,7 +658,7 @@ public class Style implements IStyle, Serializable {
         return (Boolean) StyleOption.DONT_SPLIT.getDefaultValue();
     }
 
-    public Style setDontSplit(boolean dontSplit) {
+    public void setDontSplit(boolean dontSplit) {
         if (this.baseStyle == null && (boolean) StyleOption.DONT_SPLIT.getDefaultValue() == dontSplit) {
             this.dontSplit = null;
         } else if (this.dontSplit == null) {
@@ -675,7 +666,6 @@ public class Style implements IStyle, Serializable {
         } else {
             this.dontSplit.setValue(dontSplit);
         }
-        return this;
     }
 
     @Override
@@ -689,7 +679,7 @@ public class Style implements IStyle, Serializable {
         return (Boolean) StyleOption.KEEP_WITH_NEXT.getDefaultValue();
     }
 
-    public Style setKeepWithNext(boolean keepWithNext) {
+    public void setKeepWithNext(boolean keepWithNext) {
         if (this.baseStyle == null && (boolean) StyleOption.KEEP_WITH_NEXT.getDefaultValue() == keepWithNext) {
             this.keepWithNext = null;
         } else if (this.keepWithNext == null) {
@@ -697,7 +687,6 @@ public class Style implements IStyle, Serializable {
         } else {
             this.keepWithNext.setValue(keepWithNext);
         }
-        return this;
     }
 
     @Override
@@ -760,7 +749,7 @@ public class Style implements IStyle, Serializable {
         return (Integer) StyleOption.LINE_SPACING.getDefaultValue();
     }
 
-    public Style setLineSpacing(int lineSpacing) {
+    public void setLineSpacing(int lineSpacing) {
         validateLineSpacing(lineSpacing);
         if (this.baseStyle == null && (int) StyleOption.LINE_SPACING.getDefaultValue() == lineSpacing) {
             this.lineSpacing = null;
@@ -769,7 +758,6 @@ public class Style implements IStyle, Serializable {
         } else {
             this.lineSpacing.setValue(lineSpacing);
         }
-        return this;
     }
 
     private void validateLineSpacing(int lineSpacing) {
@@ -788,7 +776,7 @@ public class Style implements IStyle, Serializable {
         return (String) StyleOption.START_SEPARATOR.getDefaultValue();
     }
 
-    public Style setStartSeparator(String startSeparator) {
+    public void setStartSeparator(String startSeparator) {
         if (this.baseStyle == null && Objects.equals(StyleOption.START_SEPARATOR.getDefaultValue(), startSeparator)) {
             this.startSeparator = null;
         } else if (this.startSeparator == null) {
@@ -796,7 +784,6 @@ public class Style implements IStyle, Serializable {
         } else {
             this.startSeparator.setValue(startSeparator);
         }
-        return this;
     }
 
     @Override
@@ -810,7 +797,7 @@ public class Style implements IStyle, Serializable {
         return (String) StyleOption.COLOR.getDefaultValue();
     }
 
-    public Style setColor(String color) {
+    public void setColor(String color) {
         if (this.baseStyle == null && Objects.equals(StyleOption.COLOR.getDefaultValue(), color)) {
             this.color = null;
         } else if (this.color == null) {
@@ -818,7 +805,6 @@ public class Style implements IStyle, Serializable {
         } else {
             this.color.setValue(color);
         }
-        return this;
     }
 
     @Override
@@ -832,7 +818,7 @@ public class Style implements IStyle, Serializable {
         return (String) StyleOption.END_SEPARATOR.getDefaultValue();
     }
 
-    public Style setEndSeparator(String endSeparator) {
+    public void setEndSeparator(String endSeparator) {
         if (this.baseStyle == null && Objects.equals(StyleOption.END_SEPARATOR.getDefaultValue(), endSeparator)) {
             this.endSeparator = null;
         } else if (this.endSeparator == null) {
@@ -840,7 +826,6 @@ public class Style implements IStyle, Serializable {
         } else {
             this.endSeparator.setValue(endSeparator);
         }
-        return this;
     }
 
     @Override
@@ -887,7 +872,7 @@ public class Style implements IStyle, Serializable {
         return UTDHelper.autoToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 
-    public Style setGuideWords(boolean guideWords) {
+    public void setGuideWords(boolean guideWords) {
         validateGuideWords(guideWords);
         if (this.baseStyle == null && (boolean) StyleOption.GUIDE_WORDS.getDefaultValue() == guideWords) {
             this.guideWords = null;
@@ -896,7 +881,6 @@ public class Style implements IStyle, Serializable {
         } else {
             this.guideWords.setValue(guideWords);
         }
-        return this;
     }
 
     private void validateGuideWords(boolean guideWords) {
@@ -990,7 +974,7 @@ public class Style implements IStyle, Serializable {
         return (Boolean) StyleOption.PAGE_NUM.getDefaultValue();
     }
 
-    public Style setPageNum(boolean pageNum) {
+    public void setPageNum(boolean pageNum) {
         if (this.baseStyle == null && (boolean) StyleOption.PAGE_NUM.getDefaultValue() == pageNum) {
             this.pageNum = null;
         } else if (this.pageNum == null) {
@@ -998,7 +982,6 @@ public class Style implements IStyle, Serializable {
         } else {
             this.pageNum.setValue(pageNum);
         }
-        return this;
     }
 
     @Override
