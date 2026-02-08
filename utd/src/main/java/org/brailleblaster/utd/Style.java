@@ -403,7 +403,7 @@ public class Style implements IStyle, Serializable {
         return (Integer) StyleOption.INDENT.getDefaultValue();
     }
 
-    public @NonNull Style setIndent(@Nullable Integer indent) {
+    public @NonNull Style setIndent(Integer indent) {
         validateIndent(indent);
         if (this.baseStyle == null && Objects.equals(StyleOption.INDENT.getDefaultValue(), indent)) {
             this.indent = null;
@@ -415,7 +415,7 @@ public class Style implements IStyle, Serializable {
         return this;
     }
 
-    private void validateIndent(@Nullable Integer indent) {
+    private void validateIndent(Integer indent) {
         if (indent != null && indent < 0)
             throw new IllegalArgumentException("indent must be positive, given " + indent);
     }
@@ -431,7 +431,7 @@ public class Style implements IStyle, Serializable {
         return (Integer) StyleOption.LINE_LENGTH.getDefaultValue();
     }
 
-    public @NonNull Style setLineLength(@Nullable Integer lineLength) {
+    public @NonNull Style setLineLength(Integer lineLength) {
         if (this.baseStyle == null && Objects.equals(StyleOption.LINE_LENGTH.getDefaultValue(), lineLength)) {
             this.lineLength = null;
         } else if (this.lineLength == null) {
@@ -453,7 +453,7 @@ public class Style implements IStyle, Serializable {
         return (Integer) StyleOption.FIRST_LINE_INDENT.getDefaultValue();
     }
 
-    public @NonNull Style setFirstLineIndent(@Nullable Integer firstLineIndent) {
+    public @NonNull Style setFirstLineIndent(Integer firstLineIndent) {
         validateFirstLineIndent(firstLineIndent);
         if (this.baseStyle == null && Objects.equals(StyleOption.FIRST_LINE_INDENT.getDefaultValue(), firstLineIndent)) {
             this.firstLineIndent = null;
@@ -465,7 +465,7 @@ public class Style implements IStyle, Serializable {
         return this;
     }
 
-    private void validateFirstLineIndent(@Nullable Integer firstLineIndent) {
+    private void validateFirstLineIndent(Integer firstLineIndent) {
         if (firstLineIndent != null && firstLineIndent < 0)
             throw new IllegalArgumentException("firstLineIndent must be positive, given " + firstLineIndent);
     }
@@ -481,7 +481,7 @@ public class Style implements IStyle, Serializable {
         return (NumberLinePosition) StyleOption.SKIP_NUMBER_LINES.getDefaultValue();
     }
 
-    public @NonNull  Style setSkipNumberLines(@Nullable NumberLinePosition skipNumberLines) {
+    public @NonNull  Style setSkipNumberLines(NumberLinePosition skipNumberLines) {
         if (this.baseStyle == null && Objects.equals(StyleOption.SKIP_NUMBER_LINES.getDefaultValue(), skipNumberLines)) {
             this.skipNumberLines = null;
         } else if (this.skipNumberLines == null) {
@@ -503,7 +503,7 @@ public class Style implements IStyle, Serializable {
         return (Integer) StyleOption.SKIP_PAGES.getDefaultValue();
     }
 
-    public @NonNull Style setSkipPages(int skipPages) {
+    public void setSkipPages(int skipPages) {
         validateSkipPages(skipPages);
         if (this.baseStyle == null && (int) StyleOption.SKIP_PAGES.getDefaultValue() == skipPages) {
             this.skipPages = null;
@@ -512,7 +512,6 @@ public class Style implements IStyle, Serializable {
         } else {
             this.skipPages.setValue(skipPages);
         }
-        return this;
     }
 
     @Override
@@ -526,21 +525,19 @@ public class Style implements IStyle, Serializable {
         return (Align) StyleOption.ALIGN.getDefaultValue();
     }
 
-    public Style setAlign(Align align) {
-        validateAlign(align);
-        if (this.baseStyle == null && Objects.equals(StyleOption.ALIGN.getDefaultValue(), align)) {
+    public void setAlign(Align align) {
+        Align validAlign = validateAlign(align);
+        if (this.baseStyle == null && Objects.equals(StyleOption.ALIGN.getDefaultValue(), validAlign)) {
             this.align = null;
         } else if (this.align == null) {
-            this.align = factory.createAlign(align);
+            this.align = factory.createAlign(validAlign);
         } else {
-            this.align.setValue(align);
+            this.align.setValue(validAlign);
         }
-        return this;
     }
 
-    private void validateAlign(Align align) {
-        if (align == null)
-            throw new NullPointerException("align");
+    private @NonNull Align validateAlign(Align align) {
+        return Objects.requireNonNull(align, "align");
     }
 
     @Override
@@ -625,21 +622,19 @@ public class Style implements IStyle, Serializable {
         return (PageSide) StyleOption.PAGE_SIDE.getDefaultValue();
     }
 
-    public Style setPageSide(PageSide pageSide) {
-        validatePageSide(pageSide);
-        if (baseStyle == null && Objects.equals(StyleOption.PAGE_SIDE.getDefaultValue(), pageSide)) {
+    public void setPageSide(PageSide pageSide) {
+        PageSide validPageSide = validatePageSide(pageSide);
+        if (baseStyle == null && Objects.equals(StyleOption.PAGE_SIDE.getDefaultValue(), validPageSide)) {
             this.pageSide = null;
         } else if (this.pageSide == null) {
-            this.pageSide = factory.createPageSide(pageSide);
+            this.pageSide = factory.createPageSide(validPageSide);
         } else {
-            this.pageSide.setValue(pageSide);
+            this.pageSide.setValue(validPageSide);
         }
-        return this;
     }
 
-    private void validatePageSide(PageSide pageSide) {
-        if (pageSide == null)
-            throw new NullPointerException("pageSide");
+    private @NonNull PageSide validatePageSide(PageSide pageSide) {
+        return Objects.requireNonNull(pageSide);
     }
 
     @Override
@@ -653,8 +648,7 @@ public class Style implements IStyle, Serializable {
         return (PageNumberType) StyleOption.BRAILLE_PAGE_NUMBER_FORMAT.getDefaultValue();
     }
 
-    public Style setBraillePageNumberFormat(PageNumberType braillePageNumberFormat) {
-        validateBraillePageNumberFormat(braillePageNumberFormat);
+    public void setBraillePageNumberFormat(PageNumberType braillePageNumberFormat) {
         if (this.baseStyle == null && Objects.equals(StyleOption.BRAILLE_PAGE_NUMBER_FORMAT.getDefaultValue(), braillePageNumberFormat)) {
             this.braillePageNumberFormat = null;
         } else if (this.braillePageNumberFormat != null) {
@@ -662,10 +656,6 @@ public class Style implements IStyle, Serializable {
         } else {
             this.braillePageNumberFormat = factory.createBraillePageNumberFormat(braillePageNumberFormat);
         }
-        return this;
-    }
-
-    private void validateBraillePageNumberFormat(PageNumberType braillePageNumberFormat) {
     }
 
     @Override
@@ -723,7 +713,7 @@ public class Style implements IStyle, Serializable {
         return (Boolean) StyleOption.KEEP_WITH_PREVIOUS.getDefaultValue();
     }
 
-    public Style setKeepWithPrevious(boolean keepWithPrevious) {
+    public void setKeepWithPrevious(boolean keepWithPrevious) {
         if (this.baseStyle == null && (boolean) StyleOption.KEEP_WITH_PREVIOUS.getDefaultValue() == keepWithPrevious) {
             this.keepWithPrevious = null;
         } else if (this.keepWithPrevious == null) {
@@ -731,7 +721,6 @@ public class Style implements IStyle, Serializable {
         } else {
             this.keepWithPrevious.setValue(keepWithPrevious);
         }
-        return this;
     }
 
     @Override
@@ -745,7 +734,7 @@ public class Style implements IStyle, Serializable {
         return (Integer) StyleOption.ORPHAN_CONTROL.getDefaultValue();
     }
 
-    public Style setOrphanControl(int orphanControl) {
+    public void setOrphanControl(int orphanControl) {
         validateOrphanControl(orphanControl);
         if (this.baseStyle == null && (int) StyleOption.ORPHAN_CONTROL.getDefaultValue() == orphanControl) {
             this.orphanControl = null;
@@ -754,7 +743,6 @@ public class Style implements IStyle, Serializable {
         } else {
             this.orphanControl.setValue(orphanControl);
         }
-        return this;
     }
 
     private void validateOrphanControl(int orphanControl) {
@@ -941,7 +929,7 @@ public class Style implements IStyle, Serializable {
         return (Boolean) StyleOption.IS_TABLE.getDefaultValue();
     }
 
-    public Style setIsTable(boolean isTable) {
+    public void setIsTable(boolean isTable) {
         if (this.baseStyle == null && (boolean) StyleOption.IS_TABLE.getDefaultValue() == isTable) {
             this.isTable = null;
         } else if (this.isTable == null) {
@@ -949,7 +937,6 @@ public class Style implements IStyle, Serializable {
         } else {
             this.isTable.setValue(isTable);
         }
-        return this;
     }
 
     @Override
@@ -963,7 +950,7 @@ public class Style implements IStyle, Serializable {
         return (Boolean) StyleOption.IS_TABLE_ROW.getDefaultValue();
     }
 
-    public Style setIsTableRow(boolean isTableRow) {
+    public void setIsTableRow(boolean isTableRow) {
         if (this.baseStyle == null && (boolean) StyleOption.IS_TABLE_ROW.getDefaultValue() == isTableRow) {
             this.isTableRow = null;
         } else if (this.isTableRow == null) {
@@ -971,7 +958,6 @@ public class Style implements IStyle, Serializable {
         } else {
             this.isTableRow.setValue(isTableRow);
         }
-        return this;
     }
 
     @Override
@@ -985,7 +971,7 @@ public class Style implements IStyle, Serializable {
         return (Boolean) StyleOption.IS_TABLE_CELL.getDefaultValue();
     }
 
-    public Style setIsTableCell(boolean isTableCell) {
+    public void setIsTableCell(boolean isTableCell) {
         if (this.baseStyle == null && (boolean) StyleOption.IS_TABLE_CELL.getDefaultValue() == isTableCell) {
             this.isTableCell = null;
         } else if (this.isTableCell == null) {
@@ -993,7 +979,6 @@ public class Style implements IStyle, Serializable {
         } else {
             this.isTableCell.setValue(isTableCell);
         }
-        return this;
     }
 
     @Override
@@ -1131,7 +1116,7 @@ public class Style implements IStyle, Serializable {
     @SuppressWarnings("unused")
     void afterUnmarshal(Unmarshaller ignoredU, Object parent) {
         validateAlign(getAlign());
-        validateBraillePageNumberFormat(getBraillePageNumberFormat());
+        getBraillePageNumberFormat();
         validateFirstLineIndent(getFirstLineIndent());
         validateFormat(getFormat());
         validateGuideWords(isGuideWords());
