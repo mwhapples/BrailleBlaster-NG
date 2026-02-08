@@ -312,11 +312,10 @@ public class Style implements IStyle, Serializable {
         return id;
     }
 
-    public @NonNull Style setId(@NonNull String id) {
+    public void setId(@NonNull String id) {
         if (StringUtils.isBlank(id))
             throw new IllegalArgumentException("Style ID cannot be blank");
         this.id = id;
-        return this;
     }
 
     @Override
@@ -324,11 +323,10 @@ public class Style implements IStyle, Serializable {
         return name;
     }
 
-    public @NonNull Style setName(@NonNull String name) {
+    public void setName(@NonNull String name) {
         if (StringUtils.isBlank(name))
             throw new IllegalArgumentException("Name cannot be blank");
         this.name = name;
-        return this;
     }
 
     @Override
