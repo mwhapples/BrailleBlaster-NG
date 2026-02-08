@@ -1284,7 +1284,7 @@ public static final @NonNull BlockElement BLOCK = new BlockElement();
         }
     }
 
-    public static final @NonNull List<BBX.@NonNull CoreType> CORE_TYPES =
+    public static final @NonNull List<@NonNull CoreType> CORE_TYPES =
         List.of(SECTION, CONTAINER, BLOCK, INLINE, SPAN);
 
     public static @NonNull CoreType getType(@NonNull Element elem) {

@@ -69,7 +69,7 @@ public class BRFWriter {
     private int curLine;
     private final OutputCharStream output;
     public int brlPage = -1;
-    public final UTDTranslationEngine engine;
+    public final @NonNull UTDTranslationEngine engine;
     private boolean afterBookStart = false;
 
     private boolean nonsequentialPages = false;
@@ -91,7 +91,7 @@ public class BRFWriter {
     public static final PageListener EMPTY_PAGE_LISTENER = new PageListener() {
     };
 
-    public BRFWriter(UTDTranslationEngine engine, OutputCharStream output, int opts, @NonNull PageListener outputPageListener) {
+    public BRFWriter(@NonNull UTDTranslationEngine engine, OutputCharStream output, int opts, @NonNull PageListener outputPageListener) {
         this.opts = opts;
         this.outputPageListener = outputPageListener;
         this.engine = engine;
@@ -111,9 +111,7 @@ public class BRFWriter {
     /**
      * Append translated braille to current line
      */
-    public void append(String braille) {
-        if (braille == null)
-            throw new NullPointerException("braille");
+    public void append(@NonNull String braille) {
         //Cannot do anything on empty nodes
         if (braille.isEmpty()) {
             log.info(debug("Skipping appending empty string on braille page {}", brlPage));
@@ -374,7 +372,7 @@ public class BRFWriter {
      * Issue #6646: BRFs must use Windows line endings. However to keep the
      * simple char stream API, rewrite the characters when needed
      */
-    public static BRFWriter.OutputCharStream lineEndingRewriter(BRFWriter.OutputCharStream dest) {
+    public static @NonNull OutputCharStream lineEndingRewriter(BRFWriter.OutputCharStream dest) {
         return (char givenChar) -> {
             if (givenChar == BRFWriter.NEWLINE) {
                 dest.accept('\r');
