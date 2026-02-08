@@ -312,7 +312,7 @@ public class Style implements IStyle, Serializable {
         return id;
     }
 
-    public Style setId(String id) {
+    public @NonNull Style setId(@NonNull String id) {
         if (StringUtils.isBlank(id))
             throw new IllegalArgumentException("Style ID cannot be blank");
         this.id = id;
@@ -324,7 +324,7 @@ public class Style implements IStyle, Serializable {
         return name;
     }
 
-    public Style setName(String name) {
+    public @NonNull Style setName(@NonNull String name) {
         if (StringUtils.isBlank(name))
             throw new IllegalArgumentException("Name cannot be blank");
         this.name = name;
@@ -342,7 +342,7 @@ public class Style implements IStyle, Serializable {
         return (Integer) StyleOption.LINES_BEFORE.getDefaultValue();
     }
 
-    public Style setLinesBefore(int linesBefore) {
+    public @NonNull Style setLinesBefore(int linesBefore) {
         validateLinesBefore(linesBefore);
         if (this.baseStyle == null && (int) StyleOption.LINES_BEFORE.getDefaultValue() == linesBefore) {
             this.linesBefore = null;
@@ -370,7 +370,7 @@ public class Style implements IStyle, Serializable {
         return (Integer) StyleOption.LINES_AFTER.getDefaultValue();
     }
 
-    public Style setLinesAfter(int linesAfter) {
+    public @NonNull Style setLinesAfter(int linesAfter) {
         validateLinesAfter(linesAfter);
         if (this.baseStyle == null && (int) StyleOption.LINES_AFTER.getDefaultValue() == linesAfter) {
             this.linesAfter = null;
@@ -403,7 +403,7 @@ public class Style implements IStyle, Serializable {
         return (Integer) StyleOption.INDENT.getDefaultValue();
     }
 
-    public Style setIndent(Integer indent) {
+    public @NonNull Style setIndent(@Nullable Integer indent) {
         validateIndent(indent);
         if (this.baseStyle == null && Objects.equals(StyleOption.INDENT.getDefaultValue(), indent)) {
             this.indent = null;
@@ -415,7 +415,7 @@ public class Style implements IStyle, Serializable {
         return this;
     }
 
-    private void validateIndent(Integer indent) {
+    private void validateIndent(@Nullable Integer indent) {
         if (indent != null && indent < 0)
             throw new IllegalArgumentException("indent must be positive, given " + indent);
     }
@@ -431,7 +431,7 @@ public class Style implements IStyle, Serializable {
         return (Integer) StyleOption.LINE_LENGTH.getDefaultValue();
     }
 
-    public Style setLineLength(Integer lineLength) {
+    public @NonNull Style setLineLength(@Nullable Integer lineLength) {
         if (this.baseStyle == null && Objects.equals(StyleOption.LINE_LENGTH.getDefaultValue(), lineLength)) {
             this.lineLength = null;
         } else if (this.lineLength == null) {
@@ -453,7 +453,7 @@ public class Style implements IStyle, Serializable {
         return (Integer) StyleOption.FIRST_LINE_INDENT.getDefaultValue();
     }
 
-    public Style setFirstLineIndent(Integer firstLineIndent) {
+    public @NonNull Style setFirstLineIndent(@Nullable Integer firstLineIndent) {
         validateFirstLineIndent(firstLineIndent);
         if (this.baseStyle == null && Objects.equals(StyleOption.FIRST_LINE_INDENT.getDefaultValue(), firstLineIndent)) {
             this.firstLineIndent = null;
@@ -465,7 +465,7 @@ public class Style implements IStyle, Serializable {
         return this;
     }
 
-    private void validateFirstLineIndent(Integer firstLineIndent) {
+    private void validateFirstLineIndent(@Nullable Integer firstLineIndent) {
         if (firstLineIndent != null && firstLineIndent < 0)
             throw new IllegalArgumentException("firstLineIndent must be positive, given " + firstLineIndent);
     }
@@ -481,7 +481,7 @@ public class Style implements IStyle, Serializable {
         return (NumberLinePosition) StyleOption.SKIP_NUMBER_LINES.getDefaultValue();
     }
 
-    public Style setSkipNumberLines(NumberLinePosition skipNumberLines) {
+    public @NonNull  Style setSkipNumberLines(@Nullable NumberLinePosition skipNumberLines) {
         if (this.baseStyle == null && Objects.equals(StyleOption.SKIP_NUMBER_LINES.getDefaultValue(), skipNumberLines)) {
             this.skipNumberLines = null;
         } else if (this.skipNumberLines == null) {
@@ -503,7 +503,7 @@ public class Style implements IStyle, Serializable {
         return (Integer) StyleOption.SKIP_PAGES.getDefaultValue();
     }
 
-    public Style setSkipPages(int skipPages) {
+    public @NonNull Style setSkipPages(int skipPages) {
         validateSkipPages(skipPages);
         if (this.baseStyle == null && (int) StyleOption.SKIP_PAGES.getDefaultValue() == skipPages) {
             this.skipPages = null;

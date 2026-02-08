@@ -65,19 +65,16 @@ public interface IStyle {
      *
      * @return The number of cells to indent the content.
      */
-    @Nullable
-    Integer getIndent();
+    @Nullable Integer getIndent();
 
     /**
      * Get the length for a line in cells.
      *
      * @return The length of the line. Positive values are the actual length, zero or negative values indicate how much shorter than the maximum possible line length the line should be.
      */
-    @Nullable
-    Integer getLineLength();
+    @Nullable Integer getLineLength();
 
-    @Nullable
-    Integer getFirstLineIndent();
+    @Nullable Integer getFirstLineIndent();
 
     NumberLinePosition getSkipNumberLines();
 
@@ -153,11 +150,9 @@ public interface IStyle {
         }
     }
 
-    @Nullable
-    Integer getLinesAfter(Node node, NamespaceMap namespaces);
+    @Nullable Integer getLinesAfter(Node node, NamespaceMap namespaces);
 
-    @Nullable
-    Integer getLinesBefore(Node node, NamespaceMap namespaces);
+    @Nullable Integer getLinesBefore(Node node, NamespaceMap namespaces);
 
     /**
      * Gets the minimum number of spaces which should appear before this node.
