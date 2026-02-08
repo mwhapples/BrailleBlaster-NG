@@ -45,7 +45,7 @@ child.project.url.inherit.append.path="false">
         <app.vendor-fsname>mwhapples</app.vendor-fsname>
         <app.contact-email>software@mdw.onl</app.contact-email>
         <app.rdns-name>app.brailleblaster-ng</app.rdns-name>
-        <revision>2026.0.0</revision>
+        <revision>2026.0.1</revision>
         <sha1/>
         <changelist>-SNAPSHOT</changelist>
         <versions.plugin.version>2.18.0</versions.plugin.version>
