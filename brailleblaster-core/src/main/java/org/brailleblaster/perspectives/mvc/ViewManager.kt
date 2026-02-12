@@ -42,13 +42,14 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
 
     // ----------- Layout ------------------
     @JvmField
-	val containerSash: SashForm = SashForm(folder, SWT.HORIZONTAL).apply {
+    val containerSash: SashForm = SashForm(folder, SWT.HORIZONTAL).apply {
         layout = FormLayout()
     }
     val textView: TextView = TextView(m, containerSash)
     val brailleView: BrailleView = BrailleView(m, containerSash)
+
     @JvmField
-	val stylePane: StylePane = StylePane(containerSash, m)
+    val stylePane: StylePane = StylePane(containerSash, m)
     private var windowedViewCurrent: Views? = null
 
     init {
@@ -94,18 +95,19 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
             return
         }
         if (windowedViewNew != null) {
-            windowedShell = (windowedShell?.takeIf { !it.isDisposed } ?: EasySWT.makeDialogFloating(m.wpManager.shell).apply {
-                layout = GridLayout(1, true)
-                open()
-            }).also { ws ->
-                val windowedEditor = getView(windowedViewNew)
-                windowedEditor.view.setParent(ws)
-                EasySWT.setGridDataVertical(windowedEditor.view)
-                ws.layout(true)
-                ws.setRedraw(true)
-                ws.text =
-                    "${WordUtils.capitalizeFully(windowedViewNew.name)} View"
-            }
+            windowedShell =
+                (windowedShell?.takeIf { !it.isDisposed } ?: EasySWT.makeDialogFloating(m.wpManager.shell).apply {
+                    layout = GridLayout(1, true)
+                    open()
+                }).also { ws ->
+                    val windowedEditor = getView(windowedViewNew)
+                    windowedEditor.view.setParent(ws)
+                    EasySWT.setGridDataVertical(windowedEditor.view)
+                    ws.layout(true)
+                    ws.setRedraw(true)
+                    ws.text =
+                        "${WordUtils.capitalizeFully(windowedViewNew.name)} View"
+                }
             redrawMainContainer = true
         }
         windowedViewCurrent = windowedViewNew
@@ -116,13 +118,15 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
     }
 
     private fun getView(view: Views): BBEditorView {
-        return when(view) {
+        return when (view) {
             Views.PRINT -> {
                 textView
             }
+
             Views.BRAILLE -> {
                 brailleView
             }
+
             Views.STYLE -> {
                 stylePane
             }
@@ -360,8 +364,9 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
         const val SETTING_DARK_THEME = "viewManager.darkTheme"
         private const val SETTING_WINDOWED_VIEW = "viewManager.windowedView"
         private var windowedShell: Shell? = null
+
         @JvmStatic
-		    fun colorizeCompositeRecursive(composite: Composite) {
+        fun colorizeCompositeRecursive(composite: Composite) {
             if (!isDarkMode) {
                 return
             }
@@ -388,8 +393,7 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
             }
         }
 
-        @JvmStatic
-		    fun colorizeToolbarHolder(composite: Composite) {
+        fun colorizeToolbarHolder(composite: Composite) {
             if (true) {
                 return
             }
@@ -398,8 +402,7 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
             }
         }
 
-        @JvmStatic
-		    fun colorizeIconToolbars(bar: ToolBar) {
+        fun colorizeIconToolbars(bar: ToolBar) {
             if (true) {
                 return
             }
@@ -408,8 +411,7 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
             }
         }
 
-        @JvmStatic
-		    fun colorizeCustomToolbars(composite: Composite) {
+        fun colorizeCustomToolbars(composite: Composite) {
             if (true) {
                 return
             }
@@ -420,8 +422,9 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
 
         val isDarkMode: Boolean
             get() = BBIni.propertyFileManager.getPropertyAsBoolean(SETTING_DARK_THEME, false)
+
         @JvmStatic
-		    var windowedView: Views?
+        var windowedView: Views?
             get() = BBIni.propertyFileManager.getPropertyAsEnumOrNull<Views>(SETTING_WINDOWED_VIEW)
             set(view) {
                 if (view == null) {
