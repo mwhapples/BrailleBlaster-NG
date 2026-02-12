@@ -92,19 +92,18 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
             return
         }
         if (windowedViewNew != null) {
-            if (windowedShell == null) {
-                windowedShell = EasySWT.makeDialogFloating(m.wpManager.shell).apply {
-                    layout = GridLayout(1, true)
-                    open()
-                }
+            windowedShell = (windowedShell?.takeIf { !it.isDisposed } ?: EasySWT.makeDialogFloating(m.wpManager.shell).apply {
+                layout = GridLayout(1, true)
+                open()
+            }).also { ws ->
+                val windowedEditor = getView(windowedViewNew)
+                windowedEditor.view.setParent(ws)
+                EasySWT.setGridDataVertical(windowedEditor.view)
+                ws.layout(true)
+                ws.setRedraw(true)
+                ws.text =
+                    "${WordUtils.capitalizeFully(windowedViewNew.name)} View"
             }
-            val windowedEditor = getView(windowedViewNew)
-            windowedEditor.view.setParent(windowedShell)
-            EasySWT.setGridDataVertical(windowedEditor.view)
-            windowedShell!!.layout(true)
-            windowedShell!!.setRedraw(true)
-            windowedShell!!.text =
-                "${WordUtils.capitalizeFully(windowedViewNew.name)} View"
             redrawMainContainer = true
         }
         windowedViewCurrent = windowedViewNew
@@ -115,14 +114,16 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
     }
 
     private fun getView(view: Views): BBEditorView {
-        return if (view === Views.PRINT) {
-            textView
-        } else if (view === Views.BRAILLE) {
-            brailleView
-        } else if (view === Views.STYLE) {
-            stylePane
-        } else {
-            throw UnsupportedOperationException("Unhandled $view")
+        return when(view) {
+            Views.PRINT -> {
+                textView
+            }
+            Views.BRAILLE -> {
+                brailleView
+            }
+            Views.STYLE -> {
+                stylePane
+            }
         }
     }
 
