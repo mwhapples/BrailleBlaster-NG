@@ -78,15 +78,17 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
             viewVisible,
             visibleViews
         )
-        if (windowedViewCurrent != null) {
-            val windowedEditor = getView(windowedViewCurrent!!)
+        windowedViewCurrent?.let { wvc ->
+            val windowedEditor = getView(wvc)
             windowedEditor.view.setParent(containerSash)
             log.info("resetting container sash of $windowedEditor")
             redrawMainContainer = true
         }
-        if (windowedShell != null && (windowedViewNew == null || !viewVisible)) {
-            windowedShell!!.dispose()
-            windowedShell = null
+        windowedShell = windowedShell?.let { ws ->
+            if (windowedViewNew == null || !viewVisible) {
+                ws.dispose()
+                null
+            } else ws
         }
         if (!viewVisible) {
             return
