@@ -394,27 +394,18 @@ class ViewManager(folder: CTabFolder?, private val m: Manager) {
         }
 
         fun colorizeToolbarHolder(composite: Composite) {
-            if (true) {
-                return
-            }
             if (BBIni.propertyFileManager.getProperty(SETTING_DARK_THEME, "") == "true") {
                 composite.background = ColorManager.getColor("1e1f1c", composite)
             }
         }
 
         fun colorizeIconToolbars(bar: ToolBar) {
-            if (true) {
-                return
-            }
             if (BBIni.propertyFileManager.getProperty(SETTING_DARK_THEME, "") == "true") {
                 bar.background = ColorManager.getColor("1e1f1c", bar)
             }
         }
 
         fun colorizeCustomToolbars(composite: Composite) {
-            if (true) {
-                return
-            }
             if (BBIni.propertyFileManager.getProperty(SETTING_DARK_THEME, "") == "true") {
                 composite.background = ColorManager.getColor("1e1f1c", composite)
             }
