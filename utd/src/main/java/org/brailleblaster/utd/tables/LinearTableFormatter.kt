@@ -29,6 +29,7 @@ import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.TableUtils
 import org.brailleblaster.utd.utils.TextTranslator
 import org.brailleblaster.utd.utils.UTDHelper
+import org.brailleblaster.utd.utils.getDescendantBrlFast
 import kotlin.math.max
 
 class LinearTableFormatter : Formatter() {
@@ -148,9 +149,9 @@ class LinearTableFormatter : Formatter() {
     private fun removeRowFromPageBuilder(row: List<Element>, pageBuilder: Set<PageBuilder>) {
         for (pb in pageBuilder) {
             for (element in row) {
-                val brls = UTDHelper.getDescendantBrlFastNodes(element)
-                for (i in 0 until brls.size()) {
-                    pb.removeBrl((brls[i] as Element))
+                val brls = element.getDescendantBrlFast()
+                for (i in brls) {
+                    pb.removeBrl((i))
                 }
             }
         }

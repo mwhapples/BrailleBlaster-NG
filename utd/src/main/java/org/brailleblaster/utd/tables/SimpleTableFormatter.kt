@@ -29,7 +29,6 @@ import org.brailleblaster.utd.properties.Align
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.PageBuilderHelper
 import org.brailleblaster.utd.utils.TableUtils
-import org.brailleblaster.utd.utils.UTDHelper
 import org.brailleblaster.utd.utils.getDescendantBrlFast
 import org.brailleblaster.utils.xml.UTD_NS
 import org.brailleblaster.utils.xom.detachAll
@@ -400,9 +399,8 @@ open class SimpleTableFormatter : Formatter() {
                 .setStartOfBlock(true)
             curPageBuilder.x = startPos
             val startingY = curPageBuilder.y
-            val brls = UTDHelper.getDescendantBrlFastNodes(col.td)
-            for (i in 0 until brls.size()) {
-                val curBrl = brls[i] as Element
+            val brls = col.td.getDescendantBrlFast()
+            for (curBrl in brls) {
                 val curPages = pageBuilders.size
                 pageBuilders.addAll(curPageBuilder.addBrl(curBrl))
                 if (pageBuilders.size > curPages) {
