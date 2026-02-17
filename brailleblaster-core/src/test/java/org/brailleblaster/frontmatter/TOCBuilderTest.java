@@ -29,8 +29,8 @@ import org.brailleblaster.utd.actions.TransNoteAction;
 import org.brailleblaster.utd.exceptions.NodeException;
 import org.brailleblaster.utd.properties.EmphasisType;
 import org.brailleblaster.utd.toc.TOCAttributes;
-import org.brailleblaster.utd.utils.UTDHelper;
 import org.brailleblaster.exceptions.BBNotifyException;
+import org.brailleblaster.utd.utils.UTDHelperKt;
 import org.eclipse.swt.SWT;
 import org.eclipse.swtbot.swt.finder.keyboard.Keystrokes;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCheckBox;
@@ -1693,7 +1693,7 @@ public class TOCBuilderTest {
 							).noNextChild()
 					).noNextChild();
 		} catch (Throwable e) {
-			UTDHelper.getDescendantBrlFast(test.getDoc(), Node::detach);
+			UTDHelperKt.getDescendantBrlFast(test.getDoc(), Node::detach);
 			throw new NodeException("asdf", test.getDoc(), e);
 		}
 	}

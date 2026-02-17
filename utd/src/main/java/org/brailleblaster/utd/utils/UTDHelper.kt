@@ -150,17 +150,10 @@ object UTDHelper {
         return parent.getChild(index)
     }
 
-    fun getDescendantBrlFastNodes(root: Node?): Nodes {
-        val results = Nodes()
-        getDescendantBrlFast(root) { node: Element? -> results.append(node) }
-        return results
-    }
+    fun getDescendantBrlFastNodes(root: Node?): Nodes = getDescendantBrlFast(root).fold(Nodes()) { acc, element -> acc.apply { append(element) } }
 
-    @JvmStatic
-    fun getDescendantBrlFast(root: Node?): List<Element> {
-        val results: MutableList<Element> = ArrayList()
-        getDescendantBrlFast(root) { e: Element -> results.add(e) }
-        return results
+    fun getDescendantBrlFast(root: Node?): List<Element> = buildList {
+        root?.getDescendantBrlFast { add(it)}
     }
 
     @JvmStatic
@@ -174,25 +167,8 @@ object UTDHelper {
      * Fast version of XPath descendant::utd:brl with callback
      * @param onBrl
      */
-    @JvmStatic
     fun getDescendantBrlFast(root: Node?, onBrl: Consumer<Element>) {
-        if (root !is ParentNode) {
-            return
-        }
-
-        if (UTDElements.BRL.isA(root)) {
-            onBrl.accept(root as Element)
-            //Do not descend into BRL nodes
-            return
-        }
-        val realRoot =
-            XMLHandler.parentToElement(root)
-        for (childNode in realRoot.childElements) {
-            if (UTDElements.BRL.isA(childNode)) {
-                onBrl.accept(childNode)
-            } else  //Is a non-brl element but might have brl children
-                getDescendantBrlFast(childNode, onBrl)
-        }
+        root?.getDescendantBrlFast(onBrl)
     }
 
     fun getTableCopies(root: Node, onTable: Consumer<Element?>) {
@@ -438,5 +414,26 @@ object UTDHelper {
         }
 
         return 0
+    }
+}
+
+
+fun Node.getDescendantBrlFast(onBrl: Consumer<Element>) {
+    if (this !is ParentNode) {
+        return
+    }
+
+    if (UTDElements.BRL.isA(this)) {
+        onBrl.accept(this as Element)
+        //Do not descend into BRL nodes
+        return
+    }
+    val realRoot =
+        XMLHandler.parentToElement(this)
+    for (childNode in realRoot.childElements) {
+        if (UTDElements.BRL.isA(childNode)) {
+            onBrl.accept(childNode)
+        } else  //Is a non-brl element but might have brl children
+            UTDHelper.getDescendantBrlFast(childNode, onBrl)
     }
 }
