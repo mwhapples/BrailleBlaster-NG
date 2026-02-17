@@ -258,7 +258,7 @@ object TableUtils {
 
         //totalSizes doesn't compute correctly. Seems to always be 0.
         val totalSizes =
-            columnElements.map { elem -> UTDHelper.getDescendantBrlFastNodes(elem).sumOf { it.value.length } }
+            columnElements.map { elem -> elem.getDescendantBrlFast().sumOf { it.value.length } }
 
         //Simple enough way to estimate the number of lines in the longest column
         val estimatedWrap = WordUtils.wrap(longestColBrl, defaultWidth)

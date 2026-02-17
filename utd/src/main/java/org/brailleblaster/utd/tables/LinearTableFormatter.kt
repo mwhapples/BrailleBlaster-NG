@@ -62,9 +62,7 @@ class LinearTableFormatter : Formatter() {
         for (row in cells) {
             for (cell in row) {
                 val col = row.indexOf(cell)
-                val query = UTDHelper.getDescendantBrlFastNodes(cell)
-                if (query.size() > 0) {
-                    val lastBrl = query[query.size() - 1] as Element
+                cell.getDescendantBrlFast().lastOrNull()?.let { lastBrl ->
                     val newSpan = TableDivider()
                     val newBrl = UTDElements.BRL.create()
                     val dividerType = if (col == 0) {
@@ -78,7 +76,6 @@ class LinearTableFormatter : Formatter() {
                     val (idx, transText) = TextTranslator.translateIndexedText(newSpan.value, formatSelector.engine, tableType = BrailleTableType.UNCONTRACTED)
                     newBrl.appendChild(transText)
                     newBrl.addAttribute(Attribute("index", idx.joinToString(separator = " ")))
-                    query.append(newBrl)
                     newSpan.appendChild(newBrl)
                     var parent = lastBrl.parent as Element
                     val type = parent.getAttributeValue("type", parent.getNamespaceURI("bb"))
