@@ -28,8 +28,8 @@ import org.brailleblaster.utd.utils.PageBuilderHelper.getBraillePageNumberAt
 import org.brailleblaster.utd.utils.PageBuilderHelper.getPrintPageNumberAt
 import org.brailleblaster.utd.utils.PageBuilderHelper.setPageNumberType
 import org.brailleblaster.utd.utils.UTDHelper.containsBrl
-import org.brailleblaster.utd.utils.UTDHelper.getDescendantBrlFast
 import org.brailleblaster.libembosser.spi.BrlCell
+import org.brailleblaster.utd.utils.UTDHelper
 import org.brailleblaster.utils.xml.UTD_NS
 import java.util.*
 import kotlin.math.max
@@ -189,7 +189,7 @@ class TPageFormatter : LiteraryFormatter() {
                             pageNumberSize += pageBuilder.printPageNumber.length + pageBuilder.padding
                         }
                         val lineLengthStyle = Style()
-                        lineLengthStyle.setLineLength(-1 * pageNumberSize)
+                        lineLengthStyle.lineLength = -1 * pageNumberSize
                         (style as StyleStack?)!!.push(lineLengthStyle)
                     }
 
@@ -261,7 +261,7 @@ class TPageFormatter : LiteraryFormatter() {
     }
 
     private fun removeBrlFromPB(set: Set<PageBuilder>, parent: Element) {
-        val brls = getDescendantBrlFast(parent)
+        val brls = UTDHelper.getDescendantBrlFast(parent)
         for (brl in brls) {
             for (pb in set) {
                 pb.removeBrl(brl)

@@ -54,7 +54,7 @@ object UTDHelper {
         val returnNode = Nodes()
         val associatedBrl = getAssociatedBrlElement(node)
         if (associatedBrl == null) {
-            getDescendantBrlFast(node) { brl: Element ->
+            node.getDescendantBrlFast { brl: Element ->
                 val typeAttrib = brl.getAttributeValue("type")
                 if (typeAttrib != null && (typeAttrib == "brlonly" || typeAttrib == "formatting")) return@getDescendantBrlFast
                 returnNode.append(brl)
@@ -161,10 +161,6 @@ object UTDHelper {
         val result = getDescendantBrlFast(root)
         if (result.isEmpty()) return null
         return result[0]
-    }
-
-    fun getDescendantBrlFast(root: Node?, onBrl: Consumer<Element>) {
-        root?.getDescendantBrlFast(onBrl)
     }
 
     fun getTableCopies(root: Node, onTable: Consumer<Element?>) {

@@ -27,6 +27,7 @@ import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.properties.PageNumberType.Companion.equivalentPage
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.UTDHelper
+import org.brailleblaster.utd.utils.getDescendantBrlFast
 import org.brailleblaster.utils.xml.UTD_NS
 import org.brailleblaster.utils.xom.childNodes
 import org.mwhapples.jlouis.Louis
@@ -342,7 +343,7 @@ open class UTDTranslationEngine(
         val writer = if (convertToBrfChars) OutputCharStream { ocs.accept(it + if (it in '\u0060'..'\u007f') -0x20 else 0) } else ocs
         val grid = BRFWriter(this, writer, opts, outputPageListener)
         val cellType = brailleSettings.cellType
-        UTDHelper.getDescendantBrlFast(utdDocument) { curBrl: Element ->
+        utdDocument.getDescendantBrlFast { curBrl: Element ->
             log.trace("Begin brl")
             outputPageListener.onBeforeBrl(grid, curBrl)
             val printPageAttrib = curBrl.getAttribute("printPage")
