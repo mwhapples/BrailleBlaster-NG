@@ -150,12 +150,7 @@ object UTDHelper {
         return parent.getChild(index)
     }
 
-    @JvmStatic
-    fun getDescendantBrlFastFirst(root: Node?): Element? {
-        val result = root.getDescendantBrlFast()
-        if (result.isEmpty()) return null
-        return result[0]
-    }
+    fun getDescendantBrlFastFirst(root: Node?): Element? = root.getDescendantBrlFast().firstOrNull()
 
     fun getTableCopies(root: Node, onTable: Consumer<Element?>) {
         if (root !is ParentNode) {
