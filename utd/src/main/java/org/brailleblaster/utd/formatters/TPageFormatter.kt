@@ -18,6 +18,7 @@ package org.brailleblaster.utd.formatters
 import nu.xom.Attribute
 import nu.xom.Element
 import nu.xom.Node
+import org.brailleblaster.libembosser.spi.BrlCell
 import org.brailleblaster.utd.*
 import org.brailleblaster.utd.FormatSelector.Companion.setEnableWriteUTD
 import org.brailleblaster.utd.properties.Align
@@ -28,8 +29,7 @@ import org.brailleblaster.utd.utils.PageBuilderHelper.getBraillePageNumberAt
 import org.brailleblaster.utd.utils.PageBuilderHelper.getPrintPageNumberAt
 import org.brailleblaster.utd.utils.PageBuilderHelper.setPageNumberType
 import org.brailleblaster.utd.utils.UTDHelper.containsBrl
-import org.brailleblaster.libembosser.spi.BrlCell
-import org.brailleblaster.utd.utils.UTDHelper
+import org.brailleblaster.utd.utils.getDescendantBrlFast
 import org.brailleblaster.utils.xml.UTD_NS
 import java.util.*
 import kotlin.math.max
@@ -261,7 +261,7 @@ class TPageFormatter : LiteraryFormatter() {
     }
 
     private fun removeBrlFromPB(set: Set<PageBuilder>, parent: Element) {
-        val brls = UTDHelper.getDescendantBrlFast(parent)
+        val brls = parent.getDescendantBrlFast()
         for (brl in brls) {
             for (pb in set) {
                 pb.removeBrl(brl)

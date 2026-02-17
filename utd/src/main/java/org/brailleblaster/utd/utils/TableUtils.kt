@@ -190,7 +190,7 @@ object TableUtils {
     }
 
     fun getDescendantBrlNoFormatting(element: Element?): List<Element> {
-        return UTDHelper.getDescendantBrlFast(element).map { brl ->
+        return element.getDescendantBrlFast().map { brl ->
             brl.copy().apply {
                 childElements.detachAll()
             }
@@ -198,9 +198,9 @@ object TableUtils {
     }
 
     fun removeBrlBetweenCells(element: Element, styleMap: IStyleMap) {
-        val allBrls = UTDHelper.getDescendantBrlFast(element)
+        val allBrls = element.getDescendantBrlFast()
         val rows = findRows(element, styleMap)
-        val properBrl = rows.flatMap { tr -> findCols(tr, styleMap) }.flatMap { td -> UTDHelper.getDescendantBrlFast(td) } + findCaptionBrl(element, styleMap)
+        val properBrl = rows.flatMap { tr -> findCols(tr, styleMap) }.flatMap { td -> td.getDescendantBrlFast() } + findCaptionBrl(element, styleMap)
         allBrls.filter { brl -> !properBrl.contains(brl) && brl.getAttribute("printPage") == null }.detachAll()
     }
 

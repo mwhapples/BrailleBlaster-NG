@@ -30,8 +30,8 @@ import org.brailleblaster.utd.utils.PageBuilderHelper.applySkipLinesNode
 import org.brailleblaster.utd.utils.PageBuilderHelper.handlePageIndicator
 import org.brailleblaster.utd.utils.PageBuilderHelper.isPageIndicator
 import org.brailleblaster.utd.utils.PageBuilderHelper.isSkipLinesNode
-import org.brailleblaster.utd.utils.UTDHelper
 import org.brailleblaster.utd.utils.UTDHelper.getAssociatedBrlElement
+import org.brailleblaster.utd.utils.getDescendantBrlFast
 import org.brailleblaster.utils.xml.UTD_NS
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -188,7 +188,7 @@ class NumberedLineFormatter : Formatter() {
     }
 
     private fun handleWrappedLines(element: Node) {
-        val assBrls = UTDHelper.getDescendantBrlFast(element)
+        val assBrls = element.getDescendantBrlFast()
         if (assBrls.size > 1) {
             for (j in 0 until assBrls.size - 1) {
                 for (line in lines!!) {

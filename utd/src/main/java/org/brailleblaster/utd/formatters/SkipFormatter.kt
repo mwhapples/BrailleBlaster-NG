@@ -20,7 +20,6 @@ import nu.xom.Node
 import org.brailleblaster.utd.FormatSelector
 import org.brailleblaster.utd.IStyle
 import org.brailleblaster.utd.PageBuilder
-import org.brailleblaster.utd.utils.UTDHelper
 import org.brailleblaster.utd.utils.getDescendantBrlFast
 
 class SkipFormatter : Formatter() {

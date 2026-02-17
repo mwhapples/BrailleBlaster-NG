@@ -150,15 +150,11 @@ object UTDHelper {
         return parent.getChild(index)
     }
 
-    fun getDescendantBrlFastNodes(root: Node?): Nodes = getDescendantBrlFast(root).fold(Nodes()) { acc, element -> acc.apply { append(element) } }
-
-    fun getDescendantBrlFast(root: Node?): List<Element> = buildList {
-        root?.getDescendantBrlFast { add(it)}
-    }
+    fun getDescendantBrlFastNodes(root: Node?): Nodes = root.getDescendantBrlFast().fold(Nodes()) { acc, element -> acc.apply { append(element) } }
 
     @JvmStatic
     fun getDescendantBrlFastFirst(root: Node?): Element? {
-        val result = getDescendantBrlFast(root)
+        val result = root.getDescendantBrlFast()
         if (result.isEmpty()) return null
         return result[0]
     }
@@ -431,4 +427,8 @@ fun Node.getDescendantBrlFast(onBrl: Consumer<Element>) {
         } else  //Is a non-brl element but might have brl children
             childNode.getDescendantBrlFast(onBrl)
     }
+}
+
+fun Node?.getDescendantBrlFast(): List<Element> = buildList {
+    this@getDescendantBrlFast?.getDescendantBrlFast { add(it) }
 }

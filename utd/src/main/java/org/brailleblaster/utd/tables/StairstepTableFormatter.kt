@@ -27,6 +27,7 @@ import org.brailleblaster.utd.properties.Align
 import org.brailleblaster.utd.utils.PageBuilderHelper
 import org.brailleblaster.utd.utils.TableUtils
 import org.brailleblaster.utd.utils.UTDHelper
+import org.brailleblaster.utd.utils.getDescendantBrlFast
 
 class StairstepTableFormatter : Formatter() {
     override fun format(
@@ -80,7 +81,7 @@ class StairstepTableFormatter : Formatter() {
                 pageBuilder.addAtLeastLinesBefore(1)
                 pageBuilder.setLeftIndent(indent)
                 pageBuilder.setFirstLineIndent(indent)
-                val brls = UTDHelper.getDescendantBrlFast(cell)
+                val brls = cell.getDescendantBrlFast()
                 for (brl in brls) {
                     val size = mutPageBuilders.size
                     mutPageBuilders.addAll(pageBuilder.addBrl(brl))

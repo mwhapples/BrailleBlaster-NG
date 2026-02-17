@@ -27,9 +27,9 @@ import org.brailleblaster.utd.utils.PageBuilderHelper.handlePageIndicator
 import org.brailleblaster.utd.utils.PageBuilderHelper.isPageIndicator
 import org.brailleblaster.utd.utils.PageBuilderHelper.setPageNumberType
 import org.brailleblaster.utd.utils.PageBuilderHelper.verifyPageSide
-import org.brailleblaster.utd.utils.UTDHelper
 import org.brailleblaster.utd.utils.UTDHelper.getAssociatedBrlElement
 import org.brailleblaster.utd.utils.UTDHelper.getDescendantBrlFastFirst
+import org.brailleblaster.utd.utils.getDescendantBrlFast
 import java.util.*
 import java.util.function.Consumer
 
@@ -200,7 +200,7 @@ open class LiteraryFormatter : Formatter() {
                         }
                     }
                 }
-                if (UTDHelper.getDescendantBrlFast(child).isNotEmpty()) {
+                if (child.getDescendantBrlFast().isNotEmpty()) {
                     //Should keep start of block true if what you've found are pages to preserve correct indentations
                     if (child is Element) {
                         if (!((UTDElements.BRL.isA(child) && isPageIndicator(child))
