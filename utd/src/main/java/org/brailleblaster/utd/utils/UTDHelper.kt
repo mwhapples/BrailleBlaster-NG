@@ -163,10 +163,6 @@ object UTDHelper {
         return result[0]
     }
 
-    /**
-     * Fast version of XPath descendant::utd:brl with callback
-     * @param onBrl
-     */
     fun getDescendantBrlFast(root: Node?, onBrl: Consumer<Element>) {
         root?.getDescendantBrlFast(onBrl)
     }
@@ -261,7 +257,7 @@ object UTDHelper {
      */
     fun toXMLnoBRL(node: Element): String {
         val nodeCopy = node.copy()
-        getDescendantBrlFast(nodeCopy) { obj: Element -> obj.detach() }
+        nodeCopy.getDescendantBrlFast { obj: Element -> obj.detach() }
         return nodeCopy.toXML()
     }
 
@@ -417,7 +413,10 @@ object UTDHelper {
     }
 }
 
-
+/**
+ * Fast version of XPath descendant::utd:brl with callback
+ * @param onBrl
+ */
 fun Node.getDescendantBrlFast(onBrl: Consumer<Element>) {
     if (this !is ParentNode) {
         return
@@ -434,6 +433,6 @@ fun Node.getDescendantBrlFast(onBrl: Consumer<Element>) {
         if (UTDElements.BRL.isA(childNode)) {
             onBrl.accept(childNode)
         } else  //Is a non-brl element but might have brl children
-            UTDHelper.getDescendantBrlFast(childNode, onBrl)
+            childNode.getDescendantBrlFast(onBrl)
     }
 }
