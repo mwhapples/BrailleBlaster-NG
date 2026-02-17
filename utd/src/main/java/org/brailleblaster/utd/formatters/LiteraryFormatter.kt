@@ -28,7 +28,6 @@ import org.brailleblaster.utd.utils.PageBuilderHelper.isPageIndicator
 import org.brailleblaster.utd.utils.PageBuilderHelper.setPageNumberType
 import org.brailleblaster.utd.utils.PageBuilderHelper.verifyPageSide
 import org.brailleblaster.utd.utils.UTDHelper.getAssociatedBrlElement
-import org.brailleblaster.utd.utils.UTDHelper.getDescendantBrlFastFirst
 import org.brailleblaster.utd.utils.getDescendantBrlFast
 import java.util.*
 import java.util.function.Consumer
@@ -51,7 +50,7 @@ open class LiteraryFormatter : Formatter() {
         pageBuilder = mutPageBuilders.last()
 
         if (style.isVolumeEnd) {
-            pageBuilder.volumeEndLength = getDescendantBrlFastFirst(node)!!.value.length
+            pageBuilder.volumeEndLength = node.getDescendantBrlFast().firstOrNull()!!.value.length
             pageBuilder.setVolumeEnd(true)
             mutPageBuilders.addAll(pageBuilder.addVolumeBlankLines())
             if (mutPageBuilders.size > 1) {

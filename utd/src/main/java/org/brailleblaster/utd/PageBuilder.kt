@@ -30,6 +30,7 @@ import org.brailleblaster.utd.properties.*
 import org.brailleblaster.utd.utils.PageBuilderHelper
 import org.brailleblaster.utd.utils.TextTranslator
 import org.brailleblaster.utd.utils.UTDHelper
+import org.brailleblaster.utd.utils.getDescendantBrlFast
 import org.brailleblaster.utils.Counter
 import org.brailleblaster.utils.RepeatingLetters
 import org.brailleblaster.utils.SetList
@@ -3729,8 +3730,8 @@ class PageBuilder {
         }
         if (isStartPage) {
             //TODO: Double check if your end guide word is correct
-            val brlEnd = UTDHelper.getDescendantBrlFastFirst(endGuideWord)
-            val brlAltEnd = UTDHelper.getDescendantBrlFastFirst(altEndGuideWord)
+            val brlEnd = endGuideWord.getDescendantBrlFast().firstOrNull()
+            val brlAltEnd = altEndGuideWord.getDescendantBrlFast().firstOrNull()
             if (brlEnd != null && brlAltEnd != null && !containsBrl(brlEnd) && containsBrl(brlAltEnd)) {
                 val temp = endGuideWord
                 endGuideWord = altEndGuideWord

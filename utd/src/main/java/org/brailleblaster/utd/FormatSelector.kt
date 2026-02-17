@@ -25,6 +25,7 @@ import org.brailleblaster.utd.tables.AutoTableFormatter
 import org.brailleblaster.utd.utils.PageBuilderHelper
 import org.brailleblaster.utd.utils.UTDHelper
 import org.brailleblaster.utd.utils.dom.BoxUtils
+import org.brailleblaster.utd.utils.getDescendantBrlFast
 import org.brailleblaster.utils.SetList
 import org.brailleblaster.utils.xml.UTD_NS
 import org.brailleblaster.utils.toRepeatingLetters
@@ -228,7 +229,7 @@ class FormatSelector(styleMap: IStyleMap?, styleStack: StyleStack?, engine: ITra
                     // When the newPage is not first Braille content of the child it will not be for the parent element either, so no need to check again.
                     if (startPointStartsBrl) {
                         // Check whether any other BRLs come before the start point.
-                        val firstBrl = UTDHelper.getDescendantBrlFastFirst(tmpNode)
+                        val firstBrl = tmpNode.getDescendantBrlFast().firstOrNull()
                         // firstBrl == null means that tmpBrl is the only Braille content
                         if (firstBrl != null && tmpBrl != firstBrl) {
                             startPointStartsBrl = false
