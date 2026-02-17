@@ -28,7 +28,6 @@ import org.brailleblaster.utd.properties.BrailleTableType
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.TableUtils
 import org.brailleblaster.utd.utils.TextTranslator
-import org.brailleblaster.utd.utils.UTDHelper
 import org.brailleblaster.utd.utils.getDescendantBrlFast
 import kotlin.math.max
 
@@ -103,10 +102,10 @@ class LinearTableFormatter : Formatter() {
         outerLoop@ while (i < cells.size) {
             val row = cells[i]
             for (cell in row) {
-                val query = UTDHelper.getDescendantBrlFastNodes(cell)
-                for (brl in 0 until query.size()) {
+                val query = cell.getDescendantBrlFast()
+                for (brl in query) {
                     val curPages = mutPageBuilders.size
-                    mutPageBuilders.addAll(pageBuilder.addBrl((query[brl] as Element)))
+                    mutPageBuilders.addAll(pageBuilder.addBrl(brl))
                     pageBuilder = mutPageBuilders.last()
                     if (mutPageBuilders.size > curPages && !beginningOfPage) {
                         removeRowFromPageBuilder(row, mutPageBuilders)

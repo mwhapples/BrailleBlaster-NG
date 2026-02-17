@@ -150,8 +150,6 @@ object UTDHelper {
         return parent.getChild(index)
     }
 
-    fun getDescendantBrlFastNodes(root: Node?): Nodes = root.getDescendantBrlFast().fold(Nodes()) { acc, element -> acc.apply { append(element) } }
-
     @JvmStatic
     fun getDescendantBrlFastFirst(root: Node?): Element? {
         val result = root.getDescendantBrlFast()

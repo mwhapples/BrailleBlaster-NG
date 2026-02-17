@@ -97,7 +97,8 @@ class UTDHelperTest {
             arrayOf(node, node.query("following-sibling::node()[position()=1]")),
             arrayOf(text, text.query("following-sibling::node()[position()=1]")),
             arrayOf(Text("p"), Nodes()),
-            arrayOf(relatedElements, UTDHelper.getDescendantBrlFastNodes(relatedElements))
+            arrayOf(relatedElements,
+                relatedElements.getDescendantBrlFast().fold(Nodes()) { acc, element -> acc.apply { append(element) } })
         )
     }
 
