@@ -104,7 +104,7 @@ class UTDHelperTest {
 
     @Test(dataProvider = "relatedElementsProvider")
     fun checkRelatedElements(node: Node?, expectedResult: Nodes) {
-        val brlElements = getBrlElements(node)
+        val brlElements = node.getBrlElements()
 
         Assert.assertEquals(brlElements.size(), expectedResult.size())
         for (i in 0 until expectedResult.size()) {
@@ -114,12 +114,12 @@ class UTDHelperTest {
 
     @Test(expectedExceptions = [NullPointerException::class])
     fun checkNullRelatedElements() {
-        getBrlElements(null)
+        null.getBrlElements()
     }
 
     @Test(dataProvider = "associatedElementsProvider")
     fun checkAssociatedElement(node: Node) {
-        val associate = getAssociatedBrlElement(node)
+        val associate = node.getAssociatedBrlElement()
         val expected =
             node.query("following-sibling::node()[position()=1 and local-name()='brl' and not(@type='brlonly')]")
         if (expected.size() == 0) {
@@ -131,7 +131,7 @@ class UTDHelperTest {
 
     @Test(expectedExceptions = [NullPointerException::class])
     fun checkNullAssociatedElement() {
-        getAssociatedBrlElement(null)
+        null.getAssociatedBrlElement()
     }
 
     @Test(dataProvider = "associatedNodeProvider")

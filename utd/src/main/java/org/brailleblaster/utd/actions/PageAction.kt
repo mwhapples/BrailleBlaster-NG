@@ -49,7 +49,7 @@ class PageAction : IAction {
     private fun processPageNode(node: Element, engine: ITranslationEngine): List<TextSpan> {
         //If the node already has a brl for a child, then return
         val textChild = getTextChild(node)
-        if (getAssociatedBrlElement(textChild) != null) {
+        if (textChild.getAssociatedBrlElement() != null) {
             return emptyList()
         }
 

@@ -40,20 +40,18 @@ const val BRAILLE_SPACE: Char = '\u2800'
  * Get the brl elements representing the content. The brl elements may not
  * necessarily be directly associated to the node passed in.
  *
- * @Param node The node to find the brl elements for. This parameter should
+ * @Param this@getBrlElements The node to find the brl elements for. This parameter should
  * not be null.
  * @Return the related brl elements representing the content. If there is no
  * brl elements related then an empty Nodes collection will be
  * returned.
  * @Throw NullPointerException when passing in null for the node parameter.
  */
-fun getBrlElements(node: Node?): Nodes {
-    if (node == null) {
-        throw NullPointerException()
-    }
+fun Node?.getBrlElements(): Nodes {
+    val node = requireNotNull(this)
 
     val returnNode = Nodes()
-    val associatedBrl = getAssociatedBrlElement(node)
+    val associatedBrl = node.getAssociatedBrlElement()
     if (associatedBrl == null) {
         node.getDescendantBrlFast { brl: Element ->
             val typeAttrib = brl.getAttributeValue("type")
@@ -69,17 +67,15 @@ fun getBrlElements(node: Node?): Nodes {
 /**
  * Get the directly associated brl element for the given node.
  *
- * @Param node The node to find the directly associated brl element for.
+ * @Param this@getAssociatedBrlElement The node to find the directly associated brl element for.
  * This parameter should not be null.
  * @Return The directly associated brl element. If there is no associated
  * brl element then null will be returned.
  * @Throw NullPointerException When null is passed in for the node
  * parameter.
  */
-fun getAssociatedBrlElement(node: Node?): Element? {
-    if (node == null) {
-        throw NullPointerException()
-    }
+fun Node?.getAssociatedBrlElement(): Element? {
+    val node = requireNotNull(this)
     val parent = node.parent ?: return null
 
     val index = parent.indexOf(node)
