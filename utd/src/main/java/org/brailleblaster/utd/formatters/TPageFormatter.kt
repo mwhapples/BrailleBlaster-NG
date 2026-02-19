@@ -28,7 +28,7 @@ import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.PageBuilderHelper.getBraillePageNumberAt
 import org.brailleblaster.utd.utils.PageBuilderHelper.getPrintPageNumberAt
 import org.brailleblaster.utd.utils.PageBuilderHelper.setPageNumberType
-import org.brailleblaster.utd.utils.UTDHelper.containsBrl
+import org.brailleblaster.utd.utils.containsBrl
 import org.brailleblaster.utd.utils.getDescendantBrlFast
 import org.brailleblaster.utils.xml.UTD_NS
 import java.util.*

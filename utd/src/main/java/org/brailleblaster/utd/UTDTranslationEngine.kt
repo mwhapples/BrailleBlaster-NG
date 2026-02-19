@@ -26,8 +26,8 @@ import org.brailleblaster.utd.exceptions.NodeException
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.properties.PageNumberType.Companion.equivalentPage
 import org.brailleblaster.utd.properties.UTDElements
-import org.brailleblaster.utd.utils.UTDHelper
 import org.brailleblaster.utd.utils.getDescendantBrlFast
+import org.brailleblaster.utd.utils.stripUTDRecursive
 import org.brailleblaster.utils.xml.UTD_NS
 import org.brailleblaster.utils.xom.childNodes
 import org.mwhapples.jlouis.Louis
@@ -200,7 +200,7 @@ open class UTDTranslationEngine(
             //Will cause bugs if, eg clients translate <p>test</p>,
             //  then add a <span> after the text node without removing the hidden <brl> tag
             //They are a UTD implementation detail and thus should be stripped out in UTD
-            UTDHelper.stripUTDRecursive(block)
+            stripUTDRecursive(block)
             val translatedBlock = translate(block)[0] as Element
             block.parent.replaceChild(block, translatedBlock)
             translatedBlocks.add(translatedBlock)

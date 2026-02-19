@@ -27,7 +27,7 @@ import org.brailleblaster.utd.utils.PageBuilderHelper.handlePageIndicator
 import org.brailleblaster.utd.utils.PageBuilderHelper.isPageIndicator
 import org.brailleblaster.utd.utils.PageBuilderHelper.setPageNumberType
 import org.brailleblaster.utd.utils.PageBuilderHelper.verifyPageSide
-import org.brailleblaster.utd.utils.UTDHelper.getAssociatedBrlElement
+import org.brailleblaster.utd.utils.getAssociatedBrlElement
 import org.brailleblaster.utd.utils.getDescendantBrlFast
 import java.util.*
 import java.util.function.Consumer

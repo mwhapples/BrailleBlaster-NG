@@ -29,8 +29,10 @@ import org.brailleblaster.utd.pagelayout.*
 import org.brailleblaster.utd.properties.*
 import org.brailleblaster.utd.utils.PageBuilderHelper
 import org.brailleblaster.utd.utils.TextTranslator
-import org.brailleblaster.utd.utils.UTDHelper
+import org.brailleblaster.utd.utils.findCurrentVolumeNumber
 import org.brailleblaster.utd.utils.getDescendantBrlFast
+import org.brailleblaster.utd.utils.getDocumentHead
+import org.brailleblaster.utd.utils.getTextChild
 import org.brailleblaster.utils.Counter
 import org.brailleblaster.utils.RepeatingLetters
 import org.brailleblaster.utils.SetList
@@ -1554,7 +1556,7 @@ class PageBuilder {
         //Make sure to check the metadata to 
         //print out the correct number value
         if (currentBrl != null) {
-            val head = UTDHelper.getDocumentHead(currentBrl!!.document)
+            val head = getDocumentHead(currentBrl!!.document)
             var skipCont = false
             if (head != null) {
                 val meta = MetadataHelper.findPrintPageChange(head.document, newPrintPage)
@@ -1623,7 +1625,7 @@ class PageBuilder {
     val pageNumberTypeFromMetaData: PageNumberType?
         get() {
             if (currentBrl != null) {
-                val head = UTDHelper.getDocumentHead(currentBrl!!.document)
+                val head = getDocumentHead(currentBrl!!.document)
                 if (head != null) {
                     val meta = MetadataHelper.findPrintPageChange(head.document, printPageValue)
                     if (meta?.getAttribute("pageType") != null //						&& !getPageNumberType().equals(PageNumberType.T_PAGE)
@@ -1669,7 +1671,7 @@ class PageBuilder {
         get() {
             var brlPage = braillePageNumber.braillePageNumber
             if (currentBrl != null) {
-                val head = UTDHelper.getDocumentHead(currentBrl!!.document)
+                val head = getDocumentHead(currentBrl!!.document)
                 if (head != null) {
                     val meta = MetadataHelper.findBraillePageChange(head.document, brlPage)
                     if (meta?.getAttribute("new") != null && meta.getAttributeValue("new")
@@ -1681,7 +1683,7 @@ class PageBuilder {
                             volumeMetaLoc =
                                 volumeLoc.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1].toInt()
                         }
-                        val currVolume = UTDHelper.findCurrentVolumeNumber(currentBrl)
+                        val currVolume = findCurrentVolumeNumber(currentBrl)
                         if (volumeMetaLoc == currVolume || volumeMetaLoc == -1) {
                             MetadataHelper.markUsed(head.document, brlPage, "braillePage")
 
@@ -3747,8 +3749,8 @@ class PageBuilder {
         }
 
         //Get the node value or whatever is written in the attribute
-        var startGuideWord = UTDHelper.getTextChild(startGuideWord).value
-        var endGuideWord = UTDHelper.getTextChild(endGuideWord).value
+        var startGuideWord = getTextChild(startGuideWord).value
+        var endGuideWord = getTextChild(endGuideWord).value
 
         //Don't forget to translate the attribute if the braille is needed.
         if (this.startGuideWord!!.getAttribute("contraction") != null) {

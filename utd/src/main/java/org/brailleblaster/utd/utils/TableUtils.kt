@@ -102,12 +102,12 @@ object TableUtils {
      * @return
      */
     fun findCaptionBrl(element: Element, styleMap: IStyleMap): List<Element> {
-        return if (UTDHelper.containsBrl(element)) {
+        return if (containsBrl(element)) {
             element.childElements.map { it to styleMap.findValueOrDefault(it) }.takeWhile { (_, style) -> !style.isTableRow }
                 .flatMap { (child, _) ->
                     if (UTDElements.BRL.isA(child)) {
                         listOf(child)
-                    } else if (UTDHelper.containsBrl(child)) {
+                    } else if (containsBrl(child)) {
                         findCaptionBrl(child, styleMap)
                     } else {
                         emptyList()
