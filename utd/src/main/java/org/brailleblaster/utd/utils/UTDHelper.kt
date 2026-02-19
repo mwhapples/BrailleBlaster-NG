@@ -21,7 +21,6 @@ import jakarta.xml.bind.JAXBElement
 import nu.xom.*
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder
 import org.apache.commons.lang3.builder.ToStringStyle
-import org.brailleblaster.utd.Style
 import org.brailleblaster.utd.exceptions.UTDException
 import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
@@ -29,10 +28,6 @@ import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utils.xml.UTD_NS
 import java.lang.reflect.Field
 import java.util.function.Consumer
-
-fun hasBaseStyle(style: Style?, baseStyle: String): Boolean {
-    return generateSequence(style) { it.baseStyle }.any { it.name == baseStyle }
-}
 
 const val BRAILLE_SPACE: Char = '\u2800'
 
@@ -212,28 +207,6 @@ fun startsWithWhitespace(str: String?): Int {
         return 0
     }
     return str.takeWhile { isWhitespace(it) }.length
-}
-
-/**
- * Get XML of given node minus any brl elements
- * @param this@toXMLnoBRL
- * @return
- */
-fun Element.toXMLnoBRL(): String {
-    val nodeCopy = copy()
-    nodeCopy.getDescendantBrlFast { obj: Element -> obj.detach() }
-    return nodeCopy.toXML()
-}
-
-/**
- * Get XML of given node minus all utd elements
- * @param this@toXMLnoUTD
- * @return
- */
-fun Element.toXMLnoUTD(): String {
-    val nodeCopy = copy()
-    nodeCopy.stripUTDRecursive()
-    return nodeCopy.toXML()
 }
 
 /**
