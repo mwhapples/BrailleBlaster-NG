@@ -126,7 +126,7 @@ class UTDHelperTest {
 
     @Test(dataProvider = "associatedNodeProvider")
     fun checkAssociatedNode(element: Element) {
-        val result = getAssociatedNode(element)
+        val result = element.getAssociatedNode()
 
         if ("true" != element.getAttributeValue("brlonly")) {
             Assert.assertEquals(result, element.query("preceding-sibling::node()[last()]")[0])
@@ -135,14 +135,9 @@ class UTDHelperTest {
         }
     }
 
-    @Test(expectedExceptions = [NullPointerException::class])
-    fun checkNullAssociatedNode() {
-        getAssociatedNode(null)
-    }
-
     @Test(expectedExceptions = [IllegalArgumentException::class])
     fun checkInvalidAssociatedNode() {
-        getAssociatedNode(Element("p"))
+        Element("p").getAssociatedNode()
     }
 
     @Test(expectedExceptions = [UTDException::class])
@@ -150,7 +145,7 @@ class UTDHelperTest {
         val parent: ParentNode = Element("p")
         val e = UTDElements.BRL.create()
         parent.appendChild(e)
-        getAssociatedNode(e)
+        e.getAssociatedNode()
     }
 
     @Test

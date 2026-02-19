@@ -221,7 +221,7 @@ class FormatSelector(styleMap: IStyleMap?, styleStack: StyleStack?, engine: ITra
             if (tmpBrl.indexOf(tmpSP) == 0) {
                 startPointStartsBrl = true
             }
-            var tmpNode: Node? = getAssociatedNode(tmpBrl) ?: continue
+            var tmpNode: Node? = tmpBrl.getAssociatedNode() ?: continue
             while (tmpNode != null) {
                 val tmpStyle = styleMap.findValueOrDefault(tmpNode)
                 val tmpFormat = tmpStyle.format

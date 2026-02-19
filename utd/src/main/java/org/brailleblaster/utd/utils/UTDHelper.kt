@@ -76,24 +76,21 @@ fun Node.getAssociatedBrlElement(): Element? {
     val parent = this.parent ?: return null
 
     val index = parent.indexOf(this)
-    return getAssociatedBrlElement(parent, index)
+    return parent.getAssociatedBrlElement(index)
 }
 
 /**
  * Get the directly associated brl element for the given child node.
  *
- * @param parent The parent element of the child node under query.
+ * @param this@getAssociatedBrlElement The parent element of the child node under query.
  * @param idx The index of the child node under query.
  * @return The directly associated brl element. If there is no associated
  * brl element then null will be returned.
  */
-fun getAssociatedBrlElement(parent: ParentNode?, idx: Int): Element? {
-    if (parent == null) {
-        throw NullPointerException("The parent cannot be null")
-    }
+fun ParentNode.getAssociatedBrlElement(idx: Int): Element? {
     val index = idx + 1
-    if (index < parent.childCount) {
-        val returnElement = parent.getChild(index)
+    if (index < this.childCount) {
+        val returnElement = getChild(index)
         if (UTDElements.BRL.isA(returnElement)) {
             val typeAttr = (returnElement as Element).getAttributeValue("type")
             if ("brlonly" != typeAttr && "formatting" != typeAttr) {
@@ -108,7 +105,7 @@ fun getAssociatedBrlElement(parent: ParentNode?, idx: Int): Element? {
 /**
  * Get the original node associated with the specified brl element.
  *
- * @Param brlElement The brl element which to find the original associated
+ * @Param this@getAssociatedNode The brl element which to find the original associated
  * node. This should not be null.
  * @Return The original node associated to the brl element. If the brl
  * element is a Braille only element then null will be returned.
@@ -118,25 +115,21 @@ fun getAssociatedBrlElement(parent: ParentNode?, idx: Int): Element? {
  * @Throw UTDException when the valid brl element does not have a previous
  * sibling.
  */
-fun getAssociatedNode(brlElement: Element?): Node? {
-    if (brlElement == null) {
-        throw NullPointerException()
-    }
+fun Element.getAssociatedNode(): Node? {
+    require((UTDElements.BRL.isA(this))) { "This is not a brl element." }
 
-    require((UTDElements.BRL.isA(brlElement))) { "This is not a brl element." }
-
-    if ("formatting" == brlElement.getAttributeValue("type")) {
+    if ("formatting" == getAttributeValue("type")) {
         return null
     }
 
-    if ("true" == brlElement.getAttributeValue("brlonly")) {
+    if ("true" == getAttributeValue("brlonly")) {
         return null
     }
-    val parent = brlElement.parent ?: return null
+    val parent = this.parent ?: return null
 
-    val index = parent.indexOf(brlElement) - 1
+    val index = parent.indexOf(this) - 1
     if (index < 0) {
-        throw UTDException("Invalid UTD. " + brlElement.toXML())
+        throw UTDException("Invalid UTD. " + toXML())
     }
     return parent.getChild(index)
 }
