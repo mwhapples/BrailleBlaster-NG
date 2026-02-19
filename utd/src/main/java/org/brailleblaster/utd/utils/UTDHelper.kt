@@ -234,9 +234,7 @@ fun getFirstTextDescendant(brlElement: Element): Text {
     return brlElement.childNodes.map { if (it is Element) getFirstTextDescendant(it) else it }.filterIsInstance<Text>().firstOrNull() ?: Text("")
 }
 
-fun getDocumentHead(document: Document?): Element? {
-    return document?.rootElement?.findHead()
-}
+fun Document?.getDocumentHead(): Element? = this?.rootElement?.findHead()
 
 private fun Node.findHead(): Element? = childNodes.filterIsInstance<Element>().map { when(it.localName) {
     "head" -> it
@@ -246,8 +244,8 @@ private fun Node.findHead(): Element? = childNodes.filterIsInstance<Element>().m
 
 
 @JvmOverloads
-fun autoToString(`object`: Any?, style: ToStringStyle? = null): String {
-    return object : ReflectionToStringBuilder(`object`, style) {
+fun autoToString(obj: Any?, style: ToStringStyle? = null): String {
+    return object : ReflectionToStringBuilder(obj, style) {
         @Throws(IllegalArgumentException::class, IllegalAccessException::class)
         override fun getValue(field: Field): Any? {
             val value = field[getObject()]

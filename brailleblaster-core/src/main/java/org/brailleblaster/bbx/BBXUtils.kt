@@ -355,7 +355,7 @@ object BBXUtils {
     }
 
     fun getDocumentTitle(manager: Manager): String? {
-        val head = getDocumentHead(manager.doc)
+        val head = manager.doc.getDocumentHead()
         if (head != null) {
             val title = head.getFirstChildElement("doctitle")
             if (title != null) {

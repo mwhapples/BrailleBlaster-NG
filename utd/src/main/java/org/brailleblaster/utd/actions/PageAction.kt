@@ -74,7 +74,7 @@ class PageAction : IAction {
         var pageType = getAttributeValue(node)
 
         //Check the pageType from changes shown in metadata
-        val head = getDocumentHead(node.document)
+        val head = node.document.getDocumentHead()
         if (head != null) {
 //			Element meta = MetadataHelper.findPrintPageChange(head.getDocument(), printPage);
             val meta = MetadataHelper.findPrintPageChange(head.document, translatedPage)
