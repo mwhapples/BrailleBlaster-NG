@@ -158,14 +158,9 @@ fun Node.containsBrl(): Boolean {
     if (UTDElements.BRL.isA(this)) return true
     val realRoot =
         XMLHandler.parentToElement(this)
-    for (childNode in realRoot.childElements) {
-        if (UTDElements.BRL.isA(childNode)) {
-            return true
-        } else if (childNode.containsBrl()) {
-            return true
-        }
+    return realRoot.childElements.any { childNode ->
+        UTDElements.BRL.isA(childNode) || childNode.containsBrl()
     }
-    return false
 }
 
 /**
