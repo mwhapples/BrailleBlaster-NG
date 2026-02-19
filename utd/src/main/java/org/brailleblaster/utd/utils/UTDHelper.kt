@@ -47,13 +47,11 @@ const val BRAILLE_SPACE: Char = '\u2800'
  * returned.
  * @Throw NullPointerException when passing in null for the node parameter.
  */
-fun Node?.getBrlElements(): Nodes {
-    val node = requireNotNull(this)
-
+fun Node.getBrlElements(): Nodes {
     val returnNode = Nodes()
-    val associatedBrl = node.getAssociatedBrlElement()
+    val associatedBrl = this.getAssociatedBrlElement()
     if (associatedBrl == null) {
-        node.getDescendantBrlFast { brl: Element ->
+        this.getDescendantBrlFast { brl: Element ->
             val typeAttrib = brl.getAttributeValue("type")
             if (typeAttrib != null && (typeAttrib == "brlonly" || typeAttrib == "formatting")) return@getDescendantBrlFast
             returnNode.append(brl)
@@ -74,11 +72,10 @@ fun Node?.getBrlElements(): Nodes {
  * @Throw NullPointerException When null is passed in for the node
  * parameter.
  */
-fun Node?.getAssociatedBrlElement(): Element? {
-    val node = requireNotNull(this)
-    val parent = node.parent ?: return null
+fun Node.getAssociatedBrlElement(): Element? {
+    val parent = this.parent ?: return null
 
-    val index = parent.indexOf(node)
+    val index = parent.indexOf(this)
     return getAssociatedBrlElement(parent, index)
 }
 

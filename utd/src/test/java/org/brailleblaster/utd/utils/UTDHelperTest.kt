@@ -103,18 +103,13 @@ class UTDHelperTest {
     }
 
     @Test(dataProvider = "relatedElementsProvider")
-    fun checkRelatedElements(node: Node?, expectedResult: Nodes) {
+    fun checkRelatedElements(node: Node, expectedResult: Nodes) {
         val brlElements = node.getBrlElements()
 
         Assert.assertEquals(brlElements.size(), expectedResult.size())
         for (i in 0 until expectedResult.size()) {
             Assert.assertEquals(brlElements[i], expectedResult[i])
         }
-    }
-
-    @Test(expectedExceptions = [NullPointerException::class])
-    fun checkNullRelatedElements() {
-        null.getBrlElements()
     }
 
     @Test(dataProvider = "associatedElementsProvider")
@@ -127,11 +122,6 @@ class UTDHelperTest {
         } else {
             Assert.assertEquals(associate, expected[0])
         }
-    }
-
-    @Test(expectedExceptions = [NullPointerException::class])
-    fun checkNullAssociatedElement() {
-        null.getAssociatedBrlElement()
     }
 
     @Test(dataProvider = "associatedNodeProvider")
