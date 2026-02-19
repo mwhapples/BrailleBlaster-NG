@@ -166,43 +166,19 @@ fun Node.containsBrl(): Boolean {
 /**
  * Extended Character.isWhitespace by also checking if its a braille space
  */
-fun isWhitespace(input: Char): Boolean {
+fun isUtdWhitespace(input: Char): Boolean {
     return Character.isWhitespace(input) || input == BRAILLE_SPACE
 }
 
 /**
  * Returns number of whitespace characters at end of string
  */
-fun endsWithWhitespace(str: String?): Int {
-    if (str == null) {
-        throw NullPointerException("str")
-    }
-    if (str.isEmpty()) {
-        return 0
-    }
-    var counter = 0
-    for (i in str.length - 1 downTo 0) {
-        if (isWhitespace(str[i])) {
-            counter++
-        } else {
-            break
-        }
-    }
-    return counter
-}
+fun endsWithWhitespace(str: String): Int = str.takeLastWhile { isUtdWhitespace(it) }.length
 
 /**
  * Returns number of whitespace characters at beginning of string
  */
-fun startsWithWhitespace(str: String?): Int {
-    if (str == null) {
-        throw NullPointerException("str")
-    }
-    if (str.isEmpty()) {
-        return 0
-    }
-    return str.takeWhile { isWhitespace(it) }.length
-}
+fun startsWithWhitespace(str: String): Int = str.takeWhile { isUtdWhitespace(it) }.length
 
 /**
  * Recursively remove all brl nodes and internal UTD attributes (utdAction, utdStyle)
