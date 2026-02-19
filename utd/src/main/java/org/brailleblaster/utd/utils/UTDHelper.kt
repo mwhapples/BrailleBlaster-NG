@@ -26,6 +26,7 @@ import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utils.xml.UTD_NS
+import org.brailleblaster.utils.xom.childNodes
 import java.lang.reflect.Field
 import java.util.function.Consumer
 
@@ -225,30 +226,12 @@ fun Element.stripBRLOnly() {
 
 
 fun getTextChild(brlElement: Element?): Text {
-    val text = Text("")
-    if (brlElement != null) {
-        for (i in 0 until brlElement.childCount) {
-            if (brlElement.getChild(i) is Text) {
-                return brlElement.getChild(i) as Text
-            }
-        }
-    }
-
-    return text
+    return brlElement?.childNodes?.filterIsInstance<Text>()?.firstOrNull() ?: Text("")
 }
 
 
 fun getFirstTextDescendant(brlElement: Element): Text {
-    val text = Text("")
-    for (i in 0 until brlElement.childCount) {
-        if (brlElement.getChild(i) is Text) {
-            return brlElement.getChild(i) as Text
-        } else if (brlElement.getChild(i) is Element) {
-            return getFirstTextDescendant(brlElement.getChild(i) as Element)
-        }
-    }
-
-    return text
+    return brlElement.childNodes.map { if (it is Element) getFirstTextDescendant(it) else it }.filterIsInstance<Text>().firstOrNull() ?: Text("")
 }
 
 
