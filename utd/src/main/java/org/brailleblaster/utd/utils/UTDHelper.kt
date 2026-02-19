@@ -234,29 +234,15 @@ fun getFirstTextDescendant(brlElement: Element): Text {
     return brlElement.childNodes.map { if (it is Element) getFirstTextDescendant(it) else it }.filterIsInstance<Text>().firstOrNull() ?: Text("")
 }
 
-
 fun getDocumentHead(document: Document?): Element? {
-    if (document == null) return null
-    val rootNode: Node = document.rootElement
-    return findHead(rootNode)
+    return document?.rootElement?.findHead()
 }
 
-private fun findHead(element: Node): Element? {
-    for (i in 0 until element.childCount) {
-        if (element.getChild(i) is Element) {
-            val child = element.getChild(i) as Element
-
-            if (child.localName == "head") {
-                return child
-            } else if (child.localName == "book") {
-                return null
-            }
-            return findHead(child)
-        }
-    }
-
-    return null
-}
+private fun Node.findHead(): Element? = childNodes.filterIsInstance<Element>().map { when(it.localName) {
+    "head" -> it
+    "book" -> null
+    else -> it.findHead()
+} }.firstOrNull()
 
 
 @JvmOverloads
