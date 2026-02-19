@@ -93,7 +93,7 @@ class TOCFormatter : Formatter() {
             val brlPages = pageMatch.getDescendantBrlFast()
             for (brlPage in brlPages) {
                 //Clear out any possible existing guide dots within the page elements first
-                stripBRLOnly(brlPage)
+                brlPage.stripBRLOnly()
                 sb.append(getFirstTextDescendant(brlPage).value)
             }
         }

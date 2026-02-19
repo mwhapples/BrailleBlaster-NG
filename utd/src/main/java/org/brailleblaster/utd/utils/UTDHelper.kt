@@ -152,21 +152,21 @@ fun getTableCopies(root: Node, onTable: Consumer<Element?>) {
 /**
  * Checks given node for any brl nodes. Returns true on first brl node encountered and is thus
  * faster than using getDescendantBrl
- * @param root
+ * @param this@containsBrl
  * @return
  */
-fun containsBrl(root: Node): Boolean {
-    if (root !is ParentNode) {
+fun Node.containsBrl(): Boolean {
+    if (this !is ParentNode) {
         return false
     }
 
-    if (UTDElements.BRL.isA(root)) return true
+    if (UTDElements.BRL.isA(this)) return true
     val realRoot =
-        XMLHandler.parentToElement(root)
+        XMLHandler.parentToElement(this)
     for (childNode in realRoot.childElements) {
         if (UTDElements.BRL.isA(childNode)) {
             return true
-        } else if (containsBrl(childNode)) {
+        } else if (childNode.containsBrl()) {
             return true
         }
     }
@@ -216,66 +216,66 @@ fun startsWithWhitespace(str: String?): Int {
 
 /**
  * Get XML of given node minus any brl elements
- * @param node
+ * @param this@toXMLnoBRL
  * @return
  */
-fun toXMLnoBRL(node: Element): String {
-    val nodeCopy = node.copy()
+fun Element.toXMLnoBRL(): String {
+    val nodeCopy = copy()
     nodeCopy.getDescendantBrlFast { obj: Element -> obj.detach() }
     return nodeCopy.toXML()
 }
 
 /**
  * Get XML of given node minus all utd elements
- * @param node
+ * @param this@toXMLnoUTD
  * @return
  */
-fun toXMLnoUTD(node: Element): String {
-    val nodeCopy = node.copy()
-    stripUTDRecursive(nodeCopy)
+fun Element.toXMLnoUTD(): String {
+    val nodeCopy = copy()
+    nodeCopy.stripUTDRecursive()
     return nodeCopy.toXML()
 }
 
 /**
  * Recursively remove all brl nodes and internal UTD attributes (utdAction, utdStyle)
- * @param rootRaw
+ * @param this@stripUTDRecursive
  */
-fun stripUTDRecursive(rootRaw: Document) = stripUTDRecursive(rootRaw.rootElement)
+fun Document.stripUTDRecursive() = this.rootElement.stripUTDRecursive()
 
 /**
  * Recursively remove all brl nodes and internal UTD attributes (utdAction, utdStyle)
- * @param rootRaw
+ * @param this@stripUTDRecursive
  */
-fun stripUTDRecursive(rootRaw: Element) {
-    if (UTDElements.BRL.isA(rootRaw) || (UTD_NS == rootRaw.namespaceURI && "tablebrl" == rootRaw.localName)) {
-        rootRaw.detach()
+fun Element.stripUTDRecursive() {
+    if (UTDElements.BRL.isA(this) || (UTD_NS == this.namespaceURI && "tablebrl" == this.localName)) {
+        detach()
         return
     }
 
-    var attrib = rootRaw.getAttribute(UTDElements.UTD_ACTION_ATTRIB)
-    if (attrib != null) rootRaw.removeAttribute(attrib)
+    var attrib = getAttribute(UTDElements.UTD_ACTION_ATTRIB)
+    if (attrib != null) removeAttribute(attrib)
 
-    attrib = rootRaw.getAttribute(UTDElements.UTD_STYLE_ATTRIB)
-    if (attrib != null) rootRaw.removeAttribute(attrib)
+    attrib = getAttribute(UTDElements.UTD_STYLE_ATTRIB)
+    if (attrib != null) removeAttribute(attrib)
 
-    for (curChild in rootRaw.childElements) {
-        stripUTDRecursive(curChild)
+    for (curChild in this.childElements) {
+        curChild.stripUTDRecursive()
     }
 }
 
 
-fun stripBRLOnly(element: Element) {
-    if (UTDElements.BRLONLY.isA(element) && (element.getAttribute("type") != null && element.getAttributeValue("type") == "guideDots")) {
-        element.detach()
+fun Element.stripBRLOnly() {
+    if (UTDElements.BRLONLY.isA(this) && (getAttribute("type") != null && getAttributeValue("type") == "guideDots")) {
+        detach()
         return
     }
-    if (UTDElements.MOVE_TO.isA(element)) {
-        element.detach()
+    if (UTDElements.MOVE_TO.isA(this)) {
+        detach()
         return
     }
 
-    for (child in element.childElements) {
-        stripBRLOnly(child)
+    for (child in this.childElements) {
+        child.stripBRLOnly()
     }
 }
 
