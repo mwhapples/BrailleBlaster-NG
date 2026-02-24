@@ -29,7 +29,7 @@ fun convertBbxToHtml(document: Document): org.jsoup.nodes.Document {
     val htmlDoc = org.jsoup.nodes.Document.createShell("").also {
         it.insertChildren(0, org.jsoup.nodes.DocumentType("html", "", ""))
     }
-    htmlDoc.head().appendChildren(bbxRoot.getFirstChildElement("head", BB_NS)?.processHead() ?: listOf<org.jsoup.nodes.Node>())
+    htmlDoc.head().appendChildren(bbxRoot.getFirstChildElement("head", BB_NS)?.processHead() ?: listOf())
     htmlDoc.body().appendChildren(bbxRoot.childElements.filter { BBX.SECTION.ROOT.isA(it) }.flatMap { it.processRoot() })
     return htmlDoc
 }
@@ -43,21 +43,26 @@ private fun Element.processRoot(): Iterable<org.jsoup.nodes.Node> {
         when {
             BBX.BLOCK.STYLE.isA(it) -> it.processStyle()
             BBX.BLOCK.DEFAULT.isA(it) -> listOf(it.processParagraph())
-            else -> it.childElements.flatMap { e -> e.processRoot() }
+            else -> it.processRoot()
         }
     }
 }
 
 private fun Element.processStyle(): Iterable<org.jsoup.nodes.Element> {
     val style = getAttributeValue(UTDElements.UTD_STYLE_ATTRIB)
+    println("Processing style block with style $style")
     return when(style) {
         "Centered Heading" -> listOf(processParagraph(tag = "h1"))
         "Cell 5 Heading" -> listOf(processParagraph(tag = "h2"))
         "Cell 7 Heading" -> listOf(processParagraph(tag = "h3"))
-        "Blocked Text" -> listOf(processParagraph(tag = "div"))
+        "Blocked Text" -> listOf(processParagraph(tag = "p", attributes = mapOf("class" to "left-justified")))
         else -> listOf()
     }
 }
-private fun Element.processParagraph(tag: String = "p"): org.jsoup.nodes.Element {
-    return org.jsoup.nodes.Element(tag).appendText(this.getDescendantBrlFast().joinToString { BrailleMapper.ASCII_TO_UNICODE_FAST.map(it.value) })
+private fun Element.processParagraph(tag: String = "p", attributes: Map<String, String> = mapOf()): org.jsoup.nodes.Element {
+    return org.jsoup.nodes.Element(tag).apply {
+        for ((k,v) in attributes) {
+            attr(k, v)
+    }
+    }.appendText(getDescendantBrlFast().joinToString { BrailleMapper.ASCII_TO_UNICODE_FAST.map(it.value) })
 }
