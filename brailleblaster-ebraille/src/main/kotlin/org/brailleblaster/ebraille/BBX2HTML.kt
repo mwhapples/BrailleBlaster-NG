@@ -50,7 +50,6 @@ private fun Element.processRoot(): Iterable<org.jsoup.nodes.Node> {
 
 private fun Element.processStyle(): Iterable<org.jsoup.nodes.Element> {
     val style = getAttributeValue(UTDElements.UTD_STYLE_ATTRIB)
-    println("Processing style block with style $style")
     return when(style) {
         "Centered Heading" -> listOf(processParagraph(tag = "h1"))
         "Cell 5 Heading" -> listOf(processParagraph(tag = "h2"))
