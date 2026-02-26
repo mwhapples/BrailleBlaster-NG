@@ -589,7 +589,7 @@ fun Text.splitNode(vararg splitPos: Int): List<Text> {
     requireNotNull(this.parent) { "TextNode must have parent" }
     require(splitPos.isNotEmpty()) { "Must specify Positions to split" }
     if (!checkSortedAndUniqueSplitPositions(splitPos)) {
-        throw NodeException("Positions must be sorted and unique, positions=$splitPos", this)
+        throw NodeException("Positions must be sorted and unique, positions=${splitPos.joinToString()}", this)
     }
 
     val replacementNodes: MutableList<Text> = mutableListOf()
