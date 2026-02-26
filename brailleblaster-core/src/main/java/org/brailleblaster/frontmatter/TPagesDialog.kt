@@ -36,7 +36,7 @@ import org.brailleblaster.settings.UTDManager
 import org.brailleblaster.tools.DebugMenuToolModule
 import org.brailleblaster.utd.formatters.TPageFormatter
 import org.brailleblaster.utd.properties.EmphasisType
-import org.brailleblaster.utd.utils.UTDHelper.stripUTDRecursive
+import org.brailleblaster.utd.utils.stripUTDRecursive
 import org.brailleblaster.util.LINE_BREAK
 import org.brailleblaster.utils.gui.PickerDialog
 import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
@@ -552,7 +552,7 @@ class TPagesDialog : DebugMenuToolModule {
 
     private fun updateSSTable(parent: Element) {
         val parentCopy = parent.copy()
-        stripUTDRecursive(parentCopy)
+        parentCopy.stripUTDRecursive()
         symbolsTable!!.clearAll()
         var i = 0
         if (parentCopy.childElements.size() > 0 && parentCopy.childElements[0].value == SS_PAGE_HEADING) i = 1
@@ -1039,7 +1039,7 @@ class TPagesDialog : DebugMenuToolModule {
             if (ssElement != null) {
                 for (p in 0 until ssElement.childElements.size()) {
                     val symbolElement = ssElement.childElements[p].copy()
-                    stripUTDRecursive(symbolElement)
+                    symbolElement.stripUTDRecursive()
                     if (symbolElement.childCount > 0 && symbolElement.getChild(0) is Element) {
                         val span = symbolElement.getChild(0) as Element
                         val localPrefix = span.getAttributeValue("prefix")

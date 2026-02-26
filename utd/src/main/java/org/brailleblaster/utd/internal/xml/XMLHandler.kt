@@ -40,7 +40,7 @@ import javax.xml.parsers.ParserConfigurationException
 private val log: Logger = LoggerFactory.getLogger(XMLHandler::class.java)
 
 private fun checkSortedAndUniqueSplitPositions(splitPos: IntArray): Boolean {
-    var lastPos = 0
+    var lastPos = -1
     for (curSplitPos in splitPos) {
         if (curSplitPos <= lastPos) {
             return false
@@ -589,7 +589,7 @@ fun Text.splitNode(vararg splitPos: Int): List<Text> {
     requireNotNull(this.parent) { "TextNode must have parent" }
     require(splitPos.isNotEmpty()) { "Must specify Positions to split" }
     if (!checkSortedAndUniqueSplitPositions(splitPos)) {
-        throw NodeException("Positions must be sorted and unique, positions=$splitPos", this)
+        throw NodeException("Positions must be sorted and unique, positions=${splitPos.joinToString()}", this)
     }
 
     val replacementNodes: MutableList<Text> = mutableListOf()
@@ -604,6 +604,9 @@ fun Text.splitNode(vararg splitPos: Int): List<Text> {
         val textPart: String?
         if (splitPosItr.hasNext()) {
             val curSplitPos: Int = splitPosItr.next()
+            if (curSplitPos > text.length) {
+                continue
+            }
             textPart = text.substring(lastStart, curSplitPos)
             lastStart = curSplitPos
         } else {

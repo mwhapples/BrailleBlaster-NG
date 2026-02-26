@@ -31,7 +31,7 @@ import org.brailleblaster.perspectives.braille.mapping.elements.BrlOnlyBMEFactor
 import org.brailleblaster.perspectives.braille.mapping.maps.MapList
 import org.brailleblaster.utd.exceptions.NodeException
 import org.brailleblaster.utd.properties.UTDElements
-import org.brailleblaster.utd.utils.UTDHelper.getAssociatedBrlElement
+import org.brailleblaster.utd.utils.getAssociatedBrlElement
 import org.brailleblaster.utils.xml.UTD_NS
 import org.brailleblaster.utils.xom.childNodes
 import org.slf4j.Logger
@@ -357,7 +357,7 @@ open class Initializer {
         val brl = brlonly.parent as Element
         val isFirstText = t.brailleList.none { bme -> bme !is PageNumberBrlMapElement && bme.node != null && bme.node.value.trim { it <= ' ' }.isNotEmpty() }
 
-        if (getAssociatedBrlElement(t.node) === brl && isFirstText) {
+        if (t.node.getAssociatedBrlElement() === brl && isFirstText) {
             val tme = GuideDotsTextMapElement(brlonly)
             tme.brailleList.add(GuideDotsBrlMapElement(brlonly))
             setBraillePosition(tme.brailleList[0], brlonly)
@@ -371,7 +371,7 @@ open class Initializer {
     private fun initializeUncontractedWord(m: Manager, t: TextMapElement, brlonly: Element): TextMapElement? {
         val brl = brlonly.parent as Element
 
-        if (getAssociatedBrlElement(t.node) === brl
+        if (t.node.getAssociatedBrlElement() === brl
         ) {
             //Make a tme for uncontracted word
             val tme = UncontractedWordTextMapElement(brlonly)

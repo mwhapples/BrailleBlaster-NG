@@ -27,7 +27,7 @@ import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.internal.xml.splitNode
 import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.utd.properties.UTDElements
-import org.brailleblaster.utd.utils.UTDHelper.stripUTDRecursive
+import org.brailleblaster.utd.utils.stripUTDRecursive
 import org.brailleblaster.utils.xom.childNodes
 import org.brailleblaster.util.Notify
 import org.brailleblaster.util.Notify.notify
@@ -340,7 +340,7 @@ On node $node"""
                 if (existingEnum.isEmpty()) {
                     // we removed the only emphasis, get rid of the wrapper
                     val pn = element.parent as Element
-                    stripUTDRecursive(pn)
+                    pn.stripUTDRecursive()
                     node.detach()
                     pn.replaceChild(element, node)
                 } else {

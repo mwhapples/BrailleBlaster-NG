@@ -26,7 +26,7 @@ import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.PageBuilderHelper
 import org.brailleblaster.utd.utils.TableUtils.copyTable
 import org.brailleblaster.utd.utils.TableUtils.deleteExistingTable
-import org.brailleblaster.utd.utils.UTDHelper.containsBrl
+import org.brailleblaster.utd.utils.containsBrl
 import java.util.*
 import java.util.function.Consumer
 import kotlin.math.max
@@ -51,7 +51,7 @@ class FacingTableFormatter : SimpleTableFormatter() {
             if ("utd:tableSimple" == child.getAttributeValue("class")) {
                 child.addAttribute(Attribute("class", "utd:reformat"))
             }
-            if (containsBrl(child)) {
+            if (child.containsBrl()) {
                 if (leftTable == null) leftTable = child
                 else rightTable = child
             }

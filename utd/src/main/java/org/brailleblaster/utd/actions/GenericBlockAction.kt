@@ -24,7 +24,7 @@ import org.brailleblaster.utd.properties.BrailleTableType
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utils.braille.BrailleUnicodeConverter
 import org.brailleblaster.utd.utils.TextTranslator.translateTextWithEmpArray
-import org.brailleblaster.utd.utils.UTDHelper.getAssociatedBrlElement
+import org.brailleblaster.utd.utils.getAssociatedBrlElement
 import org.mwhapples.jlouis.Louis
 import org.slf4j.LoggerFactory
 import java.util.*
@@ -209,7 +209,7 @@ open class GenericBlockAction : GenericAction(), IBlockAction {
         if (inputNode != null) {
             val parentNode = inputNode.parent
             var index = parentNode.indexOf(inputNode)
-            if (getAssociatedBrlElement(parentNode, index) != null) {
+            if (parentNode.getAssociatedBrlElement(index) != null) {
                 parentNode.removeChild(index + 1)
             }
 

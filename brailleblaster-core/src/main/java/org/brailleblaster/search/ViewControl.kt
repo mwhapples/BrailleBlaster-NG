@@ -32,7 +32,7 @@ import org.brailleblaster.search.SearchUtils.isBraille
 import org.brailleblaster.search.SearchUtils.matchPhrase
 import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
-import org.brailleblaster.utd.utils.UTDHelper.stripUTDRecursive
+import org.brailleblaster.utd.utils.stripUTDRecursive
 import org.brailleblaster.util.Utils.insertChildCountSafe
 
 class ViewControl(val m: Manager, val click: Click) {
@@ -339,10 +339,10 @@ class ViewControl(val m: Manager, val click: Click) {
         for (tme in array) {
             tme.node.detach()
         }
-        stripUTDRecursive(parent)
+        parent.stripUTDRecursive()
         if (blocks.size > 1) {
             for (block in blocks) {
-                stripUTDRecursive(block)
+                block.stripUTDRecursive()
                 repeat(block.childCount) {
                     val n = block.getChild(0)
                     n.detach()
