@@ -39,7 +39,12 @@ private fun createDefaultHead(): Collection<org.jsoup.nodes.Element> = listOf(
         attr("rel", "stylesheet")
         attr("type", "text/css")
         attr("href", "css/default.css")
-    }
+    },
+    org.jsoup.nodes.Element("style").appendText("""
+        p.centered {
+          text-align:center;
+        }
+    """.trimIndent())
 )
 
 private fun Element.processHead(): Collection<org.jsoup.nodes.Node> {
