@@ -29,10 +29,18 @@ fun convertBbxToHtml(document: Document): org.jsoup.nodes.Document {
     val htmlDoc = org.jsoup.nodes.Document.createShell("").also {
         it.insertChildren(0, org.jsoup.nodes.DocumentType("html", "", ""))
     }
+    htmlDoc.head().appendChildren(createDefaultHead())
     htmlDoc.head().appendChildren(bbxRoot.getFirstChildElement("head", BB_NS)?.processHead() ?: listOf())
     htmlDoc.body().appendChildren(bbxRoot.childElements.filter { BBX.SECTION.ROOT.isA(it) }.flatMap { it.processRoot() })
     return htmlDoc
 }
+private fun createDefaultHead(): Collection<org.jsoup.nodes.Element> = listOf(
+    org.jsoup.nodes.Element("link").apply {
+        attr("rel", "stylesheet")
+        attr("type", "text/css")
+        attr("href", "css/default.css")
+    }
+)
 
 private fun Element.processHead(): Collection<org.jsoup.nodes.Node> {
     return listOf()
