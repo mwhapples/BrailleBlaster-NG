@@ -68,6 +68,7 @@ private fun Element.processStyle(): Iterable<org.jsoup.nodes.Element> {
         "Cell 5 Heading" -> listOf(processParagraph(tag = "h2"))
         "Cell 7 Heading" -> listOf(processParagraph(tag = "h3"))
         "Blocked Text" -> listOf(processParagraph(tag = "p", attributes = mapOf("class" to "left-justified")))
+        "Centered Text" -> listOf(processParagraph(tag = "p", attributes = mapOf("class" to "centered")))
         else -> listOf()
     }
 }
