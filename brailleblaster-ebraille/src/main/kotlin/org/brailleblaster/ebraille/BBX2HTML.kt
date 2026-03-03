@@ -37,15 +37,17 @@ object BBX2HTML {
         val template = javaClass.getResourceAsStream("/org/brailleblaster/ebraille/document_template.html")?.bufferedReader(Charsets.UTF_8)?.readText() ?: FALLBACK_TEMPLATE
         val htmlDoc = org.jsoup.Jsoup.parse(template)
         htmlDoc.head().appendChildren(bbxRoot.getFirstChildElement("head", BB_NS)?.processHead() ?: listOf())
-        htmlDoc.body()
-            .appendChildren(bbxRoot.childElements.filter { BBX.SECTION.ROOT.isA(it) }.flatMap { it.processChildren() })
+        htmlDoc.body().appendChildren(bbxRoot.childElements.filter { BBX.SECTION.ROOT.isA(it) }.flatMap { it.processChildren() })
         return htmlDoc
     }
 }
 
+private val Element.style: String?
+    get() = getAttributeValue(UTDElements.UTD_STYLE_ATTRIB)
+
 private fun Element.processHead(): Collection<org.jsoup.nodes.Node> = listOf()
 
-private fun Element.processChildren(): Iterable<org.jsoup.nodes.Node> = childElements.flatMap {
+private fun Element.processChildren(): Collection<org.jsoup.nodes.Node> = childElements.flatMap {
     when(BBX.getTypeOrNull(it)) {
         BBX.SECTION -> it.processSection()
         BBX.CONTAINER -> it.processContainer()
@@ -54,10 +56,10 @@ private fun Element.processChildren(): Iterable<org.jsoup.nodes.Node> = childEle
     }
 }
 
-private fun Element.processSection(): Iterable<org.jsoup.nodes.Node> = processChildren()
+private fun Element.processSection(): Collection<org.jsoup.nodes.Node> = processChildren()
 
-private fun Element.processContainer(): Iterable<org.jsoup.nodes.Node> = when(BBX.CONTAINER.getSubType(this)) {
-    BBX.CONTAINER.BOX -> processChildren()
+private fun Element.processContainer(): Collection<org.jsoup.nodes.Node> = when(BBX.CONTAINER.getSubType(this)) {
+    BBX.CONTAINER.BOX -> listOf(processBox())
     BBX.CONTAINER.LIST -> processChildren()
     else -> processChildren()
 }
@@ -68,16 +70,21 @@ private fun Element.processBlock(): Iterable<org.jsoup.nodes.Element> = when(BBX
     else -> listOf(processParagraph())
 }
 
-private fun Element.processStyle(): Iterable<org.jsoup.nodes.Element> {
-    val style = getAttributeValue(UTDElements.UTD_STYLE_ATTRIB)
-    return when (style) {
-        "Centered Heading" -> listOf(processParagraph(tag = "h1"))
-        "Cell 5 Heading" -> listOf(processParagraph(tag = "h2"))
-        "Cell 7 Heading" -> listOf(processParagraph(tag = "h3"))
-        "Blocked Text" -> listOf(processParagraph(tag = "p", attributes = mapOf("class" to "left-justified")))
-        "Centered Text" -> listOf(processParagraph(tag = "p", attributes = mapOf("class" to "centered")))
-        else -> listOf(processParagraph())
+private fun Element.processBox(): org.jsoup.nodes.Element {
+    val boxSymbol = when(style) {
+        "Full Box" -> "\u283f"
+        else -> "\u2836"
     }
+    return org.jsoup.nodes.Element("div").attr("type", boxSymbol).appendChildren(processChildren())
+}
+
+private fun Element.processStyle(): Iterable<org.jsoup.nodes.Element> = when (style) {
+    "Centered Heading" -> listOf(processParagraph(tag = "h1"))
+    "Cell 5 Heading" -> listOf(processParagraph(tag = "h2"))
+    "Cell 7 Heading" -> listOf(processParagraph(tag = "h3"))
+    "Blocked Text" -> listOf(processParagraph(tag = "p", attributes = mapOf("class" to "left-justified")))
+    "Centered Text" -> listOf(processParagraph(tag = "p", attributes = mapOf("class" to "centered")))
+    else -> listOf(processParagraph())
 }
 
 private fun Element.processParagraph(
