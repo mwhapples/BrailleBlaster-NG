@@ -23,33 +23,26 @@ import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.getDescendantBrlFast
 import org.brailleblaster.utils.xml.BB_NS
 
-fun convertBbxToHtml(document: Document): org.jsoup.nodes.Document {
-    val bbxRoot = requireNotNull(document.rootElement) { "BBX document must have a root element" }
-    require(bbxRoot.namespaceURI == BB_NS && bbxRoot.localName == "bbdoc") { "Document must be a BBX document." }
-    val htmlDoc = org.jsoup.nodes.Document.createShell("").also {
-        it.insertChildren(0, org.jsoup.nodes.DocumentType("html", "", ""))
+object BBX2HTML {
+    fun convertBbxToHtml(document: Document): org.jsoup.nodes.Document {
+        val bbxRoot = requireNotNull(document.rootElement) { "BBX document must have a root element" }
+        require(bbxRoot.namespaceURI == BB_NS && bbxRoot.localName == "bbdoc") { "Document must be a BBX document." }
+        val template = javaClass.getResourceAsStream("/org/brailleblaster/ebraille/document_template.html")?.bufferedReader(Charsets.UTF_8)?.readText() ?: """
+            <!DOCTYPE html>
+            <html>
+            <head></head>
+            <body></body>
+            </html>
+        """.trimIndent()
+        val htmlDoc = org.jsoup.Jsoup.parse(template)
+        htmlDoc.head().appendChildren(bbxRoot.getFirstChildElement("head", BB_NS)?.processHead() ?: listOf())
+        htmlDoc.body()
+            .appendChildren(bbxRoot.childElements.filter { BBX.SECTION.ROOT.isA(it) }.flatMap { it.processRoot() })
+        return htmlDoc
     }
-    htmlDoc.head().appendChildren(createDefaultHead())
-    htmlDoc.head().appendChildren(bbxRoot.getFirstChildElement("head", BB_NS)?.processHead() ?: listOf())
-    htmlDoc.body().appendChildren(bbxRoot.childElements.filter { BBX.SECTION.ROOT.isA(it) }.flatMap { it.processRoot() })
-    return htmlDoc
 }
-private fun createDefaultHead(): Collection<org.jsoup.nodes.Element> = listOf(
-    org.jsoup.nodes.Element("link").apply {
-        attr("rel", "stylesheet")
-        attr("type", "text/css")
-        attr("href", "css/default.css")
-    },
-    org.jsoup.nodes.Element("style").appendText("""
-        p.centered {
-          text-align:center;
-        }
-    """.trimIndent())
-)
 
-private fun Element.processHead(): Collection<org.jsoup.nodes.Node> {
-    return listOf()
-}
+private fun Element.processHead(): Collection<org.jsoup.nodes.Node> = listOf()
 
 private fun Element.processRoot(): Iterable<org.jsoup.nodes.Node> {
     return childElements.flatMap {
@@ -63,19 +56,21 @@ private fun Element.processRoot(): Iterable<org.jsoup.nodes.Node> {
 
 private fun Element.processStyle(): Iterable<org.jsoup.nodes.Element> {
     val style = getAttributeValue(UTDElements.UTD_STYLE_ATTRIB)
-    return when(style) {
+    return when (style) {
         "Centered Heading" -> listOf(processParagraph(tag = "h1"))
         "Cell 5 Heading" -> listOf(processParagraph(tag = "h2"))
         "Cell 7 Heading" -> listOf(processParagraph(tag = "h3"))
         "Blocked Text" -> listOf(processParagraph(tag = "p", attributes = mapOf("class" to "left-justified")))
         "Centered Text" -> listOf(processParagraph(tag = "p", attributes = mapOf("class" to "centered")))
-        else -> listOf()
+        else -> listOf(processParagraph())
     }
 }
-private fun Element.processParagraph(tag: String = "p", attributes: Map<String, String> = mapOf()): org.jsoup.nodes.Element {
-    return org.jsoup.nodes.Element(tag).apply {
-        for ((k,v) in attributes) {
-            attr(k, v)
+
+private fun Element.processParagraph(
+    tag: String = "p",
+    attributes: Map<String, String> = mapOf()
+): org.jsoup.nodes.Element = org.jsoup.nodes.Element(tag).apply {
+    for ((k, v) in attributes) {
+        attr(k, v)
     }
-    }.appendText(getDescendantBrlFast().joinToString { BrailleMapper.ASCII_TO_UNICODE_FAST.map(it.value) })
-}
+}.appendText(getDescendantBrlFast().joinToString { BrailleMapper.ASCII_TO_UNICODE_FAST.map(it.value) })

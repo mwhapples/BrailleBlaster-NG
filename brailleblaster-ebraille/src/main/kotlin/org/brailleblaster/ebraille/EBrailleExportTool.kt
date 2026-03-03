@@ -29,7 +29,7 @@ object EBrailleExportTool : MenuTool {
     override val title = "Export to eBraille"
     override fun onRun(bbData: BBSelectionData) {
         BBFileDialog(bbData.wpManager.shell, SWT.SAVE,  suggestedFileName = null, filterNames = arrayOf("eBraille files"), filterExtensions = arrayOf("*.ebrl")).open()?.let { f ->
-            val html = convertBbxToHtml(bbData.manager.doc)
+            val html = BBX2HTML.convertBbxToHtml(bbData.manager.doc)
             EBraillePackager.createEbraillePackage(Path(f), listOf(html))
         }
     }
