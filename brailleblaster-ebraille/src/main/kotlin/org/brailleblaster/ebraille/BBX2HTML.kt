@@ -46,10 +46,10 @@ object BBX2HTML {
 private fun Element.processHead(): Collection<org.jsoup.nodes.Node> = listOf()
 
 private fun Element.processChildren(): Iterable<org.jsoup.nodes.Node> = childElements.flatMap {
-    when {
-        BBX.SECTION.isA(it) -> it.processSection()
-        BBX.CONTAINER.isA(it) -> it.processContainer()
-        BBX.BLOCK.isA(it) -> it.processBlock()
+    when(BBX.getTypeOrNull(it)) {
+        BBX.SECTION -> it.processSection()
+        BBX.CONTAINER -> it.processContainer()
+        BBX.BLOCK -> it.processBlock()
         else -> it.processChildren()
     }
 }
@@ -58,9 +58,9 @@ private fun Element.processSection(): Iterable<org.jsoup.nodes.Node> = processCh
 
 private fun Element.processContainer(): Iterable<org.jsoup.nodes.Node> = processChildren()
 
-private fun Element.processBlock(): Iterable<org.jsoup.nodes.Element> = when {
-    BBX.BLOCK.STYLE.isA(this) -> processStyle()
-    BBX.BLOCK.DEFAULT.isA(this) -> listOf(processParagraph())
+private fun Element.processBlock(): Iterable<org.jsoup.nodes.Element> = when(BBX.BLOCK.getSubType(this)) {
+    BBX.BLOCK.STYLE -> processStyle()
+    BBX.BLOCK.DEFAULT -> listOf(processParagraph())
     else -> listOf(processParagraph())
 }
 
