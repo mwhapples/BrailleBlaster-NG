@@ -38,21 +38,30 @@ object BBX2HTML {
         val htmlDoc = org.jsoup.Jsoup.parse(template)
         htmlDoc.head().appendChildren(bbxRoot.getFirstChildElement("head", BB_NS)?.processHead() ?: listOf())
         htmlDoc.body()
-            .appendChildren(bbxRoot.childElements.filter { BBX.SECTION.ROOT.isA(it) }.flatMap { it.processRoot() })
+            .appendChildren(bbxRoot.childElements.filter { BBX.SECTION.ROOT.isA(it) }.flatMap { it.processChildren() })
         return htmlDoc
     }
 }
 
 private fun Element.processHead(): Collection<org.jsoup.nodes.Node> = listOf()
 
-private fun Element.processRoot(): Iterable<org.jsoup.nodes.Node> {
-    return childElements.flatMap {
-        when {
-            BBX.BLOCK.STYLE.isA(it) -> it.processStyle()
-            BBX.BLOCK.DEFAULT.isA(it) -> listOf(it.processParagraph())
-            else -> it.processRoot()
-        }
+private fun Element.processChildren(): Iterable<org.jsoup.nodes.Node> = childElements.flatMap {
+    when {
+        BBX.SECTION.isA(it) -> it.processSection()
+        BBX.CONTAINER.isA(it) -> it.processContainer()
+        BBX.BLOCK.isA(it) -> it.processBlock()
+        else -> it.processChildren()
     }
+}
+
+private fun Element.processSection(): Iterable<org.jsoup.nodes.Node> = processChildren()
+
+private fun Element.processContainer(): Iterable<org.jsoup.nodes.Node> = processChildren()
+
+private fun Element.processBlock(): Iterable<org.jsoup.nodes.Element> = when {
+    BBX.BLOCK.STYLE.isA(this) -> processStyle()
+    BBX.BLOCK.DEFAULT.isA(this) -> listOf(processParagraph())
+    else -> listOf(processParagraph())
 }
 
 private fun Element.processStyle(): Iterable<org.jsoup.nodes.Element> {
