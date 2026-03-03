@@ -24,16 +24,17 @@ import org.brailleblaster.utd.utils.getDescendantBrlFast
 import org.brailleblaster.utils.xml.BB_NS
 
 object BBX2HTML {
-    fun convertBbxToHtml(document: Document): org.jsoup.nodes.Document {
-        val bbxRoot = requireNotNull(document.rootElement) { "BBX document must have a root element" }
-        require(bbxRoot.namespaceURI == BB_NS && bbxRoot.localName == "bbdoc") { "Document must be a BBX document." }
-        val template = javaClass.getResourceAsStream("/org/brailleblaster/ebraille/document_template.html")?.bufferedReader(Charsets.UTF_8)?.readText() ?: """
+    private val FALLBACK_TEMPLATE = """
             <!DOCTYPE html>
             <html>
             <head></head>
             <body></body>
             </html>
         """.trimIndent()
+    fun convertBbxToHtml(document: Document): org.jsoup.nodes.Document {
+        val bbxRoot = requireNotNull(document.rootElement) { "BBX document must have a root element" }
+        require(bbxRoot.namespaceURI == BB_NS && bbxRoot.localName == "bbdoc") { "Document must be a BBX document." }
+        val template = javaClass.getResourceAsStream("/org/brailleblaster/ebraille/document_template.html")?.bufferedReader(Charsets.UTF_8)?.readText() ?: FALLBACK_TEMPLATE
         val htmlDoc = org.jsoup.Jsoup.parse(template)
         htmlDoc.head().appendChildren(bbxRoot.getFirstChildElement("head", BB_NS)?.processHead() ?: listOf())
         htmlDoc.body()
