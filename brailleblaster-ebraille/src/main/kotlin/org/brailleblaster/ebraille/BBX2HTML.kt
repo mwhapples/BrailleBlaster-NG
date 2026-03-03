@@ -56,7 +56,11 @@ private fun Element.processChildren(): Iterable<org.jsoup.nodes.Node> = childEle
 
 private fun Element.processSection(): Iterable<org.jsoup.nodes.Node> = processChildren()
 
-private fun Element.processContainer(): Iterable<org.jsoup.nodes.Node> = processChildren()
+private fun Element.processContainer(): Iterable<org.jsoup.nodes.Node> = when(BBX.CONTAINER.getSubType(this)) {
+    BBX.CONTAINER.BOX -> processChildren()
+    BBX.CONTAINER.LIST -> processChildren()
+    else -> processChildren()
+}
 
 private fun Element.processBlock(): Iterable<org.jsoup.nodes.Element> = when(BBX.BLOCK.getSubType(this)) {
     BBX.BLOCK.STYLE -> processStyle()
