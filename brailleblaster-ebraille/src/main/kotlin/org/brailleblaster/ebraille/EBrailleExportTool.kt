@@ -15,6 +15,7 @@
  */
 package org.brailleblaster.ebraille
 
+import org.brailleblaster.ebraille.bbx2html.BBX2HTML
 import org.brailleblaster.perspectives.mvc.menu.BBSelectionData
 import org.brailleblaster.perspectives.mvc.menu.TopMenu
 import org.brailleblaster.tools.ExportMenuTool
