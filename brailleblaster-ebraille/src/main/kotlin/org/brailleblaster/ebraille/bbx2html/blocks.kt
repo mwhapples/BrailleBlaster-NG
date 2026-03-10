@@ -22,6 +22,7 @@ import org.brailleblaster.utd.utils.getDescendantBrlFast
 
 internal fun Element.processBlock(): Iterable<org.jsoup.nodes.Element> = when(BBX.BLOCK.getSubType(this)) {
     BBX.BLOCK.STYLE -> processStyle()
+    BBX.BLOCK.LIST_ITEM -> listOf(processParagraph(tag = "li"))
     BBX.BLOCK.DEFAULT -> listOf(processParagraph())
     else -> listOf(processParagraph())
 }
