@@ -21,7 +21,7 @@ import org.jsoup.nodes.Node
 
 internal fun Element.processContainer(): Collection<Node> = when(BBX.CONTAINER.getSubType(this)) {
     BBX.CONTAINER.BOX -> listOf(processBox())
-    BBX.CONTAINER.LIST -> processChildren()
+    BBX.CONTAINER.LIST -> listOf(processList())
     else -> processChildren()
 }
 
@@ -31,4 +31,8 @@ private fun Element.processBox(): org.jsoup.nodes.Element {
         else -> "\u2836"
     }
     return org.jsoup.nodes.Element("div").attr("type", boxSymbol).appendChildren(processChildren())
+}
+
+private fun Element.processList(): org.jsoup.nodes.Element {
+    return org.jsoup.nodes.Element("ul").appendChildren(processChildren())
 }
