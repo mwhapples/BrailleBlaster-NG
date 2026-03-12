@@ -53,7 +53,8 @@ private fun processListItems(items: List<ListItem>, level: Int = 0): org.jsoup.n
                 }
             }
             if (subItems.isNotEmpty()) {
-                appendChild(org.jsoup.nodes.Element("li").appendChild(processListItems(subItems, level + 1)))
+                val li = children().lastOrNull() ?: (org.jsoup.nodes.Element("li").appendTo(this))
+                li.appendChild(processListItems(subItems, level + 1))
             }
             if (appendItem) {
                 appendChildren(item.element.processBlock())
