@@ -37,7 +37,7 @@ private fun Element.processBox(): org.jsoup.nodes.Element {
 private data class ListItem(val element: Element, val level: Int)
 
 private fun processListItems(items: List<ListItem>, level: Int = 0): org.jsoup.nodes.Element =
-    org.jsoup.nodes.Element("ul").apply {
+    org.jsoup.nodes.Element("ul").attr("style", "list-style-type: none").apply {
         val iter = items.listIterator()
         while (iter.hasNext()) {
             val subItems = mutableListOf<ListItem>()
