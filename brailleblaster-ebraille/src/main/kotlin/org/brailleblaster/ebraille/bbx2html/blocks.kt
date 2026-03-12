@@ -20,14 +20,14 @@ import org.brailleblaster.bbx.BBX
 import org.brailleblaster.libembosser.utils.BrailleMapper
 import org.brailleblaster.utd.utils.getDescendantBrlFast
 
-internal fun Element.processBlock(): Iterable<org.jsoup.nodes.Element> = when(BBX.BLOCK.getSubType(this)) {
+internal fun Element.processBlock(): Collection<org.jsoup.nodes.Element> = when(BBX.BLOCK.getSubType(this)) {
     BBX.BLOCK.STYLE -> processStyle()
     BBX.BLOCK.LIST_ITEM -> listOf(processParagraph(tag = "li"))
     BBX.BLOCK.DEFAULT -> listOf(processParagraph())
     else -> listOf(processParagraph())
 }
 
-private fun Element.processStyle(): Iterable<org.jsoup.nodes.Element> = when (style) {
+private fun Element.processStyle(): Collection<org.jsoup.nodes.Element> = when (style) {
     "Centered Heading" -> listOf(processParagraph(tag = "h1"))
     "Cell 5 Heading" -> listOf(processParagraph(tag = "h2"))
     "Cell 7 Heading" -> listOf(processParagraph(tag = "h3"))
