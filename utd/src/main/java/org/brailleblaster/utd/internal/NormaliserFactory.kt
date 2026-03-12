@@ -241,6 +241,7 @@ class NormaliserFactory : NodeFactory() {
         private val DTBOOK_BLOCK_ELEMENTS: List<String> = listOf(
             "dtbook",
             "book",
+            "exercise",
             "frontmatter",
             "bodymatter",
             "rearmatter",
@@ -267,6 +268,8 @@ class NormaliserFactory : NodeFactory() {
             "td",
             "th"
         )
+        //TODO: Extend DTBook with the Nimas+ elements when they become available.
+        //Then plunge into the rabbit hole...
         private val DEFAULT_BLOCK_ELEMENTS: List<String> = listOf()
     }
 }

@@ -50,34 +50,44 @@ class BBXImportParser : AbstractBBXUtil, ImportParser {
         val oldElem = failIfNotElement(oldNode)
         val bbxElem: Element = if (sectionType != null) {
             sectionType.create()
-        } else if (containerType != null) {
+        }
+        else if (containerType != null) {
             if (styleName != null) {
                 BBX.CONTAINER.STYLE.create(styleName)
             } else {
                 containerType.create()
             }
-        } else if (blockType != null) {
+        }
+        else if (blockType != null) {
             if (styleName != null) {
                 BBX.BLOCK.STYLE.create(styleName)
             } else {
                 blockType.create()
             }
-        } else if (spanType != null) {
+        }
+        else if (spanType != null) {
             spanType.create()
-        } else if (inlineType != null) {
+        }
+        else if (inlineType != null) {
             inlineType.create()
-        } //subtype-types
+        }
+        else if (marginType != null) {
+            BBX.BLOCK.MARGIN.create(marginType)
+        }//subtype-types
         else if (listType != null) {
             BBX.CONTAINER.LIST.create(listType)
-        } else if (tableRowType != null) {
+        }
+        else if (tableRowType != null) {
             BBX.CONTAINER.TABLE_ROW.create(tableRowType)
-        } else if (emphasisType != null) {
+        }
+        else if (emphasisType != null) {
             BBX.INLINE.EMPHASIS.create(emphasisType)
-        } else {
+        }
+        else {
             throw RuntimeException(
                 "Unhandled: " + oldNode
-                        + " | bbxCursor: " + bbxCursor
-                        + " | this:" + this
+                    + " | bbxCursor: " + bbxCursor
+                    + " | this:" + this
             )
         }
         initNewElementAttributes(oldElem, bbxElem)
@@ -105,7 +115,7 @@ class BBXImportParser : AbstractBBXUtil, ImportParser {
     fun afterUnmarshal(unmarshaller: Unmarshaller?, parent: Any?) {
         validateOnlyOneBBXFieldSet()
         if (styleName != null && (containerType !== BBX.CONTAINER.STYLE
-                    && blockType !== BBX.BLOCK.STYLE)
+                && blockType !== BBX.BLOCK.STYLE)
         ) {
             throw RuntimeException("Unexpected styleName for non-style subtype: $this")
         } else if (containerType === BBX.CONTAINER.LIST) {

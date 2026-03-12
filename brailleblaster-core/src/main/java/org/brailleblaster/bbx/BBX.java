@@ -909,6 +909,14 @@ public static final @NonNull BlockElement BLOCK = new BlockElement();
                 super(type, "MARGIN");
             }
 
+            public Element create(MarginType type) {
+                Element el = super.create();
+                ATTRIB_MARGIN_TYPE.set(el, type);
+                ATTRIB_INDENT.set(el, 0);
+                ATTRIB_RUNOVER.set(el, 0);
+                return el;
+            }
+
             @Override
             protected String subValidate(Element elem) {
                 if (!ATTRIB_INDENT.has(elem)) {

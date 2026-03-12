@@ -2,6 +2,7 @@
 <importParserMap>
 	<namespaces>
 		<namespace prefix="dsy" uri="http://www.daisy.org/z3986/2005/dtbook/" />
+		<!-- Use a custom namespace for Nimas+ ?-->
 		<namespace prefix="utd" uri="http://brailleblaster.org/ns/utd" />
 		<namespace prefix="bb" uri="http://brailleblaster.org/ns/bb" />
 		<namespace prefix="m" uri="http://www.w3.org/1998/Math/MathML" />
@@ -90,6 +91,32 @@
 				blockType="LIST_ITEM"
 		/>
 	</entry>
+	<!--TOC, Index, Exercise, and Numeric are all marginTypes-->
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
+				 nodeName="exercise"
+		/>
+		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
+				marginType="EXERCISE"
+		/>
+	</entry>
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
+				 nodeName="index"
+		/>
+		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
+				marginType="INDEX"
+		/>
+	</entry>
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
+				 nodeName="toc"
+		/>
+		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
+				marginType="TOC"
+		/>
+	</entry>
+	<!--Skip Numeric, as its marginType name is a blank string. Is it even a BANA type? Not in scope of Nimas+ yet anyway.-->
 	
 	
 	<!-- Definition lists -->
