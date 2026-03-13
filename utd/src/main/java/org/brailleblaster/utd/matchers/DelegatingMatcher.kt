@@ -40,7 +40,7 @@ abstract class DelegatingMatcher : INodeMatcher {
         return matcher == o.matcher
     }
 
-    @Suppress("UNUSED", "UNUSED_PARAMETER")
+    @Suppress("UNUSED_PARAMETER")
     fun afterUnmarshal(unmarshaller: Unmarshaller?, parent: Any?) {
         if (matcher == null) {
             throw Error("No matchers added for $this")
