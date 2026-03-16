@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.brailleblaster.utd.exceptions.NodeException;
 import org.brailleblaster.utd.internal.xml.FastXPath;
 import org.brailleblaster.utd.internal.xml.XMLHandler;
@@ -116,8 +116,8 @@ public class TestXMLUtils {
             UTDHelper.stripUTDRecursive((Element) copiedNode);
         }
         String xml = copiedNode.toXML();
-        xml = StringUtils.replace(xml, " xmlns:utd=\"http://brailleblaster.org/ns/utd\"", "");
-        xml = StringUtils.replace(xml, " xmlns=\"http://www.daisy.org/z3986/2005/dtbook/\"", "");
+        xml = Strings.CS.replace(xml, " xmlns:utd=\"http://brailleblaster.org/ns/utd\"", "");
+        xml = Strings.CS.replace(xml, " xmlns=\"http://www.daisy.org/z3986/2005/dtbook/\"", "");
         return xml;
     }
 

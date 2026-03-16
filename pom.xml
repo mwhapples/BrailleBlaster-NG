@@ -53,7 +53,7 @@ child.project.url.inherit.append.path="false">
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <kotlin.version>2.3.10</kotlin.version>
+        <kotlin.version>2.3.20</kotlin.version>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
         <serialization.version>1.10.0</serialization.version>
         <jetbrains.annotations.version>26.0.2-1</jetbrains.annotations.version>
@@ -69,10 +69,10 @@ child.project.url.inherit.append.path="false">
         <jaxbruntime.version>4.0.6</jaxbruntime.version>
         <activation.version>1.1</activation.version>
         <swt.platform>win32.win32.x86_64</swt.platform>
-        <swt.version>3.132.0</swt.version>
-        <swt.svg.version>3.131.0</swt.svg.version>
-        <orgeclipsejface.version>3.38.100</orgeclipsejface.version>
-        <org.eclipse.equinox.common.version>3.20.300</org.eclipse.equinox.common.version>
+        <swt.version>3.133.0</swt.version>
+        <swt.svg.version>3.132.0</swt.svg.version>
+        <orgeclipsejface.version>3.39.0</orgeclipsejface.version>
+        <org.eclipse.osgi.version>3.24.100</org.eclipse.osgi.version>
         <hamcrest.version>2.2</hamcrest.version>
         <testng.version>7.12.0</testng.version>
         <xercesimpl.version>2.12.2</xercesimpl.version>
@@ -245,17 +245,11 @@ child.project.url.inherit.append.path="false">
                 <groupId>org.eclipse.platform</groupId>
                 <artifactId>org.eclipse.jface</artifactId>
                 <version>${orgeclipsejface.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.eclipse.platform</groupId>
-                        <artifactId>org.eclipse.swt</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.platform</groupId>
-                <artifactId>org.eclipse.equinox.common</artifactId>
-                <version>${org.eclipse.equinox.common.version}</version>
+                <artifactId>org.eclipse.osgi</artifactId>
+                <version>${org.eclipse.osgi.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.graalvm.polyglot</groupId>
@@ -546,7 +540,7 @@ child.project.url.inherit.append.path="false">
                     <jvmTarget>${maven.compiler.target}</jvmTarget>
                     <args>
                         <arg>-opt-in=kotlin.RequiresOptIn</arg>
-                        <arg>-Xjvm-default=all</arg>
+                        <arg>-jvm-default=no-compatibility</arg>
                     </args>
                 </configuration>
                 <dependencies>

@@ -71,31 +71,28 @@ class CellTab(var manager: Manager, var currentElement: TextMapElement, var text
     private fun intializeListeners() {
         val cellsPerLine = (manager.document.engine.pageSettings.drawableWidth
                 / manager.document.engine.brailleSettings.cellType.width.toDouble()).toInt()
+        fun okClose() {
+            val v = getNumber(tab.text)
+            if (v >= cellsPerLine) {
+                val msg = MessageBox(tabShell)
+                msg.message = "Cell position exceeds maximum number of cells per line."
+                msg.open()
+            } else {
+                if (v >= 1) {
+                    addTabElement(v, currentElement)
+                }
+                tabShell.close()
+            }
+        }
         buttonOK.addSelectionListener(object : SelectionAdapter() {
             override fun widgetSelected(e: SelectionEvent) {
-                val v = getNumber(tab.text)
-                if (v >= cellsPerLine) {
-                    val msg = MessageBox(tabShell)
-                    msg.message = "Cell position exceeds maximum number of cells per line."
-                    msg.open()
-                } else if (v >= 1) {
-                    addTabElement(v, currentElement)
-                    tabShell.close()
-                } else tabShell.close()
+                okClose()
             }
         })
         tab.addKeyListener(object : KeyAdapter() {
             override fun keyPressed(e: KeyEvent) {
                 if (e.keyCode == SWT.CR.code || e.keyCode == SWT.KEYPAD_CR) {
-                    val v = getNumber(tab.text)
-                    if (v >= cellsPerLine) {
-                        val msg = MessageBox(tabShell)
-                        msg.message = "Cell position exceeds maximum number of cells per line."
-                        msg.open()
-                    } else if (v >= 1) {
-                        addTabElement(v, currentElement)
-                        tabShell.close()
-                    } else tabShell.close()
+                    okClose()
                 } else if (e.keyCode == SWT.ESC.code) {
                     tabShell.close()
                 }

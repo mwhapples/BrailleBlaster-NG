@@ -37,7 +37,7 @@ import java.util.*
 import kotlin.math.max
 
 class ListedTableFormatter : Formatter() {
-    data class TableCell internal constructor(var td: Element, var row: Int, var col: Int)
+    internal data class TableCell(var td: Element, var row: Int, var col: Int)
 
     private val xpathContext = UTDElements.UTD_XPATH_CONTEXT
     override fun format(

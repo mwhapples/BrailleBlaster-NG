@@ -22,7 +22,6 @@ import java.io.File
 /**
  * Allow referring to the BB user directory in logback configurations.
  */
-@Suppress("unused")
 class UserPathFinder : PropertyDefinerBase() {
     private val bbUserDir: File = BBData.getUserDataPath("log").apply {
         if (!exists()) mkdirs()
