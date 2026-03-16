@@ -96,7 +96,7 @@ class AdvancedSettingsDialog {
     private fun onSave() {
         if (logError.selection) setLogLevel(Level.ERROR) else if (logWarn.selection) setLogLevel(Level.WARN) else if (logInfo.selection) setLogLevel(
             Level.INFO
-        ) else if (logDebug.selection) setLogLevel(Level.DEBUG) else setLogLevel(Level.ALL)
+        ) else if (logDebug.selection) setLogLevel(Level.DEBUG) else setLogLevel(Level.TRACE)
         updateLogSettings()
         dialog.close()
     }
