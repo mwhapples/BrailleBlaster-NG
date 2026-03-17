@@ -34,13 +34,13 @@ private fun Element.processBox(): org.jsoup.nodes.Element {
     return org.jsoup.nodes.Element("div").attr("type", boxSymbol).appendChildren(processChildren())
 }
 
-private data class ListItem(val element: Element, val level: Int)
+private data class ListItem<T>(val element: T, val level: Int)
 
-private fun processListItems(items: List<ListItem>, level: Int = 0): org.jsoup.nodes.Element =
-    org.jsoup.nodes.Element("ul").attr("style", "list-style-type: none").apply {
+private fun <T> processListItems(items: List<ListItem<T>>, level: Int, containerFactory: () -> org.jsoup.nodes.Element, itemFactory: (ListItem<T>) -> Collection<org.jsoup.nodes.Element>): org.jsoup.nodes.Element =
+    containerFactory().apply {
         val iter = items.listIterator()
         while (iter.hasNext()) {
-            val subItems = mutableListOf<ListItem>()
+            val subItems = mutableListOf<ListItem<T>>()
             var appendItem = true
             var item = iter.next()
             while (item.level > level) {
@@ -54,14 +54,14 @@ private fun processListItems(items: List<ListItem>, level: Int = 0): org.jsoup.n
             }
             if (subItems.isNotEmpty()) {
                 val li = children().lastOrNull() ?: (org.jsoup.nodes.Element("li").appendTo(this))
-                li.appendChild(processListItems(subItems, level + 1))
+                li.appendChild(processListItems(subItems, level = level + 1, containerFactory = containerFactory, itemFactory = itemFactory))
             }
             if (appendItem) {
-                appendChildren(item.element.processBlock())
+                appendChildren(itemFactory(item))
             }
         }
     }
 
 private fun Element.processList(): org.jsoup.nodes.Element =
     processListItems(childElements.filter { BBX.BLOCK.LIST_ITEM.isA(it) }
-        .map { ListItem(it, it.getAttributeValue("itemLevel", BB_NS)?.toIntOrNull() ?: 0) })
+        .map { ListItem(it, it.getAttributeValue("itemLevel", BB_NS)?.toIntOrNull() ?: 0) }, level = 0, containerFactory = { org.jsoup.nodes.Element("ul").attr("style", "list-style-type: none") }, itemFactory = { it.element.processBlock() })
