@@ -15,16 +15,17 @@
  */
 package org.brailleblaster.ebraille
 
+import org.jsoup.nodes.Element
+
 internal data class ListItem<T>(val element: T, val level: Int)
 
-internal fun <T> buildList(
-    items: List<ListItem<T>>,
+internal fun <T> Iterable<ListItem<T>>.toHtml(
     level: Int,
-    containerFactory: () -> org.jsoup.nodes.Element,
-    itemFactory: (ListItem<T>) -> Collection<org.jsoup.nodes.Element>
-): org.jsoup.nodes.Element =
-    containerFactory().apply {
-        val iter = items.listIterator()
+    containerFactory: () -> Element,
+    itemFactory: (ListItem<T>) -> Collection<Element>
+): Element =
+    containerFactory().also {
+        val iter = iterator()
         while (iter.hasNext()) {
             val subItems = mutableListOf<ListItem<T>>()
             var appendItem = true
@@ -39,10 +40,9 @@ internal fun <T> buildList(
                 }
             }
             if (subItems.isNotEmpty()) {
-                val li = children().lastOrNull() ?: (org.jsoup.nodes.Element("li").appendTo(this))
+                val li = it.children().lastOrNull() ?: (Element("li").appendTo(it))
                 li.appendChild(
-                    buildList(
-                        subItems,
+                    subItems.toHtml(
                         level = level + 1,
                         containerFactory = containerFactory,
                         itemFactory = itemFactory
@@ -50,7 +50,7 @@ internal fun <T> buildList(
                 )
             }
             if (appendItem) {
-                appendChildren(itemFactory(item))
+                it.appendChildren(itemFactory(item))
             }
         }
     }

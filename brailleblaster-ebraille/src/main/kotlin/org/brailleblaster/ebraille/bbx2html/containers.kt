@@ -18,7 +18,7 @@ package org.brailleblaster.ebraille.bbx2html
 import nu.xom.Element
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.ebraille.ListItem
-import org.brailleblaster.ebraille.buildList
+import org.brailleblaster.ebraille.toHtml
 import org.brailleblaster.utils.xml.BB_NS
 import org.jsoup.nodes.Node
 
@@ -37,9 +37,8 @@ private fun Element.processBox(): org.jsoup.nodes.Element {
 }
 
 private fun Element.processList(): org.jsoup.nodes.Element =
-    buildList(
-        childElements.filter { BBX.BLOCK.LIST_ITEM.isA(it) }
-            .map { ListItem(it, it.getAttributeValue("itemLevel", BB_NS)?.toIntOrNull() ?: 0) },
-        level = 0,
-        containerFactory = { org.jsoup.nodes.Element("ul").attr("style", "list-style-type: none") },
-        itemFactory = { it.element.processBlock() })
+    childElements.filter { BBX.BLOCK.LIST_ITEM.isA(it) }
+        .map { ListItem(it, it.getAttributeValue("itemLevel", BB_NS)?.toIntOrNull() ?: 0) }.toHtml(
+            level = 0,
+            containerFactory = { org.jsoup.nodes.Element("ul").attr("style", "list-style-type: none") }
+        ) { it.element.processBlock() }
