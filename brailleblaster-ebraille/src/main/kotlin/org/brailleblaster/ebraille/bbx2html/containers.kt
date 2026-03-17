@@ -17,6 +17,8 @@ package org.brailleblaster.ebraille.bbx2html
 
 import nu.xom.Element
 import org.brailleblaster.bbx.BBX
+import org.brailleblaster.ebraille.ListItem
+import org.brailleblaster.ebraille.buildList
 import org.brailleblaster.utils.xml.BB_NS
 import org.jsoup.nodes.Node
 
@@ -34,34 +36,10 @@ private fun Element.processBox(): org.jsoup.nodes.Element {
     return org.jsoup.nodes.Element("div").attr("type", boxSymbol).appendChildren(processChildren())
 }
 
-private data class ListItem<T>(val element: T, val level: Int)
-
-private fun <T> processListItems(items: List<ListItem<T>>, level: Int, containerFactory: () -> org.jsoup.nodes.Element, itemFactory: (ListItem<T>) -> Collection<org.jsoup.nodes.Element>): org.jsoup.nodes.Element =
-    containerFactory().apply {
-        val iter = items.listIterator()
-        while (iter.hasNext()) {
-            val subItems = mutableListOf<ListItem<T>>()
-            var appendItem = true
-            var item = iter.next()
-            while (item.level > level) {
-                subItems.add(item)
-                if (iter.hasNext()) {
-                    item = iter.next()
-                } else {
-                    appendItem = false
-                    break
-                }
-            }
-            if (subItems.isNotEmpty()) {
-                val li = children().lastOrNull() ?: (org.jsoup.nodes.Element("li").appendTo(this))
-                li.appendChild(processListItems(subItems, level = level + 1, containerFactory = containerFactory, itemFactory = itemFactory))
-            }
-            if (appendItem) {
-                appendChildren(itemFactory(item))
-            }
-        }
-    }
-
 private fun Element.processList(): org.jsoup.nodes.Element =
-    processListItems(childElements.filter { BBX.BLOCK.LIST_ITEM.isA(it) }
-        .map { ListItem(it, it.getAttributeValue("itemLevel", BB_NS)?.toIntOrNull() ?: 0) }, level = 0, containerFactory = { org.jsoup.nodes.Element("ul").attr("style", "list-style-type: none") }, itemFactory = { it.element.processBlock() })
+    buildList(
+        childElements.filter { BBX.BLOCK.LIST_ITEM.isA(it) }
+            .map { ListItem(it, it.getAttributeValue("itemLevel", BB_NS)?.toIntOrNull() ?: 0) },
+        level = 0,
+        containerFactory = { org.jsoup.nodes.Element("ul").attr("style", "list-style-type: none") },
+        itemFactory = { it.element.processBlock() })
