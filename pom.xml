@@ -96,6 +96,18 @@ child.project.url.inherit.append.path="false">
 
     <repositories>
         <repository>
+            <id>central</id>
+            <name>Maven Central</name>
+            <url>https://repo.maven.apache.org/maven2/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
             <id>sonatype-ossrh</id>
             <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
             <releases>
@@ -104,10 +116,6 @@ child.project.url.inherit.append.path="false">
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
-        </repository>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
         </repository>
     </repositories>
 
