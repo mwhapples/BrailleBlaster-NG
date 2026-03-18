@@ -119,7 +119,7 @@
 	<!--Skip Numeric, as its marginType name is a blank string. Is it even a BANA type? Not in scope of Nimas+ yet anyway.-->
 	
 	
-	<!-- Definition lists -->
+	<!-- Definition lists (glossary) -->
 	<entry>
 		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
 				 nodeName="dl"
@@ -343,6 +343,54 @@
 				emphasisType="UNDERLINE" 
 		/>
 	</entry>
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+				 nodeName="script"
+		/>
+		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
+				emphasisType="SCRIPT"
+		/>
+	</entry>
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+				 nodeName="trans1"
+		/>
+		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
+				emphasisType="TRANS_1"
+		/>
+	</entry>
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+				 nodeName="trans2"
+		/>
+		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
+				emphasisType="TRANS_2"
+		/>
+	</entry>
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+				 nodeName="trans3"
+		/>
+		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
+				emphasisType="TRANS_3"
+		/>
+	</entry>
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+				 nodeName="trans4"
+		/>
+		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
+				emphasisType="TRANS_4"
+		/>
+	</entry>
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+				 nodeName="trans5"
+		/>
+		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
+				emphasisType="TRANS_5"
+		/>
+	</entry>
 	
 	<!-- span city -->
 	<entry>
@@ -442,7 +490,76 @@
 		/>
 	</entry>
 	
-	
+
+	<!-- Play levels, must be above blocks as to not get captured by single-letter matchers like "p" -->
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
+				 nodeName="play"
+				 selfAttribName="level"
+				 selfAttribValue="0"
+		/>
+		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
+				blockType="STYLE"
+				styleName="Prose Play 1-3"
+		/>
+	</entry>
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
+				 nodeName="play"
+				 selfAttribName="level"
+				 selfAttribValue="1"
+		/>
+		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
+				blockType="STYLE"
+				styleName="Prose Play 5-3"
+		/>
+	</entry>
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
+				 nodeName="verse"
+				 selfAttribName="level"
+				 selfAttribValue="0"
+		/>
+		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
+				blockType="STYLE"
+				styleName="Verse Play 1-5"
+		/>
+	</entry>
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
+				 nodeName="verse"
+				 selfAttribName="level"
+				 selfAttribValue="1"
+		/>
+		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
+				blockType="STYLE"
+				styleName="Verse Play 3-5"
+		/>
+	</entry>
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
+				 nodeName="stage"
+				 selfAttribName="level"
+				 selfAttribValue="0"
+		/>
+		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
+				blockType="STYLE"
+				styleName="Stage Directions 7-7"
+		/>
+	</entry>
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
+				 nodeName="stage"
+				 selfAttribName="level"
+				 selfAttribValue="1"
+		/>
+		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
+				blockType="STYLE"
+				styleName="Stage Directions 9-7"
+		/>
+	</entry>
+
+
 	<!-- Blocks, must be last so others can intercept these -->
 	<entry>
 		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher" 
