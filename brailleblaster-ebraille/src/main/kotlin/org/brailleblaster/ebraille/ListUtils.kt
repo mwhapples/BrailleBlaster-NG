@@ -21,10 +21,10 @@ internal data class ListItem<T>(val element: T, val level: Int)
 
 internal fun <T> Iterable<ListItem<T>>.toHtml(
     level: Int,
-    containerFactory: () -> Element,
+    containerFactory: (Int) -> Element,
     itemFactory: (ListItem<T>) -> Collection<Element>
 ): Element =
-    containerFactory().also {
+    containerFactory(level).also {
         val iter = iterator()
         while (iter.hasNext()) {
             val subItems = mutableListOf<ListItem<T>>()
