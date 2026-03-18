@@ -333,8 +333,8 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
         }
 
         val sidebar = BBX.CONTAINER.BOX.create()
-        val treeParent = selectedSiblings[0].parent as Element
-        treeParent.insertChild(sidebar, treeParent.indexOf(selectedSiblings[0]))
+        val treeParent = selectedSiblings.first().parent as Element
+        treeParent.insertChild(sidebar, treeParent.indexOf(selectedSiblings.first()))
 
         var lastMovedElement: Element? = null
         for (selectedSibling in selectedSiblings) {
@@ -482,12 +482,12 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
                 ).toMutableList()
 
                 //If the parent of the text node is an INLINE element, split the two text nodes into two separate INLINEs
-                if (BBX.INLINE.isA(splitTextNode[0].parent)) {
-                    val inline = splitTextNode[0].parent as Element
+                if (BBX.INLINE.isA(splitTextNode.first().parent)) {
+                    val inline = splitTextNode.first().parent as Element
                     val inlineParent = inline.parent as Element
                     var inlineCopy = inline.copy()
                     inlineCopy.removeChildren()
-                    inlineCopy.appendChild(splitTextNode[0].copy())
+                    inlineCopy.appendChild(splitTextNode.first().copy())
                     inlineParent.replaceChild(inline, inlineCopy)
 
                     var index = inlineParent.indexOf(inlineCopy) + 1
@@ -554,8 +554,8 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
                     (m.simpleManager.currentSelection.start as XMLTextCaret).offset,
                     (m.simpleManager.currentSelection.end as XMLTextCaret).offset
                 )
-                if (splitTextNode[0].value.isEmpty()) {
-                    splitTextNode[0].detach()
+                if (splitTextNode.first().value.isEmpty()) {
+                    splitTextNode.first().detach()
                 }
                 guideWord.appendChild(splitTextNode[1].copy())
                 parent.replaceChild(splitTextNode[1], guideWord)
@@ -584,8 +584,7 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
     private fun isGuideWord(node: Node): Boolean {
         val guideWords = node.query("ancestor-or-self::node()[@utd-style='Guide Word']")
         if (guideWords.size() > 0) {
-            val guideWord = guideWords[0] as Element?
-            if (guideWord != null) {
+            val guideWord = guideWords.first() as Element
                 if (guideWord.getAttribute("guideWords") != null && guideWord.getAttributeValue("guideWords") == "false") {
                     guideWord.addAttribute(Attribute("guideWords", "true"))
                 } else {
@@ -594,7 +593,6 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
 
                 m.simpleManager.dispatchEvent(ModifyEvent(Sender.NO_SENDER, true, guideWord))
                 return true
-            }
         }
         return false
     }
@@ -792,9 +790,8 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
         // get the child elements so that page number indicators can be found
         val s1 = b1.childElements
         val s2 = b2.childElements
-        val c1 = if (s1.size() > 0) s1[0] else null
-        val ns2 = s2.size()
-        val c2 = if (ns2 > 0) s2[ns2 - 1] else null
+        val c1 = s1.firstOrNull()
+        val c2 = s2.lastOrNull()
 
         // if a BBX.SPAN.PAGE_NUM element is found then
         // transform it to a block, detach, and reinsert before
@@ -919,8 +916,8 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
                     return
                 }
 
-                val treeParent = selectedSiblings[0].parent as Element
-                treeParent.insertChild(container, treeParent.indexOf(selectedSiblings[0]))
+                val treeParent = selectedSiblings.first().parent as Element
+                treeParent.insertChild(container, treeParent.indexOf(selectedSiblings.first()))
                 for (selectedSibling in selectedSiblings) {
                     selectedSibling.detach()
                     container.appendChild(selectedSibling)

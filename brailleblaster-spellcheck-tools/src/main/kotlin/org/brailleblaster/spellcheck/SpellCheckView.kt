@@ -34,7 +34,7 @@ import org.eclipse.swt.widgets.List
 internal class SpellCheckView(parent: Shell?, private val m: SpellCheckManager) {
     private var shell: Shell = Shell(parent, SWT.APPLICATION_MODAL or SWT.CLOSE)
     private var text: Text
-    private lateinit var suggestionBox: List
+    private var suggestionBox: List
     private var group: Group
     private var suggestionGroup: Group
     private var replace: Button

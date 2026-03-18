@@ -13,18 +13,12 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.utd.matchers
+package org.brailleblaster.ebraille
 
-import nu.xom.Node
-import org.brailleblaster.utd.NamespaceMap
+import org.brailleblaster.perspectives.braille.Manager
+import org.brailleblaster.perspectives.mvc.BBSimpleManager
+import org.brailleblaster.spi.ModuleFactory
 
-class AndMatcher : MultipleDelegatingMatcher() {
-    override fun isMatch(node: Node, namespaces: NamespaceMap): Boolean {
-        for (m in matcher) {
-            if (!m.isMatch(node, namespaces)) {
-                return false
-            }
-        }
-        return true
-    }
+class EBrailleModuleFactory : ModuleFactory {
+    override fun createModules(manager: Manager): Iterable<BBSimpleManager.SimpleListener> = listOf(ExportSubMenu)
 }

@@ -347,6 +347,20 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolModul
             }
         }
 
+        private fun toggleRunningHeadContainer(container: Composite) {
+            val runHeadContainer = makeGroup(
+                container, "Running Head on page $startingBPN",
+                MAX_COLUMNS - 1
+            )
+            yesHead = Button(runHeadContainer, SWT.RADIO).apply {
+                text = "Yes"
+                selection = true
+            }
+            noHead = Button(runHeadContainer, SWT.RADIO).apply {
+                text = "No"
+            }
+        }
+
         private inner class BPNumberTab(folder: TabFolder?) {
             init {
                 val tab = TabItem(folder, 0)
@@ -375,19 +389,6 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolModul
                     MAX_COLUMNS - 2
                 ) { changeNumbers() }
             }
-
-            //The default is yes
-            private fun toggleRunningHeadContainer(container: Composite) {
-                val runHeadContainer = makeGroup(
-                    container, "Running Head on page $startingBPN",
-                    MAX_COLUMNS - 1
-                )
-                yesHead = Button(runHeadContainer, SWT.RADIO)
-                yesHead!!.text = "Yes"
-                yesHead!!.selection = true
-                noHead = Button(runHeadContainer, SWT.RADIO)
-                noHead!!.text = "No"
-            }
         }
 
         private inner class RunningHeadTab(folder: TabFolder?) {
@@ -405,18 +406,6 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolModul
                 toggleRunningHeadContainer(composite)
             }
 
-            //The default is yes
-            private fun toggleRunningHeadContainer(container: Composite) {
-                val runHeadContainer = makeGroup(
-                    container, "Running Head on page $startingBPN",
-                    MAX_COLUMNS - 1
-                )
-                yesHead = Button(runHeadContainer, SWT.RADIO)
-                yesHead!!.text = "Yes"
-                yesHead!!.selection = true
-                noHead = Button(runHeadContainer, SWT.RADIO)
-                noHead!!.text = "No"
-            }
         }
 
         private fun setStartingBPN(braillePageMapElement: Node?) {
