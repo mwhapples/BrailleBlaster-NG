@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 American Printing House for the Blind
+ * Copyright (C) 2025-2026 American Printing House for the Blind
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
