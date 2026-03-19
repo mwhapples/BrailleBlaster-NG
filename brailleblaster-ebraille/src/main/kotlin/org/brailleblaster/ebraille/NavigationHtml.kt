@@ -19,7 +19,7 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 
-private data class HeadingItem(val path: String, val element: Element)
+private data class ElementRef(val path: String, val element: Element)
 
 private val HEADINGS_LEVEL_MAP = mapOf("h1" to 0, "h2" to 1, "h3" to 2, "h4" to 3, "h5" to 4, "h6" to 5)
 
@@ -44,6 +44,7 @@ object NavigationHtml {
         val template = javaClass.getResourceAsStream("/org/brailleblaster/ebraille/index_template.html")?.bufferedReader(Charsets.UTF_8)?.readText() ?: FALLBACK_TEMPLATE
         val html = Jsoup.parse(template)
         html.body().appendChild(createHeadingsList(docs))
+        html.body().appendChild(createPageList(docs))
         return html
     }
     private fun createHeadingsList(docs: Iterable<HtmlItem>): Element = Element("nav").attr("role", "doc-toc").attr("aria-label", "Contents").attr("epub:type", "toc").append("<h2>⠠⠞⠁⠼ ⠷ ⠒⠞⠢⠞⠎</h2>").apply {
@@ -52,8 +53,18 @@ object NavigationHtml {
             if (it.id().isEmpty()) {
                 it.id("h_${idGenerator.nextId(doc.path)}")
             }
-            ListItem(HeadingItem(doc.path, it), HEADINGS_LEVEL_MAP.getOrDefault(it.tagName(), 0))
+            ListItem(ElementRef(doc.path, it), HEADINGS_LEVEL_MAP.getOrDefault(it.tagName(), 0))
         } }
         appendChild(headings.toHtml(level = 0, containerFactory = { Element("ol") }, itemFactory = { listOf(Element("li").appendChild(Element("a").attr("href", "${it.element.path}#${it.element.element.id()}").appendText(it.element.element.text()))) }))
+    }
+    private fun createPageList(docs: Iterable<HtmlItem>): Element = Element("nav").attr("role", "doc-pagelist").attr("epub:type", "page-list").attr("aria-label", "Page list").attr("hidden", "").append("<h2>⠠⠇⠊⠌ ⠷ ⠏⠁⠛⠑⠎</h2>").apply {
+        val idGenerator = IdGenerator()
+        val pages = docs.flatMap { doc -> doc.document.select("""span[role="doc-pagelist"]""").map {
+            if (it.id().isEmpty()) {
+                it.id("page_${idGenerator.nextId(doc.path)}")
+            }
+            ListItem(level = 0, element = ElementRef(doc.path, it))
+        } }
+        appendChild(pages.toHtml(level = 0, containerFactory = { Element("ol") }, itemFactory = { listOf(Element("li").appendChild(Element("a").attr("href", "${it.element.path}#${it.element.element.id()}").appendText(it.element.element.text())))}))
     }
 }
