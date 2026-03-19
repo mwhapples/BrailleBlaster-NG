@@ -17,7 +17,7 @@ package org.brailleblaster.ebraille.bbx2html
 
 import nu.xom.Element
 import org.brailleblaster.bbx.BBX
-import org.brailleblaster.libembosser.utils.BrailleMapper
+import org.brailleblaster.ebraille.asciiToEbraille
 import org.brailleblaster.utd.utils.getDescendantBrlFast
 import org.brailleblaster.utils.xml.UTD_NS
 
@@ -32,7 +32,7 @@ internal fun Element.processBlock(): Collection<org.jsoup.nodes.Element> = when(
 private fun Element.processPageNum(): org.jsoup.nodes.Element = org.jsoup.nodes.Element("span").attr("role", "doc-pagebreak").apply {
     val brl = getFirstChildElement("brl", UTD_NS)
     attr("aria-label", brl.getAttributeValue("printPage") ?: "")
-    appendText(BrailleMapper.ASCII_TO_UNICODE_FAST.map(brl.getAttributeValue("printPageBrl") ?: ""))
+    appendText(asciiToEbraille(brl.getAttributeValue("printPageBrl") ?: ""))
 }
 
 private fun Element.processStyle(): Collection<org.jsoup.nodes.Element> = when (style) {
@@ -51,4 +51,4 @@ private fun Element.processParagraph(
     for ((k, v) in attributes) {
         attr(k, v)
     }
-}.appendText(getDescendantBrlFast().joinToString { BrailleMapper.ASCII_TO_UNICODE_FAST.map(it.value) })
+}.appendText(getDescendantBrlFast().joinToString { asciiToEbraille(it.value) })
