@@ -241,7 +241,6 @@ class NormaliserFactory : NodeFactory() {
         private val DTBOOK_BLOCK_ELEMENTS: List<String> = listOf(
             "dtbook",
             "book",
-            "exercise",
             "frontmatter",
             "bodymatter",
             "rearmatter",
@@ -251,6 +250,8 @@ class NormaliserFactory : NodeFactory() {
             "h4",
             "h5",
             "h6",
+            "h7",
+            "h8",
             "hd",
             "level1",
             "level2",

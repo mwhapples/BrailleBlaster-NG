@@ -83,41 +83,49 @@
 				listType="NORMAL"
 		/>
 	</entry>
-	<entry>
-		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
-				 nodeName="li"
-		/>
-		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser" 
-				blockType="LIST_ITEM"
-		/>
-	</entry>
+
 	<!--TOC, Index, Exercise, and Numeric are all marginTypes-->
 	<entry>
-		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
-				 nodeName="exercise"
+		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+				 nodeName="li"
+				 selfAttribName="class"
+				 selfAttribValue="exercise"
 		/>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
 				marginType="EXERCISE"
 		/>
 	</entry>
 	<entry>
-		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
-				 nodeName="index"
+		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+				 nodeName="li"
+				 selfAttribName="class"
+				 selfAttribValue="index"
 		/>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
 				marginType="INDEX"
 		/>
 	</entry>
+	<!--There is a TOC margin type, but the styleDefs include the whole gamut of style types.
+	 There's clearly more we can do with TOC levels.-->
 	<entry>
-		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
-				 nodeName="toc"
+		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+				 nodeName="li"
+				 selfAttribName="class"
+				 selfAttribValue="toc-entry"
 		/>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
 				marginType="TOC"
 		/>
 	</entry>
-	<!--Skip Numeric, as its marginType name is a blank string. Is it even a BANA type? Not in scope of Nimas+ yet anyway.-->
-	
+	<!--Numeric? Not part of Nimas+...-->
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
+				 nodeName="li"
+		/>
+		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
+				blockType="LIST_ITEM"
+		/>
+	</entry>
 	
 	<!-- Definition lists (glossary) -->
 	<entry>
@@ -344,7 +352,7 @@
 		/>
 	</entry>
 	<entry>
-		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
 				 nodeName="script"
 		/>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
@@ -352,7 +360,7 @@
 		/>
 	</entry>
 	<entry>
-		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
 				 nodeName="trans1"
 		/>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
@@ -360,7 +368,7 @@
 		/>
 	</entry>
 	<entry>
-		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
 				 nodeName="trans2"
 		/>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
@@ -368,7 +376,7 @@
 		/>
 	</entry>
 	<entry>
-		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
 				 nodeName="trans3"
 		/>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
@@ -376,7 +384,7 @@
 		/>
 	</entry>
 	<entry>
-		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
 				 nodeName="trans4"
 		/>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
@@ -384,7 +392,7 @@
 		/>
 	</entry>
 	<entry>
-		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
 				 nodeName="trans5"
 		/>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
@@ -493,7 +501,7 @@
 
 	<!-- Play levels, must be above blocks as to not get captured by single-letter matchers like "p" -->
 	<entry>
-		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
+		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
 				 nodeName="play"
 				 selfAttribName="level"
 				 selfAttribValue="0"
@@ -504,7 +512,7 @@
 		/>
 	</entry>
 	<entry>
-		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
+		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
 				 nodeName="play"
 				 selfAttribName="level"
 				 selfAttribValue="1"
@@ -515,7 +523,7 @@
 		/>
 	</entry>
 	<entry>
-		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
+		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
 				 nodeName="verse"
 				 selfAttribName="level"
 				 selfAttribValue="0"
@@ -526,7 +534,7 @@
 		/>
 	</entry>
 	<entry>
-		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
+		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
 				 nodeName="verse"
 				 selfAttribName="level"
 				 selfAttribValue="1"
@@ -537,7 +545,7 @@
 		/>
 	</entry>
 	<entry>
-		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
+		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
 				 nodeName="stage"
 				 selfAttribName="level"
 				 selfAttribValue="0"
@@ -548,7 +556,7 @@
 		/>
 	</entry>
 	<entry>
-		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
+		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
 				 nodeName="stage"
 				 selfAttribName="level"
 				 selfAttribValue="1"
@@ -593,7 +601,7 @@
 		/>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser" 
 				blockType="STYLE"
-				styleName="Centered Heading"
+				styleName="Cell 7 Heading"
 		/>
 	</entry>
 	<!-- citations -->
