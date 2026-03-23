@@ -360,14 +360,8 @@ class StylePane(parent: Composite, private val m: Manager) : BBEditorView {
     private fun setCurrent() {
         val pos = widget.caretOffset
         val line = widget.getLineAtOffset(pos)
-        val textView = m.textView
-        if (line < textView.content.lineCount) {
-            textView.caretOffset = textView.getOffsetAtLine(line)
-        }
-        val brailleView = m.brailleView
-        if (line < brailleView.content.lineCount) {
-            brailleView.caretOffset = brailleView.getOffsetAtLine(line)
-        }
+        m.textView.takeUnless { it.isDisposed && it.content.lineCount <= line }?.also { it.caretOffset = it.getOffsetAtLine(line) }
+        m.brailleView.takeUnless { it.isDisposed && it.content.lineCount <= line }?.also { it.caretOffset = it.getOffsetAtLine(line) }
     }
 
     private fun updateTextView() {
