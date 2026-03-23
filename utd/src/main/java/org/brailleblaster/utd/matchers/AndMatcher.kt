@@ -18,7 +18,6 @@ package org.brailleblaster.utd.matchers
 import nu.xom.Node
 import org.brailleblaster.utd.NamespaceMap
 
-@Suppress("unused")
 class AndMatcher : MultipleDelegatingMatcher() {
     override fun isMatch(node: Node, namespaces: NamespaceMap): Boolean {
         for (m in matcher) {

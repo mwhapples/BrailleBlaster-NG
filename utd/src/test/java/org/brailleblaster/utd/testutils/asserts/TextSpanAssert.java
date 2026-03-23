@@ -17,11 +17,12 @@ package org.brailleblaster.utd.testutils.asserts;
 
 import nu.xom.Node;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.api.Fail;
-import org.assertj.core.util.Objects;
 import org.brailleblaster.utd.TextSpan;
+
+import java.util.Objects;
 
 public class TextSpanAssert extends AbstractAssert<TextSpanAssert, TextSpan> {
     protected TextSpanAssert(TextSpan actual) {
@@ -50,7 +51,7 @@ public class TextSpanAssert extends AbstractAssert<TextSpanAssert, TextSpan> {
 
     public TextSpanAssert hasText(String text) {
         isNotNull();
-        if (!StringUtils.equals(actual.getText(), text)) {
+        if (!Strings.CS.equals(actual.getText(), text)) {
             failWithMessage("Expected text to be <%s> but it was <%s>", text, actual.getText());
         }
         return this;
@@ -58,7 +59,7 @@ public class TextSpanAssert extends AbstractAssert<TextSpanAssert, TextSpan> {
 
     public TextSpanAssert hasNode(Node node) {
         isNotNull();
-        if (!(Objects.areEqual(actual.getNode(), node))) {
+        if (!(Objects.deepEquals(actual.getNode(), node))) {
             failWithMessage("Expected node to be <[%s] but was [%s]", node.toXML(), actual.getNode().toXML());
         }
         return this;
