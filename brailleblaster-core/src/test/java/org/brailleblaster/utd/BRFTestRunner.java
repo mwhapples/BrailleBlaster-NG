@@ -21,6 +21,7 @@ import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
+import org.apache.commons.lang3.Strings;
 import org.brailleblaster.settings.UTDManager;
 import org.brailleblaster.utd.internal.xml.XMLHandler;
 import org.brailleblaster.utils.xml.NamespacesKt;
@@ -107,7 +108,7 @@ public class BRFTestRunner {
         }
 
         //Remove new page characters
-        brfOutput = StringUtils.replace(brfOutput, "" + BRFWriter.PAGE_SEPARATOR, "");
+        brfOutput = Strings.CS.replace(brfOutput, "" + BRFWriter.PAGE_SEPARATOR, "");
 
         if (!Objects.equals(brfOutput, expectedBrfOutput)) {
             File failedFile = new File("brfTestFailed.xml");
@@ -118,7 +119,7 @@ public class BRFTestRunner {
             String fullXML;
             {
                 StringWriter sw = new StringWriter();
-                Serializer serializer = new Serializer(new WriterOutputStream(sw, StandardCharsets.UTF_8), StandardCharsets.UTF_8.name());
+                Serializer serializer = new Serializer(WriterOutputStream.builder().setWriter(sw).setCharset(StandardCharsets.UTF_8).get(), StandardCharsets.UTF_8.name());
                 serializer.setIndent(2);
 
                 Element root = (Element) doc.query("descendant::*[@bbtestroot]").get(0);

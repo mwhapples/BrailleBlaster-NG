@@ -26,7 +26,7 @@ import org.brailleblaster.perspectives.braille.stylers.StyleHandler
 import org.brailleblaster.perspectives.mvc.events.ModifyEvent
 import org.brailleblaster.search.SearchCriteria.StyleFormatting
 import org.brailleblaster.utd.internal.xml.XMLHandler
-import org.brailleblaster.utd.utils.UTDHelper.stripUTDRecursive
+import org.brailleblaster.utd.utils.stripUTDRecursive
 
 class ReplaceAll(private val man: Manager, private val click: Click) {
     private var numberReplaceAlls = 0
@@ -44,7 +44,7 @@ class ReplaceAll(private val man: Manager, private val click: Click) {
         }
 
         for (node in nodeArray) {
-            stripUTDRecursive(node.parent as Element)
+            (node.parent as Element).stripUTDRecursive()
         }
 
         click.settings.replaceStyleFormatting?.let {
@@ -159,7 +159,7 @@ class ReplaceAll(private val man: Manager, private val click: Click) {
                     if (existingEnum.isEmpty()) {
                         //We removed the only emphasis, get rid of the wrapper
                         val pn = element.parent as Element
-                        stripUTDRecursive(pn)
+                        pn.stripUTDRecursive()
                         n.detach()
                         pn.replaceChild(element, n)
                     } else {

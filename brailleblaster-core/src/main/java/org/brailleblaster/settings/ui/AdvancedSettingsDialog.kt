@@ -16,14 +16,13 @@
 package org.brailleblaster.settings.ui
 
 import ch.qos.logback.classic.Level
-import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.logging.getLogLevel
 import org.brailleblaster.logging.setLogLevel
 import org.brailleblaster.logging.updateLogSettings
+import org.brailleblaster.utils.localization.LocaleHandler.Companion.getDefault
 import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.wordprocessor.WPManager
 import org.eclipse.swt.SWT
-import org.eclipse.swt.events.SelectionEvent
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.layout.RowLayout
 import org.eclipse.swt.widgets.Button
@@ -72,8 +71,8 @@ class AdvancedSettingsDialog {
         cancelButton.text = localeHandler["&Cancel"]
 
         //------ Set listenrs ------
-        saveButton.addSelectionListener(EasySWT.makeSelectedListener { it: SelectionEvent -> onSave() })
-        cancelButton.addSelectionListener(EasySWT.makeSelectedListener { it: SelectionEvent -> dialog.close() })
+        saveButton.addSelectionListener(EasySWT.makeSelectedListener { onSave() })
+        cancelButton.addSelectionListener(EasySWT.makeSelectedListener { dialog.close() })
 
         //------ Set default values -----
         when (getLogLevel()) {
@@ -96,7 +95,7 @@ class AdvancedSettingsDialog {
     private fun onSave() {
         if (logError.selection) setLogLevel(Level.ERROR) else if (logWarn.selection) setLogLevel(Level.WARN) else if (logInfo.selection) setLogLevel(
             Level.INFO
-        ) else if (logDebug.selection) setLogLevel(Level.DEBUG) else setLogLevel(Level.ALL)
+        ) else if (logDebug.selection) setLogLevel(Level.DEBUG) else setLogLevel(Level.TRACE)
         updateLogSettings()
         dialog.close()
     }

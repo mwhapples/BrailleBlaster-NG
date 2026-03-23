@@ -19,7 +19,7 @@ import nu.xom.Builder;
 import nu.xom.Document;
 import nu.xom.ParsingException;
 import nu.xom.Serializer;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.brailleblaster.utils.BBData;
 import org.brailleblaster.TestGroups;
 import org.brailleblaster.utd.config.UTDConfig;
@@ -146,7 +146,7 @@ public class BRFWriterTest {
      */
     private static void diffOutput(String testName, String actual, String expected) {
         //Handle linux with \n
-        expected = StringUtils.replace(expected, "\r\n", System.lineSeparator());
+        expected = Strings.CS.replace(expected, "\r\n", System.lineSeparator());
 
         if (actual.equals(expected))
             //No need to do a fancy diff, they are the same

@@ -31,9 +31,9 @@ import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.utd.toc.TOCAttributes
-import org.brailleblaster.utd.utils.UTDHelper.getDocumentHead
-import org.brailleblaster.utd.utils.UTDHelper.stripUTDRecursive
 import org.brailleblaster.utd.utils.dom.BoxUtils.stripBoxBrl
+import org.brailleblaster.utd.utils.getDocumentHead
+import org.brailleblaster.utd.utils.stripUTDRecursive
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -283,7 +283,7 @@ object BBXUtils {
     @JvmStatic
     fun cleanupBlock(node: Node): Node? {
         val block = node.findBlockOrNull() ?: return null
-        stripUTDRecursive(block)
+        block.stripUTDRecursive()
         if (block.value.isEmpty()) {
             var parent: Node? = block.parent
             val image = XMLHandler.childrenRecursiveVisitor(
@@ -299,7 +299,7 @@ object BBXUtils {
                     //If the container is a box, do not look at the boxlines when seeing if the element is empty
                     if (BBX.CONTAINER.BOX.isA(parent)) {
                         val boxCopy = parent.copy() as Element
-                        stripUTDRecursive(boxCopy)
+                        boxCopy.stripUTDRecursive()
                         if (boxCopy.value.isEmpty()) {
                             val temp: Node = parent.parent
                             stripBoxBrl(parent as Element)
@@ -355,7 +355,7 @@ object BBXUtils {
     }
 
     fun getDocumentTitle(manager: Manager): String? {
-        val head = getDocumentHead(manager.doc)
+        val head = manager.doc.getDocumentHead()
         if (head != null) {
             val title = head.getFirstChildElement("doctitle")
             if (title != null) {

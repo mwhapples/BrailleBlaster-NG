@@ -15,7 +15,6 @@
  */
 package org.brailleblaster.utd.testutils;
 
-import org.apache.commons.lang3.StringUtils;
 import org.testng.Assert;
 
 import java.io.File;
@@ -45,8 +44,8 @@ public final class UTDConfigUtils {
 
     public static String normalizeEndOfLine(String rawString) {
         String normalString = rawString;
-        normalString = StringUtils.replace(normalString, "\r\n", "\n");
-        normalString = StringUtils.replace(normalString, "\r", "\n");
+        normalString = normalString.replace("\r\n", "\n");
+        normalString = normalString.replace("\r", "\n");
         normalString = normalString.trim();
         return normalString;
     }

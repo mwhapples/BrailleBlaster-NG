@@ -39,9 +39,10 @@ import org.brailleblaster.utd.MetadataHelper.markBlankPrintPageNumber
 import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.utd.properties.PageNumberType
 import org.brailleblaster.utd.utils.TextTranslator
-import org.brailleblaster.utd.utils.UTDHelper
 import org.brailleblaster.exceptions.BBNotifyException
 import org.brailleblaster.utd.internal.xml.FastXPath
+import org.brailleblaster.utd.utils.findCurrentVolumeNumber
+import org.brailleblaster.utd.utils.getDocumentHead
 import org.brailleblaster.utils.swt.EasySWT
 import org.brailleblaster.utils.swt.EasyListeners
 import org.brailleblaster.wordprocessor.WPManager
@@ -346,6 +347,20 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolModul
             }
         }
 
+        private fun toggleRunningHeadContainer(container: Composite) {
+            val runHeadContainer = makeGroup(
+                container, "Running Head on page $startingBPN",
+                MAX_COLUMNS - 1
+            )
+            yesHead = Button(runHeadContainer, SWT.RADIO).apply {
+                text = "Yes"
+                selection = true
+            }
+            noHead = Button(runHeadContainer, SWT.RADIO).apply {
+                text = "No"
+            }
+        }
+
         private inner class BPNumberTab(folder: TabFolder?) {
             init {
                 val tab = TabItem(folder, 0)
@@ -374,19 +389,6 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolModul
                     MAX_COLUMNS - 2
                 ) { changeNumbers() }
             }
-
-            //The default is yes
-            private fun toggleRunningHeadContainer(container: Composite) {
-                val runHeadContainer = makeGroup(
-                    container, "Running Head on page $startingBPN",
-                    MAX_COLUMNS - 1
-                )
-                yesHead = Button(runHeadContainer, SWT.RADIO)
-                yesHead!!.text = "Yes"
-                yesHead!!.selection = true
-                noHead = Button(runHeadContainer, SWT.RADIO)
-                noHead!!.text = "No"
-            }
         }
 
         private inner class RunningHeadTab(folder: TabFolder?) {
@@ -404,18 +406,6 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolModul
                 toggleRunningHeadContainer(composite)
             }
 
-            //The default is yes
-            private fun toggleRunningHeadContainer(container: Composite) {
-                val runHeadContainer = makeGroup(
-                    container, "Running Head on page $startingBPN",
-                    MAX_COLUMNS - 1
-                )
-                yesHead = Button(runHeadContainer, SWT.RADIO)
-                yesHead!!.text = "Yes"
-                yesHead!!.selection = true
-                noHead = Button(runHeadContainer, SWT.RADIO)
-                noHead!!.text = "No"
-            }
         }
 
         private fun setStartingBPN(braillePageMapElement: Node?) {
@@ -606,7 +596,7 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolModul
 
         //Delete the most recent page changes added to the document
         private fun cancelPageChange() {
-            val head = UTDHelper.getDocumentHead(manager!!.doc)
+            val head = manager!!.doc.getDocumentHead()
             if (head != null) {
                 repeat(metaCounter) {
                     head.removeChild(head.childCount - 1)
@@ -622,7 +612,7 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolModul
             //Find a way to set the current volume based on current brl
             val currNode = manager!!.simpleManager.currentSelection.start.node
             val currVolNum =
-                if (UTDHelper.findCurrentVolumeNumber(currNode) > 0) UTDHelper.findCurrentVolumeNumber(currNode) - 1 else 0
+                if (findCurrentVolumeNumber(currNode) > 0) findCurrentVolumeNumber(currNode) - 1 else 0
             if (volumeList.isNotEmpty()) {
                 val volumeNames = getVolumeNames(volumeList)
                 val location = EasySWT.makeLabel(
@@ -827,7 +817,7 @@ class PageNumberDialog(parent: Shell?) : Dialog(parent, SWT.NONE), MenuToolModul
 
         //Re-adds the metadata that have been deleted
         private fun cancelPageChangeList() {
-            val head = UTDHelper.getDocumentHead(manager!!.doc)
+            val head = manager!!.doc.getDocumentHead()
             if (head != null) {
                 for (element in deletedMeta) {
                     head.appendChild(element)

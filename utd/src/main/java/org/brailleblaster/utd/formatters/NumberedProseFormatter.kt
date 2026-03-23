@@ -26,8 +26,8 @@ import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.PageBuilderHelper.handlePageIndicator
 import org.brailleblaster.utd.utils.PageBuilderHelper.isPageIndicator
 import org.brailleblaster.utd.utils.PageBuilderHelper.isSkipLinesNode
-import org.brailleblaster.utd.utils.UTDHelper.getAssociatedBrlElement
-import org.brailleblaster.utd.utils.UTDHelper.getAssociatedNode
+import org.brailleblaster.utd.utils.getAssociatedBrlElement
+import org.brailleblaster.utd.utils.getAssociatedNode
 import java.util.*
 
 /*
@@ -145,7 +145,7 @@ class NumberedProseFormatter : Formatter() {
 
         for (i in 0 until node.getChildCount()) {
             if (node.getChild(i) is Text) {
-                val brl = getAssociatedBrlElement(node, i) ?: continue
+                val brl = node.getAssociatedBrlElement(i) ?: continue
 
 
                 //If there's no more space left on the current line, move the y to the next line or next page
@@ -317,9 +317,7 @@ class NumberedProseFormatter : Formatter() {
 
                 val curStyle = findStyle(
                     formatSelector,
-                    getAssociatedNode(
-                        lines!![i]
-                    )!!.parent
+                    lines!![i].getAssociatedNode()!!.parent
                 )
                 if (lineDetails!![i][3] == 1 && !pageBuilder.isEmptyFormattingLine) {
                     pageBuilder.addAtLeastLinesBefore(curStyle.linesBefore)

@@ -18,6 +18,7 @@ package org.brailleblaster.utd.formatters
 import nu.xom.Attribute
 import nu.xom.Element
 import nu.xom.Node
+import org.brailleblaster.libembosser.spi.BrlCell
 import org.brailleblaster.utd.*
 import org.brailleblaster.utd.FormatSelector.Companion.setEnableWriteUTD
 import org.brailleblaster.utd.properties.Align
@@ -27,9 +28,8 @@ import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.PageBuilderHelper.getBraillePageNumberAt
 import org.brailleblaster.utd.utils.PageBuilderHelper.getPrintPageNumberAt
 import org.brailleblaster.utd.utils.PageBuilderHelper.setPageNumberType
-import org.brailleblaster.utd.utils.UTDHelper.containsBrl
-import org.brailleblaster.utd.utils.UTDHelper.getDescendantBrlFast
-import org.brailleblaster.libembosser.spi.BrlCell
+import org.brailleblaster.utd.utils.containsBrl
+import org.brailleblaster.utd.utils.getDescendantBrlFast
 import org.brailleblaster.utils.xml.UTD_NS
 import java.util.*
 import kotlin.math.max
@@ -71,7 +71,7 @@ class TPageFormatter : LiteraryFormatter() {
         val titlePage: Element? = node.childElements[0]
         val secondaryPages: MutableList<Element> = LinkedList()
         for (i in 1 until node.childElements.size()) {
-            if (containsBrl(node.childElements[i])) secondaryPages.add(node.childElements[i])
+            if (node.childElements[i].containsBrl()) secondaryPages.add(node.childElements[i])
         }
 
         pageBuilder = mutPageBuilders.last()
@@ -145,7 +145,7 @@ class TPageFormatter : LiteraryFormatter() {
 
         //Iterate through the sections
         for (i in 0 until element.childElements.size()) {
-            if (containsBrl(element.childElements[i])) {
+            if (element.childElements[i].containsBrl()) {
                 if (i != 0) {
                     if (firstPass) {
                         divCount++
@@ -189,7 +189,7 @@ class TPageFormatter : LiteraryFormatter() {
                             pageNumberSize += pageBuilder.printPageNumber.length + pageBuilder.padding
                         }
                         val lineLengthStyle = Style()
-                        lineLengthStyle.setLineLength(-1 * pageNumberSize)
+                        lineLengthStyle.lineLength = -1 * pageNumberSize
                         (style as StyleStack?)!!.push(lineLengthStyle)
                     }
 
@@ -261,7 +261,7 @@ class TPageFormatter : LiteraryFormatter() {
     }
 
     private fun removeBrlFromPB(set: Set<PageBuilder>, parent: Element) {
-        val brls = getDescendantBrlFast(parent)
+        val brls = parent.getDescendantBrlFast()
         for (brl in brls) {
             for (pb in set) {
                 pb.removeBrl(brl)
