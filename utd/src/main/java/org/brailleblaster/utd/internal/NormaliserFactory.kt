@@ -250,6 +250,8 @@ class NormaliserFactory : NodeFactory() {
             "h4",
             "h5",
             "h6",
+            "h7",
+            "h8",
             "hd",
             "level1",
             "level2",
@@ -267,6 +269,8 @@ class NormaliserFactory : NodeFactory() {
             "td",
             "th"
         )
+        //TODO: Extend DTBook with the Nimas+ elements when they become available.
+        //Then plunge into the rabbit hole...
         private val DEFAULT_BLOCK_ELEMENTS: List<String> = listOf()
     }
 }
