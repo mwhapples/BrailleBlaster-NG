@@ -50,7 +50,7 @@ import org.brailleblaster.utd.Style
 import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.properties.UTDElements
-import org.brailleblaster.utd.utils.UTDHelper.stripUTDRecursive
+import org.brailleblaster.utd.utils.stripUTDRecursive
 import org.brailleblaster.util.LINE_BREAK
 import org.brailleblaster.util.Notify
 import org.brailleblaster.util.Notify.notify
@@ -888,7 +888,7 @@ class TextVerifyKeyListener(
         val newOffset = tab.getStart(manager.mapList)
         val parent = tab.nodeParent
         tab.node.detach()
-        stripUTDRecursive(parent)
+        parent.stripUTDRecursive()
         combineAdjacentTextNodes(parent)
         dispatchModifyEvent(parent, true)
         textView.setCursor(newOffset)
@@ -971,7 +971,7 @@ class TextVerifyKeyListener(
             ) {
                 val parent = node.parent as Element
                 node.detach()
-                stripUTDRecursive(parent)
+                parent.stripUTDRecursive()
                 combineAdjacentTextNodes(parent)
                 return true
             }

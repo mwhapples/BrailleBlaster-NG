@@ -38,7 +38,7 @@ import org.brailleblaster.utd.internal.NormaliserFactory
 import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import org.brailleblaster.utd.matchers.INodeMatcher
-import org.brailleblaster.utd.utils.UTDHelper
+import org.brailleblaster.utd.utils.stripUTDRecursive
 import org.brailleblaster.util.LINE_BREAK
 import org.brailleblaster.utils.xom.childNodes
 import org.brailleblaster.util.Utils
@@ -82,7 +82,7 @@ class BookToBBXConverter(
 
     private fun toBBX(oldDoc: Document): Document {
         //Remove UTD which isn't handled in parserMap
-        UTDHelper.stripUTDRecursive(oldDoc)
+        oldDoc.stripUTDRecursive()
         val bbxDoc = BBX.newDocument()
         toBBXRecursive(oldDoc.rootElement, bbxDoc.rootElement)
         return bbxDoc
@@ -266,56 +266,29 @@ class BookToBBXConverter(
                 log.info("BBX version {} is up to date", formatVersion)
             }
             val styleDefs = loadStyleDefinitions(preferredFormatStandard)
-            when (formatVersion) {
-                0, 1, 2 -> {
-                    log.info("Upgrading BBX format from 2 to 3")
-                    BookToBBXConverter(
-                        null,
-                        ImportFixerMap.load(BBIni.loadAutoProgramDataFile("utd", "bbx2to3.fixerMap.xml")),
-                        styleDefs
-                    ).doUpgrade(doc, "Upgrade from 2 to 3", 3)
-                    log.info("Upgrading BBX format from 3 to 4")
-                    BBXTo4Upgrader.upgrade(doc)
-                    log.info("Upgrading BBX format from 4 to 5")
-                    BBXTo5Upgrader.upgrade(doc)
-                    log.info("Upgrading BBX format from 5 to 6")
-                    BBXTo6Upgrader.upgrade(doc)
-                    log.info("Running LiveFixer, final upgrade")
-                    fix(BBX.getRoot(doc))
-                }
-
-                3 -> {
-                    log.info("Upgrading BBX format from 3 to 4")
-                    BBXTo4Upgrader.upgrade(doc)
-                    log.info("Upgrading BBX format from 4 to 5")
-                    BBXTo5Upgrader.upgrade(doc)
-                    log.info("Upgrading BBX format from 5 to 6")
-                    BBXTo6Upgrader.upgrade(doc)
-                    log.info("Running LiveFixer, final upgrade")
-                    fix(BBX.getRoot(doc))
-                }
-
-                4 -> {
-                    log.info("Upgrading BBX format from 4 to 5")
-                    BBXTo5Upgrader.upgrade(doc)
-                    log.info("Upgrading BBX format from 5 to 6")
-                    BBXTo6Upgrader.upgrade(doc)
-                    log.info("Running LiveFixer, final upgrade")
-                    fix(BBX.getRoot(doc))
-                }
-
-                5 -> {
-                    log.info("Upgrading BBX format from 5 to 6")
-                    BBXTo6Upgrader.upgrade(doc)
-                    log.info("Running LiveFixer, final upgrade")
-                    fix(BBX.getRoot(doc))
-                }
-
-                else -> {
-                    log.info("Running LiveFixer, final upgrade")
-                    fix(BBX.getRoot(doc))
-                }
+            if (formatVersion < 3) {
+                log.info("Upgrading BBX format from 2 to 3")
+                BookToBBXConverter(
+                    null,
+                    ImportFixerMap.load(BBIni.loadAutoProgramDataFile("utd", "bbx2to3.fixerMap.xml")),
+                    styleDefs
+                ).doUpgrade(doc, "Upgrade from 2 to 3", 3)
             }
+            if (formatVersion < 4) {
+                log.info("Upgrading BBX format from 3 to 4")
+                BBXTo4Upgrader.upgrade(doc)
+            }
+            if (formatVersion < 5) {
+                log.info("Upgrading BBX format from 4 to 5")
+                BBXTo5Upgrader.upgrade(doc)
+            }
+            if (formatVersion < 6) {
+                log.info("Upgrading BBX format from 5 to 6")
+                BBXTo6Upgrader.upgrade(doc)
+            }
+            log.info("Running LiveFixer, final upgrade")
+            fix(BBX.getRoot(doc))
+
             BBXValidator.validateDocument(doc, styleDefs)
         }
 

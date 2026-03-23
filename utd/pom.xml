@@ -97,9 +97,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${mavensurefireplugin.version}</version>
                 <configuration>
-                    <systemProperties>
+                    <systemPropertyVariables>
                         <polyglot.engine.WarnInterpreterOnly>false</polyglot.engine.WarnInterpreterOnly>
-                    </systemProperties>
+                    </systemPropertyVariables>
                     <additionalClasspathElements>
                         <additionalClasspathElement>${project.build.testOutputDirectory}/data</additionalClasspathElement>
                     </additionalClasspathElements>

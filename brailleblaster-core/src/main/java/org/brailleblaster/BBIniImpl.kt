@@ -87,23 +87,18 @@ class BBIniImpl(val bbDistPath: Path, bbUserPath: Path, propManager: PropertyFil
         }
     }.toString())
     val debugFilePath: Path? = debugArgs.firstOrNull()?.let {
-        val p = Path(it).toAbsolutePath()
-        if (p.exists()) {
-            p
-        } else {
-            programDataPath.resolve(Path("testFiles", it)).also { dfp ->
-                if (!dfp.exists()) {
-                    throw RuntimeException("debug file $dfp does not exist")
-                }
-            }
-        }
+        findDebugFilePath(it)
     }
     val debugSavePath: Path? = debugArgs.elementAtOrNull(1)?.let {
-        val p = Path(it).toAbsolutePath()
-        if (p.exists()) {
+        findDebugFilePath(it)
+    }
+
+    private fun findDebugFilePath(string: String): Path {
+        val p = Path(string).toAbsolutePath()
+        return if (p.exists()) {
             p
         } else {
-            programDataPath.resolve(Path("testFiles", it)).also { dfp ->
+            programDataPath.resolve(Path("testFiles", string)).also { dfp ->
                 if (!dfp.exists()) {
                     throw RuntimeException("debug file $dfp does not exist")
                 }

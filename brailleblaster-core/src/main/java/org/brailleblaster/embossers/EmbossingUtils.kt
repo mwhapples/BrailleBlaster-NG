@@ -23,6 +23,7 @@ import org.brailleblaster.libembosser.embossing.attribute.PaperSize
 import org.brailleblaster.libembosser.spi.*
 import org.brailleblaster.libembosser.spi.Notification.NotificationType
 import org.brailleblaster.utd.ITranslationEngine
+import org.brailleblaster.utd.PageSettings
 import org.brailleblaster.utd.UTDTranslationEngine
 import org.brailleblaster.utd.utils.ALL_VOLUMES
 import org.brailleblaster.utd.utils.convertBBX2PEF
@@ -105,25 +106,7 @@ object EmbossingUtils {
         val scope = embosser.scope
         val copies = embosser.copies
         return try {
-            val attributes = EmbossingAttributeSet()
-            val leftMargin = toLengthBigDecimal(pageSettings.leftMargin)
-            val rightMargin = toLengthBigDecimal(pageSettings.rightMargin)
-            val topMargin = toLengthBigDecimal(pageSettings.topMargin)
-            val bottomMargin = toLengthBigDecimal(pageSettings.bottomMargin)
-            attributes.add(
-                PaperMargins(Margins(leftMargin, rightMargin, topMargin, bottomMargin))
-            )
-            val pageWidth = toLengthBigDecimal(pageSettings.paperWidth)
-            val pageHeight = toLengthBigDecimal(pageSettings.paperHeight)
-            attributes.add(PaperSize(Rectangle(pageWidth, pageHeight)))
-            // As BBX documents only say if to interpoint, at the moment we just use INTERPOINT or P1ONLY.
-            // Other more advanced modes would require BBX to support more of these.
-            val sides = if (pageSettings.interpoint) Layout.INTERPOINT else Layout.P1ONLY
-            attributes.add(PaperLayout(sides))
-            attributes.add(Copies(copies))
-            attributes.add(BrailleCellType(BrlCell.NLS))
-            val pages = if (scope == PrinterData.PAGE_RANGE) PageRanges(start, end) else PageRanges()
-            attributes.add(pages)
+            val attributes = createEmbossingAttributes(pageSettings, copies, scope, start, end)
             val pef = convertBBX2PEF(
                 document.doc, "EmbossJob", engine, ALL_VOLUMES
             )
@@ -153,6 +136,35 @@ object EmbossingUtils {
             logger.error("Print Exception", e)
             -1
         }
+    }
+
+    private fun createEmbossingAttributes(
+        pageSettings: PageSettings,
+        copies: Int,
+        scope: Int,
+        start: Int,
+        end: Int
+    ): EmbossingAttributeSet {
+        val attributes = EmbossingAttributeSet()
+        attributes.add(BrailleCellType(BrlCell.NLS))
+        val leftMargin = toLengthBigDecimal(pageSettings.leftMargin)
+        val rightMargin = toLengthBigDecimal(pageSettings.rightMargin)
+        val topMargin = toLengthBigDecimal(pageSettings.topMargin)
+        val bottomMargin = toLengthBigDecimal(pageSettings.bottomMargin)
+        attributes.add(
+            PaperMargins(Margins(leftMargin, rightMargin, topMargin, bottomMargin))
+        )
+        val pageWidth = toLengthBigDecimal(pageSettings.paperWidth)
+        val pageHeight = toLengthBigDecimal(pageSettings.paperHeight)
+        attributes.add(PaperSize(Rectangle(pageWidth, pageHeight)))
+        attributes.add(Copies(copies))
+        // As BBX documents only say if to interpoint, at the moment we just use INTERPOINT or P1ONLY.
+        // Other more advanced modes would require BBX to support more of these.
+        val sides = if (pageSettings.interpoint) Layout.INTERPOINT else Layout.P1ONLY
+        attributes.add(PaperLayout(sides))
+        val pages = if (scope == PrinterData.PAGE_RANGE) PageRanges(start, end) else PageRanges()
+        attributes.add(pages)
+        return attributes
     }
 
     private fun embosserPrerequisitesMet(driver: Embosser): Boolean {
@@ -215,23 +227,7 @@ object EmbossingUtils {
         return try {
             PageFilterInputStream(Files.newInputStream(brfPath)).use { inputStream ->
                 val pageSettings = engine.pageSettings
-                val attributes = EmbossingAttributeSet()
-                val leftMargin = toLengthBigDecimal(pageSettings.leftMargin)
-                val topMargin = toLengthBigDecimal(pageSettings.topMargin)
-                val rightMargin = toLengthBigDecimal(pageSettings.rightMargin)
-                val bottomMargin = toLengthBigDecimal(pageSettings.bottomMargin)
-                attributes.add(
-                    PaperMargins(Margins(leftMargin, rightMargin, topMargin, bottomMargin))
-                )
-                val paperWidth = toLengthBigDecimal(pageSettings.paperWidth)
-                val paperHeight = toLengthBigDecimal(pageSettings.paperHeight)
-                attributes.add(PaperSize(Rectangle(paperWidth, paperHeight)))
-                attributes.add(Copies(copies))
-                attributes.add(BrailleCellType(BrlCell.NLS))
-                val pageLayout = if (pageSettings.interpoint) Layout.INTERPOINT else Layout.P1ONLY
-                attributes.add(PaperLayout(pageLayout))
-                val pages = if (scope == PrinterData.PAGE_RANGE) PageRanges(start, end) else PageRanges()
-                attributes.add(pages)
+                val attributes = createEmbossingAttributes(pageSettings, copies, scope, start, end)
                 if (embosser.isCreateDebugFile) {
                     embossToFile(parent, buildMap {
                         put(EMBOSSER_CONFIG_ENTRY, EmbosserConfigToStreamFunction(data))
