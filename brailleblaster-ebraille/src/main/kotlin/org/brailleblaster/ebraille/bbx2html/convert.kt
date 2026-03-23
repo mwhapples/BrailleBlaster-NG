@@ -45,6 +45,7 @@ object BBX2HTML {
 internal val Element.style: String?
     get() = getAttributeValue(UTDElements.UTD_STYLE_ATTRIB)
 
+@Suppress("UnusedReceiverParameter")
 private fun Element.processHead(): Collection<Node> = listOf()
 
 internal fun Element.processChildren(): Collection<Node> = childElements.flatMap {
