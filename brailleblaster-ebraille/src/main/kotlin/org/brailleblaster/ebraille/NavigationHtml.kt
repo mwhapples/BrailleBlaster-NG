@@ -59,7 +59,7 @@ object NavigationHtml {
     }
     private fun createPageList(docs: Iterable<HtmlItem>): Element = Element("nav").attr("role", "doc-pagelist").attr("epub:type", "page-list").attr("aria-label", "Page list").attr("hidden", "").append("<h2>⠠⠇⠊⠌ ⠷ ⠏⠁⠛⠑⠎</h2>").apply {
         val idGenerator = IdGenerator()
-        val pages = docs.flatMap { doc -> doc.document.select("""span[role="doc-pagelist"]""").map {
+        val pages = docs.flatMap { doc -> doc.document.select("""span[role="doc-pagebreak"]""").map {
             if (it.id().isEmpty()) {
                 it.id("page_${idGenerator.nextId(doc.path)}")
             }
