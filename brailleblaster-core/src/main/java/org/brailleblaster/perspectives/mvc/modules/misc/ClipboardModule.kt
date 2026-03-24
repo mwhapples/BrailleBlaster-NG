@@ -242,8 +242,9 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
                     val newBlock = BBX.BLOCK.DEFAULT.create()
 
                     block = block.replace("\t".toRegex(), " ")
-                    val text = getUsableText(block)
-                    newBlock.appendChild(text)
+                    getUsableText(block)?.let { text ->
+                        newBlock.appendChild(text)
+                    }
 
                     clips.add(Clip(newBlock))
                 }
