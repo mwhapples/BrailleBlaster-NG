@@ -17,5 +17,6 @@ package org.brailleblaster.utd.exceptions
 
 class BadPoetryException : Exception {
     constructor() : super()
+    @Suppress("Unused")
     constructor(message: String?) : super(message)
 }
