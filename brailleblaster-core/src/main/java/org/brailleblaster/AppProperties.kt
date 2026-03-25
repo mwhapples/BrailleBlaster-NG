@@ -29,9 +29,12 @@ object AppProperties {
     val version = properties.getProperty("app.version") ?: "Unknown"
     val vendor = properties.getProperty("app.vendor") ?: "Unknown"
     val buildDate = properties.getProperty("app.build-date") ?: "Unknown"
+    @Suppress("Unused")
     val fsname = properties.getProperty("app.fsname") ?: "brailleblaster"
     val buildHash: String? = properties.getProperty("app.build-hash")
+    @Suppress("Unused")
     val vcsUrl = properties.getProperty("app.vcs-url") ?: "https://github.com/aphtech/brailleblaster"
+    @Suppress("Unused")
     val downloadUrl = properties.getProperty("app.site.base-url") ?: "https://github.com/aphtech/brailleblaster/releases/latest"
     val websiteUrl = properties.getProperty("app.website-url") ?: "https://www.brailleblaster.org"
 }
