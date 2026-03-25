@@ -117,6 +117,31 @@
 				marginType="TOC"
 		/>
 	</entry>
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+				 nodeName="li"
+				 selfAttribName="class"
+				 selfAttribValue="toc-center"
+		/>
+		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
+				blockType="STYLE"
+				styleName="TOC Centered Heading"
+
+		/>
+	</entry>
+	<!-- Want to sneak attributes into the importParser types, especially for tables, but spans <a> are absorbed elsewhere
+	Since BB nests the TOC page numbers inside the block, parsing it as an li node won't work - we'd need to do a markup transformation.
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+				 nodeName="li"
+				 selfAttribName="class"
+				 selfAttribValue="toc-page"
+		/>
+		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
+				spanType="OTHER"
+		/>
+	</entry>
+	-->
 	<!--Numeric? Not part of Nimas+...-->
 	<entry>
 		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
