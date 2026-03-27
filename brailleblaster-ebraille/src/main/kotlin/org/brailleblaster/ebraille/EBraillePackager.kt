@@ -33,7 +33,9 @@ object EBraillePackager {
         }
     }
     fun createEbraillePackage(outPath: Path, docs: List<Document>) {
-        packageDocument(outPath, docs.mapIndexed { i, doc -> HtmlItem("ebraille/document${i}.html", doc) } + RESOURCE_ITEMS)
+        val docItems = docs.mapIndexed { i, doc -> HtmlItem("ebraille/document${i}.html", doc) }
+        val navDoc = HtmlItem("index.html", NavigationHtml.createNavigationHtml(docItems), properties = "nav")
+        packageDocument(outPath, docItems + RESOURCE_ITEMS + navDoc)
     }
     private fun packageDocument(outPath: Path, packageItems: List<PackageItem>) {
         ZipArchiveOutputStream(FileChannel.open(outPath, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE)).use { zos ->

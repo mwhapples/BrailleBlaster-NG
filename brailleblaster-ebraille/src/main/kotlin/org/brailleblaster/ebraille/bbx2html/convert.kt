@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 American Printing House for the Blind
+ * Copyright (C) 2025-2026 American Printing House for the Blind
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -45,6 +45,7 @@ object BBX2HTML {
 internal val Element.style: String?
     get() = getAttributeValue(UTDElements.UTD_STYLE_ATTRIB)
 
+@Suppress("UnusedReceiverParameter")
 private fun Element.processHead(): Collection<Node> = listOf()
 
 internal fun Element.processChildren(): Collection<Node> = childElements.flatMap {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 American Printing House for the Blind
+ * Copyright (C) 2025-2026 American Printing House for the Blind
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -17,14 +17,22 @@ package org.brailleblaster.ebraille.bbx2html
 
 import nu.xom.Element
 import org.brailleblaster.bbx.BBX
-import org.brailleblaster.libembosser.utils.BrailleMapper
-import org.brailleblaster.utd.utils.getDescendantBrlFast
+import org.brailleblaster.ebraille.asciiToEbraille
+import org.brailleblaster.utils.xml.UTD_NS
+import org.brailleblaster.utils.xom.childNodes
 
 internal fun Element.processBlock(): Collection<org.jsoup.nodes.Element> = when(BBX.BLOCK.getSubType(this)) {
     BBX.BLOCK.STYLE -> processStyle()
     BBX.BLOCK.LIST_ITEM -> listOf(processParagraph(tag = "li"))
+    BBX.BLOCK.PAGE_NUM -> listOf(processPageNum())
     BBX.BLOCK.DEFAULT -> listOf(processParagraph())
     else -> listOf(processParagraph())
+}
+
+internal fun Element.processPageNum(): org.jsoup.nodes.Element = org.jsoup.nodes.Element("span").attr("role", "doc-pagebreak").apply {
+    val brl = getFirstChildElement("brl", UTD_NS)
+    attr("aria-label", brl.getAttributeValue("printPage") ?: "")
+    appendText(asciiToEbraille(brl.getAttributeValue("printPageBrl") ?: ""))
 }
 
 private fun Element.processStyle(): Collection<org.jsoup.nodes.Element> = when (style) {
@@ -43,4 +51,4 @@ private fun Element.processParagraph(
     for ((k, v) in attributes) {
         attr(k, v)
     }
-}.appendText(getDescendantBrlFast().joinToString { BrailleMapper.ASCII_TO_UNICODE_FAST.map(it.value) })
+}.appendChildren(childNodes.flatMap { it.processContent() })

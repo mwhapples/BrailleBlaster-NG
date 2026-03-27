@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 American Printing House for the Blind
+ * Copyright (C) 2025-2026 American Printing House for the Blind
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -17,6 +17,8 @@ package org.brailleblaster.ebraille.bbx2html
 
 import nu.xom.Element
 import org.brailleblaster.bbx.BBX
+import org.brailleblaster.ebraille.ListItem
+import org.brailleblaster.ebraille.toHtml
 import org.brailleblaster.utils.xml.BB_NS
 import org.jsoup.nodes.Node
 
@@ -34,34 +36,9 @@ private fun Element.processBox(): org.jsoup.nodes.Element {
     return org.jsoup.nodes.Element("div").attr("type", boxSymbol).appendChildren(processChildren())
 }
 
-private data class ListItem(val element: Element, val level: Int)
-
-private fun processListItems(items: List<ListItem>, level: Int = 0): org.jsoup.nodes.Element =
-    org.jsoup.nodes.Element("ul").attr("style", "list-style-type: none").apply {
-        val iter = items.listIterator()
-        while (iter.hasNext()) {
-            val subItems = mutableListOf<ListItem>()
-            var appendItem = true
-            var item = iter.next()
-            while (item.level > level) {
-                subItems.add(item)
-                if (iter.hasNext()) {
-                    item = iter.next()
-                } else {
-                    appendItem = false
-                    break
-                }
-            }
-            if (subItems.isNotEmpty()) {
-                val li = children().lastOrNull() ?: (org.jsoup.nodes.Element("li").appendTo(this))
-                li.appendChild(processListItems(subItems, level + 1))
-            }
-            if (appendItem) {
-                appendChildren(item.element.processBlock())
-            }
-        }
-    }
-
 private fun Element.processList(): org.jsoup.nodes.Element =
-    processListItems(childElements.filter { BBX.BLOCK.LIST_ITEM.isA(it) }
-        .map { ListItem(it, it.getAttributeValue("itemLevel", BB_NS)?.toIntOrNull() ?: 0) })
+    childElements.filter { BBX.BLOCK.LIST_ITEM.isA(it) }
+        .map { ListItem(it, it.getAttributeValue("itemLevel", BB_NS)?.toIntOrNull() ?: 0) }.toHtml(
+            level = 0,
+            containerFactory = { org.jsoup.nodes.Element("ul").attr("style", "list-style-type: none") }
+        ) { it.element.processBlock() }

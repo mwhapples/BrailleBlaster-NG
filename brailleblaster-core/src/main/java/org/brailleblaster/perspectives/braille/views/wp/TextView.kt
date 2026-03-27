@@ -34,7 +34,6 @@ import org.brailleblaster.perspectives.mvc.events.ModifyEvent
 import org.brailleblaster.perspectives.mvc.events.XMLCaretEvent
 import org.brailleblaster.utd.actions.GenericBlockAction
 import org.brailleblaster.utd.properties.Align
-import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.util.FormUIUtils
 import org.brailleblaster.util.LINE_BREAK
 import org.brailleblaster.utils.swt.AccessibilityUtils.setName

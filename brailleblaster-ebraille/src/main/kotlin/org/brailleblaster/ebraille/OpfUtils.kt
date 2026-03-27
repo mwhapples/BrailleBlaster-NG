@@ -35,6 +35,7 @@ fun createOpf(items: List<PackageItem>): Document = Document(Element("package", 
                 addAttribute(Attribute("id", id))
                 addAttribute(Attribute("href", item.path))
                 addAttribute(Attribute("media-type", item.mediaType))
+                item.properties?.let { addAttribute(Attribute("properties", it)) }
             })
         }
     })
@@ -51,10 +52,12 @@ interface PackageItem {
     val path: String
     val mediaType: String
     val includeInSpine: Boolean
+    val properties: String?
     fun write(output: OutputStream)
 }
 
-data class HtmlItem(override val path: String, val document: org.jsoup.nodes.Document, override val includeInSpine: Boolean = true) : PackageItem {
+data class HtmlItem(override val path: String, val document: org.jsoup.nodes.Document, override val includeInSpine: Boolean = true,
+                    override val properties: String? = null) : PackageItem {
     override val mediaType: String = "application/xhtml+xml"
     override fun write(output: OutputStream) {
         output.bufferedWriter(Charsets.UTF_8).also {
@@ -64,7 +67,7 @@ data class HtmlItem(override val path: String, val document: org.jsoup.nodes.Doc
 }
 
 data class ResourceItem(override val path: String, val resourceUrl: URL, override val mediaType: String,
-                        override val includeInSpine: Boolean = false) : PackageItem {
+                        override val includeInSpine: Boolean = false, override val properties: String? = null) : PackageItem {
     override fun write(output: OutputStream) {
         resourceUrl.openStream().use { it.copyTo(output) }
     }
