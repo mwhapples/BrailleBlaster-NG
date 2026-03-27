@@ -21,6 +21,7 @@ import nu.xom.*;
 import org.apache.commons.lang3.StringUtils;
 import org.brailleblaster.bbx.BBX;
 import org.brailleblaster.bbx.BBX.TableRowType;
+import org.brailleblaster.bbx.BBX.TableType;
 import org.brailleblaster.bbx.BBXUtils;
 import org.brailleblaster.exceptions.EditingException;
 import org.brailleblaster.perspectives.braille.mapping.maps.MapList;
@@ -53,6 +54,11 @@ import org.brailleblaster.utils.swt.EasyListeners;
 import org.brailleblaster.utils.swt.EasySWT;
 import org.brailleblaster.utils.swt.MenuBuilder;
 import org.brailleblaster.utils.swt.SubMenuBuilder;
+import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.ComboViewer;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.*;
@@ -108,7 +114,7 @@ public class TableEditor extends Dialog {
     private UTDManager m;
     private Shell shell;
     private Element tableNode;
-    private Combo tableTypeCombo;
+    private ComboViewer tableTypeCombo;
     private Text rowText, colText;
     private Consumer<Node[]> callback;
     private @NonNull final List<TableUtils.SimpleTableOptions> options = new ArrayList<>();
@@ -118,10 +124,9 @@ public class TableEditor extends Dialog {
     private static boolean debug = false;
     private Mode mode;
 
-    private final TableType[] tableTypes = new TableType[]{
+    private TableType[] tableTypes = {
             TableType.AUTO,
             TableType.SIMPLE,
-//			TableType.SIMPLE_FACING, 
             TableType.LISTED,
             TableType.STAIRSTEP,
             TableType.LINEAR
@@ -584,23 +589,26 @@ public class TableEditor extends Dialog {
         Label tableTypeLabel = EasySWT.makeLabel(buttonPanel, "Table type:", 1);
         EasySWT.buildGridData().setHint(60, null).setAlign(SWT.RIGHT, SWT.CENTER).applyTo(tableTypeLabel);
 
-        tableTypeCombo = new Combo(buttonPanel, SWT.READ_ONLY);
-        EasySWT.buildGridData().setHint(150, null).setAlign(SWT.LEFT, SWT.BEGINNING).applyTo(tableTypeCombo);
-        String[] tableTypeNames = new String[tableTypes.length];
-        for (int i = 0; i < tableTypes.length; i++) {
-            tableTypeNames[i] = tableTypes[i].displayName;
-        }
-        tableTypeCombo.setItems(tableTypeNames);
-        tableTypeCombo.select(0);
-        String tableType = type.equals(TableType.UNSET) ? tableNode.getAttributeValue("format") : type.displayName.toLowerCase();
-        if ("simple".equals(tableType))
-            tableTypeCombo.select(tableTypeCombo.indexOf(TableType.SIMPLE.displayName));
-        else if ("listed".equals(tableType))
-            tableTypeCombo.select(tableTypeCombo.indexOf(TableType.LISTED.displayName));
-        else if ("stairstep".equals(tableType))
-            tableTypeCombo.select(tableTypeCombo.indexOf(TableType.STAIRSTEP.displayName));
-        else if ("linear".equals(tableType))
-            tableTypeCombo.select(tableTypeCombo.indexOf(TableType.LINEAR.displayName));
+        tableTypeCombo = new ComboViewer(buttonPanel, SWT.READ_ONLY);
+        EasySWT.buildGridData().setHint(150, null).setAlign(SWT.LEFT, SWT.BEGINNING).applyTo(tableTypeCombo.getCombo());
+
+        tableTypeCombo.setContentProvider(ArrayContentProvider.getInstance());
+        tableTypeCombo.setLabelProvider(new LabelProvider() {
+            @Override
+            public String getText(Object element) {
+                if (element instanceof TableType) {
+                    return ((TableType) element).prettyName;
+                }
+                return super.getText(element);
+            }
+        });
+
+        tableTypeCombo.setInput(tableTypes);
+
+        //Simplified since we now have a BBX enum for TableType and a list of used values
+        TableType initial = (type == TableType.UNSET) ? getTableType(tableNode.getAttributeValue("format")) : type;
+        if (initial == TableType.UNSET) initial = TableType.AUTO;
+        tableTypeCombo.setSelection(new StructuredSelection(initial));
 
         Button formatSpecificOption = EasySWT.makePushButton(buttonPanel, "Format Specific Option", 1, null);
         formatSpecificOption.setVisible(false);
@@ -647,7 +655,7 @@ public class TableEditor extends Dialog {
             state.setDisplayedCols(Integer.parseInt(colText.getText()));
             recreateTexts(sc, textBoxes, formatSpecificOption);
             checkFormatSpecificOption(sc, formatSpecificOption, textBoxes);
-            if (tableTypes[tableTypeCombo.getSelectionIndex()] == TableType.SIMPLE && options.contains(TableUtils.SimpleTableOptions.CUSTOM_WIDTHS)) {
+            if (getSelectedTableType() == TableType.SIMPLE && options.contains(TableUtils.SimpleTableOptions.CUSTOM_WIDTHS)) {
                 options.remove(TableUtils.SimpleTableOptions.CUSTOM_WIDTHS);
                 widths = null;
                 EasySWT.makeEasyOkDialog("Custom widths reset", "Custom column widths have been reset", shell);
@@ -657,28 +665,25 @@ public class TableEditor extends Dialog {
             }
         });
 
-        tableTypeCombo.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                if (state.getTNContainer() != null) {
-                    removeTNContainerFromState(sc, textBoxes, formatSpecificOption);
-                    updateRowColTexts();
-                }
-                if (tableTypes[tableTypeCombo.getSelectionIndex()] == TableType.SIMPLE_FACING) {
-                    //Prompt user on how to split facing table
-                    int result = new ChangeToFacingDialog().open(shell, state, false)[0];
-                    if (result == -1) {
-                        //Dialog was canceled, switch back
-                        tableTypeCombo.select(tableTypeCombo.indexOf(TableType.SIMPLE.displayName));
-                    } else {
-                        updateState(textBoxes);
-                        List<List<Node>> tempRows = state.getDisplayedNodes();
-                        state = new InternalFacingTable(tempRows, result, state.getCaptions(), TableType.SIMPLE_FACING);
-                        rebuildView();
-                    }
+        tableTypeCombo.addSelectionChangedListener(event -> {
+            if (state.getTNContainer() != null) {
+                removeTNContainerFromState(sc, textBoxes, formatSpecificOption);
+                updateRowColTexts();
+            }
+            if (getSelectedTableType() == TableType.SIMPLE_FACING) {
+                //Prompt user on how to split facing table
+                int result = new ChangeToFacingDialog().open(shell, state, false)[0];
+                if (result == -1) {
+                    //Dialog was canceled, switch back
+                    tableTypeCombo.setSelection(new StructuredSelection(TableType.SIMPLE));
                 } else {
-                    checkFormatSpecificOption(sc, formatSpecificOption, textBoxes);
+                    updateState(textBoxes);
+                    List<List<Node>> tempRows = state.getDisplayedNodes();
+                    state = new InternalFacingTable(tempRows, result, state.getCaptions(), TableType.SIMPLE_FACING);
+                    rebuildView();
                 }
+            } else {
+                checkFormatSpecificOption(sc, formatSpecificOption, textBoxes);
             }
         });
         makeButtonPanel(buttonPanel, textBoxes, null);
@@ -736,27 +741,30 @@ public class TableEditor extends Dialog {
 
         Label tableTypeLabel = EasySWT.makeLabel(buttonPanel, "Table type:", 1);
         EasySWT.buildGridData().setHint(60, null).setAlign(SWT.RIGHT, SWT.CENTER).applyTo(tableTypeLabel);
-        tableTypeCombo = new Combo(buttonPanel, SWT.READ_ONLY);
-        EasySWT.buildGridData().setHint(150, null).setAlign(SWT.LEFT, SWT.BEGINNING).applyTo(tableTypeCombo);
-        String[] tableTypeNames = new String[tableTypes.length];
-        for (int i = 0; i < tableTypes.length; i++) {
-            tableTypeNames[i] = tableTypes[i].displayName;
-        }
-        tableTypeCombo.setItems(tableTypeNames);
-        tableTypeCombo.select(tableTypeCombo.indexOf(TableType.SIMPLE_FACING.displayName));
-        tableTypeCombo.addSelectionListener(new SelectionAdapter() {
+        tableTypeCombo = new ComboViewer(buttonPanel, SWT.READ_ONLY);
+        EasySWT.buildGridData().setHint(150, null).setAlign(SWT.LEFT, SWT.BEGINNING).applyTo(tableTypeCombo.getCombo());
+        tableTypeCombo.setContentProvider(ArrayContentProvider.getInstance());
+        tableTypeCombo.setLabelProvider(new LabelProvider() {
             @Override
-            public void widgetSelected(SelectionEvent e) {
-                if (tableTypes[tableTypeCombo.getSelectionIndex()] != TableType.SIMPLE_FACING) {
-                    //User wants to switch from facing to a non-facing table.
-                    int newSelection = tableTypeCombo.getSelectionIndex();
-                    updateState(leftBoxes);
-                    updateState(rightBoxes);
-                    state = new InternalTable(state.getNodes(), state.getCaptions(), state.getTNContainer(), tableTypes[newSelection]);
-                    //Delete facing table view
-                    rebuildView();
-                    tableTypeCombo.select(newSelection);
+            public String getText(Object element) {
+                if (element instanceof TableType) {
+                    return ((TableType) element).prettyName;
                 }
+                return super.getText(element);
+            }
+        });
+        tableTypeCombo.setInput(TableType.values());
+        tableTypeCombo.setSelection(new StructuredSelection(TableType.SIMPLE_FACING));
+        tableTypeCombo.addSelectionChangedListener(event -> {
+            TableType selected = getSelectedTableType();
+            if (selected != TableType.SIMPLE_FACING) {
+                //User wants to switch from facing to a non-facing table.
+                updateState(leftBoxes);
+                updateState(rightBoxes);
+                state = new InternalTable(state.getNodes(), state.getCaptions(), state.getTNContainer(), selected);
+                //Delete facing table view
+                rebuildView();
+                tableTypeCombo.setSelection(new StructuredSelection(selected));
             }
         });
 
@@ -956,7 +964,7 @@ public class TableEditor extends Dialog {
             button.addSelectionListener(getFormatSpecificButtonListener(parent, textBoxes, button));
         }
 
-        TableType type = tableTypes[tableTypeCombo.getSelectionIndex()];
+        TableType type = getSelectedTableType();
         if (type == TableType.SIMPLE) {
             button.setText("Simple Table Options" + (!options.isEmpty() ? "*" : ""));
         } else if (type == TableType.STAIRSTEP || type == TableType.LINEAR || type == TableType.LISTED) {
@@ -984,7 +992,7 @@ public class TableEditor extends Dialog {
         return new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
-                TableType type = tableTypes[tableTypeCombo.getSelectionIndex()];
+                TableType type = getSelectedTableType();
                 if (type == TableType.SIMPLE) {
                     new SimpleTableOptionDialog().open(shell, tableNode, state.getDisplayedCols(), options, m);
                 } else if (type == TableType.STAIRSTEP || type == TableType.LINEAR || type == TableType.LISTED) {
@@ -1421,8 +1429,18 @@ public class TableEditor extends Dialog {
         }
     }
 
+    /**
+     * Returns the currently selected {@link TableType} from the tableTypeCombo viewer.
+     * Falls back to {@link TableType#AUTO} when the selection is empty.
+     */
+    private TableType getSelectedTableType() {
+        IStructuredSelection sel = (IStructuredSelection) tableTypeCombo.getSelection();
+        if (sel.isEmpty()) return TableType.AUTO;
+        return (TableType) sel.getFirstElement();
+    }
+
     private void updateState(List<CellText> textBoxes) {
-        state.setType(getTableType(tableTypeCombo.getItem(tableTypeCombo.getSelectionIndex())));
+        state.setType(getSelectedTableType());
         List<CellText> tnTexts = textBoxes.stream().filter(CellText::isTN).collect(Collectors.toList());
         state.setTNContainer(createTNContainer(tnTexts));
         for (CellText text : textBoxes) {
@@ -1556,13 +1574,14 @@ public class TableEditor extends Dialog {
             newTable.insertChild(captionContainer, 0);
         }
 
-        String tableType = tableTypeCombo.getItem(tableTypeCombo.getSelectionIndex()).toLowerCase();
-        if (!tableType.equals(TableType.AUTO.displayName.toLowerCase()))
+        TableType selectedType = getSelectedTableType();
+        String tableType = selectedType.name().toLowerCase();
+        if (selectedType != TableType.AUTO)
             newTable.addAttribute(new Attribute("format", tableType));
         Element parent = (Element) existingTable.getParent();
         parent.replaceChild(existingTable, newTable);
 
-        if (!options.isEmpty() && tableTypes[tableTypeCombo.getSelectionIndex()] == TableType.SIMPLE) {
+        if (!options.isEmpty() && selectedType == TableType.SIMPLE) {
             options.forEach((o) -> {
                 if (o == TableUtils.SimpleTableOptions.CUSTOM_WIDTHS) {
                     if (widths != null) {

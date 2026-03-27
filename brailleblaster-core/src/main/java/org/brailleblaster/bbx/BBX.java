@@ -352,7 +352,8 @@ public static int getFormatVersion(@NonNull Document doc) {
         public final ContainerSubType DONT_SPLIT = new ContainerSubType(this, "DONT_SPLIT");
 
         public final ContainerSubType TABLE = new ContainerSubType(this, "TABLE") {
-            // TODO: Removed as this is way to strict
+            public final EnumAttribute<TableType> FORMAT = new EnumAttribute<>("format", TableType.class);
+
         };
         public final TableRowSubType TABLE_ROW = new TableRowSubType(this, "TABLE_ROW");
 
@@ -796,6 +797,21 @@ public static int getFormatVersion(@NonNull Document doc) {
      */
     public enum TableRowType {
         NORMAL, HEAD, FOOT
+    }
+
+    public enum TableType{
+        AUTO("Auto"),
+        SIMPLE("Simple"),
+        SIMPLE_FACING("Simple Facing"),
+        LISTED("Listed"),
+        STAIRSTEP("Stairstep"),
+        LINEAR("Linear"),
+        UNSET("");
+
+        public final String prettyName;
+        TableType(String prettyName) {
+            this.prettyName = prettyName;
+        }
     }
 
     public enum TPageSection {
