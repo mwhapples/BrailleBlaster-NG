@@ -60,7 +60,7 @@ private class AttributeSet(private val element: Element) : AbstractSet<Attribute
 
     override fun iterator(): Iterator<Attribute> {
         return iterator {
-            for (i in 0..<size) {
+            for (i in indices) {
                 yield(element.getAttribute(i))
             }
         }
