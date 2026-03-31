@@ -18,6 +18,8 @@ package org.brailleblaster.ebraille
 import nu.xom.Serializer
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry
 import org.apache.commons.compress.archivers.zip.ZipArchiveOutputStream
+import org.brailleblaster.utd.ITranslationEngine
+import org.brailleblaster.utd.UTDTranslationEngine
 import org.jsoup.nodes.Document
 import java.io.OutputStream
 import java.nio.channels.FileChannel
@@ -32,9 +34,9 @@ object EBraillePackager {
             add(ResourceItem("ebraille/css/default.css", it, "text/css"))
         }
     }
-    fun createEbraillePackage(outPath: Path, docs: List<Document>) {
+    fun createEbraillePackage(outPath: Path, docs: List<Document>, title: String = "-", translationEngine: ITranslationEngine = UTDTranslationEngine()) {
         val docItems = docs.mapIndexed { i, doc -> HtmlItem("ebraille/document${i}.html", doc) }
-        val navDoc = HtmlItem("index.html", NavigationHtml.createNavigationHtml(docItems), properties = "nav")
+        val navDoc = HtmlItem("index.html", NavigationHtml.createNavigationHtml(docItems, title = title, translationEngine = translationEngine), properties = "nav")
         packageDocument(outPath, docItems + RESOURCE_ITEMS + navDoc)
     }
     private fun packageDocument(outPath: Path, packageItems: List<PackageItem>) {
