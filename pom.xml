@@ -85,7 +85,7 @@ child.project.url.inherit.append.path="false">
         <mavencompilerplugin.version>3.14.0</mavencompilerplugin.version>
         <downloadmavenplugin.version>2.0.0</downloadmavenplugin.version>
         <equalsverifier.version>4.3.1</equalsverifier.version>
-        <mockitocore.version>5.21.0</mockitocore.version>
+        <mockitocore.version>5.23.0</mockitocore.version>
         <mavenenforcerplugin.version>3.0.0-M3</mavenenforcerplugin.version>
         <orgeclipseswtbotswtfinder.version>f5b2edaee2</orgeclipseswtbotswtfinder.version>
 
