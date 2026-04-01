@@ -1803,7 +1803,7 @@ public static final @NonNull BlockElement BLOCK = new BlockElement();
 
         @Override
         protected String marshall(Boolean input) {
-            return input ? "true" : "false";
+            return input.toString();
         }
 
         @Override
