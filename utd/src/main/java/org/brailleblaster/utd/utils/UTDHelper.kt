@@ -236,11 +236,11 @@ fun getFirstTextDescendant(brlElement: Element): Text {
 
 fun Document?.getDocumentHead(): Element? = this?.rootElement?.findHead()
 
-private fun Node.findHead(): Element? = childNodes.filterIsInstance<Element>().map { when(it.localName) {
+private fun Element.findHead(): Element? = childElements.firstOrNull()?.let { when(localName) {
     "head" -> it
     "book" -> null
     else -> it.findHead()
-} }.firstOrNull()
+} }
 
 
 @JvmOverloads

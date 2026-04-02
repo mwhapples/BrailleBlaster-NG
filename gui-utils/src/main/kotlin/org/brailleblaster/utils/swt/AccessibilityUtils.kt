@@ -73,6 +73,7 @@ object AccessibilityUtils {
         requireNotNull(name) { "Name cannot be null" }
     }
 
+    @Suppress("Unused")
     fun addLabelRelation(control: Control, label: Control) {
         val accCtrl = control.accessible
         val accLabel = label.accessible
@@ -80,6 +81,7 @@ object AccessibilityUtils {
         accCtrl.addRelation(ACC.RELATION_LABELLED_BY, accLabel)
     }
 
+    @Suppress("Unused")
     fun addMemberRelation(control: Control, group: Control) {
         val accCtrl = control.accessible
         val accGroup = group.accessible

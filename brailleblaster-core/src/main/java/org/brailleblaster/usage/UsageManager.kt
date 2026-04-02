@@ -29,7 +29,8 @@ interface UsageManager {
     var trackingEnabled: Boolean
 }
 
-class SimpleUsageManager @JvmOverloads constructor(logger: UsageLogger = ListUsageLogger(SizeLimit.Max(0))) : UsageManager {
+class SimpleUsageManager @JvmOverloads constructor(logger: UsageLogger = ListUsageLogger(SizeLimit.Max(0))) :
+    UsageManager {
     override var trackingEnabled: Boolean = true
     override val logger: UsageLogger = logger.filterLogger { trackingEnabled }
 }
@@ -50,9 +51,10 @@ class BBUsageManager(
         set(value) {
             settings.saveAsBoolean(USAGE_TRACKING_SETTING, value)
         }
-    private var reportHandler: ScheduledFuture<*>  ? = null
+    private var reportHandler: ScheduledFuture<*>? = null
+    @Suppress("Unused")
     val isReportingData: Boolean
-    get() = reportHandler != null
+        get() = reportHandler != null
 
     override fun close() {
         sqlLogger.close()
@@ -75,6 +77,7 @@ class BBUsageManager(
         reportHandler?.cancel(false)
         reportHandler = executorService.scheduleWithFixedDelay({ reportData(url) }, initial, period, units)
     }
+
     fun stopPeriodicDataReporting() {
         reportHandler?.cancel(false)
     }
