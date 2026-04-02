@@ -1152,7 +1152,7 @@ public class TableEditor extends Dialog {
                     }
                 }
 
-                Label tnLabel2 = EasySWT.makeLabel(tnRow, state.getType() == TableType.LINEAR ? "7-5" : "", 1);
+                Label tnLabel2 = EasySWT.makeLabel(tnRow, state.getType() == TableType.LINEAR ? "1-3" : "", 1);
                 EasySWT.buildGridData().setAlign(SWT.CENTER, SWT.CENTER).applyTo(tnLabel2);
 
                 for (int i = 0; i < displayCols; i++) {
@@ -1920,19 +1920,25 @@ public class TableEditor extends Dialog {
         //Strip UTD
         UTDHelper.stripUTDRecursive(containerCopy);
 
-        for (Node child : (Iterable<Node>)FastXPath.descendant(containerCopy)::iterator) {
-            if (BBX.SPAN.OTHER.isA(child)) {
-                if (type == TableType.LINEAR) {
-                    //If linear, re-attach span tags as children of the container
-                    child.detach();
-                    containerCopy.appendChild(child);
-                }
+        if (type == TableType.LINEAR) {
+            // Collect all SPAN.OTHER descendants as a snapshot list BEFORE modifying the tree.
+            // FastXPath.descendant is a lazy sequence that walks the live XOM tree via parent
+            // index pointers. If we detach-and-reappend while iterating, the first re-appended
+            // span becomes the last child of containerCopy (the sequence's stop node), causing
+            // itrNextNode to hit the stop-node check and terminate after only the first span.
+            List<Node> spans = StreamSupport
+                    .stream(((Iterable<Node>) FastXPath.descendant(containerCopy)::iterator).spliterator(), false)
+                    .filter(BBX.SPAN.OTHER::isA)
+                    .toList();
+            for (Node span : spans) {
+                //Re-attach span tags as direct children of the container
+                span.detach();
+                containerCopy.appendChild(span);
             }
-        }
-
-        if (type == TableType.LINEAR && containerCopy.getChildCount() > 1 && BBX.BLOCK.isA(containerCopy.getChild(1))) {
-            //Linear tables should now have a (basically) empty block
-            containerCopy.removeChild(1);
+            if (containerCopy.getChildCount() > 1 && BBX.BLOCK.isA(containerCopy.getChild(1))) {
+                //Linear tables should now have a (basically) empty block
+                containerCopy.removeChild(1);
+            }
         }
 
         return containerCopy;

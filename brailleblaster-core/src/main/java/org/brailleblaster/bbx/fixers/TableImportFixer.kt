@@ -15,6 +15,7 @@
  */
 package org.brailleblaster.bbx.fixers
 
+import nu.xom.Attribute
 import nu.xom.Document
 import nu.xom.Element
 import nu.xom.Node
@@ -31,9 +32,29 @@ import org.slf4j.LoggerFactory
 
 class TableImportFixer : AbstractFixer() {
     override fun fix(matchedNode: Node) {
+        println("TableImportFixer: fix")
         BBX.CONTAINER.TABLE.assertIsA(matchedNode)
         val table = matchedNode as Element
         BBX._ATTRIB_FIXER_TODO.assertAndDetach(BBX.FixerTodo.TABLE_SIZE, table)
+
+        // If a TABLETN container immediately precedes this table (added by the
+        // tabletn parserMap entry), mark both as format="linear" and skip
+        // auto-detection — the source document already declared the type.
+        val tableIndex = table.parent?.indexOf(table) ?: -1
+        if (tableIndex > 0) {
+            val prevSibling = table.parent.getChild(tableIndex - 1)
+            if (prevSibling is Element && BBX.CONTAINER.TABLETN.isA(prevSibling)) {
+                table.addAttribute(Attribute("format", "linear"))
+                prevSibling.addAttribute(Attribute("format", "linear"))
+                stripUnusedCellElements(table)
+                return
+            }
+        }
+
+        //TODO Try to set the table type based on FixerTodo element, if available
+        //If that fails, do auto-detection as usual.
+        //Try focusing on Linear for now, ensuring it has a TABLE_TN fixer, then adding a TABLETN container
+
         // Cells only containing spaces may cause errors when translating
         // We must do it before trying to detect the table type because type detection uses translation.
         XMLHandler.childrenRecursiveNodeVisitor(table) {

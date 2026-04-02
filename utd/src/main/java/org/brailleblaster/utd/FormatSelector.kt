@@ -156,6 +156,7 @@ class FormatSelector(styleMap: IStyleMap?, styleStack: StyleStack?, engine: ITra
             }
             if (styleStack.format == IStyle.Format.SIMPLE) {
                 //Double check table formatting
+                println("Double checking formatting")
                 val atf = AutoTableFormatter()
                 atf.format(node, styleStack, pageBuilders, this)
             }
