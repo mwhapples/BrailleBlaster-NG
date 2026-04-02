@@ -17,6 +17,8 @@ package org.brailleblaster.utd.exceptions
 
 class BadSimpleTableException : Exception {
     constructor() : super()
+    @Suppress("Unused")
     constructor(message: String?) : super(message)
+    @Suppress("Unused")
     constructor(message: String?, cause: Throwable?) : super(message, cause)
 }
