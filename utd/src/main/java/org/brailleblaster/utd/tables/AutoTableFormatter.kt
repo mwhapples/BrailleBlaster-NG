@@ -41,7 +41,6 @@ class AutoTableFormatter : Formatter() {
         pageBuilders: Set<PageBuilder>,
         formatSelector: FormatSelector
     ): MutableSet<PageBuilder> {
-        println("AutoTableFormatter: format")
         val mutPageBuilders = pageBuilders.toMutableSet()
         if (node !is Element) {
             return mutPageBuilders
@@ -52,8 +51,7 @@ class AutoTableFormatter : Formatter() {
         // detecting a preceding TABLETN sibling), use it directly and skip
         // auto-detection.
         val presetFormat = node.getAttributeValue("format")
-        //TODO: Combine decision making of auto-detect and the preset format; this code is verbose.
-        //Need to rework the detectType method for linear tables though. They need a preceding transcriber note.
+        //Need to rework the detectType method for linear and stairstep tables.
         if (presetFormat != null) {
             when (presetFormat) {
                 "linear" -> {

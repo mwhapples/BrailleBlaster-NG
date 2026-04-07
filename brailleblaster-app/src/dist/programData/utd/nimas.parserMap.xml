@@ -89,7 +89,7 @@
 		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
 				 nodeName="li"
 				 selfAttribName="class"
-				 selfAttribValue="exercise"
+				 selfAttribValue="bai-exercise"
 		/>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
 				marginType="EXERCISE"
@@ -99,7 +99,7 @@
 		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
 				 nodeName="li"
 				 selfAttribName="class"
-				 selfAttribValue="index"
+				 selfAttribValue="bai-index"
 		/>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
 				marginType="INDEX"
@@ -111,7 +111,7 @@
 		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
 				 nodeName="li"
 				 selfAttribName="class"
-				 selfAttribValue="toc-entry"
+				 selfAttribValue="bai-toc-entry"
 		/>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
 				marginType="TOC"
@@ -121,7 +121,7 @@
 		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
 				 nodeName="li"
 				 selfAttribName="class"
-				 selfAttribValue="toc-center"
+				 selfAttribValue="bai-toc-center"
 		/>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
 				blockType="STYLE"
@@ -205,9 +205,39 @@
 	<!-- <tabletn class="linear"> → CONTAINER TABLETN (sibling of table, NOT inside table) -->
 	<entry>
 		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
-				 nodeName="tabletn"
-				 selfAttribName="class"
+				 nodeName="bai-tabletn"
+				 selfAttribName="format"
 				 selfAttribValue="linear"
+		/>
+		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
+				containerType="TABLETN"
+		/>
+	</entry>
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+				 nodeName="bai-tabletn"
+				 selfAttribName="format"
+				 selfAttribValue="simple"
+		/>
+		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
+				containerType="TABLETN"
+		/>
+	</entry>
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+				 nodeName="bai-tabletn"
+				 selfAttribName="format"
+				 selfAttribValue="stairstep"
+		/>
+		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
+				containerType="TABLETN"
+		/>
+	</entry>
+	<entry>
+		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
+				 nodeName="bai-tabletn"
+				 selfAttribName="format"
+				 selfAttribValue="listed"
 		/>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
 				containerType="TABLETN"
@@ -219,11 +249,11 @@
 		<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
 			<matcher type="org.brailleblaster.bbx.utd.AncestorMatcher">
 				<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
-						 nodeName="tabletn"
+						 nodeName="bai-tabletn"
 				/>
 			</matcher>
 			<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
-					 nodeName="tabletn-note"
+					 nodeName="bai-tabletn-note"
 			/>
 		</matcher>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
@@ -237,11 +267,11 @@
 		<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
 			<matcher type="org.brailleblaster.bbx.utd.AncestorMatcher">
 				<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
-						 nodeName="tabletn"
+						 nodeName="bai-tabletn"
 				/>
 			</matcher>
 			<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
-					 nodeName="trans-note"
+					 nodeName="bai-trans-note"
 			/>
 		</matcher>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
@@ -250,18 +280,17 @@
 	</entry>
 
 	<!-- <colheads> inside <tabletn> → BLOCK STYLE "1-3"
-	     Text nodes between <colhead> elements (": ", "; ", ".") are parsed by
-	     LeafImportParser and become raw text nodes directly inside this BLOCK,
-	     matching the expected output exactly. -->
+	     Text nodes between <colhead> elements (": ", "; ", ".")
+	     become raw text nodes directly inside this BLOCK-->
 	<entry>
 		<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
 			<matcher type="org.brailleblaster.bbx.utd.AncestorMatcher">
 				<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
-						 nodeName="tabletn"
+						 nodeName="bai-tabletn"
 				/>
 			</matcher>
 			<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
-					 nodeName="colheads"
+					 nodeName="bai-colheads"
 			/>
 		</matcher>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
@@ -275,11 +304,11 @@
 		<matcher type="org.brailleblaster.utd.matchers.AndMatcher">
 			<matcher type="org.brailleblaster.bbx.utd.AncestorMatcher">
 				<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
-					 nodeName="tabletn"
+					 nodeName="bai-tabletn"
 				 />
 			</matcher>
 			<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
-					 nodeName="colhead"
+					 nodeName="bai-colhead"
 			/>
 		</matcher>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
@@ -487,7 +516,7 @@
 	</entry>
 	<entry>
 		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
-				 nodeName="script"
+				 nodeName="bai-script"
 		/>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
 				emphasisType="SCRIPT"
@@ -495,7 +524,7 @@
 	</entry>
 	<entry>
 		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
-				 nodeName="trans1"
+				 nodeName="bai-trans1"
 		/>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
 				emphasisType="TRANS_1"
@@ -503,7 +532,7 @@
 	</entry>
 	<entry>
 		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
-				 nodeName="trans2"
+				 nodeName="bai-trans2"
 		/>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
 				emphasisType="TRANS_2"
@@ -511,7 +540,7 @@
 	</entry>
 	<entry>
 		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
-				 nodeName="trans3"
+				 nodeName="bai-trans3"
 		/>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
 				emphasisType="TRANS_3"
@@ -519,7 +548,7 @@
 	</entry>
 	<entry>
 		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
-				 nodeName="trans4"
+				 nodeName="bai-trans4"
 		/>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
 				emphasisType="TRANS_4"
@@ -527,7 +556,7 @@
 	</entry>
 	<entry>
 		<matcher type="org.brailleblaster.utd.matchers.NodeNameMatcher"
-				 nodeName="trans5"
+				 nodeName="bai-trans5"
 		/>
 		<parser type="org.brailleblaster.bbx.parsers.BBXImportParser"
 				emphasisType="TRANS_5"
@@ -633,7 +662,7 @@
 	</entry>
 	
 
-	<!-- Play levels, must be above blocks as to not get captured by single-letter matchers like "p" -->
+	<!-- Play levels placed above blocks as to not get captured by single-letter matchers like "p" -->
 	<entry>
 		<matcher type="org.brailleblaster.utd.matchers.NodeAttributeMatcher"
 				 nodeName="play"
