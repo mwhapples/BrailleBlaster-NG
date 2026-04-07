@@ -47,14 +47,14 @@ class TableImportFixer : AbstractFixer() {
                 val format = prevSibling.getAttribute("format")
                 if (format != null){
                     //Should be simple, linear, listed, or stairstep
-                    if (format.toString() in listOf("simple", "linear", "listed", "stairstep")) {
+                    if (listOf("simple", "linear", "listed", "stairstep").contains(format.value)) {
                         try {
-                            table.addAttribute(Attribute("format", format.toString()))
+                            table.addAttribute(Attribute("format", format.value))
                             stripUnusedCellElements(table)
                             return
                         }
                         catch (e: Exception) {
-                            throw RuntimeException("Can't cleanup table cell contents formatted as ${format.toString()}", e)
+                            throw RuntimeException("Can't cleanup table cell contents formatted as ${format.value}", e)
                         }
                     }
                 }
