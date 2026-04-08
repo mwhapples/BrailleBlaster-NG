@@ -5,11 +5,23 @@ Test framework: TestNG 7.12.0. Disable mechanism: `@Test(enabled = false)`.
 
 ---
 
-## Phase 0 — Disable all 232 failing tests ✅
+## Phase 0 — Disable all failing tests ✅
 
-**Goal:** Turn the build green immediately so it can be committed. Every failing test is
-disabled with `@Test(enabled = false)`. No logic is changed — only test execution is
-suppressed. Each group has a distinct root cause that will be fixed in a later phase.
+**Goal:** Turn `./mvnw clean install` fully green so the state can be committed. Every
+failing test is disabled with `@Test(enabled = false)`. No logic is changed.
+
+**Branch:** `feature/test-cleanup`  
+**Commits:**
+1. `f1707d4d` — `test(utd): disable all 232 failing tests [Phase 0]`
+2. `a30f80be` — `build: set default build.dist.directory in root pom for clean installs`
+3. `3b3b480f` — `test(core): disable 14 pre-existing failing tests in brailleblaster-core [Phase 0]`
+4. `e8b6523b` — `test(utd-cli): disable File2UTDTest.parseBasicDTBook [Phase 0]`
+
+**Result:** `./mvnw clean install` → BUILD SUCCESS, 0 failures, all tests passing or skipped.
+
+---
+
+### `AsciiMathConverterTest.java` — 147 failures disabled
 
 ### `AsciiMathConverterTest.java` — 147 failures disabled
 
@@ -77,7 +89,6 @@ element. That is Phase 1b.
 ---
 
 ### `DocumentUTDConfigTest.java` — 2 failures disabled
-
 **File:** `utd/src/test/java/org/brailleblaster/utd/config/DocumentUTDConfigTest.java`
 
 **What changed:** Commented out two lambda entries in the `testExecDataProvider()` array:
@@ -92,7 +103,84 @@ be cleaned up first. That is Phase 1a.
 
 ---
 
-## Phase 1a — Delete libLouisAPH from test data 🔲 TODO
+### Build fix: `pom.xml` — `brailleblaster-core` JVM crash resolved
+
+**File:** `pom.xml` (root)
+
+**What changed:** Added `build.dist.directory` property defaulting to
+`${maven.multiModuleProjectDirectory}/brailleblaster-app/src/dist`.
+
+**Why:** `build.dist.directory` was only defined inside `brailleblaster-app/pom.xml` but
+referenced by `brailleblaster-core/pom.xml` as the `org.brailleblaster.distdir` system
+property for tests. Because `brailleblaster-core` is built BEFORE `brailleblaster-app` in
+the Maven reactor, `brailleblaster-app/target/dist` does not exist yet during a clean build.
+The property was also undefined in `brailleblaster-core`'s context (child module properties
+are not shared between siblings). This caused `BBIni.loadAutoProgramDataFile()` to fail
+finding `utd/nimas.parserMap.xml`, crashing the entire test JVM with
+`Cannot instantiate class BookToBBXConverterTest` — hiding the real test failures below.
+
+The fix points to `brailleblaster-app/src/dist` (source-controlled, never cleaned).
+`brailleblaster-app` continues to override with its own `target/dist` for the assembled dist.
+
+---
+
+### `BookToBBXConverterTest.java` — 11 failures disabled
+
+**File:** `brailleblaster-core/src/test/java/org/brailleblaster/bbx/BookToBBXConverterTest.java`
+
+**What changed:** Added `enabled = false` to 11 table-related test methods: `imageBlock`,
+`lineBreakTableCell`, `tableGroupTest`, `tableInsideList`, `tableNonWithEmptyTableCell`,
+`tableTest`, `tableTextWrapTest`, `tableWithImage`, `tableWithImage_OnlyImageInCell_issue5817`,
+`tableWithSidebarAndList`, `tableWithSidebarAndListAndText`.
+
+**Why:** Pre-existing failures uncovered once the JVM crash was fixed. All relate to table
+conversion logic in `BookToBBXConverter`. Root cause under investigation — fix in a future
+phase.
+
+---
+
+### `BBXTest.java` — 1 failure disabled
+
+**File:** `brailleblaster-core/src/test/java/org/brailleblaster/bbx/BBXTest.java`
+
+**What changed:** Added `enabled = false` to `subtypesListMatchesField` (data provider
+variant 4 — `BBX.InlineElement{name=INLINE}`).
+
+**Why:** Pre-existing failure. The test validates that every `BBX.CoreType` subtype class
+field has a corresponding entry in a subtype list — this particular variant is failing,
+suggesting a new `BBX.InlineElement` was added without updating the expected list.
+
+---
+
+### `MatrixTest.java` — 1 failure disabled
+
+**File:** `brailleblaster-core/src/test/java/org/brailleblaster/math/spatial/MatrixTest.java`
+
+**What changed:** Added `enabled = false` to `blankBlockMatrixNemeth`.
+
+**Why:** Pre-existing failure in math matrix rendering with Nemeth code. Fix in a future phase.
+
+---
+
+### `NumberLineTest.java` — 1 failure disabled
+
+**File:** `brailleblaster-core/src/test/java/org/brailleblaster/math/spatial/NumberLineTest.java`
+
+**What changed:** Added `enabled = false` to `parseWeirdThings`.
+
+**Why:** Pre-existing failure in number line string parsing. Fix in a future phase.
+
+---
+
+### `File2UTDTest.kt` — 1 failure disabled
+
+**File:** `utd-cli/src/test/kotlin/org/brailleblaster/utd/cli/File2UTDTest.kt`
+
+**What changed:** Added `enabled = false` to `parseBasicDTBook`.
+
+**Why:** Pre-existing failure in the UTD CLI file conversion. Fix in a future phase.
+
+---
 
 **Files to change:**
 - `utd/src/test/resources/org/brailleblaster/utd/config/nimas.xml`
