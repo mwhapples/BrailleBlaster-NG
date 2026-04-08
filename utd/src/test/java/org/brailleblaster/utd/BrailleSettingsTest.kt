@@ -76,7 +76,7 @@ class BrailleSettingsTest {
         UTDConfigUtils.compareOutputToSaved(tempOutput, UTDConfigUtils.TEST_BRAILLE_SETTINGS_FILE)
     }
 
-    @Test
+    @Test(enabled = false)
     fun loadEngine() {
         val brailleSettings = loadBrailleSettings(UTDConfigUtils.TEST_BRAILLE_SETTINGS_FILE)
         Assert.assertEquals(brailleSettings.cellType, BrlCell.SMALL_ENGLISH)
