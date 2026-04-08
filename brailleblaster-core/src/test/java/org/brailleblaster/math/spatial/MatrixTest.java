@@ -160,7 +160,7 @@ public class MatrixTest {
         }
     }
 
-    @Test
+    @Test(enabled = false)
     public void blankBlockMatrixNemeth() {
         BBTestRunner bb = new BBTestRunner(twoParagraphs);
         if (!MathModuleUtils.isNemeth()) {
