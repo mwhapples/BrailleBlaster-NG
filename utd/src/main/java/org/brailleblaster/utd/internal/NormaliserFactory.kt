@@ -267,10 +267,9 @@ class NormaliserFactory : NodeFactory() {
             "table",
             "tr",
             "td",
-            "th"
+            "th",
+            //Do we need Nimas+ elements in this list? Seems to work without them.
         )
-        //TODO: Extend DTBook with the Nimas+ elements when they become available.
-        //Then plunge into the rabbit hole...
         private val DEFAULT_BLOCK_ELEMENTS: List<String> = listOf()
     }
 }
