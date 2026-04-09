@@ -85,8 +85,7 @@ public class DocumentUTDConfigTest {
 		ThrowsRun[] tests = new ThrowsRun[]{
 			//
 			() -> settingsLoadTest(pageSettings, docConfig::loadPageSettings),
-			// TODO Phase 1a: restore after removing LLAPH fields from nimas.xml
-			// () -> settingsLoadTest(brailleSettings, docConfig::loadBrailleSettings),
+			() -> settingsLoadTest(brailleSettings, docConfig::loadBrailleSettings),
 			() -> settingsLoadTest(styleMap, (Document doc) -> docConfig.loadStyle(doc, styleDefs)),
 //			() -> settingsLoadTest(actionMap, NimasUTDConfig::loadActions),
 			//
