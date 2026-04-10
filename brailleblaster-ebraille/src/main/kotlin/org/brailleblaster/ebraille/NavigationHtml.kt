@@ -15,6 +15,7 @@
  */
 package org.brailleblaster.ebraille
 
+import org.brailleblaster.utd.ITranslationEngine
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
@@ -40,14 +41,17 @@ object NavigationHtml {
             <body></body>
             </html>
         """.trimIndent()
-    fun createNavigationHtml(docs: Iterable<HtmlItem>): Document {
+    fun createNavigationHtml(docs: Iterable<HtmlItem>, title: String, translationEngine: ITranslationEngine): Document {
+        val titleBrl: String = translateToBraille(title, translationEngine)
         val template = javaClass.getResourceAsStream("/org/brailleblaster/ebraille/index_template.html")?.bufferedReader(Charsets.UTF_8)?.readText() ?: FALLBACK_TEMPLATE
         val html = Jsoup.parse(template)
-        html.body().appendChild(createHeadingsList(docs))
-        html.body().appendChild(createPageList(docs))
+        html.title(title)
+        html.body().appendChild(Element("h1").appendText(titleBrl))
+        html.body().appendChild(createHeadingsList(docs, headingBrl = translateToBraille("Table of contents", translationEngine)))
+        html.body().appendChild(createPageList(docs, headingBrl = translateToBraille("List of pages", translationEngine)))
         return html
     }
-    private fun createHeadingsList(docs: Iterable<HtmlItem>): Element = Element("nav").attr("role", "doc-toc").attr("aria-label", "Contents").attr("epub:type", "toc").append("<h2>⠠⠞⠁⠼ ⠷ ⠒⠞⠢⠞⠎</h2>").apply {
+    private fun createHeadingsList(docs: Iterable<HtmlItem>, headingBrl: String = "⠠⠞⠁⠼ ⠷ ⠒⠞⠢⠞⠎"): Element = Element("nav").attr("role", "doc-toc").attr("aria-label", "Contents").attr("epub:type", "toc").appendChild(Element("h2").appendText(headingBrl)).apply {
         val idGenerator = IdGenerator()
         val headings = docs.flatMap { doc -> doc.document.select(HEADINGS_LEVEL_MAP.keys.joinToString(separator = ", ")).map {
             if (it.id().isEmpty()) {
@@ -57,7 +61,7 @@ object NavigationHtml {
         } }
         appendChild(headings.toHtml(level = 0, containerFactory = { Element("ol") }, itemFactory = { listOf(Element("li").appendChild(Element("a").attr("href", "${it.element.path}#${it.element.element.id()}").appendText(it.element.element.text()))) }))
     }
-    private fun createPageList(docs: Iterable<HtmlItem>): Element = Element("nav").attr("role", "doc-pagelist").attr("epub:type", "page-list").attr("aria-label", "Page list").attr("hidden", "").append("<h2>⠠⠇⠊⠌ ⠷ ⠏⠁⠛⠑⠎</h2>").apply {
+    private fun createPageList(docs: Iterable<HtmlItem>, headingBrl: String = "⠠⠇⠊⠌ ⠷ ⠏⠁⠛⠑⠎"): Element = Element("nav").attr("role", "doc-pagelist").attr("epub:type", "page-list").attr("aria-label", "Page list").attr("hidden", "").appendChild(Element("h2").appendText(headingBrl)).apply {
         val idGenerator = IdGenerator()
         val pages = docs.flatMap { doc -> doc.document.select("""span[role="doc-pagebreak"]""").map {
             if (it.id().isEmpty()) {

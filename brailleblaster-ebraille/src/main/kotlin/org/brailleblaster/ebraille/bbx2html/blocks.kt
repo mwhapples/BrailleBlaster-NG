@@ -31,8 +31,8 @@ internal fun Element.processBlock(): Collection<org.jsoup.nodes.Element> = when(
 
 internal fun Element.processPageNum(): org.jsoup.nodes.Element = org.jsoup.nodes.Element("span").attr("role", "doc-pagebreak").apply {
     val brl = getFirstChildElement("brl", UTD_NS)
-    attr("aria-label", brl.getAttributeValue("printPage") ?: "")
-    appendText(asciiToEbraille(brl.getAttributeValue("printPageBrl") ?: ""))
+    attr("aria-label", brl.getAttributeValue("printPage").orEmpty().ifEmpty { "-" })
+    appendText(asciiToEbraille(brl.getAttributeValue("printPageBrl").orEmpty().ifEmpty { "\u2824" }))
 }
 
 private fun Element.processStyle(): Collection<org.jsoup.nodes.Element> = when (style) {

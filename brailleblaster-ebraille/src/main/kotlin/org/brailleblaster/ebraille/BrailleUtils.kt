@@ -16,5 +16,9 @@
 package org.brailleblaster.ebraille
 
 import org.brailleblaster.libembosser.utils.BrailleMapper
+import org.brailleblaster.utd.ITranslationEngine
+import org.brailleblaster.utd.utils.TextTranslator
+
+fun translateToBraille(text: String, engine: ITranslationEngine): String = asciiToEbraille(TextTranslator.translateText(text, engine))
 
 fun asciiToEbraille(asciiBrl: String): String = BrailleMapper.ASCII_TO_UNICODE_FAST.map(asciiBrl).replace("\u2800", " ")

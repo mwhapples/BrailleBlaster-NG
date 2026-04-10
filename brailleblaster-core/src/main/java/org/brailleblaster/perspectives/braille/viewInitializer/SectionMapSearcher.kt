@@ -39,7 +39,7 @@ class SectionMapSearcher(private val sectionList: ArrayList<SectionElement>) {
         val executor = Executors.newFixedThreadPool(processors)
         val ecs: CompletionService<Pair<Int, Int>> = ExecutorCompletionService(executor)
         val callables: MutableList<SearchCallable> = ArrayList()
-        for (i in 0 until sectionList.size step sectionsPerProc) {
+        for (i in sectionList.indices step sectionsPerProc) {
             if (i == sectionList.size - 1 || i + sectionsPerProc > sectionList.size) callables.add(
                 SearchCallable(
                     n,

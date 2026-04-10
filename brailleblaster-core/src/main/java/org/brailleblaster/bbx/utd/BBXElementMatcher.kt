@@ -101,7 +101,7 @@ class BBXElementMatcher : AbstractBBXUtil, INodeMatcher {
         return false
     }
 
-    @Suppress("UNUSED", "UNUSED_PARAMETER")
+    @Suppress("Unused")
     fun afterUnmarshal(unmarshaller: Unmarshaller?, parent: Any?) {
         validateOnlyOneBBXFieldSet(coreType, fixerTodo)
     }
