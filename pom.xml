@@ -91,13 +91,6 @@ child.project.url.inherit.append.path="false">
         <orgeclipseswtbotswtfinder.version>f5b2edaee2</orgeclipseswtbotswtfinder.version>
 
         <pandoc.version>3.6.4</pandoc.version>
-
-        <!-- Default distdir for modules that need programData during tests (e.g.
-             brailleblaster-core). Points to the source-controlled dist directory so
-             it is always available, even in a clean build before brailleblaster-app
-             has assembled its target/dist. brailleblaster-app overrides this with
-             its own ${project.build.directory}/dist for the assembled distribution. -->
-        <build.dist.directory>${maven.multiModuleProjectDirectory}/brailleblaster-app/src/dist</build.dist.directory>
     </properties>
 
 
