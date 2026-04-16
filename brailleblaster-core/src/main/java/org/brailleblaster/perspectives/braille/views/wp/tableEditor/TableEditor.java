@@ -124,13 +124,13 @@ public class TableEditor extends Dialog {
     private static boolean debug = false;
     private Mode mode;
 
-    private TableType[] tableTypes = {
+    private final List<TableType> tableTypes = List.of(
             TableType.AUTO,
             TableType.SIMPLE,
             TableType.LISTED,
             TableType.STAIRSTEP,
             TableType.LINEAR
-    };
+    );
 
     private class SimpleTableOptionDialog {
         private List<Text> widthTexts;
