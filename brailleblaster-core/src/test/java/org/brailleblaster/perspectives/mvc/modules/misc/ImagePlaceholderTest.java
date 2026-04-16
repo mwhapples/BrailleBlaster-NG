@@ -23,10 +23,16 @@ import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotStyledText;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class ImagePlaceholderTest {
-    private static final LocaleHandler localeHandler = LocaleHandler.getDefault();
+    private static LocaleHandler localeHandler;
+
+    @BeforeClass
+    public static void classSetup() {
+        localeHandler = LocaleHandler.getDefault();
+    }
 
     @Test(enabled = false)
     public void insertImagePlaceholder_issue4961_issue5014() {
