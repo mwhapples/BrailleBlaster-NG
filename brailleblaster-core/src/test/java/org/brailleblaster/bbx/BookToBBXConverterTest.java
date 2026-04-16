@@ -34,15 +34,14 @@ import org.testng.annotations.Test;
 import org.brailleblaster.testrunners.BBTestRunner;
 
 public class BookToBBXConverterTest {
-	private final BookToBBXConverter converter = BookToBBXConverter.fromConfig();
-	private final DefaultNimasMaps maps = new DefaultNimasMaps();
-
-	static {
-		BookToBBXConverter.devSetup(new String[0]);
-	}
+	private BookToBBXConverter converter;
+	private DefaultNimasMaps maps;
 
 	@BeforeClass
-	private static void init(ITestContext context) {
+	private void init(ITestContext context) {
+		converter = BookToBBXConverter.fromConfig();
+		maps = new DefaultNimasMaps();
+		BookToBBXConverter.devSetup(new String[0]);
 		//Don't stop on errors when doing bulk testing
 //		if (context.getAllTestMethods().length == 1) {
 //			BookToBBXConverter.DEBUG_LEVEL.fancySWTWait = true;
