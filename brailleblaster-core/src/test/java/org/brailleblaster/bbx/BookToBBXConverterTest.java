@@ -52,7 +52,7 @@ public class BookToBBXConverterTest {
 	}
 
 	// -------------------- Simple -------------------
-	@Test(enabled = false)
+	@Test
 	public void levelSimpleAndCopyAttrute() {
 		convertAndAssertFirst("<level1 utd:customId='test'><p moreCustom='attribs'>test</p></level1>")
 				.isSection(BBX.SECTION.OTHER)
@@ -63,14 +63,14 @@ public class BookToBBXConverterTest {
 				);
 	}	
 	
-	@Test(enabled = false)
+	@Test
 	public void paragraphSimple() {
 		convertAndAssertFirst("<p>test</p>")
 				.isBlockDefaultStyle("Body Text")
 				.hasText("test");
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void listSimple() {
 		convertAndAssertFirst("<list><li>item 1</li><li>item 2</li></list>")
 				.isContainerListType(BBX.ListType.NORMAL)
@@ -88,7 +88,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void captionAndParagraph() {
 		convertAndAssertFirst("<caption><p>test</p><p>test2</p></caption>")
 				.isContainer(BBX.CONTAINER.CAPTION)
@@ -101,7 +101,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 	
-	@Test(enabled = false)
+	@Test
 	public void sidebar_removed_issue5265() {
 		convertAndAssert("<sidebar><p>test</p><p>test2</p></sidebar>")
 				.nextChildIs(childAssert -> childAssert
@@ -114,7 +114,7 @@ public class BookToBBXConverterTest {
 	}
 
 	// --------------------- Complicated lists -----------------------
-	@Test(enabled = false)
+	@Test
 	public void listItemNestedParagraphs() {
 		convertAndAssertFirst("<list>"
 				+ "<li>item 1</li>"
@@ -177,7 +177,7 @@ public class BookToBBXConverterTest {
 
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void listItemNestedList() {
 		convertAndAssertFirst("<list>"
 				+ "<li>item 1</li>"
@@ -240,7 +240,7 @@ public class BookToBBXConverterTest {
 
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void listsWithListItemWrapperParagraph() {
 		//Nested paragraphs do not incriment level, containers in list are taken out
 		convertAndAssert("<list>"
@@ -304,7 +304,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 	
-	@Test(enabled = false)
+	@Test
 	public void listsWithListItem_NestedParagraph() {
 		//Nested paragraphs do not incriment level, containers in list are taken out
 		convertAndAssertFirst("<list>"
@@ -355,7 +355,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void listsWithListItemWrapper() {
 		//containers in list are taken out
 		convertAndAssert("<list>"
@@ -419,7 +419,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void listTripleNested() {
 		convertAndAssertFirst("<list><li>level 1</li>"
 				+ "<li>level 1 w/ nested"
@@ -459,7 +459,7 @@ public class BookToBBXConverterTest {
 	/**
 	 * Actual literature book edge case
 	 */
-	@Test(enabled = false)
+	@Test
 	public void listInsideListInsideProdnoteInsideImageGroupInsideList() {
 		convertAndAssert("<list><li>level 1</li>"
 				+ "<li>level 1 w/ nested"
@@ -534,7 +534,7 @@ public class BookToBBXConverterTest {
 	/**
 	 * Actual literature book edge case
 	 */
-	@Test(enabled = false)
+	@Test
 	public void listItemWithImgggroup() {
 		convertAndAssert("<list>"
 				+ "<li>before</li>"
@@ -592,7 +592,7 @@ public class BookToBBXConverterTest {
 	}
 
 	//Definition lists
-	@Test(enabled = false)
+	@Test
 	public void definitionListTest() {
 		convertAndAssertFirst("<dl>"
 				+ "<dt>term1</dt><dd>def1</dd>"
@@ -618,7 +618,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void definitionSpaceBetweenTest() {
 		Document doc = TestXMLUtils.generateBookDoc("", "<dl>"
 				+ "<dt>term1</dt> <dd>def1</dd>"
@@ -647,7 +647,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void definitionListParagraphTest() {
 		convertAndAssertFirst("<dl>"
 				+ "<dt>term1</dt><dd><p>def1</p></dd>"
@@ -673,7 +673,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void definitionListMultiParagraphTest() {
 		convertAndAssertFirst("<dl>"
 				+ "<dt>term1</dt><dd><p>def1</p><p>def1.2</p></dd>"
@@ -707,7 +707,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 	
-	@Test(enabled = false)
+	@Test
 	public void definitionListLineBreakTest_issue5390() {
 		convertAndAssertFirst("<dl>"
 				+ "<dt>term1</dt><dd>def1<br/>def1.2<br/>def1.3</dd>"
@@ -751,7 +751,7 @@ public class BookToBBXConverterTest {
 	}
 
 	//---------------------- Span ----------------------------
-	@Test(enabled = false)
+	@Test
 	public void anchorTest() {
 		convertAndAssertFirst("<p><a href='#testing'>test</a></p>")
 				.isBlockDefaultStyle("Body Text")
@@ -763,7 +763,7 @@ public class BookToBBXConverterTest {
 	}
 
 	//---------------------- Emphasis ---------------------------
-	@Test(enabled = false)
+	@Test
 	public void emphasisTest() {
 		convertAndAssertFirst("<p><strong>test</strong></p>")
 				.isBlockDefaultStyle("Body Text")
@@ -773,7 +773,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void emphasisNestedSpanTest() {
 		convertAndAssertFirst("<p><strong>before <a href='#test'>nested</a> after</strong></p>")
 				.isBlockDefaultStyle("Body Text")
@@ -793,7 +793,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void emphasisNestedEmphasisTest() {
 		convertAndAssertFirst("<p><strong>before <em>nested</em> after</strong></p>")
 				.isBlockDefaultStyle("Body Text")
@@ -810,7 +810,7 @@ public class BookToBBXConverterTest {
 	}
 
 	//---------------------- PageNum ------------------------
-	@Test(enabled = false)
+	@Test
 	public void pagenumStandaloneTest() {
 		convertAndAssert("<p>test1</p><pagenum some='attrib'>15</pagenum><p>test2</p>")
 				.nextChildIs(childAssert -> childAssert
@@ -826,7 +826,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void pagenumNestedParagraphTest() {
 		convertAndAssertFirst("<p>test1 <pagenum some='attrib'>15</pagenum> test2</p>")
 				.isBlockDefaultStyle("Body Text")
@@ -839,7 +839,7 @@ public class BookToBBXConverterTest {
 				.noNextChild();
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void pagenumNoChildren() {
 		convertAndAssert("<p>test1</p><pagenum some='attrib'/><p>test2</p>")
 				.nextChildIs(childAssert -> childAssert
@@ -855,7 +855,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void pagenumNestedSpanTest() {
 		convertAndAssertFirst("<p>test1 <span>span<pagenum some='attrib'>15</pagenum>city</span> test2</p>")
 				.isBlockDefaultStyle("Body Text")
@@ -872,7 +872,7 @@ public class BookToBBXConverterTest {
 	}
 
 	//---------------------- br/lineBreak --------------------
-	@Test(enabled = false)
+	@Test
 	public void lineBreakParagraph() {
 		convertAndAssert("<p>test1<br/>test2</p>")
 				.nextChildIs(childAssert -> childAssert
@@ -884,7 +884,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void lineBreakParagraphUseless() {
 		convertAndAssert("<p><br/>test2</p>")
 				.nextChildIs(childAssert -> childAssert
@@ -893,7 +893,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void lineBreakParagraphEmphasis() {
 		convertAndAssert("<p>this is <strong>super<br/>strong</strong></p>")
 				.nextChildIs(childAssert -> childAssert
@@ -912,7 +912,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void lineBreakParagraphNestedEmphasis() {
 		convertAndAssert("<p>this is <strong>super <em>italic <br/>strong</em></strong></p>")
 				.nextChildIs(childAssert -> childAssert
@@ -935,7 +935,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 	
-	@Test(enabled = false)
+	@Test
 	public void multipleLineBreaks() {
 		convertAndAssert(
 				"<p>"
@@ -994,7 +994,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void lineBreakListItem() {
 		convertAndAssertFirst("<list>"
 				+ "<li>term1<br/>term2</li>"
@@ -1013,7 +1013,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void lineBreakListItemWithParagraph() {
 		convertAndAssertFirst("<list>"
 				+ "<li><p>term1<br/>term2</p></li>"
@@ -1032,7 +1032,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void lineBreakListItemWithTwoParagraphsOneAfter() {
 		convertAndAssertFirst("<list>"
 				+ "<li><p>term1<br/>term2</p><p>after</p></li>"
@@ -1054,7 +1054,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void lineBreakListItemWithTwoParagraphsOneBefore() {
 		convertAndAssertFirst("<list>"
 				+ "<li><p>before</p><p>term1<br/>term2</p></li>"
@@ -1077,7 +1077,7 @@ public class BookToBBXConverterTest {
 	}
 
 	//---------------------- Images ------------------
-	@Test(enabled = false)
+	@Test
 	public void imageParagraph() {
 		convertAndAssertFirst("<p>test <img src='evil.jpg'/> after</p>")
 				.isBlock(BBX.BLOCK.DEFAULT)
@@ -1090,7 +1090,7 @@ public class BookToBBXConverterTest {
 				).nextChildIsText(" after");
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void imageGroupProdnoteWithNoParagraph() {
 		convertAndAssert("<imggroup>"
 				+ "<img src='evil.jpg'/><prodnote><strong>bold</strong> desc</prodnote>"
@@ -1130,7 +1130,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void imageGroupProdnoteWithParagraph() {
 		convertAndAssertFirst("<imggroup>"
 				+ "<img src='evil.jpg'/><prodnote><p>I'm a <strong>bold</strong> desc</p><p>number 2</p></prodnote>"
@@ -1156,7 +1156,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void imageGroupMultipleImagesWithMultipleProdnoteAndCaption() {
 		convertAndAssert("<imggroup>"
 				+ "<img src='evil1.jpg'/>"
@@ -1207,7 +1207,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 	
-	@Test(enabled = false)
+	@Test
 	public void imageGroupProdnoteWithParagraph_insidePoem() {
 		convertAndAssert("<poem><linegroup><line>"
 				+ "This is test"
@@ -1239,7 +1239,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 	
-	@Test(enabled = false)
+	@Test
 	public void imageGroupProdnote_insidePoem() {
 		convertAndAssert("<poem><linegroup><line>"
 				+ "This is test"
@@ -1271,7 +1271,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 	
-	@Test(enabled = false)
+	@Test
 	public void imageGroupParagraph_insidePoem() {
 		convertAndAssert("<poem><linegroup><line>"
 				+ "This is test"
@@ -1300,7 +1300,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void imageGroupParagraph_insideList_2ps() {
 		_imageGroupParagrah_insideList("<list>"
 				+ "<li>before</li>"
@@ -1312,7 +1312,7 @@ public class BookToBBXConverterTest {
 
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void imageGroupParagraph_insideList_1ps() {
 		_imageGroupParagrah_insideList("<list>"
 				+ "<li>before</li>"
@@ -1370,7 +1370,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 	
-	@Test(enabled = false)
+	@Test
 	public void imggroup_emphasisNoParagraph_inList() {
 		convertAndAssert(
 				"<list><li>libefore"
@@ -1412,7 +1412,7 @@ public class BookToBBXConverterTest {
 		).noNextChild();
 	}
 	
-	@Test(enabled = false)
+	@Test
 	public void imggroup_onlyInList() {
 		convertAndAssertFirst(
 				"<list><li>"
@@ -1789,7 +1789,7 @@ public class BookToBBXConverterTest {
 	}
 
 	//---------------------- Poem ----------------------
-	@Test(enabled = false)
+	@Test
 	public void poemStandaloneLineGroupTest() {
 		convertAndAssertFirst("<linegroup>"
 				+ "<line>test1</line>"
@@ -1801,7 +1801,7 @@ public class BookToBBXConverterTest {
 				.noNextChild();
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void poemTest() {
 		convertAndAssertFirst("<poem>"
 				+ "<linegroup>"
@@ -1847,7 +1847,7 @@ public class BookToBBXConverterTest {
 		).noNextChild();
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void poemList() {
 		convertAndAssertFirst("<poem>"
 				+ "<line>test1</line>"
@@ -1858,7 +1858,7 @@ public class BookToBBXConverterTest {
 				.inlineTest(this::poemIsChildrenValid);
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void poemPageNumInsideLineGroup() {
 		convertAndAssertFirst("<poem>"
 				+ "<linegroup>"
@@ -1884,7 +1884,7 @@ public class BookToBBXConverterTest {
 				).noNextChild();
 	}
 	
-	@Test(enabled = false)
+	@Test
 	public void poemNestedLineGroup_issue5507() {
 		convertAndAssertFirst("<poem>"
 				+ "<linegroup>"
@@ -1916,7 +1916,7 @@ public class BookToBBXConverterTest {
 	}
 	
 	//-------------------------- mathml ----------------------------------
-	@Test(enabled = false)
+	@Test
 	public void mathmlTest() {
 		convertAndAssertFirst("<p>test<m:math>"
 				+ "<m:mrow>"
@@ -1941,7 +1941,7 @@ public class BookToBBXConverterTest {
 				.noNextChild();
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void mathmlEmphasisTest() {
 		convertAndAssertFirst("<p><strong>test<m:math>"
 				+ "<m:mn>3</m:mn>"
