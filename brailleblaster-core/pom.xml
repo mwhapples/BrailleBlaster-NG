@@ -383,10 +383,10 @@
                 <configuration>
                     <systemPropertyVariables>
                         <polyglot.engine.WarnInterpreterOnly>false</polyglot.engine.WarnInterpreterOnly>
-                        <org.brailleblaster.distdir>${build.dist.directory}</org.brailleblaster.distdir>
-                        <onl.mdw.mathcat4j.rulesDir>${build.dist.directory}/programData/MathCAT/Rules</onl.mdw.mathcat4j.rulesDir>
+                        <org.brailleblaster.distdir>${main.dist.directory}</org.brailleblaster.distdir>
+                        <onl.mdw.mathcat4j.rulesDir>${main.dist.directory}/programData/MathCAT/Rules</onl.mdw.mathcat4j.rulesDir>
                         <!-- BBBootstrap.initLogback might not always be called first in tests -->
-                        <logback.configurationFile>${build.dist.directory}/programData/settingslogback.xml</logback.configurationFile>
+                        <logback.configurationFile>${main.dist.directory}/programData/settingslogback.xml</logback.configurationFile>
                         <org.eclipse.swtbot.keyboard.layout>org.eclipse.swtbot.swt.finder.keyboard.EN_US</org.eclipse.swtbot.keyboard.layout>
                     </systemPropertyVariables>
                     <properties>
