@@ -15,6 +15,7 @@
  */
 package org.brailleblaster.bbx.fixers
 
+import nu.xom.Attribute
 import nu.xom.Document
 import nu.xom.Element
 import nu.xom.Node
@@ -34,6 +35,33 @@ class TableImportFixer : AbstractFixer() {
         BBX.CONTAINER.TABLE.assertIsA(matchedNode)
         val table = matchedNode as Element
         BBX._ATTRIB_FIXER_TODO.assertAndDetach(BBX.FixerTodo.TABLE_SIZE, table)
+        // If a TABLETN container immediately precedes this table (added by the
+        // tabletn parserMap entry), copy the format attribute and skip
+        // auto-detection — the source document already declared the type.
+        // AutoTableFormatter will do additional checking on types regardless to ensure table validity.
+        val tableIndex = table.parent?.indexOf(table) ?: -1
+        if (tableIndex > 0) {
+            val prevSibling = table.parent.getChild(tableIndex - 1)
+            if (prevSibling is Element && BBX.CONTAINER.TABLETN.isA(prevSibling)) {
+                //Check if TableTN has a format attribute. If so, copy it to the table.
+                val format = prevSibling.getAttribute("format")
+                if (format != null){
+                    //Should be simple, linear, listed, or stairstep
+                    if (listOf("simple", "linear", "listed", "stairstep").contains(format.value)) {
+                        try {
+                            table.addAttribute(Attribute("format", format.value))
+                            stripUnusedCellElements(table)
+                            return
+                        }
+                        catch (e: Exception) {
+                            throw RuntimeException("Can't cleanup table cell contents formatted as ${format.value}", e)
+                        }
+                    }
+                }
+                //Otherwise, proceed with detection as usual.
+            }
+        }
+
         // Cells only containing spaces may cause errors when translating
         // We must do it before trying to detect the table type because type detection uses translation.
         XMLHandler.childrenRecursiveNodeVisitor(table) {

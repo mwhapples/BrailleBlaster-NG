@@ -70,7 +70,7 @@ class ImagePlaceholder(bbData: BBSelectionData) {
                 lines = cur.getAttributeValue("skipLines", UTD_NS).toInt()
                 imagePath = cur.getAttributeValue("src", UTD_NS)
             }
-            catch (e: Exception){
+            catch (_: Exception){
                 //println("Error retrieving existing image placeholder attributes: ${e.message}")
                 lines = null
                 imagePath = null
