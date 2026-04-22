@@ -16,7 +16,6 @@
 package org.brailleblaster.perspectives.braille.stylers
 
 import nu.xom.Attribute
-import nu.xom.Element
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.WhiteSpaceElement
@@ -30,34 +29,22 @@ import java.util.*
 class ImagePlaceholderHandler(manager: Manager?, vi: ViewInitializer?, list: MapList?) : Handler(
     manager!!, vi!!, list!!
 ) {
-    fun adjustImagePlaceholder(lines: Int, imagePath: String?) {
-        list.current.nodeParent?.let { e ->
-            val parent = e.parent
-
-            if (lines == 0) parent.removeChild(e)
-            else BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_SKIP_LINES[e] = lines
-
-            updateImagePlaceholderPath(imagePath, e)
-            //		manager.getSimpleManager().dispatchEvent(new ModifyEvent(Sender.TEXT, false, parent));
-        }
-    }
-
-    fun insertNewImagePlaceholder(lines: Int, imagePath: String?) {
+    fun insertNewImagePlaceholder(lines: Int?, imagePath: String?, altText: String?) {
         var atStart = false
         var atEnd = false
         val posList: List<Int>
 
+        if (lines == null || imagePath == null || altText.isNullOrEmpty()) return
+
         if (list.current is WhiteSpaceElement) {
             val newPlaceholder = BBX.BLOCK.IMAGE_PLACEHOLDER.create()
             newPlaceholder.addAttribute(BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_SKIP_LINES.newAttribute(lines))
-            if (imagePath != null) {
-                newPlaceholder.addAttribute(BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_IMG_PATH.newAttribute(imagePath))
-            }
+            newPlaceholder.addAttribute(BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_IMG_PATH.newAttribute(imagePath))
+            newPlaceholder.addAttribute(BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_ALT_TEXT.newAttribute(altText))
 
             val wt = WhitespaceTransformer(manager)
             wt.transformWhiteSpace(list.current as WhiteSpaceElement, newPlaceholder)
         } else {
-            //TODO: What is the point of all this? This is the only class that uses InsertNodeMessage
             posList = list.findTextMapElementRange(
                 list.currentIndex,
                 list.current.nodeParent
@@ -72,32 +59,36 @@ class ImagePlaceholderHandler(manager: Manager?, vi: ViewInitializer?, list: Map
                 if (startDistance <= endDistance) atStart = true
                 else atEnd = true
             }
+
             val attrs = LinkedList<Attribute>()
             attrs.add(BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_SKIP_LINES.newAttribute(lines))
-            if (imagePath != null) {
-                attrs.add(BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_IMG_PATH.newAttribute(imagePath))
-            }
+            attrs.add(BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_IMG_PATH.newAttribute(imagePath))
+            attrs.add(BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_ALT_TEXT.newAttribute(altText))
 
             val m = InsertNodeMessage(atStart, atEnd, BBX.BLOCK.IMAGE_PLACEHOLDER, null, attrs)
             val ieh = InsertElementHandler(manager, vi, list)
             ieh.insertElement(m)
+            //TODO: Per bug #67524, ensure lines after placeholder return to default style
+            //This would be a good place for alt-text to show. And it should with NIMAS files too (#30992)
+
         }
     }
 
-    fun updateImagePlaceholderPath(imagePath: String?, e: Element? = list.current.nodeParent) {
-        if (imagePath == null || e == null) {
-            return
+    //This method assumes the current map element is an image placeholder
+    //It also assumes that the attributes to be updated are passed in, and that null means "do not change"
+    //Worst case is it overrides each attribute with the same value again.
+    fun updateImagePlaceholder(lines: Int?, imagePath: String?, altText: String?) {
+        val current = list.current.nodeParent
+        if (BBX.BLOCK.IMAGE_PLACEHOLDER.isA(current)) {
+            if (lines != null)
+                current.addAttribute(BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_SKIP_LINES.newAttribute(lines))
+            if (imagePath != null)
+                current.addAttribute(BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_IMG_PATH.newAttribute(imagePath))
+            if (altText != null)
+                current.addAttribute(BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_ALT_TEXT.newAttribute(altText))
+            //println("Image updated: ${current.toXML()}")
+            manager.simpleManager.dispatchEvent(ModifyEvent(Sender.TEXT, true, current))
         }
-        //You have to check that you have an attribute skip lines or else don't add a source
-        if (BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_SKIP_LINES.getAttribute(e) != null) {
-            //If you don't have a path yet, set
-            if (BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_IMG_PATH.getAttribute(e) != null) {
-                BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_IMG_PATH[e] = imagePath
-            } else {
-                BBX.BLOCK.IMAGE_PLACEHOLDER.ATTRIB_IMG_PATH.newAttribute(imagePath)
-            }
-        }
-
-        manager.simpleManager.dispatchEvent(ModifyEvent(Sender.TEXT, false, e.parent))
     }
+
 }

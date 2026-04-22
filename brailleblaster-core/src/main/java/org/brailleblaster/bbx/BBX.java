@@ -352,7 +352,8 @@ public static int getFormatVersion(@NonNull Document doc) {
         public final ContainerSubType DONT_SPLIT = new ContainerSubType(this, "DONT_SPLIT");
 
         public final ContainerSubType TABLE = new ContainerSubType(this, "TABLE") {
-            // TODO: Removed as this is way to strict
+            public final EnumAttribute<TableType> FORMAT = new EnumAttribute<>("format", TableType.class);
+
         };
         public final TableRowSubType TABLE_ROW = new TableRowSubType(this, "TABLE_ROW");
 
@@ -798,6 +799,21 @@ public static int getFormatVersion(@NonNull Document doc) {
         NORMAL, HEAD, FOOT
     }
 
+    public enum TableType{
+        AUTO("Auto"),
+        SIMPLE("Simple"),
+        SIMPLE_FACING("Simple Facing"),
+        LISTED("Listed"),
+        STAIRSTEP("Stairstep"),
+        LINEAR("Linear"),
+        UNSET("");
+
+        public final String prettyName;
+        TableType(String prettyName) {
+            this.prettyName = prettyName;
+        }
+    }
+
     public enum TPageSection {
         TITLE_PAGE, SECOND_TITLE_PAGE, SPECIAL_SYMBOLS, TRANSCRIBER_NOTES
     }
@@ -909,6 +925,14 @@ public static final @NonNull BlockElement BLOCK = new BlockElement();
                 super(type, "MARGIN");
             }
 
+            public Element create(MarginType type) {
+                Element el = super.create();
+                ATTRIB_MARGIN_TYPE.set(el, type);
+                ATTRIB_INDENT.set(el, 0);
+                ATTRIB_RUNOVER.set(el, 0);
+                return el;
+            }
+
             @Override
             protected String subValidate(Element elem) {
                 if (!ATTRIB_INDENT.has(elem)) {
@@ -955,6 +979,10 @@ public static final @NonNull BlockElement BLOCK = new BlockElement();
             public final IntAttribute ATTRIB_SKIP_LINES = new IntAttribute("skipLines", UTDElements.UTD_PREFIX,
                     NamespacesKt.UTD_NS);
             public final StringAttribute ATTRIB_IMG_PATH = new StringAttribute("src", UTDElements.UTD_PREFIX,
+                    NamespacesKt.UTD_NS);
+            public final StringAttribute ATTRIB_ALT_TEXT = new StringAttribute("alt", UTDElements.UTD_PREFIX,
+                    NamespacesKt.UTD_NS);
+            public final StringAttribute ATTRIB_DESCRIPTION = new StringAttribute("description", UTDElements.UTD_PREFIX,
                     NamespacesKt.UTD_NS);
 
             private ImagePlaceholderType(BlockElement coreType, String name) {

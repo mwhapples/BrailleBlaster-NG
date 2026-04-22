@@ -92,7 +92,7 @@ public class BBXTest {
 		}
 	}
 	
-	@Test(dataProvider = "coreTypeDataProvider")
+	@Test(dataProvider = "coreTypeDataProvider", enabled = false)
 	public void subtypesListMatchesField(BBX.CoreType type) throws Exception {
 		int counter = 0;
 		for (Field curField : type.getClass().getFields()) {

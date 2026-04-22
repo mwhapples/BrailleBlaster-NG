@@ -13,14 +13,12 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package org.brailleblaster.perspectives.braille.views.wp.tableEditor
+package org.brailleblaster.ebraille
 
-internal enum class TableType(@JvmField val displayName: String) {
-    AUTO("Auto"),
-    SIMPLE("Simple"),
-    SIMPLE_FACING("Simple Facing"),
-    LISTED("Listed"),
-    STAIRSTEP("Stairstep"),
-    LINEAR("Linear"),
-    UNSET("Unset")
+import org.brailleblaster.perspectives.braille.Manager
+import org.brailleblaster.perspectives.mvc.BBSimpleManager
+import org.brailleblaster.spi.ModuleFactory
+
+class EBrailleModuleFactory : ModuleFactory {
+    override fun createModules(manager: Manager): Iterable<BBSimpleManager.SimpleListener> = listOf(ExportSubMenu)
 }

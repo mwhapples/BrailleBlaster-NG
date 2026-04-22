@@ -46,6 +46,38 @@ class AutoTableFormatter : Formatter() {
             return mutPageBuilders
         }
         val engine = formatSelector.engine
+
+        // If format was already set at import time (e.g. by TableImportFixer
+        // detecting a preceding TABLETN sibling), use it directly and skip
+        // auto-detection.
+        val presetFormat = node.getAttributeValue("format")
+        //Need to rework the detectType method for linear and stairstep tables.
+        if (presetFormat != null) {
+            when (presetFormat) {
+                "linear" -> {
+                    node.addAttribute(Attribute(UTDElements.UTD_STYLE_ATTRIB,
+                        engine.styleDefinitions.getStyleByName("Linear Table")!!.name))
+                    mutPageBuilders.addAll(linearTable.format(node, style, mutPageBuilders, formatSelector))
+                }
+                "simple" -> {
+                    node.addAttribute(Attribute(UTDElements.UTD_STYLE_ATTRIB,
+                        engine.styleDefinitions.getStyleByName("Simple Table")!!.name))
+                    mutPageBuilders.addAll(simpleTable.format(node, style, mutPageBuilders, formatSelector))
+                }
+                "stairstep" -> {
+                    node.addAttribute(Attribute(UTDElements.UTD_STYLE_ATTRIB,
+                        engine.styleDefinitions.getStyleByName("Stairstep Table")!!.name))
+                    mutPageBuilders.addAll(stairstepTable.format(node, style, mutPageBuilders, formatSelector))
+                }
+                "listed" -> {
+                    node.addAttribute(Attribute(UTDElements.UTD_STYLE_ATTRIB,
+                        engine.styleDefinitions.getStyleByName("Listed Table")!!.name))
+                    mutPageBuilders.addAll(listedTable.format(node, style, mutPageBuilders, formatSelector))
+                }
+            }
+            return mutPageBuilders
+        }
+
         when (TableUtils.detectType(node, engine.styleMap, engine.brailleSettings, engine.pageSettings)) {
             TableTypes.SIMPLE -> {
                 node.addAttribute(Attribute("format", "simple"))
@@ -54,7 +86,8 @@ class AutoTableFormatter : Formatter() {
                 mutPageBuilders.addAll(simpleTable.format(node, style, mutPageBuilders, formatSelector))
             }
             TableTypes.LINEAR -> {
-                node.addAttribute(Attribute("format", "simple"))
+                //Linear tables need Transcriber Notes to be BANA-correct. DetectType doesn't return Linear currently.
+                node.addAttribute(Attribute("format", "linear"))
                 node.addAttribute(Attribute(UTDElements.UTD_STYLE_ATTRIB,
                     engine.styleDefinitions.getStyleByName("Linear Table")!!.name))
                 mutPageBuilders.addAll(linearTable.format(node, style, mutPageBuilders, formatSelector))
