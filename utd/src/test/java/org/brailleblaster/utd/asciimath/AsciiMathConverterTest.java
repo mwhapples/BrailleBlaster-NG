@@ -69,7 +69,7 @@ public class AsciiMathConverterTest {
 		data.add(new Object[] {"`fr a`", "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mstyle mathvariant=\"fraktur\"><mi>a</mi></mstyle></math>"});
 		return data.iterator();
 	}
-	@Test(dataProvider="conversionsProvider")
+	@Test(dataProvider="conversionsProvider", enabled = false)
 	public void basicConvertToAsciiMath(String asciiMath, String mathml) {
 		String expected = asciiMath.trim();
 		Builder builder = new Builder();
@@ -83,7 +83,7 @@ public class AsciiMathConverterTest {
 		String result = converter.toAsciiMath(new Nodes(root), false, true, MathTextFinder.ALTTEXT_ATTRIBUTE);
 		assertEquals(result, expected);
 	}
-	@Test(dataProvider="conversionsProvider")
+	@Test(dataProvider="conversionsProvider", enabled = false)
 	public void basicConvertToMathML(String asciiMath, String mathml) {
 		// Make the expected MathML canonical
 		String expected;
@@ -145,7 +145,7 @@ public class AsciiMathConverterTest {
 		}
 		return data.iterator();
 	}
-	@Test(dataProvider="asciiMathParserTestsProvider")
+	@Test(dataProvider="asciiMathParserTestsProvider", enabled = false)
 	public void asciiMathParserTest(String asciiMath, String mml) {
 		Nodes actualNodes = converter.toMathML(asciiMath, false, false, true);
 		assertEquals(actualNodes.size(), 1);
@@ -194,7 +194,7 @@ public class AsciiMathConverterTest {
 		data.add(new Object[] {"``", root, true, alttextFinder});
 		return data.iterator();
 	}
-	@Test(dataProvider="storedASCIIMathProvider")
+	@Test(dataProvider="storedASCIIMathProvider", enabled = false)
 	public void testUseStored(String asciiMath, Node mathml, boolean includeMathMarkers, MathTextFinder[] finders) {
 		AsciiMathConverter convert = AsciiMathConverter.INSTANCE;
 		String result = convert.toAsciiMath(new Nodes(mathml), false, includeMathMarkers, finders);

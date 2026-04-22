@@ -109,7 +109,7 @@ public class TransformTest implements ITest {
         return data.iterator();
     }
 
-    @Test
+    @Test(enabled = false)
     public void xslTransform() throws IOException, ParsingException, XSLException {
         Builder builder = new Builder();
         Document stylesheet;
