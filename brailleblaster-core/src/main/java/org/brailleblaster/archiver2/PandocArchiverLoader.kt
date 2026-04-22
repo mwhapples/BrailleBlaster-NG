@@ -107,18 +107,17 @@ object PandocArchiverLoader : ArchiverFactory.FileLoader {
                 .redirectErrorStream(true)
                 .redirectOutput(outFile)
             pb.environment()["PANDOCCMD"] = PANDOC_CMD
-            var logStr = "\n***** PandocArchiverLoader *****\n"
-            logStr = """
-                $logStr${pb.command()}
-                
+            log.debug(
+                """
+                    ***** PandocArchiverLoader *****
+                    ${pb.command()}
+                    
+                    input file:$filename
+                    output file:$newFilename
+                    
+                    ********************************
                 """.trimIndent()
-            logStr = """
-                ${logStr}input file:$filename
-                output file:$newFilename
-                
-                """.trimIndent()
-            logStr = "$logStr********************************\n"
-            log.debug(logStr)
+            )
             val proc = pb.start()
             val status = proc.waitFor()
             log.debug("***** pandoc done *****\n")

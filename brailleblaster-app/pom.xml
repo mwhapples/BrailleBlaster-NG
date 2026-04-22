@@ -31,6 +31,13 @@
         </dependency>
         <dependency>
             <groupId>org.brailleblaster</groupId>
+            <artifactId>brailleblaster-core</artifactId>
+            <version>${project.version}</version>
+            <type>zip</type>
+            <classifier>main-dist</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.brailleblaster</groupId>
             <artifactId>brailleblaster-debug-tools</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
@@ -87,71 +94,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
-                <version>3.5.0</version>
                 <configuration>
                     <filesets>
                         <fileset>
                             <directory>${build.dist.directory}</directory>
                         </fileset>
                     </filesets>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.5.0</version>
-                <executions>
-                    <execution>
-                        <id>Copy dist directory</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${build.dist.directory}</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${basedir}/src/dist</directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>buildnumber-maven-plugin</artifactId>
-                <version>${buildnumbermavenplugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>create-about-properties</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>create-metadata</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <outputDirectory>${build.dist.directory}</outputDirectory>
-                    <outputName>about.properties</outputName>
-                    <timestampPropertyName>app.build-date</timestampPropertyName>
-                    <timestampFormat>yyyy-MM-dd HH:mm:ss</timestampFormat>
-                    <revisionPropertyName>app.build-hash</revisionPropertyName>
-                    <applicationPropertyName>app.display-name</applicationPropertyName>
-                    <applicationName>${project.parent.name}</applicationName>
-                    <versionPropertyName>app.version</versionPropertyName>
-                    <version>${revision}</version>
-                    <properties>
-                        <app.fsname>${project.build.finalName}</app.fsname>
-                        <app.description>${project.description}</app.description>
-                        <app.vendor>${project.organization.name}</app.vendor>
-                        <app.website-url>${project.url}</app.website-url>
-                        <app.vcs-url>${project.scm.url}</app.vcs-url>
-                        <app.site.base-url>${project.distributionManagement.downloadUrl}</app.site.base-url>
-                        <app.vendor-fsname>${app.vendor-fsname}</app.vendor-fsname>
-                        <app.rdns-name>${app.rdns-name}</app.rdns-name>
-                        <app.contact-email>${app.contact-email}</app.contact-email>
-                    </properties>
                 </configuration>
             </plugin>
             <plugin>
@@ -179,96 +127,6 @@
                             <overwrite>true</overwrite>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>install-pandoc-win-x64</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>wget</goal>
-                        </goals>
-                        <configuration>
-                            <url>https://github.com/jgm/pandoc/releases/download/${pandoc.version}/pandoc-${pandoc.version}-windows-x86_64.zip</url>
-                            <unpack>true</unpack>
-                            <includes>
-                                <include>**/pandoc.exe</include>
-                            </includes>
-                            <fileMappers>
-                                <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
-                            </fileMappers>
-                            <outputDirectory>${build.dist.native.directory}/windows-x86_64/bin</outputDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>install-pandoc-linux-x64</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>wget</goal>
-                        </goals>
-                        <configuration>
-                            <url>https://github.com/jgm/pandoc/releases/download/${pandoc.version}/pandoc-${pandoc.version}-linux-amd64.tar.gz</url>
-                            <unpack>true</unpack>
-                            <includes>
-                                <include>**/pandoc</include>
-                            </includes>
-                            <fileMappers>
-                                <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
-                            </fileMappers>
-                            <outputDirectory>${build.dist.native.directory}/linux-x86_64/bin</outputDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>install-pandoc-linux-aarch64</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>wget</goal>
-                        </goals>
-                        <configuration>
-                            <url>https://github.com/jgm/pandoc/releases/download/${pandoc.version}/pandoc-${pandoc.version}-linux-arm64.tar.gz</url>
-                            <unpack>true</unpack>
-                            <includes>
-                                <include>**/pandoc</include>
-                            </includes>
-                            <fileMappers>
-                                <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
-                            </fileMappers>
-                            <outputDirectory>${build.dist.native.directory}/linux-aarch64/bin</outputDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>install-pandoc-mac-x64</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>wget</goal>
-                        </goals>
-                        <configuration>
-                            <url>https://github.com/jgm/pandoc/releases/download/${pandoc.version.mac}/pandoc-${pandoc.version.mac}-x86_64-macOS.zip</url>
-                            <unpack>true</unpack>
-                            <includes>
-                                <include>**/pandoc</include>
-                            </includes>
-                            <fileMappers>
-                                <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
-                            </fileMappers>
-                            <outputDirectory>${build.dist.native.directory}/mac-x86_64/bin</outputDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>install-pandoc-mac-aarch64</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>wget</goal>
-                        </goals>
-                        <configuration>
-                            <url>https://github.com/jgm/pandoc/releases/download/${pandoc.version.mac}/pandoc-${pandoc.version.mac}-arm64-macOS.zip</url>
-                            <unpack>true</unpack>
-                            <includes>
-                                <include>**/pandoc</include>
-                            </includes>
-                            <fileMappers>
-                                <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
-                            </fileMappers>
-                            <outputDirectory>${build.dist.native.directory}/mac-aarch64/bin</outputDirectory>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -287,21 +145,13 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>com.github.aphtech</groupId>
-                                    <artifactId>jlouis</artifactId>
-                                    <version>${jlouis.version}</version>
+                                    <groupId>org.brailleblaster</groupId>
+                                    <artifactId>brailleblaster-core</artifactId>
                                     <type>zip</type>
-                                    <classifier>tables</classifier>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>onl.mdw</groupId>
-                                    <artifactId>mathcat4j-jni</artifactId>
-                                    <version>${mathcat4j-jni.version}</version>
-                                    <type>zip</type>
-                                    <classifier>rules</classifier>
+                                    <classifier>main-dist</classifier>
                                 </artifactItem>
                             </artifactItems>
-                            <outputDirectory>${build.dist.directory}/programData</outputDirectory>
+                            <outputDirectory>${build.dist.directory}</outputDirectory>
                         </configuration>
                     </execution>
                     <!-- Copy all SWT platform jars to dist/lib/$os-$arch to be autoloaded by BBBootsrap -->
@@ -374,7 +224,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.5.0</version>
                 <configuration>
                     <outputDirectory>${build.dist.directory}</outputDirectory>
                     <archive>
