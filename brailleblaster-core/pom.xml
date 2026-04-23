@@ -231,7 +231,6 @@
             <plugin>
                 <groupId>io.github.download-maven-plugin</groupId>
                 <artifactId>download-maven-plugin</artifactId>
-                <version>${downloadmavenplugin.version}</version>
                 <executions>
                     <execution>
                         <id>install-pandoc-win-x64</id>

@@ -80,7 +80,6 @@ child.project.url.inherit.append.path="false">
         <jsoup.version>1.22.2</jsoup.version>
         <xom.version>1.4.0</xom.version>
         <requiremaven.version>3.6.3</requiremaven.version>
-        <downloadmavenplugin.version>2.1.0</downloadmavenplugin.version>
         <equalsverifier.version>4.3.1</equalsverifier.version>
         <mockitocore.version>5.23.0</mockitocore.version>
         <orgeclipseswtbotswtfinder.version>f5b2edaee2</orgeclipseswtbotswtfinder.version>
@@ -689,6 +688,11 @@ child.project.url.inherit.append.path="false">
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
                     <version>3.6.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>download-maven-plugin</artifactId>
+                    <version>2.1.0</version>
+                    <groupId>io.github.download-maven-plugin</groupId>
                 </plugin>
                 <!--This plugin's configuration is used to store Eclipse m2e settings
                     only. It has no influence on the Maven build itself. -->
