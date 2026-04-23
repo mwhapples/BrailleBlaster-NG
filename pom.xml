@@ -80,14 +80,9 @@ child.project.url.inherit.append.path="false">
         <jsoup.version>1.22.2</jsoup.version>
         <xom.version>1.4.0</xom.version>
         <requiremaven.version>3.6.3</requiremaven.version>
-        <buildnumbermavenplugin.version>3.3.0</buildnumbermavenplugin.version>
-        <mavendependencyplugin.version>3.10.0</mavendependencyplugin.version>
-        <mavensurefireplugin.version>3.5.5</mavensurefireplugin.version>
-        <mavencompilerplugin.version>3.14.0</mavencompilerplugin.version>
         <downloadmavenplugin.version>2.1.0</downloadmavenplugin.version>
         <equalsverifier.version>4.3.1</equalsverifier.version>
         <mockitocore.version>5.23.0</mockitocore.version>
-        <mavenenforcerplugin.version>3.0.0-M3</mavenenforcerplugin.version>
         <orgeclipseswtbotswtfinder.version>f5b2edaee2</orgeclipseswtbotswtfinder.version>
 
         <pandoc.version>3.6.4</pandoc.version>
@@ -567,7 +562,6 @@ child.project.url.inherit.append.path="false">
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${mavencompilerplugin.version}</version>
                 <configuration>
                     <release>${maven.compiler.release}</release>
                     <showWarnings>true</showWarnings>
@@ -611,7 +605,6 @@ child.project.url.inherit.append.path="false">
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>${mavenenforcerplugin.version}</version>
                 <executions>
                     <execution>
                         <id>enforce-dependencies</id>
@@ -662,6 +655,41 @@ child.project.url.inherit.append.path="false">
         </plugins>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>3.5.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.5.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.5.5</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.15.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>buildnumber-maven-plugin</artifactId>
+                    <version>3.3.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>3.10.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>3.6.2</version>
+                </plugin>
                 <!--This plugin's configuration is used to store Eclipse m2e settings
                     only. It has no influence on the Maven build itself. -->
                 <plugin>

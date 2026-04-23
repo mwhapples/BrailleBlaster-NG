@@ -95,7 +95,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${mavensurefireplugin.version}</version>
                 <configuration>
                     <systemPropertyVariables>
                         <polyglot.engine.WarnInterpreterOnly>false</polyglot.engine.WarnInterpreterOnly>
@@ -109,7 +108,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>${mavendependencyplugin.version}</version>
                 <executions>
                     <!-- Unpack liblouis tables to build/data/liblouis/tables -->
                     <execution>
@@ -158,7 +156,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>buildnumber-maven-plugin</artifactId>
-                <version>${buildnumbermavenplugin.version}</version>
                 <executions>
                     <execution>
                         <id>create-utd-build-props</id>

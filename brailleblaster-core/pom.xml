@@ -196,7 +196,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>buildnumber-maven-plugin</artifactId>
-                <version>${buildnumbermavenplugin.version}</version>
                 <executions>
                     <execution>
                         <id>create-about-properties</id>
