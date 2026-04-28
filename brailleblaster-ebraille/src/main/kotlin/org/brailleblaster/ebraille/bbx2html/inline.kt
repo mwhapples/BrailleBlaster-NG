@@ -49,4 +49,4 @@ private fun Element.processEmphasis(): org.jsoup.nodes.Node = when(getAttributeV
     else -> org.jsoup.nodes.Element("em")
 }.appendChildren(childNodes.flatMap { it.processContent() })
 
-fun Element.processMathML(): org.jsoup.nodes.Element = org.jsoup.nodes.Element("span").attr("class", "math").appendChildren(childNodes.flatMap { it.processContent() })
+private fun Element.processMathML(): org.jsoup.nodes.Element = org.jsoup.nodes.Element("span").attr("class", "math").appendChildren(childNodes.flatMap { it.processContent() })
