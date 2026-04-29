@@ -21,15 +21,18 @@ import org.brailleblaster.bbx.BBX
 import org.brailleblaster.ebraille.asciiToEbraille
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utils.xml.BB_NS
+import org.brailleblaster.utils.xml.UTD_NS
 import org.brailleblaster.utils.xom.childNodes
 
 internal fun Element.processContent(): Collection<org.jsoup.nodes.Node> = when {
-    UTDElements.BRL.isA(this) -> listOf(org.jsoup.nodes.TextNode(asciiToEbraille(this.value)))
+    UTDElements.BRL.isA(this) || isTableBrl(this) -> listOf(org.jsoup.nodes.TextNode(asciiToEbraille(this.value)))
     BBX.SPAN.PAGE_NUM.isA(this) -> listOf(this.processPageNum())
     BBX.INLINE.MATHML.isA(this) -> listOf(this.processMathML())
     BBX.INLINE.EMPHASIS.isA(this) -> listOf(this.processEmphasis())
     else -> childNodes.flatMap { it.processContent() }
 }
+
+private fun isTableBrl(node: Node): Boolean = node is Element && node.namespaceURI == UTD_NS && node.localName == "tablebrl"
 
 internal fun Node.processContent(): Collection<org.jsoup.nodes.Node> = when(this) {
     is Element -> this.processContent()

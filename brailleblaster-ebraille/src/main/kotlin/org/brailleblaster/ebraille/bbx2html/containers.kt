@@ -20,11 +20,14 @@ import org.brailleblaster.bbx.BBX
 import org.brailleblaster.ebraille.ListItem
 import org.brailleblaster.ebraille.toHtml
 import org.brailleblaster.utils.xml.BB_NS
+import org.brailleblaster.utils.xml.UTD_NS
+import org.brailleblaster.utils.xom.childNodes
 import org.jsoup.nodes.Node
 
 internal fun Element.processContainer(): Collection<Node> = when (BBX.CONTAINER.getSubType(this)) {
     BBX.CONTAINER.BOX -> listOf(processBox())
     BBX.CONTAINER.LIST -> listOf(processList())
+    BBX.CONTAINER.TABLE -> processTable()
     else -> processChildren()
 }
 
@@ -42,3 +45,9 @@ private fun Element.processList(): org.jsoup.nodes.Element =
             level = 0,
             containerFactory = { org.jsoup.nodes.Element("ul").attr("style", "list-style-type: none") }
         ) { it.element.processBlock() }
+
+private fun Element.processTable(): List<org.jsoup.nodes.Element> = if (getAttributeValue("tableCopy", UTD_NS) == "true") {
+    listOf()
+} else {
+    listOf(org.jsoup.nodes.Element("table").appendChildren(childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.map { r -> org.jsoup.nodes.Element("tr").appendChildren(r.childElements.filter { BBX.BLOCK.TABLE_CELL.isA(it) }.map { c -> org.jsoup.nodes.Element("td").appendChildren(c.processContent())}) }))
+}
