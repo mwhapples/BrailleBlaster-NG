@@ -49,5 +49,10 @@ private fun Element.processList(): org.jsoup.nodes.Element =
 private fun Element.processTable(): List<org.jsoup.nodes.Element> = if (getAttributeValue("tableCopy", UTD_NS) == "true") {
     listOf()
 } else {
-    listOf(org.jsoup.nodes.Element("table").appendChildren(childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.map { r -> org.jsoup.nodes.Element("tr").appendChildren(r.childElements.filter { BBX.BLOCK.TABLE_CELL.isA(it) }.map { c -> org.jsoup.nodes.Element("td").appendChildren(c.processContent())}) }))
+    listOf(org.jsoup.nodes.Element("table").also {
+        val tableFormat = getAttributeValue("format")
+        if (tableFormat in listOf("listed", "stairstep", "linear")) {
+            it.attr("class", tableFormat)
+        }
+    }.appendChildren(childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.map { r -> org.jsoup.nodes.Element("tr").appendChildren(r.childElements.filter { BBX.BLOCK.TABLE_CELL.isA(it) }.map { c -> org.jsoup.nodes.Element("td").appendChildren(c.processContent())}) }))
 }
