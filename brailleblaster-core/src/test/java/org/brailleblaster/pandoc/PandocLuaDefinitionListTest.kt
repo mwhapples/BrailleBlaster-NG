@@ -39,14 +39,12 @@ import java.nio.charset.StandardCharsets
  */
 class PandocLuaDefinitionListTest {
     private lateinit var pandocCmd: String
-    private lateinit var luaDir: String
+    private val luaDir: String by lazy { programDataPath.resolve("pandoc").resolve("lua").toString() }
 
     @BeforeClass
     fun init() {
         BookToBBXConverter.devSetup(arrayOf())
         pandocCmd = PANDOC_CMD
-        val pandocDir = programDataPath.resolve("pandoc")
-        luaDir = pandocDir.resolve("lua").toString()
     }
 
     /**
