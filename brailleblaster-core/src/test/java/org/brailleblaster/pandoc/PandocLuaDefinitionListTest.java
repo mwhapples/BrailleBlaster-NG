@@ -21,7 +21,6 @@ import nu.xom.Nodes;
 import org.brailleblaster.BBIni;
 import org.brailleblaster.bbx.BookToBBXConverter;
 import org.brailleblaster.util.PanDocKt;
-import org.brailleblaster.utils.xml.NamespacesKt;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -30,6 +29,8 @@ import java.io.FileWriter;
 import java.nio.file.Path;
 
 import static org.testng.Assert.*;
+
+import static org.brailleblaster.utils.xml.NamespacesKt.BB_NS;
 
 /**
  * Tests that the bbx.lua Pandoc custom writer correctly converts HTML
@@ -44,14 +45,12 @@ public class PandocLuaDefinitionListTest {
 
     private String pandocCmd;
     private String luaDir;
-    // BB_NS is a Kotlin const val — accessed as a static field from Java
-    private static final String BB_NS = NamespacesKt.BB_NS;
 
     @BeforeClass
     public void init() {
         BookToBBXConverter.devSetup(new String[0]);
         pandocCmd = PanDocKt.getPANDOC_CMD();
-        Path pandocDir = BBIni.INSTANCE.getProgramDataPath().resolve("pandoc");
+        Path pandocDir = BBIni.getProgramDataPath().resolve("pandoc");
         luaDir = pandocDir.resolve("lua").toString();
     }
 
@@ -97,8 +96,7 @@ public class PandocLuaDefinitionListTest {
         Nodes nodes = doc.query(
                 "//*[local-name()='CONTAINER' and @*[local-name()='listType']='DEFINITION']"
         );
-        assertFalse(nodes.size() == 0,
-                "No DEFINITION list container found in BBX output:\n" + doc.toXML());
+        assertNotEquals(nodes.size(), 0, "No DEFINITION list container found in BBX output:\n" + doc.toXML());
         return (Element) nodes.get(0);
     }
 
