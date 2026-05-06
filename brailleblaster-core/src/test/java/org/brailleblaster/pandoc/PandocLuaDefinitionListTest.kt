@@ -38,13 +38,11 @@ import java.nio.charset.StandardCharsets
  * (term is the map key), not as {term_string, defs_table} (numeric indices).
  */
 class PandocLuaDefinitionListTest {
-    private lateinit var pandocCmd: String
     private val luaDir: String by lazy { programDataPath.resolve("pandoc").resolve("lua").toString() }
 
     @BeforeClass
     fun init() {
         BookToBBXConverter.devSetup(arrayOf())
-        pandocCmd = PANDOC_CMD
     }
 
     /**
@@ -62,13 +60,13 @@ class PandocLuaDefinitionListTest {
         bbxFile.deleteOnExit()
 
         val pb = ProcessBuilder(
-            pandocCmd,
+            PANDOC_CMD,
             "--from=html+empty_paragraphs",
             "--to=bbx.lua",
             "--output=" + bbxFile.absolutePath,
             htmlFile.absolutePath
         ).directory(File(luaDir))
-        pb.environment()["PANDOCCMD"] = pandocCmd
+        pb.environment()["PANDOCCMD"] = PANDOC_CMD
         pb.redirectErrorStream(true)
 
         val proc = pb.start()
