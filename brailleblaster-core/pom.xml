@@ -196,7 +196,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>buildnumber-maven-plugin</artifactId>
-                <version>${buildnumbermavenplugin.version}</version>
                 <executions>
                     <execution>
                         <id>create-about-properties</id>
@@ -232,7 +231,6 @@
             <plugin>
                 <groupId>io.github.download-maven-plugin</groupId>
                 <artifactId>download-maven-plugin</artifactId>
-                <version>${downloadmavenplugin.version}</version>
                 <executions>
                     <execution>
                         <id>copy-docs</id>

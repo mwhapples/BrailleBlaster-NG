@@ -440,15 +440,22 @@ open class SimpleTableFormatter : Formatter() {
                 if (colNum != 0 || !hasHeading) {
                     curPageBuilder.y = startingY
                 }
-                if (colNum != numOfCols - 1 && numOfCols > 1 || colNum == numOfCols - 1 && hasEndingGuideDots) {
+                
+// Fixes last column guide dots not showing up.
+// should work for all columns now.
+                val isLastCol = colNum == numOfCols - 1
+                if (!isLastCol && numOfCols > 1 || isLastCol && (hasEndingGuideDots || col.text.isEmpty())) {
                     val startOfCol = calculateXPos(colNum, widths) + col.textLength.coerceAtMost(2)
                     if (startOfCol < curPageBuilder.cellsPerLine) {
                         curPageBuilder.x = startOfCol
-                        val endOfCol =
-                            if (colNum == numOfCols - 1) startOfCol + widths[colNum] - cellsBetweenCols else calculateXPos(
-                                colNum + 1,
-                                widths
-                            ) - cellsBetweenCols
+                        val endOfCol = when {
+                            !isLastCol -> calculateXPos(colNum + 1, widths) - cellsBetweenCols
+                            // Facing-pages: guide dots extend to the right margin (§11.13k)
+                            hasEndingGuideDots -> startOfCol + widths[colNum] - cellsBetweenCols
+                            // Regular table last column: fill the full column width
+                            else -> calculateXPos(colNum, widths) + widths[colNum]
+                        }
+                        
                         val guideDot = if (formatSelector.engine.brailleSettings.isUseAsciiBraille) '"' else '\u2810'
                         //If cell is empty, fill column with guide dots
                         val dotsElement = if (col.text.isEmpty()) curPageBuilder.fillSpace(
