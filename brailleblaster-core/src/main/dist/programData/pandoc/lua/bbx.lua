@@ -430,7 +430,7 @@ end
 function BlockQuote(s)
   local t = LineBreak(2)
   t = t .. '<BLOCK utd:overrideStyle="Displayed Blocked Text" '
-  t = t .. 'bb:type="STYLE">' .. s .. '</BLOCK>' .. LineBreak(1)
+  t = t .. 'bb:type="STYLE">' .. escape(s) .. '</BLOCK>' .. LineBreak(1)
   return t
 end
 
