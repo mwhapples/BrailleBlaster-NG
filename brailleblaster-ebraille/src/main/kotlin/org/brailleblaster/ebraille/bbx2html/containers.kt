@@ -21,12 +21,12 @@ import org.brailleblaster.ebraille.ListItem
 import org.brailleblaster.ebraille.toHtml
 import org.brailleblaster.utils.xml.BB_NS
 import org.brailleblaster.utils.xml.UTD_NS
-import org.brailleblaster.utils.xom.childNodes
 import org.jsoup.nodes.Node
 
 internal fun Element.processContainer(): Collection<Node> = when (BBX.CONTAINER.getSubType(this)) {
     BBX.CONTAINER.BOX -> listOf(processBox())
     BBX.CONTAINER.LIST -> listOf(processList())
+    BBX.CONTAINER.TABLETN -> listOf()
     BBX.CONTAINER.TABLE -> processTable()
     else -> processChildren()
 }
