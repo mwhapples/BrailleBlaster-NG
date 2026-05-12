@@ -21,6 +21,7 @@ import org.brailleblaster.ebraille.ListItem
 import org.brailleblaster.ebraille.toHtml
 import org.brailleblaster.utils.xml.BB_NS
 import org.brailleblaster.utils.xml.UTD_NS
+import org.brailleblaster.utils.xom.previousSibling
 import org.jsoup.nodes.Node
 
 internal fun Element.processContainer(): Collection<Node> = when (BBX.CONTAINER.getSubType(this)) {
@@ -58,17 +59,37 @@ private fun Element.processTable(): List<org.jsoup.nodes.Element> = if (getAttri
         childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.take(1).let { firstRow ->
             when (tableFormat) {
                 "simple" -> {
-                    firstRow.processTableRow(if (getAttributeValue("columnHeading") == "false") "td" else "th")
+                    firstRow.processTableRows(if (getAttributeValue("columnHeading") == "false") "td" else "th")
                 }
                 "listed" -> {
-                    firstRow.processTableRow("th")
+                    firstRow.processTableRows("th")
+                }
+                "stairstep" -> {
+                    headerRowFromStairStepTableTN(this) + (firstRow.processTableRows())
+                }
+                "linear" -> {
+                    firstRow.processTableRows()
                 }
                 else -> {
-                    firstRow.processTableRow()
+                    firstRow.processTableRows()
                 }
             }
-        } + (childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.drop(1).processTableRow())
+        } + (childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.drop(1).processTableRows())
     ))
 }
 
-private fun Iterable<Element>.processTableRow(cellTag: String = "td"): List<org.jsoup.nodes.Element> = map { r -> org.jsoup.nodes.Element("tr").appendChildren(r.childElements.filter { BBX.BLOCK.TABLE_CELL.isA(it) }.map { c -> org.jsoup.nodes.Element(cellTag).appendChildren(c.processContent())}) }
+private fun Iterable<Element>.processTableRows(cellTag: String = "td"): List<org.jsoup.nodes.Element> = map { r -> org.jsoup.nodes.Element("tr").appendChildren(r.childElements.filter { BBX.BLOCK.TABLE_CELL.isA(it) }.map { c -> org.jsoup.nodes.Element(cellTag).appendChildren(c.processContent())}) }
+
+private fun headerRowFromStairStepTableTN(table: Element): List<org.jsoup.nodes.Element> {
+    return (table.previousSibling { it is Element } as? Element)?.let { e ->
+        if (BBX.CONTAINER.TABLETN.isA(e)) {
+            listOf(
+                org.jsoup.nodes.Element("tr").appendChildren(
+                    e.childElements.filter { BBX.BLOCK.isA(it) }.drop(1)
+                    .map { org.jsoup.nodes.Element("th").appendChildren(it.processContent()) })
+            )
+        } else {
+            listOf()
+        }
+    } ?: listOf()
+}
