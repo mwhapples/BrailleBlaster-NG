@@ -68,7 +68,7 @@ private fun Element.processTable(): List<org.jsoup.nodes.Element> = if (getAttri
                     headerRowFromStairStepTableTN(this) + (firstRow.processTableRows())
                 }
                 "linear" -> {
-                    firstRow.processTableRows()
+                    headerRowFromLinearTableTN(this) + (firstRow.processTableRows())
                 }
                 else -> {
                     firstRow.processTableRows()
@@ -87,6 +87,19 @@ private fun headerRowFromStairStepTableTN(table: Element): List<org.jsoup.nodes.
                 org.jsoup.nodes.Element("tr").appendChildren(
                     e.childElements.filter { BBX.BLOCK.isA(it) }.drop(1)
                     .map { org.jsoup.nodes.Element("th").appendChildren(it.processContent()) })
+            )
+        } else {
+            listOf()
+        }
+    } ?: listOf()
+
+private fun headerRowFromLinearTableTN(table: Element): List<org.jsoup.nodes.Element> =
+    (table.previousSibling { it is Element } as? Element)?.let { e ->
+        if (BBX.CONTAINER.TABLETN.isA(e)) {
+            listOf(
+                org.jsoup.nodes.Element("tr").appendChildren(
+                    e.childElements.filter { BBX.BLOCK.isA(it) }.takeLast(1).flatMap { b -> b.childElements.filter { BBX.SPAN.OTHER.isA(it) }.map { org.jsoup.nodes.Element("th").appendChildren(it.processContent()) } }
+                        )
             )
         } else {
             listOf()
