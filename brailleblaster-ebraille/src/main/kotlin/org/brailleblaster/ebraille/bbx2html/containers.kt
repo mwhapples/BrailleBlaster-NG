@@ -80,8 +80,8 @@ private fun Element.processTable(): List<org.jsoup.nodes.Element> = if (getAttri
 
 private fun Iterable<Element>.processTableRows(cellTag: String = "td"): List<org.jsoup.nodes.Element> = map { r -> org.jsoup.nodes.Element("tr").appendChildren(r.childElements.filter { BBX.BLOCK.TABLE_CELL.isA(it) }.map { c -> org.jsoup.nodes.Element(cellTag).appendChildren(c.processContent())}) }
 
-private fun headerRowFromStairStepTableTN(table: Element): List<org.jsoup.nodes.Element> {
-    return (table.previousSibling { it is Element } as? Element)?.let { e ->
+private fun headerRowFromStairStepTableTN(table: Element): List<org.jsoup.nodes.Element> =
+    (table.previousSibling { it is Element } as? Element)?.let { e ->
         if (BBX.CONTAINER.TABLETN.isA(e)) {
             listOf(
                 org.jsoup.nodes.Element("tr").appendChildren(
@@ -92,4 +92,3 @@ private fun headerRowFromStairStepTableTN(table: Element): List<org.jsoup.nodes.
             listOf()
         }
     } ?: listOf()
-}
