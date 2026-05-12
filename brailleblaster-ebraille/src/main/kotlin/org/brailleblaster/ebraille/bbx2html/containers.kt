@@ -55,15 +55,17 @@ private fun Element.processTable(): List<org.jsoup.nodes.Element> = if (getAttri
             it.attr("class", tableFormat)
         }
     }.appendChildren(
-        when (tableFormat) {
-            "simple" -> {
-                childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.take(1).processTableRow(if (getAttributeValue("columnHeading") == "false") "td" else "th")
-            }
-            "listed" -> {
-                childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.take(1).processTableRow("th")
-            }
-            else -> {
-                childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.take(1).processTableRow()
+        childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.take(1).let { firstRow ->
+            when (tableFormat) {
+                "simple" -> {
+                    firstRow.processTableRow(if (getAttributeValue("columnHeading") == "false") "td" else "th")
+                }
+                "listed" -> {
+                    firstRow.processTableRow("th")
+                }
+                else -> {
+                    firstRow.processTableRow()
+                }
             }
         } + (childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.drop(1).processTableRow())
     ))
