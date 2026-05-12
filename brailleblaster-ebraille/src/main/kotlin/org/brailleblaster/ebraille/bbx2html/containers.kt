@@ -54,11 +54,19 @@ private fun Element.processTable(): List<org.jsoup.nodes.Element> = if (getAttri
         if (tableFormat in listOf("listed", "stairstep", "linear")) {
             it.attr("class", tableFormat)
         }
-    }.appendChildren(if (tableFormat in listOf("simple", "listed")) {
-        childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.take(1).processTableRow("th")
-    } else {
-        childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.take(1).processTableRow()
-    }  + (childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.drop(1).processTableRow())))
+    }.appendChildren(
+        when (tableFormat) {
+            "simple" -> {
+                childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.take(1).processTableRow(if (getAttributeValue("columnHeading") == "false") "td" else "th")
+            }
+            "listed" -> {
+                childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.take(1).processTableRow("th")
+            }
+            else -> {
+                childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.take(1).processTableRow()
+            }
+        } + (childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.drop(1).processTableRow())
+    ))
 }
 
 private fun Iterable<Element>.processTableRow(cellTag: String = "td"): List<org.jsoup.nodes.Element> = map { r -> org.jsoup.nodes.Element("tr").appendChildren(r.childElements.filter { BBX.BLOCK.TABLE_CELL.isA(it) }.map { c -> org.jsoup.nodes.Element(cellTag).appendChildren(c.processContent())}) }
