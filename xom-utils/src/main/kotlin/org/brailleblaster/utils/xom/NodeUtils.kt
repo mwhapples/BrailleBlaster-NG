@@ -71,3 +71,11 @@ val Element.attributes: Set<Attribute>
     get() = AttributeSet(this)
 
 fun Iterable<Node>.detachAll() = this.reversed().forEach { it.detach() }
+
+fun Node.previousSibling(predicate: (Node) -> Boolean = { true }): Node? = parent?.let { p ->
+    (p.indexOf(this) downTo 0).drop(1).map { p.getChild(it)!! }.firstOrNull(predicate)
+}
+
+fun Node.nextSibling(predicate: (Node) -> Boolean = { true }): Node? = parent?.let { p ->
+    (p.indexOf(this) ..< p.childCount).drop(1).map { p.getChild(it)!! }.firstOrNull(predicate)
+}
