@@ -55,8 +55,10 @@ private fun Element.processTable(): List<org.jsoup.nodes.Element> = if (getAttri
             it.attr("class", tableFormat)
         }
     }.appendChildren(if (tableFormat in listOf("simple", "listed")) {
-        childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.take(1).map { r -> org.jsoup.nodes.Element("tr").appendChildren(r.childElements.filter { BBX.BLOCK.TABLE_CELL.isA(it) }.map { c -> org.jsoup.nodes.Element("th").appendChildren(c.processContent())}) } + (childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.drop(1).map { r -> org.jsoup.nodes.Element("tr").appendChildren(r.childElements.filter { BBX.BLOCK.TABLE_CELL.isA(it) }.map { c -> org.jsoup.nodes.Element("td").appendChildren(c.processContent())}) })
+        childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.take(1).processTableRow("th")
     } else {
-        childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.map { r -> org.jsoup.nodes.Element("tr").appendChildren(r.childElements.filter { BBX.BLOCK.TABLE_CELL.isA(it) }.map { c -> org.jsoup.nodes.Element("td").appendChildren(c.processContent())}) }
-    }))
+        childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.take(1).processTableRow()
+    }  + (childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.drop(1).processTableRow())))
 }
+
+private fun Iterable<Element>.processTableRow(cellTag: String = "td"): List<org.jsoup.nodes.Element> = map { r -> org.jsoup.nodes.Element("tr").appendChildren(r.childElements.filter { BBX.BLOCK.TABLE_CELL.isA(it) }.map { c -> org.jsoup.nodes.Element(cellTag).appendChildren(c.processContent())}) }
