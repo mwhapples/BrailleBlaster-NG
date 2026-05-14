@@ -436,10 +436,11 @@ open class SimpleTableFormatter : Formatter() {
             endingY = endingY.coerceAtLeast(curPageBuilder.y)
             col.y = startingY
             col.height = endingY - startingY
+            
+            if (colNum != 0 || !hasHeading) {
+                curPageBuilder.y = startingY
+            }
             if (guideDotsEnabled) {
-                if (colNum != 0 || !hasHeading) {
-                    curPageBuilder.y = startingY
-                }
                 
 // Fixes last column guide dots not showing up.
 // should work for all columns now.
