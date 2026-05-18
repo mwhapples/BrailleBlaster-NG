@@ -1,0 +1,2642 @@
+<!DOCTYPE dtbook PUBLIC "-//NISO//DTD dtbook 2005-3//EN" "http://www.daisy.org/z3986/2005/dtbook-2005-3.dtd">                     		 	 	  	  
+<dtbook xmlns="http://www.daisy.org/z3986/2005/dtbook/" version="2005-3" xml:lang="En-US">
+<head/>
+<book><!--NIMAC Tracking ID="000006A4" Hash="577837209"-->
+<frontmatter>
+<doctitle>Inspire Science, Grade 3, Unit 3: Different Environments</doctitle>
+<level1 id="NIMAS9780076996285-lev1-001">
+<pagenum id="pOFC" page="special"/>
+<h1>Inspire Science, Grade 3, Unit 3: Different Environments</h1>
+<p><strong>Student Edition</strong></p>
+<p><img id="NIMAS9780076996285-img-001" src="./images/u00/pOFC_001.jpg" alt="A photograph of a sea lion swimming in the water."/></p>
+<p><img id="NIMAS9780076996285-img-002" src="./images/u00/pOFC_002.jpg" alt="A photograph of a leaf cutter ant on top and the illustration of paths of ant in underground is depicted at the bottom."/></p>
+<p><img id="NIMAS9780076996285-img-003" src="./images/thruout/mcgrawhill_icon.jpg" alt=""/></p>
+<pagenum id="pi" page="front"/>
+<p><strong>Grade 3 &#x2022; Unit 3</strong></p>
+<p><strong>Inspire Science Different Environments</strong></p>
+<p><img id="NIMAS9780076996285-img-004" src="./images/thruout/mcgrawhill_icon.jpg" alt=""/></p>
+<pagenum id="pii" page="front"/>
+<p><strong>FRONT COVER:</strong> (t)Andrea Izzotti/Shutterstock, (b)Dr Morley Read/Shutterstock</p>
+<p><strong><a href="http://Mheducation.com/prek-12" external="true">Mheducation.com/prek-12</a></strong></p>
+<p><img id="NIMAS9780076996285-img-005" src="./images/thruout/mcgrawhill_icon.jpg" alt=""/></p>
+<p><span class="copyright">Copyright &#x00A9; 2020 McGraw-Hill Education</span></p>
+<p>All rights reserved. No part of this publication may be reproduced or distributed in any form or by any means, or stored in a database or retrieval system, without the prior written consent of McGraw-Hill Education, including, but not limited to, network storage or transmission, or broadcast for distance learning.</p>
+<p><strong>STEM</strong> McGraw-Hill is committed to providing instructional materials in Science, Technology, Engineering, and Mathematics (STEM) that give all students a solid foundation, one that prepares them for college and careers in the 21st century.</p>
+<p>Send all inquiries to:<br/>McGraw-Hill Education<br/>8787 Orion Place<br/>Columbus, OH 43240</p>
+<p><span class="isbn">ISBN: 978-0-07-699628-5</span><br/><span class="isbn">MHID: 0-07-699628-X</span></p>
+<p><span class="pubprint">Printed in the United States of America.</span></p>
+<p><span class="catalog">3 4 5 6 7 8 9 10 11 LKV 26 25 24 23 22 21 20 19</span></p>
+<level2 id="NIMAS9780076996285-lev2-001">
+<pagenum id="piii" page="front">iii</pagenum>
+<h2>Table of Contents</h2>
+<p><strong>Unit 3: Different Environments</strong></p>
+<list type="pl">
+<li class="toc-entry"><strong>Survive the Environment</strong>
+<list type="pl">
+<li class="toc-entry">Encounter the Phenomenon</li><li class="toc-page"><a href="#p2">2</a></li>
+<li class="toc-entry">Lesson 1: <strong>Survival of Organisms</strong></li><li class="toc-page"><a href="#p5">5</a>
+<list type="pl">
+<li class="toc-entry">Hands On Plant Hunt</li><li class="toc-page"><a href="#p8">8</a></li>
+<li class="toc-entry">Hands On Needs of Plants</li><li class="toc-page"><a href="#p11">11</a></li>
+</list></li>
+<li class="toc-entry">Lesson 2: <strong>Adaptations and Variations</strong></li><li class="toc-page"><a href="#p23">23</a>
+<list type="pl">
+<li class="toc-entry">Hands On Bird Beak Shapes</li><li class="toc-page"><a href="#p26">26</a></li>
+<li class="toc-entry">Hands On Camouflaged Beans</li><li class="toc-page"><a href="#p31">31</a></li>
+<li class="toc-entry">Hands On Design a Bird</li><li class="toc-page"><a href="#p38">38</a></li>
+</list></li>
+<li class="toc-entry">STEM Module Project Planning</li><li class="toc-page"><a href="#p43">43</a></li>
+<li class="toc-entry">STEM Module Project <strong>Design an Animal&#x0027;s Adaptations</strong></li><li class="toc-page"><a href="#p45">45</a></li>
+<li class="toc-entry">Module Wrap-up</li><li class="toc-page"><a href="#p47">47</a></li>
+</list></li>
+<li class="toc-entry"><strong>Change of Environments</strong>
+<list type="pl">
+<li class="toc-entry">Encounter the Phenomenon</li><li class="toc-page"><a href="#p48">48</a></li>
+<li class="toc-entry">Lesson 1: <strong>Fossils</strong></li><li class="toc-page"><a href="#p51">51</a>
+<list type="pl">
+<li class="toc-entry">Hands On Layers and Fossils, Part 1</li><li class="toc-page"><a href="#p54">54</a></li>
+<li class="toc-entry">Hands On Layers and Fossils, Part 2</li><li class="toc-page"><a href="#p59">59</a></li>
+<li class="toc-entry">Simulations Fossil Dig</li><li class="toc-page"><a href="#p61">61</a></li>
+<li class="toc-entry">Hands On Fossil Mystery</li><li class="toc-page"><a href="#p64">64</a></li>
+</list></li>
+<li class="toc-entry">Lesson 2: <strong>Changes Affect Organisms</strong></li><li class="toc-page"><a href="#p69">69</a>
+<list type="pl">
+<li class="toc-entry">Hands On Changes By Humans</li><li class="toc-page"><a href="#p72">72</a></li>
+<li class="toc-entry">Research Solve for Invasive Species</li><li class="toc-page"><a href="#p81">81</a></li>
+</list></li>
+<li class="toc-entry">STEM Module Project Planning</li><li class="toc-page"><a href="#p85">85</a></li>
+<li class="toc-entry">STEM Module Project <strong>Past, Present, and Future</strong></li><li class="toc-page"><a href="#p88">88</a></li>
+<li class="toc-entry">Module Wrap-Up</li><li class="toc-page"><a href="#p91">91</a></li>
+</list>
+</li>
+</list>
+</level2>
+</level1>
+</frontmatter>
+<bodymatter>
+<level1 id="NIMAS9780076996285-lev1-002" class="unit">
+<pagenum id="p2" page="normal">2</pagenum>
+<h1>Survive the Environment</h1>
+<level2 id="NIMAS9780076996285-lev2-002" class="section">
+<h2>Encounter the Phenomenon</h2>
+<imggroup>
+<img id="NIMAS9780076996285-img-006" src="./images/u03/p002_001.jpg" alt="A photograph of a coyote standing near a hill."/>
+<prodnote imgref="NIMAS9780076996285-img-006" render="optional">Production note: this image crosses the gutter to appear both on page 2 and page 3 in the print version.</prodnote>
+</imggroup>
+<pagenum id="p3" page="normal">3</pagenum>
+<imggroup>
+<img id="NIMAS9780076996285-img-007" src="./images/u03/p003_001.jpg" alt="A photograph of a hill side."/>
+<prodnote imgref="NIMAS9780076996285-img-007" render="optional">Production note: this image crosses the gutter to appear both on page 2 and page 3 in the print version.</prodnote>
+</imggroup>
+<p><strong>ENCOUNTER</strong></p>
+<p><strong>THE PHENOMENON</strong></p>
+<p><strong>How do animals survive in this environment?</strong></p>
+<p><img id="NIMAS9780076996285-img-008" src="./images/u03/p003_002.jpg" alt="An illustration of a video screen labeled &#x201C;Hunting&#x201D;."/></p>
+<sidebar id="NIMAS9780076996285-sidebar-001" render="required">
+<hd><img id="NIMAS9780076996285-img-009" src="./images/thruout/goonlin_icon.jpg" alt=""/> Go Online</hd>
+<p>Check out <em>Hunting</em> to see the phenomenon in action.</p>
+</sidebar>
+<sidebar id="NIMAS9780076996285-sidebar-002" render="required">
+<hd><img id="NIMAS9780076996285-img-010" src="./images/thruout/talk_icon.jpg" alt=""/> Talk About It</hd>
+<p>Look at the photo and watch <em>Hunting.</em> What questions do you have about the phenomenon? Talk about your observations with a partner.</p>
+</sidebar>
+<sidebar id="NIMAS9780076996285-sidebar-003" render="required">
+<hd>Did You Know?</hd>
+<p>Coyotes can run as fast as 40 miles per hour. They also walk on their toes to avoid being detected by predators.</p>
+</sidebar>
+<p><span class="credit"><a href="http://Hit1912/Shutterstock.com" external="true">Hit1912/Shutterstock.com</a></span></p>
+<pagenum id="p4" page="normal">4</pagenum>
+<p><img id="NIMAS9780076996285-img-011" src="./images/thruout/performance_icon.jpg" alt=""/> <strong>STEM Module Project Launch</strong></p>
+<p><strong>Science Challenge</strong></p>
+<p><strong>Design an Animal&#x0027;s Adaptations</strong></p>
+<list type="pl">
+<li class="toc-entry"><p><strong>Lesson 1</strong> Survival of Organisms</p><p><img id="NIMAS9780076996285-img-012" src="./images/u03/p004_001.jpg" alt="A photograph of a bristle cone pine tree."/></p></li>
+<li class="toc-entry"><p><strong>Lesson 2</strong> Adaptations and Variations</p><p><img id="NIMAS9780076996285-img-013" src="./images/u03/p004_002.jpg" alt="A photograph of a quail."/></p></li>
+</list>
+<p>How do some organisms survive in some environments but others cannot? You are being hired as an animal curator. At the end of the module, you will develop a design for a newly discovered animal in a specific habitat. Your goal will be to design and build a model of the animal in its habitat.</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-014" src="./images/u03/p004_003.jpg" alt="A photograph of an animal curator holding an animal."/>
+<caption imgref="NIMAS9780076996285-img-014">Animal curators manage exhibits in aquariums and zoos. They know a lot about the animals and what they need to survive in their environment.</caption>
+</imggroup>
+<imggroup>
+<img id="NIMAS9780076996285-img-015" src="./images/u03/p004_004.jpg" alt="An illustration of an ocean engineer."/>
+<caption imgref="NIMAS9780076996285-img-015"><strong>HIRO</strong><br/>Ocean Engineer</caption>
+<prodnote imgref="NIMAS9780076996285-img-015" render="optional">Production note: captions associated with this image are labels that correspond to text within the image.</prodnote>
+<caption imgref="NIMAS9780076996285-img-015" class="label">What do you think you need to know before you can design a new animal&#x0027;s adaptations?</caption>
+</imggroup>
+<p><img id="NIMAS9780076996285-img-016" src="./images/thruout/performance_icon.jpg" alt=""/> <strong>STEM Module Project</strong></p>
+<p><strong>Plan and Complete the Science Challenge</strong> Use what you learn about adaptations to reach your goal.</p>
+<p><span class="credit">(t)Martin Ruegner/Digital Vision/Getty Images, (bl)NPS Photo, (br)Hugh Ryono</span></p>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-003" class="section">
+<pagenum id="p5" page="normal">5</pagenum>
+<h2>Lesson 1 Survival of Organisms</h2>
+<p><img id="NIMAS9780076996285-img-017" src="./images/thruout/pagekeeley_icon.jpg" alt=""/></p>
+<p><strong>LESSON 1 LAUNCH</strong></p>
+<p><strong>Will the Animals Survive?</strong></p>
+<p><img id="NIMAS9780076996285-img-018" src="./images/u03/p005_001.jpg" alt="An illustration of the deforestation."/></p>
+<p>There is a type of animal that lives in the forest. These animals eat tree nuts and seeds. They find shelter high up in the treetops. Their fur helps them blend in with the bark of the tree. What would happen to these animals if all the trees in the forest were cut down? Circle the answer that best matches your thinking.</p>
+<list type="pl">
+<li><p>A. They would all die.</p></li>
+<li><p>B. Some would survive if they were born with a characteristic that would help them live in the changed environment.</p></li>
+<li><p>C. Some would survive by changing their food, shelter, or fur so they could live in the changed environment.</p></li>
+</list>
+<p>Explain your thinking. Describe what happens to organisms when their environment changes.</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p>You will revisit the Page Keeley Science Probe later in the lesson.</p>
+<pagenum id="p6" page="normal">6</pagenum>
+<p><strong>LESSON 1 Survival of Organisms</strong></p>
+<p><img id="NIMAS9780076996285-img-019" src="./images/u03/p006_001.jpg" alt="A photograph of a bristle cone pine tree."/></p>
+<p><span class="credit">Martin Ruegner/Digital Vision/Getty Images</span></p>
+<pagenum id="p7" page="normal">7</pagenum>
+<p><strong>ENCOUNTER</strong><br/><strong>THE PHENOMENON</strong></p>
+<p><strong>How does the tree survive?</strong></p>
+<p><img id="NIMAS9780076996285-img-020" src="./images/u03/p007_001.jpg" alt="An illustration of a video screen labeled &#x201C;Bristlecone pine trees&#x201D;."/></p>
+<sidebar id="NIMAS9780076996285-sidebar-004" render="required">
+<hd><img id="NIMAS9780076996285-img-021" src="./images/thruout/goonlin_icon.jpg" alt=""/> Go Online</hd>
+<p>Check out <em>Bristlecone Pine Trees</em> to see the phenomenon in action.</p>
+</sidebar>
+<sidebar id="NIMAS9780076996285-sidebar-005" render="required">
+<hd><img id="NIMAS9780076996285-img-022" src="./images/thruout/talk_icon.jpg" alt=""/> Talk About It</hd>
+<p>Look at the photo of the bristlecone pine tree and explore the <em>Bristlecone Pine Trees</em> digital activity. What questions and observations do you have? Talk about them with a partner.</p>
+</sidebar>
+<p><img id="NIMAS9780076996285-img-023" src="./images/u03/p007_002.jpg" alt=""/></p>
+<sidebar id="NIMAS9780076996285-sidebar-006" render="required">
+<hd>Did You Know?</hd>
+<p>The oldest bristlecone pine tree is more than 5,000 years old!</p>
+<p><img id="NIMAS9780076996285-img-024" src="./images/u03/p007_003.jpg" alt="An illustration of a bristle cone pine tree."/></p>
+</sidebar>
+<level3 id="NIMAS9780076996285-lev3-001" class="subsection">
+<pagenum id="p8" page="normal">8</pagenum>
+<p><strong>INQUIRY ACTIVITY</strong></p>
+<h3>Hands On Plant Hunt</h3>
+<sidebar id="NIMAS9780076996285-sidebar-007" render="required">
+<list type="pl">
+<hd>Materials</hd>
+<li><p><img id="NIMAS9780076996285-img-025" src="./images/u03/p008_001.jpg" alt="A photograph of a hand lens."/> <strong>plastic gloves</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-026" src="./images/u03/p008_002.jpg" alt="A photograph of a meter stick."/> <strong>meterstick</strong></p></li>
+</list>
+</sidebar>
+<p>Explore different locations of your schoolyard and find the same plant in each of those locations.</p>
+<p><strong>Make a Prediction</strong> Do plants of the same type have different characteristics in different locations?</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><strong>Carry Out an Investigation</strong></p>
+<p><strong>BE CAREFUL</strong> Wear gloves when handling plants.</p>
+<list type="pl">
+<li><p><strong>1.</strong> Walk around your schoolyard. Find the same plant growing in two different locations.</p></li>
+<li><p><strong>2. Record Data</strong> Observe each plant. Count the number of leaves and place in the table.</p>
+<p><img id="NIMAS9780076996285-img-027" src="./images/u03/p008_003.jpg" alt="An illustration depicts the three steps in growth of a plant."/></p>
+<table id="NIMAS9780076996285-table-001" frame="border">
+<thead>
+<tr>
+<th>&#x00A0;</th>
+<th>Location 1</th>
+<th>Location 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Number of leaves</strong></td>
+<td>&#x00A0;</td>
+<td>&#x00A0;</td>
+</tr>
+<tr>
+<td><strong>Plant height</strong></td>
+<td>&#x00A0;</td>
+<td>&#x00A0;</td>
+</tr>
+<tr>
+<td><strong>Width of largest leaf</strong></td>
+<td>&#x00A0;</td>
+<td>&#x00A0;</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>3.</strong> Measure the height of the plant and the width of the largest leaf. Record the measurements in the table.</p></li>
+</list>
+<p><span class="credit">(t)Jacques Cornell/McGraw-Hill Education, (b)Jacques Cornell/McGraw-Hill Education</span></p>
+<pagenum id="p9" page="normal">9</pagenum>
+<p><strong>Communicate Information</strong></p>
+<list type="pl">
+<li><p><strong>4.</strong> Was there a difference in the plants from each location?</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p></li>
+<li><p><strong>5.</strong> Did your results support your prediction? Explain.</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p></li>
+</list>
+<sidebar id="NIMAS9780076996285-sidebar-008" render="required">
+<hd><img id="NIMAS9780076996285-img-028" src="./images/thruout/talk_icon.jpg" alt=""/> Talk About It</hd>
+<p>Why do you think the plants had different measurements?</p>
+</sidebar>
+<p><img id="NIMAS9780076996285-img-029" src="./images/u03/p009_001.jpg" alt="A photograph of the newly grown plants."/></p>
+<p><span class="credit">zhang bo/Getty Images</span></p>
+<pagenum id="p10" page="normal">10</pagenum>
+<sidebar id="NIMAS9780076996285-sidebar-009" render="required">
+<hd>Vocabulary</hd>
+<p>Look for these words as you read:</p>
+<list type="pl">
+<li><p>competition</p></li>
+<li><p>ecosystem</p></li>
+<li><p>resource</p></li>
+</list>
+</sidebar>
+<p><strong>Plant Needs</strong></p>
+<p>Like all organisms, plants have needs. Plants get everything they need from their environment. Living things that do not get what they need may die. Plants need air, water, nutrients, light, and space to live.</p>
+<p>Plants get a gas called carbon dioxide from their environment. Plants take in the gas through their leaves. They use this gas to make food.</p>
+<p>Like all living things, plants need water. They take in water through their roots. Water travels from the roots, up the stem, to the leaves. Plants use water for many life functions. Water helps a plant to stand up. It keeps a plant from wilting. A plant also uses water to make food.</p>
+<p>Nutrients are substances that help living things grow and stay healthy. Nutrients are dissolved in water. Plants absorb nutrients when they take in water through their roots.</p>
+<p>The green parts of plants collect the energy in light and use it to make their own food.</p>
+<p>Plants need space to grow and to get water and sunlight. Different plants need different amounts of space.</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-030" src="./images/u03/p010_001.jpg" alt="A photograph of hands of a person holding a jar contains a plant."/>
+<caption imgref="NIMAS9780076996285-img-030">Although most plants grow in soil, a plant can also grow in water without soil if it gets the nutrients it needs.</caption>
+</imggroup>
+<list type="pl">
+<li><p><strong>1.</strong> Look back in the text and circle five things plants need in order to live.</p></li>
+<li><p><strong>2.</strong> Think back to the Inquiry Activity, <em>Plant Hunt</em>. Why might the plant in one location grow taller and greener than the plant in the other location?</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p></li>
+</list>
+<p><span class="credit">Pixtal/age fotostock</span></p>
+</level3>
+<level3 id="NIMAS9780076996285-lev3-002" class="subsection">
+<pagenum id="p11" page="normal">11</pagenum>
+<p><strong>INQUIRY ACTIVITY</strong></p>
+<h3>Hands On Needs of Plants</h3>
+<sidebar id="NIMAS9780076996285-sidebar-010" render="required">
+<list type="pl">
+<hd>Materials</hd>
+<li><p><img id="NIMAS9780076996285-img-031" src="./images/u03/p011_001.jpg" alt="A photograph of a prepared shoe box."/> <strong>prepared shoebox</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-032" src="./images/u03/p011_002.jpg" alt="A photograph of a bean plant."/> <strong>2 bean plants</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-033" src="./images/u03/p011_003.jpg" alt="A photograph of a cup of water."/> <strong>cup of water</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-034" src="./images/u03/p011_004.jpg" alt="A photograph of a ruler."/> <strong>ruler</strong></p></li>
+</list>
+</sidebar>
+<p>You observed the same plant in different environments. Investigate how plants change to meet their needs. Compare the growth of two plants.</p>
+<p><strong>Make a Prediction</strong> What will happen to a plant if obstacles block its direct light?</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><strong>Carry Out an Investigation</strong></p>
+<list type="pl">
+<li><p><strong>1. Record Data</strong> Use the ruler to measure the height and width of the plants. Record your data in the table on the next page. Include any observations you make about the plants.</p></li>
+<li><p><strong>2.</strong> Place one plant in the box prepared by your teacher, on the end opposite of the opening. Leave the other plant outside of the box.</p></li>
+<li><p><strong>3.</strong> Put the lid on the box. Turn the box so the opening is facing toward a bright light source. Place the unboxed plant next to the box.</p></li>
+<li><p><strong>4.</strong> Record your measurements and observations in the data table on the next page on days 5, 10, and 15. After recording your measurements on each of those days, give your plants some water and replace the lid. Return the plants to their original positions if you moved them.</p></li>
+</list>
+<p><span class="credit">(t to b)Janette Beckman/McGraw-Hill Education, McGraw-Hill Education, Ken Cavanagh/McGraw-Hill Education, Jacques Cornell/McGraw-Hill Education</span></p>
+<pagenum id="p12" page="normal">12</pagenum>
+<p><strong>INQUIRY ACTIVITY</strong></p>
+<table id="NIMAS9780076996285-table-002" frame="border">
+<thead>
+<tr>
+<th colspan="3">Unboxed Plant</th>
+</tr>
+<tr>
+<th>Day</th>
+<th>Plant Height (cm)</th>
+<th>Observations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td>&#x00A0;</td>
+<td>&#x00A0;</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>&#x00A0;</td>
+<td>&#x00A0;</td>
+</tr>
+<tr>
+<td><strong>10</strong></td>
+<td>&#x00A0;</td>
+<td>&#x00A0;</td>
+</tr>
+<tr>
+<td><strong>15</strong></td>
+<td>&#x00A0;</td>
+<td>&#x00A0;</td>
+</tr>
+</tbody>
+</table>
+<table id="NIMAS9780076996285-table-003" frame="border">
+<thead>
+<tr>
+<th colspan="3">Boxed Plant</th>
+</tr>
+<tr>
+<th>Day</th>
+<th>Plant Height (cm)</th>
+<th>Observations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td>&#x00A0;</td>
+<td>&#x00A0;</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>&#x00A0;</td>
+<td>&#x00A0;</td>
+</tr>
+<tr>
+<td><strong>10</strong></td>
+<td>&#x00A0;</td>
+<td>&#x00A0;</td>
+</tr>
+<tr>
+<td><strong>15</strong></td>
+<td>&#x00A0;</td>
+<td>&#x00A0;</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Communicate Information</strong></p>
+<list type="pl">
+<li><p><strong>5.</strong> Describe the growth of both plants over time.</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p></li>
+<li><p><strong>6.</strong> Did your findings support your prediction? Explain.</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><img id="NIMAS9780076996285-img-035" src="./images/u03/p012_001.jpg" alt="An illustration of the newly grown plants."/></p></li>
+</list>
+<pagenum id="p13" page="normal">13</pagenum>
+<p><strong>Animal Needs</strong></p>
+<p>In order to stay alive, animals need certain things. These include food, water, oxygen, space, and shelter.</p>
+<p>Animals need food because it gives them energy to move and grow. Different animals have different physical traits to help them get food. Some meat eaters, like tigers, have sharp teeth to help them bite and tear meat. Many plant eaters, such as cows, have large, flat teeth for chewing.</p>
+<p>Animals need water because it helps them turn food into energy and get rid of waste.</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-036" src="./images/u03/p013_001.jpg" alt="A photograph of an elephant and its young one drinking water."/>
+<caption imgref="NIMAS9780076996285-img-036">Elephants use their trunks to lift drinking water to their mouths.</caption>
+</imggroup>
+<p>Animals need oxygen, which is a gas. Animals get oxygen by breathing. Most land animals use lungs to get oxygen from the air. Some animals that live in water get oxygen from the water by using gills.</p>
+<p>Animals need space to move around, grow, find food, and raise their young. Different animals need different amounts of space.</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-037" src="./images/u03/p013_002.jpg" alt="A photograph of a turtle."/>
+<caption imgref="NIMAS9780076996285-img-037">When in danger, a turtle will hide its head, legs, and tail inside its shell.</caption>
+</imggroup>
+<p>Animals need shelter, or a safe place to be. No animal can be alert all the time, which means it needs somewhere safe to go. Zebras live in herds, so some zebras can keep watch while others sleep.</p>
+<list type="pl">
+<li><p><strong>1.</strong> Circle five things animals need to survive.</p></li>
+<li><p><strong>2.</strong> What would happen if a tiger did not have sharp teeth?</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p></li>
+</list>
+<p><span class="credit">(t)Peter Lillie/Gallo Images ROOTS RF/Getty Images, (b)Naturalist/iStockphoto/Getty Images</span></p>
+<pagenum id="p14" page="normal">14</pagenum>
+<p><strong>Ecosystem</strong></p>
+<p>Living things live in ecosystems. An <span class="highlight"><dfn><strong>ecosystem</strong></dfn></span> includes all the living and nonliving things that interact in an environment. Living things include plants and animals. Nonliving things include rocks, soil, water, and air.</p>
+<p>A <span class="highlight"><dfn><strong>resource</strong></dfn></span> is a material that living things use to survive. Living things get resources from their ecosystems. For example, plants and animals get the air and water they need from their environments. But every ecosystem has a limited amount of resources. As a result, living things must compete for them. <span class="highlight"><dfn><strong>Competition</strong></dfn></span> is the struggle among living things for resources. When organisms cannot compete, they cannot get the resources they need. They may die or move to another ecosystem.</p>
+<p><img id="NIMAS9780076996285-img-038" src="./images/thruout/dec_icon.jpg" alt=""/> <strong>Explain</strong> what could happen to the <dfn><strong>ecosystem</strong></dfn> below if the cattails disappeared.</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<imggroup>
+<img id="NIMAS9780076996285-img-039" src="./images/u03/p014_001.jpg" alt="An illustration of the organisms in the pond ecosystem."/>
+<prodnote imgref="NIMAS9780076996285-img-039" render="optional">Production note: this image crosses the gutter to appear both on page 14 and page 15 in the print version.</prodnote>
+<prodnote imgref="NIMAS9780076996285-img-039" render="optional">Production note: captions associated with this image are labels that correspond to text within the image.</prodnote>
+<caption imgref="NIMAS9780076996285-img-039" class="label">A Pond Ecosystem<br/>Crane flies eat plants and algae. They lay eggs in water.</caption>
+</imggroup>
+<pagenum id="p15" page="normal">15</pagenum>
+<p><strong>WRITING Connection</strong> Write a paragraph about an animal&#x0027;s habitat from the animal&#x0027;s point of view.</p>
+<sidebar id="NIMAS9780076996285-sidebar-011" render="required">
+<hd><img id="NIMAS9780076996285-img-040" src="./images/thruout/goonlin_icon.jpg" alt=""/> Go Online</hd>
+<p>Explore <em>Animal Fun Facts</em> to learn about different animals.</p>
+</sidebar>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><strong>REVISIT</strong> <img id="NIMAS9780076996285-img-041" src="./images/thruout/pagekeeley_icon.jpg" alt=""/></p>
+<p>Revisit the Page Keeley Science Probe on <a href="#p5">page 5</a>.</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-042" src="./images/u03/p015_001.jpg" alt="An illustration of the organisms in the pond ecosystem."/>
+<prodnote imgref="NIMAS9780076996285-img-042" render="optional">Production note: captions associated with this image are labels that correspond to text within the image.</prodnote>
+<prodnote imgref="NIMAS9780076996285-img-042" render="optional">Production note: this image crosses the gutter to appear both on page 14 and page 15 in the print version.</prodnote>
+<caption imgref="NIMAS9780076996285-img-042" class="label">Turtles climb out of the water to warm up in the sunlight.<br/>Cattails grow well in wet soil. Some animals use them as food and shelter.<br/>Pond snails slide along the bottom, looking for plants and algae to eat.</caption>
+</imggroup>
+<pagenum id="p16" page="normal">16</pagenum>
+<p><strong>CLOSE READING</strong></p>
+<p><strong>Inspect</strong></p>
+<p><strong>Read</strong> the passage <em>Birds.</em> Underline text that tells what the word <em>drought</em> means.</p>
+<p><strong>Find Evidence</strong></p>
+<p><strong>Reread</strong> How did the drought change the Pacific Flyway habitats? Highlight text evidence that supports your answer.</p>
+<p><strong>Notes</strong></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><img id="NIMAS9780076996285-img-043" src="./images/u03/p016_001.jpg" alt="A photograph of the Hooded Orioles."/></p>
+<p>Hooded orioles can be found in many neighborhoods in the western United States.</p>
+<p><strong>Birds</strong></p>
+<p>Many birds are native to North America. The hooded oriole and the mourning dove are two examples of North American birds. These birds are able to survive in their habitats because they can meet their needs. They like to live in open woods along streams. The hooded oriole especially likes palm trees.</p>
+<p>From 2011 to 2017, there was a drought in the southwest region of the United States. There was not enough water, so many plants died. This affected all of the wildlife, because many animals are herbivores. Herbivores eat only plants. When the plants died, these animals could not find enough to eat.</p>
+<p><span class="credit">Fuse/Corbis/Getty Images</span></p>
+<pagenum id="p17" page="normal">17</pagenum>
+<p><img id="NIMAS9780076996285-img-044" src="./images/u03/p017_001.jpg" alt="A photograph of the migratory birds in a nest."/></p>
+<p>Mourning doves can be found from southern Canada to central Mexico.</p>
+<p>Birds also depend on water. The drought changed much of the area known as the Pacific Flyway. Birds migrating south from Alaska depend on habitats in the southwestern United States for feeding and regaining their strength before continuing their journey south. With dried up wetlands and streams along migration routes, some birds had trouble surviving. Dried up wetlands meant there were fewer fish and insects too.</p>
+<p>During periods of change in these habitats, birds may fly elsewhere to find what they need. This means that there are more birds in fewer places. More birds in fewer habitats could lead to fewer resources and more competition. How do you think this would affect the hooded oriole and mourning dove?</p>
+<p><strong>Make Connections</strong></p>
+<p><img id="NIMAS9780076996285-img-045" src="./images/thruout/talk_icon.jpg" alt=""/> <strong>Talk About It</strong></p>
+<p>Discuss with a partner how a drought in parts of the Pacific Flyway could affect the birds in this passage.</p>
+<p><strong>Notes</strong></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="credit">Klaus Fischel/Natural Selection/Design Pics</span></p>
+<pagenum id="p18" page="normal">18</pagenum>
+<p><strong>STEM Connection</strong></p>
+<p><strong>What Does a Curator of Birds and Mammals Do?</strong></p>
+<p><img id="NIMAS9780076996285-img-046" src="./images/u03/p018_001.jpg" alt="A photograph of the two persons looking at the marine mammals."/></p>
+<p><strong><em>Describe your career.</em></strong></p>
+<p>I work directly with all kinds of marine mammals and birds. I help design animal habitats. I work with my staff and our veterinarian to create the best environment for each type of animal we have. I deal with the health issues of our mammals and birds on a daily basis.</p>
+<p><strong><em>How did you get interested in this career?</em></strong></p>
+<p>I was born and raised in Long Beach, California, and was always outside. I spent much of my time around water and at the beach. I was a good swimmer. I took SCUBA diving lessons at the youngest age possible, thirteen. My favorite classes in school were science and math, so I naturally wanted to take those courses in college. This led me to study zoology while at university. I use my education in my job every day.</p>
+<p><strong><em>What&#x0027;s an everyday problem you see and could solve?</em></strong></p>
+<p>I work to make sure the water quality of our marine exhibits is excellent every day. In the past, aquariums were found on the coasts. They could bring fresh ocean water in to the exhibits and then send it back out to the ocean.</p>
+<p><span class="credit">i-m-a-g-e/Shutterstock</span></p>
+<pagenum id="p19" page="normal">19</pagenum>
+<p>As humans became more aware of the impact of the environment and pollution, we had to make changes. Aquariums on the coast and those inland moved to a closed water system. A closed water system means aquariums could not release waste to the ocean anymore. We had to solve the problem of how to offer the best environment for our animals. We use a lot of science and math to make sure our water is clean and healthy for the animals. The water must also be clear enough for visitors to see. This is something I deal with and solve on a daily basis.</p>
+<p><strong>PRIMARY SOURCE</strong></p>
+<imggroup>
+<img id="NIMAS9780076996285-img-047" src="./images/u03/p019_001.jpg" alt="A photograph of Dudley holding an animal."/>
+<caption imgref="NIMAS9780076996285-img-047">Dudley is the Curator of Birds and Mammals at an aquarium in Long Beach, California.</caption>
+</imggroup>
+<p><strong><em>Describe an accomplishment that you are proud of.</em></strong></p>
+<p>The aquarium likes to educate people about what is happening in our oceans. One way of letting people know is to exhibit animals that are strongly affected by changes in their environment. One accomplishment that I am proud of is helping with the design of our Magellanic penguin exhibit. I helped design the habitat. I also helped bring the penguins to the aquarium. Many of the penguins were stranded. The exhibit is now complete. The birds are comfortable in their safe surroundings.</p>
+<p>What additional questions would you have for a curator of birds and mammals?</p>
+<p><img id="NIMAS9780076996285-img-048" src="./images/u03/p019_002.jpg" alt="An illustration of a fish swimming between the anemone."/></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="credit">Hugh Ryono</span></p>
+</level3>
+<level3 id="NIMAS9780076996285-lev3-003" class="subsection">
+<pagenum id="p20" page="normal">20</pagenum>
+<h3>Lesson 1 Review</h3>
+<p><img id="NIMAS9780076996285-img-049" src="./images/u03/p020_001.jpg" alt="A photograph of a bristle cone pine tree."/></p>
+<p><strong>EXPLAIN</strong><br/><strong>THE PHENOMENON</strong></p>
+<p><strong>How does the tree survive?</strong></p>
+<p><strong>Summarize It</strong></p>
+<p>Explain how organisms survive in their environments.</p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<sidebar id="NIMAS9780076996285-sidebar-012" render="required">
+<hd>Revisit <img id="NIMAS9780076996285-img-050" src="./images/thruout/pagekeeley_icon.jpg" alt=""/></hd>
+<p>Revisit the Page Keeley Science Probe on <a href="#p5">page 5</a>. Has your thinking changed? If so, explain how it has changed.</p>
+</sidebar>
+<p><span class="credit">Martin Ruegner/Digital Vision/Getty Images</span></p>
+<pagenum id="p21" page="normal">21</pagenum>
+<p><img id="NIMAS9780076996285-img-051" src="./images/thruout/dec_icon.jpg" alt=""/> <strong>Three-Dimensional Thinking</strong></p>
+<list type="pl">
+<li><p><strong>1.</strong> Which of the following is not a need for plants?</p>
+<list type="pl">
+<li><p>A. water</p></li>
+<li><p>B. sunlight</p></li>
+<li><p>C. shelter</p></li>
+<li><p>D. space</p></li>
+</list></li>
+<li><p><strong>2.</strong> What happens if an organism does not get the resources it needs?</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p></li>
+<li><p><strong>3.</strong> Describe how animals experience competition in an ecosystem.</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p></li>
+</list>
+<pagenum id="p22" page="normal">22</pagenum>
+<p><strong>Extend It</strong></p>
+<p>Think about your school environment. What items are essential to your success and growth as a student? Create a brochure for a school that only has these essential items. Discuss with your classmates whether you would prefer attending a school that only has your essential items rather than your current school.</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<sidebar id="NIMAS9780076996285-sidebar-013" render="required">
+<hd>Keep Planning <img id="NIMAS9780076996285-img-052" src="./images/thruout/performance_icon.jpg" alt=""/></hd>
+<p><strong>STEM Module Project</strong></p>
+<p><strong>Science Challenge</strong></p>
+<p>Now that you have learned what organisms need to survive, go to your Module Project to explain how the information will affect how you design your model.</p>
+</sidebar>
+</level3>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-004" class="section">
+<pagenum id="p23" page="normal">23</pagenum>
+<h2>Lesson 2 Adaptations and Variations</h2>
+<p><img id="NIMAS9780076996285-img-053" src="./images/thruout/pagekeeley_icon.jpg" alt=""/></p>
+<p><strong>LESSON 2 LAUNCH</strong></p>
+<p><strong>Adaptations</strong></p>
+<p><img id="NIMAS9780076996285-img-054" src="./images/u03/p023_001.jpg" alt="An illustration of a polar bear."/></p>
+<p>Polar bears live in the cold Arctic. They grow a coat of thick fur to stay warm.</p>
+<p>Two friends were at a zoo in San Diego. The zoo had a polar bear exhibit. They wondered how the polar bear could live in San Diego where it is very warm. This is what they said:</p>
+<p><span class="speaker">Suzanne:</span> The polar bear will try to adapt by growing less fur.</p>
+<p><span class="speaker">Milo:</span> The polar bear will not try to adapt by growing less fur.</p>
+<p>Who do you agree with the most? <span class="WOL">______________________________________________</span></p>
+<p>Explain why you agree.</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p>You will revisit the Page Keeley Science Probe later in the lesson.</p>
+<pagenum id="p24" page="normal">24</pagenum>
+<p><strong>LESSON 2 Adaptations and Variations</strong></p>
+<p><img id="NIMAS9780076996285-img-055" src="./images/u03/p024_001.jpg" alt="A photograph of a quail."/></p>
+<p><span class="credit">NPS Photo</span></p>
+<pagenum id="p25" page="normal">25</pagenum>
+<p><strong>ENCOUNTER</strong><br/><strong>THE PHENOMENON</strong></p>
+<p><strong>How does the quail survive in its environment?</strong></p>
+<p><img id="NIMAS9780076996285-img-056" src="./images/u03/p025_001.jpg" alt="An illustration of a video screen labeled &#x201C;Quail&#x201D;."/></p>
+<sidebar id="NIMAS9780076996285-sidebar-014" render="required">
+<hd><img id="NIMAS9780076996285-img-057" src="./images/thruout/goonlin_icon.jpg" alt=""/> Go Online</hd>
+<p>Check out <em>Quail</em> to see the phenomenon in action.</p>
+</sidebar>
+<sidebar id="NIMAS9780076996285-sidebar-015" render="required">
+<hd><img id="NIMAS9780076996285-img-058" src="./images/thruout/talk_icon.jpg" alt=""/> Talk About It</hd>
+<p>Look at the photo and watch the video of the quail. What questions do you have about the phenomenon? Talk about your observations with a partner. Record your questions below.</p>
+</sidebar>
+<p><img id="NIMAS9780076996285-img-059" src="./images/u03/p025_002.jpg" alt=""/></p>
+<sidebar id="NIMAS9780076996285-sidebar-016" render="required">
+<hd>Did You Know?</hd>
+<p>During a drought, quails may get their water from insects and succulent vegetation.</p>
+<p><img id="NIMAS9780076996285-img-060" src="./images/u03/p025_003.jpg" alt="An illustration of a plant."/></p>
+</sidebar>
+<level3 id="NIMAS9780076996285-lev3-004" class="subsection">
+<pagenum id="p26" page="normal">26</pagenum>
+<p><strong>INQUIRY ACTIVITY</strong></p>
+<h3>Hands On Bird Beak Shapes</h3>
+<sidebar id="NIMAS9780076996285-sidebar-017" render="required">
+<list type="pl">
+<hd>Materials</hd>
+<li><p><img id="NIMAS9780076996285-img-061" src="./images/u03/p026_001.jpg" alt="A photograph of the safety goggle."/><strong>safety goggles</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-062" src="./images/u03/p026_002.jpg" alt="A photograph of the dried macaroni."/><strong>dried macaroni</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-063" src="./images/u03/p026_003.jpg" alt="A photograph of a paper clip."/><strong>paper clips</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-064" src="./images/u03/p026_004.jpg" alt="A photograph of a paper plant."/><strong>paper plates</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-065" src="./images/u03/p026_005.jpg" alt="A photograph of a plastic cup."/><strong>plastic cups</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-066" src="./images/u03/p026_006.jpg" alt="A photograph of a plastic spoon."/><strong>plastic spoon</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-067" src="./images/u03/p026_007.jpg" alt="A photograph of rice."/><strong>rice</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-068" src="./images/u03/p026_008.jpg" alt="A photograph of toothpicks."/><strong>toothpicks</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-069" src="./images/u03/p026_009.jpg" alt="A photograph of the tweezers."/><strong>tweezers</strong></p></li>
+</list>
+</sidebar>
+<p>Plants and animals have traits that help them survive in their environments. Observe how birds with different types of beaks gather food by using a model of the beaks.</p>
+<p><strong>Make a Prediction</strong> How does the shape of a bird&#x0027;s beak affect its ability to gather different types of food?</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><strong>Carry Out an Investigation</strong></p>
+<list type="pl">
+<li><p><strong>1.</strong> Collect a plastic spoon, tweezers, and a toothpick. These will represent the birds&#x0027; beaks.</p></li>
+<li><p><strong>2.</strong> Place paper clips, rice, and macaroni each on a separate plate in front of you. These will represent bird food.</p></li>
+<li><p><strong>3.</strong> Place a plastic cup next to each of the plates. Choose a bird beak model.</p></li>
+<li><p><strong>4.</strong> Your teacher will set a timer for 20 seconds. When the timer starts, use one bird beak model to collect as much of one type of food as possible. Collect food by using the beak to move the food into the cup.</p></li>
+</list>
+<p><span class="credit">(2)olgaman/iStock/Getty Images, (3)McGraw-Hill Education, (1 4 6)Ken Cavanagh/McGraw-Hill Education, (others)Jacques Cornell/McGraw-Hill Education</span></p>
+<pagenum id="p27" page="normal">27</pagenum>
+<list type="pl">
+<li><p><strong>5.</strong> Count the amount of food you were able to collect. Record your data in the table below.</p></li>
+<li><p><strong>6.</strong> Repeat steps 4 and 5 until you have collected each food type with each beak model.</p></li>
+</list>
+<p><img id="NIMAS9780076996285-img-070" src="./images/u03/p027_001.jpg" alt="An illustration of three birds sitting on a tree branch."/></p>
+<table id="NIMAS9780076996285-table-004" frame="border">
+<thead>
+<tr>
+<th colspan="4">Amount of Food Collected</th>
+</tr>
+<tr>
+<th>Model Beak</th>
+<th>Paper Clips</th>
+<th>Rice</th>
+<th>Macaroni</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Spoon</strong></td>
+<td>&#x00A0;</td>
+<td>&#x00A0;</td>
+<td>&#x00A0;</td>
+</tr>
+<tr>
+<td><strong>Tweezers</strong></td>
+<td>&#x00A0;</td>
+<td>&#x00A0;</td>
+<td>&#x00A0;</td>
+</tr>
+<tr>
+<td><strong>Toothpick</strong></td>
+<td>&#x00A0;</td>
+<td>&#x00A0;</td>
+<td>&#x00A0;</td>
+</tr>
+</tbody>
+</table>
+<pagenum id="p28" page="normal">28</pagenum>
+<p><strong>INQUIRY ACTIVITY</strong></p>
+<p><strong>Communicate Information</strong></p>
+<list type="pl">
+<li><p><strong>7.</strong> Which bird beak worked best for each type of food? Use evidence to support your ideas.</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p></li>
+<li><p><strong>8.</strong> Compare your results with your classmate&#x0027;s results. Are they the same? What do you think it might mean if the results were different?</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p></li>
+<li><p><strong>9.</strong> Did your results support your prediction? Explain.</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p></li>
+</list>
+<pagenum id="p29" page="normal">29</pagenum>
+<p><strong>MAKE YOUR CLAIM</strong></p>
+<p><strong>How do animal features help them survive?</strong></p>
+<p><img id="NIMAS9780076996285-img-071" src="./images/u03/p029_001.jpg" alt="A photograph of a quail."/></p>
+<imggroup>
+<img id="NIMAS9780076996285-img-072" src="./images/u03/p029_002.jpg" alt="An illustration of a flowchart to depict the text evidence and reasoning of the claim."/>
+<prodnote imgref="NIMAS9780076996285-img-072" render="optional">Production note: captions associated with this image are labels that correspond to text within the image.</prodnote>
+<caption imgref="NIMAS9780076996285-img-072" class="label"><strong>Make your claim. Use your investigation.<br/>CLAIM</strong><br/>I think animals&#x0027; features help them survive by<br/><strong>Cite evidence from the activity.<br/>EVIDENCE</strong><br/>The evidence I found in the<br/>included<br/><strong>Discuss your reasoning as a class. Tell about your discussion.<br/>REASONING</strong><br/>My reasoning for my claim is</caption>
+</imggroup>
+<p>You will revisit your claim to add more evidence later in this lesson.</p>
+<p><span class="credit">NPS Photo</span></p>
+<pagenum id="p30" page="normal">30</pagenum>
+<sidebar id="NIMAS9780076996285-sidebar-018" render="required">
+<hd>Vocabulary</hd>
+<p>Look for these words as you read:</p>
+<list type="pl">
+<li><p>adaptation</p></li>
+<li><p>camouflage</p></li>
+<li><p>hibernate</p></li>
+<li><p>migrate</p></li>
+<li><p>mimicry</p></li>
+</list>
+</sidebar>
+<p><strong>Adaptations</strong></p>
+<p>Different beak sizes and shapes allow birds to gather food in different environments. This is an example of adaptation. An <span class="highlight"><dfn><strong>adaptation</strong></dfn></span> is a structure or behavior that helps an organism survive in its environment.</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-073" src="./images/u03/p030_001.jpg" alt="A photograph of a frog uses its sticky tongue to capture a prey."/>
+<caption imgref="NIMAS9780076996285-img-073">The frog uses its sticky tongue to capture an insect to eat.</caption>
+</imggroup>
+<imggroup>
+<img id="NIMAS9780076996285-img-074" src="./images/u03/p030_002.jpg" alt="A photograph of a plant with leaves of spiky edges."/>
+<caption imgref="NIMAS9780076996285-img-074">Spiky edges on its leaves protect the bush from being eaten.</caption>
+</imggroup>
+<p>A polar bear has an adaptation called <span class="highlight"><dfn><strong>camouflage</strong></dfn></span>, which means it blends into its environment. Camouflage helps living things stay safe. A snake&#x0027;s skin pattern may match the ground it lies on, making it difficult for a predator to see the snake.</p>
+<p>Some animals are adapted to living in cold climates. Sea lions and walruses have a layer of fat called blubber under their skin that helps them stay warm. Some animals are adapted to survive in hot temperatures. Camels have patches to protect their legs so they are not burned when the camel kneels.</p>
+<list type="pl">
+<li><p><strong>1.</strong> Circle two examples in the text that show adaptations in animals.</p></li>
+<li><p><strong>2.</strong> Why don&#x0027;t all animals have the same adaptations?</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p></li>
+</list>
+<p><span class="credit">(l)craftvision/Vetta/Getty Images, (r)valentino cazzanti/Shutterstock</span></p>
+</level3>
+<level3 id="NIMAS9780076996285-lev3-005" class="subsection">
+<pagenum id="p31" page="normal">31</pagenum>
+<p><strong>INQUIRY ACTIVITY</strong></p>
+<h3>Hands On Camouflaged Beans</h3>
+<sidebar id="NIMAS9780076996285-sidebar-019" render="required">
+<list type="pl">
+<hd>Materials</hd>
+<li><p><img id="NIMAS9780076996285-img-075" src="./images/u03/p031_001.jpg" alt="A photograph of a plastic cup."/><strong>3 clear plastic cups</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-076" src="./images/u03/p031_002.jpg" alt="A photograph of white beans."/><strong>white beans</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-077" src="./images/u03/p031_003.jpg" alt="A photograph of black beans."/><strong>white beans</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-078" src="./images/u03/p031_004.jpg" alt="A photograph of the black eyed peas."/><strong>black eyed peas</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-079" src="./images/u03/p031_005.jpg" alt="A photograph of the white sheet of paper."/><strong>white sheet of paper</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-080" src="./images/u03/p031_006.jpg" alt="A photograph of a stopwatch."/><strong>stopwatch</strong></p></li>
+</list>
+</sidebar>
+<p>Investigate how camouflage helps organisms hide from predators.</p>
+<p><strong>Make a Prediction</strong> Will black beans or black-eyed peas be harder to separate from white beans?</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><strong>Carry Out an Investigation</strong></p>
+<list type="pl">
+<li><p><strong>1.</strong> On a white sheet of paper, mix some of the white beans with some of the black beans.</p></li>
+<li><p><strong>2. Record Data</strong> Time how long it takes to separate all the black beans from the white beans.</p>
+<p><img id="NIMAS9780076996285-img-081" src="./images/u03/p031_007.jpg" alt="An illustration of a stopwatch."/></p></li>
+<li><p><strong>3.</strong> On the white sheet of paper, mix some of the white beans and some of the black-eyed peas.</p></li>
+<li><p><strong>4. Record Data</strong> Time how long it takes to separate all the black-eyed peas from the white beans.</p>
+<table id="NIMAS9780076996285-table-005" frame="border">
+<thead>
+<tr>
+<th>&#x00A0;</th>
+<th>Black Beans</th>
+<th>Black-Eyed Peas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Time (seconds)</strong></td>
+<td>&#x00A0;</td>
+<td>&#x00A0;</td>
+</tr>
+</tbody>
+</table></li>
+</list>
+<p><strong>Communicate Information</strong></p>
+<list type="pl">
+<li><p><strong>5.</strong> Did your results support your prediction? Explain.</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p></li>
+</list>
+<p><span class="credit">(2)Pauliene Wessel/123RF, (4)Ingram Publishing, (5)Ken Cavanagh/McGraw-Hill Education, (others)Jacques Cornell/McGraw-Hill Education</span></p>
+<pagenum id="p32" page="normal">32</pagenum>
+<p><strong>Desert Adaptations</strong></p>
+<p>A desert is a very dry environment. It rarely rains in a desert. When rain does fall, it can pour down heavily. Temperatures are often very hot during the day and cold at night. Organisms that live in a desert have adaptations to help them survive in these conditions.</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-082" src="./images/u03/p032_001.jpg" alt="A photograph depicts the parts of a mesquite tree."/>
+<caption imgref="NIMAS9780076996285-img-082"><strong>Saguaro cactus</strong></caption>
+<prodnote imgref="NIMAS9780076996285-img-082" render="optional">Production note: captions associated with this image are labels that correspond to text within the image.</prodnote>
+<caption imgref="NIMAS9780076996285-img-082" class="label"><strong>Spines</strong> help protect a cactus from animals.<br/>A <strong>waxy</strong> coating helps seal in water.<br/><strong>Thick stems</strong> help store water.<br/>Wide, <strong>shallow roots</strong> can quickly soak up the little rain that falls.</caption>
+</imggroup>
+<p><strong>Water</strong></p>
+<p>Desert plants cannot depend on regular rainfall for their water. Instead, their roots are adapted to spread widely or grow deep to find water. A desert plant has stems adapted for storing water. Many desert animals get their water by eating plants or other animals.</p>
+<p><strong>Temperature</strong></p>
+<p>Desert animals have adaptations to keep them from being too hot during the day. Coyotes and rattlesnakes are nocturnal. This means they are active at night and sleep during the daytime. Jackrabbits stay cool by having small bodies and long ears. This helps the heat escape from their bodies. Some animals have light-colored bodies. Light colors absorb less heat.</p>
+<p>Circle two adaptations that help desert plants live for long periods of time without water.</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-083" src="./images/u03/p032_002.jpg" alt="A photograph depicts the parts of a saguaro cactus."/>
+<caption imgref="NIMAS9780076996285-img-083"><strong>Mesquite tree</strong></caption>
+<prodnote imgref="NIMAS9780076996285-img-083" render="optional">Production note: captions associated with this image are labels that correspond to text within the image.</prodnote>
+<caption imgref="NIMAS9780076996285-img-083" class="label"><strong>Small leaves</strong> do not lose much water.<br/><strong>Thorns</strong> protect the tree from hungry and thirsty animals.<br/><strong>Long roots</strong> grow deep underground where they can find stored water.</caption>
+</imggroup>
+<pagenum id="p33" page="normal">33</pagenum>
+<p><strong>Ocean</strong></p>
+<p>Oceans are home to millions of living things. Each living thing has adaptations that help it survive in the salty water.</p>
+<sidebar id="NIMAS9780076996285-sidebar-020" render="required">
+<hd><img id="NIMAS9780076996285-img-084" src="./images/thruout/goonlin_icon.jpg" alt=""/> Go Online</hd>
+<p>Watch the <em>Extreme Habitats</em> video to learn about extreme adaptations.</p>
+</sidebar>
+<p><strong>Algae</strong></p>
+<p>Seaweeds look like plants, but they are not. They are plant-like organisms called algae. Like plants, algae make their own food from sunlight. Most algae have structures that are like leaves. Some algae have root-like structures for attaching themselves to the ocean floor. Because they need sunlight, rooted algae can only live in shallow water. Algae that have no roots drift near the ocean&#x0027;s sunlit surface.</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-085" src="./images/u03/p033_001.jpg" alt="A photograph of the kelp."/>
+<caption imgref="NIMAS9780076996285-img-085">Kelp is a kind of algae. This picture shows a seaweed forest of kelp.</caption>
+</imggroup>
+<p><strong>Ocean Animals</strong></p>
+<p>Whales and dolphins breathe air. They can hold their breath for a long time as they dive deep to look for food. When they need to breathe, they rise quickly to the surface. Fish, on the other hand, have gills for getting oxygen from water.</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-086" src="./images/u03/p033_002.jpg" alt="A photograph of the sperm whales."/>
+<caption imgref="NIMAS9780076996285-img-086">When sperm whales migrate, they swim in groups called pods. The whales swim together for thousands of kilometers.</caption>
+</imggroup>
+<p>Many ocean animals have fins. Fins help them swim quickly and control their movement. Ocean animals swim for long distances when they migrate. To <span class="highlight"><dfn><strong>migrate</strong></dfn></span> means &#x201C;to move from one place to another.&#x201D; Animals migrate to find food, to reproduce, or because the water temperature has changed.</p>
+<list type="pl">
+<li><p><strong>1.</strong> Circle two types of ocean animal adaptations.</p></li>
+<li><p><strong>2.</strong> Why do animals migrate?</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p></li>
+</list>
+<p><strong>REVISIT</strong> <img id="NIMAS9780076996285-img-087" src="./images/thruout/pagekeeley_icon.jpg" alt=""/></p>
+<p>Revisit the Page Keeley Science Probe on <a href="#p23">page 23</a>.</p>
+<p><span class="credit">(t)Amar and Isabelle Guillen - Guillen Photography/Alamy, (b)DAJ/amana images/Getty Images</span></p>
+<pagenum id="p34" page="normal">34</pagenum>
+<p><strong>Forest</strong></p>
+<p>A forest is an environment in which many trees grow near one another. The tops of tall trees are in sunlight. Some organisms are adapted to life in the treetops. Others live on the ground.</p>
+<sidebar id="NIMAS9780076996285-sidebar-021" render="required">
+<hd><img id="NIMAS9780076996285-img-088" src="./images/thruout/goonlin_icon.jpg" alt=""/> Go Online</hd>
+<p>Explore <em>Animals in Their Own Environment</em> to see animals in different environments.</p>
+</sidebar>
+<p><strong>Plants</strong></p>
+<p>Tropical rain forests are very wet places. Too much water can harm plant leaves. Some leaves have grooves that allow water to drain off easily. Little sunlight reaches beneath the treetops. Plants living on the dim forest floor have large leaves to catch as much sunlight as possible.</p>
+<p>A temperate forest grows where winters are cold and dry. In winter there is less sunlight for plants to make food. Many trees have adapted by shedding their leaves each autumn when the weather gets cold. Without leaves, the trees need less water.</p>
+<p><strong>Animals</strong></p>
+<p>Animals have many different adaptations for survival in forests.</p>
+<p><span class="highlight"><dfn><strong>Mimicry</strong></dfn></span> occurs when one living thing looks like another. Mimicry gives an animal a way to be hidden when not moving. It can help an organism hunt without being seen.</p>
+<p>When a predator comes after a skunk, the skunk sprays a stinky chemical at it. A porcupine defends itself with many sharp quills.</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-089" src="./images/u03/p034_001.jpg" alt="A photograph of the bats hibernated in the sheltered area."/>
+<caption imgref="NIMAS9780076996285-img-089">Bats hibernate in sheltered areas in winter.</caption>
+</imggroup>
+<p><span class="credit">U.S. Fish &#x0026; Wildlife Service/Craig Stihler</span></p>
+<pagenum id="p35" page="normal">35</pagenum>
+<p>During winter in some forests, the temperature is cold. Food is hard to find. Some animals survive by going into hibernation. <span class="highlight"><strong>Hibernate</strong></span> means to rest through winter. They use little energy, and they do not eat.</p>
+<list type="pl">
+<li><p><strong>1.</strong> Why might an animal hibernate?</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<imggroup>
+<img id="NIMAS9780076996285-img-090" src="./images/u03/p035_001.jpg" alt="A photograph of a stick inset."/>
+<caption imgref="NIMAS9780076996285-img-090">Look for the insect in this photo.</caption>
+</imggroup>
+<imggroup>
+<img id="NIMAS9780076996285-img-091" src="./images/u03/p035_002.jpg" alt="A photograph of a porcupine."/>
+<caption imgref="NIMAS9780076996285-img-091">A porcupine&#x0027;s quills come off easily and stick into any attacking animal.</caption>
+</imggroup>
+</li>
+<li><p><strong>2.</strong> Look at the photos, and circle an example of mimicry.</p>
+</li>
+</list>
+<sidebar id="NIMAS9780076996285-sidebar-022" render="required">
+<hd><img id="NIMAS9780076996285-img-092" src="./images/thruout/goonlin_icon.jpg" alt=""/> Go Online</hd>
+<p>Explore the <em>Rabbit Population</em> simulation to see how a rabbit&#x0027;s color affects its survival.</p>
+</sidebar>
+<p><strong>COLLECT EVIDENCE</strong></p>
+<p>Add evidence to your claim on <a href="#p29">page 29</a>.</p>
+<p><img id="NIMAS9780076996285-img-093" src="./images/u03/p035_003.jpg" alt="A photograph of a rabbit."/></p>
+<p><span class="credit">(l)KarSol/iStockphoto/Getty Images, (r)Bob Pool/Photographer&#x0027;s Choice RF/Getty Images, (b)Daniel Sweeney (<a href="http://escapeimages.com" external="true">escapeimages.com</a>)/Alamy Stock Photo</span></p>
+<pagenum id="p36" page="normal">36</pagenum>
+<p><strong>FOLDABLES&#x00AE;</strong></p>
+<p>Cut out the Notebook Foldables tabs given to you by your teacher. Glue the anchor tabs as shown below. Use what you have learned to explain how each adaptation helps animals survive. Give an example of each adaptation.</p>
+<p><img id="NIMAS9780076996285-img-094" src="./images/u03/p036_001.jpg" alt="An illustration of a four tab foldable on left. Snake, animal, five flying geese and two different types of butterflies are depicted on right."/></p>
+<pagenum id="p37" page="normal">37</pagenum>
+<p><strong>STEM Connection</strong></p>
+<p><strong>What Do Animal Shelter Workers Do?</strong></p>
+<p><img id="NIMAS9780076996285-img-095" src="./images/u03/p037_001.jpg" alt="A photograph of an animal shelter worker holding a leg of a dog with inset photograph of the cats in a shelter."/></p>
+<p><strong>Animal Shelter Workers</strong> are people who take care of animals that do not have a home. People who work in animal shelters have a lot of love for animals. They feed the animals and bathe them. They also help veterinarians treat the animals if they are sick.</p>
+<p>Animal shelter workers also clean the animal pens and pick up homeless animals to bring them to the shelter. Animal shelter workers have an important job. They are helping animals that could not survive on their own.</p>
+<p><img id="NIMAS9780076996285-img-096" src="./images/u03/p037_002.jpg" alt="A photograph of a dog sitting in a bath tub."/></p>
+<p><strong>It&#x0027;s Your Turn</strong></p>
+<p>Why do you think some dogs and cats are not able to survive in their environment? How might it change things if those animals moved into a shelter?</p>
+<p><span class="credit">(t)Hero Images/Getty Images, (inset)Christian Scully/Spaces Images/Blend Images, (b)Lew Robertson/Fuse/Getty Images</span></p>
+</level3>
+<level3 id="NIMAS9780076996285-lev3-006" class="subsection">
+<pagenum id="p38" page="normal">38</pagenum>
+<p><strong>INQUIRY ACTIVITY</strong></p>
+<h3>Hands On Design a Bird</h3>
+<sidebar id="NIMAS9780076996285-sidebar-023" render="required">
+<list type="pl">
+<hd>Materials</hd>
+<li><p><img id="NIMAS9780076996285-img-097" src="./images/u03/p038_001.jpg" alt="A photograph of a cardboard."/> <strong>cardboard</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-098" src="./images/u03/p038_002.jpg" alt="A photograph of scissors."/> <strong>scissors</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-099" src="./images/u03/p038_003.jpg" alt="A photograph of a tape."/> <strong>masking tape</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-100" src="./images/u03/p038_004.jpg" alt="A photograph of a glue."/> <strong>glue</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-101" src="./images/u03/p038_005.jpg" alt="A photograph of a straw."/> <strong>drinking straws</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-102" src="./images/u03/p038_006.jpg" alt="A photograph of a paper clip."/> <strong>paper clips</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-103" src="./images/u03/p038_007.jpg" alt="A photograph of the cotton balls."/> <strong>cotton balls</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-104" src="./images/u03/p038_008.jpg" alt="A photograph of the construction papers."/> <strong>construction paper</strong></p></li>
+</list>
+</sidebar>
+<p>Design and build a model bird that is well-adapted to its environment. Use evidence to explain how the adaptations will help it survive.</p>
+<p><strong>Make a Prediction</strong> What adaptations does your bird need?</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><strong>Carry Out an Investigation</strong></p>
+<list type="pl">
+<li><p><strong>1.</strong> Describe the environment where your model bird will live. Describe what the bird eats and where it finds its food.</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p></li>
+<li><p><strong>2.</strong> Make a sketch of your bird below. Label its adaptations and identify the materials that you will use to build it.</p></li>
+</list>
+<p><img id="NIMAS9780076996285-img-105" src="./images/u03/p038_009.jpg" alt=""/></p>
+<p><span class="credit">(1 5 7)Ken Cavanagh/McGraw-Hill Education, (4)Joe Polillio/McGraw-Hill Educaiton, (6)McGraw-Hill Education, (others)Jacques Cornell/McGraw-Hill Education</span></p>
+<pagenum id="p39" page="normal">39</pagenum>
+<list type="pl">
+<li><p><strong>3.</strong> Use classroom resources to construct your model.</p>
+</li>
+</list>
+<p><img id="NIMAS9780076996285-img-106" src="./images/u03/p039_001.jpg" alt="A photograph of a flying parrot."/></p>
+<p><strong>Communicate Information</strong></p>
+<p><img id="NIMAS9780076996285-img-107" src="./images/thruout/dec_icon.jpg" alt=""/> What <strong>adaptations</strong> does your bird have that help it survive in its environment? Use <strong>evidence</strong> from the lesson.</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<list type="pl">
+<li><p><strong>4.</strong> Did your results support your prediction? Explain.</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+</li>
+<li><p><strong>5.</strong> Compare your model bird with the model bird of a classmate. What are some similarities and differences between the environments and traits of both birds?</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+</li>
+</list>
+<p><span class="credit">Ger Bosma/Moment Open/Getty Images</span></p>
+</level3>
+<level3 id="NIMAS9780076996285-lev3-007" class="subsection">
+<pagenum id="p40" page="normal">40</pagenum>
+<h3>Lesson 2 Review</h3>
+<p><img id="NIMAS9780076996285-img-108" src="./images/u03/p040_001.jpg" alt="A photograph of a quail."/></p>
+<p><strong>EXPLAIN</strong><br/><strong>THE PHENOMENON</strong></p>
+<p><strong>How does the quail survive in its environment?</strong></p>
+<p><strong>Summarize It</strong></p>
+<p>Explain how organisms survive in different environments.</p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<sidebar id="NIMAS9780076996285-sidebar-024" render="required">
+<hd>Revisit <img id="NIMAS9780076996285-img-109" src="./images/thruout/pagekeeley_icon.jpg" alt=""/></hd>
+<p>Revisit the Page Keeley Science Probe on <a href="#p23">page 23</a>. Has your thinking changed? If so, explain how it has changed.</p>
+</sidebar>
+<p><span class="credit">NPS Photo</span></p>
+<pagenum id="p41" page="normal">41</pagenum>
+<p><img id="NIMAS9780076996285-img-110" src="./images/thruout/dec_icon.jpg" alt=""/> <strong>Three-Dimensional Thinking</strong></p>
+<list type="pl">
+<li><p><strong>1.</strong> Why do trees in temperate forests lose their leaves in the fall?</p>
+<list type="pl">
+<li><p>A. to provide shelter for animals</p></li>
+<li><p>B. to conserve water</p></li>
+<li><p>C. to provide nutrients for their root systems</p></li>
+<li><p>D. to protect their roots from heavy rainfall</p></li>
+</list>
+</li>
+<li><p><strong>2.</strong> Which phrase belongs in the empty circle below?</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-111" src="./images/u03/p041_001.jpg" alt="An illustration of a graphic organizer labeled &#x201C;Desert plant adaptations&#x201D;."/>
+<prodnote imgref="NIMAS9780076996285-img-111" render="optional">Production note: captions associated with this image are labels that correspond to text within the image.</prodnote>
+<caption imgref="NIMAS9780076996285-img-111" class="label">Desert Plant Adaptations<br/>waxy coating on leaves help seal in water<br/>thorns for protection</caption>
+</imggroup>
+<list type="pl">
+<li><p>A. few or no roots</p></li>
+<li><p>B. large leaves to catch sunlight</p></li>
+<li><p>C. grooves on leaves</p></li>
+<li><p>D. thick stems to store water</p></li>
+</list>
+</li>
+<li><p><strong>3.</strong> A special characteristic that helps an organism survive in its environment is a(n) <span class="WOL">__________</span>.</p>
+<list type="pl">
+<li><p>A. adaptation</p></li>
+<li><p>B. camouflage</p></li>
+<li><p>C. hibernation</p></li>
+<li><p>D. migration</p></li>
+</list>
+</li>
+</list>
+<pagenum id="p42" page="normal">42</pagenum>
+<p><strong>Extend It</strong></p>
+<p>You are working on a school project to help increase the population of bees in your area. Research what the bees need to survive and create a plan to present your research to your classmates.</p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><strong>OPEN INQUIRY</strong></p>
+<p>What questions do you still have?</p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p>Plan and carry out an investigation to answer one of the questions.</p>
+<sidebar id="NIMAS9780076996285-sidebar-025" render="required">
+<hd>Keep Planning <img id="NIMAS9780076996285-img-112" src="./images/thruout/performance_icon.jpg" alt=""/></hd>
+<p><strong>STEM Module Project</strong></p>
+<p><strong>Science Challenge</strong></p>
+<p>Now that you have learned how organisms adapt to their environment, go to your Module Project to explain how the information will affect how you design your model.</p>
+</sidebar>
+</level3>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-005" class="section">
+<pagenum id="p43" page="normal">43</pagenum>
+<h2>STEM Module Project Planning</h2>
+<p><img id="NIMAS9780076996285-img-113" src="./images/thruout/performance_icon.jpg" alt=""/> <strong>STEM Module Project</strong></p>
+<p><strong>Science Challenge</strong></p>
+<p><strong>Design an Animal&#x0027;s Adaptations</strong></p>
+<p><img id="NIMAS9780076996285-img-114" src="./images/u03/p043_001.jpg" alt="A photograph of an animal curator."/></p>
+<p>You&#x0027;ve been hired as an animal curator. Using what you have learned throughout this module, you will develop a design for a newly discovered animal in a specific habitat. Your goal will be to design and build a model of the animal in its habitat.</p>
+<p><strong>Planning after Lesson 1</strong></p>
+<p>Apply what you have learned about organism survival to your project planning.</p>
+<p>What do all animals need to survive that you need to include?</p>
+<p>&#x00A0;</p>
+<p>&#x00A0;</p>
+<p>&#x00A0;</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-115" src="./images/u03/p043_002.jpg" alt="An illustration of an ocean engineer."/>
+<prodnote imgref="NIMAS9780076996285-img-115" render="optional">Production note: captions associated with this image are labels that correspond to text within the image.</prodnote>
+<caption imgref="NIMAS9780076996285-img-115" class="label">Record information to help you plan your model after each lesson.</caption>
+</imggroup>
+<p><span class="credit">Hugh Ryono</span></p>
+<pagenum id="p44" page="normal">44</pagenum>
+<p><img id="NIMAS9780076996285-img-116" src="./images/thruout/performance_icon.jpg" alt=""/> <strong>STEM Module Project</strong></p>
+<p><strong>Science Challenge</strong></p>
+<p><strong>Planning after Lesson 2</strong></p>
+<p>Apply what you have learned about adaptations and variations to your project planning.</p>
+<p>How does knowing about adaptations and variations affect your project planning?</p>
+<p>&#x00A0;</p>
+<p>&#x00A0;</p>
+<p>&#x00A0;</p>
+<p><strong>Sketch Your Own Design</strong></p>
+<p>Draw your ideas below. Select the best one to build and test.</p>
+<p>&#x00A0;</p>
+<p>&#x00A0;</p>
+<p>&#x00A0;</p>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-006" class="section">
+<pagenum id="p45" page="normal">45</pagenum>
+<h2>STEM Module Project Design an Animal&#x0027;s Adaptations</h2>
+<p><strong>Design an Animal&#x0027;s Adaptations</strong></p>
+<p>Look back at the planning you did after each lesson. Use that information to complete your final Module Project.</p>
+<table id="NIMAS9780076996285-table-006" frame="border">
+<thead>
+<tr>
+<th>Build Your Model</th>
+<th>Materials</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<list type="pl">
+<li><p><strong>1.</strong> Determine the materials you will need to build your model of an animal using its adaptations to survive in its habitat.</p></li>
+<li><p><strong>2.</strong> Use your project planning to build your model.</p></li>
+<li><p><strong>3.</strong> Explain how your animal&#x0027;s adaptations help it live in its environment.</p></li>
+</list></td>
+<td>
+<p><span class="WOL">____________________</span></p>
+<p><span class="WOL">____________________</span></p>
+<p><span class="WOL">____________________</span></p></td>
+</tr>
+</tbody>
+</table>
+<p><img id="NIMAS9780076996285-img-117" src="./images/u03/p045_001.jpg" alt="An illustration of a tree near a river."/></p>
+<pagenum id="p46" page="normal">46</pagenum>
+<p><img id="NIMAS9780076996285-img-118" src="./images/thruout/performance_icon.jpg" alt=""/> <strong>STEM Module Project</strong></p>
+<p><strong>Science Challenge</strong></p>
+<p><strong>Communicate Your Results</strong></p>
+<p>Share the plan for your model and your results with another group. Compare the animals and their habitats. Communicate your findings below.</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-119" src="./images/u03/p046_001.jpg" alt="An illustration of an ocean engineer."/>
+<prodnote imgref="NIMAS9780076996285-img-119" render="optional">Production note: captions associated with this image are labels that correspond to text within the image.</prodnote>
+<caption imgref="NIMAS9780076996285-img-119" class="label">You are using the Science Process!</caption>
+</imggroup>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-007" class="section">
+<pagenum id="p47" page="normal">47</pagenum>
+<h2>Module Wrap-Up</h2>
+<p><strong>REVISIT</strong><br/><strong>THE PHENOMENON</strong></p>
+<p>Using what you learned in this module, explain how the animal survived.</p>
+<p><img id="NIMAS9780076996285-img-120" src="./images/u03/p047_001.jpg" alt="A photograph of a coyote standing near a hill."/></p>
+<p>&#x00A0;</p>
+<p>&#x00A0;</p>
+<p>&#x00A0;</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-121" src="./images/u03/p047_002.jpg" alt="An illustration of an ocean engineer."/>
+<prodnote imgref="NIMAS9780076996285-img-121" render="optional">Production note: captions associated with this image are labels that correspond to text within the image.</prodnote>
+<caption imgref="NIMAS9780076996285-img-121" class="label">Revisit your project if you need to gather more evidence.</caption>
+</imggroup>
+<p>Have your ideas changed? Explain.</p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="credit">Hit1912/Shutterstock</span></p>
+</level2>
+</level1>
+<level1 id="NIMAS9780076996285-lev1-003" class="unit">
+<pagenum id="p48" page="normal">48</pagenum>
+<h1>Change the Environments</h1>
+<level2 id="NIMAS9780076996285-lev2-008" class="section">
+<h2>Encounter the Phenomenon</h2>
+<imggroup>
+<img id="NIMAS9780076996285-img-122" src="./images/u03/p048_001.jpg" alt="A photograph of the forest fire."/>
+<prodnote imgref="NIMAS9780076996285-img-122" render="optional">Production note: this image crosses the gutter to appear both on page 48 and page 49 in the print version.</prodnote>
+</imggroup>
+<pagenum id="p49" page="normal">49</pagenum>
+<imggroup>
+<img id="NIMAS9780076996285-img-123" src="./images/u03/p049_001.jpg" alt="A photograph of the forest fire."/>
+<prodnote imgref="NIMAS9780076996285-img-123" render="optional">Production note: this image crosses the gutter to appear both on page 48 and page 49 in the print version.</prodnote>
+</imggroup>
+<p><strong>ENCOUNTER</strong><br/><strong>THE PHENOMENON</strong></p>
+<p><strong>How will the fire affect all the living things in the forest?</strong></p>
+<p><img id="NIMAS9780076996285-img-124" src="./images/u03/p049_002.jpg" alt="An illustration of a video screen labeled &#x201C;Burning forest&#x201D;."/></p>
+<sidebar id="NIMAS9780076996285-sidebar-026" render="required">
+<hd><img id="NIMAS9780076996285-img-125" src="./images/thruout/goonlin_icon.jpg" alt=""/> Go Online</hd>
+<p>Check out <em>Burning Forest</em> to see the phenomenon in action.</p>
+</sidebar>
+<sidebar id="NIMAS9780076996285-sidebar-027" render="required">
+<hd><img id="NIMAS9780076996285-img-126" src="./images/thruout/talk_icon.jpg" alt=""/> Talk About It</hd>
+<p>Look at the photo and watch the video <em>Burning Forest</em>. What questions do you have about the phenomenon? Talk about your observations with a partner.</p>
+</sidebar>
+<sidebar id="NIMAS9780076996285-sidebar-028" render="required">
+<hd>Did You Know?</hd>
+<p>Controlled fires can be good for a forest. They remove dead brush without killing older trees. You need permission to set a controlled fire. It takes a lot of experience to control a fire.</p>
+</sidebar>
+<p><span class="credit">David Ponton/Design Pics/Getty Images</span></p>
+<pagenum id="p50" page="normal">50</pagenum>
+<p><img id="NIMAS9780076996285-img-127" src="./images/thruout/performance_icon.jpg" alt=""/> <strong>STEM Module Project Launch</strong></p>
+<p><strong>Science Challenge</strong></p>
+<p><strong><!--NIMAC Tracking ID="000006A4" Hash="577837209"-->Past, Present, and Future</strong></p>
+<list type="pl">
+<li class="toc-entry"><p><strong>Lesson 1</strong> Fossils <img id="NIMAS9780076996285-img-128" src="./images/u03/p050_001.jpg" alt="A photograph of the mammoths in forest after fire."/></p></li>
+<li class="toc-entry"><p><strong>Lesson 2</strong> Changes Affect Organisms <img id="NIMAS9780076996285-img-129" src="./images/u03/p050_002.jpg" alt="A photograph of an aerial view of the water flowing from a dam."/></p></li>
+</list>
+<p>What happens to an ecosystem after a forest fire? You are being hired as a wildlife rehabilitator. At the end of the module, you will construct models of the forest at different time periods. Using what you have learned throughout this module, you will design models of the forest&#x0027;s past, present, and future.</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-130" src="./images/u03/p050_003.jpg" alt="A photograph of the wildfire rehabilitators planning after forest fire."/>
+<caption imgref="NIMAS9780076996285-img-130">Wildlife rehabilitators apply their knowledge of the land and organisms to create a rehabilitation plan after a forest fire.</caption>
+</imggroup>
+<imggroup>
+<img id="NIMAS9780076996285-img-131" src="./images/u03/p050_004.jpg" alt="An illustration of a park ranger wearing a binocular."/>
+<caption imgref="NIMAS9780076996285-img-131"><strong>POPPY</strong><br/>Park Ranger</caption>
+<prodnote imgref="NIMAS9780076996285-img-131" render="optional">Production note: captions associated with this image are labels that correspond to text within the image.</prodnote>
+<caption imgref="NIMAS9780076996285-img-131" class="label">What do you think a wildlife rehabilitator needs to know before restoring an ecosystem?</caption>
+</imggroup>
+<p><img id="NIMAS9780076996285-img-132" src="./images/thruout/dec_icon.jpg" alt=""/> <strong>STEM Module Project</strong></p>
+<p><strong>Plan and Complete the Science Challenge</strong> You will use what you learn to make a plan to restore a forest after a fire.</p>
+<p><span class="credit">(t)Stocktrek Images, Inc./Alamy, (c)Dave Moyer, (b)Dale Kolke/California Department of Water Resources</span></p>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-009" class="section">
+<pagenum id="p51" page="normal">51</pagenum>
+<h2>Lesson 1 Fossils</h2>
+<p><img id="NIMAS9780076996285-img-133" src="./images/thruout/pagekeeley_icon.jpg" alt=""/></p>
+<p><strong>LESSON 1 LAUNCH</strong></p>
+<p><strong>Extinct Today</strong></p>
+<p><img id="NIMAS9780076996285-img-134" src="./images/u03/p051_001.jpg" alt="An illustration of a fossil."/></p>
+<p>Four friends went to a science museum. They looked at the fossils of extinct plants and animals that lived millions of years ago. They had different ideas about why the plants and animals are no longer living today. This is what they said:</p>
+<p><span class="speaker">Norma:</span> I think they died out because they eventually grew too big.</p>
+<p><span class="speaker">Max:</span> I think they just got too old and died out.</p>
+<p><span class="speaker">Eshana:</span> I think their environment changed and they could no longer survive.</p>
+<p><span class="speaker">Diego:</span> I think they were overhunted by humans who used them for food, clothes, and shelter.</p>
+<p>Which friend do you agree with the most? <span class="WOL">__________________________________</span></p>
+<p>Explain why you agree.</p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p>You will revisit the Page Keeley Science Probe later in the lesson.</p>
+<pagenum id="p52" page="normal">52</pagenum>
+<p><strong>LESSON 1 Fossils</strong></p>
+<p><img id="NIMAS9780076996285-img-135" src="./images/u03/p052_001.jpg" alt="A photograph of the mammoths in forest after fire."/></p>
+<p><span class="credit">Stocktrek Images, Inc./Alamy</span></p>
+<pagenum id="p53" page="normal">53</pagenum>
+<p><strong>ENCOUNTER</strong><br/><strong>THE PHENOMENON</strong></p>
+<p><strong>Why don&#x0027;t mammoths exist anymore?</strong></p>
+<p><img id="NIMAS9780076996285-img-136" src="./images/u03/p053_001.jpg" alt="An illustration of a video screen labeled &#x201C;fish fossils&#x201D;."/></p>
+<sidebar id="NIMAS9780076996285-sidebar-029" render="required">
+<hd><img id="NIMAS9780076996285-img-137" src="./images/thruout/goonlin_icon.jpg" alt=""/> Go Online</hd>
+<p>Watch <em>Fish Fossils</em> to see the phenomenon in action.</p>
+</sidebar>
+<sidebar id="NIMAS9780076996285-sidebar-030" render="required">
+<hd><img id="NIMAS9780076996285-img-138" src="./images/thruout/talk_icon.jpg" alt=""/> Talk About It</hd>
+<p>Look at the illustration and watch the video <em>Fish Fossils</em>. What questions and observations do you have about mammoths and the fish fossils?</p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+</sidebar>
+<sidebar id="NIMAS9780076996285-sidebar-031" render="required">
+<hd>Did You Know?</hd>
+<p>Mammoth fossils have been found from Ohio and Illinois all the way to Southern California.</p>
+<p><img id="NIMAS9780076996285-img-139" src="./images/u03/p053_002.jpg" alt="An illustration of the mastodon fossil."/></p>
+</sidebar>
+<level3 id="NIMAS9780076996285-lev3-008" class="subsection">
+<pagenum id="p54" page="normal">54</pagenum>
+<p><strong>INQUIRY ACTIVITY</strong></p>
+<h3>Hands On Layers and Fossils, Part 1</h3>
+<sidebar id="NIMAS9780076996285-sidebar-032" render="required">
+<list type="pl">
+<hd>Materials</hd>
+<li><p><img id="NIMAS9780076996285-img-140" src="./images/u03/p054_001.jpg" alt="A photograph of a safety goggle."/> <strong>safety goggles</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-141" src="./images/u03/p054_002.jpg" alt="A photograph of a table spoon."/> <strong>tablespoon</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-142" src="./images/u03/p054_003.jpg" alt="A photograph of a glue."/> <strong>white glue</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-143" src="./images/u03/p054_004.jpg" alt="A photograph of a cup of water."/> <strong>cup of water</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-144" src="./images/u03/p054_005.jpg" alt="A photograph of a paper cup."/> <strong>paper cup</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-145" src="./images/u03/p054_006.jpg" alt="A photograph of the color sand."/> <strong>3 different colors of sand</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-146" src="./images/u03/p054_007.jpg" alt="A photograph of the natural objects."/> <strong>natural objects</strong></p></li>
+</list>
+</sidebar>
+<p>Mammoths are no longer living, so how do we know so much about them? Earth has different layers of rock and soil. Scientists use the layers of Earth and the fossils found in them to study organisms that lived long ago.</p>
+<p><strong>Make a Prediction</strong> How can you tell which fossils are oldest?</p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><strong>Carry Out an Investigation</strong></p>
+<p><strong>BE CAREFUL</strong> Wear safety goggles to protect your eyes from the sand.</p>
+<list type="pl">
+<li><p><strong>1.</strong> Use the plastic spoon to mix two tablespoons of glue with two tablespoons of water in the plastic cup.</p></li>
+<li><p><strong>2.</strong> Pour a thin layer of colored sand into the paper cup. The sand will represent a layer of rock.</p></li>
+<li><p><strong>3.</strong> Add an object to the paper cup. Cover the object with the same color of sand you used in step 2. Record the color of each layer in your model and include the &#x201C;fossil&#x201D; you placed there in step 6.</p></li>
+<li><p><strong>4.</strong> Add about 1 tablespoon of the glue and water mixture to the sand to make it stay together.</p></li>
+<li><p><strong>5.</strong> Repeat steps 2&#x2013;4 two more times so you have three layers of &#x201C;rock&#x201D; and &#x201C;fossils.&#x201D;</p></li>
+</list>
+<p><img id="NIMAS9780076996285-img-147" src="./images/u03/p054_008.jpg" alt="An illustration of the layers of rock depicts different fossils."/></p>
+<p><span class="credit">(1 2)Janette Beckman/McGraw-Hill Education, (3)Ken Cavanagh/McGraw-Hill Education, (4)James Turner/EyeEm/Getty Images, (5)Yanavarut Phugongchana/Shutterstock</span></p>
+<pagenum id="p55" page="normal">55</pagenum>
+<list type="pl">
+<li><p><strong>6.</strong> Draw a diagram of what the layers should look like in the drawing box below. Label the placement of each of the fossils.</p></li>
+</list>
+<p><img id="NIMAS9780076996285-img-148" src="./images/u03/p055_001.jpg" alt=""/></p>
+<p><strong>Communicate Information</strong></p>
+<list type="pl">
+<li><p><strong>7.</strong> Which &#x201C;fossil&#x201D; in your model was placed first?</p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+</li>
+<li><p><strong>8.</strong> Which fossils on Earth are the oldest? Explain.</p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+</li>
+<li><p><strong>9.</strong> How is it possible to find old and new fossils in the same area?</p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+</li>
+</list>
+<p><img id="NIMAS9780076996285-img-149" src="./images/thruout/talk_icon.jpg" alt=""/> <strong>Talk About It</strong></p>
+<p>How do you think technology can help find fossils?</p>
+<pagenum id="p56" page="normal">56</pagenum>
+<sidebar id="NIMAS9780076996285-sidebar-033" render="required">
+<hd>Vocabulary</hd>
+<p>Look for these words as you read:</p>
+<list type="pl">
+<li><p>extinction</p></li>
+<li><p>fossils</p></li>
+</list>
+</sidebar>
+<p><strong>Fossils</strong></p>
+<p>A <span class="highlight"><dfn><strong>fossil</strong></dfn></span> is a trace of the remains of a living thing that died long ago. Fossils can be shells, bone, skin, leaves, or even footprints. They can form in several different ways.</p>
+<p><strong>Trace Fossils</strong></p>
+<p>Sometimes an animal leaves a footprint on the ground as it walks. The shape of the animal&#x0027;s footprint leaves an imprint in mud or clay. The mud hardens and changes to rock over time. These fossils are called trace fossils. They record a trace of a once-living organism.</p>
+<p><strong>Preserved Remains</strong></p>
+<p>Some fossils are the actual remains of an organism trapped in Earth&#x0027;s materials. Amber fossils formed when insects became trapped in tree sap, which hardened over time. Preserved remains also have been found in tar and ice.</p>
+<p>Fossils can look exactly like the hard parts of the animals they came from.</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-150" src="./images/u03/p056_001.jpg" alt="A photograph of the people looking at the dinosaur fossil in a museum with inset photograph of the dinosaur footprints."/>
+<prodnote imgref="NIMAS9780076996285-img-150" render="optional">Production note: captions associated with this image are labels that correspond to text within the image.</prodnote>
+<caption imgref="NIMAS9780076996285-img-150" class="label">This dinosaur&#x0027;s footprints were left in mud. The mud hardened into rock, fossilizing the footprints.</caption>
+</imggroup>
+<p><span class="credit">(b)Alexander Farmer/Alamy Stock Photo, (inset)McGraw-Hill Education</span></p>
+<pagenum id="p57" page="normal">57</pagenum>
+<p><strong>Molds and Casts</strong></p>
+<p>Some fossils, such as bones and teeth, look like the actual parts of animals. When scientists find a bone of a dinosaur, they really have found rock hardened into the shape of a bone.</p>
+<sidebar id="NIMAS9780076996285-sidebar-034" render="required">
+<hd><img id="NIMAS9780076996285-img-151" src="./images/thruout/goonlin_icon.jpg" alt=""/> Go Online</hd>
+<p>Watch the video <em>Fossils</em> to learn more about how different fossils form.</p>
+</sidebar>
+<p>A seashell can make an imprint, or a mark, in mud or sand. Over time, the shell is buried in more layers of sand or mud. Water and minerals seep into the ground. The shell breaks down, but the material around it hardens into rock. The shell-shaped space that is left is called a mold. The empty space can be filled with a new material to show what the original shell looked like. This kind of model is called a cast.</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-152" src="./images/u03/p057_001.jpg" alt="A photograph of a fossil of an insect."/>
+<caption imgref="NIMAS9780076996285-img-152">This insect&#x0027;s entire body was trapped in tree sap and is now a fossil.</caption>
+</imggroup>
+<list type="pl">
+<li><p><strong>1.</strong> Think back to the Inquiry Activity, <em>Layers and Fossils, Part 1.</em> What type of fossils did you create?</p>
+<p><span class="WOL">_________________________________________________________</span></p>
+</li>
+<li>
+<p><strong>2.</strong> How are preserved remains different from fossils in stone?</p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+</li>
+<li><p><strong>3.</strong> What can a scientist learn from studying a mold fossil of an ancient seashell?</p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+</li>
+</list>
+<imggroup>
+<img id="NIMAS9780076996285-img-153" src="./images/u03/p057_002.jpg" alt="A photograph of the mold and cast."/>
+<caption imgref="NIMAS9780076996285-img-153">The fossil on the bottom is a mold.<br/>The fossil on the top is the cast.</caption>
+</imggroup>
+<p><span class="credit">(t)Carlyn Iverson/McGraw-Hill Education, (b)Andrew Ilyasov/E+/Getty Images</span></p>
+<pagenum id="p58" page="normal">58</pagenum>
+<p><strong>What Fossils Tell Us</strong></p>
+<p>Earth is about 4.5 billion years old. People have lived on Earth only a small part of that time. Scientists learn about Earth&#x0027;s past by studying fossils.</p>
+<p>We know about organisms that lived long ago because of the fossil record. Mammoths are examples of such animals. No one has ever seen a mammoth, but we know about them because people have studied their fossils.</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-154" src="./images/u03/p058_001.jpg" alt="A photograph of the fossil mastodon."/>
+<caption imgref="NIMAS9780076996285-img-154">This photo shows a fossil of a mammoth. From their fossils, scientists know they were large mammals.</caption>
+</imggroup>
+<p><strong>Changes in Living Things</strong></p>
+<p>The fossil record shows that the kinds of things on Earth have changed over time. Early in Earth&#x0027;s history, many fish swam in the oceans. There were few animals on land. Later, many species of fish became extinct. <span class="highlight"><dfn><strong>Extinction</strong></dfn></span> is when there is no more of an organism&#x0027;s kind left on Earth.</p>
+<p><strong>Evidence of Earth&#x0027;s Changes</strong></p>
+<p>Looking at fossils also tells us about how Earth&#x0027;s environment has changed over time. Today, Antarctica is a cold place. It is covered in snow and ice. Scientists have found fossils of leaves and wood there. These fossils tell scientists that Antarctica was once a warm, wet area.</p>
+<p>Scientists use details they find from fossils to piece together the story of Earth&#x0027;s past. From each new fossil found in Earth&#x0027;s surface, we learn a little more about our planet&#x0027;s history.</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-155" src="./images/u03/p058_002.jpg" alt="A photograph of the coral fossil."/>
+<caption imgref="NIMAS9780076996285-img-155">This coral once lived in a warm sea. Over millions of years, the area has changed to dry land in the center of the continent.</caption>
+</imggroup>
+<p><strong>REVISIT</strong> <img id="NIMAS9780076996285-img-156" src="./images/thruout/pagekeeley_icon.jpg" alt=""/></p>
+<p>Revisit the Page Keeley Science Probe on <a href="#p51">page 51</a>.</p>
+<p><span class="credit">(t)Ilene MacDonald/Alamy Stock Photo, (b)Bruce Block/iStock/Getty Images</span></p>
+</level3>
+<level3 id="NIMAS9780076996285-lev3-009" class="subsection">
+<pagenum id="p59" page="normal">59</pagenum>
+<p><strong>INQUIRY ACTIVITY</strong></p>
+<h3>Hands On Layers and Fossils, Part 2</h3>
+<sidebar id="NIMAS9780076996285-sidebar-035" render="required">
+<list type="pl">
+<hd>Materials</hd>
+<li><p><img id="NIMAS9780076996285-img-157" src="./images/u03/p059_001.jpg" alt="A photograph of the safety goggles."/> <strong>safety goggle</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-158" src="./images/u03/p059_002.jpg" alt="A photograph of a fossil cup."/> <strong>&#x201C;fossil&#x201D; cups</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-159" src="./images/u03/p059_003.jpg" alt="A photograph of a paper cup."/> <strong>paper plate</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-160" src="./images/u03/p059_004.jpg" alt="A photograph of a paint brush."/> <strong>paintbrush</strong></p></li>
+</list>
+</sidebar>
+<p>Uncover the &#x201C;fossils&#x201D; in the layers of rock that were made earlier in this lesson.</p>
+<p><strong>State the Claim</strong> How are your &#x201C;fossil&#x201D; cups like real fossils that scientists discover?</p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><strong>Make a Model</strong></p>
+<list type="pl">
+<li><p><strong>1.</strong> Trade cups with another group.</p></li>
+<li><p><strong>2.</strong> Place the cup on the plate and carefully remove the rock formation from the cup.</p></li>
+<li><p><strong>3.</strong> Starting at the top, brush away the sand or use the end of a brush to uncover the fossils.</p></li>
+<li><p><strong>4. Record Data</strong> On a separate sheet of paper record the objects found and the order.</p></li>
+</list>
+<p><img id="NIMAS9780076996285-img-161" src="./images/u03/p059_005.jpg" alt="An illustration of a brush and a rock."/></p>
+<p><strong>Communicate Information</strong></p>
+<list type="pl">
+<li><p><strong>5.</strong> Did your findings support your claim? Explain.</p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+</li>
+</list>
+<p><img id="NIMAS9780076996285-img-162" src="./images/thruout/dec_icon.jpg" alt=""/> You made a <strong>model</strong> of part of <strong>Earth&#x0027;s system</strong>. How is your model like Earth? How is it different?</p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="credit">(1 3)Ken Cavanagh/McGraw-Hill Education, (2)Jacques Cornell/McGraw-Hill Education, (4)Janette Beckman/McGraw-Hill Education</span></p>
+<pagenum id="p60" page="normal">60</pagenum>
+<p><strong>Learning from Fossils</strong></p>
+<p>Some fossils give clues about a living thing&#x0027;s size, shape, and environment. The woolly mammoth became extinct thousands of years ago. Fossils tell us that it had a large trunk and tusks. Yet, fossils cannot tell us how this animal used its body parts. Instead, scientists learn how animals that lived long ago used their body parts by studying similar animals living today.</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-163" src="./images/u03/p060_001.jpg" alt="A photograph of an elephant on left and a mammoth on right."/>
+<caption imgref="NIMAS9780076996285-img-163">What do elephants and wooly mammoths have in common? What is different about them?</caption>
+</imggroup>
+<p>How deep a fossil is buried gives clues about when an organism lived. Fossils found closest to the surface are usually the youngest. Fossils found in deeper layers are usually older. This helps scientists put together a picture of what organisms lived at the same time.</p>
+<p>Clues in rocks can also give hints about what Earth was like at different points in the past. Many fish fossils are found on land. This means that millions of years ago, that land was covered with water. Over time, the land rose above the water. Fossils remained in the rock and soil that had been underwater.</p>
+<p>Scientists may find many fossils buried at the same depth. What do they know about these fossils?</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="credit">(l)imagebroker/Alamy Stock Photo, (r)Michal Lindner/123RF</span></p>
+</level3>
+<level3 id="NIMAS9780076996285-lev3-010" class="subsection">
+<pagenum id="p61" page="normal">61</pagenum>
+<p><strong>INQUIRY ACTIVITY</strong></p>
+<h3>Simulations Fossil Dig</h3>
+<p><img id="NIMAS9780076996285-img-164" src="./images/u03/p061_001.jpg" alt="An illustration of a video screen labeled &#x201C;Fossil dig&#x201D;."/></p>
+<sidebar id="NIMAS9780076996285-sidebar-036" render="required">
+<hd><img id="NIMAS9780076996285-img-165" src="./images/thruout/goonlin_icon.jpg" alt=""/> Go Online</hd>
+<p>Use the <em>Fossil Dig</em> simulation to investigate the layers of a fossil dig.</p>
+</sidebar>
+<p><strong>Make a Prediction</strong> What information about an organism can you get from a fossil dig?</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p>Choose one area of the simulation, and record data below.</p>
+<table id="NIMAS9780076996285-table-007" frame="border">
+<thead>
+<tr>
+<th>Layer</th>
+<th>Did it live in water or land?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A</strong></td>
+<td>&#x00A0;</td>
+</tr>
+<tr>
+<td><strong>B</strong></td>
+<td>&#x00A0;</td>
+</tr>
+<tr>
+<td><strong>C</strong></td>
+<td>&#x00A0;</td>
+</tr>
+<tr>
+<td><strong>D</strong></td>
+<td>&#x00A0;</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Communicate Information</strong></p>
+<list type="pl">
+<li><p><strong>1.</strong> How did you know whether an organism lived on land or in water?</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p></li>
+<li><p><strong>2.</strong> How did you know which fossils were older?</p>
+<p><span class="WOL">____________________________________________________________</span></p></li>
+<li><p><strong>3.</strong> Select one fossil, and describe the environment in which it lived.</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p></li>
+</list>
+<pagenum id="p62" page="normal">62</pagenum>
+<p><strong>FOLDABLES&#x00AE;</strong></p>
+<p>Cut out the Notebook Foldables tabs given to you by your teacher. Glue the anchor tabs as shown below. Describe the fossils and animals shown in the pictures and explain what they tell us about prehistoric life.</p>
+<p><img id="NIMAS9780076996285-img-166" src="./images/u03/p062_001.jpg" alt="An illustration of the foldable on left. Three groups of fossils on right."/></p>
+<pagenum id="p63" page="normal">63</pagenum>
+<p><strong>STEM Connection</strong></p>
+<p><strong>What Does an Archaeologist Do?</strong></p>
+<p><img id="NIMAS9780076996285-img-167" src="./images/u03/p063_001.jpg" alt="A photograph of an archeologist measuring the eye length of a fossil."/></p>
+<p><img id="NIMAS9780076996285-img-168" src="./images/u03/p063_002.jpg" alt="A photograph of an archeologist working in the site."/></p>
+<p><strong>Archaeologists</strong> study human history. They conduct digs to uncover fossils and the tools humans used in the past. They learn about past human societies and how humans have developed and changed over time.</p>
+<p>Francis Turville-Petre was an archaeologist. He worked in different parts of the world conducting digs. He is famous for discovering a new fossil never seen before.</p>
+<p><strong>It&#x0027;s Your Turn</strong></p>
+<p>Think like an archaeologist. Complete the activity on the next page to uncover the answers that fossils hold.</p>
+<p><img id="NIMAS9780076996285-img-169" src="./images/u03/p063_003.jpg" alt="A photograph of the tools of an archeologist."/></p>
+<p><img id="NIMAS9780076996285-img-170" src="./images/thruout/talk_icon.jpg" alt=""/> <strong>Talk About It</strong></p>
+<p>What would you be most interested in researching about human life in the past?</p>
+<p><span class="credit">(t)&#x00A9;Adam Gault/age fotostock, (inset)microgen/iStockphoto/Getty Images, (b)Number001/Shutterstock</span></p>
+</level3>
+<level3 id="NIMAS9780076996285-lev3-011" class="subsection">
+<pagenum id="p64" page="normal">64</pagenum>
+<p><strong>INQUIRY ACTIVITY</strong></p>
+<h3>Hands On Fossil Mystery</h3>
+<sidebar id="NIMAS9780076996285-sidebar-037" render="required">
+<list type="pl">
+<hd>Materials</hd>
+<li><p><img id="NIMAS9780076996285-img-171" src="./images/u03/p064_001.jpg" alt="A photograph of the colored pencils."/> <strong>colored pencils</strong></p></li>
+<li><p><img id="NIMAS9780076996285-img-172" src="./images/u03/p064_002.jpg" alt="A photograph of a paper."/> <strong>paper</strong></p></li>
+</list>
+</sidebar>
+<p>Make a model of a fossil, and see whether your classmate can identify your fossil. Use the fossil to determine the environment the animal lived in.</p>
+<p><strong>Make a Prediction</strong> What can you learn about a fossil from its characteristics?</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><strong>Carry Out an Investigation</strong></p>
+<list type="pl">
+<li><p><strong>1.</strong> Choose a favorite animal. Then use a pencil and the key to draw your fossil on a separate sheet of paper.</p>
+<table id="NIMAS9780076996285-table-008" frame="border">
+<thead>
+<tr>
+<th>If your animal is a&#x2026;</th>
+<th>then draw a&#x2026;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>mammal</strong></td>
+<td><strong>circle</strong></td>
+</tr>
+<tr>
+<td><strong>bird</strong></td>
+<td><strong>square</strong></td>
+</tr>
+<tr>
+<td><strong>amphibian</strong></td>
+<td><strong>rectangle</strong></td>
+</tr>
+<tr>
+<td><strong>reptile</strong></td>
+<td><strong>triangle</strong></td>
+</tr>
+<tr>
+<td><strong>fish</strong></td>
+<td><strong>star</strong></td>
+</tr>
+</tbody>
+</table>
+<p><img id="NIMAS9780076996285-img-173" src="./images/u03/p064_003.jpg" alt="An illustration of a bird holding a fish on its beak."/></p></li>
+<li><p><strong>2.</strong> Use the key below to draw marks on your fossil.</p>
+<table id="NIMAS9780076996285-table-009" frame="border">
+<thead>
+<tr>
+<th>If your animal&#x2026;</th>
+<th>then mark your drawing with&#x2026;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>only lives in water</strong></td>
+<td><strong>red triangle</strong></td>
+</tr>
+<tr>
+<td><strong>only lives on land</strong></td>
+<td><strong>blue circle</strong></td>
+</tr>
+<tr>
+<td><strong>lives in water and on land</strong></td>
+<td><strong>purple star</strong></td>
+</tr>
+<tr>
+<td><strong>is a carnivore (eats meat)</strong></td>
+<td><strong>black square</strong></td>
+</tr>
+<tr>
+<td><strong>is an herbivore (eats plants)</strong></td>
+<td><strong>yellow square</strong></td>
+</tr>
+<tr>
+<td><strong>is an omnivore (eats meat and plants)</strong></td>
+<td><strong>green square</strong></td>
+</tr>
+</tbody>
+</table></li>
+</list>
+<p><span class="credit">(t)Jacques Cornell/McGraw-Hill Education, (b)Ken Cavanagh/McGraw-Hill Education</span></p>
+<pagenum id="p65" page="normal">65</pagenum>
+<list type="pl">
+<li><p><strong>3.</strong> Trade your model fossil with a person sitting next to you. Use the key to find out about the animal your classmate chose.</p></li>
+<li><p><strong>4.</strong> Using what you have learned about the mystery fossil, draw a picture of the animal the mystery fossil represents. In your drawing, show the enviornment the animal lived in and what it ate for food.</p>
+<p><img id="NIMAS9780076996285-img-174" src="./images/u03/p065_001.jpg" alt=""/></p></li>
+</list>
+<p><strong>Communicate Information</strong></p>
+<list type="pl">
+<li><p><strong>5.</strong> Share your drawing with your partner. Did your drawing represent the fossilized animal your partner chose? Explain.</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p></li>
+</list>
+</level3>
+<level3 id="NIMAS9780076996285-lev3-012" class="subsection">
+<pagenum id="p66" page="normal">66</pagenum>
+<h3>Lesson 1 Review</h3>
+<p><img id="NIMAS9780076996285-img-175" src="./images/u03/p066_001.jpg" alt="A photograph of the mammoth."/></p>
+<p><strong>EXPLAIN</strong><br/><strong>THE PHENOMENON</strong></p>
+<p><strong>Why don&#x0027;t mammoths exist anymore?</strong></p>
+<p><strong>Summarize It</strong></p>
+<p>Explain what fossils tell us about the environment.</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<sidebar id="NIMAS9780076996285-sidebar-038" render="required">
+<hd>Revisit <img id="NIMAS9780076996285-img-176" src="./images/thruout/pagekeeley_icon.jpg" alt=""/></hd>
+<p>Revisit the Page Keeley Science Probe on <a href="#p51">page 51</a>. Has your thinking changed? If so, explain how it has changed.</p>
+</sidebar>
+<p><span class="credit">Stocktrek Images, Inc./Alamy</span></p>
+<pagenum id="p67" page="normal">67</pagenum>
+<p><img id="NIMAS9780076996285-img-177" src="./images/thruout/dec_icon.jpg" alt=""/> <strong>Three-Dimensional Thinking</strong></p>
+<list type="pl">
+<li><p><strong>1.</strong> A type of organism that has no living population is said to be <span class="WOL">_____________</span>.</p>
+<list type="pl">
+<li><p>A. fossil</p></li>
+<li><p>B. remains</p></li>
+<li><p>C. an organism</p></li>
+<li><p>D. extinct</p></li>
+</list>
+<p>Use the table below to answer question 2.</p>
+<table id="NIMAS9780076996285-table-010" frame="border">
+<thead>
+<tr>
+<th>Animal</th>
+<th>Feature</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>saber-toothed cat</strong></td>
+<td><strong>long, sharp teeth</strong></td>
+</tr>
+<tr>
+<td><strong>woolly mammoth</strong></td>
+<td><strong>flat teeth</strong></td>
+</tr>
+<tr>
+<td><strong>pterodactyl</strong></td>
+<td><strong>long wingspan</strong></td>
+</tr>
+<tr>
+<td><strong>triceratops</strong></td>
+<td><strong>leathery skin</strong></td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>2.</strong> Which animal was most likely a meat-eater?</p>
+<list type="pl">
+<li><p>A. saber-toothed cat</p></li>
+<li><p>B. woolly mammoth</p></li>
+<li><p>C. pterodactyl</p></li>
+<li><p>D. triceratops</p></li>
+</list></li>
+<li><p><strong>3.</strong> The fossil of a fish was found at the top of a mountain. Which statement is MOST likely true?</p>
+<list type="pl">
+<li><p>A. The mountain was once a hill.</p></li>
+<li><p>B. Fish used to live on the mountain.</p></li>
+<li><p>C. The mountain was once under water.</p></li>
+<li><p>D. Someone moved the fossil to the mountain.</p></li>
+</list></li>
+</list>
+<pagenum id="p68" page="normal">68</pagenum>
+<p><strong>Extend It</strong></p>
+<p>You have been asked to be a guest teacher in a first grade classroom. You will need to create an activity to do with your students about extinct animals. Be creative when planning your activity. Design a game, write a skit to perform, or create a craft project to help teach your class.</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><strong>OPEN INQUIRY</strong></p>
+<p>What questions do you still have?</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p>Plan and carry out an investigation to answer one of the questions.</p>
+<sidebar id="NIMAS9780076996285-sidebar-039" render="required">
+<hd>Keep Planning <img id="NIMAS9780076996285-img-178" src="./images/thruout/performance_icon.jpg" alt=""/></hd>
+<p><strong>STEM Module Project</strong></p>
+<p><strong>Science Challenge</strong></p>
+<p>Now that you have learned about fossils, go to your Module Project and explain how the information will affect your plan for your model.</p>
+</sidebar>
+</level3>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-010" class="section">
+<pagenum id="p69" page="normal">69</pagenum>
+<h2>Lesson 2 Changes Affect Organisms</h2>
+<p><img id="NIMAS9780076996285-img-179" src="./images/thruout/pagekeeley_icon.jpg" alt=""/></p>
+<p><strong>LESSON 1 LAUNCH</strong></p>
+<p><strong>Changes in Ecosystems</strong></p>
+<p>Changes in ecosystems affect organisms. Some of these changes include the temperature, food and water supply, and shelter an organism needs to survive. Circle any of the boxes that best describe what can happen to a group of organisms when there is a forest fire.</p>
+<table id="NIMAS9780076996285-table-011" frame="border">
+<tbody>
+<tr>
+<td>None of the organisms will survive and reproduce.</td>
+<td>Some organisms will survive and reproduce.</td>
+<td>All the organisms will survive and reproduce.</td>
+</tr>
+<tr>
+<td>None of the organisms will move to new locations.</td>
+<td>Some of the organisms will move to new locations.</td>
+<td>All of the organisms will move to new locations.</td>
+</tr>
+<tr>
+<td>None of the organisms will move into the changed environment.</td>
+<td>Some of the organisms will move into the changed environment.</td>
+<td>All of the organisms will move into the changed environment.</td>
+</tr>
+<tr>
+<td>None of the organisms will die.</td>
+<td>Some of the organisms will die.</td>
+<td>All of the organisms will die.</td>
+</tr>
+</tbody>
+</table>
+<p>Explain your thinking. How did you decide what happens to organisms when there is a forest fire?</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p>You will revisit the Page Keeley Science Probe later in the lesson.</p>
+<pagenum id="p70" page="normal">70</pagenum>
+<p><strong>LESSON 2 Changes Affect Organisms</strong></p>
+<p><img id="NIMAS9780076996285-img-180" src="./images/u03/p070_001.jpg" alt="A photograph of an aerial view of the water flowing from a dam."/></p>
+<p><span class="credit">Dale Kolke/California Department of Water Resources</span></p>
+<pagenum id="p71" page="normal">71</pagenum>
+<p><strong>ENCOUNTER</strong></p>
+<p><strong>THE PHENOMENON</strong></p>
+<p><strong>How will the broken dam affect the area around it?</strong></p>
+<p><img id="NIMAS9780076996285-img-181" src="./images/u03/p071_001.jpg" alt="An illustration of a video screen labeled &#x201C;Oroville dam breach&#x201D;."/></p>
+<sidebar id="NIMAS9780076996285-sidebar-040" render="required">
+<hd><img id="NIMAS9780076996285-img-182" src="./images/thruout/goonlin_icon.jpg" alt=""/> Go Online</hd>
+<p>Check out <em>Oroville Dam Breach</em> to see the phenomenon in action.</p>
+</sidebar>
+<sidebar id="NIMAS9780076996285-sidebar-041" render="required">
+<hd><img id="NIMAS9780076996285-img-183" src="./images/thruout/talk_icon.jpg" alt=""/> Talk About It</hd>
+<p>Look at the photo and watch the <em>Oroville Dam Breach</em> video. What observations and questions do you have about the phenomenon?</p>
+</sidebar>
+<p><img id="NIMAS9780076996285-img-184" src="./images/u03/p071_002.jpg" alt=""/></p>
+<sidebar id="NIMAS9780076996285-sidebar-042" render="required">
+<hd>Did You Know?</hd>
+<p>In February 2017, the Oroville Dam&#x0027;s main spillway was damaged. Water gushed over the emergency spillway. Experts feared the dam would collapse. Almost 200,000 people were evacuated.</p>
+<p><img id="NIMAS9780076996285-img-185" src="./images/u03/p071_003.jpg" alt="An illustration of a river."/></p>
+</sidebar>
+<level3 id="NIMAS9780076996285-lev3-013" class="subsection">
+<pagenum id="p72" page="normal">72</pagenum>
+<p><strong>INQUIRY ACTIVITY</strong></p>
+<h3>Hands On Changes by Humans</h3>
+<p>You used fossils to investigate how Earth has changed over millions of years. Many things change suddenly, like when a dam breaks. Investigate how humans have changed the environment.</p>
+<p><img id="NIMAS9780076996285-img-186" src="./images/u03/p072_001.jpg" alt="A photograph of an earth."/></p>
+<p><strong>Make a Prediction</strong> How do you think humans have changed the environment around your school?</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><strong>Carry Out an Investigation</strong></p>
+<p><img id="NIMAS9780076996285-img-187" src="./images/u03/p072_002.jpg" alt="An illustration of an excavator."/></p>
+<list type="pl">
+<li><p><strong>1.</strong> Go outside and record your observations about the environment around your school.</p></li>
+<li><p><strong>2.</strong> On a separate piece of paper, record the living things, nonliving things, and the things made by humans that you see.</p></li>
+</list>
+<p><strong>Communicate Information</strong></p>
+<list type="pl">
+<li><p><strong>3.</strong> Look at the things that you listed as living, nonliving, and human-made. Describe how humans have changed your environment.</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p></li>
+</list>
+<p><img id="NIMAS9780076996285-img-188" src="./images/thruout/talk_icon.jpg" alt=""/> <strong>Talk About It</strong></p>
+<p>Did your findings support your prediction? Explain.</p>
+<p><span class="credit">1xpert/123RF</span></p>
+<pagenum id="p73" page="normal">73</pagenum>
+<p><strong>MAKE YOUR CLAIM</strong></p>
+<p><strong>How have humans changed their environment?</strong></p>
+<p><img id="NIMAS9780076996285-img-189" src="./images/u03/p073_001.jpg" alt="A photograph of an aerial view of the water flowing from a dam."/></p>
+<imggroup>
+<img id="NIMAS9780076996285-img-190" src="./images/u03/p073_002.jpg" alt="An illustration of a flowchart to depict the text evidence and reasoning of the claim."/>
+<prodnote imgref="NIMAS9780076996285-img-190" render="optional">Production note: captions associated with this image are labels that correspond to text within the image.</prodnote>
+<caption imgref="NIMAS9780076996285-img-190" class="label"><strong>Make your claim. Use your investigation.</strong><br/>CLAIM<br/>Humans change their environment by <span class="WOL">________________</span>.<br/><strong>Cite evidence from the activity.</strong><br/>EVIDENCE<br/>The investigation showed that <span class="WOL">________________</span>.<br/><strong>Discuss your reasoning as a class. Tell about your discussion.</strong><br/>REASONING<br/>The evidence that supports the claim is <span class="WOL">________________</span>.</caption>
+</imggroup>
+<p>You will revisit your claim to add more evidence later in this lesson.</p>
+<p><span class="credit">Dale Kolke/California Department of Water Resources</span></p>
+<pagenum id="p74" page="normal">74</pagenum>
+<sidebar id="NIMAS9780076996285-sidebar-043" render="required">
+<hd>Vocabulary</hd>
+<p>Look for these words as you read:</p>
+<list type="pl">
+<li><p>invasive species</p></li>
+</list>
+</sidebar>
+<p><strong>Ecosystems</strong></p>
+<p>Living things depend on one another. They also depend on nonliving things, such as sunlight. Earth has many different kinds of ecosystems. Different organisms live in different parts of an ecosystem. Living things get food, water, and shelter from their habitats. Many different habitats make up an ecosystem.</p>
+<p><img id="NIMAS9780076996285-img-191" src="./images/u03/p074_001.jpg" alt="A photograph of an animal sitting on a rock."/></p>
+<p><strong>Interactions in Ecosystems</strong></p>
+<p>The different parts of an ecosystem interact. All of the parts depend on and affect one another. For example, animals depend on plants for food and shelter. Squirrels get acorns from trees to eat and gather branches to make nests in trees. Squirrels can change and affect how trees grow. Trees and other plants give off oxygen that animals need to survive.</p>
+<p>Living things also depend on and affect nonliving things in an ecosystem. The grass on a meadow could not grow without air, water, sunlight, nutrients, and soil. When chipmunks and rabbits dig in the ground, they break up rocks, which helps form the soil.</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-192" src="./images/u03/p074_002.jpg" alt="An illustration of newly grown plants on left and the animals around the plants is depicted on right."/>
+<prodnote imgref="NIMAS9780076996285-img-192" render="optional">Production note: this image crosses the gutter to appear both on page 74 and page 75 in the print version.</prodnote>
+<prodnote imgref="NIMAS9780076996285-img-192" render="optional">Production note: captions associated with this image are labels that correspond to text within the image.</prodnote>
+<caption imgref="NIMAS9780076996285-img-192" class="label">Seeds blow onto bare ground. The environment changes as plants take in water and nutrients.<br/>As more plants grow, animals move in to the environment. They use the plants for food and shelter.</caption>
+</imggroup>
+<p><span class="credit">NPS Photo/Cookie Ballou</span></p>
+<pagenum id="p75" page="normal">75</pagenum>
+<imggroup>
+<img id="NIMAS9780076996285-img-193" src="./images/u03/p075_001.jpg" alt="A photograph of the grazing bison."/>
+<caption imgref="NIMAS9780076996285-img-193">Bison and other animals in this meadow depend on grasses for food. The grasses need air, water, sunlight, and soil to grow.</caption>
+</imggroup>
+<sidebar id="NIMAS9780076996285-sidebar-044" render="required">
+<hd><img id="NIMAS9780076996285-img-194" src="./images/thruout/goonlin_icon.jpg" alt=""/> Go Online</hd>
+<p>Watch the video <em>How Environments Change</em> to learn more about different types of changes.</p>
+</sidebar>
+<p><strong>Changes in Ecosystems</strong></p>
+<p>Every living thing changes its ecosystem as it meets its needs. A spider spins a web to catch insects for food. A cotton plant takes water from the soil. Organisms reproduce and grow in number. These events change an ecosystem in small ways.</p>
+<p>Other living things make bigger changes to their ecosystems. For example, bacteria, worms, and mushrooms break down leaves and dead animals. This returns valuable nutrients to the soil. Later, plants can use those nutrients to grow.</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-195" src="./images/u03/p075_002.jpg" alt="An illustration of the animals eating the organisms around the plants is depicted on left. The animals living in the shades of the trees is depicted on right."/>
+<prodnote imgref="NIMAS9780076996285-img-195" render="optional">Production note: this image crosses the gutter to appear both on page 74 and page 75 in the print version.</prodnote>
+<prodnote imgref="NIMAS9780076996285-img-195" render="optional">Production note: captions associated with this image are labels that correspond to text within the image.</prodnote>
+<caption imgref="NIMAS9780076996285-img-195" class="label">In time the plants grow larger. They compete for water, space, and sunlight. Animals compete for food and water.<br/>Trees block sunlight from reaching smaller plants. These plants may die as trees grow larger.</caption>
+</imggroup>
+<p><span class="credit">U.S. Fish &#x0026; Wildlife Service</span></p>
+<pagenum id="p76" page="normal">76</pagenum>
+<p>People change ecosystems more than other organisms do. Some changes, such as planting trees, are helpful. Others, such as draining wetlands to build over them, hurt ecosystems.</p>
+<p>The arrival of a new type of organism can cause either big or small changes to an ecosystem. An <span class="highlight"><dfn><strong>invasive species</strong></dfn></span> is an organism that is introduced into a new ecosystem either by accident or on purpose by humans. Without predators, the population of the invasive species increases rapidly. Invasive species can be plants or animals.</p>
+<p>Natural events can cause dramatic changes in ecosystems. Droughts may cause an entire population of animals to leave an area in search of food sources. Floods and fires can sweep away plants and animals. It can take years for an ecosystem to recover from these changes.</p>
+<p><strong>COLLECT EVIDENCE</strong></p>
+<p>Add evidence to your claim on <a href="#p73">page 73</a> about how humans change their environment.</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-196" src="./images/u03/p076_001.jpg" alt="A photograph of the wild pigs digging for food in Cape Canaveral, Florida. This is depicted on left. A north America beaver works on its dam in Grand Teton National park in Wyoming. This is depicted on right."/>
+<caption imgref="NIMAS9780076996285-img-196">Invasive wild pigs are digging for food near Cape Canaveral, Florida.</caption>
+</imggroup>
+<p>A North American beaver works on its dam in Grand Teton National Park, Wyoming.</p>
+<sidebar id="NIMAS9780076996285-sidebar-045" render="required">
+<hd><img id="NIMAS9780076996285-img-197" src="./images/thruout/goonlin_icon.jpg" alt=""/> Go Online</hd>
+<p>Explore <em>Environments: Before and After</em> to see the effects of environmental changes.</p>
+</sidebar>
+<p>How might a beaver dam change the ecosystem?</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="credit">(l)NASA, (r)Library of Congress, Prints &#x0026; Photographs Division [HAER ND,51-FOX.V,1-C-]</span></p>
+<pagenum id="p77" page="normal">77</pagenum>
+<p><strong>Historical Dam</strong></p>
+<p><strong>WRITING Connection</strong> Look at the two photos below. On a separate sheet of paper, write a paragraph describing three ways the ecosystem changed when the dam gates opened. Also, describe a possible problem that could have occurred if the dam was not built.</p>
+<p><strong>PRIMARY SOURCE</strong></p>
+<imggroup>
+<img id="NIMAS9780076996285-img-198" src="./images/u03/p077_001.jpg" alt="A photograph of the Dam 96 at J. Clark Slayer wild refuge."/>
+<caption imgref="NIMAS9780076996285-img-198">Dam 96 can be found at the J. Clark Salyer Wild Refuge.</caption>
+</imggroup>
+<imggroup>
+<img id="NIMAS9780076996285-img-199" src="./images/u03/p077_002.jpg" alt="A photograph of the Dam at Souris river Basin."/>
+<caption imgref="NIMAS9780076996285-img-199">After Dam 96 at the Souris River Basin was opened.</caption>
+</imggroup>
+<p><span class="credit">Library of Congress, Prints &#x0026; Photographs Division</span></p>
+<pagenum id="p78" page="normal">78</pagenum>
+<p><strong>CLOSE READING</strong></p>
+<p><strong>Inspect</strong></p>
+<p><strong>Read</strong> the passage <em>Southwest Forest Fires</em>. Underline text evidence about how a park ranger helps with forest fires.</p>
+<p><strong>Find Evidence</strong></p>
+<p><strong>Reread</strong> What happens to animals after a fire? Highlight evidence that supports your answer.</p>
+<p><strong>Notes</strong></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><img id="NIMAS9780076996285-img-200" src="./images/u03/p078_001.jpg" alt="A photograph of the firefighters working together to put out wildfire."/></p>
+<p>It takes a lot of firefighters working together to put out wildfires.</p>
+<p><strong>Southwest Forest Fires</strong></p>
+<p>The southwest region of the United States can experience wildfires when conditions are dry due to lack of rain. This area of the country often experiences periods of drought. Once a fire starts, it is hard to stop it from spreading. This is especially true when a forest is dry.</p>
+<p>Park rangers have an important job when there is a wildfire. First, they let people know to stay away. They do this by talking to news reporters and by using social media. After the fire is out, they take care of the animals that survived the fire. Some small animals hide underground or in logs. Park rangers help to rehabilitate the animals.</p>
+<p><span class="credit">&#x00A9;Studio One-One/Moment/Getty Images</span></p>
+<pagenum id="p79" page="normal">79</pagenum>
+<p><img id="NIMAS9780076996285-img-201" src="./images/u03/p079_001.jpg" alt="A photograph of the elk escaped from the wildfire in southern California."/></p>
+<p>Experts say birds and large animals usually survive wildfires. Flying above the smoke and flames or large strides make them able to flee quickly when a fire first begins.</p>
+<p>Where do you think wild animals go after their homes are destroyed? Most animals find another forest to call home. It can take time to find a new forest. This is why some people who live in areas that experience forest fires see wild animals like coyotes walking along the highway. It is not safe for wild animals to explore outside of their natural habitat, though. They are not used to living among humans. As animals seek refuge, they sometimes wind up in neighborhoods. In these cases, park rangers and other wildlife experts are called in to help with their relocation.</p>
+<p><strong>Make Connections</strong></p>
+<p><img id="NIMAS9780076996285-img-202" src="./images/thruout/talk_icon.jpg" alt=""/> <strong>Talk About It</strong></p>
+<p>Why might it be difficult for humans and wild animals to live in the same habitat?</p>
+<p><strong>Notes</strong></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><strong>REVISIT</strong> <img id="NIMAS9780076996285-img-203" src="./images/thruout/pagekeeley_icon.jpg" alt=""/></p>
+<p>Revisit the Page Keeley Science Probe on <a href="#p69">page 69</a>.</p>
+<p><span class="credit">Courtesy of John McColgan, Alaska Fire Service/Bureau of Land Management</span></p>
+<pagenum id="p80" page="normal">80</pagenum>
+<p><strong>STEM Connection</strong></p>
+<p><strong>What Does a Park Ranger Do?</strong></p>
+<p><img id="NIMAS9780076996285-img-204" src="./images/u03/p080_001.jpg" alt="A photograph of a park ranger."/></p>
+<p><img id="NIMAS9780076996285-img-205" src="./images/u03/p080_002.jpg" alt="A photograph of a park ranger and a girl holding a sea star together."/></p>
+<p><strong>Park Rangers</strong> work in state or national parks. They lead tours and give visitors information about the parks. They spend a lot of time outside, and they sometimes work inside a visitor center.</p>
+<p>That sounds like fun, but park rangers also have to do a lot of hard work. Sometimes they need to find lost hikers. In some parts of the country, park rangers need to protect people and animals if there is a forest fire.</p>
+<p><strong>It&#x0027;s Your Turn</strong></p>
+<p>Think like a park ranger. Complete the activity on the next page to explore how a park ranger might work to solve problems that arise.</p>
+<p><img id="NIMAS9780076996285-img-206" src="./images/u03/p080_003.jpg" alt="A photograph of a park ranger in a boat is observing the wildfire."/></p>
+<p><img id="NIMAS9780076996285-img-207" src="./images/thruout/talk_icon.jpg" alt=""/> <strong>Talk About It</strong></p>
+<p>As a park ranger, what could you do to protect animals and park visitors if there were a forest fire? How might a forest fire change the environment in a park?</p>
+<p><span class="credit">(t)John Lund/Sam Diephuis/Blend Images, (inset)John Lund/Sam Diephuis/Blend Images LLC, (b)NPS Photo by Harlan Kredit</span></p>
+</level3>
+<level3 id="NIMAS9780076996285-lev3-014" class="subsection">
+<pagenum id="p81" page="normal">81</pagenum>
+<p><strong>INQUIRY ACTIVITY</strong></p>
+<h3>Research Solve for an Invasive Species</h3>
+<p>A park ranger has noticed that an invasive species has taken over. Research an invasive species, define a problem it causes, and design a possible solution to help the park ranger.</p>
+<p><img id="NIMAS9780076996285-img-208" src="./images/u03/p081_001.jpg" alt="An illustration of three fishes."/></p>
+<p><strong>Research</strong> Find information about an invasive species that interests you. Record your notes on a separate piece of paper.</p>
+<list type="pl">
+<li><p><strong>1.</strong> What is the name and location of the invasive species?</p></li>
+<li><p><strong>2.</strong> How did this species affect the ecosystem it is in now?</p>
+<p><strong>State a Claim</strong> Identify a problem caused by the invasive species.</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p></li>
+</list>
+<p><strong>Design a Solution</strong></p>
+<list type="pl">
+<li><p><strong>3.</strong> Use what you have learned about ecosystems to design a model of a solution to the problem caused by the invasive species that you researched.</p>
+<p><img id="NIMAS9780076996285-img-209" src="./images/u03/p081_002.jpg" alt=""/></p></li>
+</list>
+<p><strong>Communicate Information</strong></p>
+<p><img id="NIMAS9780076996285-img-210" src="./images/thruout/talk_icon.jpg" alt=""/> <strong>Talk About It</strong></p>
+<list type="pl">
+<li><p><strong>4.</strong> Share your solution with a partner. Ask your partner how they would build on or improve your idea. Write the ideas above in your solution.</p></li>
+</list>
+</level3>
+<level3 id="NIMAS9780076996285-lev3-015" class="subsection">
+<pagenum id="p82" page="normal">82</pagenum>
+<h3>Lesson 2 Review</h3>
+<p><img id="NIMAS9780076996285-img-211" src="./images/u03/p082_001.jpg" alt="A photograph of an aerial view of the water flowing from a dam."/></p>
+<p><strong>EXPLAIN</strong><br/><strong>THE PHENOMENON</strong></p>
+<p><strong>How will the broken dam affect the area around it?</strong></p>
+<p><strong>Summarize It</strong></p>
+<p>Explain how humans affect their environment.</p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<p><span class="WOL">_________________________________________________________</span></p>
+<sidebar id="NIMAS9780076996285-sidebar-046" render="required">
+<hd>Revisit <img id="NIMAS9780076996285-img-212" src="./images/thruout/pagekeeley_icon.jpg" alt=""/></hd>
+<p>Revisit the Page Keeley Science Probe on <a href="#p69">page 69</a>. Has your thinking changed? If so, explain how it has changed.</p>
+</sidebar>
+<p><span class="credit">Dale Kolke/California Department of Water Resources</span></p>
+<pagenum id="p83" page="normal">83</pagenum>
+<p><img id="NIMAS9780076996285-img-213" src="./images/thruout/dec_icon.jpg" alt=""/> <strong>Three-Dimensional Thinking</strong></p>
+<list type="pl">
+<li><p><strong>1.</strong> What might happen if you introduce new plants or animals to an ecosystem?</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p></li>
+<li><p><strong>2.</strong> Explain how an invasive species and humans cutting down trees in the rainforest are similar.</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+</li>
+</list>
+<pagenum id="p84" page="normal">84</pagenum>
+<p><strong>Extend It</strong></p>
+<p>Create a skit. The skit should be about someone that wants to plant a fern that is known to be invasive in a community garden. Inform them of the risks and come up with a solution.</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<sidebar id="NIMAS9780076996285-sidebar-047" render="required">
+<hd>Keep Planning <img id="NIMAS9780076996285-img-214" src="./images/thruout/performance_icon.jpg" alt=""/></hd>
+<p><strong>STEM Module Project</strong></p>
+<p><strong>Science Challenge</strong></p>
+<p>Now that you have learned about how changes affect organisms, go to your Module Project to explain how the information will affect your plan for your forest.</p>
+</sidebar>
+</level3>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-011" class="section">
+<pagenum id="p85" page="normal">85</pagenum>
+<h2>STEM Module Project Planning</h2>
+<p><img id="NIMAS9780076996285-img-215" src="./images/thruout/performance_icon.jpg" alt=""/><strong>STEM Module Project</strong></p>
+<p><strong>Science Challenge</strong></p>
+<p><strong>Past, Present, and Future</strong></p>
+<p>You have been hired as a wildlife rehabilitator. You will construct models of the forest at different time periods. Using what you have learned throughout this module, you will design models of the forest&#x0027;s past, present, and future.</p>
+<p><img id="NIMAS9780076996285-img-216" src="./images/u03/p085_001.jpg" alt="A photograph of the wildfire rehabilitators planning after forest fire."/></p>
+<p><strong>Planning after Lesson 1</strong></p>
+<p>Apply what you have learned about fossils that will help in your project planning.</p>
+<p>How can you use fossils to create a model of the forest?</p>
+<p>&#x00A0;</p>
+<p>&#x00A0;</p>
+<p>&#x00A0;</p>
+<p><img id="NIMAS9780076996285-img-217" src="./images/u03/p085_002.jpg" alt="An illustration of three fossils."/></p>
+<imggroup>
+<img id="NIMAS9780076996285-img-218" src="./images/u03/p085_003.jpg" alt="An illustration of a park ranger looking through a binocular."/>
+<caption imgref="NIMAS9780076996285-img-218">Poppy Park Ranger</caption>
+<prodnote imgref="NIMAS9780076996285-img-218" render="optional">Production note: captions associated with this image are labels that correspond to text within the image.</prodnote>
+<caption imgref="NIMAS9780076996285-img-218" class="label">Record information to help you plan your model after each lesson.</caption>
+</imggroup>
+<p><span class="credit">Dave Moyer</span></p>
+<pagenum id="p86" page="normal">86</pagenum>
+<p><img id="NIMAS9780076996285-img-219" src="./images/thruout/performance_icon.jpg" alt=""/><strong>STEM Module Project</strong></p>
+<p><strong>Science Challenge</strong></p>
+<p><strong>Planning after Lesson 2</strong></p>
+<p>Apply what you have learned about changes in the environment to your project planning.</p>
+<p>How does a change in the environment cause problems for plants and animals? Give an example.</p>
+<p>&#x00A0;</p>
+<p>&#x00A0;</p>
+<p>&#x00A0;</p>
+<p><strong>Sketch Your Model</strong></p>
+<p>Draw your ideas of what your forest looked like before a forest fire. In your sketch, include living and nonliving things.</p>
+<p><img id="NIMAS9780076996285-img-220" src="./images/u03/p086_001.jpg" alt="An illustration of a plant."/></p>
+<pagenum id="p87" page="normal">87</pagenum>
+<p><strong>Research</strong></p>
+<p><img id="NIMAS9780076996285-img-221" src="./images/thruout/search_icon.jpg" alt=""/> Read the Investigator article <em>Wildfires Renew Forests</em> to learn more about how forest fires affect the environment. Using the resources provided by your teacher, research how a forest is restored after a fire. List living and nonliving things that will be in your plot of land in the past column. You will need to list how the living and nonliving things will be restored.</p>
+<table id="NIMAS9780076996285-table-012" frame="border">
+<thead>
+<tr>
+<th>Past</th>
+<th>Future</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p>&#x00A0;</p>
+<p>&#x00A0;</p>
+<p>&#x00A0;</p>
+<p>&#x00A0;</p>
+<p>&#x00A0;</p>
+</td>
+<td>
+<p>&#x00A0;</p>
+<p>&#x00A0;</p>
+<p>&#x00A0;</p>
+<p>&#x00A0;</p>
+<p>&#x00A0;</p>
+</td>
+</tr>
+</tbody>
+</table>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-012" class="section">
+<pagenum id="p88" page="normal">88</pagenum>
+<h2>STEM Module Project Past, Present, and Future</h2>
+<p><img id="NIMAS9780076996285-img-222" src="./images/thruout/performance_icon.jpg" alt=""/><strong>STEM Module Project</strong></p>
+<p><strong>Science Challenge</strong></p>
+<p><strong>Project Past, Present, and Future</strong></p>
+<p>Look back at the planning you did after each lesson. Use that information to complete your final module project.</p>
+<table id="NIMAS9780076996285-table-013" frame="border">
+<thead>
+<tr>
+<th>Build Your Model</th>
+<th>Materials</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<list type="pl">
+<li><p><strong>1.</strong> Make a plan for how you will restore the forest.</p></li>
+<li><p><strong>2.</strong> Make a list of living and nonliving things, including fossils, found in the forest.</p></li>
+<li><p><strong>3.</strong> Design a model of the forest before the fire, immediately after the fire, and four years after the fire.</p></li>
+<li><p><strong>4.</strong> List the materials you will need to build your model.</p></li>
+<li><p><strong>5.</strong> Share your plan and designs with a classmate and discuss if your plan will work.</p></li>
+<li><p><strong>6.</strong> Record the improvements made to the design after meeting with your classmate.</p></li>
+</list>
+</td>
+<td><p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+<p><span class="WOL">________________</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<pagenum id="p89" page="normal">89</pagenum>
+<p><strong>Procedure:</strong></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><strong>Design Your Solution</strong></p>
+<p>Use the space below to draw your final models. Include labels.</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-223" src="./images/u03/p089_001.jpg" alt="An illustration of a blank grid with inset illustration of a park ranger with a binocular on top right."/>
+<prodnote imgref="NIMAS9780076996285-img-223" render="optional">Production note: captions associated with this image are labels that correspond to text within the image.</prodnote>
+<caption imgref="NIMAS9780076996285-img-223" class="label">You are using the Scientific Process!</caption>
+</imggroup>
+<p><img id="NIMAS9780076996285-img-224" src="./images/u03/p089_002.jpg" alt=""/></p>
+<pagenum id="p90" page="normal">90</pagenum>
+<p><img id="NIMAS9780076996285-img-225" src="./images/thruout/performance_icon.jpg" alt=""/> <strong>STEM Module Project</strong></p>
+<p><strong>Science Challenge</strong></p>
+<p><strong>Communicate Your Results</strong></p>
+<p>Share the plan to restore your ecosystem with another group. Compare and discuss changes that could be made to improve on your restoration.</p>
+<p>Use what you have learned in this module and through your research. Communicate your findings below, and explain how you would improve your original plan.</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-013" class="section">
+<pagenum id="p91" page="normal">91</pagenum>
+<h2>Module Wrap-Up</h2>
+<p><strong>REVISIT</strong><br/><strong>THE PHENOMENON</strong></p>
+<p>Using what you learned in this module, explain how the fire affects all living things in a forest.</p>
+<p><img id="NIMAS9780076996285-img-226" src="./images/u03/p091_001.jpg" alt="A photograph of the forest fire."/></p>
+<p>&#x00A0;</p>
+<p>&#x00A0;</p>
+<p>&#x00A0;</p>
+<imggroup>
+<img id="NIMAS9780076996285-img-227" src="./images/u03/p091_002.jpg" alt="An illustration of a park ranger looking through a binocular."/>
+<prodnote imgref="NIMAS9780076996285-img-227" render="optional">Production note: captions associated with this image are labels that correspond to text within the image.</prodnote>
+<caption imgref="NIMAS9780076996285-img-227" class="label">Revisit your project if you need to gather more evidence.</caption>
+</imggroup>
+<p>Have your ideas changed? Explain.</p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="WOL">____________________________________________________________</span></p>
+<p><span class="credit">David Ponton/Design Pics/Getty Images</span></p>
+</level2>
+</level1>
+</bodymatter>
+<rearmatter>
+<level1 id="NIMAS9780076996285-lev1-004">
+<pagenum id="pEM2" page="special">EM2</pagenum>
+<h1>Science Glossary</h1>
+<level2 id="NIMAS9780076996285-lev2-014">
+<h2>A</h2>
+<dl id="NIMAS9780076996285-dlist-001">
+<dt id="NIMAS9780076996285-dterm-001"><strong>adaptation</strong></dt><dd>a structure or behavior that helps an organism survive in its environment</dd>
+<dt id="NIMAS9780076996285-dterm-002"><strong>atmosphere</strong></dt><dd>a blanket of gases and tiny bits of dust that surround Earth</dd>
+<dt id="NIMAS9780076996285-dterm-003"><strong>attract</strong></dt><dd>to pull toward</dd>
+<dt id="NIMAS9780076996285-dterm-004"><strong>axis</strong></dt><dd>an imaginary line through Earth from the North Pole to the South Pole</dd>
+</dl>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-015">
+<h2>B</h2>
+<dl id="NIMAS9780076996285-dlist-002">
+<dt id="NIMAS9780076996285-dterm-005"><strong>balanced forces</strong></dt><dd>forces that cancel each other out when acting together on an object</dd>
+<dt id="NIMAS9780076996285-dterm-006"><strong>birth</strong></dt><dd>the beginning or origin of a plant or animal</dd>
+</dl>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-016">
+<h2>C</h2>
+<dl id="NIMAS9780076996285-dlist-003">
+<dt id="NIMAS9780076996285-dterm-007"><strong>camouflage</strong></dt><dd>an adaptation that allows an organism to blend into its environment</dd>
+<dt id="NIMAS9780076996285-dterm-008"><strong>climate</strong></dt><dd>the pattern of weather at a certain place over a long period of time</dd>
+<dt id="NIMAS9780076996285-dterm-009"><strong>competition</strong></dt><dd>the struggle among organisms for water, food, or other resources</dd>
+</dl>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-017">
+<h2>D</h2>
+<dl id="NIMAS9780076996285-dlist-004">
+<dt id="NIMAS9780076996285-dterm-010"><strong>direction</strong></dt><dd>the path on which something is moving</dd>
+<dt id="NIMAS9780076996285-dterm-011"><strong>distance</strong></dt><dd>how far one object or place is from another</dd>
+</dl>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-018">
+<h2>E</h2>
+<dl id="NIMAS9780076996285-dlist-005">
+<dt id="NIMAS9780076996285-dterm-012"><strong>ecosystem</strong></dt><dd>the living and nonliving things that interact in an environment</dd>
+<dt id="NIMAS9780076996285-dterm-013"><strong>electrical charge</strong></dt><dd>the property of matter that causes electricity</dd>
+<dt id="NIMAS9780076996285-dterm-014"><strong>environmental trait</strong></dt><dd>a trait that is affected by the environment</dd>
+<dt id="NIMAS9780076996285-dterm-015"><strong>extinction</strong></dt><dd>the death of all of one type of living thing</dd>
+</dl>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-019">
+<h2>F</h2>
+<dl id="NIMAS9780076996285-dlist-006">
+<dt id="NIMAS9780076996285-dterm-016"><strong>floodwall</strong></dt><dd>a wall built to reduce or prevent flooding in an area</dd>
+<dt id="NIMAS9780076996285-dterm-017"><strong>force</strong></dt><dd>a push or pull</dd>
+<dt id="NIMAS9780076996285-dterm-018"><strong>fossil</strong></dt><dd>the trace of remains of living thing that died long ago</dd>
+<dt id="NIMAS9780076996285-dterm-019"><strong>friction</strong></dt><dd>a force between two moving objects that slows them down</dd>
+</dl>
+<pagenum id="pEM3" page="special">EM3</pagenum>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-020">
+<h2>G</h2>
+<dl id="NIMAS9780076996285-dlist-007">
+<dt id="NIMAS9780076996285-dterm-020"><strong>germinate</strong></dt><dd>to begin to grow from a seed to a young plant</dd>
+<dt id="NIMAS9780076996285-dterm-021"><strong>group</strong></dt><dd>a number of living things having some natural relationship</dd>
+</dl>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-021">
+<h2>H</h2>
+<dl id="NIMAS9780076996285-dlist-008">
+<dt id="NIMAS9780076996285-dterm-022"><strong>hibernation</strong></dt><dd>to rest or go into a deep sleep through the cold winter</dd>
+</dl>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-022">
+<h2>I</h2>
+<dl id="NIMAS9780076996285-dlist-009">
+<dt id="NIMAS9780076996285-dterm-023"><strong>inherited trait</strong></dt><dd>a trait that can be passed from parents to offspring</dd>
+<dt id="NIMAS9780076996285-dterm-024"><strong>instinct</strong></dt><dd>a way of acting that an animal does not have to learn</dd>
+<dt id="NIMAS9780076996285-dterm-025"><strong>invasive species</strong></dt><dd>an organism that is introduced into a new ecosystem</dd>
+</dl>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-023">
+<h2>L</h2>
+<dl id="NIMAS9780076996285-dlist-010">
+<dt id="NIMAS9780076996285-dterm-026"><strong>learned trait</strong></dt><dd>a new skill gained over time</dd>
+<dt id="NIMAS9780076996285-dterm-027"><strong>levee</strong></dt><dd>a wall built along the sides of rivers and other bodies of water to prevent them from overflowing</dd>
+<dt id="NIMAS9780076996285-dterm-028"><strong>life cycle</strong></dt><dd>how a certain kind of organism grows and reproduces</dd>
+<dt id="NIMAS9780076996285-dterm-029"><strong>lightning rod</strong></dt><dd>a metal bar that safely directs lightning into the ground</dd>
+</dl>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-024">
+<h2>M</h2>
+<dl id="NIMAS9780076996285-dlist-011">
+<dt id="NIMAS9780076996285-dterm-030"><strong>magnet</strong></dt><dd>an object that can attract objects made of iron, cobalt, steel, and nickel</dd>
+<dt id="NIMAS9780076996285-dterm-031"><strong>magnetic field</strong></dt><dd>the area around a magnet where its force can attract or repel</dd>
+<dt id="NIMAS9780076996285-dterm-032"><strong>magnetism</strong></dt><dd>the ability of an object to push or pull on another object that has the magnetic property</dd>
+<dt id="NIMAS9780076996285-dterm-033"><strong>metamorphosis</strong></dt><dd>the process in which an animal changes shape</dd>
+<dt id="NIMAS9780076996285-dterm-034"><strong>migrate</strong></dt><dd>to move from one place to another</dd>
+<dt id="NIMAS9780076996285-dterm-035"><strong>mimicry</strong></dt><dd>an adaptation in which one kind of organism looks like another kind in color and shape</dd>
+<dt id="NIMAS9780076996285-dterm-036"><strong>motion</strong></dt><dd>a change in an object&#x0027;s position</dd>
+</dl>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-025">
+<h2>N</h2>
+<dl id="NIMAS9780076996285-dlist-012">
+<dt id="NIMAS9780076996285-dterm-037"><strong>natural hazard</strong></dt><dd>a natural event such as a flood, earthquake, or hurricane that causes great damage</dd>
+</dl>
+<pagenum id="pEM4" page="special">EM4</pagenum>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-026">
+<h2>P</h2>
+<dl id="NIMAS9780076996285-dlist-013">
+<dt id="NIMAS9780076996285-dterm-038"><strong>pole</strong></dt><dd>one of two ends of a magnet where the magnetic force is strongest</dd>
+<dt id="NIMAS9780076996285-dterm-039"><strong>pollination</strong></dt><dd>the transfer of pollen from the male parts of one flower to the female parts of another flower</dd>
+<dt id="NIMAS9780076996285-dterm-040"><strong>population</strong></dt><dd>all the members of a group of one type of organism in the same place</dd>
+<dt id="NIMAS9780076996285-dterm-041"><strong>position</strong></dt><dd>the location of an object</dd>
+<dt id="NIMAS9780076996285-dterm-042"><strong>precipitation</strong></dt><dd>water that falls to the ground from the atmosphere</dd>
+</dl>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-027">
+<h2>R</h2>
+<dl id="NIMAS9780076996285-dlist-014">
+<dt id="NIMAS9780076996285-dterm-043"><strong>repel</strong></dt><dd>to push away</dd>
+<dt id="NIMAS9780076996285-dterm-044"><strong>reproduce</strong></dt><dd>to make more of their own kind</dd>
+<dt id="NIMAS9780076996285-dterm-045"><strong>resource</strong></dt><dd>a material or object that a living thing uses to survive</dd>
+</dl>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-028">
+<h2>S</h2>
+<dl id="NIMAS9780076996285-dlist-015">
+<dt id="NIMAS9780076996285-dterm-046"><strong>season</strong></dt><dd>one of the four parts of the year with different weather patterns</dd>
+<dt id="NIMAS9780076996285-dterm-047"><strong>static electricity</strong></dt><dd>the build up of an electrical charge on a material</dd>
+<dt id="NIMAS9780076996285-dterm-048"><strong>survive</strong></dt><dd>to stay alive</dd>
+<dt id="NIMAS9780076996285-dterm-049"><strong>speed</strong></dt><dd>a measure of how fast or slow an object moves</dd>
+</dl>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-029">
+<h2>T</h2>
+<dl id="NIMAS9780076996285-dlist-016">
+<dt id="NIMAS9780076996285-dterm-050"><strong>temperature</strong></dt><dd>a measure of how hot or cold something is</dd>
+<dt id="NIMAS9780076996285-dterm-051"><strong>trait</strong></dt><dd>a feature of a living thing</dd>
+</dl>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-030">
+<h2>U</h2>
+<dl id="NIMAS9780076996285-dlist-017">
+<dt id="NIMAS9780076996285-dterm-052"><strong>unbalanced forces</strong></dt><dd>forces that do not cancel each other out and that cause an object to change its motion</dd>
+</dl>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-031">
+<h2>V</h2>
+<dl id="NIMAS9780076996285-dlist-018">
+<dt id="NIMAS9780076996285-dterm-053"><strong>variation</strong></dt><dd>an inherited trait that makes an individual different from other members of the same family</dd>
+</dl>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-032">
+<h2>W</h2>
+<dl id="NIMAS9780076996285-dlist-019">
+<dt id="NIMAS9780076996285-dterm-054"><strong>weather</strong></dt><dd>what the air is like at a certain time and place</dd>
+</dl>
+</level2>
+</level1>
+<level1 id="NIMAS9780076996285-lev1-005">
+<pagenum id="pEM5" page="special">EM5</pagenum>
+<h1>Index</h1>
+<level2 id="NIMAS9780076996285-lev2-033">
+<h2>A</h2>
+<list type="pl">
+<li>Adaptations
+<list type="pl">
+<li>by animals, <a href="#p30">30</a></li>
+<li>defined, <a href="#p30">30</a></li>
+<li>desert, <a href="#p32">32</a></li>
+<li>forest, <a href="#p34">34</a></li>
+<li>ocean, <a href="#p33">33</a></li>
+<li>by plants, <a href="#p30">30</a></li>
+</list></li>
+</list>
+<list type="pl">
+<li>Algae, <a href="#p33">33</a></li>
+<li>Amber fossils, <a href="#p57">57</a></li>
+<li>Animals
+<list type="pl">
+<li>adaptations by, <a href="#p30">30</a></li>
+<li>needs of, <a href="#p13">13</a></li>
+<li>use of oxygen, <a href="#p13">13</a></li>
+<li>use of space, <a href="#p13">13</a></li>
+</list></li>
+</list>
+<list type="pl">
+<li>Animal shelter workers, <a href="#p37">37</a></li>
+<li>Anthropologists, <a href="#p63">63</a></li>
+</list>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-034">
+<h2>B</h2>
+<list type="pl">
+<li>Birds, beaks of, <a href="#p26">26</a></li>
+</list>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-035">
+<h2>C</h2>
+<list type="pl">
+<li>California forest fires, <a href="#p78">78&#x2013;79</a></li>
+<li>Camouflage
+<list type="pl">
+<li>beans, <a href="#p31">31</a></li>
+<li>defined, <a href="#p30">30</a></li>
+</list></li>
+</list>
+<list type="pl">
+<li>Carbon dioxide, plants use of, <a href="#p10">10</a></li>
+<li>Casts, defined, <a href="#p57">57</a></li>
+<li>Competition, defined, <a href="#p14">14</a></li>
+<li>Curator of mammals and birds, <a href="#p18">18&#x2013;19</a></li>
+</list>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-036">
+<h2>D</h2>
+<list type="pl">
+<li>Defense, of forest animals, <a href="#p34">34</a></li>
+<li>Desert
+<list type="pl">
+<li>adaptations, <a href="#p32">32</a></li>
+<li>animals and temperature, <a href="#p32">32</a></li>
+<li>defined, <a href="#p32">32</a></li>
+<li>plants and water, <a href="#p32">32</a></li>
+</list></li>
+</list>
+<list type="pl">
+<li>Desert animals
+<list type="pl">
+<li>adaptations, <a href="#p32">32</a></li>
+<li>temperature and, <a href="#p32">32</a></li>
+</list></li>
+</list>
+<list type="pl">
+<li>Desert plants
+<list type="pl">
+<li>adaptations, <a href="#p32">32</a></li>
+<li>water and, <a href="#p32">32</a></li>
+</list></li>
+</list>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-037">
+<h2>E</h2>
+<list type="pl">
+<li>Earth
+<list type="pl">
+<li>changes in environment, <a href="#p58">58</a></li>
+<li>history and fossils, <a href="#p58">58</a></li>
+</list></li>
+</list>
+<list type="pl">
+<li>Ecosystem(s)
+<list type="pl">
+<li>changes in, <a href="#p75">75&#x2013;76</a></li>
+<li>defined, <a href="#p14">14</a></li>
+<li>interaction in, <a href="#p74">74</a></li>
+<li>living things in, <a href="#p14">14</a></li>
+<li>natural events and, <a href="#p76">76</a></li>
+<li>nonliving things in, <a href="#p14">14</a></li>
+</list></li>
+</list>
+<list type="pl">
+<li>Extinction, <a href="#p58">58</a></li>
+</list>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-038">
+<h2>F</h2>
+<list type="pl">
+<li>Forest adaptations, <a href="#p34">34</a>
+<list type="pl">
+<li>forest animals, <a href="#p34">34</a></li>
+<li>forest plants, <a href="#p34">34</a></li>
+</list></li>
+</list>
+<list type="pl">
+<li>Forest animals, <a href="#p34">34</a>
+<list type="pl">
+<li>adaptations, <a href="#p34">34</a></li>
+<li>defense, <a href="#p34">34</a></li>
+<li>hibernation, <a href="#p34">34</a></li>
+<li>mimicry, <a href="#p34">34</a></li>
+<li><em>See also</em> Animals</li>
+</list></li>
+</list>
+<list type="pl">
+<li>Forest plants, <a href="#p34">34</a>
+<list type="pl">
+<li>adaptations, <a href="#p34">34</a></li>
+<li>temperate forest, <a href="#p34">34</a></li>
+<li><em>See also</em> Plants</li>
+</list></li>
+</list>
+<list type="pl">
+<li>Fossils
+<list type="pl">
+<li>amber, <a href="#p57">57</a></li>
+<li>casts, <a href="#p57">57</a></li>
+<li>defined, <a href="#p56">56</a></li>
+<li>Earth&#x0027;s history and, <a href="#p58">58</a></li>
+<li>learning from, <a href="#p60">60</a></li>
+<li>molds, <a href="#p57">57</a></li>
+<li>preserved remains, <a href="#p57">57</a></li>
+<li>in stone, <a href="#p56">56</a></li>
+<li>trace, <a href="#p56">56</a></li>
+</list></li>
+</list>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-039">
+<h2>H</h2>
+<list type="pl">
+<li>Hibernation, <a href="#p34">34</a></li>
+<li>Hooded oriole, <a href="#p16">16</a></li>
+</list>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-040">
+<h2>I</h2>
+<list type="pl">
+<li>Invasive species, <a href="#p76">76</a></li>
+</list>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-041">
+<h2>M</h2>
+<list type="pl">
+<li>Migration
+<list type="pl">
+<li>defined, <a href="#p33">33</a></li>
+<li>of ocean animals, <a href="#p33">33</a></li>
+</list></li>
+</list>
+<list type="pl">
+<li>Mimicry, of forest animals, <a href="#p34">34</a></li>
+<li>Molds, defined, <a href="#p57">57</a></li>
+<li>Mourning dove, <a href="#p16">16</a></li>
+</list>
+<pagenum id="pEM6" page="special">EM6</pagenum>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-042">
+<h2>N</h2>
+<list type="pl">
+<li>Native Californian birds, <a href="#p16">16</a></li>
+<li>Natural events
+<list type="pl">
+<li>ecosystem(s) and, <a href="#p76">76</a></li>
+</list></li>
+</list>
+<list type="pl">
+<li>Nocturnal animals, <a href="#p32">32</a></li>
+</list>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-043">
+<h2>O</h2>
+<list type="pl">
+<li>Ocean adaptations, <a href="#p33">33</a>
+<list type="pl">
+<li>algae, <a href="#p33">33</a></li>
+<li>ocean animals, <a href="#p33">33</a></li>
+</list></li>
+</list>
+<list type="pl">
+<li>Ocean animals, <a href="#p33">33</a>
+<list type="pl">
+<li>migration of, <a href="#p33">33</a></li>
+</list></li>
+</list>
+<list type="pl">
+<li>Oxygen, animals use of, <a href="#p13">13</a></li>
+</list>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-044">
+<h2>P</h2>
+<list type="pl">
+<li>Park rangers, <a href="#p80">80</a></li>
+<li>Plants
+<list type="pl">
+<li>adaptations by, <a href="#p30">30</a></li>
+<li>animals and temperature, <a href="#p32">32</a></li>
+<li>need for water, <a href="#p10">10</a></li>
+<li>needs of, <a href="#p10">10</a></li>
+<li>nutrients and, <a href="#p10">10</a></li>
+<li>use of carbon dioxide, <a href="#p10">10</a></li>
+</list></li>
+</list>
+<list type="pl">
+<li>Preserved remains, <a href="#p57">57</a></li>
+</list>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-045">
+<h2>R</h2>
+<list type="pl">
+<li>Resource, defined, <a href="#p14">14</a></li>
+</list>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-046">
+<h2>T</h2>
+<list type="pl">
+<li>Temperate forest, <a href="#p34">34</a></li>
+<li>Temperature, desert animals and, <a href="#p32">32</a></li>
+<li>Trace fossils, <a href="#p56">56</a></li>
+</list>
+</level2>
+<level2 id="NIMAS9780076996285-lev2-047">
+<h2>W</h2>
+<list type="pl">
+<li>Water
+<list type="pl">
+<li>desert plants and, <a href="#p32">32</a></li>
+<li>plants need for, <a href="#p10">10</a></li>
+</list></li>
+</list>
+<pagenum id="pVKV1" page="special">VKV1</pagenum>
+<p><img id="NIMAS9780076996285-img-228" src="./images/u99c99/pVKV1_001.jpg" alt=""/></p>
+<pagenum id="pVKV2" page="special">VKV2</pagenum>
+<p><img id="NIMAS9780076996285-img-229" src="./images/u99c99/pVKV2_001.jpg" alt=""/></p>
+<pagenum id="pVKV3" page="special">VKV3</pagenum>
+<p><img id="NIMAS9780076996285-img-230" src="./images/u99c99/pVKV3_001.jpg" alt=""/></p>
+<pagenum id="pVKV4" page="special">VKV4</pagenum>
+<p><img id="NIMAS9780076996285-img-231" src="./images/u99c99/pVKV4_001.jpg" alt=""/></p>
+</level2>
+<pagenum id="pOBC" page="special"/>
+<p><strong>Inspire Science</strong></p>
+<imggroup>
+<img id="NIMAS9780076996285-img-232" src="./images/u99c99/pOBC_001.jpg" alt="An illustration depicts the paths of ant in underground."/>
+<prodnote imgref="NIMAS9780076996285-img-232" render="optional">Production note: captions associated with this image are labels that correspond to text within the image.</prodnote>
+<caption imgref="NIMAS9780076996285-img-232" class="label"><strong>Encounter the Phenomenon</strong></caption>
+</imggroup>
+<p><strong>How do plants and animals survive in their environments?</strong></p>
+<p><img id="NIMAS9780076996285-img-233" src="./images/thruout/mcgrawhill_icon.jpg" alt=""/></p>
+<p><strong><a href="http://mheducation.com/prek-12" external="true">mheducation.com/prek-12</a></strong></p>
+<p><span class="isbn">978-0-07-699628-5</span><br/><span class="isbn">MHID 0-07-699628-X</span></p>
+</level1>
+</rearmatter>
+</book>
+</dtbook>                     		 	 	  	  

@@ -42,6 +42,14 @@
 			   comment="Images: Split up image groups"
 		/>
 	</entry>
+	<!-- order: must be before TransformingImportFixer wraps floating SPAN.IMAGE in CONTAINER.IMAGE,
+	     and after ImageGroupImportFixer so imggroup images are already handled -->
+	<entry>
+		<matcher type="org.brailleblaster.bbx.fixers.ImageAltTextImportFixer$HasNonEmptyAltMatcher" />
+		<fixer type="org.brailleblaster.bbx.fixers.ImageAltTextImportFixer"
+			   comment="Images: Create transcriber note from alt text on standalone images"
+		/>
+	</entry>
 
 	<!--
 	wrappers
