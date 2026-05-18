@@ -41,7 +41,8 @@ class ImageBlockToContainerImportFixer : AbstractFixer() {
         }
             if (BBX.SPAN.IMAGE.isA(imgElem) && imgElem.childCount != 0) {
                 val wrappingBlock = BBX.BLOCK.DEFAULT.create()
-                for (curChild in imgElem.childNodes) {
+                val children = imgElem.childNodes.toList()
+                for (curChild in children) {
                     curChild.detach()
                     wrappingBlock.appendChild(curChild)
                 }
