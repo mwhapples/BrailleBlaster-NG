@@ -211,7 +211,7 @@ class TextRenderer(manager: Manager, private val textView: TextView) : Renderer(
                                 if (indexes != null) {
                                     //Do not render anything that comes before this, but update
                                     //the indexes appropriately
-                                    end = indexes[totalLength - 1] + 1
+                                    end = minOf(indexes[totalLength - 1] + 1, t.node.value.length)
                                     //Add nonrendered portion to the invisible text of the TME
                                     if (totalLength == indexes.size) {
                                         t.appendInvisibleText(t.node.value.substring(start))
@@ -280,7 +280,7 @@ class TextRenderer(manager: Manager, private val textView: TextView) : Renderer(
                                     firstText = false
                                 }
                                 //Find what this brl text node is in the print text node
-                                end = indexes[totalLength - 1] + 1
+                                end = minOf(indexes[totalLength - 1] + 1, t.node.value.length)
                                 val lineContent = if (totalLength == indexes.size) {
                                     t.node.value.substring(start)
                                 } else {
