@@ -239,7 +239,7 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
                     cbString.split(LINE_BREAK).dropLastWhile { it.isEmpty() }.toTypedArray()
                 for (block in blocks) {
                     var block = block
-                    val newBlock = BBX.BLOCK.DEFAULT.create()
+                    val newBlock = BBX.BLOCK.STYLE.create("Body Text")
 
                     block = block.replace("\t".toRegex(), " ")
                     getUsableText(block)?.let { text ->
