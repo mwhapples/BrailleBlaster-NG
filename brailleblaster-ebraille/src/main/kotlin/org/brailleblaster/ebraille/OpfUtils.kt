@@ -79,7 +79,7 @@ fun createOpf(items: List<PackageItem>): Document = Document(Element("package", 
     })
     appendChild(Element("spine", OPF_NS).apply {
         for (id in itemMap.filterValues { it.includeInSpine }.keys) {
-            appendChild(Element("item", OPF_NS).apply {
+            appendChild(Element("itemref", OPF_NS).apply {
                 addAttribute(Attribute("idref", id))
             })
         }
