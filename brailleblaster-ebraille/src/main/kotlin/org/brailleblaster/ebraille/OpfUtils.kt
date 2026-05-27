@@ -94,12 +94,12 @@ interface PackageItem {
     fun write(output: OutputStream)
 }
 
-data class HtmlItem(override val path: String, val document: org.jsoup.nodes.Document, override val includeInSpine: Boolean = true,
-                    override val properties: String? = null) : PackageItem {
+data class XHtmlItem(override val path: String, val document: org.jsoup.nodes.Document, override val includeInSpine: Boolean = true,
+                     override val properties: String? = null) : PackageItem {
     override val mediaType: String = "application/xhtml+xml"
     override fun write(output: OutputStream) {
         output.bufferedWriter(Charsets.UTF_8).also {
-            document.html(it)
+            document.outputSettings(document.outputSettings().syntax(org.jsoup.nodes.Document.OutputSettings.Syntax.xml)).html(it)
         }.flush()
     }
 }
