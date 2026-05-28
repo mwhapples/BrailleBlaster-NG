@@ -96,12 +96,26 @@ object PandocArchiverLoader : ArchiverFactory.FileLoader {
             val bbFile = File.createTempFile(newFilename, ".bbx")
             bbFile.deleteOnExit()
             newFilename = bbFile.absolutePath
-            val pb = ProcessBuilder(
-                PANDOC_CMD, "--from=$fromFormat",
-                "--to=bbx.lua",
-                "--output=" + bbFile.absolutePath,
-                filename
+            val command = mutableListOf(
+                PANDOC_CMD,
+                "--from=$fromFormat"
             )
+
+            // DOCX custom paragraph style "List Paragraph" arrives as Div(custom-style)
+            // and must be normalized to a real Pandoc list before bbx.lua is applied.
+            if (fromFormat?.startsWith("docx") == true) {
+                command.add("--lua-filter=list-paragraph-style.lua")
+            }
+
+            command.addAll(
+                listOf(
+                    "--to=bbx.lua",
+                    "--output=" + bbFile.absolutePath,
+                    filename
+                )
+            )
+
+            val pb = ProcessBuilder(command)
                 .directory(wrkDir)
                 .redirectError(ProcessBuilder.Redirect.INHERIT)
                 .redirectErrorStream(true)
