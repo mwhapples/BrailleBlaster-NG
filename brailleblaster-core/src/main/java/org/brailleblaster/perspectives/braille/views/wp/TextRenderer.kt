@@ -339,22 +339,10 @@ class TextRenderer(manager: Manager, private val textView: TextView) : Renderer(
      * Set the end offset of the previous PageBreakWhiteSpaceElement.
      */
     private fun setLastPageBreakPos(list: MapList) {
-        val index = list.indexOf(requireNotNull(lastPageBreak) { "No last page break." })
-        require(index != -1) { "PageBreak not in MapList" }
-        //Count the number of line breaks that follow this page break
-        val followingLineBreaks: MutableList<LineBreakElement> = ArrayList()
-        var lineBreakIndex = index
-        while (lineBreakIndex + 1 < list.size) {
-            if (list[lineBreakIndex + 1] is LineBreakElement) {
-                followingLineBreaks.add(list[lineBreakIndex + 1] as LineBreakElement)
-                lineBreakIndex++
-            } else {
-                break
-            }
-        }
-        //Reduce the end of the page break by the number of line breaks that follow it
-        val pageBreakEnd =
-            state.charCount - LINE_BREAK.length - followingLineBreaks.size * System.lineSeparator().length
+        // LineBreakElements that follow the PageBreakWhiteSpaceElement in the map list are
+        // XML structural elements that are NOT rendered into the text view, so state.charCount
+        // already reflects the correct position without any correction for them.
+        val pageBreakEnd = state.charCount - LINE_BREAK.length
         lastPageBreak!!.setEnd(pageBreakEnd)
         if (lastPageBreak!!.getEnd(list) <= lastPageBreak!!.getStart(list)) {
             lastPageBreak!!.setEnd(lastPageBreak!!.getStart(list))

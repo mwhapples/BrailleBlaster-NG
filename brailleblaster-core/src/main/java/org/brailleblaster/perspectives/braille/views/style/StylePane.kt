@@ -72,6 +72,8 @@ class StylePane(parent: Composite, private val m: Manager) : BBEditorView {
         var blockEnd: Element? = null
         val processedBlocks = HashMap<Element?, Int>()
         val lines = TreeMap<Int?, String?>()
+        val linesPerPage = m.document.linesPerPage
+        var pageBreakCount = 0
         for (textMapElement in mapList) {
             for (curBraille in textMapElement.brailleList) {
                 if (curBraille !is BraillePageBrlMapElement) {
@@ -99,12 +101,10 @@ class StylePane(parent: Composite, private val m: Manager) : BBEditorView {
                 )
             )
             if (textMapElement is PageBreakWhiteSpaceElement) {
-                val pbEnd = textMapElement.getEnd(mapList)
-                if (pbEnd >= 0 && pbEnd <= textViewWidget.charCount) {
-                    val pbLine = textViewWidget.getLineAtOffset(pbEnd)
-                    if (!lines.containsKey(pbLine)) {
-                        lines[pbLine] = "Page Break"
-                    }
+                pageBreakCount++
+                val pbLine = pageBreakCount * linesPerPage - 1
+                if (!lines.containsKey(pbLine)) {
+                    lines[pbLine] = "Page Break"
                 }
                 continue
             }
