@@ -567,11 +567,13 @@ class NumberLine : ISpatialMathContainer {
 
         @JvmStatic
         fun currentIsNumberLine(): Boolean {
+            val mapList = WPManager.getInstance().controller.mapList
+            if (mapList.isEmpty()) return false
             val current: Node? = XMLHandler.ancestorVisitorElement(
                 WPManager.getInstance().controller
                     .simpleManager.currentCaret.node
             ) { node: Element? -> BBX.CONTAINER.NUMBER_LINE.isA(node) }
-            val isWhitespace = WPManager.getInstance().controller.mapList.current is WhiteSpaceElement
+            val isWhitespace = mapList.current is WhiteSpaceElement
             return !isWhitespace && current != null
         }
 
