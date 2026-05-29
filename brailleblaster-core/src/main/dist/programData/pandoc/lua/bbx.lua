@@ -658,7 +658,43 @@ function RawBlock(format, str)
     return t
 end
 
+  local function getCustomStyle(attr)
+    if attr == nil or type(attr) ~= "table" then
+      return nil
+    end
+
+    if attr.attributes ~= nil and type(attr.attributes) == "table" then
+      return attr.attributes["custom-style"]
+    end
+
+    return attr["custom-style"]
+  end
+
+  local function isListParagraphStyle(customStyle)
+    if customStyle == nil then
+      return false
+    end
+
+    local normalized = string.lower(customStyle)
+    return normalized == "list paragraph" or normalized == "paragraph list"
+  end
+
 function Div(s, attr)
+    local customStyle = getCustomStyle(attr)
+    if isListParagraphStyle(customStyle) then
+      local item = removeTags(s)
+      if item == nil then
+        item = ''
+      end
+      if string.len(string.gsub(item, '%s+', '')) == 0 then
+        return ''
+      end
+
+      return '<CONTAINER bb:type="LIST" bb:listType="NORMAL" bb:listLevel="0">'
+        .. '<BLOCK bb:type="LIST_ITEM" bb:itemLevel="0">' .. item .. '</BLOCK>'
+        .. '</CONTAINER>'
+    end
+
   return s
 end
 
