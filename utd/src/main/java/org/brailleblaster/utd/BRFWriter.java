@@ -145,6 +145,13 @@ public class BRFWriter {
             }
         }
         if (curCell + braille.length() > maxCells) {
+            if (curCell >= maxCells) {
+                // Cursor is already at the end of the page width (e.g. a braille page number
+                // was just written at the right margin, leaving no room). Skip this content —
+                // the <newPage> element that follows in the UTD will advance to the next page.
+                log.warn(debug("Skipping {} chars of content at full-page-width position", braille.length()));
+                return;
+            }
             throw new BRFOutputException("String \"{}\" length {} is too long", braille, braille.length());
         }
 

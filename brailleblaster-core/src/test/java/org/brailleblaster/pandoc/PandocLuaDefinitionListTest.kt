@@ -51,6 +51,11 @@ class PandocLuaDefinitionListTest {
      */
     @Throws(Exception::class)
     private fun runPandoc(html: String): Document {
+        return runPandoc(html, emptyList())
+    }
+
+    @Throws(Exception::class)
+    private fun runPandoc(html: String, luaFilters: List<String>): Document {
         val htmlFile = File.createTempFile("bb-deflist-test-", ".html")
         htmlFile.deleteOnExit()
         FileWriter(htmlFile).use { fw ->
@@ -59,13 +64,22 @@ class PandocLuaDefinitionListTest {
         val bbxFile = File.createTempFile("bb-deflist-out-", ".bbx")
         bbxFile.deleteOnExit()
 
-        val pb = ProcessBuilder(
+        val command = mutableListOf(
             PANDOC_CMD,
-            "--from=html+empty_paragraphs",
-            "--to=bbx.lua",
-            "--output=" + bbxFile.absolutePath,
-            htmlFile.absolutePath
-        ).directory(File(luaDir))
+            "--from=html+empty_paragraphs"
+        )
+        luaFilters.forEach { filter ->
+            command.add("--lua-filter=$filter")
+        }
+        command.addAll(
+            listOf(
+                "--to=bbx.lua",
+                "--output=" + bbxFile.absolutePath,
+                htmlFile.absolutePath
+            )
+        )
+
+        val pb = ProcessBuilder(command).directory(File(luaDir))
         pb.environment()["PANDOCCMD"] = PANDOC_CMD
         pb.redirectErrorStream(true)
 
@@ -88,6 +102,15 @@ class PandocLuaDefinitionListTest {
             "//*[local-name()='CONTAINER' and @*[local-name()='listType']='DEFINITION']"
         )
         Assert.assertNotEquals(nodes.size(), 0, "No DEFINITION list container found in BBX output:\n" + doc.toXML())
+        return nodes.get(0) as Element
+    }
+
+    /** Returns the first CONTAINER with bb:listType="NORMAL", or fails the test. */
+    private fun findFirstNormalList(doc: Document): Element {
+        val nodes = doc.query(
+            "//*[local-name()='CONTAINER' and @*[local-name()='listType']='NORMAL']"
+        )
+        Assert.assertNotEquals(nodes.size(), 0, "No NORMAL list container found in BBX output:\n" + doc.toXML())
         return nodes.get(0) as Element
     }
 
@@ -183,6 +206,32 @@ class PandocLuaDefinitionListTest {
         Assert.assertTrue(
             termSpan.getValue().contains("Term One"),
             "Term text should be present even when wrapped in <strong>"
+        )
+    }
+
+    // -------------------------------------------------------------------------
+    // DOCX custom-style="List Paragraph" represented as a Div should map to BBX NORMAL list
+    // -------------------------------------------------------------------------
+    @Test
+    @Throws(Exception::class)
+    fun customStyleListParagraphMapsToNormalList() {
+        val html = ("<html><body>"
+                + "<div custom-style=\"List Paragraph\"><p>Total Loan Amount $33,333.33</p></div>"
+                + "</body></html>")
+
+        val doc = runPandoc(html, listOf("list-paragraph-style.lua"))
+        val list = findFirstNormalList(doc)
+
+        Assert.assertEquals(list.getAttributeValue("listLevel", BB_NS), "0")
+        Assert.assertEquals(list.getChildCount(), 1, "Expected one LIST_ITEM under NORMAL list")
+
+        val item = list.getChild(0) as Element
+        Assert.assertEquals(item.localName, "BLOCK")
+        Assert.assertEquals(item.getAttributeValue("type", BB_NS), "LIST_ITEM")
+        Assert.assertEquals(item.getAttributeValue("itemLevel", BB_NS), "0")
+        Assert.assertTrue(
+            item.value.contains("Total Loan Amount $33,333.33"),
+            "LIST_ITEM should contain the source paragraph text"
         )
     }
 

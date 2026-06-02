@@ -35,8 +35,8 @@ object EBraillePackager {
         }
     }
     fun createEbraillePackage(outPath: Path, docs: List<Document>, title: String = "-", translationEngine: ITranslationEngine = UTDTranslationEngine()) {
-        val docItems = docs.mapIndexed { i, doc -> HtmlItem("ebraille/document${i}.html", doc) }
-        val navDoc = HtmlItem("index.html", NavigationHtml.createNavigationHtml(docItems, title = title, translationEngine = translationEngine), properties = "nav")
+        val docItems = docs.mapIndexed { i, doc -> XHtmlItem("ebraille/document${i}.html", doc) }
+        val navDoc = XHtmlItem("index.html", NavigationHtml.createNavigationHtml(docItems, title = title, translationEngine = translationEngine), properties = "nav")
         packageDocument(outPath, docItems + RESOURCE_ITEMS + navDoc)
     }
     private fun packageDocument(outPath: Path, packageItems: List<PackageItem>) {

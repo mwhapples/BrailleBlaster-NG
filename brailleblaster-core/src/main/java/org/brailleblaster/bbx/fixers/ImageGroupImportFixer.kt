@@ -19,6 +19,7 @@ import nu.xom.Attribute
 import nu.xom.Element
 import nu.xom.Node
 import org.brailleblaster.bbx.BBX
+import org.brailleblaster.utd.properties.EmphasisType
 import org.brailleblaster.utils.xom.attributes
 import org.brailleblaster.utils.xom.childNodes
 import org.slf4j.LoggerFactory
@@ -69,6 +70,32 @@ class ImageGroupImportFixer : AbstractFixer() {
             } else if (curChild !in curGroup.childNodes) {
                 childIter.remove()
                 curGroup.appendChild(curChild)
+            }
+        }
+
+        // Add alt text as a transcriber note as a sibling after each image container.
+        // Do NOT add inside the container, as ImageGroupToSpanImportFixer may later convert
+        // the container to a SPAN.IMAGE, which must not have BLOCK children.
+        for (group in groups) {
+            val altText = group.getAttributeValue("alt")?.trim()
+            if (!altText.isNullOrBlank()) {
+                val transNoteBlock = BBX.BLOCK.STYLE.create("7-5")
+                val transNoteInline = BBX.INLINE.EMPHASIS.create(EmphasisType.TRANS_NOTE)
+                transNoteInline.appendChild(altText)
+                transNoteBlock.appendChild(transNoteInline)
+                // If the group is inside a BLOCK (inline image context), insert after the parent
+                // block to avoid creating an invalid BLOCK-inside-BLOCK structure.
+                val groupParent = group.parent as Element
+                val insertParent: Element
+                val insertAfter: Element
+                if (BBX.BLOCK.isA(groupParent)) {
+                    insertAfter = groupParent
+                    insertParent = groupParent.parent as Element
+                } else {
+                    insertAfter = group
+                    insertParent = groupParent
+                }
+                insertParent.insertChild(transNoteBlock, insertParent.indexOf(insertAfter) + 1)
             }
         }
     }

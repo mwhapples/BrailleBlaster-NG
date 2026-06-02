@@ -49,6 +49,7 @@ import org.brailleblaster.perspectives.mvc.menu.MenuManager.add
 import org.brailleblaster.tools.*
 import org.brailleblaster.utd.internal.xml.FastXPath
 import org.brailleblaster.utd.internal.xml.XMLHandler
+import org.brailleblaster.utils.xml.UTD_NS
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utd.utils.TableUtils
 import org.brailleblaster.utd.utils.stripUTDRecursive
@@ -68,8 +69,6 @@ import java.util.function.Consumer
 import kotlin.math.min
 
 class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
-    private val clips: MutableList<Clip> = mutableListOf()
-    private var lastCopiedString: String? = null
     val paste: Paste = Paste()
 
     override fun onEvent(event: SimpleEvent) {
@@ -218,6 +217,7 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
                 addNodeToClipboard(endElement, startNode, endNode, sel)
             }
         }
+        logCopyClipsAndContext(sel, manager)
         // Tests will fail when attempting to use the system clipboard
         if (!debugging) {
             lastCopiedString = convertBBXClipsToSystemClipboard(clips)
@@ -228,18 +228,26 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
         val cb = Clipboard(Display.getCurrent())
         val tt = TextTransfer.getInstance()
         val cbString = cb.getContents(tt) as String?
+        val isInternal = cbString != null && lastCopiedString != null && lastCopiedString == cbString
+        log.debug(
+            "=== BB PASTE clipboard check: isInternal={} lastCopiedString=[{}] osCbString=[{}] ===",
+            isInternal,
+            lastCopiedString?.take(120),
+            cbString?.take(120)
+        )
         if (cbString != null) {
             // If it was copied from outside of BrailleBlaster, or BB's
             // clipboard is empty,
             // paste that instead of what's inside BrailleBlaster's clipboard
             if (lastCopiedString == null || lastCopiedString != cbString) {
+                log.debug("  --> EXTERNAL path: clips will be rebuilt as plain Body Text (no styles preserved)")
                 // Convert it to BBX
                 clips.clear()
                 val blocks =
                     cbString.split(LINE_BREAK).dropLastWhile { it.isEmpty() }.toTypedArray()
                 for (block in blocks) {
                     var block = block
-                    val newBlock = BBX.BLOCK.DEFAULT.create()
+                    val newBlock = BBX.BLOCK.STYLE.create("Body Text")
 
                     block = block.replace("\t".toRegex(), " ")
                     getUsableText(block)?.let { text ->
@@ -248,6 +256,8 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
 
                     clips.add(Clip(newBlock))
                 }
+            } else {
+                log.debug("  --> INTERNAL path: keeping {} existing BBX clip(s) with original styles", clips.size)
             }
         }
     }
@@ -261,6 +271,35 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
 
         // TODO: Should be false? See UndoEditTest.fullCut
         deleteTextViewSelection(manager, false)
+    }
+
+    private fun logCopyClipsAndContext(sel: XMLSelection, manager: Manager) {
+        log.debug("=== BB COPY: {} clip(s) placed in BB clipboard ===", clips.size)
+        clips.forEachIndexed { i, clip ->
+            log.debug("  copy-clip[{}]: {}", i, clip.node.toXML().take(400))
+        }
+        // Log the blocks surrounding the selection for context
+        try {
+            val startBlock = findBlock(sel.start.node)
+            val parent = startBlock.parent
+            val idx = parent.indexOf(startBlock)
+            log.debug("  context before-selection: {}",
+                if (idx > 0) parent.getChild(idx - 1).toXML().take(200) else "<none>")
+            log.debug("  context start-block:      {}", startBlock.toXML().take(200))
+            if (!sel.isSingleNode) {
+                val endBlock = findBlock(sel.end.node)
+                log.debug("  context end-block:        {}", endBlock.toXML().take(200))
+                val endParent = endBlock.parent
+                val endIdx = endParent.indexOf(endBlock)
+                log.debug("  context after-selection:  {}",
+                    if (endIdx < endParent.childCount - 1) endParent.getChild(endIdx + 1).toXML().take(200) else "<none>")
+            } else {
+                log.debug("  context after-selection:  {}",
+                    if (idx < parent.childCount - 1) parent.getChild(idx + 1).toXML().take(200) else "<none>")
+            }
+        } catch (e: Exception) {
+            log.debug("  context: error={}", e.message)
+        }
     }
 
     private fun logPasteVariables(
@@ -319,6 +358,10 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
         if (clips.isEmpty()) {
             return
         }
+        log.debug("=== BB PASTE: {} clip(s) about to be inserted ===", clips.size)
+        clips.forEachIndexed { i, clip ->
+            log.debug("  paste-clip[{}]: {}", i, clip.node.toXML().take(400))
+        }
 
         if (isMath) {
             //I still don't believe it's this simple...there has to be a catch
@@ -363,6 +406,13 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
             var parent = startNode.parent
             var index = parent.indexOf(startNode) + 1
             if (BBX.BLOCK.isA(clips.first().node)) {
+                val firstClipBlock = clips.first().node as Element
+                // Apply the block type/style from the clip to the destination block
+                // so that pasting into a new/blank document preserves the source style
+                if (BBX.BLOCK.STYLE.isA(firstClipBlock)) {
+                    BBX._ATTRIB_TYPE[parent as Element] = "STYLE"
+                    BBX._ATTRIB_OVERRIDE_STYLE[parent as Element] = BBX._ATTRIB_OVERRIDE_STYLE[firstClipBlock]
+                }
                 for (i in 0..<clips.first().node.childCount) {
                     val child = clips.first().node.getChild(i).copy()
                     pasteOffset += child.value.length
@@ -404,12 +454,21 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
             // Put the text of the first block into the existing first block
             if (!clips.first().node.value.trim { it <= ' ' }.isEmpty()) {
                 if (BBX.BLOCK.isA(clips.first().node)) {
+                    // Apply the block type/style from the first clip to the destination block
+                    // so that pasting into a new/blank document preserves the source style
+                    val firstClipBlock = clips.first().node as Element
+                    if (BBX.BLOCK.STYLE.isA(firstClipBlock)) {
+                        BBX._ATTRIB_TYPE[block] = "STYLE"
+                        BBX._ATTRIB_OVERRIDE_STYLE[block] = BBX._ATTRIB_OVERRIDE_STYLE[firstClipBlock]
+                    }
                     for (i in 0..<clips.first().node.childCount) {
                         addNodeToParent(block, clips.first().node.getChild(i).copy(), block.getChildCount())
                         paste.recordPaste(getFinalTextChild(block, true), 0)
                     }
                 } else {
                     block.appendChild(clips.first().node)
+                    // Record paste for the appended container so cursor can navigate to it after paste
+                    paste.recordPaste(block.getChild(block.childCount - 1), 0)
                 }
             }
             // Put the remaining blocks in between the two blocks
@@ -422,7 +481,12 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
                 }
                 blockParent.insertChild(newChild, blockIndex)
                 blockIndex++
-                paste.recordPaste(newChild, 0)
+                // UTD namespace elements (e.g. sepline spans) have no TME and cannot be navigated to
+                if (!BBX.BLOCK.PAGE_NUM.isA(newChild) && !BBX.SPAN.PAGE_NUM.isA(newChild)
+                    && !(newChild is Element && newChild.namespaceURI == UTD_NS)
+                ) {
+                    paste.recordPaste(newChild, 0)
+                }
             }
             blockParent.insertChild(blockCopy, blockIndex)
             changedNodes.add(blockParent)
@@ -467,12 +531,20 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
                         startNodeParent = copyNode.parent
                         index = startNodeParent.indexOf(copyNode)
                     }
-                    paste.recordPaste(copyNode, 0)
+                    // PAGE_NUM blocks have no TME in the text view; skipping them as paste target
+                    // preserves the cursor on the actual content (e.g. heading) and prevents a crash
+                    if (!BBX.BLOCK.PAGE_NUM.isA(copyNode) && !BBX.SPAN.PAGE_NUM.isA(copyNode)) {
+                        paste.recordPaste(copyNode, 0)
+                    }
                     index++
                 } else {
                     val copyNode = clipboardNode.copy()
                     startNodeParent.insertChild(copyNode, index)
-                    paste.recordPaste(copyNode, 0)
+                    // PAGE_NUM blocks have no TME in the text view; skipping them as paste target
+                    // preserves the cursor on the actual content (e.g. heading) and prevents a crash
+                    if (!BBX.BLOCK.PAGE_NUM.isA(copyNode) && !BBX.SPAN.PAGE_NUM.isA(copyNode)) {
+                        paste.recordPaste(copyNode, 0)
+                    }
                     index++
                 }
             }
@@ -496,13 +568,20 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
             normalizeEmphasis(n)
         }
 
+        log.debug("=== BB PASTE: {} changed node(s) after insertion ===", changedNodes.size)
+        changedNodes.forEachIndexed { i, node ->
+            log.debug("  changed[{}]: {}", i, node.toXML().take(600))
+        }
         val changedNodesArray = changedNodes.toTypedArray()
         manager.stopFormatting()
         manager.simpleManager.dispatchEvent(ModifyEvent(Sender.NO_SENDER, true, *changedNodesArray))
 
         // Move cursor to last pasted text
         val pasteNode = paste.node
-        if (pasteNode != null && pasteNode.document != null) {
+        // Guard: PAGE_NUM blocks have no TME in the text view and cannot be navigated to
+        if (pasteNode != null && pasteNode.document != null
+            && !BBX.BLOCK.PAGE_NUM.isA(pasteNode) && !BBX.SPAN.PAGE_NUM.isA(pasteNode)
+        ) {
             if (pasteNode is Text) {
                 manager.simpleManager.dispatchEvent(
                     XMLCaretEvent(Sender.BRAILLE, XMLTextCaret(pasteNode, paste.offset))
@@ -997,6 +1076,8 @@ class ClipboardModule(private val manager: BBSimpleManager) : SimpleListener {
 
     companion object {
         private val log: Logger = LoggerFactory.getLogger(ClipboardModule::class.java)
+        private val clips: MutableList<Clip> = mutableListOf()
+        private var lastCopiedString: String? = null
         fun convertBBXClipsToSystemClipboard(clips: MutableList<Clip>): String {
             val systemCB = StringBuilder()
             clips.forEach(Consumer { c: Clip? ->

@@ -621,6 +621,12 @@ class BBX2PEFConverter(
 
     private fun insertText(text: String) {
         val remainingCells = cols - cursorX
+        if (remainingCells <= 0) {
+            // Cursor is already at the end of the page width (e.g. a braille page number
+            // was just written at the right margin, leaving no room). Skip this content —
+            // the <newPage> element that follows in the UTD will advance to the next page.
+            return
+        }
         val insertEnd = min(remainingCells.toDouble(), text.length.toDouble()).toInt()
         // Convert text to Unicode Braille
         val unicodeBrl = BrailleMapper.ASCII_TO_UNICODE_FAST.map(text)
