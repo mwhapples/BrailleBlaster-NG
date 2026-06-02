@@ -329,7 +329,10 @@ function CaptionedImage(src, title, caption, attr)
 end
 
 function Code(s, attr)
-  return BlockQuote(s)
+  local t = LineBreak(2)
+    t = t .. '<BLOCK utd:overrideStyle="Displayed Blocked Text" '
+    t = t .. 'bb:type="STYLE">' .. escape(s) .. '</BLOCK>' .. LineBreak(1)
+    return t
 end
 
 function InlineMath(s)
@@ -450,7 +453,7 @@ function CodeBlock(s, attr)
     return Image(s, "data:image/png;base64," .. png, '', attr)
   -- otherwise treat as code (one could pipe through a highlighter)
   else
-    return  BlockQuote(s)
+    return  Code(s, attr)
   end
 end
 
