@@ -42,43 +42,65 @@ private fun Element.processBox(): org.jsoup.nodes.Element {
 
 private fun Element.processList(): org.jsoup.nodes.Element =
     childElements.filter { BBX.BLOCK.LIST_ITEM.isA(it) }
-        .map { ListItem(it, it.getAttributeValue("itemLevel", BB_NS)?.toIntOrNull() ?: 0) }.toHtml(
-            level = 0,
-            containerFactory = { org.jsoup.nodes.Element("ul").attr("style", "list-style-type: none") }
-        ) { it.element.processBlock() }
-
-private fun Element.processTable(): List<org.jsoup.nodes.Element> = if (getAttributeValue("tableCopy", UTD_NS) == "true") {
-    listOf()
-} else {
-    val tableFormat = getAttributeValue("format")
-    listOf(org.jsoup.nodes.Element("table").also {
-        if (tableFormat in listOf("listed", "stairstep", "linear")) {
-            it.attr("class", tableFormat)
-        }
-    }.appendChildren(
-        childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.take(1).let { firstRow ->
-            when (tableFormat) {
-                "simple" -> {
-                    firstRow.processTableRows(if (getAttributeValue("columnHeading") == "false") "td" else "th")
+        .map { ListItem(it, it.getAttributeValue("itemLevel", BB_NS)?.toIntOrNull() ?: 0) }.let { items ->
+            when (BBX.CONTAINER.LIST.ATTRIB_LIST_TYPE.get(this)) {
+                BBX.ListType.DEFINITION -> items.toHtml(
+                    level = 0,
+                    containerFactory = { org.jsoup.nodes.Element("dl") }
+                ) {
+                    it.element.processDefinitionListItem()
                 }
-                "listed" -> {
-                    firstRow.processTableRows("th")
-                }
-                "stairstep" -> {
-                    headerRowFromStairStepTableTN(this) + (firstRow.processTableRows())
-                }
-                "linear" -> {
-                    headerRowFromLinearTableTN(this) + (firstRow.processTableRows())
-                }
-                else -> {
-                    firstRow.processTableRows()
+                else -> items.toHtml(
+                    level = 0,
+                    containerFactory = { org.jsoup.nodes.Element("ul").attr("style", "list-style-type: none") }
+                ) {
+                    it.element.processBlock()
                 }
             }
-        } + (childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.drop(1).processTableRows())
-    ))
-}
+        }
 
-private fun Iterable<Element>.processTableRows(cellTag: String = "td"): List<org.jsoup.nodes.Element> = map { r -> org.jsoup.nodes.Element("tr").appendChildren(r.childElements.filter { BBX.BLOCK.TABLE_CELL.isA(it) }.map { c -> org.jsoup.nodes.Element(cellTag).appendChildren(c.processContent())}) }
+private fun Element.processTable(): List<org.jsoup.nodes.Element> =
+    if (getAttributeValue("tableCopy", UTD_NS) == "true") {
+        listOf()
+    } else {
+        val tableFormat = getAttributeValue("format")
+        listOf(
+            org.jsoup.nodes.Element("table").also {
+                if (tableFormat in listOf("listed", "stairstep", "linear")) {
+                    it.attr("class", tableFormat)
+                }
+            }.appendChildren(
+                childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.take(1).let { firstRow ->
+                    when (tableFormat) {
+                        "simple" -> {
+                            firstRow.processTableRows(if (getAttributeValue("columnHeading") == "false") "td" else "th")
+                        }
+
+                        "listed" -> {
+                            firstRow.processTableRows("th")
+                        }
+
+                        "stairstep" -> {
+                            headerRowFromStairStepTableTN(this) + (firstRow.processTableRows())
+                        }
+
+                        "linear" -> {
+                            headerRowFromLinearTableTN(this) + (firstRow.processTableRows())
+                        }
+
+                        else -> {
+                            firstRow.processTableRows()
+                        }
+                    }
+                } + (childElements.filter { BBX.CONTAINER.TABLE_ROW.isA(it) }.drop(1).processTableRows())
+            )
+        )
+    }
+
+private fun Iterable<Element>.processTableRows(cellTag: String = "td"): List<org.jsoup.nodes.Element> = map { r ->
+    org.jsoup.nodes.Element("tr").appendChildren(r.childElements.filter { BBX.BLOCK.TABLE_CELL.isA(it) }
+        .map { c -> org.jsoup.nodes.Element(cellTag).appendChildren(c.processContent()) })
+}
 
 private fun headerRowFromStairStepTableTN(table: Element): List<org.jsoup.nodes.Element> =
     (table.previousSibling { it is Element } as? Element)?.let { e ->
@@ -86,7 +108,7 @@ private fun headerRowFromStairStepTableTN(table: Element): List<org.jsoup.nodes.
             listOf(
                 org.jsoup.nodes.Element("tr").appendChildren(
                     e.childElements.filter { BBX.BLOCK.isA(it) }.drop(1)
-                    .map { org.jsoup.nodes.Element("th").appendChildren(it.processContent()) })
+                        .map { org.jsoup.nodes.Element("th").appendChildren(it.processContent()) })
             )
         } else {
             listOf()
@@ -98,8 +120,11 @@ private fun headerRowFromLinearTableTN(table: Element): List<org.jsoup.nodes.Ele
         if (BBX.CONTAINER.TABLETN.isA(e)) {
             listOf(
                 org.jsoup.nodes.Element("tr").appendChildren(
-                    e.childElements.filter { BBX.BLOCK.isA(it) }.takeLast(1).flatMap { b -> b.childElements.filter { BBX.SPAN.OTHER.isA(it) }.map { org.jsoup.nodes.Element("th").appendChildren(it.processContent()) } }
-                        )
+                    e.childElements.filter { BBX.BLOCK.isA(it) }.takeLast(1).flatMap { b ->
+                        b.childElements.filter { BBX.SPAN.OTHER.isA(it) }
+                            .map { org.jsoup.nodes.Element("th").appendChildren(it.processContent()) }
+                    }
+                )
             )
         } else {
             listOf()
