@@ -25,7 +25,9 @@ import org.brailleblaster.utils.xml.UTD_NS
 import org.brailleblaster.utils.xom.childNodes
 
 internal fun Element.processContent(): Collection<org.jsoup.nodes.Node> = when {
-    UTDElements.BRL.isA(this) || isTableBrl(this) -> listOf(org.jsoup.nodes.TextNode(asciiToEbraille(this.value)))
+    UTDElements.BRL.isA(this) || isTableBrl(this) -> listOf(org.jsoup.nodes.TextNode(asciiToEbraille(this.childNodes.filter {
+        !(UTDElements.BRL_PAGE_NUM.isA(it) || UTDElements.PRINT_PAGE_NUM.isA(it))
+    }.joinToString(separator = "") { it.value })))
     BBX.SPAN.PAGE_NUM.isA(this) -> listOf(this.processPageNum())
     BBX.INLINE.LINK.isA(this) -> listOf(this.processLink())
     BBX.INLINE.MATHML.isA(this) -> listOf(this.processMathML())
