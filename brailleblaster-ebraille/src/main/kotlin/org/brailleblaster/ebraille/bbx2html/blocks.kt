@@ -45,7 +45,7 @@ private fun Element.processStyle(): Collection<org.jsoup.nodes.Element> = when (
     else -> listOf(processParagraph())
 }
 
-private fun Element.processParagraph(
+internal fun Element.processParagraph(
     tag: String = "p",
     attributes: Map<String, String> = mapOf()
 ): org.jsoup.nodes.Element = org.jsoup.nodes.Element(tag).apply {
