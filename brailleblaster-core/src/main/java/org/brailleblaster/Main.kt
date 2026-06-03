@@ -23,6 +23,7 @@ import org.brailleblaster.logging.initLogback
 import org.brailleblaster.logging.preLog
 import org.brailleblaster.usage.*
 import org.brailleblaster.userHelp.Project
+import org.brailleblaster.exceptions.BBNotifyException
 import org.brailleblaster.utd.exceptions.NodeException
 import org.brailleblaster.util.Notify
 import org.brailleblaster.util.NotifyUtils
@@ -33,6 +34,7 @@ import org.brailleblaster.wordprocessor.WPManager
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.net.URLClassLoader
+import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.time.Duration
@@ -69,6 +71,22 @@ object Main {
     @Throws(Exception::class)
     fun start(args: Array<String>) {
         val argsToParse = args.toMutableList()
+        var fileToOpen: Path? = null
+        if (argsToParse.isNotEmpty()) {
+            val firstArg = argsToParse[0]
+            try {
+                fileToOpen = Paths.get(firstArg)
+            } catch (e: Exception) {
+                showStartupMessage("Error: The file path '$firstArg' is invalid.")
+                return
+            }
+            if (!Files.exists(fileToOpen)) {
+                val displayName = fileToOpen.fileName?.toString() ?: fileToOpen.toString()
+                showStartupMessage("Error: The file '$displayName' was not found.")
+                return
+            }
+            argsToParse.removeAt(0)
+        }
         initBB(argsToParse)
         if (System.getProperty("dumpClassPath", "false") == "true") {
             dumpClassLoader(ClassLoader.getSystemClassLoader())
@@ -76,17 +94,6 @@ object Main {
             if (ClassLoader.getSystemClassLoader() !== Thread.currentThread().contextClassLoader) {
                 dumpClassLoader(Thread.currentThread().contextClassLoader)
             }
-        }
-        var fileToOpen: Path? = null
-        if (argsToParse.isNotEmpty()) {
-            val firstArg = argsToParse[0]
-            try {
-                fileToOpen = Paths.get(firstArg)
-            } catch (e: Exception) {
-                LoggerFactory.getLogger(Main::class.java).error("Failed to open $firstArg", e)
-                RECOVERABLE_BOOT_EXCEPTIONS.add(e)
-            }
-            argsToParse.removeAt(0)
         }
         if (argsToParse.isNotEmpty()) {
             LoggerFactory.getLogger(Main::class.java)
@@ -109,12 +116,24 @@ object Main {
                 usageManager.startPeriodicDataReporting(0, 5, units = TimeUnit.MINUTES)
                 val bbStartTime = Instant.now()
                 usageManager.logger.logStart(tool = BB_TOOL, message = runId.toString())
-                WPManager.createInstance(fileToOpen, usageManager).start()
+                try {
+                    WPManager.createInstance(fileToOpen, usageManager).start()
+                } catch (e: BBNotifyException) {
+                    showStartupMessage(e.message)
+                    return@use
+                }
                 usageManager.logger.logDurationSeconds(tool = BB_TOOL, duration = Duration.between(bbStartTime, Instant.now()))
                 usageManager.logger.logEnd(tool = BB_TOOL, message = runId.toString())
                 usageManager.reportDataAsync().get()
             }
         }
+    }
+
+    private fun showStartupMessage(message: String?) {
+        if (message.isNullOrBlank()) {
+            return
+        }
+        println(message)
     }
 
     /**
