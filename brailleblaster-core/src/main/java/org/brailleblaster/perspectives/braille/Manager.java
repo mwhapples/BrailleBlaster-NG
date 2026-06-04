@@ -91,6 +91,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
+import java.nio.file.FileSystemException;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -324,7 +327,7 @@ public class Manager extends Controller {
     public void open() {
         Path file = _initFile;
         if (!Files.exists(file)) {
-            throw new RuntimeException("File " + file.toUri() + " does not exist");
+            throw new BBNotifyException(fileOpenMessage(file, new NoSuchFileException(file.toString())));
         }
         // Attempt to open file before all else. RT-7789
         openDocument(file);
@@ -485,6 +488,7 @@ public class Manager extends Controller {
             archiver = ArchiverFactory.INSTANCE.load(file);
         } catch (Exception e) {
             logger.error("Problem loading file", e);
+            throw new BBNotifyException(fileOpenMessage(file, e), e);
         }
 
         // Recent Files.
@@ -1959,6 +1963,45 @@ public class Manager extends Controller {
     @Override
     public Archiver2 getArchiver() {
         return Objects.requireNonNull(archiver, "Manager not open");
+    }
+
+    private String fileOpenMessage(Path fileName, Throwable cause) {
+        String displayName = fileName.getFileName() != null ? fileName.getFileName().toString() : fileName.toString();
+        if (cause instanceof BBNotifyException && cause.getMessage() != null && !cause.getMessage().isBlank()) {
+            return cause.getMessage();
+        }
+        if (cause instanceof NoSuchFileException) {
+            return "Error: The file '" + displayName + "' was not found.";
+        }
+        if (cause instanceof AccessDeniedException) {
+            return "Error: Access to the specified file was denied.";
+        }
+        if (cause instanceof FileSystemException fileSystemException) {
+            String reason = fileSystemException.getReason() != null ? fileSystemException.getReason().toLowerCase(Locale.getDefault()) : "";
+            if (reason.contains("denied") || reason.contains("permission") || reason.contains("access")) {
+                return "Error: Access to the specified file was denied.";
+            }
+            if (reason.contains("locked") || reason.contains("use by another process") || reason.contains("in use") || reason.contains("sharing violation")) {
+                return "Error: The specified file is locked or unavailable.";
+            }
+        }
+        if (cause instanceof XPathException) {
+            if (fileName.getFileName() != null && fileName.getFileName().toString().toLowerCase(Locale.getDefault()).endsWith(".bbz")) {
+                return "Error: '" + displayName + "' may be from an earlier release of BrailleBlaster and is not supported in this version. Please use an earlier version of BrailleBlaster to open this file.";
+            }
+            return "Error: '" + displayName + "' is not an archive that can be opened by BrailleBlaster.";
+        }
+        String message = cause.getMessage() != null ? cause.getMessage().toLowerCase(Locale.getDefault()) : "";
+        if (message.contains("locked") || message.contains("sharing violation") || message.contains("being used by another process") || message.contains("in use")) {
+            return "Error: The specified file is locked or unavailable.";
+        }
+        if (message.contains("permission") || message.contains("denied") || message.contains("access is denied")) {
+            return "Error: Access to the specified file was denied.";
+        }
+        if (fileName.getParent() != null && !Files.exists(fileName.getParent())) {
+            return "Error: The path '" + fileName + "' does not exist.";
+        }
+        return "Error: Unable to open the specified file.";
     }
 
     class Reformatter implements Runnable {

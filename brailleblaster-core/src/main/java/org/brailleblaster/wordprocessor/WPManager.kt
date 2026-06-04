@@ -63,6 +63,9 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.awt.SplashScreen
 import java.io.IOException
+import java.nio.file.AccessDeniedException
+import java.nio.file.FileSystemException
+import java.nio.file.NoSuchFileException
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -191,7 +194,7 @@ class WPManager private constructor(val usageManager: UsageManager) {
             else -> null
         }
         currentPerspective = BraillePerspective(this)
-        addDocumentManager(fileToOpen)
+        addDocumentManager(fileToOpen, startupOpen = true)
         val firstManager = controller
 
         //move to here for #6370: Open BB, Close it before it can open, get a fatal exception
@@ -357,7 +360,7 @@ class WPManager private constructor(val usageManager: UsageManager) {
         }
     }
 
-    fun addDocumentManager(fileName: Path?) {
+    fun addDocumentManager(fileName: Path?, startupOpen: Boolean = false) {
         if (fileName == null || (fileName.exists() && !fileName.isDirectory())) {
             val numberOfTab = 10
             if (list.size < numberOfTab) {
@@ -372,12 +375,20 @@ class WPManager private constructor(val usageManager: UsageManager) {
                 }
 
                 val oldManager = currentManager
-                setupDocumentManager(fileName, oldManager)
+                setupDocumentManager(fileName, oldManager, startupOpen)
                 openingDoc = false
             } else {
                 showMessage("The number of tabs allowed open is 10.")
             }
         } else {
+            if (startupOpen) {
+                val cause = if (fileName != null && !Files.exists(fileName)) {
+                    NoSuchFileException(fileName.toString())
+                } else {
+                    FileSystemException(fileName?.toString(), null, "Cannot open file")
+                }
+                throw BBNotifyException(fileOpenMessage(fileName!!, cause))
+            }
             if (fileName in RecentDocs.defaultRecentDocs.recentDocs) {
                 val removeFromRecentDocs = MessageBox(shell, SWT.ICON_ERROR or SWT.YES or SWT.NO).apply {
                     text = "File unavailable"
@@ -393,7 +404,7 @@ class WPManager private constructor(val usageManager: UsageManager) {
         }
     }
 
-    private fun setupDocumentManager(fileName: Path?, oldManager: Manager?) {
+    private fun setupDocumentManager(fileName: Path?, oldManager: Manager?, startupOpen: Boolean = false) {
         val m = newManager(fileName, oldManager)
         try {
             // try opening file first before everything else / RT-7789
@@ -425,32 +436,11 @@ class WPManager private constructor(val usageManager: UsageManager) {
             folder.setSelection(curSelection.coerceAtMost(folder.itemCount - 1))
             folder.notifyListeners(SWT.Selection, Event())
 
-            val filenameString = fileName!!.fileName.toString()
-            val fileExt = filenameString.substring(filenameString.lastIndexOf('.'))
-
-            if (e is BBNotifyException) {
-                //Generally a problem with the Archiver being null - an invalid file type
-                //Message is already provided
-                showMessage(e.message)
-                //throw e;
-            } else if (e is XPathException) {
-                //Happens with an invalid ZIP file or outdated / corrupt bbz document
-                if (fileExt == ".bbz") {
-                    showMessage(
-                        """$filenameString may be a file from an earlier release of BrailleBlaster and is not supported in this version.
- Please use an earlier version of BrailleBlaster to open this file."""
-                    )
-                } else {
-                    showMessage(
-                        filenameString +
-                                " is not an archive that can be opened by BrailleBlaster."
-                    )
-                }
-            } else {
-                //Some other file open exception
-                showMessage("$filenameString cannot be opened by BrailleBlaster")
-                //throw new RuntimeException("Failed to open " + fileName, e);
+            val message = fileOpenMessage(fileName!!, e)
+            if (startupOpen) {
+                throw BBNotifyException(message, e)
             }
+            showMessage(message)
         } finally {
             val curManager = currentManager
             initMenuAndToolbar(curManager)
@@ -474,6 +464,45 @@ class WPManager private constructor(val usageManager: UsageManager) {
     private fun openBRFFile(fileName: Path?) {
         PrintPreview(shell, fileName, this)
         RecentDocs.defaultRecentDocs.addRecentDoc(fileName!!)
+    }
+
+    private fun fileOpenMessage(fileName: Path, cause: Throwable): String {
+        val displayName = fileName.fileName?.toString() ?: fileName.toString()
+        if (cause is BBNotifyException && !cause.message.isNullOrBlank()) {
+            return cause.message!!
+        }
+        if (cause is NoSuchFileException) {
+            return "Error: The file '$displayName' was not found."
+        }
+        if (cause is AccessDeniedException) {
+            return "Error: Access to the specified file was denied."
+        }
+        if (cause is FileSystemException) {
+            val reason = cause.reason?.lowercase(Locale.getDefault()) ?: ""
+            if (reason.contains("denied") || reason.contains("permission") || reason.contains("access")) {
+                return "Error: Access to the specified file was denied."
+            }
+            if (reason.contains("locked") || reason.contains("use by another process") || reason.contains("in use") || reason.contains("sharing violation")) {
+                return "Error: The specified file is locked or unavailable."
+            }
+        }
+        if (cause is XPathException) {
+            if (fileName.toString().endsWith(".bbz", ignoreCase = true)) {
+                return "Error: '$displayName' may be from an earlier release of BrailleBlaster and is not supported in this version. Please use an earlier version of BrailleBlaster to open this file."
+            }
+            return "Error: '$displayName' is not an archive that can be opened by BrailleBlaster."
+        }
+        val message = cause.message?.lowercase(Locale.getDefault()) ?: ""
+        if (message.contains("locked") || message.contains("sharing violation") || message.contains("being used by another process") || message.contains("in use")) {
+            return "Error: The specified file is locked or unavailable."
+        }
+        if (message.contains("permission") || message.contains("denied") || message.contains("access is denied")) {
+            return "Error: Access to the specified file was denied."
+        }
+        if (fileName.parent != null && !Files.exists(fileName.parent)) {
+            return "Error: The path '$fileName' does not exist."
+        }
+        return "Error: Unable to open the specified file."
     }
 
     fun setSelection() {
