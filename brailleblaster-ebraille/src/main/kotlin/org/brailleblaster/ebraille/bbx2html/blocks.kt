@@ -29,11 +29,17 @@ internal fun Element.processBlock(): Collection<org.jsoup.nodes.Element> = when 
     else -> listOf(processParagraph())
 }
 
+private fun Element.processLinkId(supplier: () -> org.jsoup.nodes.Element): org.jsoup.nodes.Element = supplier().also { elem ->
+    BBX.BLOCK.LINKID.getOptional(this).ifPresent { elem.id(it) }
+}
+
 internal fun Element.processPageNum(): org.jsoup.nodes.Element =
-    org.jsoup.nodes.Element("span").attr("role", "doc-pagebreak").apply {
-        val brl = getFirstChildElement("brl", UTD_NS)
-        attr("aria-label", brl.getAttributeValue("printPage").orEmpty().ifEmpty { "-" })
-        appendText(asciiToEbraille(brl.getAttributeValue("printPageBrl").orEmpty().ifEmpty { "\u2824" }))
+    processLinkId {
+        org.jsoup.nodes.Element("span").attr("role", "doc-pagebreak").apply {
+            val brl = getFirstChildElement("brl", UTD_NS)
+            attr("aria-label", brl.getAttributeValue("printPage").orEmpty().ifEmpty { "-" })
+            appendText(asciiToEbraille(brl.getAttributeValue("printPageBrl").orEmpty().ifEmpty { "\u2824" }))
+        }
     }
 
 private fun Element.processStyle(): Collection<org.jsoup.nodes.Element> = when (style) {
@@ -48,11 +54,13 @@ private fun Element.processStyle(): Collection<org.jsoup.nodes.Element> = when (
 internal fun Element.processParagraph(
     tag: String = "p",
     attributes: Map<String, String> = mapOf()
-): org.jsoup.nodes.Element = org.jsoup.nodes.Element(tag).apply {
-    for ((k, v) in attributes) {
-        attr(k, v)
-    }
-}.appendChildren(childNodes.flatMap { it.processContent() })
+): org.jsoup.nodes.Element = processLinkId {
+    org.jsoup.nodes.Element(tag).apply {
+        for ((k, v) in attributes) {
+            attr(k, v)
+        }
+    }.appendChildren(childNodes.flatMap { it.processContent() })
+}
 
 private sealed interface DefinitionListItem {
     data class Term(val element: Element) : DefinitionListItem
@@ -77,4 +85,4 @@ internal fun Element.processDefinitionListItem(): List<org.jsoup.nodes.Element> 
             is DefinitionListItem.Definition -> org.jsoup.nodes.Element("dd")
                 .appendChildren(it.elements.flatMap { e -> e.processContent() })
         }
-    }
+    }.also { it.firstOrNull()?.let { elem -> processLinkId { elem } } }
