@@ -68,7 +68,6 @@ object Main {
         exitProcess(0)
     }
 
-    @Throws(Exception::class)
     fun start(args: Array<String>) {
         val argsToParse = args.toMutableList()
         var fileToOpen: Path? = null
