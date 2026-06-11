@@ -140,7 +140,6 @@ object Main {
      *
      * @param argsToParse Arguments that will be removed from list when parsed
      */
-    @JvmOverloads
     fun initBB(argsToParse: List<String>, initBBIni: Boolean = true) {
         if (isInitted && !BBIni.debugging) throw RuntimeException("Do not call init twice")
         val bbPath = brailleblasterPath
