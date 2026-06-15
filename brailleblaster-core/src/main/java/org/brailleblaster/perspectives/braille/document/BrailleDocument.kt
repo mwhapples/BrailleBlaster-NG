@@ -285,7 +285,7 @@ class BrailleDocument(dm: Manager, doc: Document) : BBDocument(dm, doc) {
     }
 
     fun getParent(n: Node): Element {
-        return n.parent.findBlockOrNull() ?: return engine.findTranslationBlock(n) as Element
+        return n.parent.findBlockOrNull() ?: engine.findTranslationBlock(n) as Element
     }
 
     /**

@@ -250,6 +250,8 @@ class NormaliserFactory : NodeFactory() {
             "h4",
             "h5",
             "h6",
+            "h7",
+            "h8",
             "hd",
             "level1",
             "level2",
@@ -265,7 +267,8 @@ class NormaliserFactory : NodeFactory() {
             "table",
             "tr",
             "td",
-            "th"
+            "th",
+            //Do we need Nimas+ elements in this list? Seems to work without them.
         )
         private val DEFAULT_BLOCK_ELEMENTS: List<String> = listOf()
     }

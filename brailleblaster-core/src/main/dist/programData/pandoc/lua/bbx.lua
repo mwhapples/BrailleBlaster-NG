@@ -329,7 +329,10 @@ function CaptionedImage(src, title, caption, attr)
 end
 
 function Code(s, attr)
-  return BlockQuote(s)
+  local t = LineBreak(2)
+    t = t .. '<BLOCK utd:overrideStyle="Displayed Blocked Text" '
+    t = t .. 'bb:type="STYLE">' .. escape(s) .. '</BLOCK>' .. LineBreak(1)
+    return t
 end
 
 function InlineMath(s)
@@ -450,7 +453,7 @@ function CodeBlock(s, attr)
     return Image(s, "data:image/png;base64," .. png, '', attr)
   -- otherwise treat as code (one could pipe through a highlighter)
   else
-    return  BlockQuote(s)
+    return  Code(s, attr)
   end
 end
 
@@ -501,9 +504,66 @@ function OrderedList(items,start,style)
   return BulletList(newItems)
 end
 
--- Revisit association list StackValue instance.
+-- Render a definition list. Pandoc passes items as an array of {term, defs}
+-- pairs where term is a string and defs is an array of strings.
+-- Delegating directly to BulletList crashed because BulletList expects
+-- items to be an array of strings, not {term, defs} tables.
+-- Uses the proper BBX DEFINITION list type with DEFINITION_TERM spans,
+-- matching how the NIMAS importer handles <dl>/<dt>/<dd> elements.
+-- In Pandoc 3.x, DefinitionList items are structured as an array of single-key tables:
+-- each element is { ["term string"] = { def1_string, def2_string, ... } }
+-- (Pandoc 2.x used { term_string, { def1_string, ... } } with numeric indices)
 function DefinitionList(items)
-    return BulletList(items)
+    local buffer = {}
+    -- bb:listLevel="0" is required by FixNestedList (getAttribute("listLevel") crashes without it)
+    local beginTag = '<CONTAINER bb:type="LIST" bb:listType="DEFINITION" bb:listLevel="0">'
+    local endTag   = '</CONTAINER>'
+    for _, item in ipairs(items) do
+        -- In Pandoc 3.x each item is {[term_string] = defs_table}
+        for term, defs in pairs(item) do
+            local termText = ''
+            if term ~= nil then
+                termText = removeTags(term)
+            end
+            if defs ~= nil then
+                local firstDef = true
+                for _, def in ipairs(defs) do
+                    if def ~= nil then
+                        local d = removeTags(def)
+                        if d ~= nil and string.len(string.gsub(d, '%s+', '')) > 0 then
+                            if firstDef and string.len(termText) > 0 then
+                                -- First definition: include the term as a DEFINITION_TERM span
+                                -- bb:itemLevel="0" is required by FixNestedList
+                                buffer[#buffer+1] = '<BLOCK bb:type="LIST_ITEM" bb:itemLevel="0">'
+                                    .. '<SPAN bb:type="DEFINITION_TERM">' .. termText .. '</SPAN>'
+                                    .. ' ' .. d
+                                    .. '</BLOCK>'
+                            else
+                                -- Continuation definitions (no term)
+                                buffer[#buffer+1] = '<BLOCK bb:type="LIST_ITEM" bb:itemLevel="0">' .. d .. '</BLOCK>'
+                            end
+                            firstDef = false
+                        end
+                    end
+                end
+                -- Term with no definitions still needs to be emitted
+                if firstDef and string.len(termText) > 0 then
+                    buffer[#buffer+1] = '<BLOCK bb:type="LIST_ITEM" bb:itemLevel="0">'
+                        .. '<SPAN bb:type="DEFINITION_TERM">' .. termText .. '</SPAN>'
+                        .. '</BLOCK>'
+                end
+            elseif string.len(termText) > 0 then
+                buffer[#buffer+1] = '<BLOCK bb:type="LIST_ITEM" bb:itemLevel="0">'
+                    .. '<SPAN bb:type="DEFINITION_TERM">' .. termText .. '</SPAN>'
+                    .. '</BLOCK>'
+            end
+        end
+    end
+    local val = ''
+    if #buffer > 0 then
+        val = beginTag .. table.concat(buffer) .. endTag
+    end
+    return val
 end
 
 -- Convert pandoc alignment to something HTML can use.
@@ -601,7 +661,43 @@ function RawBlock(format, str)
     return t
 end
 
+  local function getCustomStyle(attr)
+    if attr == nil or type(attr) ~= "table" then
+      return nil
+    end
+
+    if attr.attributes ~= nil and type(attr.attributes) == "table" then
+      return attr.attributes["custom-style"]
+    end
+
+    return attr["custom-style"]
+  end
+
+  local function isListParagraphStyle(customStyle)
+    if customStyle == nil then
+      return false
+    end
+
+    local normalized = string.lower(customStyle)
+    return normalized == "list paragraph" or normalized == "paragraph list"
+  end
+
 function Div(s, attr)
+    local customStyle = getCustomStyle(attr)
+    if isListParagraphStyle(customStyle) then
+      local item = removeTags(s)
+      if item == nil then
+        item = ''
+      end
+      if string.len(string.gsub(item, '%s+', '')) == 0 then
+        return ''
+      end
+
+      return '<CONTAINER bb:type="LIST" bb:listType="NORMAL" bb:listLevel="0">'
+        .. '<BLOCK bb:type="LIST_ITEM" bb:itemLevel="0">' .. item .. '</BLOCK>'
+        .. '</CONTAINER>'
+    end
+
   return s
 end
 

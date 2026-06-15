@@ -20,7 +20,9 @@ package org.brailleblaster.utd.exceptions
  * allocated to that cell.
  */
 class CellOccupiedException : UTDException {
+    @Suppress("Unused")
     constructor()
     constructor(message: String?) : super(message)
+    @Suppress("Unused")
     constructor(message: String?, cause: Throwable?) : super(message, cause)
 }

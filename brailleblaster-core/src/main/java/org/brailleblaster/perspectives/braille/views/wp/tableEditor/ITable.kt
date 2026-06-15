@@ -17,6 +17,7 @@ package org.brailleblaster.perspectives.braille.views.wp.tableEditor
 
 import nu.xom.Element
 import nu.xom.Node
+import org.brailleblaster.bbx.BBX
 import org.brailleblaster.utd.internal.xml.XMLHandler
 import java.util.function.Consumer
 import kotlin.math.max
@@ -28,7 +29,7 @@ internal interface ITable {
 
     var tNContainer: Element?
 
-    var type: TableType
+    var type: BBX.TableType
 
     var displayedRows: Int
 

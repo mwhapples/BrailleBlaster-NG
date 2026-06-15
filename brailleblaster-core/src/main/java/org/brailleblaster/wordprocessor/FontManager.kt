@@ -49,7 +49,7 @@ class FontManager(val m: Manager) {
         val swtFont = newTextFont()
         log.info(
             "Set text view font to {} height {}",
-            @Suppress("UsePropertyAccessSyntax") swtFont.fontData[0].getName(),
+            swtFont.fontData[0].getName(),
             swtFont.fontData[0].getHeight()
         )
         textView.view.font = swtFont
@@ -68,7 +68,7 @@ class FontManager(val m: Manager) {
         val swtFont = newBrailleFont()
         log.info(
             "Set braille view font to {} height {}",
-            @Suppress("UsePropertyAccessSyntax") swtFont.fontData[0].getName(),
+            swtFont.fontData[0].getName(),
             swtFont.fontData[0].getHeight()
         )
         brailleView.view.font = swtFont
@@ -245,7 +245,6 @@ class FontManager(val m: Manager) {
 
             val fonts = Display.getCurrent().getFontList(null, true)
             if (fonts.any {
-                @Suppress("UsePropertyAccessSyntax")
                 it.getName()!!.contentEquals(name)
             }) {
                 loaded = true
@@ -285,7 +284,6 @@ class FontManager(val m: Manager) {
             log.warn("Unable to load font {}", it.name)
             false
         } else true
-        @Suppress("UsePropertyAccessSyntax")
         private val FALLBACK_FONT_NAME = Display.getCurrent().getFontList(null, true)[0].getName()
         private val TEXT_FONTS: List<LoadedFont> = listOf( //Monospaced Microsoft Font
             SystemFont("Courier New", 12),  //Monospaced Ubuntu Font (Ubuntu does not ship with Microsoft fonts)
@@ -372,7 +370,6 @@ class FontManager(val m: Manager) {
         private fun fontExists(font: String?): Boolean {
             return sWTFonts
                 .any { fontData: FontData ->
-                    @Suppress("UsePropertyAccessSyntax")
                     fontData.getName() == font
                 }
         }

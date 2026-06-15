@@ -274,12 +274,8 @@ abstract class ViewInitializer(val document: BrailleDocument, val text: TextView
     }
 
     private fun clearViews() {
-        replaceTextRange(0, text.view.charCount, 0, braille.view.charCount)
-    }
-
-    private fun replaceTextRange(textStart: Int, textLength: Int, brailleStart: Int, brailleLength: Int) {
-        text.view.replaceTextRange(textStart, textLength, "")
-        braille.view.replaceTextRange(brailleStart, brailleLength, "")
+        text.view.text = ""
+        braille.view.text = ""
     }
 
     private fun removeListeners() {

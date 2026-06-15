@@ -11,21 +11,13 @@
 		<brailleSettings xmlns="http://brailleblaster.org/ns/utd">
 			<cellType>NLS</cellType>
 			<computerBrailleTable>en-us-comp8.ctb</computerBrailleTable>
-			<computerBrailleTableLLAPH>en-us-comp8.ctb</computerBrailleTableLLAPH>
 			<editTable>nemeth_edit.ctb</editTable>
-			<editTableLLAPH>english-ueb-math.rst</editTableLLAPH>
 			<mainTranslationTable>This is not the table your looking for</mainTranslationTable>
-			<mainTranslationTableLLAPH>english-ueb-grade2.rst</mainTranslationTableLLAPH>
 			<mathBrailleCode>Nemeth</mathBrailleCode>
 			<mathExpressionTable>nemeth.ctb</mathExpressionTable>
-			<mathExpressionTableLLAPH>english-ueb-math.rst</mathExpressionTableLLAPH>
-			<mathLineWrapping />
 			<mathTextTable>en-us-g2.ctb</mathTextTable>
-			<mathTextTableLLAPH>english-ueb-math.rst</mathTextTableLLAPH>
 			<uncontractedTable>en-ueb-g1.ctb</uncontractedTable>
-			<uncontractedTableLLAPH>english-ueb-grade2.rst</uncontractedTableLLAPH>
 			<useAsciiBraille>false</useAsciiBraille>
-			<useLibLouisAPH>false</useLibLouisAPH>
 		</brailleSettings>
 		<randomElement>stuff</randomElement>
 		<pageSettings xmlns="http://brailleblaster.org/ns/utd">

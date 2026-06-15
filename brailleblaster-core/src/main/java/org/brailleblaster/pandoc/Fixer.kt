@@ -31,14 +31,13 @@ class Fixer(filename: String) {
     private val fixers = ArrayList<FixerInf>()
 
     init {
-        val fis = FileInputStream(filename)
-        // read the file with UTF-8 encoding
-        val isr = InputStreamReader(fis, StandardCharsets.UTF_8)
         val bldr = Builder()
-        document = bldr.build(isr)
-        rootElement = document.rootElement
-        topNode = rootElement
-        isr.close()
+        // read the file with UTF-8 encoding
+        FileReader(filename, Charsets.UTF_8).use { isr ->
+            document = bldr.build(isr)
+            rootElement = document.rootElement
+            topNode = rootElement
+        }
     }
 
     fun addFixer(f: FixerInf) {

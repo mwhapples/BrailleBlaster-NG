@@ -79,7 +79,7 @@ class NimasZipArchiverLoader : ArchiverFactory.FileLoader {
                                     "Unable to find file ${bookManifest.href} in zip root ${opfFile.parent}", bookManifest.elem
                                 )
                             }
-                            )
+                        )
                     }
                 }
             }

@@ -162,7 +162,7 @@ private void fillTable(@NonNull Table symbolsTable, @NonNull List<@NonNull Symbo
                 descText.setText(existingItem.getText(1));
             Button editRulesButton = EasySWT.makePushButton(container, "Edit rules", BUTTON_WIDTH, 1, null);
             Label rulesLabel = EasySWT.makeLabel(container, "Rules: " + (existingItem == null || existingItem.getText(2).isEmpty() ? "None" : existingItem.getText(2)), 1);
-            EasyListeners.selection(editRulesButton, (e) -> new EditRulesDialog().open(rulesLabel.getText().replaceAll("Rules: ", "").replaceAll("None", "").replaceAll(System.lineSeparator(), ""), s -> {
+            EasyListeners.selection(editRulesButton, (e) -> new EditRulesDialog().open(rulesLabel.getText().replace("Rules: ", "").replace("None", "").replace(System.lineSeparator(), ""), s -> {
                 rulesLabel.setText("Rules: " + (s.isEmpty() ? "None" : s));
                 rulesLabel.pack();
 

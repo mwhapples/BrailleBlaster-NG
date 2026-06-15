@@ -15,13 +15,15 @@
  */
 package org.brailleblaster
 
+import org.brailleblaster.utils.BBData
 import java.util.Properties
+import kotlin.io.path.absolute
 import kotlin.io.path.reader
 
 object AppProperties {
     private val properties: Properties = Properties().apply {
         runCatching {
-            BBIni.bbDistPath.resolve("about.properties").reader(Charsets.UTF_8).use { load(it) }
+            BBData.brailleblasterPath.toPath().absolute().resolve("about.properties").reader(Charsets.UTF_8).use { load(it) }
         }
     }
     val displayName = properties.getProperty("app.display-name") ?: "BrailleBlaster"
@@ -29,9 +31,12 @@ object AppProperties {
     val version = properties.getProperty("app.version") ?: "Unknown"
     val vendor = properties.getProperty("app.vendor") ?: "Unknown"
     val buildDate = properties.getProperty("app.build-date") ?: "Unknown"
+    @Suppress("Unused")
     val fsname = properties.getProperty("app.fsname") ?: "brailleblaster"
     val buildHash: String? = properties.getProperty("app.build-hash")
+    @Suppress("Unused")
     val vcsUrl = properties.getProperty("app.vcs-url") ?: "https://github.com/aphtech/brailleblaster"
+    @Suppress("Unused")
     val downloadUrl = properties.getProperty("app.site.base-url") ?: "https://github.com/aphtech/brailleblaster/releases/latest"
     val websiteUrl = properties.getProperty("app.website-url") ?: "https://www.brailleblaster.org"
 }

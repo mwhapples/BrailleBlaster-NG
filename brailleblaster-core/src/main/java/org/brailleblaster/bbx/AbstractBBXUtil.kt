@@ -100,11 +100,11 @@ open class AbstractBBXUtil {
         this.fixerTodo = fixerTodo
     }
 
-    protected fun validateOnlyOneBBXFieldSet(vararg aditionalFields: Any?): Set<Any?> {
-        return validateNumBBXFieldSet(1, *aditionalFields)
+    protected fun validateOnlyOneBBXFieldSet(vararg additionalFields: Any?): Set<Any?> {
+        return validateNumBBXFieldSet(1, *additionalFields)
     }
 
-    private fun validateNumBBXFieldSet(count: Int, vararg aditionalFields: Any?): Set<Any?> {
+    private fun validateNumBBXFieldSet(count: Int, vararg additionalFields: Any?): Set<Any?> {
         val configuredFields: MutableSet<Any?> = HashSet()
         configuredFields.add(sectionType)
         configuredFields.add(containerType)
@@ -115,7 +115,7 @@ open class AbstractBBXUtil {
         configuredFields.add(marginType)
         configuredFields.add(tableRowType)
         configuredFields.add(emphasisType)
-        configuredFields.addAll(listOf(*aditionalFields))
+        configuredFields.addAll(listOf(*additionalFields))
         //nulls will be condensed into one entry + set entry = 2
         if (configuredFields.size != 1 + count) {
             throw RuntimeException("Expected " + count + " set fields, found:" + toString() + " size " + configuredFields.size)

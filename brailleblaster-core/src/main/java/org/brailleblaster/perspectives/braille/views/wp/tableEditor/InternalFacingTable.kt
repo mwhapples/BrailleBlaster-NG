@@ -17,13 +17,14 @@ package org.brailleblaster.perspectives.braille.views.wp.tableEditor
 
 import nu.xom.Element
 import nu.xom.Node
+import org.brailleblaster.bbx.BBX
 import kotlin.math.max
 
 internal class InternalFacingTable(
     override val nodes: MutableList<MutableList<Node>>,
     @JvmField var split: Int,
     override val captions: List<Element>,
-    override var type: TableType
+    override var type: BBX.TableType
 ) : ITable {
     val leftNodes: List<List<Node>>
         get() {

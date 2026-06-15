@@ -99,9 +99,8 @@ open class GenericBlockAction : GenericAction(), IBlockAction {
             val inText = input.text
             translateText.append(inText)
             endPos.add(translateText.length)
-            val set = input.emphasis
             var value = Louis.TypeForms.PLAIN_TEXT
-            for (type in set) {
+            for (type in input.emphasis) {
                 value = (value.toInt() or type.jlouisTypeform.toInt()).toShort()
             }
 
@@ -121,12 +120,9 @@ open class GenericBlockAction : GenericAction(), IBlockAction {
             }
             emphVal.toShort()
         }.toShortArray()
-        var wordFlag: Boolean
-        var puncFlag: Boolean
-        var puncStart: Int
-        wordFlag = false
-        puncFlag = false
-        puncStart = 0
+        var wordFlag = false
+        var puncFlag = false
+        var puncStart = 0
         var emphasis: Short = 0
         var preWordEmp: Short = 0
         var wordCount = 0

@@ -32,6 +32,7 @@ import org.brailleblaster.math.template.Template.Companion.isTemplate
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.BoxLineTextMapElement
 import org.brailleblaster.perspectives.braille.mapping.elements.LineBreakElement
+import org.brailleblaster.perspectives.braille.mapping.elements.PageBreakWhiteSpaceElement
 import org.brailleblaster.perspectives.braille.mapping.elements.WhiteSpaceElement
 import org.brailleblaster.perspectives.braille.messages.Sender
 import org.brailleblaster.perspectives.braille.messages.WhitespaceMessage
@@ -42,7 +43,10 @@ import org.brailleblaster.util.WhitespaceUtils.prependLineBreakElement
 import org.brailleblaster.util.WhitespaceUtils.removeLineBreakElements
 
 class WhitespaceTransformer(manager: Manager) : Handler(manager, manager.viewInitializer, manager.mapList) {
+    private var pendingCursorOffset: Int = -1
+
     fun transformWhiteSpace(message: WhitespaceMessage) {
+        pendingCursorOffset = message.offset
         //if(isInline(list.getCurrent()))
         //	transformInlineText((WhiteSpaceElement)list.get(message.getIndex()), message.getNewText());
         //else
@@ -71,6 +75,33 @@ class WhitespaceTransformer(manager: Manager) : Handler(manager, manager.viewIni
 
         if (wse is LineBreakElement && !atBeginning) {
             blankLinesBefore-- //An extra line break element is added to the previous tme
+        }
+
+        // When typing within a PageBreakWhiteSpaceElement, the entire blank page area is
+        // represented by a single maplist entry, so the maplist-index-based blankLinesBefore
+        // is always 1.  Override it with the actual visual distance from the previous text
+        // element to the cursor so that the correct number of blank lines is inserted before
+        // the new text.
+        if (wse is PageBreakWhiteSpaceElement && pendingCursorOffset >= 0 && !atBeginning && curElement != null) {
+            val view = manager.text.view
+            // curElement.getEnd(list) is the charCount at the moment curElement finished
+            // rendering, which equals the widget offset of the '\r' that terminates
+            // curElement's own line.  getLineAtOffset() of that position returns
+            // curElement's line number.
+            //
+            // The number of NEW_LINE elements needed to place text at the cursor's visual
+            // line is exactly (cursorLine - curElementLine), so we use curElement.getEnd()
+            // directly as the reference point rather than curElement.getEnd() + LINE_BREAK
+            // (which would point to the start of the NEXT line and undercount by 1).
+            val pbStart = curElement.getEnd(list)
+            if (view.charCount > 0 && pbStart >= 0 && pbStart < view.charCount) {
+                val pbStartLine = view.getLineAtOffset(pbStart)
+                val cursorLine = view.getLineAtOffset(pendingCursorOffset.coerceIn(0, view.charCount - 1))
+                val visualBlankLines = cursorLine - pbStartLine
+                if (visualBlankLines > blankLinesBefore) {
+                    blankLinesBefore = visualBlankLines
+                }
+            }
         }
 
         if (nextElement != null) { //nextElement is null at the end of the document

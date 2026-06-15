@@ -20,6 +20,7 @@ import java.io.File;
 import org.brailleblaster.perspectives.mvc.menu.TopMenu;
 import org.brailleblaster.testrunners.BBTestRunner;
 import org.eclipse.swt.SWT;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import nu.xom.Node;
@@ -31,7 +32,12 @@ import static org.testng.Assert.*;
 public class ProseTest {
     private static final File shortProse = new File("src/test/resources/org/brailleblaster/utd/Prose.xml");
     private static final File proseWithLines = new File("src/test/resources/org/brailleblaster/utd/ProseWithLineNumbers.bbx");
-    public ProseBuilder proseBuilder = new ProseBuilder();
+    public ProseBuilder proseBuilder;
+
+    @BeforeClass
+    public void classSetup() {
+        proseBuilder = new ProseBuilder();
+    }
 
     @Test(enabled = false)
     public void testOpenProseTools() {

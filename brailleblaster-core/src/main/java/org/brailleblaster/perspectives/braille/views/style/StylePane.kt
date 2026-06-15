@@ -22,6 +22,7 @@ import org.brailleblaster.easierxml.ImageUtils.getImageNavigateBlock
 import org.brailleblaster.math.mathml.MathModuleUtils
 import org.brailleblaster.perspectives.braille.Manager
 import org.brailleblaster.perspectives.braille.mapping.elements.BraillePageBrlMapElement
+import org.brailleblaster.perspectives.braille.mapping.elements.PageBreakWhiteSpaceElement
 import org.brailleblaster.perspectives.braille.mapping.elements.PageIndicator
 import org.brailleblaster.perspectives.braille.mapping.maps.MapList
 import org.brailleblaster.perspectives.braille.mapping.maps.PaintedElementsList
@@ -71,6 +72,8 @@ class StylePane(parent: Composite, private val m: Manager) : BBEditorView {
         var blockEnd: Element? = null
         val processedBlocks = HashMap<Element?, Int>()
         val lines = TreeMap<Int?, String?>()
+        val linesPerPage = m.document.linesPerPage
+        var pageBreakCount = 0
         for (textMapElement in mapList) {
             for (curBraille in textMapElement.brailleList) {
                 if (curBraille !is BraillePageBrlMapElement) {
@@ -97,6 +100,14 @@ class StylePane(parent: Composite, private val m: Manager) : BBEditorView {
                     textMapElement.node
                 )
             )
+            if (textMapElement is PageBreakWhiteSpaceElement) {
+                pageBreakCount++
+                val pbLine = pageBreakCount * linesPerPage - 1
+                if (!lines.containsKey(pbLine)) {
+                    lines[pbLine] = "Page Break"
+                }
+                continue
+            }
             if (textMapElement.node == null) {
                 log.trace("skipping null node")
                 continue

@@ -17,12 +17,13 @@ package org.brailleblaster.perspectives.braille.views.wp.tableEditor
 
 import nu.xom.Element
 import nu.xom.Node
+import org.brailleblaster.bbx.BBX
 
 internal class InternalTable(
     override val nodes: MutableList<MutableList<Node>>,
     override val captions: List<Element>,
     override var tNContainer: Element?,
-    override var type: TableType
+    override var type: BBX.TableType
 ) : ITable {
     override var displayedRows: Int = rows
         set(value) {

@@ -618,8 +618,8 @@ class ProseBuilder : MenuToolModule {
             val startAncestors = FastXPath.ancestor(start).toList()
             val endAncestors = FastXPath.ancestor(end).toList()
             for (i in startAncestors.size - 1 downTo -1 + 1) {
-                for (j in 0 until endAncestors.size) {
-                    if (startAncestors[i] == endAncestors[j]) {
+                for (element in endAncestors) {
+                    if (startAncestors[i] == element) {
                         startNode = startAncestors[i + 1]
                         return startAncestors[i]
                     }

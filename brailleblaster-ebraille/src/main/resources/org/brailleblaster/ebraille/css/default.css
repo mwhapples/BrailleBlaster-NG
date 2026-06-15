@@ -1,0 +1,83 @@
+/* General Braille Settings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding: 0;
+}
+
+section {
+  display: block;
+}
+
+h1 {
+  text-align: center;
+  margin: 0 0 1em 0;
+}
+
+h2 {
+  margin: 1em 0 0.5em 4ch;
+}
+
+p {
+  margin: 0.5em 0;
+  text-indent: 2ch;
+}
+
+.source-line {
+  text-indent: 0;
+}
+
+/* General braille layout */
+/* Keep headings with following content */
+h1, h2, h3 {
+    break-after: avoid;
+    break-inside: avoid;
+}
+
+/* Heading hierarchy */
+h3 {
+    margin-top: 1rem;
+    margin-bottom: 0;
+    margin-left: 6ch;
+}
+
+/* Paragraphs: 3-1 */
+/* Lists */
+ul, ol {
+    list-style: none;
+    margin: 1rem 0;
+    padding-left: 0;
+}
+
+h2 + ul, h2 + ol,
+h3 + ul, h3 + ol {
+    margin-top: 0;
+}
+
+li {
+    padding-left: 2ch;
+    text-indent: -2ch;
+}
+
+/* Print pagebreaks are semantic markers in eBraille.
+   Keep them inline so they do not impose fixed-layout behavior. */
+[role~="doc-pagebreak"] {
+    display: inline;
+    text-indent: 0;
+}
+
+
+h2,
+h3 {
+    text-align: left;
+    text-indent: 0;
+}

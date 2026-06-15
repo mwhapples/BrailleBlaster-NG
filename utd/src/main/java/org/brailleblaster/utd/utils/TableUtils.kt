@@ -218,6 +218,11 @@ object TableUtils {
             if (style.isTable) return TableTypes.NONTABLE
             parent = parent.parent
         }
+        //Not positive about this check working in lieu of using BBX dependency
+        //val tableIndex = table.parent.indexOf(table)
+        //val prevSibling = table.parent.getChild(tableIndex - 1)
+        //val hasTN = prevSibling is Element && prevSibling.getAttribute("bb:type").toString() == "TABLETN"
+
         //Calculate number of rows and columns
         var rowNum = 0
         var columnNum = 0
@@ -264,10 +269,13 @@ object TableUtils {
         val estimatedWrap = WordUtils.wrap(longestColBrl, defaultWidth)
         val estimatedLines = estimatedWrap.split("\n").size + 1
 
+        //Unsure how to better identify stairstep or linear tables without some serious parsing here or externally.
         return if (columnNum <= 4 && estimatedLines <= 2) {
             TableTypes.SIMPLE
+            //Could also be stairstep
         } else if (totalSizes.none { it > MAX_CHARS } || estimatedLines > 2) {
             TableTypes.LISTED
+            //Could also be linear
         } else {
             TableTypes.NONTABLE
         }

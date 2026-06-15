@@ -1,0 +1,68 @@
+/*
+ * Copyright (C) 2026 American Printing House for the Blind
+ *
+ * This program is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation, version 3.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+package org.brailleblaster.ebraille.bbx2html
+
+import nu.xom.Element
+import nu.xom.Node
+import org.brailleblaster.bbx.BBX
+import org.brailleblaster.ebraille.asciiToEbraille
+import org.brailleblaster.utd.properties.UTDElements
+import org.brailleblaster.utils.xml.BB_NS
+import org.brailleblaster.utils.xml.UTD_NS
+import org.brailleblaster.utils.xom.childNodes
+
+internal fun Element.processContent(): Collection<org.jsoup.nodes.Node> = when {
+    UTDElements.BRL.isA(this) || isTableBrl(this) -> processBrl()
+    BBX.SPAN.PAGE_NUM.isA(this) -> listOf(this.processPageNum())
+    BBX.INLINE.LINK.isA(this) -> listOf(this.processLink())
+    BBX.INLINE.MATHML.isA(this) -> listOf(this.processMathML())
+    BBX.INLINE.EMPHASIS.isA(this) -> listOf(this.processEmphasis())
+    else -> childNodes.flatMap { it.processContent() }
+}
+
+private fun isExcludeBrlOnly(node: Node): Boolean = node is Element && UTDElements.BRLONLY.isA(node) && node.getAttributeValue("type") in listOf("guideWord", "runningHead")
+
+private fun Element.processBrl(): List<org.jsoup.nodes.Node> = listOf(org.jsoup.nodes.TextNode(asciiToEbraille(this.childNodes.filter {
+    !(UTDElements.BRL_PAGE_NUM.isA(it) || UTDElements.PRINT_PAGE_NUM.isA(it) || isExcludeBrlOnly(it))
+}.joinToString(separator = "") { it.value })))
+
+private fun Element.processLink(): org.jsoup.nodes.Element = this.processParagraph(tag = "a", attributes = mapOf("href" to if (BBX.INLINE.LINK.IS_EXTERNAL.get(this)) {
+    BBX.INLINE.LINK.ATTRIB_HREF.get(this)
+} else {
+    ""
+}))
+
+private fun isTableBrl(node: Node): Boolean = node is Element && node.namespaceURI == UTD_NS && node.localName == "tablebrl"
+
+internal fun Node.processContent(): Collection<org.jsoup.nodes.Node> = when(this) {
+    is Element -> this.processContent()
+    else -> listOf()
+}
+
+private fun Element.processEmphasis(): org.jsoup.nodes.Node = when(getAttributeValue("emphasis", BB_NS)) {
+    "BOLD" -> org.jsoup.nodes.Element("strong")
+    "ITALICS" -> org.jsoup.nodes.Element("em")
+    "UNDERLINE" -> org.jsoup.nodes.Element("em").attr("class", "underline")
+    "SCRIPT" -> org.jsoup.nodes.Element("em").attr("class", "script")
+    "TRANS_1" -> org.jsoup.nodes.Element("em").attr("class", "trans1")
+    "TRANS_2" -> org.jsoup.nodes.Element("em").attr("class", "trans2")
+    "TRANS_3" -> org.jsoup.nodes.Element("em").attr("class", "trans3")
+    "TRANS_4" -> org.jsoup.nodes.Element("em").attr("class", "trans4")
+    "TRANS_5" -> org.jsoup.nodes.Element("em").attr("class", "trans5")
+    else -> org.jsoup.nodes.Element("em")
+}.appendChildren(childNodes.flatMap { it.processContent() })
+
+private fun Element.processMathML(): org.jsoup.nodes.Element = org.jsoup.nodes.Element("span").attr("class", "math").appendChildren(childNodes.flatMap { it.processContent() })
