@@ -15,13 +15,15 @@
  */
 package org.brailleblaster
 
+import org.brailleblaster.utils.BBData
 import java.util.Properties
+import kotlin.io.path.absolute
 import kotlin.io.path.reader
 
 object AppProperties {
     private val properties: Properties = Properties().apply {
         runCatching {
-            BBIni.bbDistPath.resolve("about.properties").reader(Charsets.UTF_8).use { load(it) }
+            BBData.brailleblasterPath.toPath().absolute().resolve("about.properties").reader(Charsets.UTF_8).use { load(it) }
         }
     }
     val displayName = properties.getProperty("app.display-name") ?: "BrailleBlaster"

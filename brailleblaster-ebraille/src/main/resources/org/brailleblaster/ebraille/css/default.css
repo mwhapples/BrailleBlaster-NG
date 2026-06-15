@@ -1,67 +1,83 @@
 /* General Braille Settings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
 body {
-    margin: 0; /* No outer margin for eBraille content */
-    padding: 0;
-    line-height: 1rem; /* To avoid excessive rounding, the reading system will need to handle the space between lines */
-    font-family: 'SimBraille', monospace; /* Unicode braille font */
-    white-space: pre; /* Preserve braille spacing and indentation */
-}
-/* Headings */
-/* Prevent splitting and ensure headings stay with following content */
-h1, h2, h3 {
-    break-after: avoid; /* Avoid breaking immediately after the heading */
-    break-inside: avoid; /* Ensure the heading itself does not split across pages */
+  padding: 0;
 }
 
-/* Centered Heading (h1) */
+section {
+  display: block;
+}
+
 h1 {
-    text-align: center; /* Center the text for a centered heading */
-    margin-top: 1rem; /* Blank line before heading */
-    margin-bottom: 1rem; /* Blank line after heading */
+  text-align: center;
+  margin: 0 0 1em 0;
 }
 
-/* Cell-5 Heading (h2) */
 h2 {
-    margin-left: 4rem; /* Indented to the fifth cell */
-    margin-top: 1rem; /* Blank line before heading */
+  margin: 1em 0 0.5em 4ch;
 }
 
-/* Cell-7 Heading (h3) */
-h3 {
-    margin-left: 6rem; /* Indented to the seventh cell */
-    margin-top: 1rem; /* Blank line before heading */
-}
-
-/* Left-Justified Paragraph (p.left-justified) */
-p.left-justified {
-    margin-top: 1rem; /* Blank line before */
-    padding-left: 0; /* Start at cell 1 */
-    text-indent: 0; /* No additional indentation */
-}
-
-/* Indented Paragraph (p) */
 p {
-    margin: 0; /* No blank lines before or after */
-    padding-left: 2rem; /* Start the first line at cell 3 */
-    text-indent: -2rem; /* Runover starts at cell 1 */
+  margin: 0.5em 0;
+  text-indent: 2ch;
 }
 
-/* General List Styling */
+.source-line {
+  text-indent: 0;
+}
+
+/* General braille layout */
+/* Keep headings with following content */
+h1, h2, h3 {
+    break-after: avoid;
+    break-inside: avoid;
+}
+
+/* Heading hierarchy */
+h3 {
+    margin-top: 1rem;
+    margin-bottom: 0;
+    margin-left: 6ch;
+}
+
+/* Paragraphs: 3-1 */
+/* Lists */
 ul, ol {
-    list-style-type: none; /* Remove bullets/numbers */
-    margin: 1rem 0; /* Blank line before and after lists */
-    padding-left: 0; /* Start at cell 1 */
+    list-style: none;
+    margin: 1rem 0;
+    padding-left: 0;
 }
 
-/* Remove the blank line before lists that follow cell-5 or cell-7 headings */
-h2 + ul, h2 + ol, 
+h2 + ul, h2 + ol,
 h3 + ul, h3 + ol {
-    margin-top: 0; /* No blank line before the list */
+    margin-top: 0;
+}
+
+li {
+    padding-left: 2ch;
+    text-indent: -2ch;
+}
+
+/* Print pagebreaks are semantic markers in eBraille.
+   Keep them inline so they do not impose fixed-layout behavior. */
+[role~="doc-pagebreak"] {
+    display: inline;
+    text-indent: 0;
 }
 
 
-/* Level 1: No Nesting (1-3) */
-.level-1 {
-    padding-left: 0; /* Main items start at cell 1 */
-    text-indent: 2rem; /* Runovers align to cell 3 */
+h2,
+h3 {
+    text-align: left;
+    text-indent: 0;
 }

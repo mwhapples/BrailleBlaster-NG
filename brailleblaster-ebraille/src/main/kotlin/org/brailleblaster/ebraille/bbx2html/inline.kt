@@ -25,12 +25,25 @@ import org.brailleblaster.utils.xml.UTD_NS
 import org.brailleblaster.utils.xom.childNodes
 
 internal fun Element.processContent(): Collection<org.jsoup.nodes.Node> = when {
-    UTDElements.BRL.isA(this) || isTableBrl(this) -> listOf(org.jsoup.nodes.TextNode(asciiToEbraille(this.value)))
+    UTDElements.BRL.isA(this) || isTableBrl(this) -> processBrl()
     BBX.SPAN.PAGE_NUM.isA(this) -> listOf(this.processPageNum())
+    BBX.INLINE.LINK.isA(this) -> listOf(this.processLink())
     BBX.INLINE.MATHML.isA(this) -> listOf(this.processMathML())
     BBX.INLINE.EMPHASIS.isA(this) -> listOf(this.processEmphasis())
     else -> childNodes.flatMap { it.processContent() }
 }
+
+private fun isExcludeBrlOnly(node: Node): Boolean = node is Element && UTDElements.BRLONLY.isA(node) && node.getAttributeValue("type") in listOf("guideWord", "runningHead")
+
+private fun Element.processBrl(): List<org.jsoup.nodes.Node> = listOf(org.jsoup.nodes.TextNode(asciiToEbraille(this.childNodes.filter {
+    !(UTDElements.BRL_PAGE_NUM.isA(it) || UTDElements.PRINT_PAGE_NUM.isA(it) || isExcludeBrlOnly(it))
+}.joinToString(separator = "") { it.value })))
+
+private fun Element.processLink(): org.jsoup.nodes.Element = this.processParagraph(tag = "a", attributes = mapOf("href" to if (BBX.INLINE.LINK.IS_EXTERNAL.get(this)) {
+    BBX.INLINE.LINK.ATTRIB_HREF.get(this)
+} else {
+    ""
+}))
 
 private fun isTableBrl(node: Node): Boolean = node is Element && node.namespaceURI == UTD_NS && node.localName == "tablebrl"
 
