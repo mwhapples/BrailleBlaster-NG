@@ -56,15 +56,15 @@ child.project.url.inherit.append.path="false">
         <serialization.version>1.11.0</serialization.version>
         <jetbrains.annotations.version>26.1.0</jetbrains.annotations.version>
         <slf4j.version>2.0.17</slf4j.version>
-        <logback-core.version>1.5.32</logback-core.version>
-        <logback-classic.version>1.5.32</logback-classic.version>
+        <logback-core.version>1.5.34</logback-core.version>
+        <logback-classic.version>1.5.34</logback-classic.version>
         <icu4j.version>78.3</icu4j.version>
         <mathcat4j.version>1.0.3</mathcat4j.version>
         <mathcat4j-jni.version>0.7.2-2</mathcat4j-jni.version>
         <jlouis.version>7733050ea6b5152412e6ddb6dec996f9e024a082</jlouis.version>
         <libembosser.version>1.4.3</libembosser.version>
         <jaxbapi.version>4.0.5</jaxbapi.version>
-        <jaxbruntime.version>4.0.7</jaxbruntime.version>
+        <jaxbruntime.version>4.0.9</jaxbruntime.version>
         <activation.version>1.1</activation.version>
         <swt.platform>win32.win32.x86_64</swt.platform>
         <swt.version>3.134.0</swt.version>
@@ -74,7 +74,6 @@ child.project.url.inherit.append.path="false">
         <xmlapis.version>2.0.2</xmlapis.version>
         <saxon.version>12.9</saxon.version>
         <jsoup.version>1.22.2</jsoup.version>
-        <xom.version>1.4.0</xom.version>
         <requiremaven.version>3.6.3</requiremaven.version>
         <equalsverifier.version>4.3.1</equalsverifier.version>
         <mockitocore.version>5.23.0</mockitocore.version>
@@ -287,7 +286,7 @@ child.project.url.inherit.append.path="false">
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.21.0</version>
+                <version>2.22.0</version>
             </dependency>
             <dependency>
                 <groupId>com.github.jtidy</groupId>
@@ -302,13 +301,13 @@ child.project.url.inherit.append.path="false">
             <dependency>
                 <groupId>net.java.dev.jna</groupId>
                 <artifactId>jna</artifactId>
-                <version>5.18.1</version>
+                <version>5.19.1</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>net.java.dev.jna</groupId>
                 <artifactId>jna-jpms</artifactId>
-                <version>5.18.1</version>
+                <version>5.19.1</version>
             </dependency>
             <dependency>
                 <groupId>onl.mdw</groupId>
@@ -356,7 +355,7 @@ child.project.url.inherit.append.path="false">
             <dependency>
                 <groupId>xom</groupId>
                 <artifactId>xom</artifactId>
-                <version>${xom.version}</version>
+                <version>1.4.5</version>
             </dependency>
             <dependency>
                 <groupId>jakarta.xml.bind</groupId>
@@ -388,7 +387,7 @@ child.project.url.inherit.append.path="false">
             <dependency>
                 <groupId>net.sf.saxon</groupId>
                 <artifactId>Saxon-HE</artifactId>
-                <version>${saxon.version}</version>
+                <version>13.0</version>
             </dependency>
             <dependency>
                 <groupId>com.google.guava</groupId>
@@ -453,12 +452,12 @@ child.project.url.inherit.append.path="false">
             <dependency>
                 <groupId>net.bytebuddy</groupId>
                 <artifactId>byte-buddy</artifactId>
-                <version>1.18.8</version>
+                <version>1.18.10</version>
             </dependency>
             <dependency>
                 <groupId>net.bytebuddy</groupId>
                 <artifactId>byte-buddy-agent</artifactId>
-                <version>1.18.8</version>
+                <version>1.18.10</version>
             </dependency>
             <dependency>
                 <groupId>org.testng</groupId>
@@ -474,7 +473,7 @@ child.project.url.inherit.append.path="false">
             <dependency>
                 <groupId>org.xerial</groupId>
                 <artifactId>sqlite-jdbc</artifactId>
-                <version>3.53.0.0</version>
+                <version>3.53.2.0</version>
             </dependency>
             <dependency>
                 <groupId>com.google.code.gson</groupId>
