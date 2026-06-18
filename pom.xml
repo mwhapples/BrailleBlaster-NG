@@ -56,8 +56,6 @@ child.project.url.inherit.append.path="false">
         <serialization.version>1.11.0</serialization.version>
         <jetbrains.annotations.version>26.1.0</jetbrains.annotations.version>
         <slf4j.version>2.0.17</slf4j.version>
-        <logback-core.version>1.5.34</logback-core.version>
-        <logback-classic.version>1.5.34</logback-classic.version>
         <icu4j.version>78.3</icu4j.version>
         <mathcat4j.version>1.0.3</mathcat4j.version>
         <mathcat4j-jni.version>0.7.2-2</mathcat4j-jni.version>
@@ -72,8 +70,6 @@ child.project.url.inherit.append.path="false">
         <testng.version>7.12.0</testng.version>
         <xercesimpl.version>2.12.2</xercesimpl.version>
         <xmlapis.version>2.0.2</xmlapis.version>
-        <saxon.version>12.9</saxon.version>
-        <jsoup.version>1.22.2</jsoup.version>
         <requiremaven.version>3.6.3</requiremaven.version>
         <equalsverifier.version>4.3.1</equalsverifier.version>
         <mockitocore.version>5.23.0</mockitocore.version>
@@ -350,7 +346,7 @@ child.project.url.inherit.append.path="false">
             <dependency>
                 <groupId>org.jsoup</groupId>
                 <artifactId>jsoup</artifactId>
-                <version>${jsoup.version}</version>
+                <version>1.22.2</version>
             </dependency>
             <dependency>
                 <groupId>xom</groupId>
@@ -413,12 +409,12 @@ child.project.url.inherit.append.path="false">
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-core</artifactId>
-                <version>${logback-core.version}</version>
+                <version>1.5.34</version>
             </dependency>
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
-                <version>${logback-classic.version}</version>
+                <version>1.5.34</version>
             </dependency>
             <dependency>
                 <groupId>org.assertj</groupId>
