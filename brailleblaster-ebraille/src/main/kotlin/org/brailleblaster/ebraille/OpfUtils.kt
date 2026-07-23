@@ -39,7 +39,7 @@ fun createOpf(items: List<PackageItem>): Document = Document(Element("package", 
     appendChild(Element("metadata", OPF_NS).apply {
         val nowDateTime = LocalDateTime.now(Clock.systemUTC()).truncatedTo(ChronoUnit.SECONDS)
         appendChild(Element("dc:format", DC_NS).apply {
-            appendChild("1.0")
+            appendChild("eBraille 1.0")
         })
         appendChild(Element("dc:date", DC_NS).apply {
             appendChild(DateTimeFormatter.ISO_LOCAL_DATE.format(nowDateTime))
@@ -47,7 +47,8 @@ fun createOpf(items: List<PackageItem>): Document = Document(Element("package", 
         appendChild(createMetaProperty("dcterms:modified", DateTimeFormatter.ISO_INSTANT.format(nowDateTime.toInstant(ZoneOffset.UTC))))
         appendChild(createMetaProperty("a11y:tactileGraphics", "false"))
         appendChild(Element("dc:identifier", DC_NS).apply {
-            appendChild(Uuid.generateV4().toHexDashString())
+            addAttribute(Attribute("id", "bookid"))
+            appendChild("urn:uuid:${Uuid.generateV4().toHexDashString()}")
         })
         appendChild(Element("dc:title", DC_NS).apply {
             appendChild("-")

@@ -652,7 +652,7 @@
 		<entry>&gt;=</entry>
 		<category>relation</category>
 		<name>greater than or equal to</name>
-		<see>≤</see>
+		<see>≥</see>
 		<shortcut></shortcut>
 	</entry>
 	<entry>
@@ -672,14 +672,14 @@
 	<entry>
 		<entry>in</entry>
 		<category>relation</category>
-		<name>exists</name>
+		<name>element of</name>
 		<see>∈</see>
 		<shortcut></shortcut>
 	</entry>
 	<entry>
 		<entry>!in</entry>
 		<category>relation</category>
-		<name>does not exist</name>
+		<name>not an element of</name>
 		<see>∉</see>
 		<shortcut></shortcut>
 	</entry>
@@ -721,7 +721,7 @@
 	<entry>
 		<entry>~~</entry>
 		<category>relation</category>
-		<name>approximately equal to</name>
+		<name>almost equal to</name>
 		<see>≈</see>
 		<shortcut></shortcut>
 	</entry>
