@@ -79,10 +79,10 @@ internal fun Element.processDefinitionListItem(): List<org.jsoup.nodes.Element> 
                 acc + DefinitionListItem.Definition(listOf(element))
             }
         }
-    }.map {
+    }.flatMap {
         when (it) {
-            is DefinitionListItem.Term -> it.element.processParagraph(tag = "dt")
-            is DefinitionListItem.Definition -> org.jsoup.nodes.Element("dd")
-                .appendChildren(it.elements.flatMap { e -> e.processContent() })
+            is DefinitionListItem.Term -> listOf(it.element.processParagraph(tag = "dt"))
+            is DefinitionListItem.Definition -> listOf(org.jsoup.nodes.Element("dd")
+                .appendChildren(it.elements.flatMap { e -> e.processContent() }))
         }
     }.also { it.firstOrNull()?.let { elem -> processLinkId { elem } } }
