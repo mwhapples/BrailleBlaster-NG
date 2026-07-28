@@ -39,11 +39,11 @@ private fun Element.processBrl(): List<org.jsoup.nodes.Node> = listOf(org.jsoup.
     !(UTDElements.BRL_PAGE_NUM.isA(it) || UTDElements.PRINT_PAGE_NUM.isA(it) || isExcludeBrlOnly(it))
 }.joinToString(separator = "") { it.value })))
 
-private fun Element.processLink(): Collection<org.jsoup.nodes.Element> = listOf(this.processParagraph(tag = "a", attributes = mapOf("href" to if (BBX.INLINE.LINK.IS_EXTERNAL.get(this)) {
+private fun Element.processLink(): Collection<org.jsoup.nodes.Element> = processParagraph(tag = "a", attributes = mapOf("href" to if (BBX.INLINE.LINK.IS_EXTERNAL.get(this)) {
     BBX.INLINE.LINK.ATTRIB_HREF.get(this)
 } else {
     ""
-})))
+}))
 
 private fun isTableBrl(node: Node): Boolean = node is Element && node.namespaceURI == UTD_NS && node.localName == "tablebrl"
 
