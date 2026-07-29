@@ -74,27 +74,21 @@ class AutoFillSpecialSymbols(
         val simBraille = Font(Display.getCurrent(), "SimBraille", statusText.font.fontData[0].getHeight(), SWT.NORMAL)
 
         val onFind = { symbol: String, location: String ->
-            var curLength = statusText.text.length
-            statusText.append(FOUND_SYMBOL_MESSAGE_1 + symbol + FOUND_SYMBOL_MESSAGE_2 + location + "\n")
-            curLength += FOUND_SYMBOL_MESSAGE_1.length
+            Display.getDefault().asyncExec {
+                val curLength = statusText.text.length + FOUND_SYMBOL_MESSAGE_1.length
+                statusText.append(FOUND_SYMBOL_MESSAGE_1 + symbol + FOUND_SYMBOL_MESSAGE_2 + location + "\n")
 
-            statusText.setStyleRange(createFontRange(curLength, symbol.length, simBraille))
-            curLength += symbol.length + FOUND_SYMBOL_MESSAGE_2.length
-            statusText.setStyleRange(createFontRange(curLength, location.length, simBraille))
+                statusText.setStyleRange(createFontRange(curLength, symbol.length, simBraille))
+                statusText.setStyleRange(createFontRange(curLength + symbol.length + FOUND_SYMBOL_MESSAGE_2.length, location.length, simBraille))
 
-            statusText.setSelection(statusText.text.length - 1)
-            val display = Display.getCurrent()
-            while (display.readAndDispatch()) {
-                display.sleep()
+                statusText.setSelection(statusText.text.length - 1)
             }
         }
 
         val onMessage = { s: String ->
-            statusText.append(s + "\n")
-            statusText.setSelection(statusText.text.length - 1)
-            val display = Display.getCurrent()
-            while (display.readAndDispatch()) {
-                display.sleep()
+            Display.getDefault().asyncExec {
+                statusText.append(s + "\n")
+                statusText.setSelection(statusText.text.length - 1)
             }
         }
 
