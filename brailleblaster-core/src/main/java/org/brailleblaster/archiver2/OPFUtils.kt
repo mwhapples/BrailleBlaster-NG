@@ -32,7 +32,6 @@ import java.util.stream.Collectors
 object OPFUtils {
     private val log: Logger = LoggerFactory.getLogger(OPFUtils::class.java)
 
-    @JvmStatic
 	fun findOPFFilesInFolder(folder: Path): List<Path> {
         try {
             val opfs = Files.walk(folder)
@@ -50,7 +49,6 @@ object OPFUtils {
         }
     }
 
-    @JvmStatic
 	fun getDCElementValueCaseInsensitive(opfDocument: Document?, opfElemName: String?): String? {
         val results = FastXPath.descendant(opfDocument)
             .filterIsInstance<Element>()
@@ -63,7 +61,6 @@ object OPFUtils {
         return results[0].value
     }
 
-    @JvmStatic
 	fun getManifestItems(opfDocument: Document): List<ManifestEntry> {
         val namespace = opfDocument.rootElement.namespaceURI
         val manifestRoot = opfDocument.rootElement.getFirstChildElement(
@@ -90,7 +87,6 @@ object OPFUtils {
      * @param path
      * @return
      */
-	@JvmStatic
 	fun pathNotHiddenOrInHiddenDirectory(path: Path): Boolean {
         if (path.fileName == null) {
             return false
