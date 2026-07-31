@@ -1249,7 +1249,6 @@ class TOCBuilderBBX(private var manager: Manager) : CheckMenuTool, MenuToolModul
         /**
          * Ancestor Block that can be unwrapped and moved
          */
-        @JvmStatic
         fun isPageMovable(input: Node): Element? {
             if (input.document == null) {
                 throw NodeException("Node not attached to document", input)
@@ -1299,20 +1298,13 @@ class TOCBuilderBBX(private var manager: Manager) : CheckMenuTool, MenuToolModul
             TOCAttributes.TYPE.add(elem, type)
         }
 
-        @JvmStatic
-        fun isEnabled(m: Manager): Boolean {
-            return m.simpleManager.getModule(
-                    TOCBuilderBBX::class.java
-                )!!.enabled
-        }
+        fun isEnabled(m: Manager): Boolean = m.simpleManager.getModule(
+                TOCBuilderBBX::class.java
+            )!!.enabled
 
-        private fun isTocTitle(curNode: Node): Boolean {
-            return isTocElement(curNode, "title")
-        }
+        private fun isTocTitle(curNode: Node): Boolean = isTocElement(curNode, "title")
 
-        private fun isTocPage(curNode: Node): Boolean {
-            return isTocElement(curNode, "page")
-        }
+        private fun isTocPage(curNode: Node): Boolean = isTocElement(curNode, "page")
 
         private fun isTocElement(curNode: Node, key: String): Boolean {
             if (curNode !is Element) {
