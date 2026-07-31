@@ -32,7 +32,7 @@ import java.util.stream.Collectors
 object OPFUtils {
     private val log: Logger = LoggerFactory.getLogger(OPFUtils::class.java)
 
-	fun findOPFFilesInFolder(folder: Path): List<Path> {
+    fun findOPFFilesInFolder(folder: Path): List<Path> {
         try {
             val opfs = Files.walk(folder)
                 .filter { obj: Path -> pathNotHiddenOrInHiddenDirectory(obj) && obj.toString().endsWith(".opf") }
@@ -49,10 +49,15 @@ object OPFUtils {
         }
     }
 
-	fun getDCElementValueCaseInsensitive(opfDocument: Document?, opfElemName: String?): String? {
+    fun getDCElementValueCaseInsensitive(opfDocument: Document?, opfElemName: String?): String? {
         val results = FastXPath.descendant(opfDocument)
             .filterIsInstance<Element>()
-            .filter { curElem: Element -> curElem.namespacePrefix == "dc" && curElem.localName.equals(opfElemName, ignoreCase = true) }.toList()
+            .filter { curElem: Element ->
+                curElem.namespacePrefix == "dc" && curElem.localName.equals(
+                    opfElemName,
+                    ignoreCase = true
+                )
+            }.toList()
         if (results.isEmpty()) {
             return null
         } else if (results.size > 1) {
@@ -61,7 +66,7 @@ object OPFUtils {
         return results[0].value
     }
 
-	fun getManifestItems(opfDocument: Document): List<ManifestEntry> {
+    fun getManifestItems(opfDocument: Document): List<ManifestEntry> {
         val namespace = opfDocument.rootElement.namespaceURI
         val manifestRoot = opfDocument.rootElement.getFirstChildElement(
             "manifest",
@@ -87,7 +92,7 @@ object OPFUtils {
      * @param path
      * @return
      */
-	fun pathNotHiddenOrInHiddenDirectory(path: Path): Boolean {
+    fun pathNotHiddenOrInHiddenDirectory(path: Path): Boolean {
         if (path.fileName == null) {
             return false
         }
