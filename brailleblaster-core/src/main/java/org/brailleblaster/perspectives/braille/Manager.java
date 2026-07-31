@@ -519,7 +519,7 @@ public class Manager extends Controller {
     }
 
     private void initializeAllViews() {
-        MathModuleUtils.retranslateSpatial(document);
+        MathModuleUtils.INSTANCE.retranslateSpatial(document);
         try (WorkingDialog ignored = new WorkingDialog(
                 archiver != null ? "Parsing book " + getArchiver().getPath() : "Starting BrailleBlaster")) {
             document.translateDocument();
