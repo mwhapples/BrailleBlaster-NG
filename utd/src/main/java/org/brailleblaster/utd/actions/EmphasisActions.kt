@@ -146,7 +146,6 @@ class TransNoteAction : BaseEmphasisAction(), IBlockAction {
         const val UEB_END = "`.>"
         const val EBAE_START = ",'"
         const val EBAE_END = ",'"
-        @JvmStatic
         fun getStart(brailleStandard: String): String {
             return if (brailleStandard.lowercase(Locale.getDefault()).contains("EBAE".lowercase(Locale.getDefault()))) {
                 EBAE_START
