@@ -242,7 +242,6 @@ class BookToBBXConverter(
         }
 
         @JvmStatic
-        @JvmOverloads
         fun fromConfig(bookType: String = "nimas"): BookToBBXConverter {
             if (BBDocument.TEST_MODE && TEST_CONFIG == bookType) {
                 return TEST_CONVERTER

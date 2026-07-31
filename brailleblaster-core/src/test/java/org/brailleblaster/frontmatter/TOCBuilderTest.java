@@ -2312,7 +2312,7 @@ public class TOCBuilderTest {
 	@Test
 	public void isNodeMovableTest() {
 		Document doc = TestXMLUtils.generateBookDoc("", "<p>who was phone</p><p testid='after'><span>test</span></p>");
-		doc = BookToBBXConverter.fromConfig().convert(doc);
+		doc = BookToBBXConverter.Companion.fromConfig("nimas").convert(doc);
 		
 		Element after = TestXMLUtils.getTestIdElement(doc, "after");
 		Element span = (Element) after.getChild(0);
