@@ -491,7 +491,7 @@ public class TableEditor extends Dialog {
                             e.getChild(0).detach();
                         }
                         //Delete any parent boxes/lists that are now empty
-                        BBXUtils.cleanupBlock(e);
+                        BBXUtils.INSTANCE.cleanupBlock(e);
                     });
                     manager.getSimpleManager().dispatchEvent(new org.brailleblaster.perspectives.mvc.events.ModifyEvent(Sender.NO_SENDER, true, nodes));
                 }, n -> {
@@ -1500,7 +1500,7 @@ public class TableEditor extends Dialog {
 
     private Element createTNContainer(Element note, List<CellText> firstRow) {
         Element container = BBX.CONTAINER.TABLETN.create();
-        container.appendChild(BBXUtils.wrapAsTransNote(note));
+        container.appendChild(BBXUtils.INSTANCE.wrapAsTransNote(note));
         switch (state.getType()) {
             case STAIRSTEP:
                 for (int i = 0; i < firstRow.size(); i++) {

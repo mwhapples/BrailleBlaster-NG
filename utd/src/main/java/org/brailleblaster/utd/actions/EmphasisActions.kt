@@ -154,7 +154,6 @@ class TransNoteAction : BaseEmphasisAction(), IBlockAction {
             }
         }
 
-        @JvmStatic
         fun getEnd(brailleStandard: String): String {
             return if (brailleStandard.lowercase(Locale.getDefault()).contains("EBAE".lowercase(Locale.getDefault()))) {
                 EBAE_END
