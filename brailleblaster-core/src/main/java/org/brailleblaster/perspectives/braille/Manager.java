@@ -396,12 +396,12 @@ public class Manager extends Controller {
         Element table = Manager.getTableParent(node);
         if (table == null)
             return null;
-        if (TableUtils.isTableCopy(table))
+        if (TableUtils.INSTANCE.isTableCopy(table))
             return table;
         ParentNode parent = table.getParent();
         int index = parent.indexOf(table);
         if (index != parent.getChildCount() - 1 && BBX.CONTAINER.TABLE.isA(parent.getChild(index + 1))
-                && TableUtils.isTableCopy((Element) parent.getChild(index + 1))) {
+                && TableUtils.INSTANCE.isTableCopy((Element) parent.getChild(index + 1))) {
             return (Element) parent.getChild(index + 1);
         }
         return null;
