@@ -826,7 +826,7 @@ class TOCBuilderBBX(private var manager: Manager) : CheckMenuTool, MenuToolModul
 
                 // Only give last word
                 pageStart = indexOfPage(lastTextNode.value)
-                if (pageStart != -1 && !lastTextNode.value.substring(0, pageStart).isBlank()) {
+                if (pageStart != -1 && lastTextNode.value.substring(0, pageStart).isNotBlank()) {
                     // found text before page in next entry
                     log.debug("ignoring as most likely found another toc entry")
                     return
