@@ -23,15 +23,16 @@ import org.brailleblaster.utils.xom.childNodes
 
 internal fun Element.processBlock(): Collection<org.jsoup.nodes.Element> = when (BBX.BLOCK.getSubType(this)) {
     BBX.BLOCK.STYLE -> processStyle()
-    BBX.BLOCK.LIST_ITEM -> listOf(processParagraph(tag = "li"))
+    BBX.BLOCK.LIST_ITEM -> processParagraph(tag = "li")
     BBX.BLOCK.PAGE_NUM -> listOf(processPageNum())
-    BBX.BLOCK.DEFAULT -> listOf(processParagraph())
-    else -> listOf(processParagraph())
+    BBX.BLOCK.DEFAULT -> processParagraph()
+    else -> processParagraph()
 }
 
-private fun Element.processLinkId(supplier: () -> org.jsoup.nodes.Element): org.jsoup.nodes.Element = supplier().also { elem ->
-    BBX.BLOCK.LINKID.getOptional(this).ifPresent { elem.id(it) }
-}
+private fun Element.processLinkId(supplier: () -> org.jsoup.nodes.Element): org.jsoup.nodes.Element =
+    supplier().also { elem ->
+        BBX.BLOCK.LINKID.getOptional(this).ifPresent { elem.id(it) }
+    }
 
 internal fun Element.processPageNum(): org.jsoup.nodes.Element =
     processLinkId {
@@ -43,23 +44,30 @@ internal fun Element.processPageNum(): org.jsoup.nodes.Element =
     }
 
 private fun Element.processStyle(): Collection<org.jsoup.nodes.Element> = when (style) {
-    "Centered Heading" -> listOf(processParagraph(tag = "h1"))
-    "Cell 5 Heading" -> listOf(processParagraph(tag = "h2"))
-    "Cell 7 Heading" -> listOf(processParagraph(tag = "h3"))
-    "Blocked Text" -> listOf(processParagraph(tag = "p", attributes = mapOf("class" to "left-justified")))
-    "Centered Text" -> listOf(processParagraph(tag = "p", attributes = mapOf("class" to "centered")))
-    else -> listOf(processParagraph())
+    "Centered Heading" -> processParagraph(tag = "h1")
+    "Cell 5 Heading" -> processParagraph(tag = "h2")
+    "Cell 7 Heading" -> processParagraph(tag = "h3")
+    "Blocked Text" -> processParagraph(tag = "p", attributes = mapOf("class" to "left-justified"))
+    "Centered Text" -> processParagraph(tag = "p", attributes = mapOf("class" to "centered"))
+    else -> processParagraph()
 }
 
 internal fun Element.processParagraph(
     tag: String = "p",
     attributes: Map<String, String> = mapOf()
-): org.jsoup.nodes.Element = processLinkId {
-    org.jsoup.nodes.Element(tag).apply {
-        for ((k, v) in attributes) {
-            attr(k, v)
-        }
-    }.appendChildren(childNodes.flatMap { it.processContent() })
+): Collection<org.jsoup.nodes.Element> {
+    val content = childNodes.flatMap { it.processContent() }
+    return if (content.isNotEmpty()) {
+        listOf(processLinkId {
+            org.jsoup.nodes.Element(tag).apply {
+                for ((k, v) in attributes) {
+                    attr(k, v)
+                }
+            }.appendChildren(content)
+        })
+    } else {
+        listOf()
+    }
 }
 
 private sealed interface DefinitionListItem {
@@ -79,10 +87,12 @@ internal fun Element.processDefinitionListItem(): List<org.jsoup.nodes.Element> 
                 acc + DefinitionListItem.Definition(listOf(element))
             }
         }
-    }.map {
+    }.flatMap {
         when (it) {
             is DefinitionListItem.Term -> it.element.processParagraph(tag = "dt")
-            is DefinitionListItem.Definition -> org.jsoup.nodes.Element("dd")
+            is DefinitionListItem.Definition -> listOf(
+                org.jsoup.nodes.Element("dd")
                 .appendChildren(it.elements.flatMap { e -> e.processContent() })
+            )
         }
     }.also { it.firstOrNull()?.let { elem -> processLinkId { elem } } }
