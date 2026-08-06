@@ -54,5 +54,5 @@ class ToolBarCustomSection(private val tbBuilder: CustomToolBarBuilder, private 
     }
 
     val height: Int
-        get() = newParent!!.bounds.height
+        get() = newParent?.bounds?.height?.takeIf { it > 0 } ?: 35
 }

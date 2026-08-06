@@ -33,6 +33,7 @@ import org.eclipse.swt.events.SelectionEvent
 import org.eclipse.swt.graphics.Font
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.widgets.*
+import java.util.concurrent.Executors
 
 class AutoFillSpecialSymbols(
     val doc: Document, val m: UTDManager,
@@ -42,11 +43,16 @@ class AutoFillSpecialSymbols(
     val callback: (List<List<SpecialSymbols.Symbol>>) -> Unit
 ) {
     fun openDialog(parent: Shell, curVolume: Int) {
-        val dialog = Shell(parent, SWT.APPLICATION_MODAL or SWT.DIALOG_TRIM)
-        dialog.layout = GridLayout(1, false)
+        val executor = Executors.newSingleThreadExecutor()
+        val dialog = Shell(parent, SWT.APPLICATION_MODAL or SWT.DIALOG_TRIM).apply {
+            layout = GridLayout(1, false)
+            text = "Special Symbol Locator"
+            addListener(SWT.Close) {
+                executor.shutdownNow()
+            }
+        }
         val container = Composite(dialog, SWT.NONE)
         container.layout = GridLayout(1, false)
-        dialog.text = "Special Symbol Locator"
         val warningLabel = EasySWT.makeLabel(
             container,
             "Warning: Any symbols manually added to T-Pages before running this process will be overwritten when this process is ran.",
@@ -74,27 +80,21 @@ class AutoFillSpecialSymbols(
         val simBraille = Font(Display.getCurrent(), "SimBraille", statusText.font.fontData[0].getHeight(), SWT.NORMAL)
 
         val onFind = { symbol: String, location: String ->
-            var curLength = statusText.text.length
-            statusText.append(FOUND_SYMBOL_MESSAGE_1 + symbol + FOUND_SYMBOL_MESSAGE_2 + location + "\n")
-            curLength += FOUND_SYMBOL_MESSAGE_1.length
+            Display.getDefault().asyncExec {
+                val curLength = statusText.text.length + FOUND_SYMBOL_MESSAGE_1.length
+                statusText.append(FOUND_SYMBOL_MESSAGE_1 + symbol + FOUND_SYMBOL_MESSAGE_2 + location + "\n")
 
-            statusText.setStyleRange(createFontRange(curLength, symbol.length, simBraille))
-            curLength += symbol.length + FOUND_SYMBOL_MESSAGE_2.length
-            statusText.setStyleRange(createFontRange(curLength, location.length, simBraille))
+                statusText.setStyleRange(createFontRange(curLength, symbol.length, simBraille))
+                statusText.setStyleRange(createFontRange(curLength + symbol.length + FOUND_SYMBOL_MESSAGE_2.length, location.length, simBraille))
 
-            statusText.setSelection(statusText.text.length - 1)
-            val display = Display.getCurrent()
-            while (display.readAndDispatch()) {
-                display.sleep()
+                statusText.setSelection(statusText.text.length - 1)
             }
         }
 
         val onMessage = { s: String ->
-            statusText.append(s + "\n")
-            statusText.setSelection(statusText.text.length - 1)
-            val display = Display.getCurrent()
-            while (display.readAndDispatch()) {
-                display.sleep()
+            Display.getDefault().asyncExec {
+                statusText.append(s + "\n")
+                statusText.setSelection(statusText.text.length - 1)
             }
         }
 
@@ -105,10 +105,16 @@ class AutoFillSpecialSymbols(
                 if (data == null) { //This is janky
                     cancelButton.isEnabled = false
                     beginButton.isEnabled = false
-                    beginButton.data = beginAutoFill(onFind, onMessage, if (radio1.selection) curVolume else -1)
-                    beginButton.isEnabled = true
-                    cancelButton.isEnabled = true
-                    beginButton.text = "Continue"
+                    val selectedVolume = if (radio1.selection) curVolume else -1
+                    executor.execute {
+                        val results = beginAutoFill(onFind, onMessage, selectedVolume)
+                        Display.getDefault().asyncExec {
+                            beginButton.data = results
+                            beginButton.isEnabled = true
+                            cancelButton.isEnabled = true
+                            beginButton.text = "Continue"
+                        }
+                    }
                 } else {
                     verifyResults(parent, data)
                     dialog.close()
