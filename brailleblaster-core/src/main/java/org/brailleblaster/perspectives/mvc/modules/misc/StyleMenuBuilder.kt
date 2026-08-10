@@ -44,12 +44,10 @@ import java.util.function.Consumer
 /**
  * Generates the Styles menu
  */
-class StyleMenuBuilder(shell: Shell, manager: Manager) : StylesBuilder(shell, manager) {
-    private val bbShell: Shell
+class StyleMenuBuilder(private val bbShell: Shell, manager: Manager) : StylesBuilder(bbShell, manager) {
 
     init {
         val utdMan = manager.document.settingsManager
-        bbShell = shell
         StyleId(utdMan)
 
         // label to display loadouts information
@@ -409,7 +407,7 @@ class StyleMenuBuilder(shell: Shell, manager: Manager) : StylesBuilder(shell, ma
     }
 
     private fun showStyleSelector(styleIds: List<String>, categoryName: String): Int {
-        val shell = Shell()
+        val shell = bbShell
         val dialog = StyleSelector(shell)
         val ids = styleIds.toTypedArray<String>()
         return dialog.open(localeHandler["styleLoadouts"], ids, categoryName)
