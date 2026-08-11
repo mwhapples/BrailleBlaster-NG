@@ -231,7 +231,7 @@
     <!-- STYLE LOADOUTS -->
     <shortcut>
         <id>styles/miscellaneous</id>
-        <key-combination>Ctrl+Shift+M</key-combination>
+        <key-combination>Ctrl+Shift+0</key-combination>
         <description>Set Miscellaneous style loadout.</description>
     </shortcut>
     <shortcut>
