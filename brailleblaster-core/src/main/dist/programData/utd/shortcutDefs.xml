@@ -290,11 +290,6 @@
         <description>Set Notes style loadout.</description>
     </shortcut>
     <shortcut>
-        <id>styles/contents</id>
-        <key-combination>Ctrl+Shift+T</key-combination>
-        <description>Set Contents style loadout.</description>
-    </shortcut>
-    <shortcut>
         <id>styles/applyStyle</id>
         <key-combination>Ctrl+NUMBER 1-8</key-combination>
         <description>Apply the style corresponding to that index number in the list of styles of the current loadout.</description>
