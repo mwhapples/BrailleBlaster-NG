@@ -24,7 +24,6 @@ import org.brailleblaster.perspectives.mvc.menu.BBSeparator
 import org.brailleblaster.perspectives.mvc.menu.MenuManager.addToStyleMenu
 import org.brailleblaster.settings.ui.Loadout
 import org.brailleblaster.settings.ui.Loadout.Companion.getAcc
-import org.brailleblaster.settings.ui.Loadout.Companion.listLoadouts
 import org.brailleblaster.utd.IStyle
 import org.brailleblaster.utd.Shortcut
 import org.brailleblaster.utd.Style
@@ -202,7 +201,6 @@ class StyleMenuBuilder(private val bbShell: Shell, manager: Manager) : StylesBui
         onTypeformSelect: Consumer<BBActionSelection>,
         onLevelSelect: Consumer<BBSelectionData>
     ) {
-        listLoadouts()
         val curSetting = BBIni.propertyFileManager.getProperty(USER_SETTINGS_STYLE_LEVELS)
         val curLoadout = BBIni.propertyFileManager.getProperty(CURRENT_STYLE_LOADOUT)
         val curLevel = curSetting?.toInt() ?: DEFAULT_STYLE_LEVELS
