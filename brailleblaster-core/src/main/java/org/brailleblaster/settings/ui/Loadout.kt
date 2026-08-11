@@ -19,13 +19,14 @@ import org.eclipse.swt.SWT
 
 class Loadout(@JvmField var name: String, @JvmField var accelerator: Int) {
     companion object {
+        val DEFAULT_LOADOUT_ACCELERATOR = SWT.MOD1 + SWT.MOD2 + 'L'.code
         var list: MutableList<Loadout> = mutableListOf()
         fun listLoadouts() {
             if (list.isEmpty()) {
                 list.add(Loadout("Basic", SWT.MOD1 + SWT.MOD2 + 'B'.code))
                 list.add(Loadout("Captions", SWT.MOD1 + SWT.MOD2 + 'C'.code))
                 list.add(Loadout("Heading", SWT.MOD1 + SWT.MOD2 + 'H'.code))
-                list.add(Loadout("List", SWT.MOD1 + SWT.MOD2 + 'L'.code))
+                list.add(Loadout("List", DEFAULT_LOADOUT_ACCELERATOR))
                 list.add(Loadout("Poetry", SWT.MOD1 + SWT.MOD2 + 'P'.code))
                 list.add(Loadout("Plays", SWT.MOD1 + SWT.MOD2 + 'A'.code))
                 list.add(Loadout("Glossary", SWT.MOD1 + SWT.MOD2 + 'G'.code))

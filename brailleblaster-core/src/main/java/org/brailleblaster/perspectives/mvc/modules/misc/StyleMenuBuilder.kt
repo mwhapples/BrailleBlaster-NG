@@ -206,7 +206,7 @@ class StyleMenuBuilder(private val bbShell: Shell, manager: Manager) : StylesBui
         val curSetting = BBIni.propertyFileManager.getProperty(USER_SETTINGS_STYLE_LEVELS)
         val curLoadout = BBIni.propertyFileManager.getProperty(CURRENT_STYLE_LOADOUT)
         val curLevel = curSetting?.toInt() ?: DEFAULT_STYLE_LEVELS
-        val curAcc = if (curLoadout == null) DEFAULT_LOADOUT else getAcc(curLoadout)
+        val curAcc = if (curLoadout == null) Loadout.DEFAULT_LOADOUT_ACCELERATOR else getAcc(curLoadout)
         val configureMenu = SubMenuBuilder(TopMenu.STYLES, "Configure")
         val styleLevelsMenu = SubMenuBuilder(configureMenu, "Style Levels")
         val loadoutsMenu = SubMenuBuilder(configureMenu, "Loadouts")
@@ -422,7 +422,6 @@ class StyleMenuBuilder(private val bbShell: Shell, manager: Manager) : StylesBui
         private const val MISCELLANEOUS_CATEGORY_NAME = "miscellaneous"
         private const val USER_SETTINGS_STYLE_LEVELS = "styleLevels"
         private const val DEFAULT_STYLE_LEVELS = 8
-        private const val DEFAULT_LOADOUT = 393324 //List
         private const val CURRENT_STYLE_LOADOUT = "loadoutName"
         private val RESTRICTED_CATEGORIES: Set<String> =
             HashSet(listOf(INTERNAL_CATEGORY_NAME, OPTIONS_CATEGORY_NAME))
