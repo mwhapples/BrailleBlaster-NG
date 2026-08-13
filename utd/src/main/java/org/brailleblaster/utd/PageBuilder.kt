@@ -810,14 +810,13 @@ class PageBuilder {
      * Line-wrapping helper. Returns true if word ends with one or more spaces that run off the end of the page
      */
     private fun wordHasTrailingSpacesAtEndOfLine(endsWithSpace: Boolean, word: String, lineWrapPoint: Int): Boolean {
-        return endsWithSpace && if (_x + word.length > lineWrapPoint && _x + word.length == lineWrapPoint + 1 && pageGrid.getCell(
-                lineWrapPoint - 1,
-                _y
-            ) == null
-        ) true else _x + word.length in 2..lineWrapPoint && pageGrid.getCell(
+        return endsWithSpace && (_x + word.length > lineWrapPoint && _x + word.length == lineWrapPoint + 1 && pageGrid.getCell(
+            lineWrapPoint - 1,
+            _y
+        ) == null || _x + word.length in 2..lineWrapPoint && pageGrid.getCell(
             _x + word.length - 1,
             _y
-        ) != null && pageGrid.getCell(_x + word.length - 2, _y) == null
+        ) != null && pageGrid.getCell(_x + word.length - 2, _y) == null)
     }
 
     /**

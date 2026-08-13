@@ -189,9 +189,7 @@ class ContextMenuModule(private val manager: Manager) : SimpleListener {
     }
 
     private fun isInTable(event: XMLCaretEvent): Boolean {
-        return checkTable(event.start.node) || if (event.start !== event.end) {
-            checkTable(event.end.node)
-        } else false
+        return checkTable(event.start.node) || event.start !== event.end && checkTable(event.end.node)
     }
 
     private fun checkTable(node: Node): Boolean {
