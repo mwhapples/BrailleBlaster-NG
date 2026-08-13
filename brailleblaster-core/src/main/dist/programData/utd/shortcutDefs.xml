@@ -172,16 +172,6 @@
         <key-combination>CTRL+END</key-combination>
         <description>Go to the last page of the current document.</description>
     </shortcut>
-    <shortcut>
-        <id>actions/styleViewEntire</id>
-        <key-combination>ALT+SHIFT+S</key-combination>
-        <description>Open the entire document in the Style view.</description>
-    </shortcut>
-    <shortcut>
-        <id>actions/styleViewCursor</id>
-        <key-combination>ALT+S</key-combination>
-        <description>Open the selected text in the Style view.</description>
-    </shortcut>
     <!--- Transcriber-Defined Typeforms -->
     <shortcut>
         <id>actions/transAction1</id>
