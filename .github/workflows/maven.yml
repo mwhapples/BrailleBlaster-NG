@@ -18,7 +18,7 @@ permissions:
   contents: write
 
 env:
-  BB_VERSION: '2026.6.2'
+  BB_VERSION: '2026.6.3'
   BB_CHANGELIST: ''
 
 jobs:
