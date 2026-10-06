@@ -255,7 +255,7 @@ child.project.url.inherit.append.path="false">
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-collections4</artifactId>
-                <version>4.5.0</version>
+                <version>4.6.0</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -270,7 +270,7 @@ child.project.url.inherit.append.path="false">
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.20.0</version>
+                <version>3.21.0</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -344,7 +344,7 @@ child.project.url.inherit.append.path="false">
             <dependency>
                 <groupId>org.jsoup</groupId>
                 <artifactId>jsoup</artifactId>
-                <version>1.23.1</version>
+                <version>1.23.2</version>
             </dependency>
             <dependency>
                 <groupId>xom</groupId>
@@ -417,12 +417,12 @@ child.project.url.inherit.append.path="false">
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-core</artifactId>
-                <version>1.6.1</version>
+                <version>1.6.5</version>
             </dependency>
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
-                <version>1.6.1</version>
+                <version>1.6.5</version>
             </dependency>
             <dependency>
                 <groupId>org.assertj</groupId>
@@ -451,17 +451,17 @@ child.project.url.inherit.append.path="false">
             <dependency>
                 <groupId>org.objenesis</groupId>
                 <artifactId>objenesis</artifactId>
-                <version>3.5</version>
+                <version>3.6</version>
             </dependency>
             <dependency>
                 <groupId>net.bytebuddy</groupId>
                 <artifactId>byte-buddy</artifactId>
-                <version>1.18.11</version>
+                <version>1.18.14</version>
             </dependency>
             <dependency>
                 <groupId>net.bytebuddy</groupId>
                 <artifactId>byte-buddy-agent</artifactId>
-                <version>1.18.11</version>
+                <version>1.18.14</version>
             </dependency>
             <dependency>
                 <groupId>org.testng</groupId>
@@ -477,7 +477,7 @@ child.project.url.inherit.append.path="false">
             <dependency>
                 <groupId>org.xerial</groupId>
                 <artifactId>sqlite-jdbc</artifactId>
-                <version>3.53.2.1</version>
+                <version>3.53.4.0</version>
             </dependency>
             <dependency>
                 <groupId>com.google.code.gson</groupId>
