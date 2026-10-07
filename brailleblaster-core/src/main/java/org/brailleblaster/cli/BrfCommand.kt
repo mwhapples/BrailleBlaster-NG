@@ -25,15 +25,13 @@ private const val CMD_NAME = "brf"
 private const val DESCRIPTION = "create a BRF"
 
 @CommandLine.Command(name = CMD_NAME, description = [DESCRIPTION])
-class BrfCommand : Exporter {
+class BrfCommand : BaseBrailleExportCommand(), Exporter {
     override val id: String = CMD_NAME
     override val description: String = DESCRIPTION
     @CommandLine.Parameters(paramLabel = "<input-file>", description = ["Input file to convert"])
     lateinit var inputFile: Path
     @CommandLine.Parameters(paramLabel = "<output-file>", description = ["File name of the output BRF"])
     lateinit var outputFile: Path
-    @CommandLine.Option(names = ["--braille-profile"], description = ["Braille profile to use for this conversion"], paramLabel = "<profile>")
-    var brailleProfile: String? = null
     override fun call(): Int {
         return Main.start(inputFile, brailleProfile = brailleProfile) {
             try {
