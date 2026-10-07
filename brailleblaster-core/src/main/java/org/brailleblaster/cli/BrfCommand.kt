@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2026 American Printing House for the Blind
+ * Copyright (C) 2026 Michael Whapples
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -31,8 +32,10 @@ class BrfCommand : Exporter {
     lateinit var inputFile: Path
     @CommandLine.Parameters(paramLabel = "<output-file>", description = ["File name of the output BRF"])
     lateinit var outputFile: Path
+    @CommandLine.Option(names = ["--braille-profile"], description = ["Braille profile to use for this conversion"], paramLabel = "<profile>")
+    var brailleProfile: String? = null
     override fun call(): Int {
-        return Main.start(inputFile) {
+        return Main.start(inputFile, brailleProfile = brailleProfile) {
             try {
                 val manager = it.currentManager
                 if (manager != null && !manager.isDefaultFile) {
