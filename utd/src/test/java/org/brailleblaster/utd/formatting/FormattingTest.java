@@ -58,9 +58,10 @@ public class FormattingTest {
 				UTDTestUtils.elementToString(UTDElements.NEW_LINE, "") +
 				"<p>123456789012345678901234567890123456789012345</p>");
 		UTDTranslationEngine engine = UTDTestUtils.translateAndFormat(doc);
+		// UEB divides before the dot (4) and ends the line with the continuation indicator
 		new UTDDocumentAsserter(doc, engine)
-			.hasTextAt("1234567890123456789012345678901234567890", 0, 1)
-			.hasTextAt("12345", 0, 2)
+			.hasTextAt("123456789012345678901234567890123\"", 0, 1)
+			.hasTextAt("456789012345", 0, 2)
 			.hasNoOtherMoveTo();
 	}
 	
