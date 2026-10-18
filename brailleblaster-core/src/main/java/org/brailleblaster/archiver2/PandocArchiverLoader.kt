@@ -107,9 +107,6 @@ object PandocArchiverLoader : ArchiverFactory.FileLoader {
             if (isDocx) {
                 // Pandoc drops page breaks; keep them as markers for this filter.
                 command.add("--lua-filter=docx-page-break.lua")
-                // DOCX custom paragraph style "List Paragraph" arrives as Div(custom-style)
-                // and must be normalized to a real Pandoc list before bbx.lua is applied.
-                command.add("--lua-filter=list-paragraph-style.lua")
             }
 
             command.addAll(
