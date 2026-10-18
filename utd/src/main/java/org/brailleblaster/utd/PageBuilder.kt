@@ -640,8 +640,18 @@ class PageBuilder {
                     if (isNumberLine && pageNumberWidth > 0) {
                         endOfLine = (endOfLine - pageNumberWidth).coerceAtLeast(0)
                     }
-                    addBrlChildFragment(brlChild, startOfWord, startOfWord + endOfLine)
-                    startOfWord += endOfLine
+                    val division = lineWrapper.divideLongWord(word, endOfLine)
+                    if (division != null) {
+                        val contDots = division.insertionDots ?: ""
+                        addBrlChildFragment(brlChild, startOfWord, startOfWord + division.lineBreakPosition)
+                        val contDotsBrl = UTDElements.BRLONLY.create()
+                        contDotsBrl.appendChild(contDots)
+                        addBrlChildFragment(contDotsBrl, 0, contDots.length)
+                        startOfWord += division.lineBreakPosition
+                    } else {
+                        addBrlChildFragment(brlChild, startOfWord, startOfWord + endOfLine)
+                        startOfWord += endOfLine
+                    }
                     nextLine(true)
                     if (_y >= linesPerPage) {
                         log.debug("moving to next page for text \"{}\"", brlText)
@@ -789,6 +799,14 @@ class PageBuilder {
             _alignment.leftIndent
         }
     }
+
+    // UEB divides long unspaced words with the continuation indicator; other codes cut them
+    private fun literaryLineWrapper(): LineWrapper =
+        if (brailleSettings.mainTranslationTable.contains("ueb", ignoreCase = true)) {
+            UebLineWrapper(brailleSettings.isUseAsciiBraille)
+        } else {
+            RegexLineWrapper()
+        }
 
     private fun getMaxLineRemaining(lineWrapPoint: Int): Int {
         var lineWrapCheck = _x
@@ -1016,7 +1034,7 @@ class PageBuilder {
         brl: Element,
         startChild: Int,
         numberType: PageNumberType,
-        lineWrapper: LineWrapper = RegexLineWrapper()
+        lineWrapper: LineWrapper = literaryLineWrapper()
     ): Set<PageBuilder> {
         require(UTDElements.BRL.isA(brl)) { "Expected brl, received $brl" }
         if (startChild < 0 || startChild != 0 && startChild >= brl.childCount) { // NOPMD
