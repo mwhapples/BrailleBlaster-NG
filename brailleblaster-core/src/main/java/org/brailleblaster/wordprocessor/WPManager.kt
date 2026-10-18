@@ -653,13 +653,19 @@ class WPManager private constructor(val usageManager: UsageManager) {
             return INSTANCE
         }
 
-        @JvmField
-        val display: Display
+        private var currentDisplay: Display? = null
 
-        init {
-            Display.setAppName("BrailleBlaster")
-            display = Display()
-        }
+        /**
+         * The application display, created on first use. A new one is made if the
+         * previous display was disposed, e.g. tests dispose it between runs.
+         */
+        @JvmStatic
+        val display: Display
+            @Synchronized get() = currentDisplay?.takeUnless { it.isDisposed }
+                ?: run {
+                    Display.setAppName("BrailleBlaster")
+                    Display()
+                }.also { currentDisplay = it }
 
         private const val PADDING_AFTER_TOOLBAR = 20
 
