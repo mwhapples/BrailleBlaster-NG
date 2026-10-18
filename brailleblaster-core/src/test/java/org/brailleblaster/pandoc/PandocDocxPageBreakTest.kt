@@ -26,8 +26,6 @@ import org.testng.Assert
 import org.testng.annotations.BeforeClass
 import org.testng.annotations.Test
 import java.io.File
-import java.util.zip.ZipEntry
-import java.util.zip.ZipOutputStream
 
 /**
  * Word page breaks must import as a new page before the block that follows
@@ -48,7 +46,6 @@ class PandocDocxPageBreakTest {
             PANDOC_CMD,
             "--from=docx+styles+empty_paragraphs",
             "--lua-filter=docx-page-break.lua",
-            "--lua-filter=list-paragraph-style.lua",
             "--to=bbx.lua",
             "--output=" + bbxFile.absolutePath,
             DocxPageBreaks.markPageBreaks(input).absolutePath
@@ -79,35 +76,9 @@ class PandocDocxPageBreakTest {
             writeBytes(bytes!!)
         }
 
-    /** A minimal DOCX whose body is [body]. */
-    private fun docx(body: String): File =
-        File.createTempFile("bb-pagebreak-gen-", ".docx").apply {
-            deleteOnExit()
-            val parts = mapOf(
-                "[Content_Types].xml" to """<?xml version="1.0" encoding="UTF-8"?>
-                    <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
-                    <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
-                    <Default Extension="xml" ContentType="application/xml"/>
-                    <Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>
-                    </Types>""",
-                "_rels/.rels" to """<?xml version="1.0" encoding="UTF-8"?>
-                    <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
-                    <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>
-                    </Relationships>""",
-                "word/document.xml" to """<?xml version="1.0" encoding="UTF-8"?>
-                    <w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
-                    <w:body>$body</w:body></w:document>"""
-            )
-            ZipOutputStream(outputStream()).use { zip ->
-                parts.forEach { (name, xml) ->
-                    zip.putNextEntry(ZipEntry(name))
-                    zip.write(xml.trimIndent().toByteArray(Charsets.UTF_8))
-                    zip.closeEntry()
-                }
-            }
-        }
+    private fun docx(body: String): File = TestDocx.docx(body)
 
-    private fun para(text: String) = "<w:p><w:r><w:t>$text</w:t></w:r></w:p>"
+    private fun para(text: String) = TestDocx.para(text)
 
     private val pageBreakPara = """<w:p><w:r><w:br w:type="page"/></w:r></w:p>"""
 
