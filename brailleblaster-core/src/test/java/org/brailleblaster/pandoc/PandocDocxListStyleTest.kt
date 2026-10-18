@@ -200,8 +200,31 @@ class PandocDocxListStyleTest {
                 TestDocx.styledPara("ListParagraph", "Numbered", numId = 2)
         )
 
-        Assert.assertTrue(blocks(doc).any { it.value.contains("•") }, "Bullet lost:\n${doc.toXML()}")
-        Assert.assertTrue(blocks(doc).any { it.value.contains("1.") }, "Number lost:\n${doc.toXML()}")
+        assertBulletItem(doc, "• Bulleted")
+        assertBulletItem(doc, "1. Numbered")
+    }
+
+    /** The marker and the text share one LIST_ITEM, at Word's second list level (3-5). */
+    private fun assertBulletItem(doc: Document, text: String) {
+        val block = blockWithText(doc, text)
+        Assert.assertTrue(BBX.BLOCK.LIST_ITEM.isA(block), "'$text' should be a LIST_ITEM:\n${block.toXML()}")
+        Assert.assertEquals(BBX.BLOCK.LIST_ITEM.ATTRIB_ITEM_LEVEL.get(block), 1, "'$text' item level")
+        Assert.assertEquals(styleName(block), "L3-5", "'$text' should use list style 3-5")
+    }
+
+    @Test
+    fun numberedList2BulletKeepsTextOnItsLine() {
+        val doc = listParagraphs(
+            TestDocx.styledPara("List2", "Online - Make a payment", numId = 1) +
+                TestDocx.styledPara("List2", "Mail - Return the coupon", numId = 1)
+        )
+
+        assertBulletItem(doc, "• Online - Make a payment")
+        assertBulletItem(doc, "• Mail - Return the coupon")
+        Assert.assertTrue(blocks(doc).none { it.value.trim() == "•" }, "Bullet alone on its line:\n${doc.toXML()}")
+        val lists = doc.query("//*[local-name()='CONTAINER' and @*[local-name()='type']='LIST']")
+        Assert.assertEquals(lists.size(), 1, "Bullets should be one list:\n${doc.toXML()}")
+        Assert.assertEquals((lists[0] as Element).childElements.size(), 2, "One item per bullet:\n${doc.toXML()}")
     }
 
     @Test
