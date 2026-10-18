@@ -724,6 +724,10 @@ end
 
 function Div(s, attr)
     local customStyle = getCustomStyle(attr)
+    -- From docx-page-break.lua; FixPageBreak moves it onto the next block.
+    if customStyle == "BB Page Break" then
+      return '<bb:pageBreak />'
+    end
     if isListParagraphStyle(customStyle) or isPlainListStyle(customStyle) then
       local item = listItemText(s)
       if string.len(string.gsub(item, '%s+', '')) == 0 then
