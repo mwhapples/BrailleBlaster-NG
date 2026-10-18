@@ -464,7 +464,7 @@ open class SimpleTableFormatter : Formatter() {
                             endOfCol - startOfCol,
                             0,
                             4
-                        ) else curPageBuilder.fillSpace(guideDot, endOfCol - startOfCol + 1, 1, 4)
+                        ) else curPageBuilder.fillSpace(guideDot, endOfCol - startOfCol + 1, 1, 4, MIN_GUIDE_DOTS)
                         if (dotsElement != null) {
                             dotsElement.addAttribute(Attribute("type", "guideDots"))
                             dotsElement.addAttribute(Attribute(GUIDE_DOTS_ATTRIB_NAME, GUIDE_DOTS_ATTRIB_VALUE))
@@ -758,5 +758,8 @@ open class SimpleTableFormatter : Formatter() {
     companion object {
         const val GUIDE_DOTS_ATTRIB_NAME = "tableDots"
         const val GUIDE_DOTS_ATTRIB_VALUE = "true"
+
+        /** Braille Formats 11.6.1.f: two or more guide dots lead the reader to the next column */
+        const val MIN_GUIDE_DOTS = 2
     }
 }
