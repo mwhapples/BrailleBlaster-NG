@@ -60,7 +60,8 @@ class FixNestedList : FixerInf {
             unnest(elems[i])
         }
         parent = elem.parent
-        if (isListItem(parent)) {
+        // only nested lists move out; other children (line breaks, spans) stay put
+        if (isList(elem) && isListItem(parent)) {
             moveListItems(elem, parent)
         }
         if (isList(elem) &&
