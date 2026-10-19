@@ -433,14 +433,16 @@ open class SimpleTableFormatter : Formatter() {
                 }
                 curPageBuilder.setStartOfBlock(false)
             }
+            // Braille Formats 11.6.1.g: no guide dots after a column runover, except in the row heading
+            val isRunover = curPageBuilder.y > startingY && (colNum != 0 || !hasHeading)
             endingY = endingY.coerceAtLeast(curPageBuilder.y)
             col.y = startingY
             col.height = endingY - startingY
-            
+
             if (colNum != 0 || !hasHeading) {
                 curPageBuilder.y = startingY
             }
-            if (guideDotsEnabled) {
+            if (guideDotsEnabled && !isRunover) {
                 
 // Fixes last column guide dots not showing up.
 // should work for all columns now.

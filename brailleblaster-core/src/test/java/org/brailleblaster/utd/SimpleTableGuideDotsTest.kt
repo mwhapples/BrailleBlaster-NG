@@ -71,17 +71,77 @@ class SimpleTableGuideDotsTest {
         )
     }
 
+    @Test
+    fun sample11_4NoGuideDotsOnRunovers() {
+        // "20 ac/ territory" and "1 ac/ territory" run over, so neither line gets guide dots;
+        // the single-line "Variable" still leads to the next column
+        assertTable(
+            formatBrf(loadResource("sample-11-4.bbx")),
+            """
+                          ,habitat      ,pot5tial
+            ,species      ,unit         ,popula;n
+            "33333333333  "33333333333  "33333333333
+            ,grizzly
+              ,be> ""${'"'}""  ,v>iable ""${'"'}  ,undet}m9$
+            ,bald ,eagle  #ejj ac_/ne/  #ej pairs
+                            site
+            ,williamson"
+              's
+              ,sapsuck}   #bj ac_/      #bc1cej
+                            t}ritory      pairs
+            ,pika ""${'"'}""${'"'}  #a ac_/       #ec1jjj
+                            t}ritory      pairs
+            """
+        )
+    }
+
+    @Test
+    fun guideDotsFollowEntryWhenItFitsOnOneLine() {
+        assertTable(
+            formatBrf(simpleTableDoc(*WRAPPING_ENTRY_ROWS, widths = listOf(4, 17, 2))),
+            """
+            zz    zz                 zz
+            "333  "3333333333333333  "3
+            zz    zzzzz zzzzzzzz ""  zz
+            zz    zz ""${'"'}""${'"'}""${'"'}""${'"'}""  zz
+            """
+        )
+    }
+
+    @Test
+    fun noGuideDotsWhenNarrowerColumnMakesEntryRunOver() {
+        assertTable(
+            formatBrf(simpleTableDoc(*WRAPPING_ENTRY_ROWS, widths = listOf(4, 10, 2))),
+            """
+            zz    zz          zz
+            "333  "333333333  "3
+            zz    zzzzz       zz
+                    zzzzzzzz
+            zz    zz ""${'"'}""${'"'}"  zz
+            """
+        )
+    }
+
     companion object {
+        /** The middle entry fits on one line in a 17 cell column but runs over in a 10 cell column */
+        private val WRAPPING_ENTRY_ROWS = arrayOf(
+            listOf("zz", "zz", "zz"),
+            listOf("zz", "zzzzz zzzzzzzz", "zz"),
+            listOf("zz", "zz", "zz"),
+        )
+
         private fun loadResource(name: String): Document =
             XMLHandler().load(File(SimpleTableGuideDotsTest::class.java.getResource("tables/$name")!!.toURI()))
 
-        private fun simpleTableDoc(vararg rows: List<String>): Document = XMLHandler().load(
+        private fun simpleTableDoc(vararg rows: List<String>, widths: List<Int>? = null): Document = XMLHandler().load(
             StringReader(
                 """<?xml version="1.0" encoding="UTF-8"?>
                 <bbdoc xmlns="http://brailleblaster.org/ns/bb" xmlns:bb="http://brailleblaster.org/ns/bb" xmlns:utd="http://brailleblaster.org/ns/utd">
                 <head><bb:version>4</bb:version><utd:isNormalised>true</utd:isNormalised></head>
                 <SECTION bb:type="ROOT"><SECTION bb:type="OTHER">
-                <CONTAINER bb:type="TABLE" format="simple">${
+                <CONTAINER bb:type="TABLE" format="simple"${
+                    widths?.let { """ customWidths="true" widths="${it.joinToString(",")}"""" } ?: ""
+                }>${
                     rows.joinToString("") { row ->
                         """<CONTAINER bb:type="TABLE_ROW" bb:rowType="NORMAL">${
                             row.joinToString("") { """<BLOCK bb:type="TABLE_CELL">$it</BLOCK>""" }
