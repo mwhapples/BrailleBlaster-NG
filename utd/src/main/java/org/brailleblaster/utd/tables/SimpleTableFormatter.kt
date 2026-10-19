@@ -121,13 +121,17 @@ open class SimpleTableFormatter : Formatter() {
             return handleBadSimpleTable(node, originalTable, style, mutPageBuilders, formatSelector, cells, startingPBSize)
         }
 
-        val widths = TableUtils.getCustomSimpleTableWidths(node) ?: calculateColumnWidths(
-            cells,
-            cellType.getCellsForWidth(formatSelector.engine.pageSettings.drawableWidth.toBigDecimal()),
-            numOfCols,
-            false
-        )
-        if (!TableUtils.hasSimpleTableOption(TableUtils.SimpleTableOptions.COLUMN_HEADING_DISABLED, node)) {
+        // A table of headings only is one line of headings, or a listed entry when they don't fit on one
+        val headingsOnly = cells.size == 1
+        val lineWidth = cellType.getCellsForWidth(formatSelector.engine.pageSettings.drawableWidth.toBigDecimal())
+        val widths = TableUtils.getCustomSimpleTableWidths(node)
+            ?: if (headingsOnly) headingWidths(cells[0], numOfCols)
+            else calculateColumnWidths(cells, lineWidth, numOfCols, false)
+        if (headingsOnly && widths.sum() + (numOfCols - 1) * cellsBetweenCols > lineWidth) {
+            return handleBadSimpleTable(node, originalTable, style, mutPageBuilders, formatSelector, cells, startingPBSize)
+        }
+        // A separation line under headings with nothing under them separates nothing
+        if (!headingsOnly && !TableUtils.hasSimpleTableOption(TableUtils.SimpleTableOptions.COLUMN_HEADING_DISABLED, node)) {
             addSeparationLines(cells[0], formatSelector, widths)
         }
         mutPageBuilders.addAll(pageBuilder.processSpacing())
@@ -575,6 +579,13 @@ open class SimpleTableFormatter : Formatter() {
         return widths
     }
 
+
+    // Each heading's whole length, so no heading is divided
+    private fun headingWidths(headings: List<TableCell>, numOfCols: Int): IntArray = IntArray(numOfCols) { col ->
+        headings.filter { it.col == col }
+            .maxOfOrNull { cell -> TableUtils.getDescendantBrlNoFormatting(cell.td).sumOf { it.value.length } }
+            ?.coerceAtLeast(1) ?: 1
+    }
 
     private fun calculateSmallestFits(
         cells: List<List<TableCell>>,

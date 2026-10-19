@@ -96,7 +96,7 @@ class DocxTableSpacingTest {
     fun headingsOnlyTableEmptyParagraphText() {
         val pages = brf(heading("Zebra") + table(listOf("Zq", "Qz")) + EMPTY + list("Quiz"))
 
-        assertBlankLinesBetween(pages, SIMPLE_SEPARATOR, ",quiz", 0)
+        assertBlankLinesBetween(pages, SIMPLE_HEADINGS, ",quiz", 0)
     }
 
     @Test
@@ -183,7 +183,6 @@ class DocxTableSpacingTest {
         // Simple table headings, then the last row
         private const val SIMPLE_HEADINGS = ",zq"
         private const val SIMPLE_LAST_ROW = "vv"
-        private const val SIMPLE_SEPARATOR = "\"33"
 
         // Too wide for a simple table, so it is laid out as a listed table
         private val listedTable = table(
