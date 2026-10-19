@@ -21,6 +21,7 @@ import org.brailleblaster.pandoc.FixImage
 import org.brailleblaster.pandoc.FixMathML
 import org.brailleblaster.pandoc.FixNestedList
 import org.brailleblaster.pandoc.FixPageBreak
+import org.brailleblaster.pandoc.FixTableSpacing
 import org.brailleblaster.pandoc.Fixer
 import org.brailleblaster.util.PANDOC_CMD
 import org.slf4j.LoggerFactory
@@ -151,6 +152,7 @@ object PandocArchiverLoader : ArchiverFactory.FileLoader {
             fixer.addFixer(FixPageBreak())
             fixer.addFixer(fixMath)
             fixer.addFixer(fixNestedList)
+            if (isDocx) fixer.addFixer(FixTableSpacing())
             fixer.addFixer(fixImage)
             fixer.processFixers()
         } catch (ex: Exception) {

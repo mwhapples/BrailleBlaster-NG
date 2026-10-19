@@ -110,10 +110,11 @@ class ListedTableFormatter : Formatter() {
         TableUtils.findRows(node, formatSelector.styleMap).first().detach()
         attachHeadings(headings, cells)
         var rowStart: Int
-        for (row in cells.drop(1)) {
+        for ((rowIndex, row) in cells.drop(1).withIndex()) {
             val addedCells: MutableList<Element> = LinkedList()
             rowStart = pageBuilder.y
-            pageBuilder.addAtLeastLinesBefore(2)
+            // A blank line between rows; the first row follows the table's lines before
+            if (rowIndex > 0) pageBuilder.addAtLeastLinesBefore(2)
             var j = 0
             columnLoop@ while (j < row.size) {
                 val curCell = row[j]
@@ -167,8 +168,7 @@ class ListedTableFormatter : Formatter() {
             )
         }
         node.parent.insertChild(originalTable, node.parent.indexOf(node))
-        val newPos = pageBuilder.findLastBlankLine()
-        pageBuilder.y = if (newPos >= pageBuilder.linesPerPage) pageBuilder.linesPerPage - 1 else newPos
+        pageBuilder.y = pageBuilder.findLastContentLine()
         val linesAfter = style.getLinesAfter(node, formatSelector.styleMap.namespaces)
         if (linesAfter != null) {
             pageBuilder.setMaxLines(linesAfter)
