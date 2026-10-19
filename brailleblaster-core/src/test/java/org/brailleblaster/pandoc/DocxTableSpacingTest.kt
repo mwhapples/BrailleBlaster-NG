@@ -27,8 +27,9 @@ import java.io.StringWriter
 
 /**
  * Blank lines around Word tables match Duxbury, which ASM's statements are
- * made for: a table adds none of its own, a list next to it adds none, an
- * empty paragraph next to it adds none, and a heading keeps its spacing.
+ * made for: a table adds none of its own, a list before it adds none, an
+ * empty paragraph next to it adds none, and a heading keeps its spacing. A
+ * list straight after a table, like a footnote, keeps one blank line.
  */
 class DocxTableSpacingTest {
     @BeforeClass
@@ -90,6 +91,35 @@ class DocxTableSpacingTest {
         val pages = brf(heading("Zebra") + listedTable + EMPTY + list("Quiz"))
 
         assertBlankLinesBetween(pages, LISTED_LAST_LINE, ",quiz", 0)
+    }
+
+    @Test
+    fun tableThenText() {
+        val pages = brf(heading("Zebra") + simpleTable + list("Quiz") + list("Yak"))
+
+        assertBlankLinesBetween(pages, SIMPLE_LAST_ROW, ",quiz", 1)
+        assertBlankLinesBetween(pages, ",quiz", ",yak", 0)
+    }
+
+    @Test
+    fun listedTableThenText() {
+        val pages = brf(heading("Zebra") + listedTable + list("Quiz"))
+
+        assertBlankLinesBetween(pages, LISTED_LAST_LINE, ",quiz", 1)
+    }
+
+    @Test
+    fun tableTwoEmptyParagraphsText() {
+        val pages = brf(heading("Zebra") + simpleTable + EMPTY + EMPTY + list("Quiz"))
+
+        assertBlankLinesBetween(pages, SIMPLE_LAST_ROW, ",quiz", 0)
+    }
+
+    @Test
+    fun tableNormalEmptyParagraphText() {
+        val pages = brf(heading("Zebra") + simpleTable + "<w:p/>" + list("Quiz"))
+
+        assertBlankLinesBetween(pages, SIMPLE_LAST_ROW, ",quiz", 0)
     }
 
     @Test
@@ -161,12 +191,14 @@ class DocxTableSpacingTest {
         pages.joinToString("\n----\n") { it.joinToString("\n") }
 
     companion object {
-        private const val EMPTY = "<w:p/>"
+        // ASM's spacer next to a table: an empty "List Paragraph"
+        private const val EMPTY = """<w:p><w:pPr><w:pStyle w:val="ListParagraph"/></w:pPr></w:p>"""
         private const val PAGE_BREAK = """<w:p><w:r><w:br w:type="page"/></w:r></w:p>"""
 
         private val STYLES = """
             <w:style w:type="paragraph" w:styleId="Heading2"><w:name w:val="heading 2"/></w:style>
-            <w:style w:type="paragraph" w:styleId="List"><w:name w:val="List"/></w:style>"""
+            <w:style w:type="paragraph" w:styleId="List"><w:name w:val="List"/></w:style>
+            <w:style w:type="paragraph" w:styleId="ListParagraph"><w:name w:val="List Paragraph"/></w:style>"""
 
         private fun heading(text: String) = TestDocx.styledPara("Heading2", text)
 
