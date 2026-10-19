@@ -722,11 +722,34 @@ end
       or normalized:match("^list continue [2-9]$") ~= nil
   end
 
+  -- Word styles named for a braille indent, as Duxbury's templates name
+  -- them: "1-3" is cell 1, runovers at cell 3. Only the numeric styles in
+  -- BANA.styleDefs.xml (first line at cell 1 to 11, runovers no more than
+  -- two cells to its left, up to cell 11).
+  local function indentStyle(customStyle)
+    if customStyle == nil then
+      return nil
+    end
+
+    local first, runover = string.match(customStyle, "^(%d+)%-(%d+)$")
+    first, runover = tonumber(first), tonumber(runover)
+    if first == nil or first % 2 == 0 or runover % 2 == 0
+      or first > 11 or runover > 11 or runover < first - 2 then
+      return nil
+    end
+    return first .. "-" .. runover
+  end
+
 function Div(s, attr)
     local customStyle = getCustomStyle(attr)
     -- From docx-page-break.lua; FixPageBreak moves it onto the next block.
     if customStyle == "BB Page Break" then
       return '<bb:pageBreak />'
+    end
+    local indent = indentStyle(customStyle)
+    if indent ~= nil then
+      return (string.gsub(s, '<BLOCK bb:type="DEFAULT">',
+        '<BLOCK utd:overrideStyle="' .. indent .. '" bb:type="STYLE">'))
     end
     if isListParagraphStyle(customStyle) or isPlainListStyle(customStyle) then
       local item = listItemText(s)
