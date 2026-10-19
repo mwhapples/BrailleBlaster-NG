@@ -122,6 +122,28 @@ class SimpleTableGuideDotsTest {
         )
     }
 
+    @Test
+    fun spareWidthGoesToRunoverEntriesNotLongHeadings() {
+        // The temperature headings are longer than their entries; widening those columns only left
+        // room for stray guide dots while the row headings ran over onto extra lines
+        assertTable(
+            formatBrf(loadResource("unnecessary-guide-dots.bbx")),
+            """
+                         ,hi<      ,l{
+            ,>ea         ,temp4    ,temp4    pre
+            "3333333333  "3333333  "3333333  "3333
+            ,d{nt{n ""${'"'}  #fe~j,f   #ec~j,f   #j4de
+            ,airport ""  #fb~j,f   #ej~j,f   #j4fc
+            ,woodl&
+              ,hills ""  #fh~j,f   #ej~j,f   #a4cd
+            ,ea/
+              ,village   #ef~j,f   #dh~j,f   #c4ec
+            ,v5tura ""${'"'}  #fb~j,f   #di~j,f   #b4eg
+            ,hi<l& ,p>k  #fd~j,f   #ee~j,f   #j4hd
+            """
+        )
+    }
+
     companion object {
         /** The middle entry fits on one line in a 17 cell column but runs over in a 10 cell column */
         private val WRAPPING_ENTRY_ROWS = arrayOf(

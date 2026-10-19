@@ -535,6 +535,18 @@ open class SimpleTableFormatter : Formatter() {
                 leftoverSpace += startingWidth - longestWidth
             }
         }
+        // Give leftover space to columns whose entries run over before columns whose only long content is the
+        // column heading, as widening those cannot shorten any row
+        val entryLengths = IntArray(numOfCols) { col ->
+            getCellsInCol(cells, col).filter { it.row != 0 }
+                .maxOfOrNull { cell -> TableUtils.getDescendantBrlNoFormatting(cell.td).sumOf { it.value.length } } ?: 0
+        }
+        while (leftoverSpace > 0) {
+            val needsSpace = widths.indices.filter { widths[it] < entryLengths[it] }.take(leftoverSpace)
+            if (needsSpace.isEmpty()) break
+            needsSpace.forEach { widths[it]++ }
+            leftoverSpace -= needsSpace.size
+        }
         var changed = false
         var i = 0
         while (i < widths.size) {
