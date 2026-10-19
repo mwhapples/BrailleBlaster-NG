@@ -2765,6 +2765,12 @@ class PageBuilder {
         return returnInt
     }
 
+    /**
+     * The last line holding braille, where the cursor sits after a block, so
+     * pending lines count from it. 0 on a blank page.
+     */
+    fun findLastContentLine(): Int = (findLastBlankLine() - 1).coerceAtLeast(0)
+
     var pendingSpaces: Int
         get() = pendingSpacing.spaces
         set(spaces) {

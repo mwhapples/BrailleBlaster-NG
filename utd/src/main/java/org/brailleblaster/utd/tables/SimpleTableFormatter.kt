@@ -156,16 +156,19 @@ open class SimpleTableFormatter : Formatter() {
         }
 
         pageBuilder = mutPageBuilders.last()
-        pageBuilder.addAtLeastLinesBefore(1)
-        //Skip last line so there's no interference with page numbers
-        if (pageBuilder.y + pageBuilder.pendingLinesBefore == pageBuilder.linesPerPage - 1) {
-            pageBuilder.addAtLeastPages(1)
-        }
-        val curResults = mutPageBuilders.size
-        mutPageBuilders.addAll(pageBuilder.processSpacing())
-        if (mutPageBuilders.size > curResults) {
-            pageBuilder = mutPageBuilders.last()
-            pageBuilder.y = startOfPage
+        // A table of headings only stays on its last line, so the lines after it count from there
+        if (cells.size > 1) {
+            pageBuilder.addAtLeastLinesBefore(1)
+            //Skip last line so there's no interference with page numbers
+            if (pageBuilder.y + pageBuilder.pendingLinesBefore == pageBuilder.linesPerPage - 1) {
+                pageBuilder.addAtLeastPages(1)
+            }
+            val curResults = mutPageBuilders.size
+            mutPageBuilders.addAll(pageBuilder.processSpacing())
+            if (mutPageBuilders.size > curResults) {
+                pageBuilder = mutPageBuilders.last()
+                pageBuilder.y = startOfPage
+            }
         }
         for (rowNum in 1 until cells.size) {
             val lastRow = rowNum + 1 == cells.size
@@ -477,6 +480,8 @@ open class SimpleTableFormatter : Formatter() {
             }
         }
         curPageBuilder.y = endingY
+        // Stay on the last line, so the lines after the table count from it
+        if (lastRow) return pageBuilders
         curPageBuilder.setForceSpacing(true)
         curPageBuilder.addAtLeastLinesBefore(1)
         //Skip last line so there's no interference with page numbers
@@ -726,7 +731,7 @@ open class SimpleTableFormatter : Formatter() {
         }
         val pb = pageBuilders.last()
         //Reset the cursor
-        pb.y = pb.findLastBlankLine()
+        pb.y = pb.findLastContentLine()
         changeTable(element)
         element.addAttribute(Attribute("format", "listed"))
         element.addAttribute(Attribute("utd-style", "Listed Table"))

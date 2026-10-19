@@ -103,8 +103,7 @@ class StairstepTableFormatter : Formatter() {
         }
         node.addAttribute(Attribute("class", "utd:tableStairstep"))
         node.parent.insertChild(originalTable, node.parent.indexOf(node))
-        val newPos = pageBuilder.findLastBlankLine()
-        pageBuilder.y = if (newPos >= pageBuilder.linesPerPage) pageBuilder.linesPerPage - 1 else newPos
+        pageBuilder.y = pageBuilder.findLastContentLine()
         val linesAfter = style.getLinesAfter(node, formatSelector.styleMap.namespaces)
         if (linesAfter != null) {
             pageBuilder.setMaxLines(linesAfter)
