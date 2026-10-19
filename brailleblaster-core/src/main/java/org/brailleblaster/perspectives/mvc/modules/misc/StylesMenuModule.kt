@@ -303,9 +303,13 @@ class StylesMenuModule(private val m: Manager) : SimpleListener {
     }
 
     fun boxBlock(start: Node, style: Style): Node {
-        val block = if ((BBX.CONTAINER.TABLE.isA(start) || BBX.CONTAINER.LIST.isA(start)
+        // Box the whole original table, never just its formatted copy or a cell, and drop the stale copy
+        val block = Manager.getTableParent(start)
+            ?.takeIf { BBX.CONTAINER.TABLE.isA(it) }
+            ?.also { detachTableCopy(it) }
+            ?: if ((BBX.CONTAINER.TABLE.isA(start) || BBX.CONTAINER.LIST.isA(start)
                     || BBX.CONTAINER.BOX.isA(start))
-        ) start as Element else start.findBlock()
+            ) start as Element else start.findBlock()
         XMLHandler.wrapNodeWithElement(
             block,
             BBX.CONTAINER.BOX.create()
