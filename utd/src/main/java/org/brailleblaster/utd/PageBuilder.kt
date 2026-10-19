@@ -3136,9 +3136,10 @@ class PageBuilder {
      * @param length 1-based number of cells to fill space
      * @param padding Number of blank cells to leave before and after characters
      * @param minimum Minimum number of spaces required before adding character (including padding)
+     * @param minimumFillers Minimum number of filler characters to add, otherwise nothing is added
      * @return Created brlonly element, or null if no element was created
      */
-    fun fillSpace(filler: Char, length: Int, padding: Int, minimum: Int): Element? {
+    fun fillSpace(filler: Char, length: Int, padding: Int, minimum: Int, minimumFillers: Int = 1): Element? {
         var length = length
         while (_x < pageGrid.width && pageGrid.getCell(_x, _y) != null) {
             _x++ //Find the first null space to start the dots
@@ -3148,11 +3149,12 @@ class PageBuilder {
             }
         }
         if (length + _x > pageGrid.width) length = pageGrid.width - _x
-        return if (length > padding * 2 && length + _x <= pageGrid.width) {
-            val onEdgeOfPage = length + _x == pageGrid.width
+        val onEdgeOfPage = length + _x == pageGrid.width
+        val fillerCount = length - if (onEdgeOfPage) padding else padding * 2
+        return if (length > padding * 2 && length + _x <= pageGrid.width && fillerCount >= minimumFillers) {
             val dots = UTDElements.BRLONLY.create()
             val sb = StringBuilder()
-            sb.append(filler.toString().repeat(length - if (onEdgeOfPage) padding else padding * 2))
+            sb.append(filler.toString().repeat(fillerCount))
             dots.appendChild(sb.toString())
             _x += padding
             for (i in sb.indices) {

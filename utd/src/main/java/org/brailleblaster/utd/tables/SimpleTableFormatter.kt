@@ -433,14 +433,16 @@ open class SimpleTableFormatter : Formatter() {
                 }
                 curPageBuilder.setStartOfBlock(false)
             }
+            // Braille Formats 11.6.1.g: no guide dots after a column runover, except in the row heading
+            val isRunover = curPageBuilder.y > startingY && (colNum != 0 || !hasHeading)
             endingY = endingY.coerceAtLeast(curPageBuilder.y)
             col.y = startingY
             col.height = endingY - startingY
-            
+
             if (colNum != 0 || !hasHeading) {
                 curPageBuilder.y = startingY
             }
-            if (guideDotsEnabled) {
+            if (guideDotsEnabled && !isRunover) {
                 
 // Fixes last column guide dots not showing up.
 // should work for all columns now.
@@ -464,7 +466,7 @@ open class SimpleTableFormatter : Formatter() {
                             endOfCol - startOfCol,
                             0,
                             4
-                        ) else curPageBuilder.fillSpace(guideDot, endOfCol - startOfCol + 1, 1, 4)
+                        ) else curPageBuilder.fillSpace(guideDot, endOfCol - startOfCol + 1, 1, 4, MIN_GUIDE_DOTS)
                         if (dotsElement != null) {
                             dotsElement.addAttribute(Attribute("type", "guideDots"))
                             dotsElement.addAttribute(Attribute(GUIDE_DOTS_ATTRIB_NAME, GUIDE_DOTS_ATTRIB_VALUE))
@@ -532,6 +534,18 @@ open class SimpleTableFormatter : Formatter() {
                 widths[i] = longestWidth
                 leftoverSpace += startingWidth - longestWidth
             }
+        }
+        // Give leftover space to columns whose entries run over before columns whose only long content is the
+        // column heading, as widening those cannot shorten any row
+        val entryLengths = IntArray(numOfCols) { col ->
+            getCellsInCol(cells, col).filter { it.row != 0 }
+                .maxOfOrNull { cell -> TableUtils.getDescendantBrlNoFormatting(cell.td).sumOf { it.value.length } } ?: 0
+        }
+        while (leftoverSpace > 0) {
+            val needsSpace = widths.indices.filter { widths[it] < entryLengths[it] }.take(leftoverSpace)
+            if (needsSpace.isEmpty()) break
+            needsSpace.forEach { widths[it]++ }
+            leftoverSpace -= needsSpace.size
         }
         var changed = false
         var i = 0
@@ -758,5 +772,8 @@ open class SimpleTableFormatter : Formatter() {
     companion object {
         const val GUIDE_DOTS_ATTRIB_NAME = "tableDots"
         const val GUIDE_DOTS_ATTRIB_VALUE = "true"
+
+        /** Braille Formats 11.6.1.f: two or more guide dots lead the reader to the next column */
+        const val MIN_GUIDE_DOTS = 2
     }
 }
