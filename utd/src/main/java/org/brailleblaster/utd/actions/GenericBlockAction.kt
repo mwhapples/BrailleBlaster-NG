@@ -16,15 +16,19 @@
 package org.brailleblaster.utd.actions
 
 import nu.xom.Attribute
+import nu.xom.Element
 import nu.xom.Node
+import nu.xom.Text
 import org.brailleblaster.utd.ITranslationEngine
 import org.brailleblaster.utd.TextSpan
 import org.brailleblaster.utd.exceptions.UTDTranslateException
 import org.brailleblaster.utd.properties.BrailleTableType
 import org.brailleblaster.utd.properties.UTDElements
 import org.brailleblaster.utils.braille.BrailleUnicodeConverter
+import org.brailleblaster.utd.utils.TextTranslator
 import org.brailleblaster.utd.utils.TextTranslator.translateTextWithEmpArray
 import org.brailleblaster.utd.utils.getAssociatedBrlElement
+import org.brailleblaster.utils.xml.UTD_NS
 import org.mwhapples.jlouis.Louis
 import org.slf4j.LoggerFactory
 import java.util.*
@@ -34,7 +38,6 @@ import java.util.*
  * String creation and translation will be done here as well.
  */
 open class GenericBlockAction : GenericAction(), IBlockAction {
-    private val translateText = StringBuilder()
     override fun applyTo(node: Node, context: ITranslationEngine): List<TextSpan> {
         return translate(node, BrailleTableType.LITERARY, context)
     }
@@ -47,6 +50,7 @@ open class GenericBlockAction : GenericAction(), IBlockAction {
         val toTranslate = super.applyTo(node, context)
         var startIndex = 0
         try {
+            if (translateCapitalsRun(node, toTranslate, tableType, context)) return emptyList()
             for (i in toTranslate.indices) {
                 if (toTranslate[i].isTranslated) {
                     val subList = toTranslate.subList(startIndex, i)
@@ -88,7 +92,14 @@ open class GenericBlockAction : GenericAction(), IBlockAction {
             logger.info("Empty string is passed for translation")
             return
         }
-        translateText.setLength(0)
+        val prepared = prepare(toTranslate)
+        val translationEmpResult = translateTextWithEmpArray(prepared.text, context, prepared.emphasis, tableType)
+        assignBrls(toTranslate, translationEmpResult.translation, prepared.endPos, translationEmpResult.dotsToCharsMap)
+    }
+
+    /** The text of [toTranslate], its typeforms and where each span ends. */
+    private fun prepare(toTranslate: List<TextSpan>): PreparedText {
+        val translateText = StringBuilder()
         //add marker for starting position of each segment	
         val emphasisList: MutableList<Short> = ArrayList()
 
@@ -151,10 +162,66 @@ open class GenericBlockAction : GenericAction(), IBlockAction {
                 }
             }
         }
-        val translationEmpResult =
-            translateTextWithEmpArray(translateText.toString(), context, emphasisArr, tableType)
-        assignBrls(toTranslate, translationEmpResult.translation, endPos, translationEmpResult.dotsToCharsMap)
+        return PreparedText(translateText.toString(), emphasisArr, endPos)
     }
+
+    private class PreparedText(val text: String, val emphasis: ShortArray, val endPos: List<Int>)
+
+    /**
+     * A UEB capitals passage carried over consecutive blocks marked
+     * [CAPITALS_RUN_ATTRIB] (Word's "List Paragraph" paragraphs), as Duxbury
+     * does: one indicator before the first word and one terminator after the
+     * last uppercase letter. liblouis only sees one translation call, so when
+     * the fully capitalised words at the end of one marked block carry on at
+     * the start of the next, the run is translated in one call and each block
+     * keeps its own part of the braille.
+     *
+     * @return false when [node] is translated on its own as usual
+     */
+    private fun translateCapitalsRun(
+        node: Node,
+        toTranslate: List<TextSpan>,
+        tableType: BrailleTableType,
+        context: ITranslationEngine
+    ): Boolean {
+        if (node !is Element || !isCapitalsRun(node) || !canJoin(toTranslate) ||
+            !TextTranslator.isUebLiterary(tableType, tableType.getTableName(context.brailleSettings))
+        ) return false
+
+        // The marked blocks before (step -1) or after (step 1) node that the capitals carry into, nearest first
+        fun joined(step: Int): List<List<TextSpan>> =
+            generateSequence(node to toTranslate) { (block, spans) ->
+                runSibling(block, step)?.let { it to spansOf(it, context) }?.takeIf { (_, next) ->
+                    canJoin(next) && if (step < 0) capitalsJoin(next, spans) else capitalsJoin(spans, next)
+                }
+            }.drop(1).map { it.second }.toList()
+
+        val before = joined(-1).reversed()
+        val run = before + listOf(toTranslate) + joined(1)
+        if (run.size == 1) return false
+
+        val prepared = run.map(::prepare)
+        val text = prepared.joinToString(RUN_SEPARATOR) { it.text }
+        val emphasis = prepared.flatMapIndexed { i, p ->
+            (if (i == 0) emptyList() else List(RUN_SEPARATOR.length) { Louis.TypeForms.PLAIN_TEXT }) + p.emphasis.asList()
+        }
+        val result = translateTextWithEmpArray(text, context, emphasis.toShortArray(), tableType)
+        val indexInts = result.dotsToCharsMap ?: return false
+
+        // This block's cells; those of the separators and the other blocks go
+        val start = prepared.take(before.size).sumOf { it.text.length + RUN_SEPARATOR.length }
+        val own = prepared[before.size]
+        val cells = result.translation.indices.filter { indexInts[it] in start until start + own.text.length }
+        assignBrls(
+            toTranslate,
+            cells.map { result.translation[it] }.joinToString(""),
+            own.endPos,
+            cells.map { indexInts[it] - start }.toIntArray()
+        )
+        return true
+    }
+
+    private fun spansOf(block: Element, context: ITranslationEngine): List<TextSpan> = super.applyTo(block, context)
 
     protected open fun assignBrls(
         toTranslate: List<TextSpan>,
@@ -231,6 +298,38 @@ open class GenericBlockAction : GenericAction(), IBlockAction {
         private val logger = LoggerFactory.getLogger(GenericBlockAction::class.java)
         private var ASCII_BRL_CHARS: String? = null
         const val NON_EMPHASIS_TYPEFORMS = Louis.TypeForms.NO_TRANSLATE
+
+        /** utd attribute marking a block whose capitals passage may carry over into the next marked block */
+        const val CAPITALS_RUN_ATTRIB = "capitalsRun"
+
+        // Between the blocks of a run; liblouis translates it as a space
+        private const val RUN_SEPARATOR = "\n"
+
+        private val WORD = Regex("\\S+")
+
+        private fun isCapitalsRun(node: Node) = node is Element && node.getAttributeValue(CAPITALS_RUN_ATTRIB, UTD_NS) == "true"
+
+        // Translated spans (math, direct braille) split a block into several calls, which a run can't join
+        private fun canJoin(spans: List<TextSpan>) = spans.isNotEmpty() && spans.none { it.isTranslated }
+
+        // The next (step 1) or previous (step -1) marked block, skipping whitespace and utd elements
+        private fun runSibling(block: Element, step: Int): Element? {
+            val parent = block.parent ?: return null
+            return generateSequence(parent.indexOf(block) + step) { it + step }
+                .takeWhile { it in 0 until parent.childCount }
+                .map { parent.getChild(it) }
+                .firstOrNull { !(it is Text && it.value.isBlank()) && !(it is Element && it.namespaceURI == UTD_NS) }
+                ?.let { it as? Element }
+                ?.takeIf { isCapitalsRun(it) }
+        }
+
+        /** The last word of [first] and the first word of [second] that have letters are both fully capitalised. */
+        private fun capitalsJoin(first: List<TextSpan>, second: List<TextSpan>): Boolean {
+            fun letterWords(spans: List<TextSpan>) =
+                WORD.findAll(spans.joinToString("") { it.text }).map { it.value }.filter { w -> w.any(Char::isLetter) }
+            fun capitalised(word: String?) = word != null && word.none(Char::isLowerCase)
+            return capitalised(letterWords(first).lastOrNull()) && capitalised(letterWords(second).firstOrNull())
+        }
 
         init {
             val combinedStr =
