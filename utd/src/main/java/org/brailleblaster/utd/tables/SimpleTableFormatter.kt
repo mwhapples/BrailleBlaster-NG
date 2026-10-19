@@ -126,7 +126,7 @@ open class SimpleTableFormatter : Formatter() {
         val lineWidth = cellType.getCellsForWidth(formatSelector.engine.pageSettings.drawableWidth.toBigDecimal())
         val widths = TableUtils.getCustomSimpleTableWidths(node)
             ?: if (headingsOnly) headingWidths(cells[0], numOfCols)
-            else calculateColumnWidths(cells, lineWidth, numOfCols, false)
+            else fittedColumnWidths(cells, lineWidth, numOfCols) ?: calculateColumnWidths(cells, lineWidth, numOfCols, false)
         if (headingsOnly && widths.sum() + (numOfCols - 1) * cellsBetweenCols > lineWidth) {
             return handleBadSimpleTable(node, originalTable, style, mutPageBuilders, formatSelector, cells, startingPBSize)
         }
@@ -580,6 +580,53 @@ open class SimpleTableFormatter : Formatter() {
     }
 
 
+    /**
+     * Braille Formats 11.2.5.c: a column is as wide as its widest entry. When
+     * the columns don't fit at that width, each starts as narrow as its
+     * heading and entries allow on two lines (11.4.1, 11.6.1), and spare
+     * cells only go to a column they let one more entry fit on one line, the
+     * cheapest first. A column whose entries run over anyway gets none.
+     * Returns null when even the narrowest columns don't fit.
+     */
+    private fun fittedColumnWidths(cells: List<List<TableCell>>, totalWidth: Int, numOfCols: Int): IntArray? {
+        val available = totalWidth - (numOfCols - 1) * cellsBetweenCols
+        val texts = List(numOfCols) { col -> getCellsInCol(cells, col).map { it.row to cellText(it) } }
+        val natural = IntArray(numOfCols) { col -> texts[col].maxOfOrNull { it.second.length }?.coerceAtLeast(1) ?: 1 }
+        if (natural.sum() <= available) return natural
+
+        val widths = IntArray(numOfCols) { col ->
+            texts[col].maxOfOrNull { (row, text) ->
+                if (row == 0) smallestColumnWidthForTwoRows(text) else smallestWidthForTwoLines(text, ENTRY_RUNOVER_INDENT)
+            }?.coerceAtLeast(1) ?: 1
+        }
+        if (widths.sum() > available) return null
+        val entryLengths = List(numOfCols) { col -> texts[col].filter { it.first != 0 }.map { it.second.length } }
+        generateSequence {
+            val spare = available - widths.sum()
+            // The cells each column needs for one more entry to fit on one line
+            widths.indices
+                .mapNotNull { col -> entryLengths[col].filter { it > widths[col] }.minOrNull()?.let { col to it - widths[col] } }
+                .filter { (_, cost) -> cost <= spare }
+                .minByOrNull { (_, cost) -> cost }
+        }.forEach { (col, cost) -> widths[col] += cost }
+        return widths
+    }
+
+    private fun cellText(cell: TableCell): String =
+        TableUtils.getDescendantBrlNoFormatting(cell.td).joinToString("") { it.value }
+
+    /** The narrowest width that fits [text] on two lines, the second indented by [runoverIndent]. */
+    private fun smallestWidthForTwoLines(text: String, runoverIndent: Int): Int {
+        val words = text.split(Regex("\\s+")).filter { it.isNotEmpty() }
+        fun fits(width: Int): Boolean {
+            val firstLine = words.runningFold(-1) { len, word -> len + 1 + word.length }.drop(1)
+                .takeWhile { it <= width }.size
+            val rest = words.drop(firstLine)
+            return firstLine > 0 && (rest.isEmpty() || rest.sumOf { it.length } + rest.size - 1 <= width - runoverIndent)
+        }
+        return (1..text.length.coerceAtLeast(1)).firstOrNull(::fits) ?: text.length
+    }
+
     // Each heading's whole length, so no heading is divided
     private fun headingWidths(headings: List<TableCell>, numOfCols: Int): IntArray = IntArray(numOfCols) { col ->
         headings.filter { it.col == col }
@@ -791,5 +838,8 @@ open class SimpleTableFormatter : Formatter() {
 
         /** Braille Formats 11.6.1.f: two or more guide dots lead the reader to the next column */
         const val MIN_GUIDE_DOTS = 2
+
+        /** addRow indents an entry's runover two cells within its column */
+        private const val ENTRY_RUNOVER_INDENT = 2
     }
 }
