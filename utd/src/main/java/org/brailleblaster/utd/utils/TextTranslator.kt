@@ -157,9 +157,11 @@ object TextTranslator {
 
     // UEB literary text gets the typeform changes liblouis can't make itself
     private fun typeforms(text: String, emphasisArr: ShortArray?, tableType: BrailleTableType, transTable: String): ShortArray? =
-        if ((tableType == BrailleTableType.LITERARY || tableType == BrailleTableType.UNCONTRACTED) &&
+        if (isUebLiterary(tableType, transTable)) UebTypeforms.adjust(text, emphasisArr) else emphasisArr
+
+    internal fun isUebLiterary(tableType: BrailleTableType, transTable: String): Boolean =
+        (tableType == BrailleTableType.LITERARY || tableType == BrailleTableType.UNCONTRACTED) &&
             transTable.contains("en-ueb-g", ignoreCase = true)
-        ) UebTypeforms.adjust(text, emphasisArr) else emphasisArr
 
     /**
      * Replace unknown liblouis characters (returned as '\xFFFF') with Unicode description
