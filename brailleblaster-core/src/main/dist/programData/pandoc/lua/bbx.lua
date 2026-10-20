@@ -746,6 +746,10 @@ function Div(s, attr)
     if customStyle == "BB Page Break" then
       return '<bb:pageBreak />'
     end
+    -- From docx-empty-paragraph.lua; MarkTableSpacers reads and removes it.
+    if customStyle == "BB Empty Paragraph" then
+      return '<bb:emptyParagraph />'
+    end
     local indent = indentStyle(customStyle)
     if indent ~= nil then
       return (string.gsub(s, '<BLOCK bb:type="DEFAULT">',

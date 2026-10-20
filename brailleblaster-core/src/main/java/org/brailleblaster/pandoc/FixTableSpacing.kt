@@ -15,18 +15,23 @@
  */
 package org.brailleblaster.pandoc
 
+import nu.xom.Attribute
 import nu.xom.Element
 import org.brailleblaster.bbx.BBX
 import org.brailleblaster.bbx.utd.BBXDynamicOptionStyleMap
 import org.brailleblaster.utd.Style.StyleOption
+import org.brailleblaster.utils.xml.BB_NS
 import org.brailleblaster.utils.xml.UTD_NS
 
 /**
- * A Word table adds no blank lines of its own, and a list next to it adds
+ * A Word table adds no blank lines of its own, and a list before it adds
  * none toward it, so a heading next to the table is the only spacing left.
- * The table, its UTD table copy and the lists on either side get line style
- * options for that, one line meaning no blank line. Run after FixNestedList
- * so the lists are already merged.
+ * A list after it adds none only when an empty paragraph (ASM's spacer)
+ * came between them; a list straight after a table, like a footnote, keeps
+ * its blank line. The table, its UTD table copy and those lists get line
+ * style options for that, one line meaning no blank line. Run after
+ * FixNestedList so the lists are already merged, and [MarkTableSpacers]
+ * before it.
  */
 class FixTableSpacing : FixerInf {
     private lateinit var rootElem: Element
@@ -54,14 +59,17 @@ class FixTableSpacing : FixerInf {
                             ?.let { setLines(it, StyleOption.LINES_AFTER) }
                     }
                 siblingElement(copy ?: table, 1)
-                    ?.takeIf(BBX.CONTAINER.LIST::isA)
+                    ?.takeIf { BBX.CONTAINER.LIST.isA(it) && hasSpacerAfter(table) }
                     ?.let { list ->
                         setLines(list, StyleOption.LINES_BEFORE)
                         list.childElements.firstOrNull(BBX.BLOCK.LIST_ITEM::isA)
                             ?.let { setLines(it, StyleOption.LINES_BEFORE) }
                     }
+                table.getAttribute(SPACER_AFTER, BB_NS)?.let(table::removeAttribute)
             }
     }
+
+    private fun hasSpacerAfter(table: Element) = table.getAttribute(SPACER_AFTER, BB_NS) != null
 
     private fun descendants(e: Element): Sequence<Element> =
         sequenceOf(e) + e.childElements.asSequence().flatMap(::descendants)
@@ -86,4 +94,53 @@ class FixTableSpacing : FixerInf {
 
     private fun setLines(e: Element, option: StyleOption) =
         BBXDynamicOptionStyleMap.setStyleOptionAttrib(e, option, 1)
+
+    companion object {
+        internal const val SPACER_AFTER = "spacerAfter"
+    }
+}
+
+/**
+ * Removes each `<bb:emptyParagraph/>` that bbx.lua writes for an empty Word
+ * paragraph (see docx-empty-paragraph.lua), first marking a table it follows
+ * for [FixTableSpacing]. Run before FixNestedList, so the markers don't keep
+ * lists apart.
+ */
+class MarkTableSpacers : FixerInf {
+    private lateinit var rootElem: Element
+
+    override fun setFixer(fixer: Fixer) {
+        rootElem = fixer.rootElement
+    }
+
+    override fun process() {
+        descendants(rootElem)
+            .filter(::isSpacer)
+            .toList()
+            .forEach { spacer ->
+                previousTable(spacer)?.addAttribute(
+                    Attribute("bb:${FixTableSpacing.SPACER_AFTER}", BB_NS, "true")
+                )
+                spacer.detach()
+            }
+    }
+
+    private fun descendants(e: Element): Sequence<Element> =
+        sequenceOf(e) + e.childElements.asSequence().flatMap(::descendants)
+
+    private fun isSpacer(e: Element) = e.localName == "emptyParagraph" && e.namespaceURI == BB_NS
+
+    // The table before the spacer, past any other spacers and its UTD table copy
+    private fun previousTable(spacer: Element): Element? =
+        previousElements(spacer)
+            .dropWhile { isSpacer(it) || it.getAttribute("tableCopy", UTD_NS) != null }
+            .firstOrNull()
+            ?.takeIf(BBX.CONTAINER.TABLE::isA)
+
+    private fun previousElements(e: Element): Sequence<Element> {
+        val parent = e.parent ?: return emptySequence()
+        return (parent.indexOf(e) - 1 downTo 0).asSequence()
+            .map(parent::getChild)
+            .filterIsInstance<Element>()
+    }
 }
