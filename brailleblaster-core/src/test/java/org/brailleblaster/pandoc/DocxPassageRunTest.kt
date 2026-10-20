@@ -26,11 +26,14 @@ import org.testng.annotations.Test
 import java.io.StringWriter
 
 /**
- * A UEB capitals passage over consecutive Word "List Paragraph" paragraphs
- * takes one indicator and one terminator, as Duxbury gives for ASM's
- * statements. Other paragraphs each close their own passage.
+ * UEB passages over consecutive Word "List Paragraph" paragraphs. A capitals
+ * passage takes one indicator and one terminator, as Duxbury gives for ASM's
+ * statements. A typeform passage takes its indicator at the start of each
+ * paragraph and its terminator only where the typeform changes (Rules of UEB
+ * 9.9.1, Braille Formats 2016 5.6). Other paragraphs each close their own
+ * passage.
  */
-class DocxCapitalsPassageTest {
+class DocxPassageRunTest {
     @BeforeClass
     fun init() {
         BookToBBXConverter.devSetup(arrayOf())
@@ -115,6 +118,76 @@ class DocxCapitalsPassageTest {
         assertTrue("/ate;ts4,'" in text,"Terminator after the last capitals:\n$text")
     }
 
+    @Test
+    fun boldOverThreeListParagraphs() {
+        val lines = brf(
+            listParagraph(bold("Your payment is late and you may owe a fee.")) +
+                listParagraph(bold("Call us today to set up a plan.")) + listParagraph(bold("We are here to help."))
+        )
+
+        assertLines(lines, "^7,yr pay;t is late & y may [e a fee4", "^7,call u td to set up a plan4", "^7,we >e \"h to help4^'")
+    }
+
+    @Test
+    fun boldEndsPartWayThroughNextListParagraph() {
+        // BR-78_lws page 3
+        val lines = brf(
+            listParagraph(bold("*Total: \$48,840.37 due.")) +
+                listParagraph(bold("If you are experiencing financial difficulty:") + run(" See the Appendix for information."))
+        )
+
+        assertLines(lines, "^7\"9,total3 @s#dh1hdj4cg due4", "^7,if y >e exp]i5c+ f9ancial", "  di6iculty3^' ,see ! ,app5dix = 9=ma;n4")
+    }
+
+    @Test
+    fun italicOverTwoListParagraphs() {
+        val lines = brf(listParagraph(italic("This notice is for your records only.")) + listParagraph(italic("Please keep it in a safe place.")))
+
+        assertLines(lines, ".7,? notice is = yr records only4", ".7,pl1se keep x 9 a safe place4.'")
+    }
+
+    @Test
+    fun boldAndCapitalsOverTwoListParagraphs() {
+        val lines = brf(listParagraph(bold("PLEASE READ THIS NOTICE")) + listParagraph(bold("ABOUT YOUR ACCOUNT") + run(" and keep it.")))
+
+        assertLines(lines, "^7,,,pl1se r1d ? notice", "^7ab yr a3.t,'^' & keep x4")
+    }
+
+    @Test
+    fun twoBoldWordsKeepWordIndicators() {
+        val lines = brf(listParagraph(run("Pay ") + bold("now")) + listParagraph(bold("today") + run(" or call us.")))
+
+        assertLines(lines, ",pay ^1n[", "^1td or call u4")
+    }
+
+    @Test
+    fun boldThenPlainListParagraphClosesPassage() {
+        val lines = brf(listParagraph(bold("Your payment is late and you may owe a fee.")) + listParagraph("Call us today to set up a plan."))
+
+        assertLines(lines, "^7,yr pay;t is late & y may [e a fee4^'", ",call u td to set up a plan4")
+    }
+
+    @Test
+    fun boldNormalAndListParagraphsKeepTheirOwnPassages() {
+        val normal = brf(normal(bold("Your payment is late and you may owe a fee.")) + normal(bold("Call us today to set up a plan.")))
+        val list = brf(list(bold("Your payment is late and you may owe a fee.")) + list(bold("Call us today to set up a plan.")))
+
+        assertLines(normal, "  ^7,yr pay;t is late & y may [e a", "fee4^'", "  ^7,call u td to set up a plan4^'")
+        assertLines(list, "^7,yr pay;t is late & y may [e a fee4^'", "^7,call u td to set up a plan4^'")
+    }
+
+    @Test
+    fun boldPassageCarriesOverPageBreak() {
+        val filler = (1..21).joinToString("") { normal("Zebra") }
+        val pages = brfPages(filler + (1..4).joinToString("") { listParagraph(bold("This is bold paragraph number $it of the notice about your account.")) })
+
+        assertTrue(pages.size > 1 && pages[0].none { "#d (" in it }, "Run should cross the page break:\n${show(pages)}")
+        val text = pages.flatten().joinToString("\n")
+        assertEquals(Regex("\\^7").findAll(text).count(), 4, "An indicator for each paragraph:\n$text")
+        assertEquals(Regex("\\^'").findAll(text).count(), 1, "One terminator:\n$text")
+        assertTrue("a3.t4^'" in text, "Terminator after the last paragraph:\n$text")
+    }
+
     private fun brf(body: String): List<String> = brfPages(body).flatten().filter { it.isNotBlank() }
 
     private fun brfPages(body: String): List<List<String>> {
@@ -160,6 +233,8 @@ class DocxCapitalsPassageTest {
 
         private fun run(text: String) = """<w:r><w:t xml:space="preserve">$text</w:t></w:r>"""
 
+        private fun italic(text: String) = """<w:r><w:rPr><w:i/></w:rPr><w:t xml:space="preserve">$text</w:t></w:r>"""
+
         private fun bold(text: String) = """<w:r><w:rPr><w:b/></w:rPr><w:t xml:space="preserve">$text</w:t></w:r>"""
 
         private fun paragraph(style: String?, runs: String) =
@@ -167,8 +242,8 @@ class DocxCapitalsPassageTest {
 
         private fun listParagraph(text: String) = paragraph("ListParagraph", if (text.startsWith("<w:r>")) text else run(text))
 
-        private fun list(text: String) = paragraph("List", run(text))
+        private fun list(text: String) = paragraph("List", if (text.startsWith("<w:r>")) text else run(text))
 
-        private fun normal(text: String) = paragraph(null, run(text))
+        private fun normal(text: String) = paragraph(null, if (text.startsWith("<w:r>")) text else run(text))
     }
 }

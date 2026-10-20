@@ -50,7 +50,7 @@ open class GenericBlockAction : GenericAction(), IBlockAction {
         val toTranslate = super.applyTo(node, context)
         var startIndex = 0
         try {
-            if (translateCapitalsRun(node, toTranslate, tableType, context)) return emptyList()
+            if (translatePassageRun(node, toTranslate, tableType, context)) return emptyList()
             for (i in toTranslate.indices) {
                 if (toTranslate[i].isTranslated) {
                     val subList = toTranslate.subList(startIndex, i)
@@ -168,57 +168,81 @@ open class GenericBlockAction : GenericAction(), IBlockAction {
     private class PreparedText(val text: String, val emphasis: ShortArray, val endPos: List<Int>)
 
     /**
-     * A UEB capitals passage carried over consecutive blocks marked
-     * [CAPITALS_RUN_ATTRIB] (Word's "List Paragraph" paragraphs), as Duxbury
-     * does: one indicator before the first word and one terminator after the
-     * last uppercase letter. liblouis only sees one translation call, so when
-     * the fully capitalised words at the end of one marked block carry on at
-     * the start of the next, the run is translated in one call and each block
+     * UEB passages carried over consecutive blocks marked [PASSAGE_RUN_ATTRIB]
+     * (Word's "List Paragraph" paragraphs). liblouis only sees one translation
+     * call, so when a passage at the end of one marked block carries on at the
+     * start of the next, the run is translated in one call and each block
      * keeps its own part of the braille.
+     *
+     * - Capitals, as Duxbury: one capitals passage indicator before the first
+     *   word and one terminator after the last uppercase letter.
+     * - Typeforms, Rules of UEB 9.9.1 (Braille Formats 2016 5.6): each block
+     *   starts with the typeform passage indicator, and the typeform is
+     *   terminated only where it changes.
      *
      * @return false when [node] is translated on its own as usual
      */
-    private fun translateCapitalsRun(
+    private fun translatePassageRun(
         node: Node,
         toTranslate: List<TextSpan>,
         tableType: BrailleTableType,
         context: ITranslationEngine
     ): Boolean {
-        if (node !is Element || !isCapitalsRun(node) || !canJoin(toTranslate) ||
+        if (node !is Element || !isPassageRun(node) || !canJoin(toTranslate) ||
             !TextTranslator.isUebLiterary(tableType, tableType.getTableName(context.brailleSettings))
         ) return false
 
-        // The marked blocks before (step -1) or after (step 1) node that the capitals carry into, nearest first
-        fun joined(step: Int): List<List<TextSpan>> =
-            generateSequence(node to toTranslate) { (block, spans) ->
-                runSibling(block, step)?.let { it to spansOf(it, context) }?.takeIf { (_, next) ->
-                    canJoin(next) && if (step < 0) capitalsJoin(next, spans) else capitalsJoin(spans, next)
-                }
+        val own = prepare(toTranslate)
+        // The marked blocks before (step -1) or after (step 1) node that a passage carries into, nearest first
+        fun joined(step: Int): List<PreparedText> =
+            generateSequence(node to own) { (block, text) ->
+                runSibling(block, step)?.let { it to spansOf(it, context) }
+                    ?.takeIf { (_, spans) -> canJoin(spans) }
+                    ?.let { (next, spans) -> next to prepare(spans) }
+                    ?.takeIf { (_, next) -> if (step < 0) joins(next, text) else joins(text, next) }
             }.drop(1).map { it.second }.toList()
 
         val before = joined(-1).reversed()
-        val run = before + listOf(toTranslate) + joined(1)
+        val run = before + own + joined(1)
         if (run.size == 1) return false
 
-        val prepared = run.map(::prepare)
-        val text = prepared.joinToString(RUN_SEPARATOR) { it.text }
-        val emphasis = prepared.flatMapIndexed { i, p ->
-            (if (i == 0) emptyList() else List(RUN_SEPARATOR.length) { Louis.TypeForms.PLAIN_TEXT }) + p.emphasis.asList()
+        // The typeforms carried over each joint, which the spaces around it take too
+        val carried = run.zipWithNext(::carriedTypeforms)
+        val text = run.joinToString(RUN_SEPARATOR) { it.text }
+        val emphasis = run.flatMapIndexed { i, p ->
+            val fromBefore = if (i == 0) 0 else carried[i - 1]
+            val intoNext = carried.getOrElse(i) { 0 }
+            val leading = p.text.indexOfFirst { !it.isWhitespace() }.let { if (it < 0) p.text.length else it }
+            val trailing = p.text.indexOfLast { !it.isWhitespace() }
+            val typeforms = p.emphasis.mapIndexed { j, e ->
+                (e.toInt() or (if (j < leading) fromBefore else 0) or (if (j > trailing) intoNext else 0)).toShort()
+            }
+            (if (i == 0) emptyList() else List(RUN_SEPARATOR.length) { fromBefore.toShort() }) + typeforms
         }
         val result = translateTextWithEmpArray(text, context, emphasis.toShortArray(), tableType)
         val indexInts = result.dotsToCharsMap ?: return false
 
         // This block's cells; those of the separators and the other blocks go
-        val start = prepared.take(before.size).sumOf { it.text.length + RUN_SEPARATOR.length }
-        val own = prepared[before.size]
+        val start = before.sumOf { it.text.length + RUN_SEPARATOR.length }
         val cells = result.translation.indices.filter { indexInts[it] in start until start + own.text.length }
+        // A typeform carried in from the block before still needs its passage indicator here
+        val indicator = if (before.isEmpty() || carried[before.size - 1] == 0) ""
+            else passageIndicator(carried[before.size - 1], context, tableType)
         assignBrls(
             toTranslate,
-            cells.map { result.translation[it] }.joinToString(""),
+            indicator + cells.map { result.translation[it] }.joinToString(""),
             own.endPos,
-            cells.map { indexInts[it] - start }.toIntArray()
+            (List(indicator.length) { 0 } + cells.map { indexInts[it] - start }).toIntArray()
         )
         return true
+    }
+
+    // The braille liblouis puts before a passage in typeforms
+    private fun passageIndicator(typeforms: Int, context: ITranslationEngine, tableType: BrailleTableType): String {
+        val word = translateTextWithEmpArray(INDICATOR_PROBE_WORD, context, ShortArray(INDICATOR_PROBE_WORD.length), tableType).translation
+        val passage = List(PASSAGE_LENGTH) { INDICATOR_PROBE_WORD }.joinToString(" ")
+        val translated = translateTextWithEmpArray(passage, context, ShortArray(passage.length) { typeforms.toShort() }, tableType).translation
+        return translated.substringBefore(word, "")
     }
 
     private fun spansOf(block: Element, context: ITranslationEngine): List<TextSpan> = super.applyTo(block, context)
@@ -299,15 +323,25 @@ open class GenericBlockAction : GenericAction(), IBlockAction {
         private var ASCII_BRL_CHARS: String? = null
         const val NON_EMPHASIS_TYPEFORMS = Louis.TypeForms.NO_TRANSLATE
 
-        /** utd attribute marking a block whose capitals passage may carry over into the next marked block */
-        const val CAPITALS_RUN_ATTRIB = "capitalsRun"
+        /** utd attribute marking a block whose capitals or typeform passage may carry over into the next marked block */
+        const val PASSAGE_RUN_ATTRIB = "passageRun"
 
         // Between the blocks of a run; liblouis translates it as a space
         private const val RUN_SEPARATOR = "\n"
 
+        /** lenemphphrase in en-ueb-g1.ctb: three or more symbols-sequences are a passage */
+        private const val PASSAGE_LENGTH = 3
+
+        private const val INDICATOR_PROBE_WORD = "dog"
+
+        private val FONT_TYPEFORMS = listOf(
+            Louis.TypeForms.ITALIC, Louis.TypeForms.UNDERLINE, Louis.TypeForms.BOLD, Louis.TypeForms.SCRIPT,
+            Louis.TypeForms.TRANS_1, Louis.TypeForms.TRANS_2, Louis.TypeForms.TRANS_3, Louis.TypeForms.TRANS_4, Louis.TypeForms.TRANS_5
+        ).fold(0) { acc, t -> acc or t.toInt() }
+
         private val WORD = Regex("\\S+")
 
-        private fun isCapitalsRun(node: Node) = node is Element && node.getAttributeValue(CAPITALS_RUN_ATTRIB, UTD_NS) == "true"
+        private fun isPassageRun(node: Node) = node is Element && node.getAttributeValue(PASSAGE_RUN_ATTRIB, UTD_NS) == "true"
 
         // Translated spans (math, direct braille) split a block into several calls, which a run can't join
         private fun canJoin(spans: List<TextSpan>) = spans.isNotEmpty() && spans.none { it.isTranslated }
@@ -320,15 +354,36 @@ open class GenericBlockAction : GenericAction(), IBlockAction {
                 .map { parent.getChild(it) }
                 .firstOrNull { !(it is Text && it.value.isBlank()) && !(it is Element && it.namespaceURI == UTD_NS) }
                 ?.let { it as? Element }
-                ?.takeIf { isCapitalsRun(it) }
+                ?.takeIf { isPassageRun(it) }
         }
 
+        private fun joins(first: PreparedText, second: PreparedText) =
+            capitalsJoin(first.text, second.text) || carriedTypeforms(first, second) != 0
+
         /** The last word of [first] and the first word of [second] that have letters are both fully capitalised. */
-        private fun capitalsJoin(first: List<TextSpan>, second: List<TextSpan>): Boolean {
-            fun letterWords(spans: List<TextSpan>) =
-                WORD.findAll(spans.joinToString("") { it.text }).map { it.value }.filter { w -> w.any(Char::isLetter) }
+        private fun capitalsJoin(first: String, second: String): Boolean {
+            fun letterWords(text: String) = WORD.findAll(text).map { it.value }.filter { w -> w.any(Char::isLetter) }
             fun capitalised(word: String?) = word != null && word.none(Char::isLowerCase)
             return capitalised(letterWords(first).lastOrNull()) && capitalised(letterWords(second).firstOrNull())
+        }
+
+        /**
+         * The font typeforms of both the end of [first] and the start of
+         * [second] when together they make a passage of three or more words,
+         * else 0.
+         */
+        private fun carriedTypeforms(first: PreparedText, second: PreparedText): Int {
+            val last = first.text.indexOfLast { !it.isWhitespace() }
+            val firstChar = second.text.indexOfFirst { !it.isWhitespace() }
+            if (last < 0 || firstChar < 0) return 0
+            val typeforms = first.emphasis[last].toInt() and second.emphasis[firstChar].toInt() and FONT_TYPEFORMS
+            if (typeforms == 0) return 0
+            // Words in the run of these typeforms that reaches the joint
+            fun words(p: PreparedText, indices: IntProgression) =
+                indices.takeWhile { p.text[it].isWhitespace() || p.emphasis[it].toInt() and typeforms == typeforms }
+                    .sorted().joinToString("") { p.text[it].toString() }.let { WORD.findAll(it).count() }
+            val count = words(first, first.text.indices.reversed()) + words(second, second.text.indices)
+            return if (count >= PASSAGE_LENGTH) typeforms else 0
         }
 
         init {
