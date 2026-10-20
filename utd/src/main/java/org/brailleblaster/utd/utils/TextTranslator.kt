@@ -61,7 +61,7 @@ object TextTranslator {
         try {
             val transTable = tableType.getTableName(context.brailleSettings)
 
-            val transResult = translator.translate(transTable, translateText, emphasisArr, 0, mode)
+            val transResult = translator.translate(transTable, translateText, typeforms(translateText, emphasisArr, tableType, transTable), 0, mode)
             return replaceUnknownCharacters(transResult, translator, transTable, mode)
         } catch (e: TranslationException) {
             throw UTDTranslateException("Problem with Braille translation, see log for details", e)
@@ -138,7 +138,9 @@ object TextTranslator {
             val transTable = tableType.getTableName(context.brailleSettings)
             log.debug("About to use tables \"{}\" to translate text \"{}\"", transTable, translateText)
             try {
-                val transResult = translator.translate(transTable, translateText, emphasisArr, 0, mode)
+                val transResult = translator.translate(
+                    transTable, translateText, translateText?.let { typeforms(it, emphasisArr, tableType, transTable) } ?: emphasisArr, 0, mode
+                )
                 val indexAndTrans = replaceUnknownCharacters(transResult, translator, transTable, mode)
                 translated = indexAndTrans.second
                 log.debug("Translated text is: \"{}\"", translated)
@@ -152,6 +154,12 @@ object TextTranslator {
 
         return TranslationEmpResult(translated, indexInts)
     }
+
+    // UEB literary text gets the typeform changes liblouis can't make itself
+    private fun typeforms(text: String, emphasisArr: ShortArray?, tableType: BrailleTableType, transTable: String): ShortArray? =
+        if ((tableType == BrailleTableType.LITERARY || tableType == BrailleTableType.UNCONTRACTED) &&
+            transTable.contains("en-ueb-g", ignoreCase = true)
+        ) UebTypeforms.adjust(text, emphasisArr) else emphasisArr
 
     /**
      * Replace unknown liblouis characters (returned as '\xFFFF') with Unicode description
