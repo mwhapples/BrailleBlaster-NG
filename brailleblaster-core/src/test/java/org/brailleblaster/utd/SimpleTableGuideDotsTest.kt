@@ -74,23 +74,22 @@ class SimpleTableGuideDotsTest {
     @Test
     fun sample11_4NoGuideDotsOnRunovers() {
         // "20 ac/ territory" and "1 ac/ territory" run over, so neither line gets guide dots;
-        // the single-line "Variable" still leads to the next column
+        // the single-line "Variable" still leads to the next column. The first column is as
+        // wide as "Williamson's", so the word isn't divided
         assertTable(
             formatBrf(loadResource("sample-11-4.bbx")),
             """
-                          ,habitat      ,pot5tial
-            ,species      ,unit         ,popula;n
-            "33333333333  "33333333333  "33333333333
-            ,grizzly
-              ,be> ""${'"'}""  ,v>iable ""${'"'}  ,undet}m9$
-            ,bald ,eagle  #ejj ac_/ne/  #ej pairs
-                            site
-            ,williamson"
-              's
-              ,sapsuck}   #bj ac_/      #bc1cej
-                            t}ritory      pairs
-            ,pika ""${'"'}""${'"'}  #a ac_/       #ec1jjj
-                            t}ritory      pairs
+                           ,habitat      ,pot5tial
+            ,species       ,unit         ,popula;n
+            "333333333333  "33333333333  "333333333
+            ,grizzly ,be>  ,v>iable ""${'"'}  ,undet}m9$
+            ,bald ,eagle   #ejj ac_/ne/  #ej pairs
+                             site
+            ,williamson's
+              ,sapsuck}    #bj ac_/      #bc1cej
+                             t}ritory      pairs
+            ,pika ""${'"'}""${'"'}"  #a ac_/       #ec1jjj
+                             t}ritory      pairs
             """
         )
     }
@@ -125,21 +124,20 @@ class SimpleTableGuideDotsTest {
     @Test
     fun spareWidthGoesToRunoverEntriesNotLongHeadings() {
         // The temperature headings are longer than their entries; widening those columns only left
-        // room for stray guide dots while the row headings ran over onto extra lines
+        // room for stray guide dots while the row headings ran over onto extra lines. Every column
+        // fits at the width of its widest entry, so nothing runs over (Braille Formats 11.2.5.c)
         assertTable(
             formatBrf(loadResource("unnecessary-guide-dots.bbx")),
             """
-                         ,hi<      ,l{
-            ,>ea         ,temp4    ,temp4    pre
-            "3333333333  "3333333  "3333333  "3333
-            ,d{nt{n ""${'"'}  #fe~j,f   #ec~j,f   #j4de
-            ,airport ""  #fb~j,f   #ej~j,f   #j4fc
-            ,woodl&
-              ,hills ""  #fh~j,f   #ej~j,f   #a4cd
-            ,ea/
-              ,village   #ef~j,f   #dh~j,f   #c4ec
-            ,v5tura ""${'"'}  #fb~j,f   #di~j,f   #b4eg
-            ,hi<l& ,p>k  #fd~j,f   #ee~j,f   #j4hd
+                            ,hi<     ,l{
+            ,>ea            ,temp4   ,temp4   pre
+            "3333333333333  "333333  "333333  "3333
+            ,d{nt{n ""${'"'}""${'"'}  #fe~j,f  #ec~j,f  #j4de
+            ,airport ""${'"'}""  #fb~j,f  #ej~j,f  #j4fc
+            ,woodl& ,hills  #fh~j,f  #ej~j,f  #a4cd
+            ,ea/ ,village   #ef~j,f  #dh~j,f  #c4ec
+            ,v5tura ""${'"'}""${'"'}  #fb~j,f  #di~j,f  #b4eg
+            ,hi<l& ,p>k ""  #fd~j,f  #ee~j,f  #j4hd
             """
         )
     }

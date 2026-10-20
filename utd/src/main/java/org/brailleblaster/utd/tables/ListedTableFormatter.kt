@@ -89,9 +89,12 @@ class ListedTableFormatter : Formatter() {
         }
         pageBuilder.addAtLeastPages(style.newPagesBefore)
 
-        // Single-row tables don't make sense as listed tables
-        if (cells.size <= 1 || headings.isEmpty()) {
+        if (headings.isEmpty()) {
             return LiteraryFormatter().format(node, style, mutPageBuilders, formatSelector)
+        }
+        if (cells.size == 1) {
+            pageBuilder = addHeadingsEntry(headings, mutPageBuilders, pageBuilder, formatSelector)
+            return finishTable(node, originalTable, style, pageBuilder, mutPageBuilders, formatSelector)
         }
         for ((td) in headings) {
             val colon: Element = TableDivider(TableDivider.DividerTypes.LISTED_COLON)
@@ -153,6 +156,57 @@ class ListedTableFormatter : Formatter() {
                 j++
             }
         }
+        return finishTable(node, originalTable, style, pageBuilder, mutPageBuilders, formatSelector)
+    }
+
+    /**
+     * A table of headings only is one entry, written as a row is: the first
+     * heading, a colon, then the others separated by semicolons, at cell 1
+     * with runovers at cell 3.
+     */
+    private fun addHeadingsEntry(
+        headings: List<TableCell>,
+        pageBuilders: MutableSet<PageBuilder>,
+        startPageBuilder: PageBuilder,
+        formatSelector: FormatSelector
+    ): PageBuilder {
+        val texts = headings.filter { it.td.value.isNotEmpty() }
+        texts.dropLast(1).forEachIndexed { i, (td) ->
+            val divider = TableDivider(
+                if (i == 0) TableDivider.DividerTypes.LISTED_COLON else TableDivider.DividerTypes.LINEAR_SEMICOLON
+            )
+            val (idx, sepBrl) = TextTranslator.translateIndexedText(
+                divider.value, formatSelector.engine, tableType = BrailleTableType.UNCONTRACTED
+            )
+            divider.appendChild(UTDElements.BRL.create().apply {
+                addAttribute(Attribute("index", idx.joinToString(separator = " ")))
+                appendChild(sepBrl)
+            })
+            td.appendChild(divider)
+        }
+        var pageBuilder = startPageBuilder
+        pageBuilder.setFirstLineIndent(0)
+            .setLeftIndent(2)
+            .setRightIndent(0)
+            .setStartOfBlock(true)
+        pageBuilder.addAtLeastLinesBefore(1)
+        texts.flatMap { it.td.query("descendant::utd:brl", xpathContext).map { brl -> brl as Element } }
+            .filter { it.value.isNotEmpty() }
+            .forEach { brl ->
+                pageBuilders.addAll(pageBuilder.addBrl(brl))
+                pageBuilder = pageBuilders.last()
+            }
+        return pageBuilder
+    }
+
+    private fun finishTable(
+        node: Element,
+        originalTable: Element,
+        style: IStyle,
+        pageBuilder: PageBuilder,
+        mutPageBuilders: MutableSet<PageBuilder>,
+        formatSelector: FormatSelector
+    ): MutableSet<PageBuilder> {
         node.addAttribute(Attribute(CLASS_ATTRIB_NAME, CLASS_ATTRIB_VALUE))
         if (TableUtils.FALLBACK_ATTRIB_VALUE == node.getAttributeValue(
                 TableUtils.FALLBACK_ATTRIB_NAME,
