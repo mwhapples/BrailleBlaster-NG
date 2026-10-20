@@ -734,8 +734,15 @@ function Div(s, attr)
         return ''
       end
 
+      -- A UEB capitals or typeform passage carries over consecutive "List
+      -- Paragraph" paragraphs (Duxbury carries capitals over them but not
+      -- over "List" ones); GenericBlockAction reads utd:passageRun.
+      local passageRun = ''
+      if isListParagraphStyle(customStyle) then
+        passageRun = ' utd:passageRun="true"'
+      end
       return '<CONTAINER bb:type="LIST" bb:listType="NORMAL" bb:listLevel="0">'
-        .. '<BLOCK bb:type="LIST_ITEM" bb:itemLevel="0">' .. item .. '</BLOCK>'
+        .. '<BLOCK bb:type="LIST_ITEM" bb:itemLevel="0"' .. passageRun .. '>' .. item .. '</BLOCK>'
         .. '</CONTAINER>'
     end
 
