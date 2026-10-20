@@ -728,6 +728,10 @@ function Div(s, attr)
     if customStyle == "BB Page Break" then
       return '<bb:pageBreak />'
     end
+    -- From docx-empty-paragraph.lua; MarkTableSpacers reads and removes it.
+    if customStyle == "BB Empty Paragraph" then
+      return '<bb:emptyParagraph />'
+    end
     if isListParagraphStyle(customStyle) or isPlainListStyle(customStyle) then
       local item = listItemText(s)
       if string.len(string.gsub(item, '%s+', '')) == 0 then
