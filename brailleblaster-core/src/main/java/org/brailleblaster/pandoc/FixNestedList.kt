@@ -60,8 +60,13 @@ class FixNestedList : FixerInf {
             unnest(elems[i])
         }
         parent = elem.parent
-        if (isListItem(parent)) {
-            moveListItems(elem, parent)
+        // only nested lists move out; other children (line breaks, spans) stay put
+        if (isList(elem) && isListItem(parent)) {
+            if (isMarkerOnlyItem(parent as Element, elem)) {
+                mergeIntoMarkerItem(elem, parent)
+            } else {
+                moveListItems(elem, parent)
+            }
         }
         if (isList(elem) &&
             !isListItem(parent)
@@ -110,6 +115,32 @@ class FixNestedList : FixerInf {
             }
         }
         return isListItem
+    }
+
+    // A Word paragraph that is numbered and in a "List" style arrives as a
+    // bullet (or number) item holding a one-item list with the item's text.
+    private fun isMarkerOnlyItem(item: Element, list: Element): Boolean {
+        val listItems = list.childElements
+        if (listItems.size() != 1 || !isListItem(listItems[0])) return false
+        if (item.getChild(item.childCount - 1) != list) return false
+        val others = (0 until item.childCount - 1).map { item.getChild(it) }
+        return others.all { it is Text } &&
+            MARKER_ONLY.matches(others.joinToString("") { it.value }.trim()) &&
+            !STARTS_WITH_MARKER.containsMatchIn(listItems[0].value)
+    }
+
+    // puts the nested item's text after the marker, at the nested item's level,
+    // so the bullet and its text stay on one line
+    private fun mergeIntoMarkerItem(list: Element, item: Element) {
+        val nested = list.childElements[0]
+        list.detach()
+        generateSequence { nested.takeIf { it.childCount > 0 }?.getChild(0) }
+            .forEach { child ->
+                child.detach()
+                item.appendChild(child)
+            }
+        item.getAttribute("itemLevel", bbUri).value = nested.getAttributeValue("itemLevel", bbUri)
+        setListLevel(item.parent)
     }
 
     // moves a nested list into the parent list
@@ -204,5 +235,11 @@ class FixNestedList : FixerInf {
                 }
             }
         }
+    }
+
+    companion object {
+        // the "• " and "1. " markers bbx.lua puts at the start of list items
+        private val MARKER_ONLY = Regex("""•|[0-9A-Za-z]+\.""")
+        private val STARTS_WITH_MARKER = Regex("""^(•|[0-9A-Za-z]+\.)\s""")
     }
 }

@@ -121,13 +121,17 @@ open class SimpleTableFormatter : Formatter() {
             return handleBadSimpleTable(node, originalTable, style, mutPageBuilders, formatSelector, cells, startingPBSize)
         }
 
-        val widths = TableUtils.getCustomSimpleTableWidths(node) ?: calculateColumnWidths(
-            cells,
-            cellType.getCellsForWidth(formatSelector.engine.pageSettings.drawableWidth.toBigDecimal()),
-            numOfCols,
-            false
-        )
-        if (!TableUtils.hasSimpleTableOption(TableUtils.SimpleTableOptions.COLUMN_HEADING_DISABLED, node)) {
+        // A table of headings only is one line of headings, or a listed entry when they don't fit on one
+        val headingsOnly = cells.size == 1
+        val lineWidth = cellType.getCellsForWidth(formatSelector.engine.pageSettings.drawableWidth.toBigDecimal())
+        val widths = TableUtils.getCustomSimpleTableWidths(node)
+            ?: if (headingsOnly) headingWidths(cells[0], numOfCols)
+            else fittedColumnWidths(cells, lineWidth, numOfCols) ?: calculateColumnWidths(cells, lineWidth, numOfCols, false)
+        if (headingsOnly && widths.sum() + (numOfCols - 1) * cellsBetweenCols > lineWidth) {
+            return handleBadSimpleTable(node, originalTable, style, mutPageBuilders, formatSelector, cells, startingPBSize)
+        }
+        // A separation line under headings with nothing under them separates nothing
+        if (!headingsOnly && !TableUtils.hasSimpleTableOption(TableUtils.SimpleTableOptions.COLUMN_HEADING_DISABLED, node)) {
             addSeparationLines(cells[0], formatSelector, widths)
         }
         mutPageBuilders.addAll(pageBuilder.processSpacing())
@@ -156,16 +160,19 @@ open class SimpleTableFormatter : Formatter() {
         }
 
         pageBuilder = mutPageBuilders.last()
-        pageBuilder.addAtLeastLinesBefore(1)
-        //Skip last line so there's no interference with page numbers
-        if (pageBuilder.y + pageBuilder.pendingLinesBefore == pageBuilder.linesPerPage - 1) {
-            pageBuilder.addAtLeastPages(1)
-        }
-        val curResults = mutPageBuilders.size
-        mutPageBuilders.addAll(pageBuilder.processSpacing())
-        if (mutPageBuilders.size > curResults) {
-            pageBuilder = mutPageBuilders.last()
-            pageBuilder.y = startOfPage
+        // A table of headings only stays on its last line, so the lines after it count from there
+        if (cells.size > 1) {
+            pageBuilder.addAtLeastLinesBefore(1)
+            //Skip last line so there's no interference with page numbers
+            if (pageBuilder.y + pageBuilder.pendingLinesBefore == pageBuilder.linesPerPage - 1) {
+                pageBuilder.addAtLeastPages(1)
+            }
+            val curResults = mutPageBuilders.size
+            mutPageBuilders.addAll(pageBuilder.processSpacing())
+            if (mutPageBuilders.size > curResults) {
+                pageBuilder = mutPageBuilders.last()
+                pageBuilder.y = startOfPage
+            }
         }
         for (rowNum in 1 until cells.size) {
             val lastRow = rowNum + 1 == cells.size
@@ -433,14 +440,16 @@ open class SimpleTableFormatter : Formatter() {
                 }
                 curPageBuilder.setStartOfBlock(false)
             }
+            // Braille Formats 11.6.1.g: no guide dots after a column runover, except in the row heading
+            val isRunover = curPageBuilder.y > startingY && (colNum != 0 || !hasHeading)
             endingY = endingY.coerceAtLeast(curPageBuilder.y)
             col.y = startingY
             col.height = endingY - startingY
-            
+
             if (colNum != 0 || !hasHeading) {
                 curPageBuilder.y = startingY
             }
-            if (guideDotsEnabled) {
+            if (guideDotsEnabled && !isRunover) {
                 
 // Fixes last column guide dots not showing up.
 // should work for all columns now.
@@ -464,7 +473,7 @@ open class SimpleTableFormatter : Formatter() {
                             endOfCol - startOfCol,
                             0,
                             4
-                        ) else curPageBuilder.fillSpace(guideDot, endOfCol - startOfCol + 1, 1, 4)
+                        ) else curPageBuilder.fillSpace(guideDot, endOfCol - startOfCol + 1, 1, 4, MIN_GUIDE_DOTS)
                         if (dotsElement != null) {
                             dotsElement.addAttribute(Attribute("type", "guideDots"))
                             dotsElement.addAttribute(Attribute(GUIDE_DOTS_ATTRIB_NAME, GUIDE_DOTS_ATTRIB_VALUE))
@@ -475,6 +484,8 @@ open class SimpleTableFormatter : Formatter() {
             }
         }
         curPageBuilder.y = endingY
+        // Stay on the last line, so the lines after the table count from it
+        if (lastRow) return pageBuilders
         curPageBuilder.setForceSpacing(true)
         curPageBuilder.addAtLeastLinesBefore(1)
         //Skip last line so there's no interference with page numbers
@@ -533,6 +544,18 @@ open class SimpleTableFormatter : Formatter() {
                 leftoverSpace += startingWidth - longestWidth
             }
         }
+        // Give leftover space to columns whose entries run over before columns whose only long content is the
+        // column heading, as widening those cannot shorten any row
+        val entryLengths = IntArray(numOfCols) { col ->
+            getCellsInCol(cells, col).filter { it.row != 0 }
+                .maxOfOrNull { cell -> TableUtils.getDescendantBrlNoFormatting(cell.td).sumOf { it.value.length } } ?: 0
+        }
+        while (leftoverSpace > 0) {
+            val needsSpace = widths.indices.filter { widths[it] < entryLengths[it] }.take(leftoverSpace)
+            if (needsSpace.isEmpty()) break
+            needsSpace.forEach { widths[it]++ }
+            leftoverSpace -= needsSpace.size
+        }
         var changed = false
         var i = 0
         while (i < widths.size) {
@@ -556,6 +579,60 @@ open class SimpleTableFormatter : Formatter() {
         return widths
     }
 
+
+    /**
+     * Braille Formats 11.2.5.c: a column is as wide as its widest entry. When
+     * the columns don't fit at that width, each starts as narrow as its
+     * heading and entries allow on two lines (11.4.1, 11.6.1), and spare
+     * cells only go to a column they let one more entry fit on one line, the
+     * cheapest first. A column whose entries run over anyway gets none.
+     * Returns null when even the narrowest columns don't fit.
+     */
+    private fun fittedColumnWidths(cells: List<List<TableCell>>, totalWidth: Int, numOfCols: Int): IntArray? {
+        val available = totalWidth - (numOfCols - 1) * cellsBetweenCols
+        val texts = List(numOfCols) { col -> getCellsInCol(cells, col).map { it.row to cellText(it) } }
+        val natural = IntArray(numOfCols) { col -> texts[col].maxOfOrNull { it.second.length }?.coerceAtLeast(1) ?: 1 }
+        if (natural.sum() <= available) return natural
+
+        val widths = IntArray(numOfCols) { col ->
+            texts[col].maxOfOrNull { (row, text) ->
+                if (row == 0) smallestColumnWidthForTwoRows(text) else smallestWidthForTwoLines(text, ENTRY_RUNOVER_INDENT)
+            }?.coerceAtLeast(1) ?: 1
+        }
+        if (widths.sum() > available) return null
+        val entryLengths = List(numOfCols) { col -> texts[col].filter { it.first != 0 }.map { it.second.length } }
+        generateSequence {
+            val spare = available - widths.sum()
+            // The cells each column needs for one more entry to fit on one line
+            widths.indices
+                .mapNotNull { col -> entryLengths[col].filter { it > widths[col] }.minOrNull()?.let { col to it - widths[col] } }
+                .filter { (_, cost) -> cost <= spare }
+                .minByOrNull { (_, cost) -> cost }
+        }.forEach { (col, cost) -> widths[col] += cost }
+        return widths
+    }
+
+    private fun cellText(cell: TableCell): String =
+        TableUtils.getDescendantBrlNoFormatting(cell.td).joinToString("") { it.value }
+
+    /** The narrowest width that fits [text] on two lines, the second indented by [runoverIndent]. */
+    private fun smallestWidthForTwoLines(text: String, runoverIndent: Int): Int {
+        val words = text.split(Regex("\\s+")).filter { it.isNotEmpty() }
+        fun fits(width: Int): Boolean {
+            val firstLine = words.runningFold(-1) { len, word -> len + 1 + word.length }.drop(1)
+                .takeWhile { it <= width }.size
+            val rest = words.drop(firstLine)
+            return firstLine > 0 && (rest.isEmpty() || rest.sumOf { it.length } + rest.size - 1 <= width - runoverIndent)
+        }
+        return (1..text.length.coerceAtLeast(1)).firstOrNull(::fits) ?: text.length
+    }
+
+    // Each heading's whole length, so no heading is divided
+    private fun headingWidths(headings: List<TableCell>, numOfCols: Int): IntArray = IntArray(numOfCols) { col ->
+        headings.filter { it.col == col }
+            .maxOfOrNull { cell -> TableUtils.getDescendantBrlNoFormatting(cell.td).sumOf { it.value.length } }
+            ?.coerceAtLeast(1) ?: 1
+    }
 
     private fun calculateSmallestFits(
         cells: List<List<TableCell>>,
@@ -712,7 +789,7 @@ open class SimpleTableFormatter : Formatter() {
         }
         val pb = pageBuilders.last()
         //Reset the cursor
-        pb.y = pb.findLastBlankLine()
+        pb.y = pb.findLastContentLine()
         changeTable(element)
         element.addAttribute(Attribute("format", "listed"))
         element.addAttribute(Attribute("utd-style", "Listed Table"))
@@ -758,5 +835,11 @@ open class SimpleTableFormatter : Formatter() {
     companion object {
         const val GUIDE_DOTS_ATTRIB_NAME = "tableDots"
         const val GUIDE_DOTS_ATTRIB_VALUE = "true"
+
+        /** Braille Formats 11.6.1.f: two or more guide dots lead the reader to the next column */
+        const val MIN_GUIDE_DOTS = 2
+
+        /** addRow indents an entry's runover two cells within its column */
+        private const val ENTRY_RUNOVER_INDENT = 2
     }
 }

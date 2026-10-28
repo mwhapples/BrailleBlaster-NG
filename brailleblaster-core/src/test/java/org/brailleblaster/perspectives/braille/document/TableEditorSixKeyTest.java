@@ -20,6 +20,10 @@ import org.brailleblaster.perspectives.mvc.menu.TopMenu;
 import org.brailleblaster.testrunners.BBTestRunner;
 import org.brailleblaster.testrunners.TestXMLUtils;
 import org.brailleblaster.utils.localization.LocaleHandler;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotMenu;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotStyledText;
@@ -86,8 +90,27 @@ public class TableEditorSixKeyTest {
     private void assertCellInput(SWTBotStyledText cell, boolean sixKeyMode) {
         cell.setText("");
         cell.setFocus();
-        cell.typeText("f");
+        pressKey(cell, 'f');
         doPendingSWTWork();
         assertEquals(cell.getText(), sixKeyMode ? "\u2801" : "f");
+    }
+
+    /**
+     * Sends key down/up straight to the widget. SWTBot's typeText posts OS
+     * level keystrokes, which go to whichever window has OS focus and are
+     * lost when the test shell is not in the foreground (e.g. Windows builds).
+     */
+    private void pressKey(SWTBotStyledText cell, char c) {
+        UIThreadRunnable.syncExec(() -> {
+            StyledText widget = cell.widget;
+            for (int type : new int[]{SWT.KeyDown, SWT.KeyUp}) {
+                Event event = new Event();
+                event.widget = widget;
+                event.character = c;
+                event.keyCode = c;
+                event.doit = true;
+                widget.notifyListeners(type, event);
+            }
+        });
     }
 }

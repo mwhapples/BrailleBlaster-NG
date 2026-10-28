@@ -16,9 +16,13 @@
 package org.brailleblaster.archiver2
 
 import org.brailleblaster.BBIni
+import org.brailleblaster.pandoc.DocxPageBreaks
 import org.brailleblaster.pandoc.FixImage
 import org.brailleblaster.pandoc.FixMathML
 import org.brailleblaster.pandoc.FixNestedList
+import org.brailleblaster.pandoc.FixPageBreak
+import org.brailleblaster.pandoc.FixTableSpacing
+import org.brailleblaster.pandoc.MarkTableSpacers
 import org.brailleblaster.pandoc.Fixer
 import org.brailleblaster.util.PANDOC_CMD
 import org.slf4j.LoggerFactory
@@ -101,17 +105,19 @@ object PandocArchiverLoader : ArchiverFactory.FileLoader {
                 "--from=$fromFormat"
             )
 
-            // DOCX custom paragraph style "List Paragraph" arrives as Div(custom-style)
-            // and must be normalized to a real Pandoc list before bbx.lua is applied.
-            if (fromFormat?.startsWith("docx") == true) {
-                command.add("--lua-filter=list-paragraph-style.lua")
+            val isDocx = fromFormat?.startsWith("docx") == true
+            if (isDocx) {
+                // Keep empty paragraphs, which the page-break filter drops, for FixTableSpacing
+                command.add("--lua-filter=docx-empty-paragraph.lua")
+                // Pandoc drops page breaks; keep them as markers for this filter.
+                command.add("--lua-filter=docx-page-break.lua")
             }
 
             command.addAll(
                 listOf(
                     "--to=bbx.lua",
                     "--output=" + bbFile.absolutePath,
-                    filename
+                    if (isDocx) DocxPageBreaks.markPageBreaks(File(filename)).absolutePath else filename
                 )
             )
 
@@ -146,8 +152,11 @@ object PandocArchiverLoader : ArchiverFactory.FileLoader {
             val fixImage = FixImage()
             val fixMath = FixMathML()
             val fixer = Fixer(newFilename)
+            fixer.addFixer(FixPageBreak())
             fixer.addFixer(fixMath)
+            if (isDocx) fixer.addFixer(MarkTableSpacers())
             fixer.addFixer(fixNestedList)
+            if (isDocx) fixer.addFixer(FixTableSpacing())
             fixer.addFixer(fixImage)
             fixer.processFixers()
         } catch (ex: Exception) {

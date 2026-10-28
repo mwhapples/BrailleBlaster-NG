@@ -43,4 +43,14 @@ interface LineWrapper {
 
     @Throws(NoLineBreakPointException::class)
     fun findNextBreakPoint(brlText: String, startPoint: Int, lineWrapCheck: Int): LineBreakResult
+
+    /**
+     * Where to divide a word that is longer than a whole line.
+     *
+     * @param word The Braille of the word.
+     * @param room The cells left on the line.
+     * @return The number of cells of the word for this line, with the dots to add after them, or null to cut
+     * the word at the end of the line with nothing added.
+     */
+    fun divideLongWord(word: String, room: Int): LineBreakResult? = null
 }
