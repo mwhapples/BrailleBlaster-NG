@@ -699,12 +699,12 @@ public class CorrectTranslationDialog extends Dialog implements MenuToolModule {
      */
     public void simBraille() {
         ctDialog.getDisplay().loadFont(FONT_PATH);
-        Font simBrailleFont = new Font(WPManager.display, "SimBraille", 12, SWT.NORMAL);
+        Font simBrailleFont = new Font(WPManager.getDisplay(), "SimBraille", 12, SWT.NORMAL);
         brailleText.setFont(simBrailleFont);
     }
 
     public void noSimBraille() {
-        Font courier = new Font(WPManager.display, "Courier New", 12, SWT.NORMAL);
+        Font courier = new Font(WPManager.getDisplay(), "Courier New", 12, SWT.NORMAL);
         brailleText.setFont(courier);
     }
 

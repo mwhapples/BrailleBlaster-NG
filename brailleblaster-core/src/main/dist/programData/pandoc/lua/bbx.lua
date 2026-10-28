@@ -409,6 +409,19 @@ function Para(s)
   return t
 end
 
+-- Like removeTags, but keeps the line breaks inside a list item and
+-- drops any at its start or end.
+function listItemText(item)
+  if item == nil then return '' end
+  local nl = '\1'
+  local t = string.gsub(item, '<utd:newLine%s*/>', nl)
+  t = removeTags(t)
+  t = string.gsub(t, '^[%s\1]+', '')
+  t = string.gsub(t, '[%s\1]+$', '')
+  t = string.gsub(t, nl, '<utd:newLine />')
+  return t
+end
+
 function rmUtdNewLine(item)
     local t = item
     if nil == t then t = '' end
@@ -470,7 +483,7 @@ function BulletList(items)
     if j ~= 'bullet' then
         if not bullet then 
             if item ~= nil and string.len(item) > 0 then
-                item = removeTags(item)
+                item = listItemText(item)
                 listItems = listItems .. '<BLOCK bb:type="LIST_ITEM" bb:itemLevel="0">&#8226;&#32;' .. item .. '</BLOCK>'
             end
         else
@@ -493,7 +506,7 @@ function OrderedList(items,start,style)
    local endTag    = '</CONTAINER>'
   for _, item in pairs(items) do
     if nil ~= item and string.len(item) > 0 then
-      item = removeTags(item)
+      item = listItemText(item)
       local lev = list_number_by_style(style,itemCtr) 
       table.insert(newItems,'<BLOCK bb:type="LIST_ITEM" bb:itemLevel="0">'.. lev .. '. ' .. item .. '</BLOCK>')
       itemCtr = itemCtr + 1
@@ -665,16 +678,23 @@ function RawBlock(format, str)
     return t
 end
 
+  -- Pandoc 3 passes classic-writer attributes as an AttributeList userdata,
+  -- not a plain table, so index it directly rather than checking the type.
   local function getCustomStyle(attr)
-    if attr == nil or type(attr) ~= "table" then
+    if attr == nil then
       return nil
     end
 
-    if attr.attributes ~= nil and type(attr.attributes) == "table" then
-      return attr.attributes["custom-style"]
+    local ok, style = pcall(function()
+      if type(attr) == "table" and type(attr.attributes) == "table" then
+        return attr.attributes["custom-style"]
+      end
+      return attr["custom-style"]
+    end)
+    if ok then
+      return style
     end
-
-    return attr["custom-style"]
+    return nil
   end
 
   local function isListParagraphStyle(customStyle)
@@ -686,19 +706,70 @@ end
     return normalized == "list paragraph" or normalized == "paragraph list"
   end
 
+  -- Word's unnumbered list styles: "List", "List 2".."List 9",
+  -- "List Continue", "List Continue 2".."List Continue 9".
+  -- Each paragraph becomes a bullet-less list item; FixNestedList merges
+  -- the adjacent containers into one list.
+  local function isPlainListStyle(customStyle)
+    if customStyle == nil then
+      return false
+    end
+
+    local normalized = string.lower(customStyle)
+    return normalized:match("^list$") ~= nil
+      or normalized:match("^list [2-9]$") ~= nil
+      or normalized:match("^list continue$") ~= nil
+      or normalized:match("^list continue [2-9]$") ~= nil
+  end
+
+  -- Word styles named for a braille indent, as Duxbury's templates name
+  -- them: "1-3" is cell 1, runovers at cell 3. Only the numeric styles in
+  -- BANA.styleDefs.xml (first line at cell 1 to 11, runovers no more than
+  -- two cells to its left, up to cell 11).
+  local function indentStyle(customStyle)
+    if customStyle == nil then
+      return nil
+    end
+
+    local first, runover = string.match(customStyle, "^(%d+)%-(%d+)$")
+    first, runover = tonumber(first), tonumber(runover)
+    if first == nil or first % 2 == 0 or runover % 2 == 0
+      or first > 11 or runover > 11 or runover < first - 2 then
+      return nil
+    end
+    return first .. "-" .. runover
+  end
+
 function Div(s, attr)
     local customStyle = getCustomStyle(attr)
-    if isListParagraphStyle(customStyle) then
-      local item = removeTags(s)
-      if item == nil then
-        item = ''
-      end
+    -- From docx-page-break.lua; FixPageBreak moves it onto the next block.
+    if customStyle == "BB Page Break" then
+      return '<bb:pageBreak />'
+    end
+    -- From docx-empty-paragraph.lua; MarkTableSpacers reads and removes it.
+    if customStyle == "BB Empty Paragraph" then
+      return '<bb:emptyParagraph />'
+    end
+    local indent = indentStyle(customStyle)
+    if indent ~= nil then
+      return (string.gsub(s, '<BLOCK bb:type="DEFAULT">',
+        '<BLOCK utd:overrideStyle="' .. indent .. '" bb:type="STYLE">'))
+    end
+    if isListParagraphStyle(customStyle) or isPlainListStyle(customStyle) then
+      local item = listItemText(s)
       if string.len(string.gsub(item, '%s+', '')) == 0 then
         return ''
       end
 
+      -- A UEB capitals or typeform passage carries over consecutive "List
+      -- Paragraph" paragraphs (Duxbury carries capitals over them but not
+      -- over "List" ones); GenericBlockAction reads utd:passageRun.
+      local passageRun = ''
+      if isListParagraphStyle(customStyle) then
+        passageRun = ' utd:passageRun="true"'
+      end
       return '<CONTAINER bb:type="LIST" bb:listType="NORMAL" bb:listLevel="0">'
-        .. '<BLOCK bb:type="LIST_ITEM" bb:itemLevel="0">' .. item .. '</BLOCK>'
+        .. '<BLOCK bb:type="LIST_ITEM" bb:itemLevel="0"' .. passageRun .. '>' .. item .. '</BLOCK>'
         .. '</CONTAINER>'
     end
 

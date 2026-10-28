@@ -219,7 +219,7 @@ class PandocLuaDefinitionListTest {
                 + "<div custom-style=\"List Paragraph\"><p>Total Loan Amount $33,333.33</p></div>"
                 + "</body></html>")
 
-        val doc = runPandoc(html, listOf("list-paragraph-style.lua"))
+        val doc = runPandoc(html)
         val list = findFirstNormalList(doc)
 
         Assert.assertEquals(list.getAttributeValue("listLevel", BB_NS), "0")
@@ -233,6 +233,7 @@ class PandocLuaDefinitionListTest {
             item.value.contains("Total Loan Amount $33,333.33"),
             "LIST_ITEM should contain the source paragraph text"
         )
+        Assert.assertFalse(item.value.contains("•"), "An unnumbered List Paragraph must not gain a bullet")
     }
 
     // -------------------------------------------------------------------------
